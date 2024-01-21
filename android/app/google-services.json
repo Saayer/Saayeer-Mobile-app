@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "522079680829",
+    "project_id": "sayer-1dd9f",
+    "storage_bucket": "sayer-1dd9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522079680829:android:ab2d26954dc4170f7ead54",
+        "android_client_info": {
+          "package_name": "com.org.saayer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjg_4dVdLV_u1GrUa1IT_Qz52Iv-tv6-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
