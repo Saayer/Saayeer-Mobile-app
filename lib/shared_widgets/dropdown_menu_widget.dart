@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:saayer/core/utils/colors.dart';
+
+class DropDownMenuWidget extends StatelessWidget {
+  final String? selectedValue;
+  final String hint;
+  final validator;
+  final List<String> items;
+  final void Function(String?)? onChanged;
+
+  const DropDownMenuWidget(
+      {Key? key,
+      required this.selectedValue,
+      required this.hint,
+      required this.items,
+      required this.onChanged,
+      this.validator})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.transparent,
+      child: FormField<String>(
+        validator: validator,
+        builder: (FormFieldState<String> state) {
+          return InputDecorator(
+            decoration: InputDecoration(
+              hintText: hint,
+              counterText: "",
+              hintStyle:
+                  TextStyle(fontSize: 14, color: ColorsPalette.greyColor),
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent, width: 2.0),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+            ),
+            isEmpty: selectedValue == null,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: selectedValue,
+                isDense: true,
+                onChanged: onChanged,
+                icon: Icon(
+                  Icons.keyboard_arrow_down,
+                  color: ColorsPalette.blackTextColor,
+                  size: 30,
+                ),
+                items: items.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: GoogleFonts.roboto(
+                        color: ColorsPalette.blackTextColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
