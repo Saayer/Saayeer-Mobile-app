@@ -11,7 +11,7 @@ import 'package:saayer/core/API/http_overrides.dart';
 import 'package:saayer/core/API/status_code.dart';
 import 'package:saayer/core/error/exceptions.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/utils/app_strings.dart';
+import 'package:saayer/core/utils/constants.dart';
 
 @LazySingleton(as: ApiConsumer)
 class DioConsumer implements ApiConsumer {
@@ -119,25 +119,25 @@ class DioConsumer implements ApiConsumer {
         switch (error.response?.statusCode) {
           case StatusCode.badRequest:
             throw BadRequestException(
-              responseJson[AppStrings.apiErrorMessageKey].toString(),
+              responseJson[Constants.apiErrorMessageKey].toString(),
             );
           case StatusCode.unauthorized:
           case StatusCode.forbidden:
             throw UnauthorizedException(
-              responseJson[AppStrings.apiErrorMessageKey].toString(),
+              responseJson[Constants.apiErrorMessageKey].toString(),
             );
           case StatusCode.notFound:
             throw NotFoundException(
-              responseJson[AppStrings.apiErrorMessageKey].toString(),
+              responseJson[Constants.apiErrorMessageKey].toString(),
             );
           case StatusCode.conflict:
             throw ConflictException(
-              responseJson[AppStrings.apiErrorMessageKey].toString(),
+              responseJson[Constants.apiErrorMessageKey].toString(),
             );
 
           case StatusCode.internalServerError:
             throw InternalServerErrorException(
-              responseJson[AppStrings.apiErrorMessageKey].toString(),
+              responseJson[Constants.apiErrorMessageKey].toString(),
             );
         }
         break;
@@ -146,7 +146,7 @@ class DioConsumer implements ApiConsumer {
       default:
         final responseJson = jsonDecode(error.response!.data.toString());
         throw NoInternetConnectionException(
-          responseJson[AppStrings.apiErrorMessageKey].toString(),
+          responseJson[Constants.apiErrorMessageKey].toString(),
         );
     }
   }

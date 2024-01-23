@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 showToast({String msg = "", toastLength}) => Fluttertoast.showToast(
       msg: msg,
@@ -8,7 +8,7 @@ showToast({String msg = "", toastLength}) => Fluttertoast.showToast(
       toastLength: toastLength ?? Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 3,
-      backgroundColor: ColorsPalette.blackTextColor,
+      backgroundColor: SaayerTheme().getColorsPalette().blackTextColor,
       textColor: Colors.white,
       fontSize: 16,
     );

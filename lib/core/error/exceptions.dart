@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:saayer/core/utils/app_strings.dart';
+import 'package:saayer/core/utils/constants.dart';
 
 class ServerException extends Equatable implements Exception{
   final String? message;
@@ -21,35 +21,35 @@ class LocalDatabaseException extends Equatable implements Exception{
 
 class FetchDataException extends ServerException {
   const FetchDataException([message])
-      : super(message ?? AppStrings.fetchDataExceptionMessage);
+      : super(message ?? Constants.fetchDataExceptionMessage);
 }
 
 class BadRequestException extends ServerException {
   const BadRequestException([message])
-      : super(message ?? AppStrings.badRequestExceptionMessage);
+      : super(message ?? Constants.badRequestExceptionMessage);
 }
 
 class UnauthorizedException extends ServerException {
   const UnauthorizedException([message])
-      : super(message ?? AppStrings.unauthorizedExceptionMessage);
+      : super(message ?? Constants.unauthorizedExceptionMessage);
 }
 
 class NotFoundException extends ServerException {
   const NotFoundException([message])
-      : super(message ?? AppStrings.notFoundExceptionMessage);
+      : super(message ?? Constants.notFoundExceptionMessage);
 }
 
 class ConflictException extends ServerException {
   const ConflictException([message])
-      : super(message ?? AppStrings.conflictExceptionMessage);
+      : super(message ?? Constants.conflictExceptionMessage);
 }
 
 class InternalServerErrorException extends ServerException {
   const InternalServerErrorException([message])
-      : super(message ?? AppStrings.internalExceptionMessage);
+      : super(message ?? Constants.internalExceptionMessage);
 }
 
 class NoInternetConnectionException extends ServerException {
   const NoInternetConnectionException([message])
-      : super(message ?? AppStrings.noInternetExceptionMessage);
+      : super(message ?? Constants.noInternetExceptionMessage);
 }

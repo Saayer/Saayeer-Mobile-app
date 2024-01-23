@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 class ShowLoading extends StatelessWidget {
   final bool isLoading;
@@ -14,7 +14,7 @@ class ShowLoading extends StatelessWidget {
       visible: isLoading,
       child: Center(
         child: SpinKitCircle(
-          color: ColorsPalette.primaryColor,
+          color: SaayerTheme().getColorsPalette().primaryColor,
           size: size,
         ),
       ),

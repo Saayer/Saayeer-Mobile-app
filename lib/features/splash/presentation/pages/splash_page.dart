@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/app_strings.dart';
+import 'package:saayer/core/utils/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/intro/presentation/screens/intro_screen.dart';
 import 'package:saayer/features/splash/presentation/bloc/splash_bloc.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class SplashPage extends StatelessWidget {
@@ -33,14 +33,14 @@ class SplashPage extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
             child: Scaffold(
-          backgroundColor: ColorsPalette.blackTextColor,
+          backgroundColor: SaayerTheme().getColorsPalette().blackTextColor,
           body: Container(
             width: double.infinity,
             height: double.infinity,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(AppStrings.getImagePath("splash_image.jpg")),
+                image: AssetImage(Constants.getImagePath("splash_image.jpg")),
                 fit: BoxFit.cover,
               ),
             ),

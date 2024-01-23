@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/features/splash/presentation/bloc/splash_bloc.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/splash/presentation/pages/splash_page.dart';
 
 class SplashScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 ///AppBarWidget
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -30,7 +30,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: GoogleFonts.roboto(
           fontSize: 18,
-          color: ColorsPalette.blackTextColor,
+          color: SaayerTheme().getColorsPalette().blackTextColor,
           fontWeight: FontWeight.bold,
           fontStyle: FontStyle.normal,
         ),
@@ -48,7 +48,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   },
               child: Icon(
                 Icons.arrow_back_ios_sharp,
-                color: ColorsPalette.blackTextColor,
+                color: SaayerTheme().getColorsPalette().blackTextColor,
               ),
             )
           : SizedBox(),
@@ -74,11 +74,11 @@ class PageViewAppBarWidget extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorsPalette.whiteColor,
+      backgroundColor: SaayerTheme().getColorsPalette().whiteColor,
       centerTitle: false,
       titleSpacing: 0,
       elevation: 2,
-      leading: leadingWidget ?? Placeholder(color: ColorsPalette.whiteColor),
+      leading: leadingWidget ?? Placeholder(color: SaayerTheme().getColorsPalette().whiteColor),
       leadingWidth: leadingWidget != null ? 50 : 20,
       title: Padding(
         padding: const EdgeInsets.only(left: 0),
@@ -86,7 +86,7 @@ class PageViewAppBarWidget extends StatelessWidget
           title!,
           style: GoogleFonts.roboto(
             fontSize: 18,
-            color: ColorsPalette.orangeColor,
+            color: SaayerTheme().getColorsPalette().orangeColor,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.normal,
           ),

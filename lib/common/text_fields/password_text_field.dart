@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart';
-import 'package:saayer/core/utils/colors.dart';
-import 'package:saayer/shared_widgets/fields_widget.dart';
-import 'package:saayer/shared_widgets/label_txt.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/common/label_txt.dart';
+import 'package:saayer/common/text_fields/base_text_field.dart';
 
-class PasswordFieldWidget extends StatelessWidget {
-  const PasswordFieldWidget({Key? key}) : super(key: key);
+class PasswordTextField extends StatelessWidget {
+  const PasswordTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +18,10 @@ class PasswordFieldWidget extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            LabelTxt(txt: "Password"),
+            const LabelTxt(txt: "Password"),
             Container(
-              margin: EdgeInsets.only(top: 8.0, right: 20, left: 20),
-              child: TxtField(
+              margin: EdgeInsets.only(top: 8.h, right: 20.w, left: 20.w),
+              child: BaseTextField(
                 controller:
                     BlocProvider.of<LogInBloc>(context).passwordController,
                 hintText: "Password",
@@ -53,13 +54,13 @@ class PasswordFieldWidget extends StatelessWidget {
                   child: state.obscurePassword
                       ? Icon(
                           Icons.visibility_off,
-                          size: 20.0,
-                          color: ColorsPalette.blackTextColor,
+                          size: 20.r,
+                          color: SaayerTheme().getColorsPalette().blackTextColor,
                         )
                       : Icon(
                           Icons.visibility,
-                          size: 20.0,
-                          color: ColorsPalette.blackTextColor,
+                          size: 20.r,
+                          color: SaayerTheme().getColorsPalette().blackTextColor,
                         ),
                 ),
                 keyboardType: TextInputType.text,

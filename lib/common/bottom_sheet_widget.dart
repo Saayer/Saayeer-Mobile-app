@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 ///showBottomSheetWidget
 showBottomSheetWidget(
@@ -100,11 +100,11 @@ modalBottomSheetMenu(context, width, height, widget,
                       },
                       child: !hasDash
                           ? CircleAvatar(
-                              backgroundColor: ColorsPalette.blackTextColor,
+                              backgroundColor: SaayerTheme().getColorsPalette().blackTextColor,
                               radius: 20,
                               child: Icon(
                                 Icons.close,
-                                color: ColorsPalette.whiteColor,
+                                color: SaayerTheme().getColorsPalette().whiteColor,
                                 size: 25,
                               ))
                           : Container(

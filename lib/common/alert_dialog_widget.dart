@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saayer/shared_widgets/buttons_widget.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/common/buttons_widget.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 class BaseAlertDialog extends StatelessWidget {
   final Color _color = Colors.white;
@@ -38,14 +38,14 @@ class BaseAlertDialog extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
 
     final isOrangeColor = isOrange!
-        ? ColorsPalette.orangeColor
-        : ColorsPalette.lightBlackTextColor;
+        ? SaayerTheme().getColorsPalette().orangeColor
+        : SaayerTheme().getColorsPalette().lightBlackTextColor;
 
     return AlertDialog(
       //title: new Text(this.title),
       // Icon(
       //   Icons.info,
-      //   color: isColorsPalette.orangeColor,
+      //   color: isSaayerTheme().getColorsPalette().orangeColor,
       // ),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +59,7 @@ class BaseAlertDialog extends StatelessWidget {
                 softWrap: true,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.roboto(
-                  color: ColorsPalette.blackTextColor,
+                  color: SaayerTheme().getColorsPalette().blackTextColor,
                   textStyle: TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
@@ -73,9 +73,9 @@ class BaseAlertDialog extends StatelessWidget {
                 visible: isNoVisible!,
                 child: TxtButton(
                   text: this.no!,
-                  color: ColorsPalette.greyColor.withOpacity(.3),
+                  color: SaayerTheme().getColorsPalette().greyColor.withOpacity(.3),
                   borderRadius: 50,
-                  textColor: ColorsPalette.blackTextColor,
+                  textColor: SaayerTheme().getColorsPalette().blackTextColor,
                   onPressed: noOnPressed,
                   btnWidth: width / 5,
                   btnHeight: height / 25,
@@ -88,10 +88,10 @@ class BaseAlertDialog extends StatelessWidget {
                 visible: true,
                 child: TxtButton(
                   text: this.yes!,
-                  color: ColorsPalette.orangeColor.withOpacity(.3),
+                  color: SaayerTheme().getColorsPalette().orangeColor.withOpacity(.3),
                   borderRadius: 50,
-                  borderColor: ColorsPalette.orangeColor,
-                  textColor: ColorsPalette.blackTextColor,
+                  borderColor: SaayerTheme().getColorsPalette().orangeColor,
+                  textColor: SaayerTheme().getColorsPalette().blackTextColor,
                   onPressed: yesOnPressed,
                   btnWidth: width / 5,
                   btnHeight: height / 25,

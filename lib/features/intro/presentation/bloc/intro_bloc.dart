@@ -12,22 +12,5 @@ part 'intro_state.dart';
 class IntroBloc extends Bloc<IntroEvent, IntroState> {
   PageController pageController = PageController();
 
-  IntroBloc() : super(IntroState()) {
-    on<InitIntro>(_initIntro);
-    on<ChangeCurrentPage>(_changeCurrentPage);
-  }
-
-  FutureOr<void> _initIntro(InitIntro event, Emitter<IntroState> emit) {
-    emit(state.copyWith(requestState: RequestState.LOADING));
-    pageController = PageController(initialPage: 0, keepPage: true);
-    emit(state.copyWith(requestState: RequestState.LOADED));
-  }
-
-  FutureOr<void> _changeCurrentPage(
-      ChangeCurrentPage event, Emitter<IntroState> emit) {
-    emit(state.copyWith(requestState: RequestState.LOADING));
-    pageController.jumpToPage(event.currentPage);
-    emit(state.copyWith(
-        requestState: RequestState.LOADED, currentPage: event.currentPage));
-  }
+  IntroBloc() : super(const IntroState()) {}
 }

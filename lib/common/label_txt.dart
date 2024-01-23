@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saayer/core/utils/colors.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 class LabelTxt extends StatelessWidget {
   final String txt;
 
-  const LabelTxt({Key? key, required this.txt}) : super(key: key);
+  const LabelTxt({super.key, required this.txt});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class LabelTxt extends StatelessWidget {
           txt,
           style: GoogleFonts.roboto(
             fontSize: 16,
-            color: ColorsPalette.blackTextColor,
+            color: SaayerTheme().getColorsPalette().blackTextColor,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
           ),

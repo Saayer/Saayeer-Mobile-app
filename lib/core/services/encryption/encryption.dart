@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:encrypt/encrypt.dart';
 import 'package:injectable/injectable.dart';
-import 'package:saayer/core/utils/app_strings.dart';
+
 
 @Singleton()
 class Encryption {

@@ -1,11 +1,16 @@
 import 'package:intl/intl.dart';
 
-class AppStrings {
+class Constants {
   static const String appName = 'wannareach';
   static const String assetImageBasePath = "assets/images/";
   static const String assetIconBasePath = "assets/icons/";
+  static const String assetGifBasePath = "assets/gifs/";
+  static const String assetLottieBasePath = "assets/lottie/";
+  static const String stringsPath = "assets/strings/";
+
   final String formattedNowDate =
       DateFormat('dd/MM/yyyy').format(DateTime.now());
+
   static const String loremTxt =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       " Donec interdum metus eu tortor varius, vitae tristique ante vehicula. "
@@ -16,6 +21,7 @@ class AppStrings {
       " Etiam arcu elit, finibus a massa quis, luctus molestie leo. Donec imperdiet "
       "leo at libero euismod, et pulvinar enim accumsan. Proin quis felis et eros pulvinar rutrum. "
       "Cras porttitor urna sed ante egestas, nec vulputate dui vehicula.";
+
   static const String apiErrorMessageKey = 'status_message';
   static const String fetchDataExceptionMessage = 'Error During Communication';
   static const String badRequestExceptionMessage = 'Bad Request';
@@ -28,12 +34,10 @@ class AppStrings {
   static String getImagePath(String imageName) =>
       "$assetImageBasePath$imageName";
 
-  static String getIllustrationsImagePath(String imageNum) =>
-      "${assetImageBasePath}illustration_images/illustrations-$imageNum";
+  static String getIconPath(String imageName) => "$assetIconBasePath$imageName";
 
-  static String getSVGImagePath(String imageName) =>
-      "${assetImageBasePath}svg_images/$imageName";
+  static String getGifPath(String imageName) => "$assetGifBasePath$imageName";
 
-  static String getSVGIconPath(String iconName) =>
-      "${assetIconBasePath}$iconName";
+  static String getLottiePath(String imageName) =>
+      "$assetLottieBasePath$imageName";
 }
