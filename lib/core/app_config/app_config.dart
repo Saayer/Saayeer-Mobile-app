@@ -10,6 +10,8 @@ import 'package:saayer/core/services/deep_link/firebase_deep_link.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/theme/colors/dark_colors.dart';
+import 'package:saayer/core/utils/theme/colors/light_colors.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/saayer_app.dart';
@@ -28,9 +30,9 @@ class AppConfig {
     await Firebase.initializeApp();
     initAppFlavorEntity();
     getIt<Encryption>().init();
-    log("${flavorType}", name: "flavorType");
+    log("$flavorType", name: "flavorType");
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: SaayerTheme().getColorsPalette().navBarColor,
+      statusBarColor: DarkColorsPalette().navBarColor,
       statusBarIconBrightness: Brightness.dark,
     ));
     await ScreenUtil.ensureScreenSize();

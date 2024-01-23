@@ -28,8 +28,23 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_logo.png
   AssetGenImage get icLogo => const AssetGenImage('assets/icons/ic_logo.png');
 
+  /// File path: assets/icons/ic_logo_with_bg.jpg
+  AssetGenImage get icLogoWithBg =>
+      const AssetGenImage('assets/icons/ic_logo_with_bg.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [icLogo];
+  List<AssetGenImage> get values => [icLogo, icLogoWithBg];
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/ic_logo_with_text.jpeg
+  AssetGenImage get icLogoWithText =>
+      const AssetGenImage('assets/images/ic_logo_with_text.jpeg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [icLogoWithText];
 }
 
 class $AssetsStringsGen {
@@ -50,6 +65,7 @@ class Assets {
 
   static const $AssetsGifsGen gifs = $AssetsGifsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsStringsGen strings = $AssetsStringsGen();
 }
 

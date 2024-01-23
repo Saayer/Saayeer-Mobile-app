@@ -3,7 +3,7 @@ import 'package:saayer/core/utils/theme/colors/base_colors.dart';
 
 class LightColorsPalette implements BaseColorsPalette {
   @override
-  Color get primaryColor => const Color(0xfff1623c);
+  Color get primaryColor => const Color(0xfffe4e00);
 
   @override
   Color get orangeColor => const Color(0xFFFF9000);

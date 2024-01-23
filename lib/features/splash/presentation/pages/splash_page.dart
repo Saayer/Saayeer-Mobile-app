@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -33,15 +34,18 @@ class SplashPage extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
             child: Scaffold(
-          backgroundColor: SaayerTheme().getColorsPalette().blackTextColor,
-          body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(Constants.getImagePath("splash_image.jpg")),
-                fit: BoxFit.cover,
+          backgroundColor: SaayerTheme().getColorsPalette().backgroundColor,
+          body: Center(
+            child: Container(
+              width: 300.w,
+              height: 300.h,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      Constants.getImagePath("ic_logo_with_text.jpeg")),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

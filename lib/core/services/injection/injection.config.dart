@@ -14,13 +14,14 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:saayer/core/API/api_client.dart' as _i15;
 import 'package:saayer/core/API/api_consumer.dart' as _i14;
 import 'package:saayer/core/API/api_interceptors.dart' as _i16;
+import 'package:saayer/core/API/refresh_token.dart' as _i19;
 import 'package:saayer/core/network/network_info.dart' as _i11;
 import 'package:saayer/core/services/current_user/logged_in_checker_service.dart'
     as _i8;
 import 'package:saayer/core/services/current_user/logged_in_service.dart'
     as _i9;
 import 'package:saayer/core/services/encryption/encryption.dart' as _i4;
-import 'package:saayer/core/services/injection/injectable_modules.dart' as _i19;
+import 'package:saayer/core/services/injection/injectable_modules.dart' as _i20;
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart'
     as _i12;
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart'
@@ -66,8 +67,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i16.AppInterceptors(client: gh<_i3.Dio>()));
     gh.lazySingleton<_i17.LogInRDS>(
         () => _i18.LogInRDSImpl(apiConsumer: gh<_i14.ApiConsumer>()));
+    gh.factory<_i19.RefreshToken>(
+        () => _i19.RefreshToken(apiConsumer: gh<_i14.ApiConsumer>()));
     return this;
   }
 }
 
-class _$InjectableModule extends _i19.InjectableModule {}
+class _$InjectableModule extends _i20.InjectableModule {}

@@ -1,9 +1,12 @@
 import 'package:animated_introduction/animated_introduction.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/intro/presentation/bloc/intro_bloc.dart';
 import 'package:saayer/features/log_in/presentation/screens/log_in_screen.dart';
 
@@ -28,7 +31,12 @@ class IntroPage extends StatelessWidget {
             backgroundColor: Colors.white,
             body: AnimatedIntroduction(
               slides: pages,
+              footerBgColor: SaayerTheme().getColorsPalette().primaryColor,
               indicatorType: IndicatorType.circle,
+              onSkip: (){
+                getIt<NavigationService>()
+                    .navigateAndFinish(const LogInScreen());
+              },
               onDone: () {
                 getIt<NavigationService>()
                     .navigateAndFinish(const LogInScreen());
@@ -42,10 +50,14 @@ class IntroPage extends StatelessWidget {
     final List<SingleIntroScreen> pages = List.generate(3, (index) {
       final int currentIndex = (index + 1);
       return SingleIntroScreen(
-        title: 'introScreenTitle_$currentIndex',
-        description: 'introScreenDescription_$currentIndex',
-        imageAsset:
-            Constants.getImagePath("introScreenImage_$currentIndex.png"),
+        headerBgColor: SaayerTheme().getColorsPalette().backgroundColor,
+        sideDotsBgColor: SaayerTheme().getColorsPalette().backgroundColor,
+        mainCircleBgColor: SaayerTheme().getColorsPalette().backgroundColor,
+        title: 'introScreenTitle_$currentIndex'.tr(),
+        description: 'introScreenDescription_$currentIndex'.tr(),
+        // imageAsset:
+        //     Constants.getImagePath("introScreenImage_$currentIndex.png"),
+        imageAsset: Constants.getImagePath("ic_logo_with_text.jpeg"),
       );
     });
     return pages;

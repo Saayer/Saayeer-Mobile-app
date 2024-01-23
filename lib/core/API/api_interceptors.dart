@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/API/api_config.dart';
 import 'package:saayer/core/API/api_consumer.dart';
+import 'package:saayer/core/API/network_keys/network_keys.dart';
 import 'package:saayer/core/API/refresh_token.dart';
 import 'package:saayer/core/API/status_code.dart';
 import 'package:saayer/core/services/injection/injection.dart';
@@ -25,6 +26,7 @@ class AppInterceptors extends Interceptor {
       ApiConfig.queryParameters,
     );
     options.headers["Content-Type"] = "application/json; charset=utf-8";
+    options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys;
     if (accessToken != null) {
       //log("$accessToken", name: "has accessToken");
       options.headers['Authorization'] = 'Bearer $accessToken';
@@ -48,10 +50,9 @@ class AppInterceptors extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     log('DIO ERROR[${err.response?.statusCode}] => PATH: ${err.response}');
     if (err.response?.statusCode == StatusCode.unauthorized) {
-      await RefreshToken(apiConsumer: getIt<ApiConsumer>())
-        .refreshToken();
-      final retryRequest = await RefreshToken(apiConsumer: getIt<ApiConsumer>())
-          .retryRequest(err.requestOptions);
+      await getIt<RefreshToken>().refreshToken();
+      final retryRequest =
+          await getIt<RefreshToken>().retryRequest(err.requestOptions);
       return handler.resolve(retryRequest);
     }
     super.onError(err, handler);

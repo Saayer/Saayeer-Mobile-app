@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:saayer/core/API/api_consumer.dart';
 import 'package:saayer/core/API/api_interceptors.dart';
-import 'package:saayer/core/API/end_points.dart';
+import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
 import 'package:saayer/core/API/http_overrides.dart';
 import 'package:saayer/core/API/status_code.dart';
 import 'package:saayer/core/error/exceptions.dart';
@@ -18,10 +18,10 @@ class DioConsumer implements ApiConsumer {
   final Dio client;
 
   DioConsumer({required this.client}) {
-    HttpOverrides.global = new MyHttpOverrides();
+    HttpOverrides.global = MyHttpOverrides();
 
     client.options
-      ..baseUrl = EndPoints.baseUrl
+      ..baseUrl = EndPointsBaseUrl.init().baseUrl
       ..responseType = ResponseType.plain
       ..followRedirects = false
       ..validateStatus = (status) {
@@ -93,7 +93,7 @@ class DioConsumer implements ApiConsumer {
 
   @override
   Future retry(RequestOptions requestOptions) {
-    final options = new Options(
+    final options = Options(
       method: requestOptions.method,
       headers: requestOptions.headers,
     );

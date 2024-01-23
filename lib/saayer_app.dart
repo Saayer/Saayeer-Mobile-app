@@ -1,4 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -38,6 +39,9 @@ class SaayerApp extends StatelessWidget {
                   routes: const {},
                   theme: theme,
                   darkTheme: darkTheme,
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
                   home: Builder(builder: (context) {
                     return const LoaderOverlay(
                       useDefaultLoading: false,
