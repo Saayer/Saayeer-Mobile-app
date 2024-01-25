@@ -5,22 +5,21 @@ abstract class LogInEvent extends Equatable {
   const LogInEvent();
 }
 
-class TogglePassword extends LogInEvent {
-  @override
-  List<Object?> get props => [];
-}
-
 class OnTextChange extends LogInEvent {
   final TextEditingController? textEditingController;
   final String? str;
+  final PhoneNumber? phoneNumber;
+  final LogInFieldsTypes logInFieldsType;
 
-  OnTextChange({this.textEditingController, this.str});
+  const OnTextChange(
+      {this.textEditingController,
+      this.str,
+      required this.logInFieldsType,
+      this.phoneNumber})
+      : assert(logInFieldsType == LogInFieldsTypes.PHONE_NUMBER
+            ? phoneNumber != null
+            : phoneNumber == null);
 
   @override
-  List<Object?> get props => [textEditingController, str];
-}
-
-class LogIn extends LogInEvent{
-  @override
-  List<Object?> get props => [];
+  List<Object?> get props => [textEditingController, str, logInFieldsType];
 }

@@ -49,7 +49,7 @@ class CustomConfirmationDialog extends StatelessWidget {
             child: Text(
               Localization.translate(cancelLabel ?? "cancel"),
               style: AppTextStyles.mainFocusedLabel(
-                SaayerTheme().getColorsPalette().darkGreyColor,
+                SaayerTheme().getColorsPalette.darkGreyColor,
               ),
             ),
             onPressed: () {
@@ -65,7 +65,7 @@ class CustomConfirmationDialog extends StatelessWidget {
           child: Text(
             Localization.translate(confirmLabel ?? "ok"),
             style: AppTextStyles.mainFocusedLabel(
-              SaayerTheme().getColorsPalette().error0,
+              SaayerTheme().getColorsPalette.error0,
             ),
           ),
           onPressed: () {
@@ -85,7 +85,7 @@ class CustomConfirmationDialog extends StatelessWidget {
             child: Text(
               Localization.translate(cancelLabel ?? "cancel"),
               style: AppTextStyles.mainLabel(
-                SaayerTheme().getColorsPalette().darkGreyColor,
+                SaayerTheme().getColorsPalette.darkGreyColor,
               ),
             ),
             onPressed: () {
@@ -100,7 +100,7 @@ class CustomConfirmationDialog extends StatelessWidget {
           child: Text(
             Localization.translate(confirmLabel ?? "ok"),
             style: AppTextStyles.mainLabel(
-              SaayerTheme().getColorsPalette().error0,
+              SaayerTheme().getColorsPalette.error0,
             ),
           ),
           onPressed: () {

@@ -9,8 +9,7 @@ class LogInRequestModel {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map["email"] = logInEntity.email;
-    map["password"] = logInEntity.password;
+    map["phoneNumber"] = logInEntity.phoneNumber.phoneNumber;
     return map;
   }
 }

@@ -8,7 +8,7 @@ showToast({String msg = "", toastLength}) => Fluttertoast.showToast(
       toastLength: toastLength ?? Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 3,
-      backgroundColor: SaayerTheme().getColorsPalette().blackTextColor,
+      backgroundColor: SaayerTheme().getColorsPalette.blackTextColor,
       textColor: Colors.white,
       fontSize: 16,
     );

@@ -65,7 +65,7 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget>
                     width: 30.w,
                     child: CircularProgressIndicator(
                         value: downloadProgress.progress,
-                        color: SaayerTheme().getColorsPalette().primaryColor)),
+                        color: SaayerTheme().getColorsPalette.primaryColor)),
               )
             : placeHolderImage;
       },

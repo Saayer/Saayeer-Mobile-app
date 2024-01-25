@@ -1,20 +1,21 @@
 import 'package:equatable/equatable.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class LogInEntity extends Equatable {
-  final String? email, password;
+  final PhoneNumber phoneNumber;
 
-  LogInEntity({this.email, this.password});
+  const LogInEntity({
+    required this.phoneNumber,
+  });
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object> get props => [phoneNumber];
 
   LogInEntity copyWith({
-    String? email,
-    String? password,
+    PhoneNumber? phoneNumber,
   }) {
     return LogInEntity(
-      email: email ?? this.email,
-      password: password ?? this.password,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
     );
   }
 }

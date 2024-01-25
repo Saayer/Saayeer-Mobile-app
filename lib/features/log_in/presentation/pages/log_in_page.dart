@@ -1,124 +1,135 @@
+import 'dart:developer';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saayer/core/services/current_user/logged_in_service.dart';
-import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:saayer/common/app_bar/base_app_bar.dart';
+import 'package:saayer/common/buttons/saayer_default_text_button.dart';
+import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/log_in/core/utils/enums/enums.dart';
 import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
-import 'package:saayer/common/app_bar_widget.dart';
-import 'package:saayer/common/loading_widget.dart';
-import 'package:saayer/common/text_fields/email_text_field.dart';
-import 'package:saayer/common/text_fields/password_text_field.dart';
 import 'package:saayer/common/toast_widget.dart';
-import 'package:saayer/common/buttons_widget.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    final LogInBloc logInBloc = BlocProvider.of<LogInBloc>(context);
 
     return BlocConsumer<LogInBloc, LogInState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.requestState != nextState.requestState),
+          (previousState.stateHelper.requestState !=
+              nextState.stateHelper.requestState),
       listener: (context, state) async {
-        if (state.logInSuccessfully) {
-          await getIt<SecureStorageService>()
-              .setIsLoggedIn(state.submitLogInEntity!.isSuccess!);
-          await getIt<SecureStorageService>()
-              .setLoggedInUser(state.submitLogInEntity!.loggedInUserEntity!);
-          getIt<LoggedInService>().setLoggedInUserEntity(
-              state.submitLogInEntity!.loggedInUserEntity!);
-          final String firstName =
-              state.submitLogInEntity!.loggedInUserEntity!.name.split(" ")[0];
-          //showToast(msg: ToastMessages.login(firstName));
-          getIt<NavigationService>().navigateAndFinish(const ViewPageScreen());
-        }
-        if (state.requestState == RequestState.ERROR) {
-          showToast(msg: state.errorMessage ?? "");
+        final bool isLoading =
+            (logInBloc.state.stateHelper.requestState == RequestState.LOADING);
+        LoadingDialog.setIsLoading(context, isLoading);
+        if (!isLoading) {
+          // if (state.logInSuccessfully) {
+          //   await getIt<SecureStorageService>()
+          //       .setIsLoggedIn(state.submitLogInEntity!.isSuccess!);
+          //   await getIt<SecureStorageService>()
+          //       .setLoggedInUser(state.submitLogInEntity!.loggedInUserEntity!);
+          //   getIt<LoggedInService>().setLoggedInUserEntity(
+          //       state.submitLogInEntity!.loggedInUserEntity!);
+          //   final String firstName =
+          //       state.submitLogInEntity!.loggedInUserEntity!.name.split(" ")[0];
+          //   //showToast(msg: ToastMessages.login(firstName));
+          //   getIt<NavigationService>()
+          //       .navigateAndFinish(const ViewPageScreen());
+          // }
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            showToast(msg: state.stateHelper.errorMessage ?? "");
+          }
         }
       },
       builder: (context, state) => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: const AppBarWidget(
-          title: "${Constants.appName} Login",
+        backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+        appBar: const BaseAppBar(
+          showBackLeading: false,
+        ),
+        bottomSheet: Padding(
+          padding: EdgeInsets.only(bottom: 50.h),
+          child: SaayerDefaultTextButton(
+            text: "log_in",
+            isEnabled: enableLogIn(logInBloc),
+            borderRadius: 12.r,
+            onPressed: () {
+              LoadingDialog.setIsLoading(context, true);
+              enableLogIn(logInBloc)
+                  // ? logInBloc.add(LogIn())
+                  ? log("---logIn---")
+                  : showToast(msg: "empty_fields_error".tr());
+            },
+            btnWidth: width / 1.2,
+            btnHeight: 50.h,
+          ),
         ),
         body: InkWell(
           onTap: () {
             FocusScope.of(context).unfocus();
           },
           child: Container(
-            color: Colors.white,
-            child: Stack(
-              children: [
-                Form(
+            color: SaayerTheme().getColorsPalette.backgroundColor,
+            child: SingleChildScrollView(
+              child: Center(
+                child: Form(
                   autovalidateMode: state.autoValidateMode,
-                  key: BlocProvider.of<LogInBloc>(context).formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: height / 40,
+                  key: logInBloc.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      // LabelTxt(txt: "phone_num".tr()),
+                      // SizedBox(
+                      //   height: 5.h,
+                      // ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "enter_phone_num_desc".tr(),
+                              textAlign: TextAlign.start,
+                              style: AppTextStyles.paragraph(),
+                            ),
+                          ],
                         ),
-                        const EmailTextField(),
-                        SizedBox(
-                          height: height / 40,
-                        ),
-                        const PasswordTextField(),
-                        SizedBox(
-                          height: height / 20,
-                        ),
-                        // Text(
-                        //   'Forget Password ?',
-                        //   style: TextStyle(
-                        //     fontSize: 16,
-                        //     color: SaayerTheme().getColorsPalette().blackTextColor,
-                        //     fontWeight: FontWeight.bold,
-                        //     fontStyle: FontStyle.normal,
-                        //     decoration: TextDecoration.underline,
-                        //   ),
-                        // ),
-                        SizedBox(
-                          height: height / 15,
-                        ),
-                        TxtButton(
-                          text: "Log In",
-                          color: enableLogIn(context)
-                              ? SaayerTheme().getColorsPalette().orangeColor
-                              : Colors.grey,
-                          borderRadius: 50,
-                          onPressed: () {
-                            enableLogIn(context)
-                                ? BlocProvider.of<LogInBloc>(context)
-                                    .add(LogIn())
-                                : showToast(
-                                    msg: "Please, fill out all the fields");
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.w, vertical: 20.h),
+                        child: PhoneTextField(
+                          phoneNumController: logInBloc.phoneController,
+                          onInputChanged: (PhoneNumber phoneNumber) {
+                            log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                                name: "onInputChanged --->");
+                            log("${phoneNumber.phoneNumber}",
+                                name: "PhoneTextField onInputChanged ->");
+                            logInBloc.add(OnTextChange(
+                                logInFieldsType: LogInFieldsTypes.PHONE_NUMBER,
+                                phoneNumber: phoneNumber,
+                                textEditingController:
+                                    logInBloc.phoneController));
                           },
-                          btnWidth: width / 1.2,
-                          btnHeight: 40,
                         ),
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
-                if (BlocProvider.of<LogInBloc>(context).state.requestState ==
-                    RequestState.LOADING)
-                  Container(
-                    width: width,
-                    height: height,
-                    color: SaayerTheme().getColorsPalette().lightGreyColor.withOpacity(.3),
-                    child: const ShowLoading(
-                      isLoading: true,
-                    ),
-                  ),
-              ],
+              ),
             ),
           ),
         ),
@@ -126,11 +137,12 @@ class LogInPage extends StatelessWidget {
     );
   }
 
-  bool enableLogIn(context) {
-    return BlocProvider.of<LogInBloc>(context)
-            .emailController
-            .text
-            .isNotEmpty &&
-        BlocProvider.of<LogInBloc>(context).passwordController.text.isNotEmpty;
+  bool enableLogIn(LogInBloc logInBloc) {
+    log("${logInBloc.logInFieldsValidMap}", name: "enableLogIn --->");
+    if (logInBloc.logInFieldsValidMap.values.length == 1) {
+      return logInBloc.logInFieldsValidMap.values
+          .every((element) => element == true);
+    }
+    return false;
   }
 }

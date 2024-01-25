@@ -40,17 +40,17 @@ dependencies:
   flutter_bloc: ^8.1.2
   dio: ^5.1.1
   equatable: ^2.0.5
-  flutter_inappwebview: ^5.7.2+3
-  lottie: ^2.2.0
+  flutter_inappwebview: ^6.0.0
+  lottie: ^3.0.0
   cached_network_image: ^3.2.3
   fast_cached_network_image: any
   connectivity_plus: any
   url_launcher: ^6.1.9
   webview_flutter_web: ^0.2.2+1
   device_info_plus: ^9.0.2
-  package_info_plus: ^4.0.2
-  easy_localization: ^3.0.2
-  loader_overlay: ^2.2.0
+  package_info_plus: ^5.0.1
+  easy_localization: ^3.0.3
+  loader_overlay: ^4.0.0
   curl_logger_dio_interceptor: ^1.0.0
   get_it: ^7.6.0
   injectable: ^2.1.2
@@ -61,7 +61,7 @@ dependencies:
   fluttercontactpicker: ^4.7.0
   flutter_countdown_timer: ^4.1.0
   flutter_svg: ^2.0.7
-  intl: ^0.18.0
+  intl: ^0.18.1
   sliding_switch: ^1.1.0
   flutter_secure_storage: ^9.0.0
   camera: ^0.10.5+3
@@ -71,7 +71,7 @@ dependencies:
   flutter_screenutil: ^5.8.2
   flutter_web_frame: ^1.0.0
   universal_html: ^2.2.3
-  easy_localization_loader: ^2.0.0
+  easy_localization_loader: ^2.0.1
   url_strategy: ^0.2.0
   flutter_localized_locales: ^2.0.4
   path_provider: ^2.0.15
@@ -87,6 +87,7 @@ dependencies:
   animated_introduction: ^1.0.4
   flutter_launcher_icons: ^0.13.1
   google_maps_flutter: ^2.1.4
+  intl_phone_number_input: ^0.7.4
 
 #fvm flutter packages pub run build_runner build
 dev_dependencies:

@@ -8,22 +8,22 @@ import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/features/log_in/data/models/log_in_request_model.dart';
 import 'package:saayer/features/log_in/domain/entities/log_in_entity.dart';
 
-@Injectable()
+@injectable
 class RefreshToken {
   final ApiConsumer apiConsumer;
 
   RefreshToken({required this.apiConsumer});
 
   Future<void> refreshToken() async {
-    LoggedInUserEntity? loggedInUserEntity =
-        await getIt<SecureStorageService>().getLoggedInUser();
-    final LogInEntity logInEntity = LogInEntity(
-        email: loggedInUserEntity?.email ?? "",
-        password: loggedInUserEntity?.decryptPassword ?? "");
-    final LogInRequestModel logInRequestModel =
-        LogInRequestModel(logInEntity: logInEntity);
-    await apiConsumer.post(AuthEndPoints().login,
-        body: logInRequestModel.toJson());
+    // LoggedInUserEntity? loggedInUserEntity =
+    //     await getIt<SecureStorageService>().getLoggedInUser();
+    // final LogInEntity logInEntity = LogInEntity(
+    //     email: loggedInUserEntity?.email ?? "",
+    //     password: loggedInUserEntity?.decryptPassword ?? "");
+    // final LogInRequestModel logInRequestModel =
+    //     LogInRequestModel(logInEntity: logInEntity);
+    // await apiConsumer.post(AuthEndPoints().login,
+    //     body: logInRequestModel.toJson());
   }
 
   Future retryRequest(RequestOptions requestOptions) async {

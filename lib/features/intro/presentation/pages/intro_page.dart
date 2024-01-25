@@ -15,8 +15,8 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
     final List<SingleIntroScreen> pages = _getIntroScreenElementWidgetList();
 
     return BlocConsumer<IntroBloc, IntroState>(
@@ -31,7 +31,7 @@ class IntroPage extends StatelessWidget {
             backgroundColor: Colors.white,
             body: AnimatedIntroduction(
               slides: pages,
-              footerBgColor: SaayerTheme().getColorsPalette().primaryColor,
+              footerBgColor: SaayerTheme().getColorsPalette.primaryColor,
               indicatorType: IndicatorType.circle,
               onSkip: (){
                 getIt<NavigationService>()
@@ -50,14 +50,14 @@ class IntroPage extends StatelessWidget {
     final List<SingleIntroScreen> pages = List.generate(3, (index) {
       final int currentIndex = (index + 1);
       return SingleIntroScreen(
-        headerBgColor: SaayerTheme().getColorsPalette().backgroundColor,
-        sideDotsBgColor: SaayerTheme().getColorsPalette().backgroundColor,
-        mainCircleBgColor: SaayerTheme().getColorsPalette().backgroundColor,
+        headerBgColor: SaayerTheme().getColorsPalette.backgroundColor,
+        sideDotsBgColor: SaayerTheme().getColorsPalette.backgroundColor,
+        mainCircleBgColor: SaayerTheme().getColorsPalette.backgroundColor,
         title: 'introScreenTitle_$currentIndex'.tr(),
         description: 'introScreenDescription_$currentIndex'.tr(),
         // imageAsset:
         //     Constants.getImagePath("introScreenImage_$currentIndex.png"),
-        imageAsset: Constants.getImagePath("ic_logo_with_text.jpeg"),
+        imageAsset: Constants.getImagePath("logo_with_text.jpeg"),
       );
     });
     return pages;

@@ -17,7 +17,7 @@ class UserCircleAvatar extends StatelessWidget {
     log("$imageUrl", name: "UserCircleAvatar");
     return CircleAvatar(
         radius: radius,
-        backgroundColor: SaayerTheme().getColorsPalette().whiteColor,
+        backgroundColor: SaayerTheme().getColorsPalette.whiteColor,
         child: CachedNetworkImageWidget(
           imageUrl: imageUrl,
         ));

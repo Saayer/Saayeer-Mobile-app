@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
@@ -12,12 +13,12 @@ class LabelTxt extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Text(
           txt,
           style: GoogleFonts.roboto(
             fontSize: 16,
-            color: SaayerTheme().getColorsPalette().blackTextColor,
+            color: SaayerTheme().getColorsPalette.blackTextColor,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
           ),

@@ -3,10 +3,6 @@ import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:validators/validators.dart';
 
 class ValidationUtils {
-  static bool isValidPassword(String password) {
-    return password.trim().isNotEmpty;
-  }
-
   static bool isValidMobile(String mobile) {
     return (mobile.isNotEmpty &&
         mobile.trim()[0] == '0' &&
@@ -87,5 +83,14 @@ class ValidationUtils {
     if (enteredPaiedAmount >= totalDueWithFee) return true;
 
     return false;
+  }
+
+  static bool isValidPassword(String password) {
+    if (password.length < 8 ||
+        !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{8,}$')
+            .hasMatch(password.toString())) {
+      return false;
+    }
+    return true;
   }
 }

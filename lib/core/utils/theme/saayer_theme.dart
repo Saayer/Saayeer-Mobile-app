@@ -24,7 +24,7 @@ class SaayerTheme {
     return _baseThemeData.copyWith(
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
-      //colorSchemeSeed: LightSaayerTheme().getColorsPalette().primaryColor,
+      //colorSchemeSeed: LightSaayerTheme().getColorsPalette.primaryColor,
       primaryColor: LightColorsPalette().primaryColor,
       shadowColor: Colors.white,
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
@@ -35,7 +35,7 @@ class SaayerTheme {
     return _baseThemeData.copyWith(
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.black,
-      //colorSchemeSeed: LightSaayerTheme().getColorsPalette().primaryColor,
+      //colorSchemeSeed: LightSaayerTheme().getColorsPalette.primaryColor,
       primaryColor: DarkColorsPalette().primaryColor,
       shadowColor: Colors.black,
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black),
@@ -55,17 +55,21 @@ class SaayerTheme {
         .isDark;
   }
 
-  BaseColorsPalette getColorsPalette() {
-    switch (getThemeMode) {
-      case AdaptiveThemeMode.light:
-      case AdaptiveThemeMode.system:
-        {
-          return LightColorsPalette();
-        }
-      case AdaptiveThemeMode.dark:
-        {
-          return DarkColorsPalette();
-        }
+  BaseColorsPalette get getColorsPalette {
+    try {
+      switch (getThemeMode) {
+        case AdaptiveThemeMode.light:
+        case AdaptiveThemeMode.system:
+          {
+            return LightColorsPalette();
+          }
+        case AdaptiveThemeMode.dark:
+          {
+            return DarkColorsPalette();
+          }
+      }
+    } catch (e) {
+      return LightColorsPalette();
     }
   }
 }

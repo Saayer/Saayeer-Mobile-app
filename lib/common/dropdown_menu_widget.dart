@@ -30,7 +30,7 @@ class DropDownMenuWidget extends StatelessWidget {
               hintText: hint,
               counterText: "",
               hintStyle:
-                  TextStyle(fontSize: 14, color: SaayerTheme().getColorsPalette().greyColor),
+                  TextStyle(fontSize: 14, color: SaayerTheme().getColorsPalette.greyColor),
               filled: true,
               fillColor: Colors.white,
               contentPadding:
@@ -55,7 +55,7 @@ class DropDownMenuWidget extends StatelessWidget {
                 onChanged: onChanged,
                 icon: Icon(
                   Icons.keyboard_arrow_down,
-                  color: SaayerTheme().getColorsPalette().blackTextColor,
+                  color: SaayerTheme().getColorsPalette.blackTextColor,
                   size: 30,
                 ),
                 items: items.map((String value) {
@@ -64,7 +64,7 @@ class DropDownMenuWidget extends StatelessWidget {
                     child: Text(
                       value,
                       style: GoogleFonts.roboto(
-                        color: SaayerTheme().getColorsPalette().blackTextColor,
+                        color: SaayerTheme().getColorsPalette.blackTextColor,
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
                         fontStyle: FontStyle.normal,

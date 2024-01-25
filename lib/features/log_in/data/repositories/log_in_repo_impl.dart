@@ -10,7 +10,7 @@ import 'package:saayer/features/log_in/domain/entities/log_in_entity.dart';
 import 'package:saayer/features/log_in/domain/entities/submit_log_in_entity.dart';
 import 'package:saayer/features/log_in/domain/repositories/log_in_repo.dart';
 
-@LazySingleton(as: LogInRepo)
+@Injectable(as: LogInRepo)
 class LogInRepoImpl implements LogInRepo {
   @override
   Future<Either<Failure, SubmitLogInEntity?>> logIn(
@@ -19,7 +19,7 @@ class LogInRepoImpl implements LogInRepo {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
-        final LogInResponseModel? result =
+        final LogInResponseModel result =
             await getIt<LogInRDS>().logIn(logInEntity);
         log("LogInRepoImpl Right $result");
         if (result != null) {

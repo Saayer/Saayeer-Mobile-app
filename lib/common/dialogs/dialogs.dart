@@ -41,7 +41,7 @@ class Dialogs {
                   alignment: WrapAlignment.center,
                   children: [
                     Divider(
-                      color: SaayerTheme().getColorsPalette().transparent,
+                      color: SaayerTheme().getColorsPalette.transparent,
                       height: 24,
                     ),
                     Row(
@@ -56,12 +56,12 @@ class Dialogs {
                             width: 30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: SaayerTheme().getColorsPalette().neutral3,
+                              color: SaayerTheme().getColorsPalette.neutral3,
                             ),
                             child: Icon(
                               Icons.close,
                               size: 20,
-                              color: SaayerTheme().getColorsPalette().neutral5,
+                              color: SaayerTheme().getColorsPalette.neutral5,
                             ),
                           ),
                         ),
@@ -80,12 +80,12 @@ class Dialogs {
                       ),
                     ),
                     Divider(
-                      color: SaayerTheme().getColorsPalette().transparent,
+                      color: SaayerTheme().getColorsPalette.transparent,
                       height: 5.h,
                     ),
                     if (title != null) ...[
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: 5.h,
                       ),
                       Text(
@@ -94,7 +94,7 @@ class Dialogs {
                         style: AppTextStyles.sectionTitle(),
                       ),
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: 8.h,
                       ),
                     ],
@@ -122,19 +122,19 @@ class Dialogs {
                         padding: 0,
                         elevation: 0,
                         label: okLabel ?? Localization.translate("continue"),
-                        color: SaayerTheme().getColorsPalette().primaryColor,
+                        color: SaayerTheme().getColorsPalette.primaryColor,
                         labelColor:
-                            SaayerTheme().getColorsPalette().backgroundColor,
+                            SaayerTheme().getColorsPalette.backgroundColor,
                       ),
                     Divider(
-                      color: SaayerTheme().getColorsPalette().transparent,
+                      color: SaayerTheme().getColorsPalette.transparent,
                       height: MediaQuery.of(context).padding.bottom == 0
                           ? 31.h
                           : MediaQuery.of(context).padding.bottom,
                     ),
                     bottomPaading
                         ? Divider(
-                            color: SaayerTheme().getColorsPalette().transparent,
+                            color: SaayerTheme().getColorsPalette.transparent,
                             height: 20.0)
                         : Container(),
                   ],
@@ -199,12 +199,12 @@ class Dialogs {
                           width: 30,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: SaayerTheme().getColorsPalette().neutral3,
+                            color: SaayerTheme().getColorsPalette.neutral3,
                           ),
                           child: Icon(
                             Icons.close,
                             size: 20,
-                            color: SaayerTheme().getColorsPalette().neutral6,
+                            color: SaayerTheme().getColorsPalette.neutral6,
                           ),
                         ),
                       ),
@@ -218,7 +218,7 @@ class Dialogs {
                   children: [
                     if (!showClose)
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: 40,
                       ),
                     imageWidget ??
@@ -229,12 +229,12 @@ class Dialogs {
                           fit: BoxFit.cover,
                         ),
                     Divider(
-                      color: SaayerTheme().getColorsPalette().transparent,
+                      color: SaayerTheme().getColorsPalette.transparent,
                       height: 5.h,
                     ),
                     if (title != null) ...[
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: 5.h,
                       ),
                       Text(
@@ -243,7 +243,7 @@ class Dialogs {
                         style: AppTextStyles.sectionTitle(),
                       ),
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: 10.h,
                       ),
                     ],
@@ -255,7 +255,7 @@ class Dialogs {
                       style: AppTextStyles.smallParagraph(),
                     ),
                     Divider(
-                      color: SaayerTheme().getColorsPalette().transparent,
+                      color: SaayerTheme().getColorsPalette.transparent,
                       height: 32.h,
                     ),
                     DialogButton(
@@ -269,11 +269,11 @@ class Dialogs {
                           okAction();
                         }
                       },
-                      color: SaayerTheme().getColorsPalette().primaryColor,
+                      color: SaayerTheme().getColorsPalette.primaryColor,
                       label: Localization.translate(okLabel ?? "ok"),
                       labelFontSize: 14.sp,
                       labelColor:
-                          SaayerTheme().getColorsPalette().blackTextColor,
+                          SaayerTheme().getColorsPalette.blackTextColor,
                     ),
                     if (showRetry)
                       DialogButton(
@@ -290,17 +290,17 @@ class Dialogs {
                         color: retryBtnColor,
                         label: Localization.translate("$retryLabel"),
                         labelColor: retryTextColor ??
-                            SaayerTheme().getColorsPalette().error0,
+                            SaayerTheme().getColorsPalette.error0,
                         labelFontSize: 14,
                       ),
                     if (showRetry)
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: !showCancel ? 20.h : 0,
                       ),
                     if (showCancel)
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: 5,
                       ),
                     if (showCancel)
@@ -314,19 +314,19 @@ class Dialogs {
                           }
                         },
                         color: cancelBtnColor ??
-                            SaayerTheme().getColorsPalette().error1,
+                            SaayerTheme().getColorsPalette.error1,
                         label: Localization.translate("$cancelLabel"),
                         labelColor: cancelTextColor ??
-                            SaayerTheme().getColorsPalette().error0,
+                            SaayerTheme().getColorsPalette.error0,
                         labelFontSize: 14,
                       ),
                     if (showCancel)
                       Divider(
-                        color: SaayerTheme().getColorsPalette().transparent,
+                        color: SaayerTheme().getColorsPalette.transparent,
                         height: 20.h,
                       ),
                     Divider(
-                      color: SaayerTheme().getColorsPalette().transparent,
+                      color: SaayerTheme().getColorsPalette.transparent,
                       height: MediaQuery.of(context).padding.bottom == 0
                           ? 16.h
                           : MediaQuery.of(context).padding.bottom,

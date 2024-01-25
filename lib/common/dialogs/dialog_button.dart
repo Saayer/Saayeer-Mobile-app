@@ -67,11 +67,11 @@ class DialogButton extends StatelessWidget {
               elevation: MaterialStateProperty.all<double>(elevation ?? 4),
               backgroundColor: MaterialStateProperty.all<Color>(
                 color == null
-                    ? SaayerTheme().getColorsPalette().darkGreyColor
+                    ? SaayerTheme().getColorsPalette.darkGreyColor
                     : enabled != null && (enabled!)
                         ? color!
                         : (disabledBackgroundColor ??
-                            SaayerTheme().getColorsPalette().neutral3),
+                            SaayerTheme().getColorsPalette.neutral3),
               ),
               padding: MaterialStateProperty.all<EdgeInsets>(
                   EdgeInsets.symmetric(vertical: verticalPadding!)),
@@ -79,7 +79,7 @@ class DialogButton extends StatelessWidget {
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius!),
                   side: BorderSide(
-                      color: SaayerTheme().getColorsPalette().transparent),
+                      color: SaayerTheme().getColorsPalette.transparent),
                 ),
               ),
             ),
@@ -112,19 +112,19 @@ class DialogButton extends StatelessWidget {
           style: labelStyle != null
               ? labelStyle!.copyWith(
                   color: labelColor == null
-                      ? SaayerTheme().getColorsPalette().backgroundColor
+                      ? SaayerTheme().getColorsPalette.backgroundColor
                       : (enabled!)
                           ? labelColor!
                           : (disabledLabelColor ??
-                              SaayerTheme().getColorsPalette().neutral2),
+                              SaayerTheme().getColorsPalette.neutral2),
                 )
               : AppTextStyles.buttonLabel(
                   labelColor == null
-                      ? SaayerTheme().getColorsPalette().backgroundColor
+                      ? SaayerTheme().getColorsPalette.backgroundColor
                       : (enabled!)
                           ? labelColor!
                           : (disabledLabelColor ??
-                              SaayerTheme().getColorsPalette().neutral2),
+                              SaayerTheme().getColorsPalette.neutral2),
                 ),
         )
       ],

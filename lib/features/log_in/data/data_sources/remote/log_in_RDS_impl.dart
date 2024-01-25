@@ -7,7 +7,7 @@ import 'package:saayer/features/log_in/data/models/log_in_request_model.dart';
 import 'package:saayer/features/log_in/data/models/log_in_response_model.dart';
 import 'package:saayer/features/log_in/domain/entities/log_in_entity.dart';
 
-@LazySingleton(as: LogInRDS)
+@Injectable(as: LogInRDS)
 class LogInRDSImpl implements LogInRDS {
   final ApiConsumer apiConsumer;
 

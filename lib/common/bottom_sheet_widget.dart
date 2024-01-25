@@ -100,11 +100,11 @@ modalBottomSheetMenu(context, width, height, widget,
                       },
                       child: !hasDash
                           ? CircleAvatar(
-                              backgroundColor: SaayerTheme().getColorsPalette().blackTextColor,
+                              backgroundColor: SaayerTheme().getColorsPalette.blackTextColor,
                               radius: 20,
                               child: Icon(
                                 Icons.close,
-                                color: SaayerTheme().getColorsPalette().whiteColor,
+                                color: SaayerTheme().getColorsPalette.whiteColor,
                                 size: 25,
                               ))
                           : Container(

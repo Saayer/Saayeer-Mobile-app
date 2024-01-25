@@ -34,7 +34,7 @@ class SplashPage extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
             child: Scaffold(
-          backgroundColor: SaayerTheme().getColorsPalette().backgroundColor,
+          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           body: Center(
             child: Container(
               width: 300.w,
@@ -43,7 +43,7 @@ class SplashPage extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      Constants.getImagePath("ic_logo_with_text.jpeg")),
+                      Constants.getImagePath("logo_with_text.jpeg")),
                   fit: BoxFit.cover,
                 ),
               ),
