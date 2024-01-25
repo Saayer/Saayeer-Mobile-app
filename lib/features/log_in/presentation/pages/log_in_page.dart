@@ -8,12 +8,15 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/text_fields/phone_text_field.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/log_in/core/utils/enums/enums.dart';
 import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart';
 import 'package:saayer/common/toast_widget.dart';
+import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
@@ -63,10 +66,11 @@ class LogInPage extends StatelessWidget {
             isEnabled: enableLogIn(logInBloc),
             borderRadius: 12.r,
             onPressed: () {
-              LoadingDialog.setIsLoading(context, true);
+              // LoadingDialog.setIsLoading(context, true);
               enableLogIn(logInBloc)
                   // ? logInBloc.add(LogIn())
-                  ? log("---logIn---")
+                  ? getIt<NavigationService>()
+                      .navigateTo(const ViewPageScreen())
                   : showToast(msg: "empty_fields_error".tr());
             },
             btnWidth: width / 1.2,
