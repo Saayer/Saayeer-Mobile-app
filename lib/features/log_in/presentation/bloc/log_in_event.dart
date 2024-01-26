@@ -23,3 +23,8 @@ class OnTextChange extends LogInEvent {
   @override
   List<Object?> get props => [textEditingController, str, logInFieldsType];
 }
+
+class SubmitLogInData extends LogInEvent {
+  @override
+  List<Object?> get props => [];
+}

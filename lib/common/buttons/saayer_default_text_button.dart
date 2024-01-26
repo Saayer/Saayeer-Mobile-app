@@ -49,7 +49,7 @@ class SaayerDefaultTextButton extends StatelessWidget {
           softWrap: true,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.buttonLabel(
+          style: AppTextStyles.mainFocusedLabel(
               SaayerTheme().getColorsPalette.whiteColor),
         ));
   }

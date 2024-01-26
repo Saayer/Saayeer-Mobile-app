@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/API/api_config.dart';
-import 'package:saayer/core/API/api_consumer.dart';
 import 'package:saayer/core/API/network_keys/network_keys.dart';
 import 'package:saayer/core/API/refresh_token.dart';
 import 'package:saayer/core/API/status_code.dart';
@@ -21,15 +18,15 @@ class AppInterceptors extends Interceptor {
   @override
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    String? accessToken = await getIt<SecureStorageService>().getAccessToken();
+    String? reqSecureKey = await getIt<SecureStorageService>().getAccessToken();
     options.queryParameters.addAll(
       ApiConfig.queryParameters,
     );
     options.headers["Content-Type"] = "application/json; charset=utf-8";
     options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys;
-    if (accessToken != null) {
+    if (reqSecureKey != null) {
       //log("$accessToken", name: "has accessToken");
-      options.headers['Authorization'] = 'Bearer $accessToken';
+      options.headers['Authorization'] = 'Bearer $reqSecureKey';
     }
     super.onRequest(options, handler);
   }
@@ -38,9 +35,12 @@ class AppInterceptors extends Interceptor {
   Future<void> onResponse(
       Response response, ResponseInterceptorHandler handler) async {
     if (jsonDecode(response.data).toString().contains("token")) {
-      String? token = jsonDecode(response.data)["body"]["token"];
-      if (token != null) {
-        await getIt<SecureStorageService>().setAccessToken(token);
+      final Map responseData = jsonDecode(response.data);
+      String? reqSecureKey = responseData["reqSecureKey"];
+      if (reqSecureKey != null) {
+        await getIt<SecureStorageService>().setAccessToken(reqSecureKey);
+        responseData.remove(reqSecureKey);
+        response.data = jsonEncode(responseData);
       }
     }
     super.onResponse(response, handler);

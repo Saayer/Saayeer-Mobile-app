@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/entities/logged_in_user_entity.dart';
 
 class SubmitLogInEntity extends Equatable {
@@ -7,7 +6,8 @@ class SubmitLogInEntity extends Equatable {
   final String? message;
   final LoggedInUserEntity? loggedInUserEntity;
 
-  SubmitLogInEntity({this.isSuccess, this.message, this.loggedInUserEntity});
+  const SubmitLogInEntity(
+      {this.isSuccess, this.message, this.loggedInUserEntity});
 
   @override
   List<Object?> get props => [isSuccess, message, loggedInUserEntity];

@@ -11,8 +11,6 @@ import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/constants.dart';
 import 'package:saayer/core/utils/theme/colors/dark_colors.dart';
-import 'package:saayer/core/utils/theme/colors/light_colors.dart';
-import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/saayer_app.dart';
 import 'package:flutter/services.dart';
@@ -42,8 +40,8 @@ class AppConfig {
     runApp(EasyLocalization(
       supportedLocales: Localization.getLocaleList(),
       path: Constants.stringsPath,
-      fallbackLocale: Localization.usEnglish,
-      startLocale: Localization.usEnglish,
+      fallbackLocale: Localization.egArabic,
+      startLocale: Localization.egArabic,
       assetLoader: const JsonAssetLoader(),
       saveLocale: true,
       child: SaayerApp(

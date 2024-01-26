@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/input_text_field_decoration.dart';
+import 'package:saayer/core/helpers/utils_helper/validation_utils.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -32,7 +33,10 @@ class PhoneTextField extends StatelessWidget {
         }
       },
       validator: (String? value) {
-        if ((value?.length ?? 0) < 9) {
+        if (value?.isEmpty ?? true) {
+          return 'empty_field_error'.tr().replaceFirst("{}", "phone_num".tr());
+        }
+        if (value!.length < 10) {
           return 'invalid_field_error'
               .tr()
               .replaceFirst("{}", "phone_num".tr());
@@ -42,7 +46,7 @@ class PhoneTextField extends StatelessWidget {
       onInputValidated: (bool value) {
         log("$value", name: "onInputValidated --->");
       },
-      maxLength: 9,
+      maxLength: 10,
       selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         useBottomSheetSafeArea: true,

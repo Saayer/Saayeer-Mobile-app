@@ -17,6 +17,7 @@ import 'package:saayer/features/log_in/core/utils/enums/enums.dart';
 import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart';
 import 'package:saayer/common/toast_widget.dart';
 import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
+import 'dart:ui' as ui;
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
@@ -67,10 +68,10 @@ class LogInPage extends StatelessWidget {
             borderRadius: 12.r,
             onPressed: () {
               // LoadingDialog.setIsLoading(context, true);
-              enableLogIn(logInBloc)
-                  // ? logInBloc.add(LogIn())
-                  ? getIt<NavigationService>()
-                      .navigateTo(const ViewPageScreen())
+              final bool isFormValid =
+                  (logInBloc.formKey.currentState!.validate());
+              isFormValid
+                  ? logInBloc.add(SubmitLogInData())
                   : showToast(msg: "empty_fields_error".tr());
             },
             btnWidth: width / 1.2,
@@ -115,19 +116,23 @@ class LogInPage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 30.w, vertical: 20.h),
-                        child: PhoneTextField(
-                          phoneNumController: logInBloc.phoneController,
-                          onInputChanged: (PhoneNumber phoneNumber) {
-                            log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
-                                name: "onInputChanged --->");
-                            log("${phoneNumber.phoneNumber}",
-                                name: "PhoneTextField onInputChanged ->");
-                            logInBloc.add(OnTextChange(
-                                logInFieldsType: LogInFieldsTypes.PHONE_NUMBER,
-                                phoneNumber: phoneNumber,
-                                textEditingController:
-                                    logInBloc.phoneController));
-                          },
+                        child: Directionality(
+                          textDirection: ui.TextDirection.ltr,
+                          child: PhoneTextField(
+                            phoneNumController: logInBloc.phoneController,
+                            onInputChanged: (PhoneNumber phoneNumber) {
+                              log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                                  name: "onInputChanged --->");
+                              log("${phoneNumber.phoneNumber}",
+                                  name: "PhoneTextField onInputChanged ->");
+                              logInBloc.add(OnTextChange(
+                                  logInFieldsType:
+                                      LogInFieldsTypes.PHONE_NUMBER,
+                                  phoneNumber: phoneNumber,
+                                  textEditingController:
+                                      logInBloc.phoneController));
+                            },
+                          ),
                         ),
                       )
                     ],

@@ -87,7 +87,8 @@ class ValidationUtils {
 
   static bool isValidPassword(String password) {
     if (password.length < 8 ||
-        !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{8,}$')
+        !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])'
+                r'(?=.*?[0-9])(?=.*?[!@#$&*~]).{8,}$')
             .hasMatch(password.toString())) {
       return false;
     }

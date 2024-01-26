@@ -21,6 +21,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
 
   LogInBloc({required this.logInUseCase}) : super(LogInState()) {
     on<OnTextChange>(_onTextChange);
+    on<SubmitLogInData>(_submitLogInData);
   }
 
   final formKey = GlobalKey<FormState>();
@@ -83,4 +84,9 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
 //     }
 //   });
 // }
+
+  FutureOr<void> _submitLogInData(
+      SubmitLogInData event, Emitter<LogInState> emit) {
+
+  }
 }

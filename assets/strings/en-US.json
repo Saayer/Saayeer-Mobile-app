@@ -8,7 +8,7 @@
   "introScreenDescription_2": "Saayer streamlines your order process, making it easy to manage and fulfill deliveries. From order creation to tracking, our app simplifies every step, so you can focus on what matters most—growing your business.",
   "introScreenDescription_3": "Keep your customers in the loop with Saayer's real-time tracking feature. Enhance transparency and build trust by allowing your customers to track their deliveries live. Make every delivery experience memorable.",
   "log_in": "Log In",
-  "empty_fields_error": "Please, fill out all the fields",
+  "empty_fields_error": "Please, fill out all the fields in a valid format",
   "empty_field_error": "{} is empty",
   "invalid_field_error": "Enter a valid {}",
   "email": "Email",

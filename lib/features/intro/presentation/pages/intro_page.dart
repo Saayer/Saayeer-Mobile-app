@@ -9,6 +9,7 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/intro/presentation/bloc/intro_bloc.dart';
 import 'package:saayer/features/log_in/presentation/screens/log_in_screen.dart';
+import 'dart:ui' as ui;
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -33,7 +34,10 @@ class IntroPage extends StatelessWidget {
               slides: pages,
               footerBgColor: SaayerTheme().getColorsPalette.primaryColor,
               indicatorType: IndicatorType.circle,
-              onSkip: (){
+              skipText: "skip".tr(),
+              nextText: "next".tr(),
+              doneText: "login_now".tr(),
+              onSkip: () {
                 getIt<NavigationService>()
                     .navigateAndFinish(const LogInScreen());
               },
@@ -55,6 +59,7 @@ class IntroPage extends StatelessWidget {
         mainCircleBgColor: SaayerTheme().getColorsPalette.backgroundColor,
         title: 'introScreenTitle_$currentIndex'.tr(),
         description: 'introScreenDescription_$currentIndex'.tr(),
+        textStyle: AppTextStyles.label(),
         // imageAsset:
         //     Constants.getImagePath("introScreenImage_$currentIndex.png"),
         imageAsset: Constants.getImagePath("logo_with_text.jpeg"),
