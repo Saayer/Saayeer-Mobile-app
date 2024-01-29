@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @Singleton()
 class Encryption {
-  final key = Key.fromUtf8('wannareachappdonebyshimagreatdev');
+  final key = Key.fromUtf8('saayerappdonebyberrawyandshaimaa');
   final iv = IV.fromLength(16);
 
   late final Encrypter encrypter;

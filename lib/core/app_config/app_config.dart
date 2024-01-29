@@ -15,6 +15,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/saayer_app.dart';
 import 'package:flutter/services.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:saayer/core/app_config/firebase_options.dart';
 
 class AppConfig {
   final String appName;
@@ -25,7 +26,9 @@ class AppConfig {
   void initializeApp() async {
     WidgetsFlutterBinding.ensureInitialized();
     configureInjection();
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     initAppFlavorEntity();
     getIt<Encryption>().init();
     log("$flavorType", name: "flavorType");

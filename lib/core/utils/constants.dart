@@ -1,12 +1,12 @@
 import 'package:intl/intl.dart';
 
 class Constants {
-  static const String appName = 'wannareach';
+  static const String appName = 'Saayer';
   static const String assetImageBasePath = "assets/images/";
   static const String assetIconBasePath = "assets/icons/";
   static const String assetGifBasePath = "assets/gifs/";
   static const String assetLottieBasePath = "assets/lottie/";
-  static const String stringsPath = "assets/strings/";
+  static const String stringsPath = "assets/strings";
 
   final String formattedNowDate =
       DateFormat('dd/MM/yyyy').format(DateTime.now());
