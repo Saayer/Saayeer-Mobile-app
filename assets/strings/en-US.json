@@ -30,5 +30,10 @@
   "resend_code_in": "Resend code in",
   "invalid_otp_error_title": "Invalid OTP",
   "invalid_otp_error_description": "The OTP you have entered is incorrect",
-  "welcome": "Welcome!"
+  "welcome": "Welcome!",
+  "home": "Home",
+  "shipments": "Shipments",
+  "request_shipment": "Request Shipment",
+  "ebills": "E-Bills",
+  "more": "More"
 }

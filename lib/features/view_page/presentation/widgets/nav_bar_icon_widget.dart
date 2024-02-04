@@ -26,8 +26,8 @@ class NavBarIconWidget extends StatelessWidget {
       },
       icon: SvgPicture.asset(
         Constants.getIconPath("ic_${navBarIconType.name.toLowerCase()}.svg"),
-        width: 26.w,
-        height: 26.h,
+        width: 24.w,
+        height: 24.h,
         color: isSelected
             ? SaayerTheme().getColorsPalette.orangeColor
             : SaayerTheme().getColorsPalette.blackTextColor,

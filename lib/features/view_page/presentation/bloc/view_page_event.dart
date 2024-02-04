@@ -4,6 +4,7 @@ part of 'view_page_bloc.dart';
 abstract class ViewPageEvent extends Equatable {
   const ViewPageEvent();
 }
+
 class InitViewPage extends ViewPageEvent {
   const InitViewPage();
 
@@ -11,4 +12,11 @@ class InitViewPage extends ViewPageEvent {
   List<Object?> get props => [];
 }
 
+class GoToPage extends ViewPageEvent {
+  final NavBarIconTypes navBarIconType;
 
+  const GoToPage({required this.navBarIconType});
+
+  @override
+  List<Object?> get props => [navBarIconType];
+}

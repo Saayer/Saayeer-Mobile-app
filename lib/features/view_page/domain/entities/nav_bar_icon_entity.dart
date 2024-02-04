@@ -43,6 +43,13 @@ class ShipmentsNavBarIconEntity extends NavBarIconEntity {
       super.navBarIconType = NavBarIconTypes.SHIPMENTS});
 }
 
+class RequestShipmentNavBarIconEntity extends NavBarIconEntity {
+  const RequestShipmentNavBarIconEntity(
+      {super.iconData = Icons.add,
+        super.isSelected = false,
+        super.navBarIconType = NavBarIconTypes.REQUEST_SHIPMENT});
+}
+
 class EBillsNavBarIconEntity extends NavBarIconEntity {
   const EBillsNavBarIconEntity(
       {super.iconData = Icons.file_copy_outlined,
