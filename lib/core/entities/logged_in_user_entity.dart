@@ -27,14 +27,14 @@ class LoggedInUserEntity extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'name': this.name,
-      'email': this.email,
-      'password': this.password,
-      'userType': this.userType,
-      'gender': this.gender,
-      'dateOfBirth': this.dateOfBirth,
-      'imageUrl': this.imageUrl,
+      'id': id,
+      'name': name,
+      'email': email,
+      'password': password,
+      'userType': userType,
+      'gender': gender,
+      'dateOfBirth': dateOfBirth,
+      'imageUrl': imageUrl,
     };
   }
 

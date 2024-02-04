@@ -13,11 +13,14 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/log_in/core/errors/log_in_error_handler.dart';
 import 'package:saayer/features/log_in/core/utils/enums/enums.dart';
 import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart';
-import 'package:saayer/common/toast_widget.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
+import 'package:saayer/common/toast/toast_widget.dart';
+import 'package:saayer/features/verify_otp/domain/entities/verify_otp_entity.dart';
 import 'dart:ui' as ui;
+
+import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
@@ -37,105 +40,109 @@ class LogInPage extends StatelessWidget {
             (logInBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
-          // if (state.logInSuccessfully) {
-          //   await getIt<SecureStorageService>()
-          //       .setIsLoggedIn(state.submitLogInEntity!.isSuccess!);
-          //   await getIt<SecureStorageService>()
-          //       .setLoggedInUser(state.submitLogInEntity!.loggedInUserEntity!);
-          //   getIt<LoggedInService>().setLoggedInUserEntity(
-          //       state.submitLogInEntity!.loggedInUserEntity!);
-          //   final String firstName =
-          //       state.submitLogInEntity!.loggedInUserEntity!.name.split(" ")[0];
-          //   //showToast(msg: ToastMessages.login(firstName));
-          //   getIt<NavigationService>()
-          //       .navigateAndFinish(const ViewPageScreen());
-          // }
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {
+            SaayerToast()
+                .showSuccessToast(msg: state.submitLogInEntity?.message ?? "");
+            getIt<NavigationService>().navigateTo(VerifyOtpScreen(
+              verifyOtpEntity: VerifyOtpEntity(
+                  phoneNumber: state.logInEntity?.phoneNumber.phoneNumber ?? "",
+                  otp: state.submitLogInEntity?.otp ?? ""),
+            ));
+          }
           if (state.stateHelper.requestState == RequestState.ERROR) {
-            showToast(msg: state.stateHelper.errorMessage ?? "");
+            //showToast(msg: state.stateHelper.errorMessage ?? "");
+            LogInErrorHandler(state: state)();
           }
         }
       },
-      builder: (context, state) => Scaffold(
-        backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-        appBar: const BaseAppBar(
-          showBackLeading: false,
-        ),
-        bottomSheet: Padding(
-          padding: EdgeInsets.only(bottom: 50.h),
-          child: SaayerDefaultTextButton(
-            text: "log_in",
-            isEnabled: enableLogIn(logInBloc),
-            borderRadius: 12.r,
-            onPressed: () {
-              // LoadingDialog.setIsLoading(context, true);
-              final bool isFormValid =
-                  (logInBloc.formKey.currentState!.validate());
-              isFormValid
-                  ? logInBloc.add(SubmitLogInData())
-                  : showToast(msg: "empty_fields_error".tr());
-            },
-            btnWidth: width / 1.2,
-            btnHeight: 50.h,
+      builder: (context, state) => PopScope(
+        canPop: false,
+        child: Scaffold(
+          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          appBar: const BaseAppBar(
+            showBackLeading: false,
           ),
-        ),
-        body: InkWell(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Container(
-            color: SaayerTheme().getColorsPalette.backgroundColor,
-            child: SingleChildScrollView(
-              child: Center(
-                child: Form(
-                  autovalidateMode: state.autoValidateMode,
-                  key: logInBloc.formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      // LabelTxt(txt: "phone_num".tr()),
-                      // SizedBox(
-                      //   height: 5.h,
-                      // ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "enter_phone_num_desc".tr(),
-                              textAlign: TextAlign.start,
-                              style: AppTextStyles.paragraph(),
-                            ),
-                          ],
+          bottomSheet: Padding(
+            padding: EdgeInsets.only(bottom: 50.h),
+            child: Row(
+              children: [
+                SaayerDefaultTextButton(
+                  text: "log_in",
+                  isEnabled: enableLogIn(logInBloc),
+                  borderRadius: 50.r,
+                  onPressed: () {
+                    final bool isFormValid =
+                        (logInBloc.formKey.currentState!.validate());
+                    isFormValid
+                        ? logInBloc.add(SubmitLogInData())
+                        : SaayerToast()
+                            .showErrorToast(msg: "empty_fields_error".tr());
+                  },
+                  btnWidth: width / 1.2,
+                  btnHeight: 50.h,
+                ),
+              ],
+            ),
+          ),
+          body: InkWell(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Container(
+              color: SaayerTheme().getColorsPalette.backgroundColor,
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Form(
+                    autovalidateMode: state.autoValidateMode,
+                    key: logInBloc.formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 20.h,
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.w, vertical: 20.h),
-                        child: Directionality(
-                          textDirection: ui.TextDirection.ltr,
-                          child: PhoneTextField(
-                            phoneNumController: logInBloc.phoneController,
-                            onInputChanged: (PhoneNumber phoneNumber) {
-                              log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
-                                  name: "onInputChanged --->");
-                              log("${phoneNumber.phoneNumber}",
-                                  name: "PhoneTextField onInputChanged ->");
-                              logInBloc.add(OnTextChange(
-                                  logInFieldsType:
-                                      LogInFieldsTypes.PHONE_NUMBER,
-                                  phoneNumber: phoneNumber,
-                                  textEditingController:
-                                      logInBloc.phoneController));
-                            },
+                        // LabelTxt(txt: "phone_num".tr()),
+                        // SizedBox(
+                        //   height: 5.h,
+                        // ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "enter_phone_num_desc".tr(),
+                                textAlign: TextAlign.start,
+                                style: AppTextStyles.highlightedLabel(),
+                              ),
+                            ],
                           ),
                         ),
-                      )
-                    ],
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.w, vertical: 20.h),
+                          child: Directionality(
+                            textDirection: ui.TextDirection.ltr,
+                            child: PhoneTextField(
+                              phoneNumController: logInBloc.phoneController,
+                              onInputChanged: (PhoneNumber phoneNumber) {
+                                log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                                    name: "onInputChanged --->");
+                                log("${phoneNumber.phoneNumber}",
+                                    name: "PhoneTextField onInputChanged ->");
+                                logInBloc.add(OnTextChange(
+                                    logInFieldsType:
+                                        LogInFieldsTypes.PHONE_NUMBER,
+                                    phoneNumber: phoneNumber,
+                                    textEditingController:
+                                        logInBloc.phoneController));
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

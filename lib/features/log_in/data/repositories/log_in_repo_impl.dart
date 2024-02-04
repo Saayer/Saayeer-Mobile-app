@@ -12,6 +12,12 @@ import 'package:saayer/features/log_in/domain/repositories/log_in_repo.dart';
 
 @Injectable(as: LogInRepo)
 class LogInRepoImpl implements LogInRepo {
+  final LogInRDS logInRDSImpl;
+
+  const LogInRepoImpl({
+    required this.logInRDSImpl,
+  });
+
   @override
   Future<Either<Failure, SubmitLogInEntity?>> logIn(
       LogInEntity logInEntity) async {
@@ -19,8 +25,7 @@ class LogInRepoImpl implements LogInRepo {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
-        final LogInResponseModel result =
-            await getIt<LogInRDS>().logIn(logInEntity);
+        final LogInResponseModel result = await logInRDSImpl.logIn(logInEntity);
         log("LogInRepoImpl Right $result");
         if (result != null) {
           return Right(result.toDomain());

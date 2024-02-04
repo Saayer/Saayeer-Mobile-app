@@ -14,7 +14,6 @@ class LogInScreen extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height;
 
     return BlocProvider<LogInBloc>(
-        create: (context) => LogInBloc(logInUseCase: getIt<LogInUseCase>()),
-        child: const LogInPage());
+        create: (context) => getIt<LogInBloc>(), child: const LogInPage());
   }
 }

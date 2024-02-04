@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:saayer/common/dialogs/dialogs.dart';
+import 'package:saayer/common/dialogs/saayer_dialogs.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 
@@ -46,10 +47,8 @@ class Localization {
           .currentContext!
           .setLocale(locale);
     } else {
-      Dialogs.showErrorDialog(
-          getIt<NavigationService>().mainNavigatorKey.currentContext!,
-          "something_went_wrong",
-          okAction: () {});
+      SaayerDialogs()
+          .oneBtnDialog(title: "error", message: "something_went_wrong");
     }
   }
 }

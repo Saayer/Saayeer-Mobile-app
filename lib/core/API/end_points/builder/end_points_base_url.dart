@@ -1,4 +1,4 @@
-import 'package:saayer/core/app_config/app_flavor_entity.dart';
+import 'package:saayer/core/app_config/app_flavor.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/enums.dart';
 
@@ -10,15 +10,17 @@ class EndPointsBaseUrl {
   });
 
   factory EndPointsBaseUrl.init() {
-    switch (getIt<AppFlavorEntity>().flavorType) {
+    switch (getIt<AppFlavor>().appFlavorEntity.flavorType) {
       case FlavorType.DEV:
         {
-          return const EndPointsBaseUrl._internal(baseUrl: "");
+          return const EndPointsBaseUrl._internal(
+              baseUrl: "http://34.140.10.214/api/");
         }
       case FlavorType.STAGING:
       case FlavorType.PROD:
         {
-          return const EndPointsBaseUrl._internal(baseUrl: "");
+          return const EndPointsBaseUrl._internal(
+              baseUrl: "http://34.140.10.214/api/");
         }
     }
   }

@@ -45,7 +45,7 @@ class DarkColorsPalette implements BaseColorsPalette {
   Color get blackColor => Colors.black;
 
   @override
-  Color get greenColor => const Color(0xff00AD62);
+  Color get greenColor => const Color(0xff5bbd90);
 
   @override
   Color get whiteAllOverColor => const Color(0xFFFFFFFE);

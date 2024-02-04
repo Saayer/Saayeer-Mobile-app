@@ -8,6 +8,7 @@ import 'package:saayer/core/API/refresh_token.dart';
 import 'package:saayer/core/API/status_code.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
+import 'package:saayer/core/services/localization/localization.dart';
 
 @lazySingleton
 class AppInterceptors extends Interceptor {
@@ -18,15 +19,16 @@ class AppInterceptors extends Interceptor {
   @override
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    String? reqSecureKey = await getIt<SecureStorageService>().getAccessToken();
+    String? authToken = await getIt<SecureStorageService>().getAccessToken();
     options.queryParameters.addAll(
       ApiConfig.queryParameters,
     );
     options.headers["Content-Type"] = "application/json; charset=utf-8";
-    options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys;
-    if (reqSecureKey != null) {
+    options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys.xApiKey;
+    options.headers["Accept-Language"] = Localization.getLocale();
+    if (authToken != null) {
       //log("$accessToken", name: "has accessToken");
-      options.headers['Authorization'] = 'Bearer $reqSecureKey';
+      options.headers['Authorization'] = 'Bearer $authToken';
     }
     super.onRequest(options, handler);
   }
@@ -36,10 +38,10 @@ class AppInterceptors extends Interceptor {
       Response response, ResponseInterceptorHandler handler) async {
     if (jsonDecode(response.data).toString().contains("token")) {
       final Map responseData = jsonDecode(response.data);
-      String? reqSecureKey = responseData["reqSecureKey"];
-      if (reqSecureKey != null) {
-        await getIt<SecureStorageService>().setAccessToken(reqSecureKey);
-        responseData.remove(reqSecureKey);
+      String? authToken = responseData["reqSecureKey"];
+      if (authToken != null) {
+        await getIt<SecureStorageService>().setAccessToken(authToken);
+        responseData.remove(authToken);
         response.data = jsonEncode(responseData);
       }
     }

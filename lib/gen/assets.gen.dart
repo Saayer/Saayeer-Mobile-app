@@ -15,11 +15,19 @@ class $AssetsGifsGen {
   /// File path: assets/gifs/error.gif
   AssetGenImage get error => const AssetGenImage('assets/gifs/error.gif');
 
+  /// File path: assets/gifs/squishy_logo.gif
+  AssetGenImage get squishyLogo =>
+      const AssetGenImage('assets/gifs/squishy_logo.gif');
+
   /// File path: assets/gifs/success.gif
   AssetGenImage get success => const AssetGenImage('assets/gifs/success.gif');
 
+  /// File path: assets/gifs/tenbyten_logo.gif
+  AssetGenImage get tenbytenLogo =>
+      const AssetGenImage('assets/gifs/tenbyten_logo.gif');
+
   /// List of all assets
-  List<AssetGenImage> get values => [error, success];
+  List<AssetGenImage> get values => [error, squishyLogo, success, tenbytenLogo];
 }
 
 class $AssetsIconsGen {
@@ -28,23 +36,31 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_logo.png
   AssetGenImage get icLogo => const AssetGenImage('assets/icons/ic_logo.png');
 
+  /// File path: assets/icons/ic_logo_text.png
+  AssetGenImage get icLogoText =>
+      const AssetGenImage('assets/icons/ic_logo_text.png');
+
   /// File path: assets/icons/ic_logo_with_bg.jpg
   AssetGenImage get icLogoWithBg =>
       const AssetGenImage('assets/icons/ic_logo_with_bg.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [icLogo, icLogoWithBg];
+  List<AssetGenImage> get values => [icLogo, icLogoText, icLogoWithBg];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/ic_logo_with_text.jpeg
-  AssetGenImage get icLogoWithText =>
-      const AssetGenImage('assets/images/ic_logo_with_text.jpeg');
+  /// File path: assets/images/logo_text_with_bg.jpeg
+  AssetGenImage get logoTextWithBg =>
+      const AssetGenImage('assets/images/logo_text_with_bg.jpeg');
+
+  /// File path: assets/images/logo_with_text.jpeg
+  AssetGenImage get logoWithText =>
+      const AssetGenImage('assets/images/logo_with_text.jpeg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [icLogoWithText];
+  List<AssetGenImage> get values => [logoTextWithBg, logoWithText];
 }
 
 class $AssetsStringsGen {

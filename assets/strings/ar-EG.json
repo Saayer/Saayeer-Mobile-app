@@ -1,6 +1,14 @@
 {
+  "error": "خطأ",
+  "warning": "تحذير",
+  "error_title": "عذرا!",
+  "error_msg": "لا يمكننا معالجة طلبك. حاول مرة اخرى.",
+  "?": "؟",
   "confirm": "تأكيد",
   "cancel": "إلغاء",
+  "ok": "حسناً",
+  "continue": "متابعة",
+  "something_went_wrong": "هناك خطأ",
   "introScreenTitle_1": "مرحبًا بك في ساير",
   "introScreenTitle_2": "إدارة الطلبات بسهولة",
   "introScreenTitle_3": "تتبع الوقت الحقيقي للتسليم",
@@ -17,6 +25,12 @@
   "email": "البريد الإلكتروني",
   "password": "كلمة المرور",
   "phone_num": "رقم الهاتف",
-  "enter_phone_num_desc": "الرجاء إدخال رقم هاتفك"
-
+  "enter_phone_num_desc": "الرجاء إدخال رقم هاتفك",
+  "verify_otp": "كود التحقق",
+  "verify_otp_desc": "لقد أرسلنا لك كود. من فضلك قم بإدخاله أدناه",
+  "resend_code": "إعادة إرسال الكود",
+  "OTP_resend_msg": "تمت إعادة إرسال الكود بنجاح",
+  "resend_code_in": "إعادة إرسال الكود في خلال",
+  "invalid_otp_error_title": "غير صحيح OTP",
+  "invalid_otp_error_description": "OTP الذي تم ادخاله غير صحيح"
 }

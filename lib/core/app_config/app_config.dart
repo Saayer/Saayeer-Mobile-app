@@ -4,6 +4,7 @@ import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/core/app_config/app_flavor.dart';
 import 'package:saayer/core/app_config/app_flavor_entity.dart';
 import 'package:saayer/core/services/encryption/encryption.dart';
 import 'package:saayer/core/services/deep_link/firebase_deep_link.dart';
@@ -55,6 +56,8 @@ class AppConfig {
   }
 
   void initAppFlavorEntity() {
-    AppFlavorEntity.initInstance(appName, flavorType, "");
+    final AppFlavorEntity appFlavorEntity = AppFlavorEntity(
+        appName: appName, flavorType: flavorType, versionNum: "");
+    getIt<AppFlavor>().setAppFlavorEntity(appFlavorEntity);
   }
 }

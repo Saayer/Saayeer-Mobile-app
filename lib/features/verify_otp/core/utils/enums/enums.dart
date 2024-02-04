@@ -1,0 +1,5 @@
+enum VerifyOtpErrorStatus {
+  ERROR_RESEND_CODE,
+  ERROR_VERIFY_OTP,
+  ERROR_CONFIRM_LOGIN
+}

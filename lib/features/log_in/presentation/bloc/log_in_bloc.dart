@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/log_in/core/utils/enums/enums.dart';
 import 'package:saayer/features/log_in/domain/entities/log_in_entity.dart';
+import 'package:saayer/features/log_in/domain/entities/submit_log_in_entity.dart';
 import 'package:saayer/features/log_in/domain/use_cases/log_in_usecase.dart';
 
 part 'log_in_event.dart';
@@ -19,7 +22,7 @@ part 'log_in_state.dart';
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
   final LogInUseCase logInUseCase;
 
-  LogInBloc({required this.logInUseCase}) : super(LogInState()) {
+  LogInBloc({required this.logInUseCase}) : super(const LogInState()) {
     on<OnTextChange>(_onTextChange);
     on<SubmitLogInData>(_submitLogInData);
   }
@@ -48,45 +51,47 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
             LogInEntity(phoneNumber: event.phoneNumber ?? PhoneNumber())));
   }
 
-// Future _submit(Emitter<LogInState> emit) async {
-//   emit(state.copyWith(
-//     requestState: RequestState.LOADING,
-//   ));
-//
-//   final result = await logInUseCase(LogInParameters(state.logInEntity!));
-//
-//   result.fold((l) {
-//     log("left logIn $l");
-//     return emit(state.copyWith(
-//         requestState: RequestState.ERROR, errorMessage: l.failureMessage));
-//   }, (r) async {
-//     if (r != null) {
-//       log("right logIn $r");
-//       if (r.isSuccess ?? false) {
-//         LoggedInUserEntity loggedInUserEntity = r.loggedInUserEntity!;
-//         loggedInUserEntity.encryptPassword =
-//             (state.logInEntity?.password ?? "");
-//         SubmitLogInEntity? submitLogInEntity = r.copyWith(
-//             loggedInUserEntity: loggedInUserEntity);
-//         return emit(state.copyWith(
-//             requestState: RequestState.LOADED,
-//             logInSuccessfully: true,
-//             submitLogInEntity: submitLogInEntity,
-//             errorMessage: ""));
-//       } else {
-//         return emit(state.copyWith(
-//             requestState: RequestState.ERROR, errorMessage: r.message));
-//       }
-//     } else {
-//       return emit(state.copyWith(
-//           requestState: RequestState.ERROR,
-//           errorMessage: "Something went wrong"));
-//     }
-//   });
-// }
+  Future<FutureOr<void>> _submitLogInData(
+      SubmitLogInData event, Emitter<LogInState> emit) async {
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-  FutureOr<void> _submitLogInData(
-      SubmitLogInData event, Emitter<LogInState> emit) {
+    final result =
+        await logInUseCase(LogInParameters(logInEntity: state.logInEntity!));
 
+    if (result.isLeft()) {
+      final Failure leftResult = (result as Left).value;
+      log("left submitLogInData $leftResult");
+      emit(state.copyWith(
+          stateHelper: state.stateHelper.copyWith(
+              requestState: RequestState.ERROR,
+              errorStatus: LogInErrorStatus.ERROR_LOG_IN)));
+    } else {
+      final SubmitLogInEntity? rightResult = (result as Right).value;
+      log("right submitLogInData $rightResult");
+      if (rightResult != null) {
+        if (rightResult.isSuccess) {
+          emit(state.copyWith(
+            stateHelper: const StateHelper(
+                requestState: RequestState.SUCCESS, loadingMessage: ""),
+            submitLogInEntity: rightResult,
+          ));
+        } else {
+          emit(state.copyWith(
+            stateHelper: const StateHelper(
+                requestState: RequestState.ERROR,
+                errorStatus: LogInErrorStatus.ERROR_LOG_IN),
+            submitLogInEntity: rightResult,
+          ));
+        }
+      } else {
+        log("", name: "SubmitLogInEvent error");
+        emit(state.copyWith(
+          stateHelper: const StateHelper(
+              requestState: RequestState.ERROR,
+              errorStatus: LogInErrorStatus.ERROR_LOG_IN),
+        ));
+      }
+    }
   }
 }

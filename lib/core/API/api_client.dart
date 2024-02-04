@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:saayer/core/API/api_consumer.dart';
 import 'package:saayer/core/API/api_interceptors.dart';
 import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
 import 'package:saayer/core/API/http_overrides.dart';
 import 'package:saayer/core/API/status_code.dart';
+import 'package:saayer/core/app_config/app_flavor.dart';
 import 'package:saayer/core/error/exceptions.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/enums.dart';
+import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
+import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 @LazySingleton(as: ApiConsumer)
 class DioConsumer implements ApiConsumer {
@@ -27,13 +30,21 @@ class DioConsumer implements ApiConsumer {
       ..validateStatus = (status) {
         return (status == StatusCode.ok) || (status == StatusCode.success);
       };
-    client.interceptors.addAll([
-      PrettyDioLogger(
-        requestBody: true,
-        requestHeader: true,
-      ),
-      getIt<AppInterceptors>()
-    ]);
+    addAppInterceptors();
+  }
+
+  void addAppInterceptors() {
+    client.interceptors.add(getIt<AppInterceptors>());
+    if (getIt<AppFlavor>().appFlavorEntity.flavorType != FlavorType.PROD) {
+      client.interceptors.add(TalkerDioLogger(
+        settings: const TalkerDioLoggerSettings(
+          printResponseData: true,
+          printRequestData: true,
+          printResponseHeaders: true,
+          printRequestHeaders: true,
+        ),
+      ));
+    }
   }
 
   @override

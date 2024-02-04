@@ -1,15 +1,14 @@
 import 'package:saayer/features/log_in/domain/entities/submit_log_in_entity.dart';
 
 /// success : true
-/// data : "2932"
-/// errorMessage : "تم إرسال رقم التحقق بنجاح للرقم XXXXXX8312"
-/// reqSecureKey : "1819a4e0444d4e1299b1990680aaf72d"
+/// data : {"otp":"3718","message":"Otp sent to number XXXXXX3660"}
+/// errorMessage : null
 
 class LogInResponseModel {
   LogInResponseModel({
     bool? success,
-    String? data,
-    String? errorMessage,
+    Data? data,
+    dynamic errorMessage,
   }) {
     _success = success;
     _data = data;
@@ -18,18 +17,18 @@ class LogInResponseModel {
 
   LogInResponseModel.fromJson(dynamic json) {
     _success = json['success'];
-    _data = json['data'];
+    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
     _errorMessage = json['errorMessage'];
   }
 
   bool? _success;
-  String? _data;
-  String? _errorMessage;
+  Data? _data;
+  dynamic _errorMessage;
 
   LogInResponseModel copyWith({
     bool? success,
-    String? data,
-    String? errorMessage,
+    Data? data,
+    dynamic errorMessage,
   }) =>
       LogInResponseModel(
         success: success ?? _success,
@@ -39,19 +38,65 @@ class LogInResponseModel {
 
   bool? get success => _success;
 
-  String? get data => _data;
+  Data? get data => _data;
 
-  String? get errorMessage => _errorMessage;
+  dynamic get errorMessage => _errorMessage;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['success'] = _success;
-    map['data'] = _data;
+    if (_data != null) {
+      map['data'] = _data?.toJson();
+    }
     map['errorMessage'] = _errorMessage;
     return map;
   }
 
   SubmitLogInEntity toDomain() {
-    return SubmitLogInEntity(isSuccess: success, message: errorMessage);
+    return SubmitLogInEntity(
+        otp: data?.otp ?? "",
+        message: data?.message ?? "",
+        isSuccess: success ?? false);
+  }
+}
+
+/// otp : "3718"
+/// message : "Otp sent to number XXXXXX3660"
+
+class Data {
+  Data({
+    String? otp,
+    String? message,
+  }) {
+    _otp = otp;
+    _message = message;
+  }
+
+  Data.fromJson(dynamic json) {
+    _otp = json['otp'];
+    _message = json['message'];
+  }
+
+  String? _otp;
+  String? _message;
+
+  Data copyWith({
+    String? otp,
+    String? message,
+  }) =>
+      Data(
+        otp: otp ?? _otp,
+        message: message ?? _message,
+      );
+
+  String? get otp => _otp;
+
+  String? get message => _message;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['otp'] = _otp;
+    map['message'] = _message;
+    return map;
   }
 }

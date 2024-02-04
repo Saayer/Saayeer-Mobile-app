@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:saayer/core/utils/enums.dart';
 
 class AppFlavorEntity extends Equatable {
@@ -6,25 +7,24 @@ class AppFlavorEntity extends Equatable {
   final FlavorType flavorType;
   final String? versionNum;
 
-  AppFlavorEntity._internal(
-      {required this.appName, required this.flavorType, this.versionNum});
-
-  static AppFlavorEntity? _instance;
-
-  factory AppFlavorEntity.getInstance() {
-    return _instance!;
-  }
-
-  factory AppFlavorEntity.initInstance(
-      String appName, FlavorType flavorType, String? versionNum) {
-    if (_instance == null) {
-      _instance = AppFlavorEntity._internal(
-          appName: appName, flavorType: flavorType, versionNum: versionNum);
-      return _instance!;
-    }
-    return _instance!;
-  }
+  const AppFlavorEntity({
+    required this.appName,
+    required this.flavorType,
+    this.versionNum,
+  });
 
   @override
   List<Object?> get props => [appName, flavorType, versionNum];
+
+  AppFlavorEntity copyWith({
+    String? appName,
+    FlavorType? flavorType,
+    String? versionNum,
+  }) {
+    return AppFlavorEntity(
+      appName: appName ?? this.appName,
+      flavorType: flavorType ?? this.flavorType,
+      versionNum: versionNum ?? this.versionNum,
+    );
+  }
 }

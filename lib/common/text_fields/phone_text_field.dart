@@ -46,7 +46,7 @@ class PhoneTextField extends StatelessWidget {
       onInputValidated: (bool value) {
         log("$value", name: "onInputValidated --->");
       },
-      maxLength: 10,
+      maxLength: 12,
       selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         useBottomSheetSafeArea: true,

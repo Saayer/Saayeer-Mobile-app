@@ -1,6 +1,14 @@
 {
+  "error": "Error",
+  "warning": "Warning",
+  "error_title": "Sorry!",
+  "error_msg": "We can't process your request. Please try again later.",
+  "?": "?",
   "confirm": "Confirm",
   "cancel": "Cancel",
+  "ok": "Ok",
+  "continue": "Continue",
+  "something_went_wrong": "Something went wrong",
   "introScreenTitle_1": "Welcome to Saayer",
   "introScreenTitle_2": "Easy Order Management",
   "introScreenTitle_3": "Real-Time Delivery Tracking",
@@ -14,5 +22,12 @@
   "email": "Email",
   "password": "Password",
   "phone_num": "Phone Number",
-  "enter_phone_num_desc": "Please enter your phone number"
+  "enter_phone_num_desc": "Please enter your phone number",
+  "verify_otp": "OTP Verification",
+  "verify_otp_desc": "We texted you OTP. Please enter it below",
+  "resend_code": "Resend Code",
+  "OTP_resend_msg": "OTP has been resent successfully",
+  "resend_code_in": "Resend code in",
+  "invalid_otp_error_title": "Invalid OTP",
+  "invalid_otp_error_description": "The OTP you have entered is incorrect"
 }
