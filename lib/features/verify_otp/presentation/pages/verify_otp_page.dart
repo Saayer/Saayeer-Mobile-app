@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -16,6 +18,7 @@ import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dar
 import 'dart:ui' as ui;
 
 import 'package:saayer/features/verify_otp/presentation/widgets/down_bill_timer_counter_widget.dart';
+import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class VerifyOtpPage extends StatelessWidget {
   const VerifyOtpPage({super.key});
@@ -39,8 +42,13 @@ class VerifyOtpPage extends StatelessWidget {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-            SaayerToast().showSuccessToast(
-                msg: state.submitVerifyOtpEntity?.message ?? "");
+            if (state.isVerified) {
+              SaayerToast().showSuccessToast(msg: "welcome");
+              getIt<NavigationService>().navigateTo(const ViewPageScreen());
+            } else {
+              SaayerToast().showSuccessToast(
+                  msg: state.submitVerifyOtpEntity?.message ?? "");
+            }
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");

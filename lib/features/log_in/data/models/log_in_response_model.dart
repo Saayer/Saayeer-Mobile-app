@@ -53,10 +53,11 @@ class LogInResponseModel {
   }
 
   SubmitLogInEntity toDomain() {
+    final bool isSuccess = (success ?? false);
     return SubmitLogInEntity(
         otp: data?.otp ?? "",
-        message: data?.message ?? "",
-        isSuccess: success ?? false);
+        message: isSuccess ? (data?.message ?? "") : (errorMessage ?? ""),
+        isSuccess: isSuccess);
   }
 }
 

@@ -38,7 +38,7 @@ class AppInterceptors extends Interceptor {
       Response response, ResponseInterceptorHandler handler) async {
     if (jsonDecode(response.data).toString().contains("token")) {
       final Map responseData = jsonDecode(response.data);
-      String? authToken = responseData["reqSecureKey"];
+      final String? authToken = responseData["data"]["token"];
       if (authToken != null) {
         await getIt<SecureStorageService>().setAccessToken(authToken);
         responseData.remove(authToken);

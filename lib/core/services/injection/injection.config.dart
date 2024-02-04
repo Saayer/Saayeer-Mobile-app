@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:saayer/core/API/api_client.dart' as _i13;
 import 'package:saayer/core/API/api_consumer.dart' as _i12;
-import 'package:saayer/core/API/api_interceptors.dart' as _i14;
+import 'package:saayer/core/API/interceptors/api_interceptors.dart' as _i14;
 import 'package:saayer/core/API/refresh_token.dart' as _i20;
 import 'package:saayer/core/app_config/app_flavor.dart' as _i3;
 import 'package:saayer/core/network/network_info.dart' as _i9;

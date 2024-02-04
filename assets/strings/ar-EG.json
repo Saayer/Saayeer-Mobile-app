@@ -32,5 +32,6 @@
   "OTP_resend_msg": "تمت إعادة إرسال الكود بنجاح",
   "resend_code_in": "إعادة إرسال الكود في خلال",
   "invalid_otp_error_title": "غير صحيح OTP",
-  "invalid_otp_error_description": "OTP الذي تم ادخاله غير صحيح"
+  "invalid_otp_error_description": "OTP الذي تم ادخاله غير صحيح",
+  "welcome": "مرحباً!"
 }

@@ -29,5 +29,6 @@
   "OTP_resend_msg": "OTP has been resent successfully",
   "resend_code_in": "Resend code in",
   "invalid_otp_error_title": "Invalid OTP",
-  "invalid_otp_error_description": "The OTP you have entered is incorrect"
+  "invalid_otp_error_description": "The OTP you have entered is incorrect",
+  "welcome": "Welcome!"
 }
