@@ -1,0 +1,7 @@
+enum NavBarIconTypes{
+  HOME,
+  SHIPMENTS,
+  REQUEST_SHIPMENT,
+  EBILLS,
+  MORE
+}

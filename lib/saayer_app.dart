@@ -11,6 +11,7 @@ import 'package:saayer/core/utils/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/splash/presentation/screens/splash_screen.dart';
+import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class SaayerApp extends StatelessWidget {
   final FlavorType flavorType;
@@ -41,8 +42,10 @@ class SaayerApp extends StatelessWidget {
                   overlayWidgetBuilder: (_) {
                     return const SaayerLoader();
                   },
-                  overlayColor:
-                      SaayerTheme().getColorsPalette.blackColor.withOpacity(0.8),
+                  overlayColor: SaayerTheme()
+                      .getColorsPalette
+                      .blackColor
+                      .withOpacity(0.8),
                   child: MaterialApp(
                     navigatorKey: getIt<NavigationService>().mainNavigatorKey,
                     debugShowCheckedModeBanner: false,
@@ -54,9 +57,9 @@ class SaayerApp extends StatelessWidget {
                     supportedLocales: context.supportedLocales,
                     locale: context.locale,
                     home: Builder(builder: (context) {
-                      return const SplashScreen();
+                      //return const SplashScreen();
+                      return const ViewPageScreen();
                     }),
-                    //home: !isLoggedIn? ,
                   ),
                 );
               });
