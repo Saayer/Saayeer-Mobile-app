@@ -5,7 +5,7 @@ class ViewPageState extends Equatable {
   final StateHelper stateHelper;
 
   const ViewPageState({
-    this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
+    this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
   });
 
   ViewPageState copyWith({

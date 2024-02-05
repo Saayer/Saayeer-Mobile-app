@@ -1,10 +1,20 @@
 part of 'more_bloc.dart';
 
-abstract class MoreState extends Equatable {
-  const MoreState();
-}
+class MoreState extends Equatable {
+  final StateHelper stateHelper;
 
-class MoreInitial extends MoreState {
+  const MoreState({
+    this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
+  });
+
+  MoreState copyWith({
+    StateHelper? stateHelper,
+  }) {
+    return MoreState(
+      stateHelper: stateHelper ?? this.stateHelper,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [stateHelper];
 }

@@ -35,5 +35,10 @@
   "shipments": "Shipments",
   "request_shipment": "Request Shipment",
   "ebills": "E-Bills",
-  "more": "More"
+  "more": "More",
+  "light_mode": "Light Mode",
+  "dark_mode": "Dark Mode",
+  "english": "English",
+  "arabic": "العربية",
+  "language": "Language"
 }

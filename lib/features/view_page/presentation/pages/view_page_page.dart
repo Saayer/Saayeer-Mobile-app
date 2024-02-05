@@ -1,5 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/common/app_bar/base_app_bar.dart';
+import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/domain/entities/nav_bar_icon_entity.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
@@ -18,16 +25,35 @@ class ViewPagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
     return BlocConsumer<ViewPageBloc, ViewPageState>(
+      buildWhen: (previousState, nextState) =>
+          (previousState.stateHelper.requestState !=
+              nextState.stateHelper.requestState),
       listener: (context, state) {
-        // TODO: implement listener
+        final bool isLoading = (viewPageBloc.state.stateHelper.requestState ==
+            RequestState.LOADING);
+        LoadingDialog.setIsLoading(context, isLoading);
+        if (!isLoading) {
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {}
+        }
       },
       builder: (context, state) {
         final NavBarIconEntity selectedNavBarIconEntity = viewPageBloc
             .navBarIconEntityList
             .firstWhere((element) => element.isSelected);
         return Scaffold(
+            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
+            appBar: BaseAppBar(
+              title: viewPageBloc.navBarIconEntityList
+                  .firstWhere((element) => element.isSelected)
+                  .navBarIconType
+                  .name
+                  .tr(),
+              showBackLeading: false,
+              height: 50,
+            ),
             floatingActionButton: const SaayerFloatingActionButton(),
             bottomNavigationBar: const SaayerBottomNavigationBar(),
             body: _getBody(selectedNavBarIconEntity));

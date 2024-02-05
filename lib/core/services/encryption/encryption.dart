@@ -2,21 +2,16 @@ import 'dart:developer';
 import 'package:encrypt/encrypt.dart';
 import 'package:injectable/injectable.dart';
 
-
-@Singleton()
 class Encryption {
-  final key = Key.fromUtf8('saayerappdonebyberrawyandshaimaa');
+  static final key = Key.fromUtf8('saayerappdonebyberrawyandshaimaa');
   final iv = IV.fromLength(16);
 
   late final Encrypter encrypter;
 
-  void init() {
-    encrypter = Encrypter(AES(key));
-  }
-
   String encrypt(String plainText) {
-    final encrypted = encrypter.encrypt(plainText, iv: iv);
-    //log("${encrypted.base64}", name: "encrypt");
+    encrypter = Encrypter(AES(key));
+    final Encrypted encrypted = encrypter.encrypt(plainText, iv: iv);
+    log(encrypted.base64.toString(), name: "encrypted");
     return encrypted.base64;
   }
 
@@ -25,8 +20,15 @@ class Encryption {
   }
 
   String decrypt(String encryptedText) {
-    Encrypted encrypted = toEncrypted(encryptedText);
-    final decrypted = encrypter.decrypt(encrypted, iv: iv);
-    return decrypted;
+    encrypter = Encrypter(AES(key));
+    try {
+      final Encrypted encrypted = encrypter.encrypt(encryptedText, iv: iv);
+      final String decrypted = encrypter.decrypt(encrypted, iv: iv);
+      log(decrypted.toString(), name: "decrypted");
+      return decrypted;
+    } catch (e) {
+      log(e.toString(), name: "decrypted error");
+      return "";
+    }
   }
 }

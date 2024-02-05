@@ -38,5 +38,10 @@
   "shipments": "الشحنات",
   "request_shipment": "طلب شحنة",
   "ebills": "الفواتير الإلكترونية",
-  "more": "المزيد"
+  "more": "المزيد",
+  "light_mode": "وضع نهاري",
+  "dark_mode": "وضع ليلي",
+  "english": "English",
+  "arabic": "العربية",
+  "language": "اللغة"
 }

@@ -1,10 +1,20 @@
 part of 'home_bloc.dart';
 
-abstract class HomeState extends Equatable {
-  const HomeState();
-}
+class HomeState extends Equatable {
+  final StateHelper stateHelper;
 
-class HomeInitial extends HomeState {
+  const HomeState({
+    this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
+  });
+
+  HomeState copyWith({
+    StateHelper? stateHelper,
+  }) {
+    return HomeState(
+      stateHelper: stateHelper ?? this.stateHelper,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [stateHelper];
 }

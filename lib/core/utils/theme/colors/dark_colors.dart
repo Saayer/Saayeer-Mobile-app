@@ -15,7 +15,7 @@ class DarkColorsPalette implements BaseColorsPalette {
   Color get lightOrangeColor => const Color(0xffFFE5C5);
 
   @override
-  Color get blackTextColor => const Color(0xff373F51);
+  Color get blackTextColor => Colors.white;
 
   @override
   Color get lightBlackTextColor => const Color(0xff737885);
@@ -78,7 +78,7 @@ class DarkColorsPalette implements BaseColorsPalette {
   Color get neutral0 => const Color(0xFF787E7E);
 
   @override
-  Color get backgroundColor => const Color(0xFFFFFFFF);
+  Color get backgroundColor => Colors.black45;
 
   @override
   Color get transparent => Colors.transparent;

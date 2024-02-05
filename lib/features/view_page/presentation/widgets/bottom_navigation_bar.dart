@@ -20,51 +20,98 @@ class SaayerBottomNavigationBar extends StatelessWidget {
       },
       builder: (context, state) {
         return BottomAppBar(
-          elevation: 10,
-          color: SaayerTheme().getColorsPalette.lightGreyColor,
+          height: 80.h,
+          elevation: 2,
+          //alignment: Alignment.topCenter,
+          color: SaayerTheme().getColorsPalette.backgroundColor,
+          shadowColor: SaayerTheme().getColorsPalette.darkGreyColor,
           shape: const CircularNotchedRectangle(),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: viewPageBloc.navBarIconEntityList.map((navBarIconEntity) {
-              final int index =
-                  viewPageBloc.navBarIconEntityList.indexOf(navBarIconEntity);
-              final bool isMiddle = (index == 2);
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: isMiddle ? 80.w : 0,
-                  ),
-                  Stack(
-                    alignment: Alignment.center,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children:
+                    viewPageBloc.navBarIconEntityList.map((navBarIconEntity) {
+                  final int index = viewPageBloc.navBarIconEntityList
+                      .indexOf(navBarIconEntity);
+                  final bool isMiddle = (index == 2);
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      if (navBarIconEntity.navBarIconType !=
-                          NavBarIconTypes.REQUEST_SHIPMENT)
-                        NavBarIconWidget(
-                          navBarIconType: navBarIconEntity.navBarIconType,
-                          onPressed: () {
-                            viewPageBloc.add(GoToPage(
-                                navBarIconType:
-                                    navBarIconEntity.navBarIconType));
-                          },
-                          isSelected: navBarIconEntity.isSelected,
-                        ),
-                      Positioned(
-                        top: 30.h,
-                        child: Text(
-                          navBarIconEntity.navBarIconType.name.tr(),
-                          style: AppTextStyles.smallBoldLabel(),
-                          textAlign: TextAlign.center,
-                          softWrap: true,
-                        ),
-                      )
+                      SizedBox(
+                        width: isMiddle ? 20.w : 0,
+                      ),
+                      Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          SizedBox(
+                            height: 80.h,
+                            width: 60.w,
+                          ),
+                          if (navBarIconEntity.navBarIconType !=
+                              NavBarIconTypes.REQUEST_SHIPMENT)
+                            Positioned(
+                              top: 0.h,
+                              child: NavBarIconWidget(
+                                navBarIconType: navBarIconEntity.navBarIconType,
+                                onPressed: () {
+                                  viewPageBloc.add(GoToPage(
+                                      navBarIconType:
+                                          navBarIconEntity.navBarIconType));
+                                },
+                                isSelected: navBarIconEntity.isSelected,
+                              ),
+                            ),
+                          if (navBarIconEntity.navBarIconType !=
+                              NavBarIconTypes.REQUEST_SHIPMENT)
+                            Positioned(
+                              top: 35.h,
+                              child: SizedBox(
+                                width: 60.w,
+                                child: Text(
+                                  navBarIconEntity.navBarIconType.name.tr(),
+                                  style: AppTextStyles.xSmallLabel(
+                                      navBarIconEntity.isSelected
+                                          ? SaayerTheme()
+                                              .getColorsPalette
+                                              .primaryColor
+                                          : SaayerTheme()
+                                              .getColorsPalette
+                                              .blackTextColor),
+                                  textAlign: TextAlign.center,
+                                  softWrap: true,
+                                ),
+                              ),
+                            )
+                        ],
+                      ),
                     ],
+                  );
+                }).toList(),
+              ),
+              Positioned(
+                top: 35.h,
+                child: SizedBox(
+                  width: 60.w,
+                  child: Text(
+                    NavBarIconTypes.REQUEST_SHIPMENT.name.tr(),
+                    style: AppTextStyles.xSmallLabel(viewPageBloc
+                            .navBarIconEntityList
+                            .firstWhere((element) =>
+                                element.navBarIconType ==
+                                NavBarIconTypes.REQUEST_SHIPMENT)
+                            .isSelected
+                        ? SaayerTheme().getColorsPalette.primaryColor
+                        : SaayerTheme().getColorsPalette.blackTextColor),
+                    textAlign: TextAlign.center,
+                    softWrap: true,
                   ),
-                ],
-              );
-            }).toList(),
+                ),
+              )
+            ],
           ),
         );
       },

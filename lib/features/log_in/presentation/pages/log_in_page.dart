@@ -62,26 +62,25 @@ class LogInPage extends StatelessWidget {
           appBar: const BaseAppBar(
             showBackLeading: false,
           ),
-          bottomSheet: Padding(
-            padding: EdgeInsets.only(bottom: 50.h),
-            child: Row(
-              children: [
-                SaayerDefaultTextButton(
-                  text: "log_in",
-                  isEnabled: enableLogIn(logInBloc),
-                  borderRadius: 50.r,
-                  onPressed: () {
-                    final bool isFormValid =
-                        (logInBloc.formKey.currentState!.validate());
-                    isFormValid
-                        ? logInBloc.add(SubmitLogInData())
-                        : SaayerToast()
-                            .showErrorToast(msg: "empty_fields_error".tr());
-                  },
-                  btnWidth: width / 1.2,
-                  btnHeight: 50.h,
-                ),
-              ],
+          bottomSheet: ColoredBox(
+            color: SaayerTheme().getColorsPalette.backgroundColor,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 50.h),
+              child: SaayerDefaultTextButton(
+                text: "log_in",
+                isEnabled: enableLogIn(logInBloc),
+                borderRadius: 16.r,
+                onPressed: () {
+                  final bool isFormValid =
+                      (logInBloc.formKey.currentState!.validate());
+                  isFormValid
+                      ? logInBloc.add(SubmitLogInData())
+                      : SaayerToast()
+                          .showErrorToast(msg: "empty_fields_error".tr());
+                },
+                btnWidth: width / 1.2,
+                btnHeight: 50.h,
+              ),
             ),
           ),
           body: InkWell(

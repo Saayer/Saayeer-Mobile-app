@@ -48,6 +48,16 @@ class SaayerTheme {
         .mode;
   }
 
+  void setThemeMode() {
+    AdaptiveTheme.of(
+            getIt<NavigationService>().mainNavigatorKey.currentContext!)
+        .toggleThemeMode(useSystem: false);
+
+    AdaptiveTheme.of(
+            getIt<NavigationService>().mainNavigatorKey.currentContext!)
+        .updateState();
+  }
+
   bool get isDarkThemeMode {
     return AdaptiveTheme.of(
             getIt<NavigationService>().mainNavigatorKey.currentContext!)

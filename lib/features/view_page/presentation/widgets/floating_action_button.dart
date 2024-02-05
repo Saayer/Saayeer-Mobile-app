@@ -26,8 +26,7 @@ class SaayerFloatingActionButton extends StatelessWidget {
             child: FittedBox(
               alignment: Alignment.bottomCenter,
               child: FloatingActionButton(
-                backgroundColor:
-                    SaayerTheme().getColorsPalette.primaryColor,
+                backgroundColor: SaayerTheme().getColorsPalette.primaryColor,
                 elevation: 10,
                 onPressed: () {
                   viewPageBloc.add(const GoToPage(
@@ -37,7 +36,7 @@ class SaayerFloatingActionButton extends StatelessWidget {
                   Constants.getIconPath("ic_logo.png"),
                   width: 35.w,
                   height: 35.h,
-                  color: SaayerTheme().getColorsPalette.backgroundColor,
+                  color: SaayerTheme().getColorsPalette.whiteColor,
                 ),
               ),
             ));

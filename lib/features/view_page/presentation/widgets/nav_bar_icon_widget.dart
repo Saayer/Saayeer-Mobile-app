@@ -29,7 +29,7 @@ class NavBarIconWidget extends StatelessWidget {
         width: 24.w,
         height: 24.h,
         color: isSelected
-            ? SaayerTheme().getColorsPalette.orangeColor
+            ? SaayerTheme().getColorsPalette.primaryColor
             : SaayerTheme().getColorsPalette.blackTextColor,
       ),
     );

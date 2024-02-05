@@ -21,7 +21,9 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
   }
 
   final List<NavBarIconEntity> navBarIconEntityList = [
-    const HomeNavBarIconEntity(),
+    const HomeNavBarIconEntity(
+      isSelected: true
+    ),
     const ShipmentsNavBarIconEntity(),
     const RequestShipmentNavBarIconEntity(),
     const EBillsNavBarIconEntity(),

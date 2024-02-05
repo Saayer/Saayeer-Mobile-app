@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants.dart';
@@ -15,15 +14,18 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool? centerTitle;
   final bool showBackLeading;
   final Widget leadingWidget;
+  final double height;
 
-  const BaseAppBar(
-      {super.key,
-      this.title,
-      this.onTapLeading,
-      this.actions,
-      this.centerTitle = true,
-      this.showBackLeading = true,
-      this.leadingWidget = const SizedBox()});
+  const BaseAppBar({
+    super.key,
+    this.title,
+    this.onTapLeading,
+    this.actions,
+    this.centerTitle = true,
+    this.showBackLeading = true,
+    this.leadingWidget = const SizedBox(),
+    this.height = 50,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,5 +66,5 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(50.h);
+  Size get preferredSize => Size.fromHeight(height.h);
 }

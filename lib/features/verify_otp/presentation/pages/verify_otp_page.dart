@@ -2,10 +2,9 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
-import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -105,25 +104,87 @@ class VerifyOtpPage extends StatelessWidget {
                             horizontal: 30.w, vertical: 20.h),
                         child: Directionality(
                           textDirection: ui.TextDirection.ltr,
-                          child: OtpTextField(
-                            numberOfFields: 4,
-                            clearText: true,
-                            borderColor:
-                                SaayerTheme().getColorsPalette.greyColor,
-                            focusedBorderColor:
-                                SaayerTheme().getColorsPalette.blackTextColor,
-                            styles: otpFieldStyles,
-                            showFieldAsBox: false,
-                            borderWidth: 4.0,
-                            onCodeChanged: (String code) {
-                              //handle validation or checks here if necessary
-                            },
-                            onSubmit: (String verificationCode) {
-                              verifyOtpBloc
-                                  .add(CheckOtpEvent(otp: verificationCode));
-                            },
+                          child: SizedBox(
+                            width: width / 1.8,
+                            child: PinCodeTextField(
+                              appContext: context,
+                              pastedTextStyle: AppTextStyles.buttonLabel(),
+                              length: 4,
+                              blinkWhenObscuring: true,
+                              animationType: AnimationType.fade,
+                              validator: (v) {
+                                // if (v!.length < 3) {
+                                //   return "I'm from validator";
+                                // } else {
+                                //   return null;
+                                // }
+                              },
+                              pinTheme: PinTheme(
+                                shape: PinCodeFieldShape.box,
+                                borderRadius: BorderRadius.circular(5),
+                                fieldHeight: 50,
+                                fieldWidth: 40,
+                                inactiveColor: SaayerTheme()
+                                    .getColorsPalette
+                                    .blackTextColor,
+                                activeColor:
+                                    SaayerTheme().getColorsPalette.greyColor,
+                                selectedColor:
+                                    SaayerTheme().getColorsPalette.orangeColor,
+                                selectedFillColor: SaayerTheme()
+                                    .getColorsPalette
+                                    .blackTextColor,
+                                activeFillColor: SaayerTheme()
+                                    .getColorsPalette
+                                    .blackTextColor,
+                              ),
+                              cursorColor:
+                                  SaayerTheme().getColorsPalette.blackTextColor,
+                              animationDuration:
+                                  const Duration(milliseconds: 300),
+                              enableActiveFill: false,
+                              keyboardType: TextInputType.number,
+                              boxShadows: const [
+                                BoxShadow(
+                                  offset: Offset(0, 1),
+                                  color: Colors.black12,
+                                  blurRadius: 10,
+                                )
+                              ],
+                              onCompleted: (value) {
+                                debugPrint("Completed");
+                                verifyOtpBloc.add(CheckOtpEvent(otp: value));
+                              },
+                              onChanged: (value) {
+                                debugPrint(value);
+                              },
+                              beforeTextPaste: (text) {
+                                debugPrint("Allowing to paste $text");
+                                //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                                //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                                return true;
+                              },
+                            ),
                           ),
                         ),
+                        // child: OtpTextField(
+                        //   numberOfFields: 4,
+                        //   clearText: true,
+                        //   borderColor:
+                        //       SaayerTheme().getColorsPalette.greyColor,
+                        //   focusedBorderColor:
+                        //       SaayerTheme().getColorsPalette.blackTextColor,
+                        //   styles: otpFieldStyles,
+                        //   showFieldAsBox: false,
+                        //   borderWidth: 4.0,
+                        //   onCodeChanged: (String code) {
+                        //     //handle validation or checks here if necessary
+                        //   },
+                        //   onSubmit: (String verificationCode) {
+                        //     verifyOtpBloc
+                        //         .add(CheckOtpEvent(otp: verificationCode));
+                        //   },
+                        // ),
                       ),
                       SizedBox(
                         height: 20.h,

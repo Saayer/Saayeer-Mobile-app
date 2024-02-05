@@ -5,10 +5,10 @@ import 'package:saayer/core/services/injection/injection.dart';
 class LoggedInUserEntity extends Equatable {
   String id, name, email, password, userType, gender, dateOfBirth, imageUrl;
 
-  String get decryptPassword => getIt<Encryption>().decrypt(password);
+  String get decryptPassword => Encryption().decrypt(password);
 
   set encryptPassword(String value) {
-    password = getIt<Encryption>().encrypt(value);
+    password = Encryption().encrypt(value);
   }
 
   LoggedInUserEntity(

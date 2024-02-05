@@ -19,14 +19,15 @@ class AppInterceptors extends Interceptor {
   @override
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    String? authToken = await getIt<SecureStorageService>().getAccessToken();
+    final String? authToken =
+        await getIt<SecureStorageService>().getAccessToken();
     options.queryParameters.addAll(
       ApiConfig.queryParameters,
     );
     options.headers["Content-Type"] = "application/json; charset=utf-8";
     options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys.xApiKey;
     options.headers["Accept-Language"] = Localization.getLocale();
-    if (authToken != null) {
+    if (authToken != null && !options.path.contains("login")) {
       //log("$accessToken", name: "has accessToken");
       options.headers['Authorization'] = 'Bearer $authToken';
     }

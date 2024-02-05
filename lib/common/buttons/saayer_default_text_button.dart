@@ -14,6 +14,7 @@ class SaayerDefaultTextButton extends StatelessWidget {
   final double? borderRadius;
   final Color? borderColor;
   final bool isEnabled;
+  final TextStyle? textStyle;
 
   const SaayerDefaultTextButton(
       {super.key,
@@ -26,7 +27,8 @@ class SaayerDefaultTextButton extends StatelessWidget {
       this.btnWidth = 0,
       this.btnHeight = 0,
       this.borderRadius,
-      required this.isEnabled});
+      required this.isEnabled,
+      this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +40,7 @@ class SaayerDefaultTextButton extends StatelessWidget {
       foregroundColor: buttonColor,
       fixedSize: Size(btnWidth, btnHeight),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.horizontal(
-              left: Localization.isArabic()
-                  ? buttonRadius
-                  : const Radius.circular(0),
-              right: Localization.isArabic()
-                  ? const Radius.circular(0)
-                  : buttonRadius),
+          borderRadius: BorderRadius.all(buttonRadius),
           side: BorderSide(color: borderColor ?? buttonColor)),
       backgroundColor: buttonColor,
     );
@@ -57,8 +53,9 @@ class SaayerDefaultTextButton extends StatelessWidget {
           softWrap: true,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.mainFocusedLabel(
-              SaayerTheme().getColorsPalette.whiteColor),
+          style: textStyle ??
+              AppTextStyles.mainFocusedLabel(
+                  SaayerTheme().getColorsPalette.whiteColor),
         ));
   }
 }

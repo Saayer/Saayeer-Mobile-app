@@ -26,8 +26,8 @@ class SecureStorageService {
   }
 
   Future<bool?> getIsLoggedIn() async {
-    String? loggedInUserStr = await _storage.read(key: _keyIsLoggedIn);
-    bool? isLoggedIn =
+    final String? loggedInUserStr = await _storage.read(key: _keyIsLoggedIn);
+    final bool? isLoggedIn =
         loggedInUserStr != null ? jsonDecode(loggedInUserStr) : false;
     return isLoggedIn;
   }
@@ -40,31 +40,29 @@ class SecureStorageService {
 
   Future<LoggedInUserEntity?> getLoggedInUser() async {
     try {
-      String? loggedInUserStr = await _storage.read(key: _keyLoggedInUser);
-      Map<String, dynamic> loggedInUserMap = jsonDecode(loggedInUserStr!);
-      LoggedInUserEntity? loggedInUserEntity =
+      final String? loggedInUserStr =
+          await _storage.read(key: _keyLoggedInUser);
+      final Map<String, dynamic> loggedInUserMap = jsonDecode(loggedInUserStr!);
+      final LoggedInUserEntity loggedInUserEntity =
           LoggedInUserEntity.fromJson(loggedInUserMap);
       return loggedInUserEntity;
     } catch (e) {
       log("$e", name: "getLoggedInUser error");
       await getIt<LoggedInCheckerService>().logOut();
-      getIt<NavigationService>().navigateAndFinish(IntroScreen());
+      getIt<NavigationService>().navigateAndFinish(const IntroScreen());
     }
     return null;
   }
 
   Future setAccessToken(String accessToken) async {
     await _storage.write(
-        key: _keyAccessToken,
-        value: getIt<Encryption>().encrypt(jsonEncode(accessToken)));
+        key: _keyAccessToken, value: Encryption().encrypt(accessToken));
   }
 
   Future<String?> getAccessToken() async {
-    String? accessToken = await _storage.read(key: _keyAccessToken);
-    //log("$accessToken", name: "getAccessToken");
-    String? accessTokenStr = accessToken != null
-        ? jsonDecode(getIt<Encryption>().decrypt(accessToken))
-        : null;
+    final String? accessToken = await _storage.read(key: _keyAccessToken);
+    final String? accessTokenStr =
+        ((accessToken != null) ? Encryption().decrypt(accessToken) : null);
     return accessTokenStr;
   }
 
