@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
@@ -13,6 +14,7 @@ part 'personal_info_event.dart';
 
 part 'personal_info_state.dart';
 
+@Injectable()
 class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
   PersonalInfoBloc() : super(const PersonalInfoState()) {
     on<PersonalInfoEvent>((event, emit) {

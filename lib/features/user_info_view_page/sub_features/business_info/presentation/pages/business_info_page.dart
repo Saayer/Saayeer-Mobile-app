@@ -52,9 +52,6 @@ class BusinessInfoPage extends StatelessWidget {
         canPop: false,
         child: Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-          appBar: const BaseAppBar(
-            showBackLeading: false,
-          ),
           bottomSheet: ColoredBox(
             color: SaayerTheme().getColorsPalette.backgroundColor,
             child: Padding(

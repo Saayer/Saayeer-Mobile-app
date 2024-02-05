@@ -51,22 +51,19 @@ class UserInfoViewPagePage extends StatelessWidget {
               child: Container(
                   color: SaayerTheme().getColorsPalette.backgroundColor,
                   child: StoryPageView(
-                    // Customize indicator looking
                     indicatorStyle: StoryPageIndicatorStyle(
-                      height: 6,
+                      height: 6.h,
                       gap: 12,
-                      unvisitedColor: Colors.blue.shade200,
-                      visitedColor: Colors.blue.shade900,
-                      timerBarBackgroundColor: Colors.blue.shade300,
-                      // default to unvisitedColor
-                      timerBarColor: Colors.blue.shade700,
-                      // default to vistedColor
+                      unvisitedColor: SaayerTheme().getColorsPalette.blackTextColor,
+                      visitedColor: SaayerTheme().getColorsPalette.primaryColor,
+                      timerBarBackgroundColor: SaayerTheme().getColorsPalette.primaryColor,
+                      timerBarColor: SaayerTheme().getColorsPalette.primaryColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                     ),
                     controller: StoryPageController(
-                      // Customize paging animation style
+                      keepPage: false,
                       pagingCurve: Curves.elasticOut,
                       pagingDuration: const Duration(milliseconds: 2000),
                     ),
@@ -76,11 +73,10 @@ class UserInfoViewPagePage extends StatelessWidget {
                       layoutBuilder: (c, pageView, indicator) => SafeArea(
                         child: Column(
                           children: [
-                            // Put page indicator on top of the pager
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8,
-                                horizontal: 12,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 16.w,
                               ),
                               child: indicator,
                             ),

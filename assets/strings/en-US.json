@@ -27,6 +27,7 @@
   "address": "Address",
   "district": "District",
   "governorate": "Governorate",
+  "commercial_registration_no": "Commercial Registration Number",
   "enter_phone_num_desc": "Please enter your phone number",
   "verify_otp": "OTP Verification",
   "verify_otp_desc": "We texted you OTP. Please enter it below",
@@ -45,5 +46,5 @@
   "dark_mode": "Dark Mode",
   "english": "English",
   "arabic": "العربية",
-  "language": "Language",
+  "language": "Language"
 }

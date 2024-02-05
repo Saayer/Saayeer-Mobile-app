@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -15,6 +16,7 @@ part 'business_info_event.dart';
 
 part 'business_info_state.dart';
 
+@Injectable()
 class BusinessInfoBloc extends Bloc<BusinessInfoEvent, BusinessInfoState> {
   BusinessInfoBloc() : super(const BusinessInfoState()) {
     on<OnTextChange>(_onTextChange);
