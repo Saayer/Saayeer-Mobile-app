@@ -7,6 +7,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -43,6 +44,7 @@ class VerifyOtpPage extends StatelessWidget {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
             if (state.isVerified) {
               SaayerToast().showSuccessToast(msg: "welcome");
+              await getIt<SecureStorageService>().setIsLoggedIn(true);
               getIt<NavigationService>().navigateTo(const ViewPageScreen());
             } else {
               SaayerToast().showSuccessToast(

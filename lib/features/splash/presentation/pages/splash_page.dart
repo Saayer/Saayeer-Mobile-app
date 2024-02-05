@@ -23,7 +23,7 @@ class SplashPage extends StatelessWidget {
       listener: (context, state) async {
         if (state.requestState == RequestState.LOADED) {
           Timer(const Duration(seconds: 3), () async {
-            bool isLoggedIn =
+            final bool isLoggedIn =
                 await getIt<LoggedInCheckerService>().isLoggedIn();
             if (isLoggedIn) getIt<LoggedInCheckerService>().initLoggedUser();
             getIt<NavigationService>().navigateAndFinish(
@@ -42,8 +42,8 @@ class SplashPage extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      Constants.getImagePath("logo_with_text.jpeg")),
+                  image:
+                      AssetImage(Constants.getImagePath("logo_with_text.jpeg")),
                   fit: BoxFit.cover,
                 ),
               ),
