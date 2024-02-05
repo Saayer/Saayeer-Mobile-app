@@ -3,11 +3,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_page_view/enum/progress_enum.dart';
+import 'package:form_page_view/form_page_view.dart';
+import 'package:form_page_view/models/form_page_model.dart';
+import 'package:form_page_view/models/form_page_style.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart';
+import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_indicator.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/screens/business_info_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:story_page_view/story_page_view.dart';
@@ -21,6 +26,11 @@ class UserInfoViewPagePage extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height;
     final UserInfoViewPageBloc userInfoViewPageBloc =
         BlocProvider.of<UserInfoViewPageBloc>(context);
+    final List<Widget> pages = [
+      const PersonalInfoScreen(),
+      const BusinessInfoScreen(),
+      const Text("")
+    ];
 
     return BlocConsumer<UserInfoViewPageBloc, UserInfoViewPageState>(
       buildWhen: (previousState, nextState) =>
@@ -50,46 +60,39 @@ class UserInfoViewPagePage extends StatelessWidget {
               },
               child: Container(
                   color: SaayerTheme().getColorsPalette.backgroundColor,
-                  child: StoryPageView(
-                    indicatorStyle: StoryPageIndicatorStyle(
-                      height: 6.h,
-                      gap: 12,
-                      unvisitedColor: SaayerTheme().getColorsPalette.blackTextColor,
-                      visitedColor: SaayerTheme().getColorsPalette.primaryColor,
-                      timerBarBackgroundColor: SaayerTheme().getColorsPalette.primaryColor,
-                      timerBarColor: SaayerTheme().getColorsPalette.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20.h,
                       ),
-                    ),
-                    controller: StoryPageController(
-                      keepPage: false,
-                      pagingCurve: Curves.elasticOut,
-                      pagingDuration: const Duration(milliseconds: 2000),
-                    ),
-                    storyDuration: const Duration(seconds: 5),
-                    // Customize whole layout
-                    indicatorPosition: StoryPageIndicatorPosition.custom(
-                      layoutBuilder: (c, pageView, indicator) => SafeArea(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 10.h,
-                                horizontal: 16.w,
-                              ),
-                              child: indicator,
-                            ),
-                            Expanded(
-                              child: pageView,
-                            ),
-                          ],
-                        ),
+                      Row(
+                        children: List.generate(3, (index) {
+                          final bool isPrevious = (state.currentPage > index);
+                          final bool isCurrent = (state.currentPage == index);
+
+                          return SizedBox(
+                              width: width / 3,
+                              child: LinearIndicator(
+                                color: isPrevious
+                                    ? (SaayerTheme()
+                                        .getColorsPalette
+                                        .lightOrangeColor)
+                                    : isCurrent
+                                        ? (SaayerTheme()
+                                            .getColorsPalette
+                                            .primaryColor)
+                                        : (SaayerTheme()
+                                            .getColorsPalette
+                                            .greyColor),
+                              ));
+                        }),
                       ),
-                    ),
-                    children: const [
-                      PersonalInfoScreen(),
-                      BusinessInfoScreen()
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Flexible(
+                          fit: FlexFit.tight,
+                          child: pages[state.currentPage])
                     ],
                   )),
             ),

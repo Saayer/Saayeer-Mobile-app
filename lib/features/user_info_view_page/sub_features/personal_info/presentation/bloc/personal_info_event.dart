@@ -24,3 +24,13 @@ class SubmitPersonalInfoData extends PersonalInfoEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ToggleAutoValidate extends PersonalInfoEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class SubmitPersonalInfo extends PersonalInfoEvent {
+  @override
+  List<Object?> get props => [];
+}

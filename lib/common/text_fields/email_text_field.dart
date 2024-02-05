@@ -15,8 +15,15 @@ class EmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LabelTxt(txt: "email".tr()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LabelTxt(txt: "email".tr()),
+          ],
+        ),
         Container(
           margin: EdgeInsets.only(top: 8.h, right: 20.w, left: 20.w),
           child: BaseTextField(
@@ -28,7 +35,7 @@ class EmailTextField extends StatelessWidget {
                     .tr()
                     .replaceFirst("{}", "email".tr());
               }
-              if (ValidationUtils.isValidEmail(value ?? "")) {
+              if (!ValidationUtils.isValidEmail(value ?? "")) {
                 return 'invalid_field_error'
                     .tr()
                     .replaceFirst("{}", "email".tr());

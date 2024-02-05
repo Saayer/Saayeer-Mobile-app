@@ -18,7 +18,7 @@ class LogInRDSImpl implements LogInRDS {
     final LogInRequestModel logInRequestModel =
         LogInRequestModel(logInEntity: logInEntity);
     Map<String, dynamic> result = Map<String, dynamic>.from(
-      await apiConsumer.post(AuthEndPoints().login,
+      await apiConsumer.post(AuthEndPoints.login,
           body: logInRequestModel.toJson()),
     );
     final LogInResponseModel logInResponseModel =

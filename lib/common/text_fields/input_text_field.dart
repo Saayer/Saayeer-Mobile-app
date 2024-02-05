@@ -21,8 +21,15 @@ class InputTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        LabelTxt(txt: label.tr()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LabelTxt(txt: label.tr()),
+          ],
+        ),
         Container(
           margin: EdgeInsets.only(top: 8.h, right: 20.w, left: 20.w),
           child: BaseTextField(

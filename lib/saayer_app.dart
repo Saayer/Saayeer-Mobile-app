@@ -59,8 +59,8 @@ class SaayerApp extends StatelessWidget {
                     locale: context.locale,
                     home: Builder(builder: (context) {
                       //return const SplashScreen();
-                      return const ViewPageScreen();
-                      //return const UserInfoViewPageScreen();
+                      //return const ViewPageScreen();
+                      return const UserInfoViewPageScreen();
                     }),
                   ),
                 );

@@ -23,7 +23,12 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        LabelTxt(txt: "password".tr()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LabelTxt(txt: "password".tr()),
+          ],
+        ),
         Container(
           margin: EdgeInsets.only(top: 8.h, right: 20.w, left: 20.w),
           child: BaseTextField(

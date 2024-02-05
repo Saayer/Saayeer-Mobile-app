@@ -21,6 +21,8 @@ class AppInterceptors extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     final String? authToken =
         await getIt<SecureStorageService>().getAccessToken();
+    final String? reqSecureKey =
+        await getIt<SecureStorageService>().getReqSecureKey();
     options.queryParameters.addAll(
       ApiConfig.queryParameters,
     );
@@ -31,6 +33,10 @@ class AppInterceptors extends Interceptor {
       //log("$accessToken", name: "has accessToken");
       options.headers['Authorization'] = 'Bearer $authToken';
     }
+    if (reqSecureKey != null && !options.path.contains("login")) {
+      //log("$reqSecureKey", name: "has reqSecureKey");
+      options.headers['reqSecureKey'] = reqSecureKey;
+    }
     super.onRequest(options, handler);
   }
 
@@ -40,9 +46,15 @@ class AppInterceptors extends Interceptor {
     if (jsonDecode(response.data).toString().contains("token")) {
       final Map responseData = jsonDecode(response.data);
       final String? authToken = responseData["data"]["token"];
+      final String? reqSecureKey = responseData["reqSecureKey"];
       if (authToken != null) {
         await getIt<SecureStorageService>().setAccessToken(authToken);
-        responseData.remove(authToken);
+        responseData["data"].remove(authToken);
+        response.data = jsonEncode(responseData);
+      }
+      if (reqSecureKey != null) {
+        await getIt<SecureStorageService>().setReqSecureKey(reqSecureKey);
+        responseData.remove(reqSecureKey);
         response.data = jsonEncode(responseData);
       }
     }

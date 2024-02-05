@@ -56,12 +56,13 @@ class PersonalInfoPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(bottom: 50.h),
               child: SaayerDefaultTextButton(
-                text: "log_in",
+                text: "next",
                 isEnabled: enablePersonalInfo(personalInfoBloc),
                 borderRadius: 16.r,
                 onPressed: () {
                   final bool isFormValid =
                       (personalInfoBloc.formKey.currentState!.validate());
+                  personalInfoBloc.add(ToggleAutoValidate());
                   isFormValid
                       ? personalInfoBloc.add(SubmitPersonalInfoData())
                       : SaayerToast()
@@ -90,30 +91,32 @@ class PersonalInfoPage extends StatelessWidget {
                         SizedBox(
                           height: 20.h,
                         ),
-                        LabelTxt(txt: "phone_num".tr()),
-                        SizedBox(
-                          height: 5.h,
-                        ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "enter_phone_num_desc".tr(),
+                                "personal_info".tr(),
                                 textAlign: TextAlign.start,
                                 style: AppTextStyles.highlightedLabel(),
                               ),
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
                         ...(PersonalInfoFieldsTypes.values.map((e) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 30.w, vertical: 20.h),
+                                horizontal: 20.w, vertical: 10.h),
                             child: _getTextField(personalInfoBloc, e),
                           );
-                        }).toList())
+                        }).toList()),
+                        SizedBox(
+                          height: 150.h,
+                        ),
                       ],
                     ),
                   ),
@@ -194,7 +197,8 @@ class PersonalInfoPage extends StatelessWidget {
   bool enablePersonalInfo(PersonalInfoBloc personalInfoBloc) {
     log("${personalInfoBloc.personalInfoFieldsValidMap}",
         name: "enablePersonalInfo --->");
-    if (personalInfoBloc.personalInfoFieldsValidMap.values.length == 1) {
+    if (personalInfoBloc.personalInfoFieldsValidMap.values.length ==
+        PersonalInfoFieldsTypes.values.length) {
       return personalInfoBloc.personalInfoFieldsValidMap.values
           .every((element) => element == true);
     }

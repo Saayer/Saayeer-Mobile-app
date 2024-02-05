@@ -8,6 +8,9 @@
   "cancel": "Cancel",
   "ok": "Ok",
   "continue": "Continue",
+  "submit": "Submit",
+  "next": "Next",
+  "skip": "Skip",
   "something_went_wrong": "Something went wrong",
   "introScreenTitle_1": "Welcome to Saayer",
   "introScreenTitle_2": "Easy Order Management",
@@ -46,5 +49,7 @@
   "dark_mode": "Dark Mode",
   "english": "English",
   "arabic": "العربية",
-  "language": "Language"
+  "language": "Language",
+  "personal_info": "Personal Info",
+  "business_info": "Business Info"
 }

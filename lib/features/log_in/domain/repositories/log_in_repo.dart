@@ -4,5 +4,5 @@ import 'package:saayer/features/log_in/domain/entities/log_in_entity.dart';
 import 'package:saayer/features/log_in/domain/entities/submit_log_in_entity.dart';
 
 abstract class LogInRepo {
-  Future<Either<Failure, SubmitLogInEntity?>> logIn(LogInEntity LogInEntity);
+  Future<Either<Failure, SubmitLogInEntity?>> logIn(LogInEntity logInEntity);
 }

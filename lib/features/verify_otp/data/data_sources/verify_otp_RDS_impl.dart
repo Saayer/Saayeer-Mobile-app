@@ -19,7 +19,7 @@ class VerifyOtpRDSImpl implements VerifyOtpRDS {
     final VerifyOtpRequestModel verifyOtpRequestModel =
         VerifyOtpRequestModel(verifyOtpEntity: verifyOtpEntity);
     Map<String, dynamic> result = Map<String, dynamic>.from(
-      await apiConsumer.post(AuthEndPoints().confirmLogin,
+      await apiConsumer.post(AuthEndPoints.confirmLogin,
           body: verifyOtpRequestModel.toJson()),
     );
     final VerifyOtpResponseModel verifyOtpResponseModel =

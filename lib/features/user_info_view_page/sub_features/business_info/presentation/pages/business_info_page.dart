@@ -57,7 +57,7 @@ class BusinessInfoPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(bottom: 50.h),
               child: SaayerDefaultTextButton(
-                text: "log_in",
+                text: "next",
                 isEnabled: enableBusinessInfo(businessInfoBloc),
                 borderRadius: 16.r,
                 onPressed: () {
@@ -91,34 +91,36 @@ class BusinessInfoPage extends StatelessWidget {
                         SizedBox(
                           height: 20.h,
                         ),
-                        LabelTxt(txt: "phone_num".tr()),
-                        SizedBox(
-                          height: 5.h,
-                        ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "enter_phone_num_desc".tr(),
+                                "business_info".tr(),
                                 textAlign: TextAlign.start,
                                 style: AppTextStyles.highlightedLabel(),
                               ),
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
                         ...(BusinessInfoFieldsTypes.values
                             .map((e) => Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 30.w, vertical: 20.h),
+                                      horizontal: 20.w, vertical: 10.h),
                                   child: InputTextField(
                                     label: e.name.toLowerCase(),
                                     inputController: _getInputController(
                                         businessInfoBloc, e),
                                   ),
                                 ))
-                            .toList())
+                            .toList()),
+                        SizedBox(
+                          height: 150.h,
+                        ),
                       ],
                     ),
                   ),
