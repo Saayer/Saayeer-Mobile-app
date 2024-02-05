@@ -5,9 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/features/personal_info/core/utils/enums/enums.dart';
-import 'package:saayer/features/personal_info/domain/entities/personal_info_entity.dart';
-import 'package:saayer/features/personal_info/domain/entities/submit_personal_info_entity.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/personal_info/domain/entities/personal_info_entity.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/personal_info/domain/entities/submit_personal_info_entity.dart';
 
 part 'personal_info_event.dart';
 

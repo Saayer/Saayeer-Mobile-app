@@ -1,0 +1,11 @@
+enum BusinessInfoFieldsTypes {
+  COMPANY_NAME,
+  EMAIL,
+  MOBILE_NUMBER,
+  COMMERCIAL_REGISTERATION_NO,
+  SHORT_ADDRESS,
+  DISTRICT,
+  GOVERNORATE
+}
+
+enum BusinessInfoErrorStatus { ERROR_BUSINESS_INFO }

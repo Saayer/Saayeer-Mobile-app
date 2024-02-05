@@ -1,10 +1,20 @@
 part of 'user_info_view_page_bloc.dart';
 
-abstract class UserInfoViewPageState extends Equatable {
-  const UserInfoViewPageState();
-}
+class UserInfoViewPageState extends Equatable {
+  final StateHelper stateHelper;
 
-class UserInfoViewPageInitial extends UserInfoViewPageState {
+  const UserInfoViewPageState({
+    this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
+  });
+
+  UserInfoViewPageState copyWith({
+    StateHelper? stateHelper,
+  }) {
+    return UserInfoViewPageState(
+      stateHelper: stateHelper ?? this.stateHelper,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [stateHelper];
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/features/personal_info/presentation/bloc/personal_info_bloc.dart';
-import 'package:saayer/features/personal_info/presentation/pages/personal_info_page.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/bloc/personal_info_bloc.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/pages/personal_info_page.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
   const PersonalInfoScreen({super.key});

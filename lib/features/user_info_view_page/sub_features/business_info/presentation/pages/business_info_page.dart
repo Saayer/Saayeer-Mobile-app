@@ -3,47 +3,48 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
-import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/errors/personal_info_error_handler.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/errors/business_info_error_handler.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/utils/enums/enums.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/bloc/business_info_bloc.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/bloc/personal_info_bloc.dart';
 import 'dart:ui' as ui;
 
-class PersonalInfoPage extends StatelessWidget {
-  const PersonalInfoPage({super.key});
+class BusinessInfoPage extends StatelessWidget {
+  const BusinessInfoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    final PersonalInfoBloc personalInfoBloc =
-        BlocProvider.of<PersonalInfoBloc>(context);
+    final BusinessInfoBloc businessInfoBloc =
+        BlocProvider.of<BusinessInfoBloc>(context);
 
-    return BlocConsumer<PersonalInfoBloc, PersonalInfoState>(
+    return BlocConsumer<BusinessInfoBloc, BusinessInfoState>(
       buildWhen: (previousState, nextState) =>
           (previousState.stateHelper.requestState !=
               nextState.stateHelper.requestState),
       listener: (context, state) async {
         final bool isLoading =
-            (personalInfoBloc.state.stateHelper.requestState ==
+            (businessInfoBloc.state.stateHelper.requestState ==
                 RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
-            PersonalInfoErrorHandler(state: state)();
+            BusinessInfoErrorHandler(state: state)();
           }
         }
       },
@@ -60,13 +61,13 @@ class PersonalInfoPage extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 50.h),
               child: SaayerDefaultTextButton(
                 text: "log_in",
-                isEnabled: enablePersonalInfo(personalInfoBloc),
+                isEnabled: enableBusinessInfo(businessInfoBloc),
                 borderRadius: 16.r,
                 onPressed: () {
                   final bool isFormValid =
-                      (personalInfoBloc.formKey.currentState!.validate());
+                      (businessInfoBloc.formKey.currentState!.validate());
                   isFormValid
-                      ? personalInfoBloc.add(SubmitPersonalInfoData())
+                      ? businessInfoBloc.add(SubmitBusinessInfoData())
                       : SaayerToast()
                           .showErrorToast(msg: "empty_fields_error".tr());
                 },
@@ -85,7 +86,7 @@ class PersonalInfoPage extends StatelessWidget {
                 child: Center(
                   child: Form(
                     autovalidateMode: state.autoValidateMode,
-                    key: personalInfoBloc.formKey,
+                    key: businessInfoBloc.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -110,13 +111,17 @@ class PersonalInfoPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        ...(PersonalInfoFieldsTypes.values.map((e) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30.w, vertical: 20.h),
-                            child: _getTextField(personalInfoBloc, e),
-                          );
-                        }).toList())
+                        ...(BusinessInfoFieldsTypes.values
+                            .map((e) => Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 30.w, vertical: 20.h),
+                                  child: InputTextField(
+                                    label: e.name.toLowerCase(),
+                                    inputController: _getInputController(
+                                        businessInfoBloc, e),
+                                  ),
+                                ))
+                            .toList())
                       ],
                     ),
                   ),
@@ -129,76 +134,102 @@ class PersonalInfoPage extends StatelessWidget {
     );
   }
 
-  Widget _getTextField(PersonalInfoBloc personalInfoBloc,
-      PersonalInfoFieldsTypes personalInfoFieldsType) {
-    switch (personalInfoFieldsType) {
-      case PersonalInfoFieldsTypes.EMAIL:
+  Widget _getTextField(BusinessInfoBloc businessInfoBloc,
+      BusinessInfoFieldsTypes businessInfoFieldsType) {
+    switch (businessInfoFieldsType) {
+      case BusinessInfoFieldsTypes.EMAIL:
         {
           return EmailTextField(
             emailController:
-                _getInputController(personalInfoBloc, personalInfoFieldsType),
+                _getInputController(businessInfoBloc, businessInfoFieldsType),
             onChanged: (val) {
-              personalInfoBloc.add(OnTextChange(
+              businessInfoBloc.add(OnTextChange(
                   str: val,
-                  personalInfoFieldsType: PersonalInfoFieldsTypes.EMAIL,
+                  businessInfoFieldsType: BusinessInfoFieldsTypes.EMAIL,
                   textEditingController: _getInputController(
-                      personalInfoBloc, personalInfoFieldsType)));
+                      businessInfoBloc, businessInfoFieldsType)));
             },
+          );
+        }
+      case BusinessInfoFieldsTypes.MOBILE_NUMBER:
+        {
+          return Directionality(
+            textDirection: ui.TextDirection.ltr,
+            child: PhoneTextField(
+              phoneNumController:
+                  _getInputController(businessInfoBloc, businessInfoFieldsType),
+              onInputChanged: (PhoneNumber phoneNumber) {
+                log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                    name: "onInputChanged --->");
+                log("${phoneNumber.phoneNumber}",
+                    name: "PhoneTextField onInputChanged ->");
+                businessInfoBloc.add(OnTextChange(
+                    phoneNumber: phoneNumber,
+                    businessInfoFieldsType:
+                        BusinessInfoFieldsTypes.MOBILE_NUMBER,
+                    textEditingController: _getInputController(
+                        businessInfoBloc, businessInfoFieldsType)));
+              },
+            ),
           );
         }
       default:
         {
           return InputTextField(
-            label: personalInfoFieldsType.name.toLowerCase(),
+            label: businessInfoFieldsType.name.toLowerCase(),
             inputController:
-                _getInputController(personalInfoBloc, personalInfoFieldsType),
+                _getInputController(businessInfoBloc, businessInfoFieldsType),
             onChanged: (val) {
-              personalInfoBloc.add(OnTextChange(
+              businessInfoBloc.add(OnTextChange(
                   str: val,
-                  personalInfoFieldsType: personalInfoFieldsType,
+                  businessInfoFieldsType: businessInfoFieldsType,
                   textEditingController: _getInputController(
-                      personalInfoBloc, personalInfoFieldsType)));
+                      businessInfoBloc, businessInfoFieldsType)));
             },
           );
         }
     }
   }
 
-  TextEditingController _getInputController(PersonalInfoBloc personalInfoBloc,
-      PersonalInfoFieldsTypes personalInfoFieldsType) {
-    switch (personalInfoFieldsType) {
-      case PersonalInfoFieldsTypes.NAME:
+  TextEditingController _getInputController(BusinessInfoBloc businessInfoBloc,
+      BusinessInfoFieldsTypes businessInfoFieldsType) {
+    switch (businessInfoFieldsType) {
+      case BusinessInfoFieldsTypes.COMPANY_NAME:
         {
-          return personalInfoBloc.nameController;
+          return businessInfoBloc.companyNameController;
         }
-      case PersonalInfoFieldsTypes.EMAIL:
+      case BusinessInfoFieldsTypes.EMAIL:
         {
-          return personalInfoBloc.emailController;
+          return businessInfoBloc.emailController;
         }
-      case PersonalInfoFieldsTypes.NATIONAL_ID:
+      case BusinessInfoFieldsTypes.MOBILE_NUMBER:
         {
-          return personalInfoBloc.nationalIDController;
+          return businessInfoBloc.mobileNumberController;
         }
-      case PersonalInfoFieldsTypes.ADDRESS:
+      case BusinessInfoFieldsTypes.COMMERCIAL_REGISTERATION_NO:
         {
-          return personalInfoBloc.addressController;
+          return businessInfoBloc.commercialRegistrationNoController;
         }
-      case PersonalInfoFieldsTypes.DISTRICT:
+      case BusinessInfoFieldsTypes.SHORT_ADDRESS:
         {
-          return personalInfoBloc.districtController;
+          return businessInfoBloc.shortAddressController;
         }
-      case PersonalInfoFieldsTypes.GOVERNORATE:
+      case BusinessInfoFieldsTypes.DISTRICT:
         {
-          return personalInfoBloc.governorateController;
+          return businessInfoBloc.districtController;
+        }
+      case BusinessInfoFieldsTypes.GOVERNORATE:
+        {
+          return businessInfoBloc.governorateController;
         }
     }
   }
 
-  bool enablePersonalInfo(PersonalInfoBloc personalInfoBloc) {
-    log("${personalInfoBloc.personalInfoFieldsValidMap}",
+  bool enableBusinessInfo(BusinessInfoBloc businessInfoBloc) {
+    log("${businessInfoBloc.businessInfoFieldsValidMap}",
         name: "enablePersonalInfo --->");
-    if (personalInfoBloc.personalInfoFieldsValidMap.values.length == 1) {
-      return personalInfoBloc.personalInfoFieldsValidMap.values
+    if (businessInfoBloc.businessInfoFieldsValidMap.values.length == 1) {
+      return businessInfoBloc.businessInfoFieldsValidMap.values
           .every((element) => element == true);
     }
     return false;
