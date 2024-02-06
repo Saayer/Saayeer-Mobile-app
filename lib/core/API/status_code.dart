@@ -7,4 +7,5 @@ class StatusCode {
   static const int notFound = 404;
   static const int conflict = 409;
   static const int internalServerError = 500;
+  static const int quotaExceeded = 429;
 }

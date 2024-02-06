@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 
 class SaayerLoader extends StatelessWidget {
   final double? size;

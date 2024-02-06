@@ -67,8 +67,8 @@ class BusinessInfoBloc extends Bloc<BusinessInfoEvent, BusinessInfoState> {
             : state.businessInfoEntity));
   }
 
-  FutureOr<void> _submitBusinessInfoData(
-      SubmitBusinessInfoData event, Emitter<BusinessInfoState> emit) {
+  Future<FutureOr<void>> _submitBusinessInfoData(
+      SubmitBusinessInfoData event, Emitter<BusinessInfoState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
@@ -82,6 +82,7 @@ class BusinessInfoBloc extends Bloc<BusinessInfoEvent, BusinessInfoState> {
             shortAddress: shortAddressController.text,
             district: districtController.text,
             governorate: governorateController.text)));
+    await _submitBusinessInfo(SubmitBusinessInfo(), emit);
   }
 
   FutureOr<void> _toggleAutoValidate(

@@ -7,7 +7,7 @@ import 'package:saayer/common/loading/loading_container.dart';
 import 'package:saayer/common/loading/loading_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/splash/presentation/screens/splash_screen.dart';
@@ -59,8 +59,8 @@ class SaayerApp extends StatelessWidget {
                     locale: context.locale,
                     home: Builder(builder: (context) {
                       //return const SplashScreen();
-                      //return const ViewPageScreen();
-                      return const UserInfoViewPageScreen();
+                      return const ViewPageScreen();
+                      //return const UserInfoViewPageScreen();
                     }),
                   ),
                 );

@@ -9,7 +9,7 @@ import 'package:saayer/core/app_config/app_flavor_entity.dart';
 import 'package:saayer/core/services/encryption/encryption.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart';
-import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/colors/dark_colors.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/saayer_app.dart';

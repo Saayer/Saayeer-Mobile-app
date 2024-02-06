@@ -27,7 +27,7 @@ class StoreInfoBloc extends Bloc<StoreInfoEvent, StoreInfoState> {
     on<OnTextChange>(_onTextChange);
     on<SubmitStoreInfoData>(_submitStoreInfoData);
     on<ToggleAutoValidate>(_toggleAutoValidate);
-    on<SubmitStoreInfo>(_submitPersonalInfo);
+    on<SubmitStoreInfo>(_submitStoreInfo);
   }
 
   final formKey = GlobalKey<FormState>();
@@ -53,8 +53,8 @@ class StoreInfoBloc extends Bloc<StoreInfoEvent, StoreInfoState> {
     ));
   }
 
-  FutureOr<void> _submitStoreInfoData(
-      SubmitStoreInfoData event, Emitter<StoreInfoState> emit) {
+  Future<FutureOr<void>> _submitStoreInfoData(
+      SubmitStoreInfoData event, Emitter<StoreInfoState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
@@ -66,6 +66,7 @@ class StoreInfoBloc extends Bloc<StoreInfoEvent, StoreInfoState> {
           maroofId: maroofIdController.text,
           commercialRegistrationNo: commercialRegistrationNoController.text,
         )));
+    await _submitStoreInfo(SubmitStoreInfo(), emit);
   }
 
   FutureOr<void> _toggleAutoValidate(
@@ -78,7 +79,7 @@ class StoreInfoBloc extends Bloc<StoreInfoEvent, StoreInfoState> {
         autoValidateMode: AutovalidateMode.always));
   }
 
-  Future<FutureOr<void>> _submitPersonalInfo(
+  Future<FutureOr<void>> _submitStoreInfo(
       SubmitStoreInfo event, Emitter<StoreInfoState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));

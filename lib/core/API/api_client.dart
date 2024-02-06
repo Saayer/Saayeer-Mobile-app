@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:saayer/core/API/api_consumer.dart';
+import 'package:saayer/core/error/dio_exception_handler.dart';
 import 'package:saayer/core/API/interceptors/api_interceptors.dart';
 import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
 import 'package:saayer/core/API/http_overrides.dart';
@@ -11,7 +13,7 @@ import 'package:saayer/core/API/status_code.dart';
 import 'package:saayer/core/app_config/app_flavor.dart';
 import 'package:saayer/core/error/exceptions.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/constants/error_constants.dart';
 import 'package:saayer/core/utils/enums.dart';
 
 @LazySingleton(as: ApiConsumer)
@@ -111,50 +113,11 @@ class DioConsumer implements ApiConsumer {
   }
 
   dynamic _handleResponseAsJson(Response<dynamic> response) {
-    final responseJson = jsonDecode(response.data.toString());
-    return responseJson;
+    final errorResponseMap = jsonDecode(response.data.toString());
+    return errorResponseMap;
   }
 
   dynamic _handleDioException(DioException error) {
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-        throw const FetchDataException();
-      case DioExceptionType.badResponse:
-        final responseJson = jsonDecode(error.response!.data.toString());
-        switch (error.response?.statusCode) {
-          case StatusCode.badRequest:
-            throw BadRequestException(
-              responseJson[Constants.apiErrorMessageKey].toString(),
-            );
-          case StatusCode.unauthorized:
-          case StatusCode.forbidden:
-            throw UnauthorizedException(
-              responseJson[Constants.apiErrorMessageKey].toString(),
-            );
-          case StatusCode.notFound:
-            throw NotFoundException(
-              responseJson[Constants.apiErrorMessageKey].toString(),
-            );
-          case StatusCode.conflict:
-            throw ConflictException(
-              responseJson[Constants.apiErrorMessageKey].toString(),
-            );
-
-          case StatusCode.internalServerError:
-            throw InternalServerErrorException(
-              responseJson[Constants.apiErrorMessageKey].toString(),
-            );
-        }
-        break;
-      case DioExceptionType.cancel:
-        break;
-      default:
-        final responseJson = jsonDecode(error.response!.data.toString());
-        throw NoInternetConnectionException(
-          responseJson[Constants.apiErrorMessageKey].toString(),
-        );
-    }
+    DioExceptionHandler(error: error)();
   }
 }

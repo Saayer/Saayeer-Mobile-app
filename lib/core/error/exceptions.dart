@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:saayer/core/utils/constants.dart';
+import 'package:saayer/core/utils/constants/error_constants.dart';
 
 class ServerException extends Equatable implements Exception{
   final String? message;
@@ -21,35 +21,40 @@ class LocalDatabaseException extends Equatable implements Exception{
 
 class FetchDataException extends ServerException {
   const FetchDataException([message])
-      : super(message ?? Constants.fetchDataExceptionMessage);
+      : super(message ?? ErrorConstants.fetchDataExceptionMessage);
 }
 
 class BadRequestException extends ServerException {
   const BadRequestException([message])
-      : super(message ?? Constants.badRequestExceptionMessage);
+      : super(message ?? ErrorConstants.badRequestExceptionMessage);
 }
 
 class UnauthorizedException extends ServerException {
   const UnauthorizedException([message])
-      : super(message ?? Constants.unauthorizedExceptionMessage);
+      : super(message ?? ErrorConstants.unauthorizedExceptionMessage);
 }
 
 class NotFoundException extends ServerException {
   const NotFoundException([message])
-      : super(message ?? Constants.notFoundExceptionMessage);
+      : super(message ?? ErrorConstants.notFoundExceptionMessage);
 }
 
 class ConflictException extends ServerException {
   const ConflictException([message])
-      : super(message ?? Constants.conflictExceptionMessage);
+      : super(message ?? ErrorConstants.conflictExceptionMessage);
 }
 
 class InternalServerErrorException extends ServerException {
   const InternalServerErrorException([message])
-      : super(message ?? Constants.internalExceptionMessage);
+      : super(message ?? ErrorConstants.internalExceptionMessage);
 }
 
 class NoInternetConnectionException extends ServerException {
   const NoInternetConnectionException([message])
-      : super(message ?? Constants.noInternetExceptionMessage);
+      : super(message ?? ErrorConstants.noInternetExceptionMessage);
+}
+
+class QuotaExceededException extends ServerException {
+  const QuotaExceededException([message])
+      : super(message ?? ErrorConstants.quotaExceededExceptionMessage);
 }

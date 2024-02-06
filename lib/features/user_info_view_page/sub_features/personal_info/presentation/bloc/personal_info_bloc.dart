@@ -54,8 +54,8 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
     ));
   }
 
-  FutureOr<void> _submitPersonalInfoData(
-      SubmitPersonalInfoData event, Emitter<PersonalInfoState> emit) {
+  Future<FutureOr<void>> _submitPersonalInfoData(
+      SubmitPersonalInfoData event, Emitter<PersonalInfoState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
@@ -68,6 +68,7 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
             address: addressController.text,
             district: districtController.text,
             governorate: governorateController.text)));
+    await _submitPersonalInfo(SubmitPersonalInfo(), emit);
   }
 
   FutureOr<void> _toggleAutoValidate(

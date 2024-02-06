@@ -23,19 +23,22 @@ class AppInterceptors extends Interceptor {
         await getIt<SecureStorageService>().getAccessToken();
     final String? reqSecureKey =
         await getIt<SecureStorageService>().getReqSecureKey();
+    final bool isLogin = options.path.contains("login");
+    final bool isEntry = options.path.contains("entry");
     options.queryParameters.addAll(
       ApiConfig.queryParameters,
     );
     options.headers["Content-Type"] = "application/json; charset=utf-8";
     options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys.xApiKey;
     options.headers["Accept-Language"] = Localization.getLocale();
-    if (authToken != null && !options.path.contains("login")) {
+
+    if (authToken != null && !isLogin) {
       //log("$accessToken", name: "has accessToken");
       options.headers['Authorization'] = 'Bearer $authToken';
     }
-    if (reqSecureKey != null && !options.path.contains("login")) {
+    if (reqSecureKey != null && !isLogin && !isEntry) {
       //log("$reqSecureKey", name: "has reqSecureKey");
-      options.headers['reqSecureKey'] = reqSecureKey;
+      options.headers['X-Request-Key'] = reqSecureKey;
     }
     super.onRequest(options, handler);
   }
@@ -43,7 +46,9 @@ class AppInterceptors extends Interceptor {
   @override
   Future<void> onResponse(
       Response response, ResponseInterceptorHandler handler) async {
-    if (jsonDecode(response.data).toString().contains("token")) {
+    final bool hasToken =
+        jsonDecode(response.data).toString().contains("token");
+    if (hasToken) {
       final Map responseData = jsonDecode(response.data);
       final String? authToken = responseData["data"]["token"];
       final String? reqSecureKey = responseData["reqSecureKey"];
@@ -63,12 +68,24 @@ class AppInterceptors extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    log('DIO ERROR[${err.response?.statusCode}] => PATH: ${err.response}');
-    if (err.response?.statusCode == StatusCode.unauthorized) {
-      await getIt<RefreshToken>().refreshToken();
-      final retryRequest =
-          await getIt<RefreshToken>().retryRequest(err.requestOptions);
-      return handler.resolve(retryRequest);
+    log('DIO ERROR[${err.response?.statusCode}] => PATH: ${err.response}',
+        name: "onError");
+    final bool unauthorized =
+        (err.response?.statusCode == StatusCode.unauthorized);
+    final bool expiredRequestKey =
+        ((err.response?.statusCode == StatusCode.badRequest) &&
+            err.response?.data == "Request Key expired");
+    final bool quotaExceeded =
+        (err.response?.statusCode == StatusCode.quotaExceeded);
+    if ((unauthorized || expiredRequestKey) && !quotaExceeded) {
+      try {
+        await getIt<RefreshToken>().refreshToken();
+        final retryRequest =
+            await getIt<RefreshToken>().retryRequest(err.requestOptions);
+        return handler.resolve(retryRequest);
+      } catch (e) {
+        return handler.reject(err);
+      }
     }
     super.onError(err, handler);
   }
