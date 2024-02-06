@@ -15,6 +15,7 @@ import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_
 import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_indicator.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/screens/business_info_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/screens/personal_info_screen.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/screens/store_info_screen.dart';
 import 'package:story_page_view/story_page_view.dart';
 
 class UserInfoViewPagePage extends StatelessWidget {
@@ -27,9 +28,9 @@ class UserInfoViewPagePage extends StatelessWidget {
     final UserInfoViewPageBloc userInfoViewPageBloc =
         BlocProvider.of<UserInfoViewPageBloc>(context);
     final List<Widget> pages = [
-      const BusinessInfoScreen(),
       const PersonalInfoScreen(),
-      const Text("")
+      const BusinessInfoScreen(),
+      const StoreInfoScreen()
     ];
 
     return BlocConsumer<UserInfoViewPageBloc, UserInfoViewPageState>(

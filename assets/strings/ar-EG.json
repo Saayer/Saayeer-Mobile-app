@@ -34,6 +34,8 @@
   "commercial_registration_no": "رقم السجل التجارى",
   "company_name": "اسم الشركة",
   "short_address": "العنوان القصير",
+  "url": "الرابط",
+  "maroof_id": "هوية معروف",
   "enter_phone_num_desc": "الرجاء إدخال رقم هاتفك",
   "verify_otp": "كود التحقق",
   "verify_otp_desc": "لقد أرسلنا لك كود. من فضلك قم بإدخاله أدناه",
@@ -54,5 +56,6 @@
   "arabic": "العربية",
   "language": "اللغة",
   "personal_info": "المعلومات الشخصية",
-  "business_info": "المعلومات التجارية"
+  "business_info": "المعلومات التجارية",
+  "store_info": "المعلومات المتجر"
 }

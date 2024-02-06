@@ -14,3 +14,8 @@ class InitUserInfoViewPageEvent extends UserInfoViewPageEvent {
   @override
   List<Object> get props => [currentPage];
 }
+
+class GoToNextPageEvent extends UserInfoViewPageEvent {
+  @override
+  List<Object> get props => [];
+}

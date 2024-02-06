@@ -3,42 +3,37 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
-import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/errors/personal_info_error_handler.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/bloc/personal_info_bloc.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/store_info/core/errors/store_info_error_handler.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/store_info/core/utils/enums/enums.dart';
 import 'dart:ui' as ui;
+import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/bloc/store_info_bloc.dart';
 
-class PersonalInfoPage extends StatelessWidget {
-  const PersonalInfoPage({super.key});
+class StoreInfoPage extends StatelessWidget {
+  const StoreInfoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    final PersonalInfoBloc personalInfoBloc =
-        BlocProvider.of<PersonalInfoBloc>(context);
+    final StoreInfoBloc storeInfoBloc = BlocProvider.of<StoreInfoBloc>(context);
 
-    return BlocConsumer<PersonalInfoBloc, PersonalInfoState>(
+    return BlocConsumer<StoreInfoBloc, StoreInfoState>(
       buildWhen: (previousState, nextState) =>
           (previousState.stateHelper.requestState !=
               nextState.stateHelper.requestState),
       listener: (context, state) async {
-        final bool isLoading =
-            (personalInfoBloc.state.stateHelper.requestState ==
-                RequestState.LOADING);
+        final bool isLoading = (storeInfoBloc.state.stateHelper.requestState ==
+            RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
@@ -46,7 +41,7 @@ class PersonalInfoPage extends StatelessWidget {
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
-            PersonalInfoErrorHandler(state: state)();
+            StoreInfoErrorHandler(state: state)();
           }
         }
       },
@@ -59,15 +54,15 @@ class PersonalInfoPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(bottom: 50.h),
               child: SaayerDefaultTextButton(
-                text: "next",
-                isEnabled: enablePersonalInfo(personalInfoBloc),
+                text: "submit",
+                isEnabled: enableStoreInfo(storeInfoBloc),
                 borderRadius: 16.r,
                 onPressed: () {
                   final bool isFormValid =
-                      (personalInfoBloc.formKey.currentState!.validate());
-                  personalInfoBloc.add(ToggleAutoValidate());
+                      (storeInfoBloc.formKey.currentState!.validate());
+                  storeInfoBloc.add(ToggleAutoValidate());
                   isFormValid
-                      ? personalInfoBloc.add(SubmitPersonalInfoData())
+                      ? storeInfoBloc.add(SubmitStoreInfoData())
                       : SaayerToast()
                           .showErrorToast(msg: "empty_fields_error".tr());
                 },
@@ -86,7 +81,7 @@ class PersonalInfoPage extends StatelessWidget {
                 child: Center(
                   child: Form(
                     autovalidateMode: state.autoValidateMode,
-                    key: personalInfoBloc.formKey,
+                    key: storeInfoBloc.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -100,7 +95,7 @@ class PersonalInfoPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "personal_info".tr(),
+                                "store_info".tr(),
                                 textAlign: TextAlign.start,
                                 style: AppTextStyles.highlightedLabel(),
                               ),
@@ -110,11 +105,11 @@ class PersonalInfoPage extends StatelessWidget {
                         SizedBox(
                           height: 10.h,
                         ),
-                        ...(PersonalInfoFieldsTypes.values.map((e) {
+                        ...(StoreInfoFieldsTypes.values.map((e) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.w, vertical: 10.h),
-                            child: _getTextField(personalInfoBloc, e),
+                            child: _getTextField(storeInfoBloc, e),
                           );
                         }).toList()),
                         SizedBox(
@@ -132,77 +127,55 @@ class PersonalInfoPage extends StatelessWidget {
     );
   }
 
-  Widget _getTextField(PersonalInfoBloc personalInfoBloc,
-      PersonalInfoFieldsTypes personalInfoFieldsType) {
-    switch (personalInfoFieldsType) {
-      case PersonalInfoFieldsTypes.EMAIL:
-        {
-          return EmailTextField(
-            emailController:
-                _getInputController(personalInfoBloc, personalInfoFieldsType),
-            onChanged: (val) {
-              personalInfoBloc.add(OnTextChange(
-                  str: val,
-                  personalInfoFieldsType: PersonalInfoFieldsTypes.EMAIL,
-                  textEditingController: _getInputController(
-                      personalInfoBloc, personalInfoFieldsType)));
-            },
-          );
-        }
+  Widget _getTextField(
+      StoreInfoBloc storeInfoBloc, StoreInfoFieldsTypes storeInfoFieldsType) {
+    switch (storeInfoFieldsType) {
       default:
         {
           return InputTextField(
-            label: personalInfoFieldsType.name.toLowerCase(),
+            label: storeInfoFieldsType.name.toLowerCase(),
             inputController:
-                _getInputController(personalInfoBloc, personalInfoFieldsType),
+                _getInputController(storeInfoBloc, storeInfoFieldsType),
             onChanged: (val) {
-              personalInfoBloc.add(OnTextChange(
+              storeInfoBloc.add(OnTextChange(
                   str: val,
-                  personalInfoFieldsType: personalInfoFieldsType,
-                  textEditingController: _getInputController(
-                      personalInfoBloc, personalInfoFieldsType)));
+                  storeInfoFieldsType: storeInfoFieldsType,
+                  textEditingController:
+                      _getInputController(storeInfoBloc, storeInfoFieldsType)));
             },
           );
         }
     }
   }
 
-  TextEditingController _getInputController(PersonalInfoBloc personalInfoBloc,
-      PersonalInfoFieldsTypes personalInfoFieldsType) {
-    switch (personalInfoFieldsType) {
-      case PersonalInfoFieldsTypes.NAME:
+  TextEditingController _getInputController(
+      StoreInfoBloc storeInfoBloc, StoreInfoFieldsTypes storeInfoFieldsType) {
+    switch (storeInfoFieldsType) {
+      case StoreInfoFieldsTypes.NAME:
         {
-          return personalInfoBloc.nameController;
+          return storeInfoBloc.nameController;
         }
-      case PersonalInfoFieldsTypes.EMAIL:
+      case StoreInfoFieldsTypes.URL:
         {
-          return personalInfoBloc.emailController;
+          return storeInfoBloc.urlController;
         }
-      case PersonalInfoFieldsTypes.NATIONAL_ID:
+      case StoreInfoFieldsTypes.MAROOF_ID:
         {
-          return personalInfoBloc.nationalIDController;
+          return storeInfoBloc.maroofIdController;
         }
-      case PersonalInfoFieldsTypes.ADDRESS:
+      case StoreInfoFieldsTypes.COMMERCIAL_REGISTERATION_NO:
         {
-          return personalInfoBloc.addressController;
-        }
-      case PersonalInfoFieldsTypes.DISTRICT:
-        {
-          return personalInfoBloc.districtController;
-        }
-      case PersonalInfoFieldsTypes.GOVERNORATE:
-        {
-          return personalInfoBloc.governorateController;
+          return storeInfoBloc.commercialRegistrationNoController;
         }
     }
   }
 
-  bool enablePersonalInfo(PersonalInfoBloc personalInfoBloc) {
-    log("${personalInfoBloc.personalInfoFieldsValidMap}",
-        name: "enablePersonalInfo --->");
-    if (personalInfoBloc.personalInfoFieldsValidMap.values.length ==
-        PersonalInfoFieldsTypes.values.length) {
-      return personalInfoBloc.personalInfoFieldsValidMap.values
+  bool enableStoreInfo(StoreInfoBloc storeInfoBloc) {
+    log("${storeInfoBloc.storeInfoFieldsValidMap}",
+        name: "enableStoreInfo --->");
+    if (storeInfoBloc.storeInfoFieldsValidMap.values.length ==
+        StoreInfoFieldsTypes.values.length) {
+      return storeInfoBloc.storeInfoFieldsValidMap.values
           .every((element) => element == true);
     }
     return false;

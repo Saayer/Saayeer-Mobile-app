@@ -33,6 +33,8 @@
   "commercial_registration_no": "Commercial Registration Number",
   "company_name": "Company Name",
   "short_address": "Short Address",
+  "url": "Url",
+  "maroof_id": "Maroof ID",
   "enter_phone_num_desc": "Please enter your phone number",
   "verify_otp": "OTP Verification",
   "verify_otp_desc": "We texted you OTP. Please enter it below",
@@ -53,5 +55,6 @@
   "arabic": "العربية",
   "language": "Language",
   "personal_info": "Personal Info",
-  "business_info": "Business Info"
+  "business_info": "Business Info",
+  "store_info": "Store Info"
 }

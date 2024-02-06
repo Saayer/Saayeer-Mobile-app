@@ -15,6 +15,7 @@ class UserInfoViewPageBloc
     extends Bloc<UserInfoViewPageEvent, UserInfoViewPageState> {
   UserInfoViewPageBloc() : super(const UserInfoViewPageState()) {
     on<InitUserInfoViewPageEvent>(_initUserInfoViewPageEvent);
+    on<GoToNextPageEvent>(_goToNextPageEvent);
   }
 
   FutureOr<void> _initUserInfoViewPageEvent(
@@ -25,5 +26,21 @@ class UserInfoViewPageBloc
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         currentPage: event.currentPage));
+  }
+
+  FutureOr<void> _goToNextPageEvent(
+      GoToNextPageEvent event, Emitter<UserInfoViewPageState> emit) {
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+    if (state.currentPage + 1 < 3) {
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADED),
+          currentPage: state.currentPage + 1));
+    } else {
+      emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.SUCCESS),
+      ));
+    }
   }
 }

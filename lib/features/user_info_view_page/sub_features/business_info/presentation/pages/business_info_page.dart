@@ -11,10 +11,12 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
 import 'package:saayer/common/text_fields/phone_text_field.dart';
+import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
+import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/errors/business_info_error_handler.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/utils/enums/enums.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/bloc/business_info_bloc.dart';
@@ -41,7 +43,9 @@ class BusinessInfoPage extends StatelessWidget {
                 RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {
+            getIt<UserInfoViewPageBloc>().add(GoToNextPageEvent());
+          }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
             BusinessInfoErrorHandler(state: state)();
@@ -158,7 +162,9 @@ class BusinessInfoPage extends StatelessWidget {
                   LabelTxt(txt: businessInfoFieldsType.name.tr()),
                 ],
               ),
-              SizedBox(height: 8.h,),
+              SizedBox(
+                height: 8.h,
+              ),
               Directionality(
                 textDirection: ui.TextDirection.ltr,
                 child: Padding(

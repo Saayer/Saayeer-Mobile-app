@@ -8,4 +8,8 @@ class UserInfoEndPoints {
   static String get updateBusinessInfo {
     return EndPointBuilder.build("account/UpdateBusinessInfo").fullUrl;
   }
+
+  static String get updateStoreInfo {
+    return EndPointBuilder.build("account/UpdateStoreInfo").fullUrl;
+  }
 }

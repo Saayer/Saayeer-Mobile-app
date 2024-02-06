@@ -9,12 +9,14 @@ class BusinessInfoRequestModel {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    // map["name"] = businessInfoEntity.name;
-    // map["email"] = businessInfoEntity.email;
-    // map["nationalId"] = businessInfoEntity.nationalId;
-    // map["address"] = businessInfoEntity.address;
-    // map["district"] = businessInfoEntity.district;
-    // map["governorate"] = businessInfoEntity.governorate;
+    map["companyName"] = businessInfoEntity.companyName;
+    map["email"] = businessInfoEntity.email;
+    map["mobileNumber"] = businessInfoEntity.mobileNumber;
+    map["commercialRegistrationNo"] =
+        businessInfoEntity.commercialRegistrationNo;
+    map["shortAddress"] = businessInfoEntity.shortAddress;
+    map["district"] = businessInfoEntity.district;
+    map["governorate"] = businessInfoEntity.governorate;
     return map;
   }
 }
