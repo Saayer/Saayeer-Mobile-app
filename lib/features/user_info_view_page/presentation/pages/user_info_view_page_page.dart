@@ -3,10 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_page_view/enum/progress_enum.dart';
-import 'package:form_page_view/form_page_view.dart';
-import 'package:form_page_view/models/form_page_model.dart';
-import 'package:form_page_view/models/form_page_style.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -16,7 +12,6 @@ import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/screens/business_info_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/screens/store_info_screen.dart';
-import 'package:story_page_view/story_page_view.dart';
 
 class UserInfoViewPagePage extends StatelessWidget {
   const UserInfoViewPagePage({super.key});
