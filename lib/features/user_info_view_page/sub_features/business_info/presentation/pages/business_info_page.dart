@@ -111,11 +111,7 @@ class BusinessInfoPage extends StatelessWidget {
                             .map((e) => Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 20.w, vertical: 10.h),
-                                  child: InputTextField(
-                                    label: e.name.toLowerCase(),
-                                    inputController: _getInputController(
-                                        businessInfoBloc, e),
-                                  ),
+                                  child: _getTextField(businessInfoBloc, e),
                                 ))
                             .toList()),
                         SizedBox(
@@ -152,24 +148,40 @@ class BusinessInfoPage extends StatelessWidget {
         }
       case BusinessInfoFieldsTypes.MOBILE_NUMBER:
         {
-          return Directionality(
-            textDirection: ui.TextDirection.ltr,
-            child: PhoneTextField(
-              phoneNumController:
-                  _getInputController(businessInfoBloc, businessInfoFieldsType),
-              onInputChanged: (PhoneNumber phoneNumber) {
-                log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
-                    name: "onInputChanged --->");
-                log("${phoneNumber.phoneNumber}",
-                    name: "PhoneTextField onInputChanged ->");
-                businessInfoBloc.add(OnTextChange(
-                    phoneNumber: phoneNumber,
-                    businessInfoFieldsType:
-                        BusinessInfoFieldsTypes.MOBILE_NUMBER,
-                    textEditingController: _getInputController(
-                        businessInfoBloc, businessInfoFieldsType)));
-              },
-            ),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  LabelTxt(txt: businessInfoFieldsType.name.tr()),
+                ],
+              ),
+              SizedBox(height: 8.h,),
+              Directionality(
+                textDirection: ui.TextDirection.ltr,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: PhoneTextField(
+                    phoneNumController: _getInputController(
+                        businessInfoBloc, businessInfoFieldsType),
+                    onInputChanged: (PhoneNumber phoneNumber) {
+                      log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                          name: "onInputChanged --->");
+                      log("${phoneNumber.phoneNumber}",
+                          name: "PhoneTextField onInputChanged ->");
+                      businessInfoBloc.add(OnTextChange(
+                          phoneNumber: phoneNumber,
+                          businessInfoFieldsType:
+                              BusinessInfoFieldsTypes.MOBILE_NUMBER,
+                          textEditingController: _getInputController(
+                              businessInfoBloc, businessInfoFieldsType)));
+                    },
+                  ),
+                ),
+              ),
+            ],
           );
         }
       default:
@@ -227,7 +239,8 @@ class BusinessInfoPage extends StatelessWidget {
   bool enableBusinessInfo(BusinessInfoBloc businessInfoBloc) {
     log("${businessInfoBloc.businessInfoFieldsValidMap}",
         name: "enablePersonalInfo --->");
-    if (businessInfoBloc.businessInfoFieldsValidMap.values.length == 1) {
+    if (businessInfoBloc.businessInfoFieldsValidMap.values.length ==
+        BusinessInfoFieldsTypes.values.length) {
       return businessInfoBloc.businessInfoFieldsValidMap.values
           .every((element) => element == true);
     }

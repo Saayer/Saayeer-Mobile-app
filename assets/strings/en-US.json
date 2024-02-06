@@ -31,6 +31,8 @@
   "district": "District",
   "governorate": "Governorate",
   "commercial_registration_no": "Commercial Registration Number",
+  "company_name": "Company Name",
+  "short_address": "Short Address",
   "enter_phone_num_desc": "Please enter your phone number",
   "verify_otp": "OTP Verification",
   "verify_otp_desc": "We texted you OTP. Please enter it below",

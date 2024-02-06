@@ -28,3 +28,13 @@ class SubmitBusinessInfoData extends BusinessInfoEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ToggleAutoValidate extends BusinessInfoEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class SubmitBusinessInfo extends BusinessInfoEvent {
+  @override
+  List<Object?> get props => [];
+}

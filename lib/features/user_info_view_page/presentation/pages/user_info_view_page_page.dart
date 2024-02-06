@@ -27,8 +27,8 @@ class UserInfoViewPagePage extends StatelessWidget {
     final UserInfoViewPageBloc userInfoViewPageBloc =
         BlocProvider.of<UserInfoViewPageBloc>(context);
     final List<Widget> pages = [
-      const PersonalInfoScreen(),
       const BusinessInfoScreen(),
+      const PersonalInfoScreen(),
       const Text("")
     ];
 

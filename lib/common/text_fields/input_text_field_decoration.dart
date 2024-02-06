@@ -22,8 +22,7 @@ class InputTextFieldDecoration {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.r)),
       ),
-      errorStyle:
-          TextStyle(color: SaayerTheme().getColorsPalette.primaryColor),
+      errorStyle: TextStyle(color: SaayerTheme().getColorsPalette.primaryColor),
       errorMaxLines: 5,
       prefixIcon: prefixWidget,
       suffixIcon: suffixWidget,
