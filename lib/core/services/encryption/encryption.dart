@@ -1,34 +1,19 @@
 import 'dart:developer';
-import 'package:encrypt/encrypt.dart';
-import 'package:injectable/injectable.dart';
+
+import 'package:encrypt_decrypt_plus/cipher/cipher.dart';
 
 class Encryption {
-  static final key = Key.fromUtf8('saayerappdonebyberrawyandshaimaa');
-  final iv = IV.fromLength(16);
+  Cipher cipher = Cipher(secretKey: "Saayer_Mobile_App");
 
-  late final Encrypter encrypter;
-
-  String encrypt(String plainText) {
-    encrypter = Encrypter(AES(key));
-    final Encrypted encrypted = encrypter.encrypt(plainText, iv: iv);
-    log(encrypted.base64.toString(), name: "encrypted");
-    return encrypted.base64;
+  String encrypt(String text) {
+    final String encryptedTxt = cipher.xorEncode(text);
+    log(encryptedTxt, name: "encryptedTxt");
+    return encryptedTxt;
   }
 
-  Encrypted toEncrypted(String encoded) {
-    return Encrypted.fromBase64(encoded);
-  }
-
-  String decrypt(String encryptedText) {
-    encrypter = Encrypter(AES(key));
-    try {
-      final Encrypted encrypted = encrypter.encrypt(encryptedText, iv: iv);
-      final String decrypted = encrypter.decrypt(encrypted, iv: iv);
-      log(decrypted.toString(), name: "decrypted");
-      return decrypted;
-    } catch (e) {
-      log(e.toString(), name: "decrypted error");
-      return "";
-    }
+  String decrypt(String encryptedTxt) {
+    final String decryptedTxt = cipher.xorDecode(encryptedTxt);
+    log(decryptedTxt, name: "decryptedTxt");
+    return decryptedTxt;
   }
 }

@@ -8,6 +8,8 @@ PODS:
   - CryptoSwift (1.8.1)
   - device_info_plus (0.0.1):
     - Flutter
+  - encrypt_decrypt_plus (0.0.1):
+    - Flutter
   - Firebase/Auth (10.20.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.20.0)
@@ -22,22 +24,22 @@ PODS:
   - Firebase/Storage (10.20.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.20.0)
-  - firebase_auth (4.17.3):
+  - firebase_auth (4.17.4):
     - Firebase/Auth (= 10.20.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.25.3):
+  - firebase_core (2.25.4):
     - Firebase/CoreOnly (= 10.20.0)
     - Flutter
-  - firebase_dynamic_links (5.4.12):
+  - firebase_dynamic_links (5.4.13):
     - Firebase/DynamicLinks (= 10.20.0)
     - firebase_core
     - Flutter
-  - firebase_messaging (14.7.14):
+  - firebase_messaging (14.7.15):
     - Firebase/Messaging (= 10.20.0)
     - firebase_core
     - Flutter
-  - firebase_storage (11.6.4):
+  - firebase_storage (11.6.5):
     - Firebase/Storage (= 10.20.0)
     - firebase_core
     - Flutter
@@ -168,6 +170,7 @@ DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - encrypt_decrypt_plus (from `.symlinks/plugins/encrypt_decrypt_plus/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
@@ -222,6 +225,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
+  encrypt_decrypt_plus:
+    :path: ".symlinks/plugins/encrypt_decrypt_plus/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -267,12 +272,13 @@ SPEC CHECKSUMS:
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   CryptoSwift: b9c701d6f5011df23794dbf7f2e480a77835d83d
   device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
+  encrypt_decrypt_plus: a834f8ee90d3c9cdcd11fc2895b885e6cabe704e
   Firebase: 10c8cb12fb7ad2ae0c09ffc86cd9c1ab392a0031
-  firebase_auth: 37eb4a237d7407336d9dc3b739e81153c5077d70
-  firebase_core: 96a734ae596de989b81a66f8a205f54485263555
-  firebase_dynamic_links: e91d4c986f380f29ac979311c76db04e5964d406
-  firebase_messaging: 9a5136ff704c8aa1e2a664c6b159c41b3c3778d7
-  firebase_storage: cab6237615be4a29f042640cc6364d54e1b6ffc4
+  firebase_auth: 29a10d4129d53aa690c10dbd838ed1a059ef0c9b
+  firebase_core: a46c312d8bae4defa3d009b2aa7b5b413aeb394e
+  firebase_dynamic_links: 58354c4228a25d8c77185baafafaffa2debcc076
+  firebase_messaging: 40d7dd2f3e88a6367c7326cf601f84633d477582
+  firebase_storage: 5007be227e54a46f260b6040a23b4fdc8ca1c5c5
   FirebaseAppCheckInterop: e81bdb1cdb82f8e0cef353ba5018a8402682032c
   FirebaseAuth: 9c5c400d2c3055d8ae3a0284944c86fa95d48dac
   FirebaseAuthInterop: 6142981334978f7942ff0e8a6f8966c3b3c8ff37

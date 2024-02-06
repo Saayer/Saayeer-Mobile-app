@@ -13,6 +13,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
+import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/verify_otp/core/errors/verify_otp_error_handler.dart';
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart';
 import 'dart:ui' as ui;
@@ -45,7 +46,7 @@ class VerifyOtpPage extends StatelessWidget {
             if (state.isVerified) {
               SaayerToast().showSuccessToast(msg: "welcome");
               await getIt<SecureStorageService>().setIsLoggedIn(true);
-              getIt<NavigationService>().navigateTo(const ViewPageScreen());
+              getIt<NavigationService>().navigateTo(const UserInfoViewPageScreen());
             } else {
               SaayerToast().showSuccessToast(
                   msg: state.submitVerifyOtpEntity?.message ?? "");
