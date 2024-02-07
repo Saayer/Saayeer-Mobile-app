@@ -7,7 +7,7 @@ import 'package:saayer/features/user_info_view_page/sub_features/business_info/d
 class BusinessInfoResponseModel {
   BusinessInfoResponseModel({
     bool? success,
-    Data? data,
+    bool? data,
     dynamic errorMessage,
   }) {
     _success = success;
@@ -17,17 +17,17 @@ class BusinessInfoResponseModel {
 
   BusinessInfoResponseModel.fromJson(dynamic json) {
     _success = json['success'];
-    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    _data = json['data'];
     _errorMessage = json['errorMessage'];
   }
 
   bool? _success;
-  Data? _data;
+  bool? _data;
   dynamic _errorMessage;
 
   BusinessInfoResponseModel copyWith({
     bool? success,
-    Data? data,
+    bool? data,
     dynamic errorMessage,
   }) =>
       BusinessInfoResponseModel(
@@ -38,16 +38,14 @@ class BusinessInfoResponseModel {
 
   bool? get success => _success;
 
-  Data? get data => _data;
+  bool? get data => _data;
 
   dynamic get errorMessage => _errorMessage;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['success'] = _success;
-    if (_data != null) {
-      map['data'] = _data?.toJson();
-    }
+    map['data'] = _data;
     map['errorMessage'] = _errorMessage;
     return map;
   }
@@ -55,48 +53,6 @@ class BusinessInfoResponseModel {
   SubmitBusinessInfoEntity toDomain() {
     final bool isSuccess = (success ?? false);
     return SubmitBusinessInfoEntity(
-        message: isSuccess ? (data?.message ?? "") : (errorMessage ?? ""),
-        isSuccess: isSuccess);
-  }
-}
-
-/// otp : "3718"
-/// message : "Otp sent to number XXXXXX3660"
-
-class Data {
-  Data({
-    String? otp,
-    String? message,
-  }) {
-    _otp = otp;
-    _message = message;
-  }
-
-  Data.fromJson(dynamic json) {
-    _otp = json['otp'];
-    _message = json['message'];
-  }
-
-  String? _otp;
-  String? _message;
-
-  Data copyWith({
-    String? otp,
-    String? message,
-  }) =>
-      Data(
-        otp: otp ?? _otp,
-        message: message ?? _message,
-      );
-
-  String? get otp => _otp;
-
-  String? get message => _message;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['otp'] = _otp;
-    map['message'] = _message;
-    return map;
+        message: errorMessage ?? "", isSuccess: isSuccess);
   }
 }

@@ -128,7 +128,7 @@ class LogInPage extends StatelessWidget {
                               onInputChanged: (PhoneNumber phoneNumber) {
                                 log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
                                     name: "onInputChanged --->");
-                                log("${phoneNumber.phoneNumber}",
+                                log("${phoneNumber.phoneNumber}-${phoneNumber.parseNumber()}",
                                     name: "PhoneTextField onInputChanged ->");
                                 logInBloc.add(OnTextChange(
                                     logInFieldsType:

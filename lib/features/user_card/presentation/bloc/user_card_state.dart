@@ -1,10 +1,23 @@
 part of 'user_card_bloc.dart';
 
-abstract class UserCardState extends Equatable {
-  const UserCardState();
-}
+class UserCardState extends Equatable {
+  final StateHelper stateHelper;
+  final UserCardEntity? userCardEntity;
 
-class UserCardInitial extends UserCardState {
+  const UserCardState(
+      {this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
+        this.userCardEntity});
+
+  UserCardState copyWith({
+    StateHelper? stateHelper,
+    UserCardEntity? userCardEntity,
+  }) {
+    return UserCardState(
+      stateHelper: stateHelper ?? this.stateHelper,
+      userCardEntity: userCardEntity ?? this.userCardEntity,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [stateHelper, userCardEntity];
 }

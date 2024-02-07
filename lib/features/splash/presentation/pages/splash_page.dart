@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,8 @@ class SplashPage extends StatelessWidget {
           Timer(const Duration(seconds: 3), () async {
             final bool isLoggedIn =
                 await getIt<LoggedInCheckerService>().isLoggedIn();
-            if (isLoggedIn) getIt<LoggedInCheckerService>().initLoggedUser();
+            log("${isLoggedIn}", name: "isLoggedIn");
+            //if (isLoggedIn) getIt<LoggedInCheckerService>().initLoggedUser();
             getIt<NavigationService>().navigateAndFinish(
                 isLoggedIn ? const ViewPageScreen() : const IntroScreen());
           });

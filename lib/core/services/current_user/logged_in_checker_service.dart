@@ -6,7 +6,7 @@ import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/entities/logged_in_user_entity.dart';
 
-@Singleton()
+@Injectable()
 class LoggedInCheckerService {
   Future<bool> isLoggedIn() async {
     final bool? isLoggedIn = await getIt<SecureStorageService>().getIsLoggedIn();

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/API/api_consumer.dart';
-import 'package:saayer/core/API/end_points/auth_end_points.dart';
+import 'package:saayer/core/API/end_points/end_points/auth_end_points.dart';
 import 'package:saayer/features/verify_otp/data/data_sources/verify_otp_RDS.dart';
 import 'package:saayer/features/verify_otp/data/models/verify_otp_request_model.dart';
 import 'package:saayer/features/verify_otp/data/models/verify_otp_response_model.dart';

@@ -7,8 +7,12 @@ class EndPointBuilder {
     required this.fullUrl,
   });
 
-  factory EndPointBuilder.build(String resourcePath) {
-    final String baseUrl = EndPointsBaseUrl.init().baseUrl;
+  factory EndPointBuilder.build(
+      {required String resourcePath, bool isAccount = false}) {
+    String baseUrl = EndPointsBaseUrl.init().baseUrl;
+    if (isAccount) {
+      baseUrl += "account/";
+    }
     final String fullUrl = "$baseUrl$resourcePath";
     return EndPointBuilder.internal(fullUrl: fullUrl);
   }

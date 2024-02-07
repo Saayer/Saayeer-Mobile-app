@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart';
@@ -12,6 +14,7 @@ import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/screens/business_info_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/screens/store_info_screen.dart';
+import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class UserInfoViewPagePage extends StatelessWidget {
   const UserInfoViewPagePage({super.key});
@@ -38,7 +41,10 @@ class UserInfoViewPagePage extends StatelessWidget {
                 RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {
+            getIt<NavigationService>()
+                .navigateAndFinish(const ViewPageScreen());
+          }
           if (state.stateHelper.requestState == RequestState.ERROR) {}
         }
       },
@@ -87,8 +93,7 @@ class UserInfoViewPagePage extends StatelessWidget {
                         height: 10.h,
                       ),
                       Flexible(
-                          fit: FlexFit.tight,
-                          child: pages[state.currentPage])
+                          fit: FlexFit.tight, child: pages[state.currentPage])
                     ],
                   )),
             ),
