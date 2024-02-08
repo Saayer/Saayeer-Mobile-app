@@ -49,10 +49,12 @@ class StoreInfoPage extends StatelessWidget {
         canPop: false,
         child: Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-          bottomSheet: ColoredBox(
+          bottomSheet: Container(
+            width: width,
             color: SaayerTheme().getColorsPalette.backgroundColor,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 50.h),
+              padding: EdgeInsets.only(
+                  bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
               child: SaayerDefaultTextButton(
                 text: "submit",
                 isEnabled: enableStoreInfo(storeInfoBloc),
@@ -90,14 +92,14 @@ class StoreInfoPage extends StatelessWidget {
                           height: 20.h,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "store_info".tr(),
                                 textAlign: TextAlign.start,
-                                style: AppTextStyles.highlightedLabel(),
+                                style: AppTextStyles.sectionTitle(),
                               ),
                             ],
                           ),

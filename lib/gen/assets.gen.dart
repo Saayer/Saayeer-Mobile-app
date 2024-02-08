@@ -50,15 +50,35 @@ class $AssetsIconsGen {
   AssetGenImage get icLogoWithBg =>
       const AssetGenImage('assets/icons/ic_logo_with_bg.jpg');
 
+  /// File path: assets/icons/ic_logo_with_text.png
+  AssetGenImage get icLogoWithText =>
+      const AssetGenImage('assets/icons/ic_logo_with_text.png');
+
   /// File path: assets/icons/ic_more.svg
   String get icMore => 'assets/icons/ic_more.svg';
+
+  /// File path: assets/icons/ic_profile.svg
+  String get icProfile => 'assets/icons/ic_profile.svg';
+
+  /// File path: assets/icons/ic_settings.svg
+  String get icSettings => 'assets/icons/ic_settings.svg';
 
   /// File path: assets/icons/ic_shipments.svg
   String get icShipments => 'assets/icons/ic_shipments.svg';
 
   /// List of all assets
-  List<dynamic> get values =>
-      [icEbills, icHome, icLogo, icLogoText, icLogoWithBg, icMore, icShipments];
+  List<dynamic> get values => [
+        icEbills,
+        icHome,
+        icLogo,
+        icLogoText,
+        icLogoWithBg,
+        icLogoWithText,
+        icMore,
+        icProfile,
+        icSettings,
+        icShipments
+      ];
 }
 
 class $AssetsImagesGen {

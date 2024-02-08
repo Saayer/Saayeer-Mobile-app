@@ -1,10 +1,20 @@
 part of 'shipments_bloc.dart';
 
-abstract class ShipmentsState extends Equatable {
-  const ShipmentsState();
-}
+class ShipmentsState extends Equatable {
+  final StateHelper stateHelper;
+  final ShipmentsTypes shipmentsType;
 
-class ShipmentsInitial extends ShipmentsState {
+  const ShipmentsState(
+      {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
+      this.shipmentsType = ShipmentsTypes.INBOUND});
+
+  ShipmentsState copyWith(
+      {StateHelper? stateHelper, ShipmentsTypes? shipmentsType}) {
+    return ShipmentsState(
+        stateHelper: stateHelper ?? this.stateHelper,
+        shipmentsType: shipmentsType ?? this.shipmentsType);
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [stateHelper, shipmentsType];
 }

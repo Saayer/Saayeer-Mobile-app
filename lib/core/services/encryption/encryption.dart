@@ -7,13 +7,13 @@ class Encryption {
 
   String encrypt(String text) {
     final String encryptedTxt = cipher.xorEncode(text);
-    log(encryptedTxt, name: "encryptedTxt");
+    //log(encryptedTxt, name: "encryptedTxt");
     return encryptedTxt;
   }
 
   String decrypt(String encryptedTxt) {
     final String decryptedTxt = cipher.xorDecode(encryptedTxt);
-    log(decryptedTxt, name: "decryptedTxt");
+    //log(decryptedTxt, name: "decryptedTxt");
     return decryptedTxt;
   }
 }

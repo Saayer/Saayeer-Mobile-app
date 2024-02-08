@@ -13,7 +13,7 @@ class LabelTxt extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Text(
           txt,
           style: GoogleFonts.roboto(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saayer/common/dialogs/dialogs.dart';
 import 'package:saayer/common/dialogs/saayer_dialogs.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';

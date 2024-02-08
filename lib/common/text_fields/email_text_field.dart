@@ -25,7 +25,7 @@ class EmailTextField extends StatelessWidget {
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 8.h, right: 20.w, left: 20.w),
+          margin: EdgeInsets.only(top: 8.h, right: 16.w, left: 16.w),
           child: BaseTextField(
             controller: emailController,
             hintText: "email".tr(),

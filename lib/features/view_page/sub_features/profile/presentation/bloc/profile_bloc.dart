@@ -4,13 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
-part 'ebills_event.dart';
-part 'ebills_state.dart';
+part 'profile_event.dart';
+part 'profile_state.dart';
 
 @Injectable()
-class EbillsBloc extends Bloc<EbillsEvent, EbillsState> {
-  EbillsBloc() : super(EbillsInitial()) {
-    on<EbillsEvent>((event, emit) {
+class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+  ProfileBloc() : super(ProfileInitial()) {
+    on<ProfileEvent>((event, emit) {
       // TODO: implement event handler
     });
   }

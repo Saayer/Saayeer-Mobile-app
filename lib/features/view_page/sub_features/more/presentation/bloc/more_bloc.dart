@@ -16,13 +16,15 @@ class MoreBloc extends Bloc<MoreEvent, MoreState> {
     on<RefreshEvent>(_refreshEvent);
   }
 
-  Future<FutureOr<void>> _refreshEvent(RefreshEvent event, Emitter<MoreState> emit) async {
+  Future<FutureOr<void>> _refreshEvent(
+      RefreshEvent event, Emitter<MoreState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     await Future.delayed(const Duration(milliseconds: 500));
 
     emit(state.copyWith(
-        stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+        stateHelper: const StateHelper(requestState: RequestState.LOADED),
+        isRefreshed: true));
   }
 }

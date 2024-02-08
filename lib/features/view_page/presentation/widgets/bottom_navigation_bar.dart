@@ -71,18 +71,25 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                               top: 35.h,
                               child: SizedBox(
                                 width: 60.w,
-                                child: Text(
-                                  navBarIconEntity.navBarIconType.name.tr(),
-                                  style: AppTextStyles.xSmallLabel(
-                                      navBarIconEntity.isSelected
-                                          ? SaayerTheme()
-                                              .getColorsPalette
-                                              .primaryColor
-                                          : SaayerTheme()
-                                              .getColorsPalette
-                                              .blackTextColor),
-                                  textAlign: TextAlign.center,
-                                  softWrap: true,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    viewPageBloc.add(GoToPage(
+                                        navBarIconType:
+                                            navBarIconEntity.navBarIconType));
+                                  },
+                                  child: Text(
+                                    navBarIconEntity.navBarIconType.name.tr(),
+                                    style: AppTextStyles.xSmallLabel(
+                                        navBarIconEntity.isSelected
+                                            ? SaayerTheme()
+                                                .getColorsPalette
+                                                .primaryColor
+                                            : SaayerTheme()
+                                                .getColorsPalette
+                                                .blackTextColor),
+                                    textAlign: TextAlign.center,
+                                    softWrap: true,
+                                  ),
                                 ),
                               ),
                             )
@@ -96,18 +103,24 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                 top: 35.h,
                 child: SizedBox(
                   width: 60.w,
-                  child: Text(
-                    NavBarIconTypes.REQUEST_SHIPMENT.name.tr(),
-                    style: AppTextStyles.xSmallLabel(viewPageBloc
-                            .navBarIconEntityList
-                            .firstWhere((element) =>
-                                element.navBarIconType ==
-                                NavBarIconTypes.REQUEST_SHIPMENT)
-                            .isSelected
-                        ? SaayerTheme().getColorsPalette.primaryColor
-                        : SaayerTheme().getColorsPalette.blackTextColor),
-                    textAlign: TextAlign.center,
-                    softWrap: true,
+                  child: GestureDetector(
+                    onTap: () {
+                      viewPageBloc.add(const GoToPage(
+                          navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+                    },
+                    child: Text(
+                      NavBarIconTypes.REQUEST_SHIPMENT.name.tr(),
+                      style: AppTextStyles.xSmallLabel(viewPageBloc
+                              .navBarIconEntityList
+                              .firstWhere((element) =>
+                                  element.navBarIconType ==
+                                  NavBarIconTypes.REQUEST_SHIPMENT)
+                              .isSelected
+                          ? SaayerTheme().getColorsPalette.primaryColor
+                          : SaayerTheme().getColorsPalette.blackTextColor),
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                    ),
                   ),
                 ),
               )

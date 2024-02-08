@@ -39,13 +39,13 @@ class SplashPage extends StatelessWidget {
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           body: Center(
             child: Container(
-              width: 300.w,
-              height: 300.h,
+              width: 250.w,
+              height: 250.h,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image:
-                      AssetImage(Constants.getImagePath("logo_with_text.jpeg")),
+                      AssetImage(Constants.getIconPath("ic_logo_with_text.png")),
                   fit: BoxFit.cover,
                 ),
               ),

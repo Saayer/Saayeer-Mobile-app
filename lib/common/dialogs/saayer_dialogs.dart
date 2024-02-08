@@ -1,78 +1,63 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
+import 'package:saayer/common/buttons/saayer_default_text_button.dart';
+import 'package:saayer/common/dialogs/base_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/core/utils/theme/typography.dart';
 
 class SaayerDialogs {
   final BuildContext context =
       getIt<NavigationService>().mainNavigatorKey.currentContext!;
-
-  final String errorImagePath = Constants.getGifPath("error.gif");
-  final String successImagePath = Constants.getGifPath("success.gif");
 
   oneBtnDialog(
       {required String title,
       required String message,
       String? buttonText,
       bool isError = true,
-      void Function()? onTapDismiss,
-      PanaraDialogType? panaraDialogType}) {
-    PanaraInfoDialog.show(
-      context,
-      imagePath: isError ? errorImagePath : successImagePath,
-      title: title.tr(),
-      message: message.tr(),
-      buttonText: (buttonText ?? "ok").tr(),
-      textColor: SaayerTheme().getColorsPalette.blackTextColor,
-      buttonTextColor: SaayerTheme().getColorsPalette.backgroundColor,
-      onTapDismiss: () {
-        getIt<NavigationService>().pop();
-        if (onTapDismiss != null) {
-          onTapDismiss();
-        }
-      },
-      panaraDialogType: panaraDialogType ??
-          (isError ? PanaraDialogType.error : PanaraDialogType.success),
-      barrierDismissible: false, // optional parameter (default is true)
-    );
+      void Function()? onTapDismiss}) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        barrierColor:
+            SaayerTheme().getColorsPalette.barrierColor,
+        builder: (BuildContext context) {
+          return BaseDialog(
+            title: title,
+            message: message,
+            buttonText: buttonText,
+            isError: isError,
+            onTapDismiss: onTapDismiss,
+          );
+        });
   }
 
   twoBtnsDialog(
       {required String title,
       required String message,
-      String? confirmButtonText,
-      String? cancelButtonText,
+      String? buttonText,
+      String? secondButtonText,
       bool isError = true,
-      void Function()? onTapCancel,
-      void Function()? onTapConfirm,
-      PanaraDialogType? panaraDialogType}) {
-    PanaraConfirmDialog.show(
-      context,
-      imagePath: isError ? errorImagePath : successImagePath,
-      title: title.tr(),
-      message: message.tr(),
-      confirmButtonText: (confirmButtonText ?? "confirm").tr(),
-      cancelButtonText: (cancelButtonText ?? "cancel").tr(),
-      textColor: SaayerTheme().getColorsPalette.blackTextColor,
-      buttonTextColor: SaayerTheme().getColorsPalette.backgroundColor,
-      onTapCancel: () {
-        getIt<NavigationService>().pop();
-        if (onTapCancel != null) {
-          onTapCancel();
-        }
-      },
-      onTapConfirm: () {
-        getIt<NavigationService>().pop();
-        if (onTapConfirm != null) {
-          onTapConfirm();
-        }
-      },
-      panaraDialogType: panaraDialogType ??
-          (isError ? PanaraDialogType.error : PanaraDialogType.success),
-      barrierDismissible: false, // optional parameter (default is true)
-    );
+      void Function()? onTapDismiss,
+      void Function()? onSecondTapDismiss}) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return BaseDialog(
+            title: title,
+            message: message,
+            buttonText: buttonText,
+            secondButtonText: secondButtonText,
+            isError: isError,
+            hasSecondButton: true,
+            onTapDismiss: onTapDismiss,
+            onSecondTapDismiss: onSecondTapDismiss,
+          );
+        });
   }
 }

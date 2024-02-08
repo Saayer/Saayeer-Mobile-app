@@ -48,10 +48,11 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final result = await logInUseCase(LogInParameters(
-        logInEntity: LogInEntity(
-            phoneNumber: PhoneNumber(
-                phoneNumber: state.verifyOtpEntity?.phoneNumber ?? ""))));
+    final Either<Failure, SubmitLogInEntity?> result = await logInUseCase(
+        LogInParameters(
+            logInEntity: LogInEntity(
+                phoneNumber: PhoneNumber(
+                    phoneNumber: state.verifyOtpEntity?.phoneNumber ?? ""))));
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;

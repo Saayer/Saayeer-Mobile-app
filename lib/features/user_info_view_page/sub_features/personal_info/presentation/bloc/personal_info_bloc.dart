@@ -86,8 +86,9 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final result = await submitPersonalInfoUseCase(
-        PersonalInfoParameters(personalInfoEntity: state.personalInfoEntity!));
+    final Either<Failure, SubmitPersonalInfoEntity?> result =
+        await submitPersonalInfoUseCase(PersonalInfoParameters(
+            personalInfoEntity: state.personalInfoEntity!));
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;

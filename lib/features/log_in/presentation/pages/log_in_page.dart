@@ -62,10 +62,12 @@ class LogInPage extends StatelessWidget {
           appBar: const BaseAppBar(
             showBackLeading: false,
           ),
-          bottomSheet: ColoredBox(
+          bottomSheet: Container(
+            width: width,
             color: SaayerTheme().getColorsPalette.backgroundColor,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 50.h),
+              padding: EdgeInsets.only(
+                  bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
               child: SaayerDefaultTextButton(
                 text: "log_in",
                 isEnabled: enableLogIn(logInBloc),
@@ -106,7 +108,7 @@ class LogInPage extends StatelessWidget {
                         //   height: 5.h,
                         // ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -120,7 +122,7 @@ class LogInPage extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 30.w, vertical: 20.h),
+                              horizontal: 16.w, vertical: 20.h),
                           child: Directionality(
                             textDirection: ui.TextDirection.ltr,
                             child: PhoneTextField(

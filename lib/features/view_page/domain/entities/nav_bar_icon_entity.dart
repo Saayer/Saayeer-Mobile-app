@@ -50,11 +50,11 @@ class RequestShipmentNavBarIconEntity extends NavBarIconEntity {
         super.navBarIconType = NavBarIconTypes.REQUEST_SHIPMENT});
 }
 
-class EBillsNavBarIconEntity extends NavBarIconEntity {
-  const EBillsNavBarIconEntity(
+class ProfileNavBarIconEntity extends NavBarIconEntity {
+  const ProfileNavBarIconEntity(
       {super.iconData = Icons.file_copy_outlined,
       super.isSelected = false,
-      super.navBarIconType = NavBarIconTypes.EBILLS});
+      super.navBarIconType = NavBarIconTypes.PROFILE});
 }
 
 class MoreNavBarIconEntity extends NavBarIconEntity {

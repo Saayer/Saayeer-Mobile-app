@@ -26,7 +26,7 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
     ),
     const ShipmentsNavBarIconEntity(),
     const RequestShipmentNavBarIconEntity(),
-    const EBillsNavBarIconEntity(),
+    const ProfileNavBarIconEntity(),
     const MoreNavBarIconEntity()
   ];
 

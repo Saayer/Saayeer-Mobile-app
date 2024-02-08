@@ -100,8 +100,9 @@ class BusinessInfoBloc extends Bloc<BusinessInfoEvent, BusinessInfoState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final result = await submitBusinessInfoUseCase(
-        BusinessInfoParameters(businessInfoEntity: state.businessInfoEntity!));
+    final Either<Failure, SubmitBusinessInfoEntity?> result =
+        await submitBusinessInfoUseCase(BusinessInfoParameters(
+            businessInfoEntity: state.businessInfoEntity!));
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;

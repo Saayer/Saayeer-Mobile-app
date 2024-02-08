@@ -28,34 +28,38 @@ abstract class BaseColorsPalette {
   final Color neutral2;
   final Color neutral1;
   final Color neutral0;
+  final Color barrierColor;
 
-  const BaseColorsPalette({
-    required this.primaryColor,
-    required this.orangeColor,
-    required this.darkOrangeColor,
-    required this.lightOrangeColor,
-    required this.blackTextColor,
-    required this.lightBlackTextColor,
-    required this.blueColor,
-    required this.greyColor,
-    required this.lightGreyColor,
-    required this.darkGreyColor,
-    required this.navBarColor,
-    required this.tabGreyColor,
-    required this.whiteColor,
-    required this.blackColor,
-    required this.greenColor,
-    required this.whiteAllOverColor,
-    required this.backgroundColor,
-    required this.transparent,
-    required this.error1,
-    required this.error0,
-    required this.neutral6,
-    required this.neutral5,
-    required this.neutral4,
-    required this.neutral3,
-    required this.neutral2,
-    required this.neutral1,
-    required this.neutral0,
-  });
+  final Color textFieldFillColor;
+
+  const BaseColorsPalette(
+      {required this.primaryColor,
+      required this.orangeColor,
+      required this.darkOrangeColor,
+      required this.lightOrangeColor,
+      required this.blackTextColor,
+      required this.lightBlackTextColor,
+      required this.blueColor,
+      required this.greyColor,
+      required this.lightGreyColor,
+      required this.darkGreyColor,
+      required this.navBarColor,
+      required this.tabGreyColor,
+      required this.whiteColor,
+      required this.blackColor,
+      required this.greenColor,
+      required this.whiteAllOverColor,
+      required this.backgroundColor,
+      required this.transparent,
+      required this.error1,
+      required this.error0,
+      required this.neutral6,
+      required this.neutral5,
+      required this.neutral4,
+      required this.neutral3,
+      required this.neutral2,
+      required this.neutral1,
+      required this.neutral0,
+      required this.barrierColor,
+      required this.textFieldFillColor});
 }

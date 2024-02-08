@@ -24,7 +24,6 @@ class BaseTextField extends StatelessWidget {
   final int? maxLength;
   final bool? enabled;
   final int? maxLines;
-  final bool isGreyFillColor;
   final List<TextInputFormatter>? inputFormatters;
 
   const BaseTextField(
@@ -39,7 +38,6 @@ class BaseTextField extends StatelessWidget {
       this.obscureText = false,
       this.maxLength = 50,
       this.inputFormatters,
-      this.isGreyFillColor = false,
       this.maxLines = 1,
       this.enabled = true,
       this.suffixWidget,
@@ -72,7 +70,6 @@ class BaseTextField extends StatelessWidget {
       decoration: InputTextFieldDecoration()(
           prefixWidget: prefixWidget,
           suffixWidget: suffixWidget,
-          isGreyFillColor: isGreyFillColor,
           hintText: hintText),
     );
   }

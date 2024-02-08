@@ -21,8 +21,8 @@ class SaayerFloatingActionButton extends StatelessWidget {
       },
       builder: (context, state) {
         return SizedBox(
-            height: 70.h,
-            width: 70.w,
+            height: 65.h,
+            width: 65.w,
             child: FittedBox(
               alignment: Alignment.bottomCenter,
               child: FloatingActionButton(

@@ -82,4 +82,10 @@ class LightColorsPalette implements BaseColorsPalette {
 
   @override
   Color get transparent => Colors.transparent;
+
+  @override
+  Color get barrierColor => Colors.black.withOpacity(0.8);
+
+  @override
+  Color get textFieldFillColor => Colors.white;
 }

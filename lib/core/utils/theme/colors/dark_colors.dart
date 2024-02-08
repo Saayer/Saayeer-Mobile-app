@@ -78,8 +78,14 @@ class DarkColorsPalette implements BaseColorsPalette {
   Color get neutral0 => const Color(0xFF787E7E);
 
   @override
-  Color get backgroundColor => Colors.black45;
+  Color get backgroundColor => Colors.black;
 
   @override
   Color get transparent => Colors.transparent;
+
+  @override
+  Color get barrierColor => Colors.white.withOpacity(0.3);
+
+  @override
+  Color get textFieldFillColor => const Color(0xff979797).withOpacity(0.3);
 }

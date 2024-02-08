@@ -58,5 +58,11 @@
   "business_info": "Business Info",
   "store_info": "Store Info",
   "welcome_to_saayer": "Welcome To Saayer!",
-  "user_info_progress": "You are few steps away from completing your profile."
+  "user_info_progress": "You are few steps away from completing your profile.",
+  "the_inbound_shipment": "The Inbound Shipment",
+  "inbound_shipment": "Inbound Shipment",
+  "inbound_shipments": "Inbound Shipments",
+  "the_outbound_shipment": "The Outbound Shipment",
+  "outbound_shipment": "Outbound Shipment",
+  "outbound_shipments": "Outbound Shipments"
 }

@@ -59,5 +59,11 @@
   "business_info": "المعلومات التجارية",
   "store_info": "المعلومات المتجر",
   "welcome_to_saayer": "مرحبا بك في ساير!",
-  "user_info_progress": "أنت على بعد خطوات قليلة من استكمال ملفك الشخصي."
+  "user_info_progress": "أنت على بعد خطوات قليلة من استكمال ملفك الشخصي.",
+  "the_inbound_shipment": "الشحنة الواردة",
+  "inbound_shipment": "شحنة واردة",
+  "inbound_shipments": "الشحنات الواردة",
+  "the_outbound_shipment": "الشحنة الصادرة",
+  "outbound_shipment": "شحنة صادرة",
+  "outbound_shipments": "الشحنات الصادرة"
 }

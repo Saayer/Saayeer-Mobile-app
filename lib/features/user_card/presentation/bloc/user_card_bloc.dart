@@ -35,7 +35,7 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
         await getIt<SecureStorageService>().getUserCardInfo();
     if (userCardEntity != null) {
       emit(state.copyWith(
-          stateHelper: const StateHelper(requestState: RequestState.LOADING),
+          stateHelper: const StateHelper(requestState: RequestState.LOADED),
           userCardEntity: userCardEntity));
     } else {
       await _getProfileStatus(emit);
@@ -43,7 +43,10 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
   }
 
   _getProfileStatus(Emitter<UserCardState> emit) async {
-    final result = await userCardUseCase(const NoParameters());
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    final Either<Failure, UserCardEntity?> result =
+        await userCardUseCase(const NoParameters());
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;

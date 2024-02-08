@@ -54,10 +54,12 @@ class PersonalInfoPage extends StatelessWidget {
         canPop: false,
         child: Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-          bottomSheet: ColoredBox(
+          bottomSheet: Container(
+            width: width,
             color: SaayerTheme().getColorsPalette.backgroundColor,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 50.h),
+              padding: EdgeInsets.only(
+                  bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
               child: SaayerDefaultTextButton(
                 text: "next",
                 isEnabled: enablePersonalInfo(personalInfoBloc),
@@ -95,14 +97,14 @@ class PersonalInfoPage extends StatelessWidget {
                           height: 20.h,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "personal_info".tr(),
                                 textAlign: TextAlign.start,
-                                style: AppTextStyles.highlightedLabel(),
+                                style: AppTextStyles.sectionTitle(),
                               ),
                             ],
                           ),
@@ -113,7 +115,7 @@ class PersonalInfoPage extends StatelessWidget {
                         ...(PersonalInfoFieldsTypes.values.map((e) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 20.w, vertical: 10.h),
+                                horizontal: 0.w, vertical: 10.h),
                             child: _getTextField(personalInfoBloc, e),
                           );
                         }).toList()),

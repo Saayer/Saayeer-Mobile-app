@@ -84,8 +84,9 @@ class StoreInfoBloc extends Bloc<StoreInfoEvent, StoreInfoState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final result = await submitStoreInfoUseCase(
-        StoreInfoParameters(storeInfoEntity: state.storeInfoEntity!));
+    final Either<Failure, SubmitStoreInfoEntity?> result =
+        await submitStoreInfoUseCase(
+            StoreInfoParameters(storeInfoEntity: state.storeInfoEntity!));
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;

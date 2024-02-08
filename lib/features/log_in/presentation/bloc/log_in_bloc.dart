@@ -56,7 +56,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final result =
+    final Either<Failure, SubmitLogInEntity?> result =
         await logInUseCase(LogInParameters(logInEntity: state.logInEntity!));
 
     if (result.isLeft()) {
