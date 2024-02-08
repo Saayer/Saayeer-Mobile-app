@@ -18,6 +18,7 @@ class NavBarIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double size = _getIconSize;
     return IconButton(
       onPressed: () {
         if (onPressed != null) {
@@ -26,12 +27,26 @@ class NavBarIconWidget extends StatelessWidget {
       },
       icon: SvgPicture.asset(
         Constants.getIconPath("ic_${navBarIconType.name.toLowerCase()}.svg"),
-        width: 24.w,
-        height: 24.h,
+        width: size.w,
+        height: size.h,
         color: isSelected
             ? SaayerTheme().getColorsPalette.primaryColor
             : SaayerTheme().getColorsPalette.blackTextColor,
       ),
     );
+  }
+
+  double get _getIconSize {
+    switch (navBarIconType) {
+      case NavBarIconTypes.PROFILE:
+      case NavBarIconTypes.MORE:
+        {
+          return 20;
+        }
+      default:
+        {
+          return 24;
+        }
+    }
   }
 }
