@@ -54,6 +54,7 @@ class UserCardResponseModel {
 
   UserCardEntity toDomain() {
     return UserCardEntity(
+        isSuccess: success ?? false,
         hasPersonalInformation: data?.personalInformation != null,
         hasBusinessInformation: data?.businessInformation != null,
         hasStoresInformation: data?.storesInformation != null,

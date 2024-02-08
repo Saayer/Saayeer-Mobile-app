@@ -56,5 +56,7 @@
   "language": "Language",
   "personal_info": "Personal Info",
   "business_info": "Business Info",
-  "store_info": "Store Info"
+  "store_info": "Store Info",
+  "welcome_to_saayer": "Welcome To Saayer!",
+  "user_info_progress": "You are few steps away from completing your profile."
 }

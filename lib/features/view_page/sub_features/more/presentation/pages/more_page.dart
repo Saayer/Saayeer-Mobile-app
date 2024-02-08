@@ -66,7 +66,7 @@ class MorePage extends StatelessWidget {
                       activeColor: SaayerTheme().getColorsPalette.primaryColor,
                       onChanged: (value) {
                         SaayerTheme().setThemeMode();
-                        // moreBloc.add(RefreshEvent());
+                        moreBloc.add(RefreshEvent());
                         getIt<NavigationService>().navigateAndReplacement(
                             const ViewPageScreen(
                               navBarIconType: NavBarIconTypes.MORE,
@@ -104,6 +104,7 @@ class MorePage extends StatelessWidget {
                                     ? Localization.usEnglish
                                     : Localization.egArabic);
                                 Localization.setLocale(locale);
+                                moreBloc.add(RefreshEvent());
                                 getIt<NavigationService>()
                                     .navigateAndReplacement(
                                         const ViewPageScreen(

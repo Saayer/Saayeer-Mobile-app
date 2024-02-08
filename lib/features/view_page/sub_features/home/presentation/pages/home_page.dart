@@ -4,6 +4,7 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/user_card/presentation/screens/user_card_screen.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,9 +30,11 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-          body: Column(
+          body: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
+              UserCardScreen(),
             ],
           ),
         );

@@ -17,7 +17,7 @@ class Localization {
       EasyLocalization.of(
               getIt<NavigationService>().mainNavigatorKey.currentContext!)
           ?.locale ??
-      usEnglish;
+      egArabic;
 
   static bool isArabic() =>
       getIt<NavigationService>()

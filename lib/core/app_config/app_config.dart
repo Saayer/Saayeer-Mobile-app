@@ -25,6 +25,7 @@ class AppConfig {
 
   void initializeApp() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await EasyLocalization.ensureInitialized();
     configureInjection();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

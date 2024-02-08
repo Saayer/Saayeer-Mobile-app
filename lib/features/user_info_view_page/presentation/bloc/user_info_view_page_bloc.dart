@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 
 part 'user_info_view_page_event.dart';
@@ -32,6 +34,8 @@ class UserInfoViewPageBloc
       GoToNextPageEvent event, Emitter<UserInfoViewPageState> emit) {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+    getIt<SecureStorageService>().clearUserCardInfo();
 
     if (state.currentPage + 1 < 3) {
       emit(state.copyWith(

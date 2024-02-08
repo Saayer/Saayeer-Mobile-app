@@ -16,6 +16,7 @@ import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/features/user_card/core/errors/user_card_error_handler.dart';
 import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart';
+import 'package:saayer/features/user_card/presentation/widgets/circle_painter.dart';
 import 'dart:ui' as ui;
 
 import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
@@ -30,38 +31,116 @@ class UserCardPage extends StatelessWidget {
     final UserCardBloc userCardBloc = BlocProvider.of<UserCardBloc>(context);
 
     return BlocConsumer<UserCardBloc, UserCardState>(
-      buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
-      listener: (context, state) async {
-        final bool isLoading = (userCardBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
-        LoadingDialog.setIsLoading(context, isLoading);
-        if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-          if (state.stateHelper.requestState == RequestState.ERROR) {
-            //showToast(msg: state.stateHelper.errorMessage ?? "");
-            UserCardErrorHandler(state: state)();
+        buildWhen: (previousState, nextState) =>
+            (previousState.stateHelper.requestState !=
+                nextState.stateHelper.requestState),
+        listener: (context, state) async {
+          final bool isLoading = (userCardBloc.state.stateHelper.requestState ==
+              RequestState.LOADING);
+          LoadingDialog.setIsLoading(context, isLoading);
+          if (!isLoading) {
+            if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+            if (state.stateHelper.requestState == RequestState.ERROR) {
+              //showToast(msg: state.stateHelper.errorMessage ?? "");
+              UserCardErrorHandler(state: state)();
+            }
           }
-        }
-      },
-      builder: (context, state) => PopScope(
-        canPop: false,
-        child: Container(
-          color: SaayerTheme().getColorsPalette.backgroundColor,
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 20.h,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+        },
+        builder: (context, state) {
+          final bool showUserCard =
+              (!(state.userCardEntity?.hasPersonalInformation ?? false) ||
+                  !(state.userCardEntity?.hasBusinessInformation ?? false) ||
+                  !(state.userCardEntity?.hasStoresInformation ?? false));
+          final List userCardInfoList = [
+            (state.userCardEntity?.hasPersonalInformation ?? false),
+            (state.userCardEntity?.hasBusinessInformation ?? false),
+            (state.userCardEntity?.hasStoresInformation ?? false)
+          ];
+          int numberOfDoneuserCardInfo = 0;
+          for (bool userCardInfo in userCardInfoList) {
+            if (userCardInfo) {
+              numberOfDoneuserCardInfo++;
+            }
+          }
+          return showUserCard
+              ? Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: SaayerTheme()
+                                .getColorsPalette
+                                .greyColor
+                                .withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 10,
+                            offset: const Offset(
+                                0, 0), // changes position of shadow
+                          ),
+                        ],
+                        color: SaayerTheme().getColorsPalette.backgroundColor,
+                        // gradient: LinearGradient(
+                        //     colors: [
+                        //       SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
+                        //       SaayerTheme().getColorsPalette.primaryColor.withOpacity(0.3),
+                        //     ],
+                        //     begin: const FractionalOffset(0.0, 0.0),
+                        //     end: const FractionalOffset(1.0, 0.0),
+                        //     stops: const [0.0, 1.0],
+                        //     tileMode: TileMode.clamp),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 16.h),
+                        child: ListTile(
+                          title: Padding(
+                            padding: EdgeInsets.only(bottom: 5.h),
+                            child: Text(
+                              "welcome_to_saayer".tr(),
+                              style: AppTextStyles.boldLiteLabel(SaayerTheme()
+                                  .getColorsPalette
+                                  .darkOrangeColor),
+                            ),
+                          ),
+                          subtitle: Text(
+                            "user_info_progress".tr(),
+                            style: AppTextStyles.label(),
+                          ),
+                          trailing: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              CustomPaint(
+                                size: ui.Size(50.w, 50.h),
+                                painter: CirclePainter(
+                                    startFraction: 0,
+                                    endFraction: 1,
+                                    strokeColor: SaayerTheme()
+                                        .getColorsPalette
+                                        .blackTextColor),
+                              ),
+                              CustomPaint(
+                                size: ui.Size(50.w, 50.h),
+                                painter: CirclePainter(
+                                    startFraction: 0,
+                                    endFraction: numberOfDoneuserCardInfo /
+                                        userCardInfoList.length,
+                                    strokeColor: SaayerTheme()
+                                        .getColorsPalette
+                                        .primaryColor),
+                              ),
+                              Text(
+                                "${((numberOfDoneuserCardInfo * 100) / userCardInfoList.length).roundToDouble().toInt()}%",
+                                style: AppTextStyles.smallBoldLabel(),
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                )
+              : const SizedBox();
+        });
   }
 }

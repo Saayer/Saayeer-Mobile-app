@@ -8,6 +8,7 @@ import 'package:saayer/core/services/encryption/encryption.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/features/intro/presentation/screens/intro_screen.dart';
+import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 
 @Singleton()
 class SecureStorageService {
@@ -19,6 +20,7 @@ class SecureStorageService {
 
   final String _keyLoggedInUser = 'loggedInUser';
   final String _keyIsLoggedIn = 'IsLoggedIn';
+  final String _keyUserCardInfo = 'UserCardInfo';
   final String _keyAccessToken = 'AccessToken';
   final String _keyReqSecureKey = 'ReqSecureKey';
 
@@ -77,6 +79,22 @@ class SecureStorageService {
     final String? reqSecureKeyStr =
         ((reqSecureKey != null) ? Encryption().decrypt(reqSecureKey) : null);
     return reqSecureKeyStr;
+  }
+
+  Future<UserCardEntity?> getUserCardInfo() async {
+    final String? userCardInfoStr = await _storage.read(key: _keyUserCardInfo);
+    final UserCardEntity? userCardEntity =
+        userCardInfoStr != null ? jsonDecode(userCardInfoStr) : null;
+    return userCardEntity;
+  }
+
+  Future setUserCardInfo(UserCardEntity userCardEntity) async {
+    await _storage.write(
+        key: _keyUserCardInfo, value: jsonEncode(userCardEntity.toJson()));
+  }
+
+  Future clearUserCardInfo() async {
+    await _storage.delete(key: _keyUserCardInfo);
   }
 
   Future clearStorage() async {
