@@ -10,6 +10,7 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart';
 
@@ -20,7 +21,7 @@ class LanguageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-
+    final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
     final MoreBloc moreBloc = BlocProvider.of<MoreBloc>(context);
     return BlocConsumer<MoreBloc, MoreState>(
       listener: (context, state) {
@@ -57,11 +58,7 @@ class LanguageWidget extends StatelessWidget {
                             : Localization.egArabic);
                         Localization.setLocale(locale);
                         moreBloc.add(RefreshEvent());
-                        getIt<NavigationService>().navigateAndReplacement(
-                            const ViewPageScreen(
-                              navBarIconType: NavBarIconTypes.MORE,
-                            ),
-                            isAnimated: true);
+                        viewPageBloc.add(Refresh());
                       },
                       btnWidth: width / 3.5,
                       btnHeight: 30.h,
