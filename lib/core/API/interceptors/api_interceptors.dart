@@ -48,15 +48,21 @@ class AppInterceptors extends Interceptor {
       Response response, ResponseInterceptorHandler handler) async {
     final bool hasToken =
         jsonDecode(response.data).toString().contains("token");
+    final bool hasReqSecure =
+        jsonDecode(response.data).toString().contains("reqSecureKey");
+    final Map responseData = jsonDecode(response.data);
+
     if (hasToken) {
-      final Map responseData = jsonDecode(response.data);
       final String? authToken = responseData["data"]["token"];
-      final String? reqSecureKey = responseData["reqSecureKey"];
       if (authToken != null) {
         await getIt<SecureStorageService>().setAccessToken(authToken);
         responseData["data"].remove(authToken);
         response.data = jsonEncode(responseData);
       }
+    }
+    if (hasReqSecure) {
+      final String? reqSecureKey = responseData["reqSecureKey"];
+      log("$reqSecureKey", name: "reqSecureKey --->");
       if (reqSecureKey != null) {
         await getIt<SecureStorageService>().setReqSecureKey(reqSecureKey);
         responseData.remove(reqSecureKey);

@@ -18,12 +18,11 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
   ViewPageBloc() : super(const ViewPageState()) {
     on<InitViewPage>(_initViewPage);
     on<GoToPage>(_goToPage);
+    on<Refresh>(_refresh);
   }
 
   final List<NavBarIconEntity> navBarIconEntityList = [
-    const HomeNavBarIconEntity(
-      isSelected: true
-    ),
+    const HomeNavBarIconEntity(isSelected: true),
     const ShipmentsNavBarIconEntity(),
     const RequestShipmentNavBarIconEntity(),
     const ProfileNavBarIconEntity(),
@@ -50,6 +49,17 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
 
     navBarIconEntityList.clear();
     navBarIconEntityList.addAll(newNavBarIconEntityList);
+
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+  }
+
+  Future<FutureOr<void>> _refresh(
+      Refresh event, Emitter<ViewPageState> emit) async {
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+    await Future.delayed(const Duration(seconds: 1));
 
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED)));

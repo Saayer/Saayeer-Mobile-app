@@ -32,6 +32,7 @@ class IntroPage extends StatelessWidget {
             backgroundColor: Colors.white,
             body: AnimatedIntroduction(
               slides: pages,
+              //textColor: SaayerTheme().getColorsPalette.backgroundColor,
               footerBgColor: SaayerTheme().getColorsPalette.primaryColor,
               indicatorType: IndicatorType.circle,
               skipText: "skip".tr(),
@@ -54,16 +55,13 @@ class IntroPage extends StatelessWidget {
     final List<SingleIntroScreen> pages = List.generate(3, (index) {
       final int currentIndex = (index + 1);
       return SingleIntroScreen(
-        headerBgColor: SaayerTheme().getColorsPalette.backgroundColor,
-        sideDotsBgColor: SaayerTheme().getColorsPalette.backgroundColor,
-        mainCircleBgColor: SaayerTheme().getColorsPalette.backgroundColor,
-        title: 'introScreenTitle_$currentIndex'.tr(),
-        description: 'introScreenDescription_$currentIndex'.tr(),
-        textStyle: AppTextStyles.label(),
-        // imageAsset:
-        //     Constants.getImagePath("introScreenImage_$currentIndex.png"),
-        imageAsset: Constants.getImagePath("logo_with_text.jpeg"),
-      );
+          headerBgColor: SaayerTheme().getColorsPalette.backgroundColor,
+          sideDotsBgColor: SaayerTheme().getColorsPalette.backgroundColor,
+          mainCircleBgColor: SaayerTheme().getColorsPalette.backgroundColor,
+          title: 'introScreenTitle_$currentIndex'.tr(),
+          description: 'introScreenDescription_$currentIndex'.tr(),
+          textStyle: AppTextStyles.label(),
+          imageAsset: Constants.getIconPath("ic_logo_with_text.png"));
     });
     return pages;
   }

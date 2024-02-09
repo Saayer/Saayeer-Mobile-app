@@ -48,6 +48,16 @@ class UserCardEntity extends Equatable {
     return map;
   }
 
+  factory UserCardEntity.fromJson(dynamic json) {
+    return UserCardEntity(
+        isSuccess: json['isSuccess'],
+        hasPersonalInformation: json['hasPersonalInformation'],
+        hasBusinessInformation: json['hasBusinessInformation'],
+        hasStoresInformation: json['hasStoresInformation'],
+        score: json['score'],
+        scorePercentage: json['scorePercentage']);
+  }
+
   @override
   List<Object> get props => [
         isSuccess,

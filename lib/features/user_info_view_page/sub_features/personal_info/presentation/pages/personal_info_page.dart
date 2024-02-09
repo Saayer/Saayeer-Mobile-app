@@ -28,6 +28,8 @@ class PersonalInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    final UserInfoViewPageBloc userInfoViewPageBloc =
+        BlocProvider.of<UserInfoViewPageBloc>(context);
     final PersonalInfoBloc personalInfoBloc =
         BlocProvider.of<PersonalInfoBloc>(context);
 
@@ -42,7 +44,7 @@ class PersonalInfoPage extends StatelessWidget {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-            getIt<UserInfoViewPageBloc>().add(GoToNextPageEvent());
+            userInfoViewPageBloc.add(GoToNextPageEvent());
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");

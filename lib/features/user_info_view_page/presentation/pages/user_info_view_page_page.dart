@@ -78,7 +78,7 @@ class UserInfoViewPagePage extends StatelessWidget {
                                 color: isPrevious
                                     ? (SaayerTheme()
                                         .getColorsPalette
-                                        .lightOrangeColor)
+                                        .superDarkOrangeColor)
                                     : isCurrent
                                         ? (SaayerTheme()
                                             .getColorsPalette

@@ -20,3 +20,8 @@ class GoToPage extends ViewPageEvent {
   @override
   List<Object?> get props => [navBarIconType];
 }
+
+class Refresh extends ViewPageEvent {
+  @override
+  List<Object> get props => [];
+}
