@@ -88,4 +88,7 @@ class DarkColorsPalette implements BaseColorsPalette {
 
   @override
   Color get textFieldFillColor => const Color(0xff979797).withOpacity(0.3);
+
+  @override
+  Color get superDarkOrangeColor => const Color(0xff4b3326);
 }

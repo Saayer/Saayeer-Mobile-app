@@ -4,6 +4,7 @@ abstract class BaseColorsPalette {
   final Color primaryColor;
   final Color orangeColor;
   final Color darkOrangeColor;
+  final Color superDarkOrangeColor;
   final Color lightOrangeColor;
   final Color blackTextColor;
   final Color lightBlackTextColor;
@@ -36,6 +37,7 @@ abstract class BaseColorsPalette {
       {required this.primaryColor,
       required this.orangeColor,
       required this.darkOrangeColor,
+      required this.superDarkOrangeColor,
       required this.lightOrangeColor,
       required this.blackTextColor,
       required this.lightBlackTextColor,

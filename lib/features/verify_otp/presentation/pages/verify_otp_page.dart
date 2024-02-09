@@ -17,9 +17,7 @@ import 'package:saayer/features/user_info_view_page/presentation/screens/user_in
 import 'package:saayer/features/verify_otp/core/errors/verify_otp_error_handler.dart';
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart';
 import 'dart:ui' as ui;
-
 import 'package:saayer/features/verify_otp/presentation/widgets/down_bill_timer_counter_widget.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class VerifyOtpPage extends StatelessWidget {
   const VerifyOtpPage({super.key});
@@ -29,9 +27,6 @@ class VerifyOtpPage extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     final VerifyOtpBloc verifyOtpBloc = BlocProvider.of<VerifyOtpBloc>(context);
-
-    final otpFieldStyles =
-        List.generate(4, (index) => AppTextStyles.buttonLabel());
 
     return BlocConsumer<VerifyOtpBloc, VerifyOtpState>(
       buildWhen: (previousState, nextState) =>
@@ -44,9 +39,10 @@ class VerifyOtpPage extends StatelessWidget {
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
             if (state.isVerified) {
-              SaayerToast().showSuccessToast(msg: "welcome");
+              SaayerToast().showSuccessToast(msg: "welcome".tr());
               await getIt<SecureStorageService>().setIsLoggedIn(true);
-              getIt<NavigationService>().navigateTo(const UserInfoViewPageScreen());
+              getIt<NavigationService>()
+                  .navigateTo(const UserInfoViewPageScreen());
             } else {
               SaayerToast().showSuccessToast(
                   msg: state.submitVerifyOtpEntity?.message ?? "");

@@ -88,4 +88,7 @@ class LightColorsPalette implements BaseColorsPalette {
 
   @override
   Color get textFieldFillColor => Colors.white;
+
+  @override
+  Color get superDarkOrangeColor => const Color(0xff4b3326);
 }

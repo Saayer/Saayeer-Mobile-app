@@ -83,8 +83,9 @@ class SecureStorageService {
 
   Future<UserCardEntity?> getUserCardInfo() async {
     final String? userCardInfoStr = await _storage.read(key: _keyUserCardInfo);
-    final UserCardEntity? userCardEntity =
-        userCardInfoStr != null ? jsonDecode(userCardInfoStr) : null;
+    final UserCardEntity? userCardEntity = userCardInfoStr != null
+        ? UserCardEntity.fromJson(jsonDecode(userCardInfoStr))
+        : null;
     return userCardEntity;
   }
 
