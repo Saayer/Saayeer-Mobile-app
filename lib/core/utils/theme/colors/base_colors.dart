@@ -1,37 +1,38 @@
 import 'package:flutter/material.dart';
 
 abstract class BaseColorsPalette {
-  final Color primaryColor;
-  final Color orangeColor;
-  final Color darkOrangeColor;
-  final Color superDarkOrangeColor;
-  final Color lightOrangeColor;
-  final Color blackTextColor;
-  final Color lightBlackTextColor;
-  final Color blueColor;
-  final Color greyColor;
-  final Color lightGreyColor;
-  final Color darkGreyColor;
-  final Color navBarColor;
-  final Color tabGreyColor;
-  final Color whiteColor;
-  final Color blackColor;
-  final Color greenColor;
-  final Color whiteAllOverColor;
-  final Color backgroundColor;
-  final Color transparent;
-  final Color error1;
-  final Color error0;
-  final Color neutral6;
-  final Color neutral5;
-  final Color neutral4;
-  final Color neutral3;
-  final Color neutral2;
-  final Color neutral1;
-  final Color neutral0;
-  final Color barrierColor;
-
-  final Color textFieldFillColor;
+  final Color primaryColor,
+      orangeColor,
+      darkOrangeColor,
+      superDarkOrangeColor,
+      lightOrangeColor,
+      blackTextColor,
+      lightBlackTextColor,
+      blueColor,
+      greyColor,
+      lightGreyColor,
+      darkGreyColor,
+      navBarColor,
+      tabGreyColor,
+      whiteColor,
+      blackColor,
+      greenColor,
+      whiteAllOverColor,
+      backgroundColor,
+      transparent,
+      error1,
+      error0,
+      neutral6,
+      neutral5,
+      neutral4,
+      neutral3,
+      neutral2,
+      neutral1,
+      neutral0,
+      barrierColor,
+      textFieldFillColor,
+      lightYellowColor,
+      lightGreenColor;
 
   const BaseColorsPalette(
       {required this.primaryColor,
@@ -63,5 +64,7 @@ abstract class BaseColorsPalette {
       required this.neutral1,
       required this.neutral0,
       required this.barrierColor,
-      required this.textFieldFillColor});
+      required this.textFieldFillColor,
+      required this.lightYellowColor,
+      required this.lightGreenColor});
 }

@@ -2,8 +2,13 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/common/tab_bar/saayer_tab_bar.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
+import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/bloc/shipments_bloc.dart';
+import 'package:saayer/features/view_page/sub_features/shipments/presentation/widgets/empty_shipments.dart';
+import 'package:saayer/features/view_page/sub_features/shipments/presentation/widgets/shipments_list_view.dart';
 
 class ShipmentsTypesTabBar extends StatefulWidget {
   final int tabIndex;
@@ -29,46 +34,38 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
 
   static const List<ShipmentsTypeTab> _tabs = [
     ShipmentsTypeTab(
-      shipmentsType: ShipmentsTypes.INBOUND,
+      shipmentsType: ShipmentsTypes.INCOMING,
     ),
     ShipmentsTypeTab(
       shipmentsType: ShipmentsTypes.OUTBOUND,
     ),
   ];
 
-  final List<Widget> _views = [
-    Container(
-      color: Colors.purple,
-    ),
-    Container(
-      color: Colors.amber,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final ShipmentsBloc shipmentsBloc = BlocProvider.of<ShipmentsBloc>(context);
     return BlocConsumer<ShipmentsBloc, ShipmentsState>(
       listener: (context, state) {},
       builder: (context, state) {
         return NotificationListener(
           onNotification: (scrollNotification) {
             if (scrollNotification is ScrollEndNotification) {
-              _onTabChanged();
+              _onTabChanged(shipmentsBloc);
             }
             return false;
           },
-          child: _buildBodyWidget(),
+          child: _buildBodyWidget(shipmentsBloc),
         );
       },
     );
   }
 
-  Widget _buildBodyWidget() {
+  Widget _buildBodyWidget(ShipmentsBloc shipmentsBloc) {
     return DefaultTabController(
       length: 2,
       child: Column(
         children: [
-          TabBar(
+          SaayerTabBar(
             controller: _tabController,
             onTap: (index) {},
             tabs: _tabs,
@@ -76,7 +73,13 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: _views,
+              children: ShipmentsTypes.values
+                  .map((shipmentsType) => _getViewWidget(
+                      shipmentsBloc
+                              .state.shipmentEntityListMap?[shipmentsType] ??
+                          [],
+                      shipmentsType))
+                  .toList(),
             ),
           ),
         ],
@@ -84,16 +87,25 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
     );
   }
 
-  _onTabChanged() {
-    final bloc = BlocProvider.of<ShipmentsBloc>(context);
-    final ShipmentsTypes currentShipmentsType = bloc.state.shipmentsType!;
+  Widget _getViewWidget(
+      List<ShipmentEntity> shipmentEntityList, ShipmentsTypes shipmentsType) {
+    if (shipmentEntityList.isEmpty) {
+      return EmptyShipments(shipmentsType: shipmentsType);
+    }
+    return ShipmentsListView(shipmentEntityList: shipmentEntityList);
+  }
+
+  _onTabChanged(ShipmentsBloc shipmentsBloc) {
+    final ShipmentsTypes currentShipmentsType =
+        shipmentsBloc.state.selectedShipmentsType;
     final ShipmentsTypes selectedShipmentsType =
         ShipmentsTypes.values[_tabController.index];
     _tabController.animateTo(_tabController.index);
     log("$currentShipmentsType $selectedShipmentsType",
         name: "_tabController.index");
     if (selectedShipmentsType != currentShipmentsType) {
-      bloc.add(SelectShipmentType(shipmentsType: selectedShipmentsType));
+      shipmentsBloc
+          .add(SelectShipmentType(shipmentsType: selectedShipmentsType));
     }
   }
 }
@@ -105,8 +117,14 @@ class ShipmentsTypeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tab(
-      text: shipmentsType.pluralName.tr(),
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
+    return SizedBox(
+      width: width / 1.5,
+      child: Tab(
+        text: shipmentsType.pluralName.tr(),
+      ),
     );
   }
 }

@@ -11,6 +11,13 @@ class AppTextStyles {
         height: 1.1.h,
       );
 
+  static TextStyle boldLabel([Color? color]) => GoogleFonts.alexandria(
+        fontSize: 12.sp,
+        color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
+        fontWeight: FontWeight.w700,
+        height: 1.1.h,
+      );
+
   static TextStyle boldLiteLabel([Color? color]) => GoogleFonts.alexandria(
         fontSize: 14.sp,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,

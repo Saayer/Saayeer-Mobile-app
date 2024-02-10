@@ -10,7 +10,7 @@ class ShipmentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ShipmentsBloc>(),
+      create: (context) => getIt<ShipmentsBloc>()..add(InitShipments()),
       child: const ShipmentsPage(),
     );
   }

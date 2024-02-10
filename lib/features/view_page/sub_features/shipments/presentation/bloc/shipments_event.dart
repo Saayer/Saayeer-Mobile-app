@@ -4,6 +4,11 @@ abstract class ShipmentsEvent extends Equatable {
   const ShipmentsEvent();
 }
 
+class InitShipments extends ShipmentsEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class SelectShipmentType extends ShipmentsEvent {
   final ShipmentsTypes shipmentsType;
 
@@ -14,3 +19,4 @@ class SelectShipmentType extends ShipmentsEvent {
   @override
   List<Object> get props => [shipmentsType];
 }
+

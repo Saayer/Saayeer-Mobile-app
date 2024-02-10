@@ -2,19 +2,28 @@ part of 'shipments_bloc.dart';
 
 class ShipmentsState extends Equatable {
   final StateHelper stateHelper;
-  final ShipmentsTypes shipmentsType;
+  final ShipmentsTypes selectedShipmentsType;
+
+  final Map<ShipmentsTypes, List<ShipmentEntity>>? shipmentEntityListMap;
 
   const ShipmentsState(
       {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
-      this.shipmentsType = ShipmentsTypes.INBOUND});
+      this.selectedShipmentsType = ShipmentsTypes.INCOMING,
+      this.shipmentEntityListMap});
 
   ShipmentsState copyWith(
-      {StateHelper? stateHelper, ShipmentsTypes? shipmentsType}) {
+      {StateHelper? stateHelper,
+      ShipmentsTypes? selectedShipmentsType,
+      Map<ShipmentsTypes, List<ShipmentEntity>>? shipmentEntityListMap}) {
     return ShipmentsState(
         stateHelper: stateHelper ?? this.stateHelper,
-        shipmentsType: shipmentsType ?? this.shipmentsType);
+        selectedShipmentsType:
+            selectedShipmentsType ?? this.selectedShipmentsType,
+        shipmentEntityListMap:
+            shipmentEntityListMap ?? this.shipmentEntityListMap);
   }
 
   @override
-  List<Object> get props => [stateHelper, shipmentsType];
+  List<Object?> get props =>
+      [stateHelper, selectedShipmentsType, shipmentEntityListMap];
 }
