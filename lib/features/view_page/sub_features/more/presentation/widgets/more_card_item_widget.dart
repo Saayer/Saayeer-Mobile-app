@@ -38,7 +38,7 @@ class MoreCardItemWidget extends StatelessWidget {
               color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 10,
-              offset: const Offset(0, 10), // changes position of shadow
+              offset: const Offset(0, 5), // changes position of shadow
             ),
           ],
         ),
@@ -71,8 +71,7 @@ class MoreCardItemWidget extends StatelessWidget {
                   Flexible(
                     child: Text(
                       title.tr(),
-                      softWrap: true,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.label(),
                     ),

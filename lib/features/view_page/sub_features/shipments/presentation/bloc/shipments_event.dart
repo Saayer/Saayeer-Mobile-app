@@ -20,3 +20,7 @@ class SelectShipmentType extends ShipmentsEvent {
   List<Object> get props => [shipmentsType];
 }
 
+class RefreshShipments extends ShipmentsEvent {
+  @override
+  List<Object> get props => [];
+}

@@ -70,8 +70,8 @@ class SettingsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const ChangePasswordWidget(),
-                    dividerWidget,
+                    // const ChangePasswordWidget(),
+                    // dividerWidget,
                     const DarkModeWidget(),
                     dividerWidget,
                     const LanguageWidget(),

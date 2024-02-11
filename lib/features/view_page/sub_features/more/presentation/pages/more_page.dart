@@ -10,6 +10,7 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/more_sub_features/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:saayer/features/more_sub_features/help/presentation/screens/help_screen.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/screens/settings_screen.dart';
+import 'package:saayer/features/user_card/presentation/screens/user_card_screen.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/widgets/more_cards_widget.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/widgets/more_item_widget.dart';
@@ -39,31 +40,37 @@ class MorePage extends StatelessWidget {
       },
       builder: (context, state) {
         final Widget dividerWidget = Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          child: Divider(
-            thickness: 0.5,
-            color: SaayerTheme().getColorsPalette.greyColor,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+          // child: Divider(
+          //   thickness: 0.5,
+          //   color: SaayerTheme().getColorsPalette.greyColor,
+          // ),
         );
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.h),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(
-                    height: 5.h,
+                    height: 8.h,
+                  ),
+                  const UserCardScreen(
+                    horizontalPadding: 10,
+                    verticalPadding: 5,
+                  ),
+                  SizedBox(
+                    height: 10.h,
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: const MoreCardsWidget(),
                   ),
                   SizedBox(
-                    height: 25.h,
+                    height: 16.h,
                   ),
                   // const MoreItemWidget(
                   //   iconName: "addresses_book",

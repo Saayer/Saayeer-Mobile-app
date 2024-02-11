@@ -21,6 +21,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   ShipmentsBloc() : super(const ShipmentsState()) {
     on<InitShipments>(_initShipments);
     on<SelectShipmentType>(_selectShipmentType);
+    on<RefreshShipments>(_refreshShipments);
   }
 
   FutureOr<void> _initShipments(
@@ -35,7 +36,12 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
             id: ((index + 1) * Random().nextInt(10) + 1).toString(),
             date: Constants.formattedNowDate.toString(),
             amount: ((index + 10) * Random().nextInt(100) + 50).toString(),
-            receiverName: "Amr Diab",
+            receiverName: [
+              "Tamer Hosny",
+              "Amr Diab",
+              "Angham",
+              "Elisa"
+            ][Random().nextInt(3)],
             shipmentStatus: ShipmentStatus.values[Random().nextInt(3)]));
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -50,5 +56,31 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         selectedShipmentsType: event.shipmentsType));
+  }
+
+  Future<FutureOr<void>> _refreshShipments(
+      RefreshShipments event, Emitter<ShipmentsState> emit) async {
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING),
+        shipmentEntityListMap: {}));
+    await Future.delayed(Duration(seconds: 1));
+    final Map<ShipmentsTypes, List<ShipmentEntity>> shipmentEntityListMap = {};
+    shipmentEntityListMap[ShipmentsTypes.INCOMING] = [];
+    shipmentEntityListMap[ShipmentsTypes.OUTBOUND] = List.generate(
+        15,
+        (index) => OutboundShipmentEntity(
+            id: ((index + 1) * Random().nextInt(10) + 1).toString(),
+            date: Constants.formattedNowDate.toString(),
+            amount: ((index + 10) * Random().nextInt(100) + 50).toString(),
+            receiverName: [
+              "Tamer Hosny",
+              "Amr Diab",
+              "Angham",
+              "Elisa"
+            ][Random().nextInt(3)],
+            shipmentStatus: ShipmentStatus.values[Random().nextInt(3)]));
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADED),
+        shipmentEntityListMap: shipmentEntityListMap));
   }
 }
