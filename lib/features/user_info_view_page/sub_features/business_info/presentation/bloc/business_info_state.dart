@@ -1,5 +1,6 @@
 part of 'business_info_bloc.dart';
 
+@immutable
 class BusinessInfoState extends Equatable {
   final StateHelper stateHelper;
   final AutovalidateMode autoValidateMode;

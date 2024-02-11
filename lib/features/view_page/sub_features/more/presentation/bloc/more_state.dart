@@ -1,5 +1,6 @@
 part of 'more_bloc.dart';
 
+@immutable
 class MoreState extends Equatable {
   final StateHelper stateHelper;
   final bool isRefreshed;

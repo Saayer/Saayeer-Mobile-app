@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class BaseColorsPalette {
   final Color primaryColor,
+      accentColor,
       orangeColor,
       darkOrangeColor,
       superDarkOrangeColor,
@@ -36,6 +37,7 @@ abstract class BaseColorsPalette {
 
   const BaseColorsPalette(
       {required this.primaryColor,
+      required this.accentColor,
       required this.orangeColor,
       required this.darkOrangeColor,
       required this.superDarkOrangeColor,

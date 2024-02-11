@@ -1,5 +1,6 @@
 part of 'personal_info_bloc.dart';
 
+@immutable
 class PersonalInfoState extends Equatable {
   final StateHelper stateHelper;
   final AutovalidateMode autoValidateMode;

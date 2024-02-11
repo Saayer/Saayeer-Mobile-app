@@ -3,22 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
+import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
-import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart';
 
 class DarkModeWidget extends StatelessWidget {
   const DarkModeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final MoreBloc moreBloc = BlocProvider.of<MoreBloc>(context);
-    final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
-    return BlocConsumer<MoreBloc, MoreState>(
+    final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    final ViewPageBloc viewPageBloc = getIt<ViewPageBloc>();
+    return BlocConsumer<SettingsBloc, SettingsState>(
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -34,8 +31,8 @@ class DarkModeWidget extends StatelessWidget {
               activeColor: SaayerTheme().getColorsPalette.primaryColor,
               onChanged: (value) {
                 SaayerTheme().setThemeMode();
-                moreBloc.add(RefreshEvent());
-                viewPageBloc.add(Refresh());
+                settingsBloc.add(RefreshEvent());
+                //viewPageBloc.add(Refresh());
               },
             ));
       },

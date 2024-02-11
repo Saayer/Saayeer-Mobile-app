@@ -26,7 +26,7 @@ class SaayerTabBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.r),
           boxShadow: [
             BoxShadow(
-              color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.3),
+              color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 10,
               offset: const Offset(0, 0), // changes position of shadow

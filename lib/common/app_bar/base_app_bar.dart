@@ -45,7 +45,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : Text(
               title!.tr(),
-              style: AppTextStyles.buttonLabel(),
+              style: AppTextStyles.mainFocusedLabel(),
             ),
       actions: actions ?? [],
       //leadingWidth: !(showBackLeading) ? 20.w : null,

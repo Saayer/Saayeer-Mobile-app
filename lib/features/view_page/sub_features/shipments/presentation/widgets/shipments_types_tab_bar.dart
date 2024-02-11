@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/common/loading/loading_container.dart';
 import 'package:saayer/common/tab_bar/saayer_tab_bar.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
@@ -34,10 +35,10 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
 
   static const List<ShipmentsTypeTab> _tabs = [
     ShipmentsTypeTab(
-      shipmentsType: ShipmentsTypes.INCOMING,
+      shipmentsType: ShipmentsTypes.OUTBOUND,
     ),
     ShipmentsTypeTab(
-      shipmentsType: ShipmentsTypes.OUTBOUND,
+      shipmentsType: ShipmentsTypes.INCOMING,
     ),
   ];
 
@@ -75,9 +76,7 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
               controller: _tabController,
               children: ShipmentsTypes.values
                   .map((shipmentsType) => _getViewWidget(
-                      shipmentsBloc
-                              .state.shipmentEntityListMap?[shipmentsType] ??
-                          [],
+                      shipmentsBloc.state.shipmentEntityListMap?[shipmentsType],
                       shipmentsType))
                   .toList(),
             ),
@@ -88,11 +87,15 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
   }
 
   Widget _getViewWidget(
-      List<ShipmentEntity> shipmentEntityList, ShipmentsTypes shipmentsType) {
-    if (shipmentEntityList.isEmpty) {
-      return EmptyShipments(shipmentsType: shipmentsType);
+      List<ShipmentEntity>? shipmentEntityList, ShipmentsTypes shipmentsType) {
+    if (shipmentEntityList == null) {
+      return const LoadingContainer();
+    } else {
+      if (shipmentEntityList.isEmpty) {
+        return EmptyShipments(shipmentsType: shipmentsType);
+      }
+      return ShipmentsListView(shipmentEntityList: shipmentEntityList);
     }
-    return ShipmentsListView(shipmentEntityList: shipmentEntityList);
   }
 
   _onTabChanged(ShipmentsBloc shipmentsBloc) {

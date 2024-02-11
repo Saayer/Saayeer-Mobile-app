@@ -1,12 +1,12 @@
 enum ShipmentsTypes {
-  INCOMING._(
-      singleName: "incoming_shipment",
-      pluralName: "incoming_shipments",
-      theName: "the_incoming_shipment"),
   OUTBOUND._(
       singleName: "outbound_shipment",
       pluralName: "outbound_shipments",
-      theName: "the_outbound_shipment");
+      theName: "the_outbound_shipment"),
+  INCOMING._(
+      singleName: "incoming_shipment",
+      pluralName: "incoming_shipments",
+      theName: "the_incoming_shipment");
 
   final String singleName, pluralName, theName;
 

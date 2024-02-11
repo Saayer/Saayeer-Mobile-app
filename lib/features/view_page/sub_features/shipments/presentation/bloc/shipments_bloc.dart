@@ -27,11 +27,10 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
       InitShipments event, Emitter<ShipmentsState> emit) {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-
     final Map<ShipmentsTypes, List<ShipmentEntity>> shipmentEntityListMap = {};
     shipmentEntityListMap[ShipmentsTypes.INCOMING] = [];
     shipmentEntityListMap[ShipmentsTypes.OUTBOUND] = List.generate(
-        10,
+        15,
         (index) => OutboundShipmentEntity(
             id: ((index + 1) * Random().nextInt(10) + 1).toString(),
             date: Constants.formattedNowDate.toString(),

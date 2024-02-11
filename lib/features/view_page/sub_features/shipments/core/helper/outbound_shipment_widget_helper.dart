@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/common/text/rich_text_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -14,10 +15,9 @@ class OutboundShipmentWidgetHelper {
     switch (shipmentStatus) {
       case ShipmentStatus.RECEIVED:
         {
-          return SaayerTheme()
-              .getColorsPalette
-              .lightOrangeColor
-              .withOpacity(0.3);
+          return !SaayerTheme().isDarkThemeMode
+              ? SaayerTheme().getColorsPalette.lightOrangeColor.withOpacity(0.3)
+              : SaayerTheme().getColorsPalette.orangeColor.withOpacity(0.8);
         }
       case ShipmentStatus.DELIVERED:
         {
@@ -38,9 +38,13 @@ class OutboundShipmentWidgetHelper {
         color: shipmentStatusColor,
         borderRadius: BorderRadius.circular(12.r),
       ),
-      child: Image.asset(
-        Constants.getIconPath("ic_logo.png"),
-        color: SaayerTheme().getColorsPalette.blackTextColor.withOpacity(0.8),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+        child: SvgPicture.asset(
+          Constants.getIconPath("ic_shipment.svg"),
+          fit: BoxFit.cover,
+          color: SaayerTheme().getColorsPalette.blackTextColor,
+        ),
       ),
     );
   }
@@ -91,7 +95,7 @@ class OutboundShipmentWidgetHelper {
                             .toString(),
                         style: AppTextStyles.boldLabel()),
                     TextSpan(
-                        text: " ${"sr".tr()}",
+                        text: "  ${"sr".tr()}",
                         style: AppTextStyles.smallLabel(
                             SaayerTheme().getColorsPalette.greyColor)),
                   ],
@@ -112,7 +116,7 @@ class OutboundShipmentWidgetHelper {
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
                 child: Text(
                   outboundShipmentEntity.shipmentStatus.name.tr(),
-                  style: AppTextStyles.smallLabel(),
+                  style: AppTextStyles.xSmallLabel(),
                   textAlign: TextAlign.center,
                 ),
               )),
@@ -133,7 +137,7 @@ class OutboundShipmentWidgetHelper {
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.3),
+              color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 10,
               offset: const Offset(0, 0), // changes position of shadow
@@ -141,7 +145,7 @@ class OutboundShipmentWidgetHelper {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

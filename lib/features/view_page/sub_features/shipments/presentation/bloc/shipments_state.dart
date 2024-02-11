@@ -1,5 +1,6 @@
 part of 'shipments_bloc.dart';
 
+@immutable
 class ShipmentsState extends Equatable {
   final StateHelper stateHelper;
   final ShipmentsTypes selectedShipmentsType;
