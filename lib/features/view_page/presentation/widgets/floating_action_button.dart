@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/label_txt.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
+import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/screens/request_shipment_screen.dart';
+import 'package:saayer/features/view_page/sub_features/shipments/presentation/screens/shipments_screen.dart';
 
 class SaayerFloatingActionButton extends StatelessWidget {
   const SaayerFloatingActionButton({super.key});
@@ -29,8 +33,11 @@ class SaayerFloatingActionButton extends StatelessWidget {
                 backgroundColor: SaayerTheme().getColorsPalette.primaryColor,
                 elevation: 10,
                 onPressed: () {
-                  viewPageBloc.add(const GoToPage(
-                      navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+                  getIt<NavigationService>()
+                      .navigateTo(const RequestShipmentScreen());
+
+                  // viewPageBloc.add(const GoToPage(
+                  //     navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
                 },
                 child: Image.asset(
                   Constants.getIconPath("ic_logo.png"),

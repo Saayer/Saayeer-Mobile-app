@@ -46,11 +46,13 @@ class RequestShipmentPage extends StatelessWidget {
       },
       builder: (context, state) {
         return PopScope(
-          canPop: false,
+          canPop: true,
           child: Scaffold(
             backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
             appBar: const BaseAppBar(
-              showBackLeading: false,
+              showBackLeading: true,
+              title: 'Request Shipments',
+
             ),
             body: InkWell(
               onTap: () {
