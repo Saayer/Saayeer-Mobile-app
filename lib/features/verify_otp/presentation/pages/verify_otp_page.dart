@@ -18,6 +18,7 @@ import 'package:saayer/features/verify_otp/core/errors/verify_otp_error_handler.
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart';
 import 'dart:ui' as ui;
 import 'package:saayer/features/verify_otp/presentation/widgets/down_bill_timer_counter_widget.dart';
+import 'package:saayer/features/view_page/sub_features/home/presentation/screens/home_screen.dart';
 
 class VerifyOtpPage extends StatelessWidget {
   const VerifyOtpPage({super.key});
@@ -42,7 +43,7 @@ class VerifyOtpPage extends StatelessWidget {
               SaayerToast().showSuccessToast(msg: "welcome".tr());
               await getIt<SecureStorageService>().setIsLoggedIn(true);
               getIt<NavigationService>()
-                  .navigateTo(const UserInfoViewPageScreen());
+                  .navigateTo(const HomeScreen());
             } else {
               SaayerToast().showSuccessToast(
                   msg: state.submitVerifyOtpEntity?.message ?? "");
