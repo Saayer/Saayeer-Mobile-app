@@ -8,6 +8,7 @@ import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/bloc/shipments_bloc.dart';
 
@@ -20,6 +21,7 @@ class EmptyShipments extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
 
     return BlocConsumer<ShipmentsBloc, ShipmentsState>(
       listener: (context, state) {
@@ -90,7 +92,8 @@ class EmptyShipments extends StatelessWidget {
                   Text(
                     "empty_shipments_desc"
                         .tr()
-                        .replaceFirst("{}", shipmentsType.pluralName.tr()),
+                        .replaceFirst("{}", shipmentsType.pluralName.tr())
+                        .toLowerCase(),
                     style: state.isFromHome
                         ? AppTextStyles.label()
                         : AppTextStyles.liteLabel(),
@@ -109,7 +112,11 @@ class EmptyShipments extends StatelessWidget {
                         text: "request_shipment",
                         isEnabled: true,
                         borderRadius: 16.r,
-                        onPressed: () {},
+                        onPressed: () {
+                          viewPageBloc.add(const GoToPage(
+                              navBarIconType:
+                                  NavBarIconTypes.REQUEST_SHIPMENT));
+                        },
                         btnWidth: width / 1.2,
                         btnHeight: 50.h,
                       ),
