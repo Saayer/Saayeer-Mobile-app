@@ -5,8 +5,14 @@ abstract class ShipmentsEvent extends Equatable {
 }
 
 class InitShipments extends ShipmentsEvent {
+  final bool isFromHome;
+
+  const InitShipments({
+    this.isFromHome = false,
+  });
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [isFromHome];
 }
 
 class SelectShipmentType extends ShipmentsEvent {

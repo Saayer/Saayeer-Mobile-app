@@ -13,7 +13,7 @@ import 'package:saayer/features/view_page/presentation/widgets/bottom_navigation
 import 'package:saayer/features/view_page/presentation/widgets/floating_action_button.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/screens/home_screen.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/screens/more_screen.dart';
-import 'package:saayer/features/view_page/sub_features/profile/presentation/screens/ebills_screen.dart';
+import 'package:saayer/features/view_page/sub_features/profile/presentation/screens/profile_screen.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/screens/request_shipment_screen.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/screens/shipments_screen.dart';
 

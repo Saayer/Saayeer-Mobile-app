@@ -5,6 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/loading/loading_container.dart';
 import 'package:saayer/common/tab_bar/saayer_tab_bar.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/bloc/shipments_bloc.dart';
@@ -45,6 +49,9 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
   @override
   Widget build(BuildContext context) {
     final ShipmentsBloc shipmentsBloc = BlocProvider.of<ShipmentsBloc>(context);
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
     return BlocConsumer<ShipmentsBloc, ShipmentsState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -55,22 +62,61 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
             }
             return false;
           },
-          child: _buildBodyWidget(shipmentsBloc),
+          child: _buildBodyWidget(shipmentsBloc, width),
         );
       },
     );
   }
 
-  Widget _buildBodyWidget(ShipmentsBloc shipmentsBloc) {
+  Widget _buildBodyWidget(ShipmentsBloc shipmentsBloc, double width) {
+    final bool isFromHome = shipmentsBloc.state.isFromHome;
+    final Widget saayerTabBar = SaayerTabBar(
+      horizontalPadding: isFromHome ? 10 : null,
+      verticalPadding: isFromHome ? 12 : null,
+      controller: _tabController,
+      onTap: (index) {},
+      tabs: _tabs,
+      labelStyle: isFromHome ? AppTextStyles.microLabel() : null,
+    );
     return DefaultTabController(
       length: 2,
       child: Column(
         children: [
-          SaayerTabBar(
-            controller: _tabController,
-            onTap: (index) {},
-            tabs: _tabs,
-          ),
+          !(isFromHome)
+              ? saayerTabBar
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                        width: width / 1.4, height: 50.h, child: saayerTabBar),
+                    GestureDetector(
+                      onTap: () {
+                        final ViewPageBloc viewPageBloc =
+                            BlocProvider.of<ViewPageBloc>(context);
+                        viewPageBloc.add(const GoToPage(
+                            navBarIconType: NavBarIconTypes.SHIPMENTS));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "show_all".tr(),
+                            style: AppTextStyles.smallLabel(),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Icon(Icons.arrow_forward_ios,
+                              size: 15.r,
+                              color: SaayerTheme().getColorsPalette.greyColor),
+                          SizedBox(
+                            width: 16.w,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
           Expanded(
             child: TabBarView(
               controller: _tabController,

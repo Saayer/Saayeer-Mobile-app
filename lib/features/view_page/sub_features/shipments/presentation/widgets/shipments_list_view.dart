@@ -19,12 +19,13 @@ class ShipmentsListView extends StatelessWidget {
     return BlocConsumer<ShipmentsBloc, ShipmentsState>(
       listener: (context, state) {},
       builder: (context, state) {
+        final bool isFromHome = state.isFromHome;
         return RefreshIndicator(
           onRefresh: () async {
             shipmentsBloc.add(RefreshShipments());
           },
           color: SaayerTheme().getColorsPalette.primaryColor,
-          backgroundColor:  SaayerTheme().getColorsPalette.backgroundColor,
+          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           child: ListView.builder(
               shrinkWrap: true,
               itemCount: shipmentEntityList.length,
@@ -42,7 +43,8 @@ class ShipmentsListView extends StatelessWidget {
                   case ShipmentsTypes.OUTBOUND:
                     {
                       shipmentWidget = OutboundShipmentWidgetHelper()
-                          .getOutboundShipmentWidget(shipmentEntity);
+                          .getOutboundShipmentWidget(
+                              shipmentEntity, isFromHome);
                       break;
                     }
                 }

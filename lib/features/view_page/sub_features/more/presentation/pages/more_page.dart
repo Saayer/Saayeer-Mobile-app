@@ -103,7 +103,13 @@ class MorePage extends StatelessWidget {
                     title: "contact_us",
                     onPressedWidget: ContactUsScreen(),
                   ),
-                  //dividerWidget,
+                  dividerWidget,
+                  const MoreItemWidget(
+                    iconName: "logo",
+                    title: "why_saayer",
+                    size: 23,
+                    onPressedWidget: ContactUsScreen(),
+                  ),
                   SizedBox(
                     height: 0.h,
                   ),

@@ -6,10 +6,10 @@ import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
-class MoreCardItemWidget extends StatelessWidget {
+class ProfileCardItemWidget extends StatelessWidget {
   final String title, iconName;
 
-  const MoreCardItemWidget(
+  const ProfileCardItemWidget(
       {super.key, required this.title, required this.iconName});
 
   @override
@@ -20,18 +20,6 @@ class MoreCardItemWidget extends StatelessWidget {
         height: 84.h,
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
-          // gradient: LinearGradient(
-          //     colors: [
-          //       SaayerTheme().getColorsPalette.orangeColor.withOpacity(1),
-          //       SaayerTheme()
-          //           .getColorsPalette
-          //           .lightOrangeColor
-          //           .withOpacity(0.5),
-          //     ],
-          //     begin: const FractionalOffset(0.0, 0.5),
-          //     end: const FractionalOffset(1.0, 0.0),
-          //     stops: const [0.0, 1.0],
-          //     tileMode: TileMode.clamp),
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
@@ -48,32 +36,25 @@ class MoreCardItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SvgPicture.asset(
-                    Constants.getIconPath("ic_$iconName.svg"),
-                    height: 22.h,
-                    width: 22.w,
-                    fit: BoxFit.cover,
-                    color: SaayerTheme().getColorsPalette.orangeColor,
-                  ),
-                  Icon(Icons.arrow_forward_ios,
-                      size: 15.r,
-                      color: SaayerTheme().getColorsPalette.greyColor),
-                ],
+              SvgPicture.asset(
+                Constants.getImagePath("$iconName.svg"),
+                height: 80.h,
+                width: 80.w,
+                fit: BoxFit.cover,
               ),
               SizedBox(
                 height: 8.h,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
                     child: Text(
                       title.tr(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.label(),
+                      style: AppTextStyles.boldLabel(
+                          SaayerTheme().getColorsPalette.orangeColor),
                     ),
                   ),
                 ],

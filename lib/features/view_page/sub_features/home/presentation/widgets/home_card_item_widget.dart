@@ -6,11 +6,16 @@ import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
-class MoreCardItemWidget extends StatelessWidget {
-  final String title, iconName;
+class HomeCardItemWidget extends StatelessWidget {
+  final String label, title, iconName;
+  final Color color;
 
-  const MoreCardItemWidget(
-      {super.key, required this.title, required this.iconName});
+  const HomeCardItemWidget(
+      {super.key,
+      required this.label,
+      required this.title,
+      required this.iconName,
+      required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +25,6 @@ class MoreCardItemWidget extends StatelessWidget {
         height: 84.h,
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
-          // gradient: LinearGradient(
-          //     colors: [
-          //       SaayerTheme().getColorsPalette.orangeColor.withOpacity(1),
-          //       SaayerTheme()
-          //           .getColorsPalette
-          //           .lightOrangeColor
-          //           .withOpacity(0.5),
-          //     ],
-          //     begin: const FractionalOffset(0.0, 0.5),
-          //     end: const FractionalOffset(1.0, 0.0),
-          //     stops: const [0.0, 1.0],
-          //     tileMode: TileMode.clamp),
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
@@ -51,16 +44,31 @@ class MoreCardItemWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset(
-                    Constants.getIconPath("ic_$iconName.svg"),
-                    height: 22.h,
-                    width: 22.w,
-                    fit: BoxFit.cover,
-                    color: SaayerTheme().getColorsPalette.orangeColor,
+                  Text(
+                    label.tr(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.smallParagraph(
+                        SaayerTheme().getColorsPalette.greyColor),
                   ),
-                  Icon(Icons.arrow_forward_ios,
-                      size: 15.r,
-                      color: SaayerTheme().getColorsPalette.greyColor),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                      child: SvgPicture.asset(
+                        Constants.getIconPath("ic_$iconName.svg"),
+                        height: 20.h,
+                        width: 20.w,
+                        fit: BoxFit.cover,
+                        color: color,
+                        //color: SaayerTheme().getColorsPalette.blackTextColor,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(

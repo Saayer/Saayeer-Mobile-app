@@ -31,7 +31,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
     final Map<ShipmentsTypes, List<ShipmentEntity>> shipmentEntityListMap = {};
     shipmentEntityListMap[ShipmentsTypes.INCOMING] = [];
     shipmentEntityListMap[ShipmentsTypes.OUTBOUND] = List.generate(
-        15,
+        event.isFromHome ? 5 : 15,
         (index) => OutboundShipmentEntity(
             id: ((index + 1) * Random().nextInt(10) + 1).toString(),
             date: Constants.formattedNowDate.toString(),
@@ -45,7 +45,8 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
             shipmentStatus: ShipmentStatus.values[Random().nextInt(3)]));
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
-        shipmentEntityListMap: shipmentEntityListMap));
+        shipmentEntityListMap: shipmentEntityListMap,
+        isFromHome: event.isFromHome));
   }
 
   FutureOr<void> _selectShipmentType(
@@ -67,7 +68,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
     final Map<ShipmentsTypes, List<ShipmentEntity>> shipmentEntityListMap = {};
     shipmentEntityListMap[ShipmentsTypes.INCOMING] = [];
     shipmentEntityListMap[ShipmentsTypes.OUTBOUND] = List.generate(
-        15,
+        state.isFromHome ? 5 : 15,
         (index) => OutboundShipmentEntity(
             id: ((index + 1) * Random().nextInt(10) + 1).toString(),
             date: Constants.formattedNowDate.toString(),

@@ -54,6 +54,13 @@ class AppTextStyles {
       );
 
   static TextStyle microLabel([Color? color]) => GoogleFonts.alexandria(
+        fontSize: 8.sp,
+        color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
+        fontWeight: FontWeight.w500,
+        height: 1.1.h,
+      );
+
+  static TextStyle xMicroLabel([Color? color]) => GoogleFonts.alexandria(
         fontSize: 6.sp,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w500,

@@ -5,12 +5,18 @@ import 'package:saayer/features/view_page/sub_features/shipments/presentation/bl
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/pages/shipments_page.dart';
 
 class ShipmentsScreen extends StatelessWidget {
-  const ShipmentsScreen({super.key});
+  final bool isFromHome;
+
+  const ShipmentsScreen({super.key, this.isFromHome = false});
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
     return BlocProvider(
-      create: (context) => getIt<ShipmentsBloc>()..add(InitShipments()),
+      create: (context) =>
+          getIt<ShipmentsBloc>()..add(InitShipments(isFromHome: isFromHome)),
       child: const ShipmentsPage(),
     );
   }

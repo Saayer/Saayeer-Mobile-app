@@ -7,9 +7,17 @@ class SaayerTabBar extends StatelessWidget {
   final TabController? controller;
   final List<Widget> tabs;
   final void Function(int)? onTap;
+  final TextStyle? labelStyle;
+  final double? horizontalPadding, verticalPadding;
 
   const SaayerTabBar(
-      {super.key, this.controller, required this.tabs, this.onTap});
+      {super.key,
+      this.controller,
+      required this.tabs,
+      this.onTap,
+      this.labelStyle,
+      this.horizontalPadding,
+      this.verticalPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +25,9 @@ class SaayerTabBar extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(
+          horizontal: (horizontalPadding ?? 16).w,
+          vertical: (verticalPadding ?? 10).h),
       child: Container(
         height: 40.h,
         width: width / 1,
@@ -42,9 +52,9 @@ class SaayerTabBar extends StatelessWidget {
           ),
           dividerHeight: 0.h,
           onTap: onTap,
-          labelStyle: AppTextStyles.smallParagraph(),
+          labelStyle: labelStyle ?? AppTextStyles.smallParagraph(),
           labelColor: SaayerTheme().getColorsPalette.backgroundColor,
-          unselectedLabelStyle: AppTextStyles.smallParagraph(),
+          unselectedLabelStyle: labelStyle ?? AppTextStyles.smallParagraph(),
           unselectedLabelColor: SaayerTheme().getColorsPalette.blackTextColor,
           tabs: tabs,
         ),

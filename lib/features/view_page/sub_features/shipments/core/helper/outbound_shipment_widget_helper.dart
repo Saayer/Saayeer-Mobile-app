@@ -125,12 +125,14 @@ class OutboundShipmentWidgetHelper {
     );
   }
 
-  Widget getOutboundShipmentWidget(ShipmentEntity shipmentEntity) {
+  Widget getOutboundShipmentWidget(
+      ShipmentEntity shipmentEntity, bool isFromHome) {
     final OutboundShipmentEntity outboundShipmentEntity =
         shipmentEntity as OutboundShipmentEntity;
     final Color shipmentStatusColor = _getColor(shipmentEntity.shipmentStatus);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(
+          horizontal: 16.w, vertical: (isFromHome ? 5 : 10).h),
       child: Container(
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
@@ -138,14 +140,16 @@ class OutboundShipmentWidgetHelper {
           boxShadow: [
             BoxShadow(
               color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
-              spreadRadius: 5,
+              spreadRadius: isFromHome ? 2 : 5,
               blurRadius: 10,
               offset: const Offset(0, 0), // changes position of shadow
             ),
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: (isFromHome ? 5 : 10).w,
+              vertical: (isFromHome ? 5 : 16).h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
