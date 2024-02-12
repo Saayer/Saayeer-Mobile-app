@@ -24,7 +24,7 @@ class ProfileCardsWidget extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: (100).w / (84).h,
+        childAspectRatio: (130).w / (70).h,
         mainAxisSpacing: (8 * 2).h,
         crossAxisSpacing: (8 * 2).w,
       ),

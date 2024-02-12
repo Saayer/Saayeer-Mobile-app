@@ -7,7 +7,7 @@ class MoreCardsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> moreCardsStrList = ["my_balance","addresses_book", "shipping_rates"];
+    final List<String> moreCardsStrList = ["addresses_book", "shipping_rates"];
     return GridView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.symmetric(vertical: 0.h),

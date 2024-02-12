@@ -17,7 +17,7 @@ class ProfileCardItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        height: 84.h,
+        // height: 50.h,
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
           borderRadius: BorderRadius.circular(16.r),
@@ -36,11 +36,14 @@ class ProfileCardItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                Constants.getImagePath("$iconName.svg"),
-                height: 80.h,
-                width: 80.w,
-                fit: BoxFit.cover,
+              Flexible(
+                fit: FlexFit.tight,
+                child: SvgPicture.asset(
+                  Constants.getImagePath("$iconName.svg"),
+                  // height: 60.h,
+                  // width: 60.w,
+                  fit: BoxFit.contain,
+                ),
               ),
               SizedBox(
                 height: 8.h,
