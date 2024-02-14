@@ -20,9 +20,9 @@ class AppInterceptors extends Interceptor {
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final String? authToken =
-        await getIt<SecureStorageService>().getAccessToken();
+        await SecureStorageService().getAccessToken();
     final String? reqSecureKey =
-        await getIt<SecureStorageService>().getReqSecureKey();
+        await SecureStorageService().getReqSecureKey();
     final bool isLogin = options.path.contains("login");
     final bool isEntry = options.path.contains("entry");
     options.queryParameters.addAll(
@@ -55,7 +55,7 @@ class AppInterceptors extends Interceptor {
     if (hasToken) {
       final String? authToken = responseData["data"]["token"];
       if (authToken != null) {
-        await getIt<SecureStorageService>().setAccessToken(authToken);
+        await SecureStorageService().setAccessToken(authToken);
         responseData["data"].remove(authToken);
         response.data = jsonEncode(responseData);
       }
@@ -64,7 +64,7 @@ class AppInterceptors extends Interceptor {
       final String? reqSecureKey = responseData["reqSecureKey"];
       log("$reqSecureKey", name: "reqSecureKey --->");
       if (reqSecureKey != null) {
-        await getIt<SecureStorageService>().setReqSecureKey(reqSecureKey);
+        await SecureStorageService().setReqSecureKey(reqSecureKey);
         responseData.remove(reqSecureKey);
         response.data = jsonEncode(responseData);
       }

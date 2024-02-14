@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/view_page/sub_features/profile/presentation/helper/on_card_pressed_helper.dart';
+import 'package:saayer/features/view_page/sub_features/profile/presentation/helper/on_info_pressed_helper.dart';
 
 class ProfileCardItemWidget extends StatelessWidget {
   final String title, iconName;
@@ -15,7 +17,9 @@ class ProfileCardItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        _onPressed();
+      },
       child: Container(
         // height: 50.h,
         decoration: BoxDecoration(
@@ -67,5 +71,16 @@ class ProfileCardItemWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _onPressed() async {
+    final bool isInfo = (title.contains("info"));
+    if (isInfo) {
+      final OnInfoPressedHelper onInfoPressedHelper = OnInfoPressedHelper();
+      await onInfoPressedHelper.onInfoPressed(title);
+    } else {
+      final OnCardPressedHelper onCardPressedHelper = OnCardPressedHelper();
+      await onCardPressedHelper.onCardPressed(title);
+    }
   }
 }

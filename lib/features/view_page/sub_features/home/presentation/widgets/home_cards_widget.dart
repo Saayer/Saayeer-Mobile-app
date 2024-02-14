@@ -39,8 +39,8 @@ class HomeCardsWidget extends StatelessWidget {
 
   Map<String, String> _getHomeCardsMap() {
     Map<String, String> homeCardsMap = {};
-    homeCardsMap["my_balance"] = "20 ${"sr".tr()}";
-    homeCardsMap["total_shipments"] = "15";
+    homeCardsMap["my_balance"] = "0 ${"sr".tr()}";
+    homeCardsMap["total_shipments"] = "0";
     return homeCardsMap;
   }
 

@@ -51,7 +51,7 @@ class NewShipmentCardItemWidget extends StatelessWidget {
                 //color: SaayerTheme().getColorsPalette.primaryColor,
               ),
               title: Text(
-                "You can now request a new shipment with Saayer".tr(),
+                "new_shipment_home_card_label".tr(),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.label(

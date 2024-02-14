@@ -10,6 +10,7 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/more_sub_features/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:saayer/features/more_sub_features/help/presentation/screens/help_screen.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/screens/settings_screen.dart';
+import 'package:saayer/features/more_sub_features/why_saayer/presentation/screens/why_saayer_screen.dart';
 import 'package:saayer/features/user_card/presentation/screens/user_card_screen.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/widgets/more_cards_widget.dart';
@@ -72,20 +73,6 @@ class MorePage extends StatelessWidget {
                   SizedBox(
                     height: 16.h,
                   ),
-                  // const MoreItemWidget(
-                  //   iconName: "addresses_book",
-                  //   title: "addresses_book",
-                  //   isPngIcon: true,
-                  //   size: 30,
-                  //   onPressedWidget: SettingsScreen(),
-                  // ),
-                  // dividerWidget,
-                  // const MoreItemWidget(
-                  //   iconName: "addresses_book",
-                  //   title: "addresses_book",
-                  //   onPressedWidget: SettingsScreen(),
-                  // ),
-                  // dividerWidget,
                   const MoreItemWidget(
                     iconName: "settings",
                     title: "settings",
@@ -108,7 +95,7 @@ class MorePage extends StatelessWidget {
                     iconName: "logo",
                     title: "why_saayer",
                     size: 23,
-                    onPressedWidget: ContactUsScreen(),
+                    onPressedWidget: WhySaayerScreen(),
                   ),
                   SizedBox(
                     height: 0.h,

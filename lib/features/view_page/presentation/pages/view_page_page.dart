@@ -61,9 +61,9 @@ class ViewPagePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Icon(
-                        Icons.notifications_active_outlined,
+                        Icons.notifications,
                         color: SaayerTheme().getColorsPalette.blackTextColor,
-                        size: 25.r,
+                        size: 35.r,
                       ),
                     ),
                 ]),

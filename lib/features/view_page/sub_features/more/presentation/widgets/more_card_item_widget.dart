@@ -2,36 +2,34 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
 class MoreCardItemWidget extends StatelessWidget {
   final String title, iconName;
+  final Widget? onPressedWidget;
 
   const MoreCardItemWidget(
-      {super.key, required this.title, required this.iconName});
+      {super.key,
+      required this.title,
+      required this.iconName,
+      this.onPressedWidget});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (onPressedWidget != null) {
+          getIt<NavigationService>().navigateTo(onPressedWidget);
+        }
+      },
       child: Container(
         height: 84.h,
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
-          // gradient: LinearGradient(
-          //     colors: [
-          //       SaayerTheme().getColorsPalette.orangeColor.withOpacity(1),
-          //       SaayerTheme()
-          //           .getColorsPalette
-          //           .lightOrangeColor
-          //           .withOpacity(0.5),
-          //     ],
-          //     begin: const FractionalOffset(0.0, 0.5),
-          //     end: const FractionalOffset(1.0, 0.0),
-          //     stops: const [0.0, 1.0],
-          //     tileMode: TileMode.clamp),
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(

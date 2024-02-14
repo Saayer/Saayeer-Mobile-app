@@ -36,7 +36,7 @@ class UserInfoViewPageBloc
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    getIt<SecureStorageService>().clearUserCardInfo();
+    SecureStorageService().clearUserCardInfo();
 
     if (state.currentPage + 1 < 3) {
       emit(state.copyWith(

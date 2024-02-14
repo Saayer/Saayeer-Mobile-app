@@ -33,7 +33,7 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     final UserCardEntity? userCardEntity =
-        await getIt<SecureStorageService>().getUserCardInfo();
+        await SecureStorageService().getUserCardInfo();
     if (userCardEntity != null) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -61,7 +61,7 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
       log("right getProfileStatus $rightResult");
       if (rightResult != null) {
         if (rightResult.isSuccess) {
-          await getIt<SecureStorageService>().setUserCardInfo(rightResult);
+          await SecureStorageService().setUserCardInfo(rightResult);
           emit(state.copyWith(
             stateHelper: const StateHelper(
                 requestState: RequestState.SUCCESS, loadingMessage: ""),

@@ -33,14 +33,31 @@ class $AssetsGifsGen {
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/ic_addresses_book.png
+  AssetGenImage get icAddressesBookPng =>
+      const AssetGenImage('assets/icons/ic_addresses_book.png');
+
+  /// File path: assets/icons/ic_addresses_book.svg
+  String get icAddressesBookSvg => 'assets/icons/ic_addresses_book.svg';
+
+  /// File path: assets/icons/ic_contact_us.svg
+  String get icContactUs => 'assets/icons/ic_contact_us.svg';
+
   /// File path: assets/icons/ic_ebills.svg
   String get icEbills => 'assets/icons/ic_ebills.svg';
+
+  /// File path: assets/icons/ic_help.svg
+  String get icHelp => 'assets/icons/ic_help.svg';
 
   /// File path: assets/icons/ic_home.svg
   String get icHome => 'assets/icons/ic_home.svg';
 
   /// File path: assets/icons/ic_logo.png
-  AssetGenImage get icLogo => const AssetGenImage('assets/icons/ic_logo.png');
+  AssetGenImage get icLogoPng =>
+      const AssetGenImage('assets/icons/ic_logo.png');
+
+  /// File path: assets/icons/ic_logo.svg
+  String get icLogoSvg => 'assets/icons/ic_logo.svg';
 
   /// File path: assets/icons/ic_logo_text.png
   AssetGenImage get icLogoText =>
@@ -57,32 +74,59 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_more.svg
   String get icMore => 'assets/icons/ic_more.svg';
 
+  /// File path: assets/icons/ic_my_balance.svg
+  String get icMyBalance => 'assets/icons/ic_my_balance.svg';
+
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
 
   /// File path: assets/icons/ic_settings.svg
   String get icSettings => 'assets/icons/ic_settings.svg';
 
+  /// File path: assets/icons/ic_shipment.svg
+  String get icShipment => 'assets/icons/ic_shipment.svg';
+
   /// File path: assets/icons/ic_shipments.svg
   String get icShipments => 'assets/icons/ic_shipments.svg';
 
+  /// File path: assets/icons/ic_shipping_rates.svg
+  String get icShippingRates => 'assets/icons/ic_shipping_rates.svg';
+
+  /// File path: assets/icons/ic_total_shipments.svg
+  String get icTotalShipments => 'assets/icons/ic_total_shipments.svg';
+
   /// List of all assets
   List<dynamic> get values => [
+        icAddressesBookPng,
+        icAddressesBookSvg,
+        icContactUs,
         icEbills,
+        icHelp,
         icHome,
-        icLogo,
+        icLogoPng,
+        icLogoSvg,
         icLogoText,
         icLogoWithBg,
         icLogoWithText,
         icMore,
+        icMyBalance,
         icProfile,
         icSettings,
-        icShipments
+        icShipment,
+        icShipments,
+        icShippingRates,
+        icTotalShipments
       ];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/bills.svg
+  String get bills => 'assets/images/bills.svg';
+
+  /// File path: assets/images/business_info.svg
+  String get businessInfo => 'assets/images/business_info.svg';
 
   /// File path: assets/images/logo_text_with_bg.jpeg
   AssetGenImage get logoTextWithBg =>
@@ -92,8 +136,25 @@ class $AssetsImagesGen {
   AssetGenImage get logoWithText =>
       const AssetGenImage('assets/images/logo_with_text.jpeg');
 
+  /// File path: assets/images/personal_info.svg
+  String get personalInfo => 'assets/images/personal_info.svg';
+
+  /// File path: assets/images/reports.svg
+  String get reports => 'assets/images/reports.svg';
+
+  /// File path: assets/images/store_info.svg
+  String get storeInfo => 'assets/images/store_info.svg';
+
   /// List of all assets
-  List<AssetGenImage> get values => [logoTextWithBg, logoWithText];
+  List<dynamic> get values => [
+        bills,
+        businessInfo,
+        logoTextWithBg,
+        logoWithText,
+        personalInfo,
+        reports,
+        storeInfo
+      ];
 }
 
 class $AssetsStringsGen {

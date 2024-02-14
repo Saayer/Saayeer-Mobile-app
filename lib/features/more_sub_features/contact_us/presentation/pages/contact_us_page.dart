@@ -7,7 +7,9 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/more_sub_features/contact_us/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/contact_us/presentation/bloc/contact_us_bloc.dart';
+import 'package:saayer/features/more_sub_features/contact_us/presentation/widgets/contact_us_item_widget.dart';
 
 class ContactUsPage extends StatelessWidget {
   const ContactUsPage({super.key});
@@ -33,7 +35,7 @@ class ContactUsPage extends StatelessWidget {
       },
       builder: (context, state) {
         final Widget dividerWidget = Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
           child: Divider(
             thickness: 0.5,
             color: SaayerTheme().getColorsPalette.greyColor,
@@ -50,8 +52,21 @@ class ContactUsPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [],
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: ContactUsTypes.values
+                    .map((e) => Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 0.h),
+                              child: ContactUsItemWidget(
+                                  title: e.title,
+                                  description: e.description,
+                                  iconData: e.iconData),
+                            ),
+                            dividerWidget
+                          ],
+                        ))
+                    .toList(),
               ),
             ),
           ),

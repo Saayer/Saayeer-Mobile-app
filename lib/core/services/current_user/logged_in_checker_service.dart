@@ -9,18 +9,18 @@ import 'package:saayer/core/entities/logged_in_user_entity.dart';
 @Injectable()
 class LoggedInCheckerService {
   Future<bool> isLoggedIn() async {
-    final bool? isLoggedIn = await getIt<SecureStorageService>().getIsLoggedIn();
+    final bool? isLoggedIn = await SecureStorageService().getIsLoggedIn();
     return isLoggedIn ?? false;
   }
 
   void initLoggedUser() async {
     final LoggedInUserEntity? loggedInUserEntity =
-        await getIt<SecureStorageService>().getLoggedInUser();
+        await SecureStorageService().getLoggedInUser();
     getIt<LoggedInService>().setLoggedInUserEntity(loggedInUserEntity!);
   }
 
   Future<void> logOut() async {
-    await getIt<SecureStorageService>().clearStorage();
+    await SecureStorageService().clearStorage();
     getIt<LoggedInService>().setLoggedInUserEntity(null);
   }
 }

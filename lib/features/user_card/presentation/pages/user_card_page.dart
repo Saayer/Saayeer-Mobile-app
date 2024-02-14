@@ -20,8 +20,6 @@ import 'package:saayer/features/user_card/presentation/widgets/circle_painter.da
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'dart:ui' as ui;
 
-import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
-
 class UserCardPage extends StatelessWidget {
   final double horizontalPadding, verticalPadding;
 
