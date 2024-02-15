@@ -41,7 +41,7 @@ class VerifyOtpPage extends StatelessWidget {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
             if (state.isVerified) {
               SaayerToast().showSuccessToast(msg: "welcome".tr());
-              await getIt<SecureStorageService>().setIsLoggedIn(true);
+              await SecureStorageService().setIsLoggedIn(true);
               getIt<NavigationService>()
                   .navigateTo(const HomeScreen());
             } else {

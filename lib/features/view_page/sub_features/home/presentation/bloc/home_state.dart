@@ -1,5 +1,6 @@
 part of 'home_bloc.dart';
 
+@immutable
 class HomeState extends Equatable {
   final StateHelper stateHelper;
 

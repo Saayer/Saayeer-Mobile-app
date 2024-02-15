@@ -13,7 +13,7 @@ import 'package:saayer/features/view_page/presentation/widgets/bottom_navigation
 import 'package:saayer/features/view_page/presentation/widgets/floating_action_button.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/screens/home_screen.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/screens/more_screen.dart';
-import 'package:saayer/features/view_page/sub_features/profile/presentation/screens/ebills_screen.dart';
+import 'package:saayer/features/view_page/sub_features/profile/presentation/screens/profile_screen.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/screens/request_shipment_screen.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/screens/shipments_screen.dart';
 
@@ -61,9 +61,9 @@ class ViewPagePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Icon(
-                        Icons.notifications_active_outlined,
+                        Icons.notifications,
                         color: SaayerTheme().getColorsPalette.blackTextColor,
-                        size: 25.r,
+                        size: 35.r,
                       ),
                     ),
                 ]),

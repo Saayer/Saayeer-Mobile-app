@@ -1,5 +1,6 @@
 part of 'store_info_bloc.dart';
 
+@immutable
 class StoreInfoState extends Equatable {
   final StateHelper stateHelper;
   final AutovalidateMode autoValidateMode;

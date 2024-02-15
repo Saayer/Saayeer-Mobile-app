@@ -13,7 +13,7 @@ class LoadingContainer extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: SaayerTheme().getColorsPalette.blackColor.withOpacity(.3),
+      color: SaayerTheme().getColorsPalette.backgroundColor,
       child: const SaayerLoader(),
     );
   }

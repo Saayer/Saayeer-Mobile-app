@@ -20,10 +20,13 @@ import 'package:saayer/features/user_card/presentation/widgets/circle_painter.da
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'dart:ui' as ui;
 
-import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
-
 class UserCardPage extends StatelessWidget {
-  const UserCardPage({super.key});
+  final double horizontalPadding, verticalPadding;
+
+  const UserCardPage(
+      {super.key,
+      required this.horizontalPadding,
+      required this.verticalPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +68,9 @@ class UserCardPage extends StatelessWidget {
           }
           return showUserCard
               ? Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: (horizontalPadding).w,
+                      vertical: (verticalPadding).h),
                   child: GestureDetector(
                     onTap: () {
                       getIt<NavigationService>()
@@ -92,8 +96,14 @@ class UserCardPage extends StatelessWidget {
                           //color: SaayerTheme().getColorsPalette.backgroundColor,
                           gradient: LinearGradient(
                               colors: [
-                                SaayerTheme().getColorsPalette.backgroundColor.withOpacity(0.2),
-                                SaayerTheme().getColorsPalette.primaryColor.withOpacity(0.3),
+                                SaayerTheme()
+                                    .getColorsPalette
+                                    .backgroundColor
+                                    .withOpacity(0.5),
+                                SaayerTheme()
+                                    .getColorsPalette
+                                    .orangeColor
+                                    .withOpacity(0.3),
                               ],
                               begin: const FractionalOffset(0.0, 0.0),
                               end: const FractionalOffset(1.0, 0.0),

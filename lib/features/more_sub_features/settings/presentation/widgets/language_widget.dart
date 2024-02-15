@@ -6,13 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
+import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
-import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart';
 
 class LanguageWidget extends StatelessWidget {
   const LanguageWidget({super.key});
@@ -21,9 +18,9 @@ class LanguageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
-    final MoreBloc moreBloc = BlocProvider.of<MoreBloc>(context);
-    return BlocConsumer<MoreBloc, MoreState>(
+    final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    final ViewPageBloc viewPageBloc = getIt<ViewPageBloc>();
+    return BlocConsumer<SettingsBloc, SettingsState>(
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -39,6 +36,7 @@ class LanguageWidget extends StatelessWidget {
                 style: AppTextStyles.hintButtonLabel(),
               ),
             ),
+            SizedBox(height: 10.h,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: ["english", "arabic"].map(
@@ -57,8 +55,8 @@ class LanguageWidget extends StatelessWidget {
                             ? Localization.usEnglish
                             : Localization.egArabic);
                         Localization.setLocale(locale);
-                        moreBloc.add(RefreshEvent());
-                        viewPageBloc.add(Refresh());
+                        settingsBloc.add(RefreshEvent());
+                        //viewPageBloc.add(Refresh());
                       },
                       btnWidth: width / 3.5,
                       btnHeight: 30.h,

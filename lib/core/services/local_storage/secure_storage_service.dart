@@ -10,7 +10,7 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/features/intro/presentation/screens/intro_screen.dart';
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 
-@Singleton()
+
 class SecureStorageService {
   final FlutterSecureStorage _storage = const FlutterSecureStorage(
     aOptions: AndroidOptions(

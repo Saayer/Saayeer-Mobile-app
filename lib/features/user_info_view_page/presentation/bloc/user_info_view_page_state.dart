@@ -1,5 +1,6 @@
 part of 'user_info_view_page_bloc.dart';
 
+@immutable
 class UserInfoViewPageState extends Equatable {
   final StateHelper stateHelper;
   final int currentPage;

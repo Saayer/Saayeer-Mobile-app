@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
@@ -32,7 +33,7 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     final UserCardEntity? userCardEntity =
-        await getIt<SecureStorageService>().getUserCardInfo();
+        await SecureStorageService().getUserCardInfo();
     if (userCardEntity != null) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -60,7 +61,7 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
       log("right getProfileStatus $rightResult");
       if (rightResult != null) {
         if (rightResult.isSuccess) {
-          await getIt<SecureStorageService>().setUserCardInfo(rightResult);
+          await SecureStorageService().setUserCardInfo(rightResult);
           emit(state.copyWith(
             stateHelper: const StateHelper(
                 requestState: RequestState.SUCCESS, loadingMessage: ""),

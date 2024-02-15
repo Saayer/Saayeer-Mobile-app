@@ -1,5 +1,6 @@
 part of 'user_card_bloc.dart';
 
+@immutable
 class UserCardState extends Equatable {
   final StateHelper stateHelper;
   final UserCardEntity? userCardEntity;

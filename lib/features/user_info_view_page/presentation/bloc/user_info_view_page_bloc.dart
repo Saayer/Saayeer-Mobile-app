@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/services/injection/injection.dart';
@@ -35,7 +36,7 @@ class UserInfoViewPageBloc
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    getIt<SecureStorageService>().clearUserCardInfo();
+    SecureStorageService().clearUserCardInfo();
 
     if (state.currentPage + 1 < 3) {
       emit(state.copyWith(

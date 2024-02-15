@@ -6,6 +6,9 @@ class LightColorsPalette implements BaseColorsPalette {
   Color get primaryColor => const Color(0xfffe4e00);
 
   @override
+  Color get accentColor => const Color(0xffe5784d);
+
+  @override
   Color get orangeColor => const Color(0xFFFF9000);
 
   @override
@@ -91,4 +94,10 @@ class LightColorsPalette implements BaseColorsPalette {
 
   @override
   Color get superDarkOrangeColor => const Color(0xff4b3326);
+
+  @override
+  Color get lightYellowColor => const Color(0xfffff4d6);
+
+  @override
+  Color get lightGreenColor => const Color(0xffd9f4eb);
 }

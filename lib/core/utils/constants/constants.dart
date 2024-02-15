@@ -8,8 +8,8 @@ class Constants {
   static const String assetLottieBasePath = "assets/lottie/";
   static const String stringsPath = "assets/strings";
 
-  // final String formattedNowDate =
-  //     DateFormat('dd/MM/yyyy').format(DateTime.now());
+  static final String formattedNowDate =
+      DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   static String getImagePath(String imageName) =>
       "$assetImageBasePath$imageName";

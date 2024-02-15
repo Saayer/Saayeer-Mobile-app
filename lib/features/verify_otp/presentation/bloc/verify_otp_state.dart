@@ -1,5 +1,6 @@
 part of 'verify_otp_bloc.dart';
 
+@immutable
 class VerifyOtpState extends Equatable {
   final StateHelper stateHelper;
   final VerifyOtpEntity? verifyOtpEntity;
