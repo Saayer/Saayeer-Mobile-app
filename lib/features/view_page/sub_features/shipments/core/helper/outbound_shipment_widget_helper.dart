@@ -11,7 +11,7 @@ import 'package:saayer/features/view_page/sub_features/shipments/domain/entities
 import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
 
 class OutboundShipmentWidgetHelper {
-  Color _getColor(ShipmentStatus shipmentStatus) {
+  Color getColor(ShipmentStatus shipmentStatus) {
     switch (shipmentStatus) {
       case ShipmentStatus.RECEIVED:
         {
@@ -129,7 +129,7 @@ class OutboundShipmentWidgetHelper {
       ShipmentEntity shipmentEntity, bool isFromHome) {
     final OutboundShipmentEntity outboundShipmentEntity =
         shipmentEntity as OutboundShipmentEntity;
-    final Color shipmentStatusColor = _getColor(shipmentEntity.shipmentStatus);
+    final Color shipmentStatusColor = getColor(shipmentEntity.shipmentStatus);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: 16.w, vertical: (isFromHome ? 5 : 10).h),

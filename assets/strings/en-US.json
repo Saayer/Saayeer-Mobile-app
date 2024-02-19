@@ -82,7 +82,10 @@
   "shipment_number": "Shipment Number",
   "receiverName": "Receiver Name",
   "shipment_date": "Shipment Date",
+  "shipment_tracking": "Shipment Tracking",
+  "shipment_details": "Shipment Details",
   "sr": "Riyal",
+  "kg": "Kilogram",
   "received": "Received",
   "delivered": "Delivered",
   "paid": "Paid",
@@ -106,5 +109,13 @@
   "no_reports_title": "No Reports Found!",
   "no_reports_desc": "Reports are valuable tools that offer insights into various aspects of your activity, such as finances, analytics, or performance metrics. If you haven't generated any reports yet, this space will remain empty until you do so.",
   "no_bills_title": "No Bills Found!",
-  "no_bills_desc": "Rest assured, if you have any pending invoices or upcoming bills, they will be displayed here for your convenience. Keep track of your financial obligations effortlessly and stay informed about any outstanding payments through this streamlined interface. Enjoy the simplicity of managing your bills hassle-free."
+  "no_bills_desc": "Rest assured, if you have any pending invoices or upcoming bills, they will be displayed here for your convenience. Keep track of your financial obligations effortlessly and stay informed about any outstanding payments through this streamlined interface. Enjoy the simplicity of managing your bills hassle-free.",
+  "sender": "Sender",
+  "receiver": "Receiver",
+  "total_price": "Total Price",
+  "shipping_fees": "Shipping Fees",
+  "promo_code": "Promo Code",
+  "bill": "Bill",
+  "apply": "Apply",
+  "pay_now": "Pay Now"
 }

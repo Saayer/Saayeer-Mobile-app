@@ -16,5 +16,5 @@ abstract class ShipmentEntity extends Equatable {
   });
 
   @override
-  List<Object> get props => [shipmentsType, id, shipmentStatus];
+  List<Object> get props => [id];
 }
