@@ -14,7 +14,6 @@ class DarkModeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    final ViewPageBloc viewPageBloc = getIt<ViewPageBloc>();
     return BlocConsumer<SettingsBloc, SettingsState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -32,7 +31,6 @@ class DarkModeWidget extends StatelessWidget {
               onChanged: (value) {
                 SaayerTheme().setThemeMode();
                 settingsBloc.add(RefreshEvent());
-                //viewPageBloc.add(Refresh());
               },
             ));
       },

@@ -96,7 +96,7 @@ class DarkColorsPalette implements BaseColorsPalette {
   Color get superDarkOrangeColor => const Color(0xff4b3326);
 
   @override
-  Color get lightYellowColor => const Color(0xffd3a41d);
+  Color get lightYellowColor => const Color(0xffd9b244);
 
   @override
   Color get lightGreenColor => const Color(0xff3e9175);

@@ -87,8 +87,11 @@
   "sr": "Riyal",
   "kg": "Kilogram",
   "received": "Received",
+  "received_msg": "Congratulations! Your shipment has been successfully received. This message confirms that your package has reached its destination and is now in your possession. Whether it's a long-awaited delivery or a routine package, we're delighted to inform you that your shipment journey has come to a successful conclusion. Take a moment to inspect your package and ensure everything is as expected. If you have any questions or concerns regarding your shipment, feel free to reach out to our customer support team for assistance. Thank you for choosing Saayer, and we hope your experience with us has been smooth and satisfactory.",
   "delivered": "Delivered",
+  "delivered_msg": "Great news! Your shipment has been successfully delivered. Sit back and relax knowing that your package has reached its destination. If you have any questions or concerns regarding the delivery, feel free to reach out to our customer support team. Thank you for choosing our service, and we hope you enjoy your delivered items!",
   "paid": "Paid",
+  "paid_msg": "Congratulations! Your shipment payment has been successfully processed. You're all set to send your package on its journey. Thank you for choosing our services. Your payment has been securely received, ensuring a smooth and expedited shipping process. Stay tuned for updates on your shipment's progress. Should you have any questions or require assistance, feel free to reach out to our support team. We appreciate your business and look forward to serving you again in the future.",
   "show_all": "Show All",
   "why_saayer": "Why Saayer",
   "reports": "Reports",
@@ -117,5 +120,7 @@
   "promo_code": "Promo Code",
   "bill": "Bill",
   "apply": "Apply",
-  "pay_now": "Pay Now"
+  "pay_now": "Pay Now",
+  "tracking_id": "Tracking ID",
+  "tracking_id_copied_msg": "Tracking ID copied to clipboard"
 }

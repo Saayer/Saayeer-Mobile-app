@@ -52,6 +52,7 @@ class ShipmentDetailsBloc
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         shipmentDetailsEntity: shipmentDetailsEntity,
-        shipmentTrackingEntity: ShipmentTrackingEntity()));
+        shipmentTrackingEntity:
+            const ShipmentTrackingEntity(trackingId: "ytrtyc23243trtretr")));
   }
 }

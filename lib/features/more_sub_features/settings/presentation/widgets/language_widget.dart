@@ -19,7 +19,6 @@ class LanguageWidget extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    final ViewPageBloc viewPageBloc = getIt<ViewPageBloc>();
     return BlocConsumer<SettingsBloc, SettingsState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -36,7 +35,9 @@ class LanguageWidget extends StatelessWidget {
                 style: AppTextStyles.hintButtonLabel(),
               ),
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(
+              height: 10.h,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: ["english", "arabic"].map(
@@ -56,7 +57,6 @@ class LanguageWidget extends StatelessWidget {
                             : Localization.egArabic);
                         Localization.setLocale(locale);
                         settingsBloc.add(RefreshEvent());
-                        //viewPageBloc.add(Refresh());
                       },
                       btnWidth: width / 3.5,
                       btnHeight: 30.h,

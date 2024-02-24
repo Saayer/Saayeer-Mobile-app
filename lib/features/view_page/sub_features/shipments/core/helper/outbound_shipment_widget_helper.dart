@@ -93,10 +93,10 @@ class OutboundShipmentWidgetHelper {
                         text: (double.tryParse(outboundShipmentEntity.amount) ??
                                 0)
                             .toString(),
-                        style: AppTextStyles.boldLabel()),
+                        style: AppTextStyles.smallBoldLabel()),
                     TextSpan(
                         text: "  ${"sr".tr()}",
-                        style: AppTextStyles.smallLabel(
+                        style: AppTextStyles.microLabel(
                             SaayerTheme().getColorsPalette.greyColor)),
                   ],
                 ),
@@ -104,10 +104,10 @@ class OutboundShipmentWidgetHelper {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 10.h,
           ),
           Container(
-              width: 100.w,
+              width: 80.w,
               decoration: BoxDecoration(
                 color: shipmentStatusColor,
                 borderRadius: BorderRadius.circular(50.r),
@@ -162,13 +162,16 @@ class OutboundShipmentWidgetHelper {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _getInfoWidget(outboundShipmentEntity),
+                    SizedBox(
+                      width: 5.w,
+                    ),
                     _getAmountWithTagWidget(
                         outboundShipmentEntity, shipmentStatusColor)
                   ],
                 ),
               ),
               SizedBox(
-                width: 10.w,
+                width: 12.w,
               ),
               Icon(Icons.arrow_forward_ios,
                   size: 15.r, color: SaayerTheme().getColorsPalette.greyColor),
