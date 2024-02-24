@@ -2,11 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
 class DarkModeWidget extends StatelessWidget {
   const DarkModeWidget({super.key});
