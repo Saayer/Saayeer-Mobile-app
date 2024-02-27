@@ -48,7 +48,7 @@ class AddressesBookPage extends StatelessWidget {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,

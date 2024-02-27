@@ -1,15 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/empty/empty_status_widget.dart';
-import 'package:saayer/core/utils/constants/constants.dart';
-import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/features/add_address/presentation/pages/add_address_page.dart';
+import 'package:saayer/features/add_address/presentation/screens/add_address_screen.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
-import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 
 class EmptyAddressesBook extends StatelessWidget {
   const EmptyAddressesBook({super.key});
@@ -29,7 +26,9 @@ class EmptyAddressesBook extends StatelessWidget {
           desc: "empty_addresses_book_desc".tr(),
           btnLabel: "add_address",
           iconName: "addresses_book",
-          onBtnPressed: () {},
+          onBtnPressed: () {
+            getIt<NavigationService>().navigateTo(const AddAddressScreen());
+          },
           size: size,
         );
       },

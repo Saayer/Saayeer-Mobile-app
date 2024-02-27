@@ -29,6 +29,8 @@ class BaseTextField extends StatelessWidget {
 
   final double? borderRadius;
 
+  final String? initialValue;
+
   const BaseTextField(
       {super.key,
       required this.controller,
@@ -50,7 +52,8 @@ class BaseTextField extends StatelessWidget {
       this.fillColor,
       this.enabledBorderColor,
       this.focusedBorderColor,
-      this.borderRadius});
+      this.borderRadius,
+      this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +61,7 @@ class BaseTextField extends StatelessWidget {
       onTapOutside: (PointerDownEvent pointerDownEvent) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
+      initialValue: initialValue,
       obscureText: obscureText!,
       controller: controller,
       keyboardType: keyboardType,

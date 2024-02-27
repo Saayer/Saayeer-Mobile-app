@@ -30,6 +30,8 @@
   "national_id": "National ID",
   "address": "Address",
   "district": "District",
+  "city": "City",
+  "country": "Country",
   "governorate": "Governorate",
   "commercial_registration_no": "Commercial Registration Number",
   "company_name": "Company Name",

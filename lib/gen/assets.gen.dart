@@ -40,6 +40,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_addresses_book.svg
   String get icAddressesBookSvg => 'assets/icons/ic_addresses_book.svg';
 
+  /// File path: assets/icons/ic_bill.svg
+  String get icBill => 'assets/icons/ic_bill.svg';
+
   /// File path: assets/icons/ic_contact_us.svg
   String get icContactUs => 'assets/icons/ic_contact_us.svg';
 
@@ -77,6 +80,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_my_balance.svg
   String get icMyBalance => 'assets/icons/ic_my_balance.svg';
 
+  /// File path: assets/icons/ic_my_bills.svg
+  String get icMyBills => 'assets/icons/ic_my_bills.svg';
+
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
 
@@ -99,6 +105,7 @@ class $AssetsIconsGen {
   List<dynamic> get values => [
         icAddressesBookPng,
         icAddressesBookSvg,
+        icBill,
         icContactUs,
         icEbills,
         icHelp,
@@ -110,6 +117,7 @@ class $AssetsIconsGen {
         icLogoWithText,
         icMore,
         icMyBalance,
+        icMyBills,
         icProfile,
         icSettings,
         icShipment,
@@ -157,6 +165,23 @@ class $AssetsImagesGen {
       ];
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/delivered_shipment.json
+  String get deliveredShipment => 'assets/lottie/delivered_shipment.json';
+
+  /// File path: assets/lottie/paid_shipment.json
+  String get paidShipment => 'assets/lottie/paid_shipment.json';
+
+  /// File path: assets/lottie/received_shipment.json
+  String get receivedShipment => 'assets/lottie/received_shipment.json';
+
+  /// List of all assets
+  List<String> get values =>
+      [deliveredShipment, paidShipment, receivedShipment];
+}
+
 class $AssetsStringsGen {
   const $AssetsStringsGen();
 
@@ -176,6 +201,7 @@ class Assets {
   static const $AssetsGifsGen gifs = $AssetsGifsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsStringsGen strings = $AssetsStringsGen();
 }
 
