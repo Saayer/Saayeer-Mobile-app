@@ -41,13 +41,15 @@ class HomeCardsWidget extends StatelessWidget {
     Map<String, String> homeCardsMap = {};
     homeCardsMap["my_balance"] = "0 ${"sr".tr()}";
     homeCardsMap["total_shipments"] = "0";
+    homeCardsMap["my_bills"] = "0";
     return homeCardsMap;
   }
 
   List<Color> _getHomeCardsColors() {
     return [
-      SaayerTheme().getColorsPalette.greenColor,
-      SaayerTheme().getColorsPalette.blueColor,
+      Colors.teal,
+      Colors.indigo,
+      Colors.cyan,
     ];
   }
 }

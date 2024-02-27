@@ -122,5 +122,6 @@
   "apply": "Apply",
   "pay_now": "Pay Now",
   "tracking_id": "Tracking ID",
-  "tracking_id_copied_msg": "Tracking ID copied to clipboard"
+  "tracking_id_copied_msg": "Tracking ID copied to clipboard",
+  "my_bills": "My Bills"
 }

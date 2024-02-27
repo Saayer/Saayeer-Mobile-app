@@ -100,4 +100,7 @@ class LightColorsPalette implements BaseColorsPalette {
 
   @override
   Color get lightGreenColor => const Color(0xffd9f4eb);
+
+  @override
+  Color get tealColor => Colors.teal;
 }

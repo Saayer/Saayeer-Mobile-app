@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
                   child: const HomeCardsWidget(),
                 ),
                 SizedBox(
-                  height: 15.h,
+                  height: 5.h,
                 ),
                 SizedBox(
                   height: 400.h,

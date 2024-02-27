@@ -34,7 +34,9 @@ class ShipmentsPage extends StatelessWidget {
         return DefaultTabController(
           length: 2,
           child: Scaffold(
-            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+            backgroundColor: state.isFromHome
+                ? Colors.transparent
+                : SaayerTheme().getColorsPalette.backgroundColor,
             body: const ShipmentsTypesTabBar(),
           ),
         );
