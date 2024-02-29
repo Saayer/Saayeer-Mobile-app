@@ -21,9 +21,15 @@ class AddAddressErrorHandler {
 
   void _handleAddAddressErrorStatus(
       AddAddressErrorStatus addAddressErrorStatus) {
-    // ERROR_LOG_IN
     switch (addAddressErrorStatus) {
       case AddAddressErrorStatus.ERROR_ADD_ADDRESS_INFO:
+        {
+          SaayerDialogs().oneBtnDialog(
+              title: "error_title",
+              message: state.submitAddressInfoEntity?.message ?? 'error_msg');
+          break;
+        }
+      case AddAddressErrorStatus.ERROR_GET_CITIES:
         {
           SaayerDialogs().oneBtnDialog(
               title: "error_title",

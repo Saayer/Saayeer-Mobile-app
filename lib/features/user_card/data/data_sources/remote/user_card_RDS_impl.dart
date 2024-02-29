@@ -14,7 +14,8 @@ class UserCardRDSImpl implements UserCardRDS {
   @override
   Future<UserCardResponseModel> getProfile() async {
     Map<String, dynamic> result = Map<String, dynamic>.from(
-      await apiConsumer.get(UserProfileEndPoints.getProfile),
+      await apiConsumer.get(UserProfileEndPoints.getProfile,
+          queryParameters: {"profileTye": "1"}),
     );
     final UserCardResponseModel userCardResponseModel =
         UserCardResponseModel.fromJson(result);

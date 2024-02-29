@@ -12,16 +12,16 @@ class SubmitAddressInfoUseCase
     implements
         BaseUseCase<Future<Either<Failure, SubmitAddressInfoEntity?>>,
             AddressInfoParameters> {
-  final AddressInfoRepo addressInfoRepoImpl;
+  final AddAddressInfoRepo addAddressInfoRepoImpl;
 
   const SubmitAddressInfoUseCase({
-    required this.addressInfoRepoImpl,
+    required this.addAddressInfoRepoImpl,
   });
 
   @override
   Future<Either<Failure, SubmitAddressInfoEntity?>> call(
       AddressInfoParameters parameters) async {
-    return await addressInfoRepoImpl
+    return await addAddressInfoRepoImpl
         .submitAddressInfo(parameters.addressInfoEntity);
   }
 }

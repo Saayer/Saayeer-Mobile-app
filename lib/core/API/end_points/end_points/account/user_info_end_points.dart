@@ -13,6 +13,12 @@ class UserInfoEndPoints {
         .fullUrl;
   }
 
+  static String get createStoreInfo {
+    return EndPointBuilder.build(
+        resourcePath: "CreateStoreInfo", isAccount: true)
+        .fullUrl;
+  }
+
   static String get updateStoreInfo {
     return EndPointBuilder.build(
             resourcePath: "UpdateStoreInfo", isAccount: true)

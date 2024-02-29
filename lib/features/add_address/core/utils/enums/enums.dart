@@ -12,4 +12,4 @@ enum AddAddressFieldsTypes {
   const AddAddressFieldsTypes._({required this.name});
 }
 
-enum AddAddressErrorStatus { ERROR_ADD_ADDRESS_INFO }
+enum AddAddressErrorStatus { ERROR_GET_CITIES, ERROR_ADD_ADDRESS_INFO }

@@ -75,7 +75,7 @@ class AddressTextFieldHelper {
         }
       case AddAddressFieldsTypes.MOBILE:
         {
-          return addAddressBloc.mobileController;
+          return TextEditingController();
         }
       case AddAddressFieldsTypes.DISTRICT:
         {
@@ -160,10 +160,10 @@ class AddressTextFieldHelper {
           item: val,
         ));
       },
-      items: List.generate(
-          10,
-          (index) => CityEntity(
-              id: "$index", nameEn: "nameEn $index", nameAr: "nameAr $index")),
+      items: List.generate(addAddressBloc.cityEntityList.length, (index) {
+        final CityEntity city = addAddressBloc.cityEntityList[index];
+        return city;
+      }),
       getItemName: (val) {
         return Localization.isEnglish() ? val.nameEn : val.nameAr;
       },

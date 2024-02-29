@@ -94,25 +94,25 @@ class AddAddressPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "personal_info".tr(),
-                                textAlign: TextAlign.start,
-                                style: AppTextStyles.sectionTitle(),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
+                        // SizedBox(
+                        //   height: 20.h,
+                        // ),
+                        // Padding(
+                        //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.start,
+                        //     children: [
+                        //       Text(
+                        //         "personal_info".tr(),
+                        //         textAlign: TextAlign.start,
+                        //         style: AppTextStyles.sectionTitle(),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 10.h,
+                        // ),
                         ...(AddAddressFieldsTypes.values.map((e) {
                           return Padding(
                             padding: EdgeInsets.symmetric(

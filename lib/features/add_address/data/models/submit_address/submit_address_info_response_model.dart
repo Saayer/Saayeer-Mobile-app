@@ -4,8 +4,8 @@ import 'package:saayer/features/add_address/domain/entities/submit_address_info_
 /// data : false
 /// errorMessage : null
 
-class AddressInfoResponseModel {
-  AddressInfoResponseModel({
+class SubmitAddressInfoResponseModel {
+  SubmitAddressInfoResponseModel({
     bool? success,
     bool? data,
     dynamic errorMessage,
@@ -15,7 +15,7 @@ class AddressInfoResponseModel {
     _errorMessage = errorMessage;
   }
 
-  AddressInfoResponseModel.fromJson(dynamic json) {
+  SubmitAddressInfoResponseModel.fromJson(dynamic json) {
     _success = json['success'];
     _data = json['data'];
     _errorMessage = json['errorMessage'];
@@ -25,12 +25,12 @@ class AddressInfoResponseModel {
   bool? _data;
   dynamic _errorMessage;
 
-  AddressInfoResponseModel copyWith({
+  SubmitAddressInfoResponseModel copyWith({
     bool? success,
     bool? data,
     dynamic errorMessage,
   }) =>
-      AddressInfoResponseModel(
+      SubmitAddressInfoResponseModel(
         success: success ?? _success,
         data: data ?? _data,
         errorMessage: errorMessage ?? _errorMessage,

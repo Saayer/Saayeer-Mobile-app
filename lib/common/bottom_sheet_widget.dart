@@ -10,31 +10,20 @@ showBottomSheetWidget(
   double width = MediaQuery.of(buildContext).size.width;
   double height = MediaQuery.of(buildContext).size.height;
   showModalBottomSheet(
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.r),
       ),
       backgroundColor: Colors.transparent,
       context: buildContext,
       builder: (BuildContext context) {
-        return Container(
-          color: Colors.transparent,
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                Container(
-                  width: width / 3,
-                  height: 5.h,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: SaayerTheme().getColorsPalette.backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(16.r)),
-                      border: Border.all(color: Colors.transparent)),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Container(
+        return Wrap(
+          children: [
+            Container(
+              color: Colors.transparent,
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: SaayerTheme().getColorsPalette.backgroundColor,
@@ -55,11 +44,31 @@ showBottomSheetWidget(
                               color: SaayerTheme()
                                   .getColorsPalette
                                   .backgroundColor)),
-                      child: widget),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: width / 3,
+                            height: 5.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: SaayerTheme()
+                                    .getColorsPalette
+                                    .lightBlackTextColor
+                                    .withOpacity(0.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16.r)),
+                                border: Border.all(color: Colors.transparent)),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Expanded(child: widget)
+                        ],
+                      )),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         );
       });
 }

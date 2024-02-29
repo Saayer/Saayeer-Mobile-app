@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/features/add_address/presentation/bloc/add_address_bloc.dart';
 import 'package:saayer/features/add_address/presentation/pages/add_address_page.dart';
 
@@ -13,7 +14,11 @@ class AddAddressScreen extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height;
 
     return BlocProvider<AddAddressBloc>(
-        create: (context) => getIt<AddAddressBloc>(),
+        create: (context) {
+          final AddAddressBloc bloc = getIt<AddAddressBloc>();
+          bloc.add(InitAddAddress(isEnglish: Localization.isEnglish()));
+          return bloc;
+        },
         child: const AddAddressPage());
   }
 }

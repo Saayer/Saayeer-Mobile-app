@@ -83,7 +83,7 @@ class DropDownTextField<T> extends StatelessWidget {
                 ),
               );
             });
-        showBottomSheetWidget(context, childWidget, height / 2);
+        showBottomSheetWidget(context, childWidget, height / 1.5);
       },
       validator: (value) {
         if (value?.isEmpty ?? true) {

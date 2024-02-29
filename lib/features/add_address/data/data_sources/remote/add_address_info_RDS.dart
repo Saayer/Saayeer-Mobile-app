@@ -1,7 +1,10 @@
-import 'package:saayer/features/add_address/data/models/address_info_response_model.dart';
+import 'package:saayer/features/add_address/data/models/get_cities/get_cities_response_model.dart';
+import 'package:saayer/features/add_address/data/models/submit_address/submit_address_info_response_model.dart';
 import 'package:saayer/features/add_address/domain/entities/address_info_entity.dart';
 
-abstract class AddressInfoRDS {
-  Future<AddressInfoResponseModel> submitAddressInfo(
+abstract class AddAddressInfoRDS {
+  Future<SubmitAddressInfoResponseModel> submitAddressInfo(
       AddressInfoEntity addressInfoEntity);
+
+  Future<GetCitiesResponseModel> getCities();
 }

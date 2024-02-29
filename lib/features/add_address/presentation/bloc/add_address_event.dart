@@ -4,6 +4,17 @@ abstract class AddAddressEvent extends Equatable {
   const AddAddressEvent();
 }
 
+class InitAddAddress extends AddAddressEvent {
+  final bool isEnglish;
+
+  const InitAddAddress({
+    required this.isEnglish,
+  });
+
+  @override
+  List<Object?> get props => [isEnglish];
+}
+
 class OnTextChange extends AddAddressEvent {
   final TextEditingController? textEditingController;
   final String? str;
