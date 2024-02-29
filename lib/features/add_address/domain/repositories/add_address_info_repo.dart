@@ -8,5 +8,5 @@ abstract class AddAddressInfoRepo {
   Future<Either<Failure, SubmitAddressInfoEntity?>> submitAddressInfo(
       AddressInfoEntity addressInfoEntity);
 
-  Future<Either<Failure,List<CityEntity>>> getCities();
+  Future<Either<Failure, List<CityEntity>>> getCities();
 }
