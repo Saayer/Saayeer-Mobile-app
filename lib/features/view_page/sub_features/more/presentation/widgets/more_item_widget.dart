@@ -28,6 +28,7 @@ class MoreItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: _getLeadingImage(),
+      contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
       horizontalTitleGap: 10.w,
       onTap: () {
         if (onPressedWidget != null) {

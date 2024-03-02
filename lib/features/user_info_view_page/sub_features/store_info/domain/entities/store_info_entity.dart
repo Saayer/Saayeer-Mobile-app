@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class StoreInfoEntity extends Equatable {
-  final String? name, url, maroofId, commercialRegistrationNo;
+  final String name, url, maroofId, commercialRegistrationNo;
 
   const StoreInfoEntity({
-    this.name,
-    this.url,
-    this.maroofId,
-    this.commercialRegistrationNo,
+    required this.name,
+    required this.url,
+    required this.maroofId,
+    required this.commercialRegistrationNo,
   });
 
   StoreInfoEntity copyWith({
@@ -23,6 +23,24 @@ class StoreInfoEntity extends Equatable {
       maroofId: maroofId ?? this.maroofId,
       commercialRegistrationNo:
           commercialRegistrationNo ?? this.commercialRegistrationNo,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'url': url,
+      'maroofId': maroofId,
+      'commercialRegistrationNo': commercialRegistrationNo,
+    };
+  }
+
+  factory StoreInfoEntity.fromJson(Map<String, dynamic> map) {
+    return StoreInfoEntity(
+      name: map['name'] as String,
+      url: map['url'] as String,
+      maroofId: map['maroofId'] as String,
+      commercialRegistrationNo: map['commercialRegistrationNo'] as String,
     );
   }
 

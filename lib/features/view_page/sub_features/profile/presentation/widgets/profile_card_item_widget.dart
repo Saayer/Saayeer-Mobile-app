@@ -42,11 +42,14 @@ class ProfileCardItemWidget extends StatelessWidget {
             children: [
               Flexible(
                 fit: FlexFit.tight,
-                child: SvgPicture.asset(
-                  Constants.getImagePath("$iconName.svg"),
-                  // height: 60.h,
-                  // width: 60.w,
-                  fit: BoxFit.contain,
+                child: Hero(
+                  tag: "${title}HeroTag",
+                  child: SvgPicture.asset(
+                    Constants.getImagePath("$iconName.svg"),
+                    // height: 60.h,
+                    // width: 60.w,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               SizedBox(

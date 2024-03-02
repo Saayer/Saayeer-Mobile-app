@@ -60,6 +60,7 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
       log("right getProfileStatus $rightResult");
       if (rightResult != null) {
         if (rightResult.isSuccess) {
+          log("right getProfileStatus success $rightResult");
           await SecureStorageService().setUserCardInfo(rightResult);
           emit(state.copyWith(
             stateHelper: const StateHelper(

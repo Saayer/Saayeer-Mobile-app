@@ -34,4 +34,26 @@ class PersonalInfoEntity extends Equatable {
   @override
   List<Object> get props =>
       [name, email, nationalId, address, district, governorate];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+      'nationalId': nationalId,
+      'address': address,
+      'district': district,
+      'governorate': governorate,
+    };
+  }
+
+  factory PersonalInfoEntity.fromJson(Map<String, dynamic> map) {
+    return PersonalInfoEntity(
+      name: map['name'] as String,
+      email: map['email'] as String,
+      nationalId: map['nationalId'] as String,
+      address: map['address'] as String,
+      district: map['district'] as String,
+      governorate: map['governorate'] as String,
+    );
+  }
 }

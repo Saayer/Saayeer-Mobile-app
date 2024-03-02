@@ -14,7 +14,7 @@ class PersonalInfoRequestModel {
     map["nationalId"] = personalInfoEntity.nationalId;
     map["address"] = personalInfoEntity.address;
     map["district"] = personalInfoEntity.district;
-    map["governorate"] = personalInfoEntity.governorate;
+    map["city"] = personalInfoEntity.governorate;
     return map;
   }
 }

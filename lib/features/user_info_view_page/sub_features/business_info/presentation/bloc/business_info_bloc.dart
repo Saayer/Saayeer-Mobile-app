@@ -63,7 +63,13 @@ class BusinessInfoBloc extends Bloc<BusinessInfoEvent, BusinessInfoState> {
             ? (state.businessInfoEntity
                     ?.copyWith(mobileNumber: event.phoneNumber?.phoneNumber) ??
                 BusinessInfoEntity(
-                    mobileNumber: event.phoneNumber?.phoneNumber ?? ""))
+                    companyName: "",
+                    email: "",
+                    mobileNumber: event.phoneNumber?.phoneNumber ?? "",
+                    commercialRegistrationNo: "",
+                    shortAddress: "",
+                    district: "",
+                    governorate: ""))
             : state.businessInfoEntity));
   }
 

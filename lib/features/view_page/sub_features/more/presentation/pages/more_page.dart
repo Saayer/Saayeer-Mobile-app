@@ -59,7 +59,7 @@ class MorePage extends StatelessWidget {
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.h),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 0.h),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

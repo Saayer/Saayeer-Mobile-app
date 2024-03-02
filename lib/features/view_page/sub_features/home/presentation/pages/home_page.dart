@@ -6,6 +6,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/user_card/presentation/screens/user_card_screen.dart';
+import 'package:saayer/features/view_page/sub_features/home/core/errors/home_error_handler.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/widgets/home_cards_widget.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/widgets/new_shipment_card_item_widget.dart';
@@ -31,7 +32,9 @@ class HomePage extends StatelessWidget {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-          if (state.stateHelper.requestState == RequestState.ERROR) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            HomeErrorHandler(state: state)();
+          }
         }
       },
       builder: (context, state) {
@@ -61,7 +64,9 @@ class HomePage extends StatelessWidget {
                   height: 400.h,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0.w),
-                    child: const ShipmentsScreen(isFromHome: true,),
+                    child: const ShipmentsScreen(
+                      isFromHome: true,
+                    ),
                   ),
                 ),
               ],

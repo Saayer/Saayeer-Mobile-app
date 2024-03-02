@@ -41,7 +41,7 @@ class MoreCardItemWidget extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.all(12.r),
+          padding: EdgeInsets.all(8.r),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

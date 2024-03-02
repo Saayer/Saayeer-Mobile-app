@@ -10,6 +10,7 @@ import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/features/view_page/sub_features/home/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/sub_features/home/domain/entities/user_profile_entity.dart';
 import 'package:saayer/features/view_page/sub_features/home/domain/entities/user_profile_entity.dart';
 import 'package:saayer/features/view_page/sub_features/home/domain/use_cases/get_user_profile_usecase.dart';
@@ -29,7 +30,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<FutureOr<void>> _initHome(
       InitHome event, Emitter<HomeState> emit) async {
-    await _getUserProfile(emit);
+    //await _getUserProfile(emit);
   }
 
   _getUserProfile(Emitter<HomeState> emit) async {
@@ -41,35 +42,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
-      log("left submitLogInData $leftResult");
+      log("left getUserProfile $leftResult");
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
               requestState: RequestState.ERROR,
-              errorStatus: AddAddressErrorStatus.ERROR_GET_CITIES)));
+              errorStatus: HomeErrorStatus.ERROR_GET_USER_PROFILE)));
     } else {
       final UserProfileEntity? rightResult = (result as Right).value;
-      log("right submitLogInData $rightResult");
+      log("right getUserProfile $rightResult");
       if (rightResult != null) {
-        if (rightResult.isNotEmpty) {
-          addCities(rightResult);
-          log("${rightResult.length}", name: "getCities");
-          emit(state.copyWith(
-            stateHelper: const StateHelper(
-                requestState: RequestState.SUCCESS, loadingMessage: ""),
-          ));
-        } else {
-          emit(state.copyWith(
-            stateHelper: const StateHelper(
-                requestState: RequestState.ERROR,
-                errorStatus: AddAddressErrorStatus.ERROR_GET_CITIES),
-          ));
-        }
+        emit(state.copyWith(
+          stateHelper: const StateHelper(
+              requestState: RequestState.SUCCESS, loadingMessage: ""),
+        ));
       } else {
-        log("", name: "SubmitLogInEvent error");
         emit(state.copyWith(
           stateHelper: const StateHelper(
               requestState: RequestState.ERROR,
-              errorStatus: AddAddressErrorStatus.ERROR_GET_CITIES),
+              errorStatus: HomeErrorStatus.ERROR_GET_USER_PROFILE),
         ));
       }
     }
