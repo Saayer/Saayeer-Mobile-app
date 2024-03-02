@@ -15,6 +15,7 @@ import 'package:saayer/features/more_sub_features/settings/presentation/screens/
 import 'package:saayer/features/more_sub_features/why_saayer/presentation/screens/why_saayer_screen.dart';
 import 'package:saayer/features/splash/presentation/screens/splash_screen.dart';
 import 'package:saayer/features/user_card/presentation/screens/user_card_screen.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/widgets/more_cards_widget.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/widgets/more_item_widget.dart';
@@ -24,17 +25,25 @@ class MorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    final double height = MediaQuery
+        .of(context)
+        .size
+        .height;
 
+    final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
     final MoreBloc moreBloc = BlocProvider.of<MoreBloc>(context);
+
     return BlocConsumer<MoreBloc, MoreState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
+      (previousState.stateHelper.requestState !=
+          nextState.stateHelper.requestState),
       listener: (context, state) {
         final bool isLoading =
-            (moreBloc.state.stateHelper.requestState == RequestState.LOADING);
+        (moreBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.isRefreshed) {}
@@ -72,13 +81,14 @@ class MorePage extends StatelessWidget {
                     horizontalPadding: 10,
                     verticalPadding: 5,
                   ),
-                  SizedBox(
+                  if (!viewPageBloc.state.isGuest)...[SizedBox(
                     height: 10.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: const MoreCardsWidget(),
-                  ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: const MoreCardsWidget(),
+                    ),
+                  ],
                   SizedBox(
                     height: 16.h,
                   ),
@@ -109,24 +119,25 @@ class MorePage extends StatelessWidget {
                   SizedBox(
                     height: 0.h,
                   ),
-                  Container(
-                    width: width,
-                    color: SaayerTheme().getColorsPalette.backgroundColor,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
-                      child: SaayerDefaultTextButton(
-                        text: "log_out",
-                        isEnabled: true,
-                        borderRadius: 16.r,
-                        onPressed: () {
-                          moreBloc.add(LogOutEvent());
-                        },
-                        btnWidth: width / 1.2,
-                        btnHeight: 50.h,
+                  if (!viewPageBloc.state.isGuest)
+                    Container(
+                      width: width,
+                      color: SaayerTheme().getColorsPalette.backgroundColor,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
+                        child: SaayerDefaultTextButton(
+                          text: "log_out",
+                          isEnabled: true,
+                          borderRadius: 16.r,
+                          onPressed: () {
+                            moreBloc.add(LogOutEvent());
+                          },
+                          btnWidth: width / 1.2,
+                          btnHeight: 50.h,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),

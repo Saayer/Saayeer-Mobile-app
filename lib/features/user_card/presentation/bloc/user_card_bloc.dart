@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/services/current_user/current_user_enums.dart';
+import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
@@ -31,14 +33,24 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
       InitUserCard event, Emitter<UserCardState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    final UserCardEntity? userCardEntity =
-        await SecureStorageService().getUserCardInfo();
-    if (userCardEntity != null) {
+    final CurrentUserTypes currentUserType =
+        await getIt<LoggedInCheckerService>().getCurrentUserType();
+    final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
+    if (!isGuest) {
+      emit(state.copyWith(isGuest: false));
+      final UserCardEntity? userCardEntity =
+          await SecureStorageService().getUserCardInfo();
+      if (userCardEntity != null) {
+        emit(state.copyWith(
+            stateHelper: const StateHelper(requestState: RequestState.LOADED),
+            userCardEntity: userCardEntity));
+      } else {
+        await _getProfileStatus(emit);
+      }
+    } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED),
-          userCardEntity: userCardEntity));
-    } else {
-      await _getProfileStatus(emit);
+          isGuest: true));
     }
   }
 

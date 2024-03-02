@@ -5,6 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/services/current_user/current_user_enums.dart';
+import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
+import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/domain/entities/nav_bar_icon_entity.dart';
@@ -29,11 +32,18 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
     const MoreNavBarIconEntity()
   ];
 
-  FutureOr<void> _initViewPage(event, Emitter<ViewPageState> emit) {
+  Future<FutureOr<void>> _initViewPage(
+      event, Emitter<ViewPageState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+    final CurrentUserTypes currentUserType =
+        await getIt<LoggedInCheckerService>().getCurrentUserType();
+    final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
+
     emit(state.copyWith(
-        stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+        stateHelper: const StateHelper(requestState: RequestState.LOADED),
+        isGuest: isGuest));
   }
 
   FutureOr<void> _goToPage(GoToPage event, Emitter<ViewPageState> emit) {

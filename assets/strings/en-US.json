@@ -127,5 +127,8 @@
   "pay_now": "Pay Now",
   "tracking_id": "Tracking ID",
   "tracking_id_copied_msg": "Tracking ID copied to clipboard",
-  "my_bills": "My Bills"
+  "my_bills": "My Bills",
+  "enter_as_guest": "Enter as guest",
+  "log_in_title": "Log In to Saayer: Your Smarter Shipping Solution",
+  "log_in_message": "Please log in to your Saayer account to access all the powerful shipping tools and features. Let's get started on making your shopping experience smarter, easier, and more efficient!"
 }

@@ -6,6 +6,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/user_card/presentation/screens/user_card_screen.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/home/core/errors/home_error_handler.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/widgets/home_cards_widget.dart';
@@ -19,6 +20,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+
+    final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
 
     final HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
 
@@ -53,13 +56,15 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: const HomeCardsWidget(),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
+                if (!viewPageBloc.state.isGuest) ...[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: const HomeCardsWidget(),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                ],
                 SizedBox(
                   height: 400.h,
                   child: Padding(

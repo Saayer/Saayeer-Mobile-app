@@ -295,6 +295,7 @@ class OnInfoPressedHelper {
               SaayerDefaultTextButton(
                 text: "cancel",
                 isEnabled: true,
+                enabledColor: SaayerTheme().getColorsPalette.greyColor,
                 borderRadius: 16.r,
                 onPressed: () {
                   getIt<NavigationService>().pop();
