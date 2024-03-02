@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
+import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
 import 'package:saayer/common/text_fields/phone_text_field.dart';
+import 'package:saayer/common/toast/toast_widget.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/data/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/bloc/address_shipment_bloc.dart';
 
@@ -29,23 +34,23 @@ class _AddressShipmentPageState extends State<AddressShipmentPage> {
         BlocProvider.of<AddressShipmentBloc>(context);
 
     return BlocConsumer<AddressShipmentBloc, AddressShipmentState>(
-      // buildWhen: (previousState, nextState) =>
-      // (previousState.stateHelper.requestState !=
-      //     nextState.stateHelper.requestState),
+      buildWhen: (previousState, nextState) =>
+      (previousState.stateHelper.requestState !=
+          nextState.stateHelper.requestState),
       listener: (context, state) async {
-        // final bool isLoading =
-        // (personalInfoBloc.state.stateHelper.requestState ==
-        //     RequestState.LOADING);
-        // LoadingDialog.setIsLoading(context, isLoading);
-        // if (!isLoading) {
-        //   if (state.stateHelper.requestState == RequestState.SUCCESS) {
-        //     getIt<UserInfoViewPageBloc>().add(GoToNextPageEvent());
-        //   }
-        //   if (state.stateHelper.requestState == RequestState.ERROR) {
-        //     //showToast(msg: state.stateHelper.errorMessage ?? "");
-        //     PersonalInfoErrorHandler(state: state)();
-        //   }
-        //  }
+        final bool isLoading =
+        (addressShipmentBloc.state.stateHelper.requestState ==
+            RequestState.LOADING);
+        LoadingDialog.setIsLoading(context, isLoading);
+        if (!isLoading) {
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {
+            getIt<RequestShipmentBloc>().add(GoToNextPageEvent());
+          }
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            //showToast(msg: state.stateHelper.errorMessage ?? "");
+            // PersonalInfoErrorHandler(state: state)();
+          }
+         }
       },
       builder: (context, state) => PopScope(
         canPop: false,
@@ -59,17 +64,16 @@ class _AddressShipmentPageState extends State<AddressShipmentPage> {
                   bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
               child: SaayerDefaultTextButton(
                 text: "next",
-                isEnabled: true,
-                //enablePersonalInfo(personalInfoBloc),
+                isEnabled:enablePersonalInfo(addressShipmentBloc),
                 borderRadius: 16.r,
                 onPressed: () {
-                  // final bool isFormValid =
-                  // (personalInfoBloc.formKey.currentState!.validate());
-                  // personalInfoBloc.add(ToggleAutoValidate());
-                  // isFormValid
-                  //     ? personalInfoBloc.add(SubmitPersonalInfoData())
-                  //     : SaayerToast()
-                  //     .showErrorToast(msg: "empty_fields_error".tr());
+                  final bool isFormValid =
+                  (addressShipmentBloc.formKey.currentState!.validate());
+                  addressShipmentBloc.add(ToggleAutoValidateEvent());
+                  isFormValid
+                      ? addressShipmentBloc.add(SubmitAddressInfoEvent())
+                      : SaayerToast()
+                      .showErrorToast(msg: "empty_fields_error".tr());
                 },
                 btnWidth: width / 1.2,
                 btnHeight: 50.h,

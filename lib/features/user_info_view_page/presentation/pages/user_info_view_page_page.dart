@@ -51,7 +51,7 @@ class UserInfoViewPagePage extends StatelessWidget {
       },
       builder: (context, state) {
         return PopScope(
-          canPop: false,
+          canPop: true,
           child: Scaffold(
             backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
             appBar: const BaseAppBar(

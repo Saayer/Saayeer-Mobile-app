@@ -53,7 +53,7 @@ class PersonalInfoPage extends StatelessWidget {
         }
       },
       builder: (context, state) => PopScope(
-        canPop: false,
+        canPop: true,
         child: Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           bottomSheet: Container(
