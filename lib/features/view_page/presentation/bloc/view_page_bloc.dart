@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -41,9 +42,11 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
         await getIt<LoggedInCheckerService>().getCurrentUserType();
     final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
 
+    log("$isGuest", name: "initViewPage");
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         isGuest: isGuest));
+    await _goToPage(GoToPage(navBarIconType: event.navBarIconType), emit);
   }
 
   FutureOr<void> _goToPage(GoToPage event, Emitter<ViewPageState> emit) {

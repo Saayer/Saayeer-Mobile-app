@@ -81,7 +81,7 @@ class MorePage extends StatelessWidget {
                     horizontalPadding: 10,
                     verticalPadding: 5,
                   ),
-                  if (!viewPageBloc.state.isGuest)...[SizedBox(
+                  if (!(viewPageBloc.state.isGuest!))...[SizedBox(
                     height: 10.h,
                   ),
                     Padding(
@@ -119,7 +119,7 @@ class MorePage extends StatelessWidget {
                   SizedBox(
                     height: 0.h,
                   ),
-                  if (!viewPageBloc.state.isGuest)
+                  if (!(viewPageBloc.state.isGuest!))
                     Container(
                       width: width,
                       color: SaayerTheme().getColorsPalette.backgroundColor,

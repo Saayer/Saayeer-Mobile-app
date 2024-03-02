@@ -18,7 +18,7 @@ class ShipmentsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ShipmentsBloc>()
         ..add(InitShipments(
-            isFromHome: isFromHome, isGuest: viewPageBloc.state.isGuest)),
+            isFromHome: isFromHome, isGuest: viewPageBloc.state.isGuest!)),
       child: const ShipmentsPage(),
     );
   }

@@ -23,7 +23,7 @@ class ProfileCardItemWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        _onPressed(viewPageBloc.state.isGuest);
+        _onPressed((viewPageBloc.state.isGuest!));
       },
       child: Container(
         // height: 50.h,

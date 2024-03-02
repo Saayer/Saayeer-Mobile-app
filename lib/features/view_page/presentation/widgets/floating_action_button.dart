@@ -30,7 +30,7 @@ class SaayerFloatingActionButton extends StatelessWidget {
                 backgroundColor: SaayerTheme().getColorsPalette.primaryColor,
                 elevation: 10,
                 onPressed: () {
-                  if (!state.isGuest) {
+                  if (!(state.isGuest!)) {
                     viewPageBloc.add(const GoToPage(
                         navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
                   } else {

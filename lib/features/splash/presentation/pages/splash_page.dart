@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
 import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_animation_enums.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -26,10 +27,11 @@ class SplashPage extends StatelessWidget {
           Timer(const Duration(seconds: 3), () async {
             final bool isLoggedIn =
                 await getIt<LoggedInCheckerService>().isLoggedIn();
-            log("${isLoggedIn}", name: "isLoggedIn");
+            log("$isLoggedIn", name: "isLoggedIn");
             //if (isLoggedIn) getIt<LoggedInCheckerService>().initLoggedUser();
             getIt<NavigationService>().navigateAndFinish(
-                isLoggedIn ? const ViewPageScreen() : const IntroScreen());
+                isLoggedIn ? const ViewPageScreen() : const IntroScreen(),
+                navigationAnimationType: NavigationAnimationTypes.SCALE);
           });
         }
       },
@@ -44,8 +46,8 @@ class SplashPage extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image:
-                      AssetImage(Constants.getIconPath("ic_logo_with_text.png")),
+                  image: AssetImage(
+                      Constants.getIconPath("ic_logo_with_text.png")),
                   fit: BoxFit.cover,
                 ),
               ),

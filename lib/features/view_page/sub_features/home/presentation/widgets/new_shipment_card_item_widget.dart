@@ -18,7 +18,7 @@ class NewShipmentCardItemWidget extends StatelessWidget {
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
     return GestureDetector(
       onTap: () {
-        if (!viewPageBloc.state.isGuest) {
+        if (!(viewPageBloc.state.isGuest!)) {
           viewPageBloc.add(
               const GoToPage(navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
         } else {

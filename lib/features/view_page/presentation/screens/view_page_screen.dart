@@ -13,8 +13,12 @@ class ViewPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<ViewPageBloc>()..add(GoToPage(navBarIconType: navBarIconType)),
+      create: (context) {
+        final ViewPageBloc bloc = getIt<ViewPageBloc>();
+        //bloc.add(GoToPage(navBarIconType: navBarIconType));
+        bloc.add(InitViewPage(navBarIconType: navBarIconType));
+        return bloc;
+      },
       child: const ViewPagePage(),
     );
   }

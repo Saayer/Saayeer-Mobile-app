@@ -32,7 +32,7 @@ class MoreItemWidget extends StatelessWidget {
       horizontalTitleGap: 10.w,
       onTap: () {
         if (onPressedWidget != null) {
-          getIt<NavigationService>().navigateTo(onPressedWidget);
+          getIt<NavigationService>().navigateTo(onPressedWidget!);
         }
       },
       title: Text(

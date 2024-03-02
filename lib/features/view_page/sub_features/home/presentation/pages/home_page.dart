@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                if (!viewPageBloc.state.isGuest) ...[
+                if (!(viewPageBloc.state.isGuest!)) ...[
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: const HomeCardsWidget(),

@@ -44,7 +44,7 @@ class EmptyShipments extends StatelessWidget {
           dividerWidth: (state.isFromHome ? 3 : 2),
           btnWidth: (state.isFromHome ? 1.5 : 1),
           onBtnPressed: () {
-            if (!viewPageBloc.state.isGuest) {
+            if (!(viewPageBloc.state.isGuest!)) {
               viewPageBloc.add(const GoToPage(
                   navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
             } else {

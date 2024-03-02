@@ -1,46 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:saayer/core/services/navigation/navigation_animation_enums.dart';
+import 'package:saayer/core/services/navigation/navigation_animation_service.dart';
 
 @Singleton()
 class NavigationService {
   final GlobalKey<NavigatorState> mainNavigatorKey =
       GlobalKey(debugLabel: "Main Navigator");
 
-  _buildPageRoute(Widget page) => PageRouteBuilder(
-        pageBuilder: (_, __, ___) => page,
-        transitionDuration: const Duration(milliseconds: 200),
-        transitionsBuilder: (_, a, __, c) =>
-            FadeTransition(opacity: a, child: c),
-      );
-
-  _buildMaterialPageRoute(Widget page) => MaterialPageRoute(
-        builder: (context) => page,
-      );
-
-  void navigateTo(widget,
-          {void Function(dynamic)? onBack, bool isAnimated = false}) =>
+  void navigateTo(Widget enterPage,
+          {void Function(dynamic)? onBack,
+          NavigationAnimationTypes navigationAnimationType =
+              NavigationAnimationTypes.NONE}) =>
       Navigator.push(
         mainNavigatorKey.currentContext!,
-        isAnimated ? _buildPageRoute(widget) : _buildMaterialPageRoute(widget),
+        NavigationAnimationService()(enterPage, navigationAnimationType),
       ).then((value) {
         if (onBack != null) {
           onBack(value);
         }
       });
 
-  void navigateAndReplacement(widget, {bool isAnimated = false}) =>
+  void navigateAndReplacement(Widget enterPage,
+          {NavigationAnimationTypes navigationAnimationType =
+              NavigationAnimationTypes.NONE}) =>
       Navigator.pushReplacement(
         mainNavigatorKey.currentContext!,
-        isAnimated ? _buildPageRoute(widget) : _buildMaterialPageRoute(widget),
+        NavigationAnimationService()(enterPage, navigationAnimationType),
       );
 
-  void navigateAndFinish(widget, {bool isAnimated = false}) =>
+  void navigateAndFinish(Widget enterPage,
+          {NavigationAnimationTypes navigationAnimationType =
+              NavigationAnimationTypes.NONE}) =>
       Navigator.pushAndRemoveUntil(
           mainNavigatorKey.currentContext!,
-          isAnimated
-              ? _buildPageRoute(widget)
-              : _buildMaterialPageRoute(widget),
+          NavigationAnimationService()(enterPage, navigationAnimationType),
           (Route<dynamic> route) => false);
+
 
   void pop([dynamic result]) =>
       Navigator.pop(mainNavigatorKey.currentContext!, result);

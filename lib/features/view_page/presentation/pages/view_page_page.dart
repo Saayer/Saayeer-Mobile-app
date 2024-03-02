@@ -37,6 +37,11 @@ class ViewPagePage extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        if (state.isGuest == null) {
+          return Scaffold(
+            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          );
+        }
         final NavBarIconEntity selectedNavBarIconEntity = viewPageBloc
             .navBarIconEntityList
             .firstWhere((element) => element.isSelected);

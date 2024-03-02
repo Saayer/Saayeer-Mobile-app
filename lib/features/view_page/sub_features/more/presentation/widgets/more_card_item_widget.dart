@@ -23,7 +23,7 @@ class MoreCardItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (onPressedWidget != null) {
-          getIt<NavigationService>().navigateTo(onPressedWidget);
+          getIt<NavigationService>().navigateTo(onPressedWidget!);
         }
       },
       child: Container(
