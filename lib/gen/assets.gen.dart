@@ -52,6 +52,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_help.svg
   String get icHelp => 'assets/icons/ic_help.svg';
 
+  /// File path: assets/icons/ic_hi.svg
+  String get icHi => 'assets/icons/ic_hi.svg';
+
   /// File path: assets/icons/ic_home.svg
   String get icHome => 'assets/icons/ic_home.svg';
 
@@ -109,6 +112,7 @@ class $AssetsIconsGen {
         icContactUs,
         icEbills,
         icHelp,
+        icHi,
         icHome,
         icLogoPng,
         icLogoSvg,

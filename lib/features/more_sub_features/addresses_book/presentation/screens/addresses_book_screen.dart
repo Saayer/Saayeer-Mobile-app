@@ -10,7 +10,11 @@ class AddressesBookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AddressesBookBloc>(),
+      create: (context) {
+        final AddressesBookBloc bloc = getIt<AddressesBookBloc>();
+        bloc.add(const GetAddresses());
+        return bloc;
+      },
       child: const AddressesBookPage(),
     );
   }

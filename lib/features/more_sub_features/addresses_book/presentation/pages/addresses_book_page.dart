@@ -7,7 +7,9 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
+import 'package:saayer/features/more_sub_features/addresses_book/presentation/widgets/address_item_widget.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/widgets/empty_addresses_book.dart';
 
 class AddressesBookPage extends StatelessWidget {
@@ -18,14 +20,16 @@ class AddressesBookPage extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
 
-    final AddressesBookBloc addressesBookBloc = BlocProvider.of<AddressesBookBloc>(context);
+    final AddressesBookBloc addressesBookBloc =
+        BlocProvider.of<AddressesBookBloc>(context);
     return BlocConsumer<AddressesBookBloc, AddressesBookState>(
       buildWhen: (previousState, nextState) =>
           (previousState.stateHelper.requestState !=
               nextState.stateHelper.requestState),
       listener: (context, state) {
-        final bool isLoading = (addressesBookBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
+        final bool isLoading =
+            (addressesBookBloc.state.stateHelper.requestState ==
+                RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
@@ -48,12 +52,13 @@ class AddressesBookPage extends StatelessWidget {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  EmptyAddressesBook()
+                  if (state.addresses != null)
+                    _buildAddressesListWidget(state.addresses!)
                 ],
               ),
             ),
@@ -61,5 +66,23 @@ class AddressesBookPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget _buildAddressesListWidget(List<AddressInfoEntity> addresses) {
+    if (addresses.isEmpty) {
+      return const EmptyAddressesBook();
+    }
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: addresses.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            child: AddressItemWidget(
+              addressInfoEntity: addresses[index],
+            ),
+          );
+        });
   }
 }
