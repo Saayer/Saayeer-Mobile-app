@@ -28,10 +28,11 @@ class ViewPagePage extends StatelessWidget {
           (previousState.stateHelper.requestState !=
               nextState.stateHelper.requestState),
       listener: (context, state) {
-        final bool isLoading = (viewPageBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
+        final bool isLoading =
+            (state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
+          if (state.stateHelper.requestState == RequestState.LOADED) {}
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
           if (state.stateHelper.requestState == RequestState.ERROR) {}
         }

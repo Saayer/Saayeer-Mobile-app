@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/common/shimmer/shimmer_widget.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -31,9 +34,13 @@ class HomePage extends StatelessWidget {
               nextState.stateHelper.requestState),
       listener: (context, state) {
         final bool isLoading =
-            (homeBloc.state.stateHelper.requestState == RequestState.LOADING);
+            (state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
+        log("isLoading : $isLoading", name: "HomeBloc");
+        log("${LoadingDialog.checkIfLoadingVisible()}",
+            name: "LoadingDialog.checkIsLoading()");
         if (!isLoading) {
+          if (state.stateHelper.requestState == RequestState.LOADED) {}
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
           if (state.stateHelper.requestState == RequestState.ERROR) {
             HomeErrorHandler(state: state)();
@@ -41,6 +48,8 @@ class HomePage extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final bool isLoading =
+            (state.stateHelper.requestState == RequestState.LOADING);
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           body: SingleChildScrollView(
@@ -48,15 +57,25 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const UserCardScreen(),
-                // SizedBox(
-                //   height: 5.h,
-                // ),
+                UserCardScreen(
+                  isParentLoading: isLoading,
+                ),
                 const NewShipmentCardItemWidget(),
                 SizedBox(
                   height: 16.h,
                 ),
-                if (!(viewPageBloc.state.isGuest!)) ...[
+                if ((!(viewPageBloc.state.isGuest!)) &&
+                    state.userProfileEntity == null) ...[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: ShimmerWidget(
+                      widgetHeight: 500.h,
+                      child: const SizedBox(),
+                    ),
+                  ),
+                ],
+                if ((!(viewPageBloc.state.isGuest!)) &&
+                    state.userProfileEntity != null) ...[
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: const HomeCardsWidget(),
@@ -65,15 +84,16 @@ class HomePage extends StatelessWidget {
                     height: 5.h,
                   ),
                 ],
-                SizedBox(
-                  height: 400.h,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0.w),
-                    child: const ShipmentsScreen(
-                      isFromHome: true,
+                if (state.userProfileEntity != null)
+                  SizedBox(
+                    height: 400.h,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 0.w),
+                      child: const ShipmentsScreen(
+                        isFromHome: true,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

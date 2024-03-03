@@ -1,26 +1,18 @@
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_container.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/common/toast/toast_widget.dart';
-import 'package:saayer/features/log_in/presentation/screens/log_in_screen.dart';
 import 'package:saayer/features/user_card/core/errors/user_card_error_handler.dart';
 import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart';
 import 'package:saayer/features/user_card/presentation/helper/user_card_helper.dart';
-import 'package:saayer/features/user_card/presentation/widgets/circle_painter.dart';
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'dart:ui' as ui;
@@ -28,10 +20,12 @@ import 'dart:ui' as ui;
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
 class UserCardPage extends StatelessWidget {
+  final bool isParentLoading;
   final double horizontalPadding, verticalPadding;
 
   const UserCardPage(
       {super.key,
+      required this.isParentLoading,
       required this.horizontalPadding,
       required this.verticalPadding});
 
@@ -48,9 +42,9 @@ class UserCardPage extends StatelessWidget {
             (previousState.stateHelper.requestState !=
                 nextState.stateHelper.requestState),
         listener: (context, state) async {
-          final bool isLoading = (userCardBloc.state.stateHelper.requestState ==
-              RequestState.LOADING);
-          LoadingDialog.setIsLoading(context, isLoading);
+          final bool isLoading =
+              (state.stateHelper.requestState == RequestState.LOADING);
+          LoadingDialog.setIsLoading(context, isLoading || isParentLoading);
           if (!isLoading) {
             if (state.stateHelper.requestState == RequestState.SUCCESS) {}
             if (state.stateHelper.requestState == RequestState.ERROR) {
@@ -61,8 +55,8 @@ class UserCardPage extends StatelessWidget {
         },
         builder: (context, state) {
           final Decoration cardDecoration = UserCardHelper.getCardDecoration();
-          final bool isLoading = (userCardBloc.state.stateHelper.requestState ==
-              RequestState.LOADING);
+          final bool isLoading =
+              (state.stateHelper.requestState == RequestState.LOADING);
           final bool isUncompletedProfile =
               (!(state.userCardEntity?.hasPersonalInformation ?? false) ||
                   !(state.userCardEntity?.hasBusinessInformation ?? false) ||

@@ -36,8 +36,7 @@ class BusinessInfoPage extends StatelessWidget {
                 nextState.stateHelper.requestState),
         listener: (context, state) async {
           final bool isLoading =
-              (businessInfoBloc.state.stateHelper.requestState ==
-                  RequestState.LOADING);
+              (state.stateHelper.requestState == RequestState.LOADING);
           LoadingDialog.setIsLoading(context, isLoading);
           if (!isLoading) {
             if (state.stateHelper.requestState == RequestState.SUCCESS) {

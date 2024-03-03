@@ -2,8 +2,11 @@ import 'dart:ffi';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/view_page/sub_features/home/domain/entities/user_profile_entity.dart';
+import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/widgets/home_card_item_widget.dart';
 
 class HomeCardsWidget extends StatelessWidget {
@@ -11,7 +14,9 @@ class HomeCardsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, String> homeCardsMap = _getHomeCardsMap();
+    final HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
+    final Map<String, String> homeCardsMap =
+        _getHomeCardsMap(homeBloc.state.userProfileEntity!);
     final List<Color> colors = _getHomeCardsColors();
     return GridView.builder(
       shrinkWrap: true,
@@ -37,11 +42,12 @@ class HomeCardsWidget extends StatelessWidget {
     );
   }
 
-  Map<String, String> _getHomeCardsMap() {
+  Map<String, String> _getHomeCardsMap(UserProfileEntity userProfileEntity) {
     Map<String, String> homeCardsMap = {};
-    homeCardsMap["my_balance"] = "0 ${"sr".tr()}";
-    homeCardsMap["total_shipments"] = "0";
-    //homeCardsMap["my_bills"] = "0";
+    homeCardsMap["my_balance"] = userProfileEntity.balance;
+    homeCardsMap["total_shipments"] = userProfileEntity.totalShipments;
+    homeCardsMap["my_bills"] = userProfileEntity.totalBills;
+    homeCardsMap["total_store_requests"] = userProfileEntity.totalStoreRequests;
     return homeCardsMap;
   }
 
@@ -49,7 +55,8 @@ class HomeCardsWidget extends StatelessWidget {
     return [
       Colors.teal,
       Colors.indigo,
-      //Colors.cyan,
+      Colors.blueAccent,
+      Colors.cyan,
     ];
   }
 }

@@ -14,7 +14,7 @@ class HomeRDSImpl implements HomeRDS {
   @override
   Future<GetUserProfileModel> getUserProfile() async {
     Map<String, dynamic> result = Map<String, dynamic>.from(
-      await apiConsumer.post(ProfileEndPoints.getUserProfile),
+      await apiConsumer.get(ProfileEndPoints.getUserProfile),
     );
     final GetUserProfileModel getUserProfileModel =
         GetUserProfileModel.fromJson(result);

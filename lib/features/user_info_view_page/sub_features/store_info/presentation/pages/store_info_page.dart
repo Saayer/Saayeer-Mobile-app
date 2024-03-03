@@ -32,8 +32,8 @@ class StoreInfoPage extends StatelessWidget {
           (previousState.stateHelper.requestState !=
               nextState.stateHelper.requestState),
       listener: (context, state) async {
-        final bool isLoading = (storeInfoBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
+        final bool isLoading =
+            (state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {

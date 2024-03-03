@@ -25,25 +25,19 @@ class MorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    final double height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
 
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
     final MoreBloc moreBloc = BlocProvider.of<MoreBloc>(context);
 
     return BlocConsumer<MoreBloc, MoreState>(
       buildWhen: (previousState, nextState) =>
-      (previousState.stateHelper.requestState !=
-          nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState !=
+              nextState.stateHelper.requestState),
       listener: (context, state) {
         final bool isLoading =
-        (moreBloc.state.stateHelper.requestState == RequestState.LOADING);
+            (moreBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.isRefreshed) {}
@@ -58,6 +52,9 @@ class MorePage extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final bool isLoading =
+            (state.stateHelper.requestState == RequestState.LOADING);
+
         final Widget dividerWidget = Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
           // child: Divider(
@@ -77,13 +74,15 @@ class MorePage extends StatelessWidget {
                   SizedBox(
                     height: 8.h,
                   ),
-                  const UserCardScreen(
+                  UserCardScreen(
+                    isParentLoading: isLoading,
                     horizontalPadding: 10,
                     verticalPadding: 5,
                   ),
-                  if (!(viewPageBloc.state.isGuest!))...[SizedBox(
-                    height: 10.h,
-                  ),
+                  if (!(viewPageBloc.state.isGuest!)) ...[
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),
                       child: const MoreCardsWidget(),

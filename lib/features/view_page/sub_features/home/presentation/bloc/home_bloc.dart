@@ -33,11 +33,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<FutureOr<void>> _initHome(
       InitHome event, Emitter<HomeState> emit) async {
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     final CurrentUserTypes currentUserType =
         await getIt<LoggedInCheckerService>().getCurrentUserType();
     final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
-    if(!isGuest){
-      //await _getUserProfile(emit);
+    if (!isGuest) {
+      await _getUserProfile(emit);
+    } else {
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADED)));
     }
   }
 
@@ -60,9 +65,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       log("right getUserProfile $rightResult");
       if (rightResult != null) {
         emit(state.copyWith(
-          stateHelper: const StateHelper(
-              requestState: RequestState.SUCCESS, loadingMessage: ""),
-        ));
+            stateHelper: const StateHelper(requestState: RequestState.LOADED),
+            userProfileEntity: rightResult));
       } else {
         emit(state.copyWith(
           stateHelper: const StateHelper(

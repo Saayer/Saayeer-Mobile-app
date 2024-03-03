@@ -26,4 +26,25 @@ class LoadingDialog {
       log(e.toString(), name: "setIsLoading");
     }
   }
+
+  static bool checkIfLoadingVisible() {
+    try {
+      final bool isVisible = getIt<NavigationService>()
+          .mainNavigatorKey
+          .currentContext!
+          .loaderOverlay
+          .visible;
+      return isVisible;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static void showLoading(BuildContext context) {
+    try {
+      context.loaderOverlay.show();
+    } catch (e) {
+      log(e.toString(), name: "showLoading");
+    }
+  }
 }
