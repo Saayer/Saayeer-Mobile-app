@@ -2,10 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/domain/entities/nav_bar_icon_entity.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
@@ -66,10 +71,23 @@ class ViewPagePage extends StatelessWidget {
                   if (isHome)
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Icon(
-                        Icons.notifications,
-                        color: SaayerTheme().getColorsPalette.blackTextColor,
-                        size: 35.r,
+                      child: GestureDetector(
+                        onTap: () {
+                          getIt<NavigationService>()
+                              .navigateTo(const NotificationsScreen());
+                        },
+                        // child: SvgPicture.asset(
+                        //   Constants.getIconPath("ic_notification2.svg"),
+                        //   height: 30.h,
+                        //   width: 30.w,
+                        //   fit: BoxFit.cover,
+                        //   color: SaayerTheme().getColorsPalette.blackTextColor,
+                        // ),
+                        child: Icon(
+                          Icons.notifications,
+                          color: SaayerTheme().getColorsPalette.blackTextColor,
+                          size: 35.r,
+                        ),
                       ),
                     ),
                 ]),

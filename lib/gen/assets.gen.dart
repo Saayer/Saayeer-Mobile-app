@@ -104,6 +104,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_total_shipments.svg
   String get icTotalShipments => 'assets/icons/ic_total_shipments.svg';
 
+  /// File path: assets/icons/ic_total_store_requests.svg
+  String get icTotalStoreRequests => 'assets/icons/ic_total_store_requests.svg';
+
   /// List of all assets
   List<dynamic> get values => [
         icAddressesBookPng,
@@ -127,7 +130,8 @@ class $AssetsIconsGen {
         icShipment,
         icShipments,
         icShippingRates,
-        icTotalShipments
+        icTotalShipments,
+        icTotalStoreRequests
       ];
 }
 

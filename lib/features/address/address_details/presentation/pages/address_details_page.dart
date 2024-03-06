@@ -28,8 +28,7 @@ class AddressDetailsPage extends StatelessWidget {
               nextState.stateHelper.requestState),
       listener: (context, state) {
         final bool isLoading =
-            (addressDetailsBloc.state.stateHelper.requestState ==
-                RequestState.LOADING);
+            (state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}

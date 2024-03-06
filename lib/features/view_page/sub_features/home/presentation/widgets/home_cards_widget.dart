@@ -44,10 +44,10 @@ class HomeCardsWidget extends StatelessWidget {
 
   Map<String, String> _getHomeCardsMap(UserProfileEntity userProfileEntity) {
     Map<String, String> homeCardsMap = {};
-    homeCardsMap["my_balance"] = userProfileEntity.balance;
+    homeCardsMap["my_balance"] = "${userProfileEntity.balance} ${"sr".tr()}";
     homeCardsMap["total_shipments"] = userProfileEntity.totalShipments;
-    homeCardsMap["my_bills"] = userProfileEntity.totalBills;
-    homeCardsMap["total_store_requests"] = userProfileEntity.totalStoreRequests;
+    // homeCardsMap["my_bills"] = userProfileEntity.totalBills;
+    // homeCardsMap["total_store_requests"] = userProfileEntity.totalStoreRequests;
     return homeCardsMap;
   }
 
