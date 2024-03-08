@@ -1,4 +1,5 @@
 import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
+import 'package:saayer/core/API/end_points/builder/end_points_collection.dart';
 
 class EndPointBuilder {
   final String fullUrl;
@@ -8,10 +9,10 @@ class EndPointBuilder {
   });
 
   factory EndPointBuilder.build(
-      {required String resourcePath, bool isAccount = false}) {
+      {required String resourcePath, EndPointsBaseCollection? collection}) {
     String baseUrl = EndPointsBaseUrl.init().baseUrl;
-    if (isAccount) {
-      baseUrl += "account/";
+    if (collection != null) {
+      baseUrl += collection.path;
     }
     final String fullUrl = "$baseUrl$resourcePath";
     return EndPointBuilder.internal(fullUrl: fullUrl);

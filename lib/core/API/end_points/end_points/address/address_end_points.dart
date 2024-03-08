@@ -1,4 +1,5 @@
 import 'package:saayer/core/API/end_points/builder/end_point_builder.dart';
+import 'package:saayer/core/API/end_points/builder/end_points_collection.dart';
 
 class AddressEndPoints {
   static String get getCites {
@@ -6,7 +7,9 @@ class AddressEndPoints {
   }
 
   static String get getAddresses {
-    return EndPointBuilder.build(resourcePath: "GetClients", isAccount: true)
+    return EndPointBuilder.build(
+            resourcePath: "GetClients",
+            collection: const EndPointsAccountCollection())
         .fullUrl;
   }
 }
