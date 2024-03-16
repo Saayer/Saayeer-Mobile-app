@@ -14,3 +14,7 @@ abstract class EndPointsBaseCollection extends Equatable {
 class EndPointsAccountCollection extends EndPointsBaseCollection {
   const EndPointsAccountCollection({super.path = "account/"});
 }
+
+class EndPointShipmentCollection extends EndPointsBaseCollection {
+  const EndPointShipmentCollection({super.path = "Shipment/"});
+}
