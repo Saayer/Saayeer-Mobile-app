@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +22,7 @@ import 'package:saayer/features/verify_otp/domain/entities/verify_otp_entity.dar
 import 'dart:ui' as ui;
 
 import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
+import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
@@ -64,24 +66,44 @@ class LogInPage extends StatelessWidget {
           ),
           bottomSheet: Container(
             width: width,
+            //height: 100.h,
             color: SaayerTheme().getColorsPalette.backgroundColor,
             child: Padding(
               padding: EdgeInsets.only(
                   bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
-              child: SaayerDefaultTextButton(
-                text: "log_in",
-                isEnabled: enableLogIn(logInBloc),
-                borderRadius: 16.r,
-                onPressed: () {
-                  final bool isFormValid =
-                      (logInBloc.formKey.currentState!.validate());
-                  isFormValid
-                      ? logInBloc.add(SubmitLogInData())
-                      : SaayerToast()
-                          .showErrorToast(msg: "empty_fields_error".tr());
-                },
-                btnWidth: width / 1.2,
-                btnHeight: 50.h,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SaayerDefaultTextButton(
+                    text: "log_in",
+                    isEnabled: enableLogIn(logInBloc),
+                    borderRadius: 16.r,
+                    onPressed: () {
+                      final bool isFormValid =
+                          (logInBloc.formKey.currentState!.validate());
+                      isFormValid
+                          ? logInBloc.add(SubmitLogInData())
+                          : SaayerToast()
+                              .showErrorToast(msg: "empty_fields_error".tr());
+                    },
+                    btnWidth: width / 1.2,
+                    btnHeight: 50.h,
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      getIt<NavigationService>()
+                          .navigateAndFinish(const ViewPageScreen());
+                    },
+                    child: Text(
+                      "enter_as_guest".tr(),
+                      style: AppTextStyles.boldLabel(
+                          SaayerTheme().getColorsPalette.blackTextColor),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

@@ -7,19 +7,16 @@ import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
-import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/presentation/bloc/shipments_bloc.dart';
 
 class EmptyStatusWidget extends StatelessWidget {
   final String title, desc, btnLabel, iconName;
-  final TextStyle? titleTextStyle, descTextStyle;
 
+  final Widget? iconWidget;
+  final TextStyle? titleTextStyle, descTextStyle;
   final double size;
   final double dividerWidth, btnWidth;
-
   final void Function()? onBtnPressed;
+  final bool hasButton;
 
   const EmptyStatusWidget(
       {super.key,
@@ -27,12 +24,14 @@ class EmptyStatusWidget extends StatelessWidget {
       required this.desc,
       required this.btnLabel,
       required this.iconName,
+      this.iconWidget,
       this.titleTextStyle,
       this.descTextStyle,
       required this.size,
       this.btnWidth = 1,
       this.dividerWidth = 2,
-      this.onBtnPressed});
+      this.onBtnPressed,
+      this.hasButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +60,14 @@ class EmptyStatusWidget extends StatelessWidget {
                       radius: size.r,
                       backgroundColor:
                           SaayerTheme().getColorsPalette.backgroundColor,
-                      child: SvgPicture.asset(
-                        Constants.getIconPath("ic_$iconName.svg"),
-                        width: size.w,
-                        height: size.h,
-                        color: SaayerTheme().getColorsPalette.blackTextColor,
-                      ),
+                      child: iconWidget ??
+                          SvgPicture.asset(
+                            Constants.getIconPath("ic_$iconName.svg"),
+                            width: size.w,
+                            height: size.h,
+                            color:
+                                SaayerTheme().getColorsPalette.blackTextColor,
+                          ),
                     ),
                   ),
                   Transform.rotate(
@@ -97,29 +98,31 @@ class EmptyStatusWidget extends StatelessWidget {
                 style: descTextStyle ?? AppTextStyles.liteLabel(),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Container(
-                width: width / btnWidth,
-                color: SaayerTheme().getColorsPalette.backgroundColor,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
-                  child: SaayerDefaultTextButton(
-                    text: btnLabel,
-                    isEnabled: true,
-                    borderRadius: 16.r,
-                    onPressed: () {
-                      if (onBtnPressed != null) {
-                        onBtnPressed!();
-                      }
-                    },
-                    btnWidth: width / 1.2,
-                    btnHeight: 50.h,
+              if (hasButton) ...[
+                SizedBox(
+                  height: 10.h,
+                ),
+                Container(
+                  width: width / btnWidth,
+                  color: SaayerTheme().getColorsPalette.backgroundColor,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
+                    child: SaayerDefaultTextButton(
+                      text: btnLabel,
+                      isEnabled: true,
+                      borderRadius: 16.r,
+                      onPressed: () {
+                        if (onBtnPressed != null) {
+                          onBtnPressed!();
+                        }
+                      },
+                      btnWidth: width / 1.2,
+                      btnHeight: 50.h,
+                    ),
                   ),
                 ),
-              ),
+              ],
               SizedBox(
                 height: 50.h,
               ),

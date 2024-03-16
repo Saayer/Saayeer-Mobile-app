@@ -7,17 +7,21 @@ class InputTextFieldDecoration {
   InputDecoration call(
       {Widget? prefixWidget,
       Widget? suffixWidget,
-      String? hintText}) {
+      String? hintText,
+      Color? fillColor,
+      Color? enabledBorderColor,
+      Color? focusedBorderColor,
+      double? borderRadius}) {
     return InputDecoration(
       hintText: hintText,
       counterText: "",
       hintStyle:
           AppTextStyles.liteLabel(SaayerTheme().getColorsPalette.greyColor),
       filled: true,
-      fillColor: SaayerTheme().getColorsPalette.textFieldFillColor,
+      fillColor: fillColor ?? SaayerTheme().getColorsPalette.textFieldFillColor,
       contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+        borderRadius: BorderRadius.all(Radius.circular((borderRadius ?? 10).r)),
       ),
       errorStyle: TextStyle(color: SaayerTheme().getColorsPalette.primaryColor),
       errorMaxLines: 5,
@@ -35,12 +39,16 @@ class InputTextFieldDecoration {
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-            color: SaayerTheme().getColorsPalette.greyColor, width: 1.w),
+            color:
+                enabledBorderColor ?? SaayerTheme().getColorsPalette.greyColor,
+            width: 1.w),
         borderRadius: BorderRadius.all(Radius.circular(10.r)),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-            color: SaayerTheme().getColorsPalette.greyColor, width: 2.w),
+            color:
+                focusedBorderColor ?? SaayerTheme().getColorsPalette.greyColor,
+            width: 2.w),
         borderRadius: BorderRadius.all(Radius.circular(10.r)),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/common/bottom_sheet/log_in_bottom_sheet_widget.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -33,11 +34,12 @@ class SaayerFloatingActionButton extends StatelessWidget {
                 backgroundColor: SaayerTheme().getColorsPalette.primaryColor,
                 elevation: 10,
                 onPressed: () {
-                  getIt<NavigationService>()
-                      .navigateTo(const RequestShipmentScreen());
-
-                  // viewPageBloc.add(const GoToPage(
-                  //     navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+                  if (!(state.isGuest!)) {
+                    getIt<NavigationService>()
+                        .navigateTo(const RequestShipmentScreen());
+                  } else {
+                    getLogInBottomSheetWidget();
+                  }
                 },
                 child: Image.asset(
                   Constants.getIconPath("ic_logo.png"),

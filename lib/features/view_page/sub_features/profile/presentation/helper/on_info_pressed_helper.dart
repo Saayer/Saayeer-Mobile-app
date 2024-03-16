@@ -8,35 +8,28 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/profile_sub_features/info/core/utils/enums/enums.dart';
+import 'package:saayer/features/profile_sub_features/info/domain/entities/info_entity.dart';
 import 'package:saayer/features/profile_sub_features/info/presentation/screens/info_screen.dart';
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/utils/enums/enums.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/store_info/core/utils/enums/enums.dart';
 
 class OnInfoPressedHelper {
   final BuildContext context =
       getIt<NavigationService>().mainNavigatorKey.currentContext!;
 
   onInfoPressed(String infoTypeStr) async {
+    final InfoTypes infoType = _getInfoTypes(infoTypeStr);
     final UserCardEntity? userCardEntity =
         await SecureStorageService().getUserCardInfo();
-    final List<bool> userCardInfoList = [
-      (userCardEntity?.hasPersonalInformation ?? false),
-      (userCardEntity?.hasBusinessInformation ?? false),
-      (userCardEntity?.hasStoresInformation ?? false)
-    ];
-    int numberOfDoneUserCardInfo = 0;
-    bool isProfileCompleted = false;
-    for (bool userCardInfo in userCardInfoList) {
-      if (userCardInfo) {
-        numberOfDoneUserCardInfo++;
-        isProfileCompleted = true;
-      } else {
-        isProfileCompleted = false;
-      }
-    }
-    if (!isProfileCompleted) {
+    final bool isInfoCompleted = _getIsInfoCompleted(userCardEntity, infoType);
+    final int numberOfDoneUserCardInfo =
+        _getNumberOfDoneUserCardInfo(userCardEntity, infoType);
+    if (!isInfoCompleted) {
       showModalBottomSheet(
-        context: context,
+        context: getIt<NavigationService>().mainNavigatorKey.currentContext!,
         barrierColor: SaayerTheme().getColorsPalette.barrierColor,
         backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
         builder: (context) {
@@ -44,8 +37,13 @@ class OnInfoPressedHelper {
         },
       );
     } else {
+      final Map<String, dynamic> fields =
+          _getInfoFields(userCardEntity!, infoType);
       getIt<NavigationService>().navigateTo(InfoScreen(
-        infoType: _getInfoTypes(infoTypeStr),
+        infoEntity: InfoEntity(
+          infoType: infoType,
+          fields: fields,
+        ),
       ));
     }
   }
@@ -53,6 +51,190 @@ class OnInfoPressedHelper {
   InfoTypes _getInfoTypes(String infoTypeStr) {
     return InfoTypes.values
         .firstWhere((element) => (element.name.compareTo(infoTypeStr) == 0));
+  }
+
+  bool _getIsInfoCompleted(UserCardEntity? userCardEntity, InfoTypes infoType) {
+    switch (infoType) {
+      case InfoTypes.PERSONAL_INFO:
+        {
+          return (userCardEntity?.hasPersonalInformation ?? false);
+        }
+      case InfoTypes.BUSINESS_INFO:
+        {
+          return (userCardEntity?.hasBusinessInformation ?? false);
+        }
+      case InfoTypes.STORE_INFO:
+        {
+          return (userCardEntity?.hasStoresInformation ?? false);
+        }
+    }
+  }
+
+  int _getNumberOfDoneUserCardInfo(
+      UserCardEntity? userCardEntity, InfoTypes infoType) {
+    int numberOfDoneUserCardInfo = 0;
+    final List<bool> userCardInfoList = [
+      (userCardEntity?.hasPersonalInformation ?? false),
+      (userCardEntity?.hasBusinessInformation ?? false),
+      (userCardEntity?.hasStoresInformation ?? false)
+    ];
+    for (bool userCardInfo in userCardInfoList) {
+      if (userCardInfo) {
+        numberOfDoneUserCardInfo++;
+      }
+    }
+    return numberOfDoneUserCardInfo;
+  }
+
+  Map<String, dynamic> _getInfoFields(
+      UserCardEntity userCardEntity, InfoTypes infoType) {
+    switch (infoType) {
+      case InfoTypes.PERSONAL_INFO:
+        {
+          return _getPersonalInfoMap(userCardEntity);
+        }
+      case InfoTypes.BUSINESS_INFO:
+        {
+          return _getBusinessInfoMap(userCardEntity);
+        }
+      case InfoTypes.STORE_INFO:
+        {
+          return _getStoreInfoMap(userCardEntity);
+        }
+    }
+  }
+
+  Map<String, String> _getPersonalInfoMap(UserCardEntity userCardEntity) {
+    final Map<String, String> map = {};
+    for (PersonalInfoFieldsTypes personalInfoFieldsType
+        in PersonalInfoFieldsTypes.values) {
+      switch (personalInfoFieldsType) {
+        case PersonalInfoFieldsTypes.NAME:
+          {
+            map[personalInfoFieldsType.name] =
+                userCardEntity.personalInfoEntity?.name ?? "";
+            break;
+          }
+        case PersonalInfoFieldsTypes.EMAIL:
+          {
+            map[personalInfoFieldsType.name] =
+                userCardEntity.personalInfoEntity?.email ?? "";
+            break;
+          }
+        case PersonalInfoFieldsTypes.NATIONAL_ID:
+          {
+            map[personalInfoFieldsType.name] =
+                userCardEntity.personalInfoEntity?.nationalId ?? "";
+            break;
+          }
+        case PersonalInfoFieldsTypes.ADDRESS:
+          {
+            map[personalInfoFieldsType.name] =
+                userCardEntity.personalInfoEntity?.address ?? "";
+            break;
+          }
+        case PersonalInfoFieldsTypes.DISTRICT:
+          {
+            map[personalInfoFieldsType.name] =
+                userCardEntity.personalInfoEntity?.district ?? "";
+            break;
+          }
+        case PersonalInfoFieldsTypes.GOVERNORATE:
+          {
+            map[personalInfoFieldsType.name] =
+                userCardEntity.personalInfoEntity?.governorate ?? "";
+            break;
+          }
+      }
+    }
+    return map;
+  }
+
+  Map<String, String> _getBusinessInfoMap(UserCardEntity userCardEntity) {
+    final Map<String, String> map = {};
+    for (BusinessInfoFieldsTypes businessInfoFieldsType
+        in BusinessInfoFieldsTypes.values) {
+      switch (businessInfoFieldsType) {
+        case BusinessInfoFieldsTypes.COMPANY_NAME:
+          {
+            map[businessInfoFieldsType.name] =
+                userCardEntity.businessInfoEntity?.companyName ?? "";
+            break;
+          }
+        case BusinessInfoFieldsTypes.EMAIL:
+          {
+            map[businessInfoFieldsType.name] =
+                userCardEntity.businessInfoEntity?.email ?? "";
+            break;
+          }
+        case BusinessInfoFieldsTypes.MOBILE_NUMBER:
+          {
+            map[businessInfoFieldsType.name] =
+                userCardEntity.businessInfoEntity?.mobileNumber ?? "";
+            break;
+          }
+        case BusinessInfoFieldsTypes.COMMERCIAL_REGISTERATION_NO:
+          {
+            map[businessInfoFieldsType.name] =
+                userCardEntity.businessInfoEntity?.commercialRegistrationNo ??
+                    "";
+            break;
+          }
+        case BusinessInfoFieldsTypes.SHORT_ADDRESS:
+          {
+            map[businessInfoFieldsType.name] =
+                userCardEntity.businessInfoEntity?.shortAddress ?? "";
+            break;
+          }
+        case BusinessInfoFieldsTypes.DISTRICT:
+          {
+            map[businessInfoFieldsType.name] =
+                userCardEntity.businessInfoEntity?.district ?? "";
+            break;
+          }
+        case BusinessInfoFieldsTypes.GOVERNORATE:
+          {
+            map[businessInfoFieldsType.name] =
+                userCardEntity.businessInfoEntity?.governorate ?? "";
+            break;
+          }
+      }
+    }
+    return map;
+  }
+
+  Map<String, String> _getStoreInfoMap(UserCardEntity userCardEntity) {
+    final Map<String, String> map = {};
+    for (StoreInfoFieldsTypes storeInfoFieldsType
+        in StoreInfoFieldsTypes.values) {
+      switch (storeInfoFieldsType) {
+        case StoreInfoFieldsTypes.NAME:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.name ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.URL:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.url ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.MAROOF_ID:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.maroofId ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.COMMERCIAL_REGISTERATION_NO:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.commercialRegistrationNo ?? "";
+            break;
+          }
+      }
+    }
+    return map;
   }
 
   Widget _getBottomSheetWidget(int numberOfDoneUserCardInfo) {
@@ -113,6 +295,7 @@ class OnInfoPressedHelper {
               SaayerDefaultTextButton(
                 text: "cancel",
                 isEnabled: true,
+                enabledColor: SaayerTheme().getColorsPalette.greyColor,
                 borderRadius: 16.r,
                 onPressed: () {
                   getIt<NavigationService>().pop();

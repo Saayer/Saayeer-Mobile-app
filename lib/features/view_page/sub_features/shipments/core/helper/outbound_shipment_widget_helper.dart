@@ -11,7 +11,7 @@ import 'package:saayer/features/view_page/sub_features/shipments/domain/entities
 import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
 
 class OutboundShipmentWidgetHelper {
-  Color _getColor(ShipmentStatus shipmentStatus) {
+  Color getColor(ShipmentStatus shipmentStatus) {
     switch (shipmentStatus) {
       case ShipmentStatus.RECEIVED:
         {
@@ -93,10 +93,10 @@ class OutboundShipmentWidgetHelper {
                         text: (double.tryParse(outboundShipmentEntity.amount) ??
                                 0)
                             .toString(),
-                        style: AppTextStyles.boldLabel()),
+                        style: AppTextStyles.smallBoldLabel()),
                     TextSpan(
                         text: "  ${"sr".tr()}",
-                        style: AppTextStyles.smallLabel(
+                        style: AppTextStyles.microLabel(
                             SaayerTheme().getColorsPalette.greyColor)),
                   ],
                 ),
@@ -104,10 +104,10 @@ class OutboundShipmentWidgetHelper {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 10.h,
           ),
           Container(
-              width: 100.w,
+              width: 80.w,
               decoration: BoxDecoration(
                 color: shipmentStatusColor,
                 borderRadius: BorderRadius.circular(50.r),
@@ -129,7 +129,7 @@ class OutboundShipmentWidgetHelper {
       ShipmentEntity shipmentEntity, bool isFromHome) {
     final OutboundShipmentEntity outboundShipmentEntity =
         shipmentEntity as OutboundShipmentEntity;
-    final Color shipmentStatusColor = _getColor(shipmentEntity.shipmentStatus);
+    final Color shipmentStatusColor = getColor(shipmentEntity.shipmentStatus);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: 16.w, vertical: (isFromHome ? 5 : 10).h),
@@ -162,13 +162,16 @@ class OutboundShipmentWidgetHelper {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _getInfoWidget(outboundShipmentEntity),
+                    SizedBox(
+                      width: 5.w,
+                    ),
                     _getAmountWithTagWidget(
                         outboundShipmentEntity, shipmentStatusColor)
                   ],
                 ),
               ),
               SizedBox(
-                width: 10.w,
+                width: 12.w,
               ),
               Icon(Icons.arrow_forward_ios,
                   size: 15.r, color: SaayerTheme().getColorsPalette.greyColor),

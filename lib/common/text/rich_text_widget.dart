@@ -16,9 +16,9 @@ class RichTextWidget extends StatelessWidget {
         children: [
           TextSpan(
               text: "${keyStr.tr()} : ",
-              style: AppTextStyles.smallBoldLabel(
+              style: AppTextStyles.microLabel(
                   SaayerTheme().getColorsPalette.greyColor)),
-          TextSpan(text: valueStr.tr(), style: AppTextStyles.smallLabel()),
+          TextSpan(text: valueStr.tr(), style: AppTextStyles.xSmallLabel()),
         ],
       ),
     );

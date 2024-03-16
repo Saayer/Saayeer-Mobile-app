@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
-import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
 class LanguageWidget extends StatelessWidget {
   const LanguageWidget({super.key});
@@ -19,7 +17,6 @@ class LanguageWidget extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    final ViewPageBloc viewPageBloc = getIt<ViewPageBloc>();
     return BlocConsumer<SettingsBloc, SettingsState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -36,7 +33,9 @@ class LanguageWidget extends StatelessWidget {
                 style: AppTextStyles.hintButtonLabel(),
               ),
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(
+              height: 10.h,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: ["english", "arabic"].map(
@@ -56,7 +55,6 @@ class LanguageWidget extends StatelessWidget {
                             : Localization.egArabic);
                         Localization.setLocale(locale);
                         settingsBloc.add(RefreshEvent());
-                        //viewPageBloc.add(Refresh());
                       },
                       btnWidth: width / 3.5,
                       btnHeight: 30.h,

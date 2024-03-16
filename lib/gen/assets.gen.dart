@@ -40,6 +40,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_addresses_book.svg
   String get icAddressesBookSvg => 'assets/icons/ic_addresses_book.svg';
 
+  /// File path: assets/icons/ic_bill.svg
+  String get icBill => 'assets/icons/ic_bill.svg';
+
   /// File path: assets/icons/ic_contact_us.svg
   String get icContactUs => 'assets/icons/ic_contact_us.svg';
 
@@ -48,6 +51,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_help.svg
   String get icHelp => 'assets/icons/ic_help.svg';
+
+  /// File path: assets/icons/ic_hi.svg
+  String get icHi => 'assets/icons/ic_hi.svg';
 
   /// File path: assets/icons/ic_home.svg
   String get icHome => 'assets/icons/ic_home.svg';
@@ -77,6 +83,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_my_balance.svg
   String get icMyBalance => 'assets/icons/ic_my_balance.svg';
 
+  /// File path: assets/icons/ic_my_bills.svg
+  String get icMyBills => 'assets/icons/ic_my_bills.svg';
+
+  /// File path: assets/icons/ic_notification.svg
+  String get icNotification => 'assets/icons/ic_notification.svg';
+
+  /// File path: assets/icons/ic_notification2.svg
+  String get icNotification2 => 'assets/icons/ic_notification2.svg';
+
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
 
@@ -95,13 +110,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_total_shipments.svg
   String get icTotalShipments => 'assets/icons/ic_total_shipments.svg';
 
+  /// File path: assets/icons/ic_total_store_requests.svg
+  String get icTotalStoreRequests => 'assets/icons/ic_total_store_requests.svg';
+
   /// List of all assets
   List<dynamic> get values => [
         icAddressesBookPng,
         icAddressesBookSvg,
+        icBill,
         icContactUs,
         icEbills,
         icHelp,
+        icHi,
         icHome,
         icLogoPng,
         icLogoSvg,
@@ -110,12 +130,16 @@ class $AssetsIconsGen {
         icLogoWithText,
         icMore,
         icMyBalance,
+        icMyBills,
+        icNotification,
+        icNotification2,
         icProfile,
         icSettings,
         icShipment,
         icShipments,
         icShippingRates,
-        icTotalShipments
+        icTotalShipments,
+        icTotalStoreRequests
       ];
 }
 
@@ -157,6 +181,23 @@ class $AssetsImagesGen {
       ];
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/delivered_shipment.json
+  String get deliveredShipment => 'assets/lottie/delivered_shipment.json';
+
+  /// File path: assets/lottie/paid_shipment.json
+  String get paidShipment => 'assets/lottie/paid_shipment.json';
+
+  /// File path: assets/lottie/received_shipment.json
+  String get receivedShipment => 'assets/lottie/received_shipment.json';
+
+  /// List of all assets
+  List<String> get values =>
+      [deliveredShipment, paidShipment, receivedShipment];
+}
+
 class $AssetsStringsGen {
   const $AssetsStringsGen();
 
@@ -176,6 +217,7 @@ class Assets {
   static const $AssetsGifsGen gifs = $AssetsGifsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsStringsGen strings = $AssetsStringsGen();
 }
 

@@ -19,7 +19,7 @@ class StoreInfoRDSImpl implements StoreInfoRDS {
     final StoreInfoRequestModel storeInfoRequestModel =
         StoreInfoRequestModel(storeInfoEntity: storeInfoEntity);
     Map<String, dynamic> result = Map<String, dynamic>.from(
-      await apiConsumer.post(UserInfoEndPoints.updateStoreInfo,
+      await apiConsumer.post(UserInfoEndPoints.createStoreInfo,
           body: storeInfoRequestModel.toJson()),
     );
     final StoreInfoResponseModel storeInfoResponseModel =

@@ -6,10 +6,11 @@ abstract class ViewPageEvent extends Equatable {
 }
 
 class InitViewPage extends ViewPageEvent {
-  const InitViewPage();
+  final NavBarIconTypes navBarIconType;
+  const InitViewPage({required this.navBarIconType});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [navBarIconType];
 }
 
 class GoToPage extends ViewPageEvent {

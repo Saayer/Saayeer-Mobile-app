@@ -1,10 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/screens/shipment_details_screen.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/core/helper/outbound_shipment_widget_helper.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
+import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/outbound_shipment_entity.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/bloc/shipments_bloc.dart';
 
@@ -50,7 +55,13 @@ class ShipmentsListView extends StatelessWidget {
                 }
                 return Column(
                   children: [
-                    shipmentWidget,
+                    GestureDetector(
+                        onTap: () {
+                          getIt<NavigationService>().navigateTo(
+                              ShipmentDetailsScreen(
+                                  shipmentEntity: shipmentEntity));
+                        },
+                        child: shipmentWidget),
                     if (isLast)
                       SizedBox(
                         height: 50.h,

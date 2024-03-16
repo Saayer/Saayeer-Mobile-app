@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:saayer/common/bottom_sheet/log_in_bottom_sheet_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -17,8 +18,12 @@ class NewShipmentCardItemWidget extends StatelessWidget {
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
     return GestureDetector(
       onTap: () {
-        viewPageBloc
-            .add(const GoToPage(navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+        if (!(viewPageBloc.state.isGuest!)) {
+          viewPageBloc.add(
+              const GoToPage(navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+        } else {
+          getLogInBottomSheetWidget();
+        }
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),

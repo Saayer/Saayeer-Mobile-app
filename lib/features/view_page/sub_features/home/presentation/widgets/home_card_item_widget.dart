@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,13 +45,17 @@ class HomeCardItemWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    label.tr(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.smallParagraph(
-                        SaayerTheme().getColorsPalette.greyColor),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Text(
+                      label.tr(),
+                      maxLines: 2,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.smallBoldLabel(),
+                    ),
                   ),
+                  SizedBox(width: 5.w,),
                   Container(
                     decoration: BoxDecoration(
                       color: color.withOpacity(0.15),
@@ -81,7 +86,8 @@ class HomeCardItemWidget extends StatelessWidget {
                       title.tr(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.label(),
+                      style: AppTextStyles.smallLabel(
+                          SaayerTheme().getColorsPalette.greyColor),
                     ),
                   ),
                 ],

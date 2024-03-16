@@ -8,3 +8,8 @@ class RefreshEvent extends MoreEvent {
   @override
   List<Object> get props => [];
 }
+
+class LogOutEvent extends MoreEvent {
+  @override
+  List<Object> get props => [];
+}

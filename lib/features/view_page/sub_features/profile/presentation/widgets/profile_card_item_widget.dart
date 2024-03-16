@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:saayer/common/bottom_sheet/log_in_bottom_sheet_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/profile/presentation/helper/on_card_pressed_helper.dart';
 import 'package:saayer/features/view_page/sub_features/profile/presentation/helper/on_info_pressed_helper.dart';
 
@@ -16,9 +19,11 @@ class ProfileCardItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
+
     return GestureDetector(
       onTap: () {
-        _onPressed();
+        _onPressed((viewPageBloc.state.isGuest!));
       },
       child: Container(
         // height: 50.h,
@@ -42,11 +47,14 @@ class ProfileCardItemWidget extends StatelessWidget {
             children: [
               Flexible(
                 fit: FlexFit.tight,
-                child: SvgPicture.asset(
-                  Constants.getImagePath("$iconName.svg"),
-                  // height: 60.h,
-                  // width: 60.w,
-                  fit: BoxFit.contain,
+                child: Hero(
+                  tag: "${title}HeroTag",
+                  child: SvgPicture.asset(
+                    Constants.getImagePath("$iconName.svg"),
+                    // height: 60.h,
+                    // width: 60.w,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               SizedBox(
@@ -73,14 +81,18 @@ class ProfileCardItemWidget extends StatelessWidget {
     );
   }
 
-  _onPressed() async {
-    final bool isInfo = (title.contains("info"));
-    if (isInfo) {
-      final OnInfoPressedHelper onInfoPressedHelper = OnInfoPressedHelper();
-      await onInfoPressedHelper.onInfoPressed(title);
+  _onPressed(bool isGuest) async {
+    if (!isGuest) {
+      final bool isInfo = (title.contains("info"));
+      if (isInfo) {
+        final OnInfoPressedHelper onInfoPressedHelper = OnInfoPressedHelper();
+        await onInfoPressedHelper.onInfoPressed(title);
+      } else {
+        final OnCardPressedHelper onCardPressedHelper = OnCardPressedHelper();
+        await onCardPressedHelper.onCardPressed(title);
+      }
     } else {
-      final OnCardPressedHelper onCardPressedHelper = OnCardPressedHelper();
-      await onCardPressedHelper.onCardPressed(title);
+      getLogInBottomSheetWidget();
     }
   }
 }

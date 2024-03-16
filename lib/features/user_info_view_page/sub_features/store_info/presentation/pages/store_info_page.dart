@@ -5,9 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/common/text_fields/email_text_field.dart';
-import 'package:saayer/common/text_fields/input_text_field.dart';
-import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -17,6 +14,7 @@ import 'package:saayer/features/user_info_view_page/sub_features/store_info/core
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/core/utils/enums/enums.dart';
 import 'dart:ui' as ui;
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/bloc/store_info_bloc.dart';
+import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/widgets/store_info_text_field_helper.dart';
 
 class StoreInfoPage extends StatelessWidget {
   const StoreInfoPage({super.key});
@@ -34,8 +32,8 @@ class StoreInfoPage extends StatelessWidget {
           (previousState.stateHelper.requestState !=
               nextState.stateHelper.requestState),
       listener: (context, state) async {
-        final bool isLoading = (storeInfoBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
+        final bool isLoading =
+            (state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
@@ -59,7 +57,8 @@ class StoreInfoPage extends StatelessWidget {
                   bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
               child: SaayerDefaultTextButton(
                 text: "submit",
-                isEnabled: enableStoreInfo(storeInfoBloc),
+                isEnabled:
+                    StoreInfoTextFieldHelper.enableStoreInfo(storeInfoBloc),
                 borderRadius: 16.r,
                 onPressed: () {
                   final bool isFormValid =
@@ -112,8 +111,9 @@ class StoreInfoPage extends StatelessWidget {
                         ...(StoreInfoFieldsTypes.values.map((e) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 20.w, vertical: 10.h),
-                            child: _getTextField(storeInfoBloc, e),
+                                horizontal: 0.w, vertical: 10.h),
+                            child: StoreInfoTextFieldHelper()
+                                .getTextField(storeInfoBloc, e),
                           );
                         }).toList()),
                         SizedBox(
@@ -129,59 +129,5 @@ class StoreInfoPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _getTextField(
-      StoreInfoBloc storeInfoBloc, StoreInfoFieldsTypes storeInfoFieldsType) {
-    switch (storeInfoFieldsType) {
-      default:
-        {
-          return InputTextField(
-            label: storeInfoFieldsType.name.toLowerCase(),
-            inputController:
-                _getInputController(storeInfoBloc, storeInfoFieldsType),
-            onChanged: (val) {
-              storeInfoBloc.add(OnTextChange(
-                  str: val,
-                  storeInfoFieldsType: storeInfoFieldsType,
-                  textEditingController:
-                      _getInputController(storeInfoBloc, storeInfoFieldsType)));
-            },
-          );
-        }
-    }
-  }
-
-  TextEditingController _getInputController(
-      StoreInfoBloc storeInfoBloc, StoreInfoFieldsTypes storeInfoFieldsType) {
-    switch (storeInfoFieldsType) {
-      case StoreInfoFieldsTypes.NAME:
-        {
-          return storeInfoBloc.nameController;
-        }
-      case StoreInfoFieldsTypes.URL:
-        {
-          return storeInfoBloc.urlController;
-        }
-      case StoreInfoFieldsTypes.MAROOF_ID:
-        {
-          return storeInfoBloc.maroofIdController;
-        }
-      case StoreInfoFieldsTypes.COMMERCIAL_REGISTERATION_NO:
-        {
-          return storeInfoBloc.commercialRegistrationNoController;
-        }
-    }
-  }
-
-  bool enableStoreInfo(StoreInfoBloc storeInfoBloc) {
-    log("${storeInfoBloc.storeInfoFieldsValidMap}",
-        name: "enableStoreInfo --->");
-    if (storeInfoBloc.storeInfoFieldsValidMap.values.length ==
-        StoreInfoFieldsTypes.values.length) {
-      return storeInfoBloc.storeInfoFieldsValidMap.values
-          .every((element) => element == true);
-    }
-    return false;
   }
 }

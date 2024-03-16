@@ -25,6 +25,11 @@ class BaseTextField extends StatelessWidget {
   final bool? enabled;
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
+  final Color? fillColor, enabledBorderColor, focusedBorderColor;
+
+  final double? borderRadius;
+
+  final String? initialValue;
 
   const BaseTextField(
       {super.key,
@@ -43,7 +48,12 @@ class BaseTextField extends StatelessWidget {
       this.suffixWidget,
       this.isPhone = false,
       this.isReadOnly = false,
-      this.onTap});
+      this.onTap,
+      this.fillColor,
+      this.enabledBorderColor,
+      this.focusedBorderColor,
+      this.borderRadius,
+      this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +61,7 @@ class BaseTextField extends StatelessWidget {
       onTapOutside: (PointerDownEvent pointerDownEvent) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
+      initialValue: initialValue,
       obscureText: obscureText!,
       controller: controller,
       keyboardType: keyboardType,
@@ -70,7 +81,11 @@ class BaseTextField extends StatelessWidget {
       decoration: InputTextFieldDecoration()(
           prefixWidget: prefixWidget,
           suffixWidget: suffixWidget,
-          hintText: hintText),
+          hintText: hintText,
+          fillColor: fillColor,
+          enabledBorderColor: enabledBorderColor,
+          focusedBorderColor: focusedBorderColor,
+          borderRadius: borderRadius),
     );
   }
 }

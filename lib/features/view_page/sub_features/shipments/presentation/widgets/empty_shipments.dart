@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:saayer/common/bottom_sheet/log_in_bottom_sheet_widget.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/empty/empty_status_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
@@ -43,8 +44,12 @@ class EmptyShipments extends StatelessWidget {
           dividerWidth: (state.isFromHome ? 3 : 2),
           btnWidth: (state.isFromHome ? 1.5 : 1),
           onBtnPressed: () {
-            viewPageBloc.add(const GoToPage(
-                navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+            if (!(viewPageBloc.state.isGuest!)) {
+              viewPageBloc.add(const GoToPage(
+                  navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+            } else {
+              getLogInBottomSheetWidget();
+            }
           },
           size: size,
         );

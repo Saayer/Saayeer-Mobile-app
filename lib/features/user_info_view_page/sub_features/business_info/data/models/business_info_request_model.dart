@@ -16,7 +16,7 @@ class BusinessInfoRequestModel {
         businessInfoEntity.commercialRegistrationNo;
     map["shortAddress"] = businessInfoEntity.shortAddress;
     map["district"] = businessInfoEntity.district;
-    map["governorate"] = businessInfoEntity.governorate;
+    map["city"] = businessInfoEntity.governorate;
     return map;
   }
 }

@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class BusinessInfoEntity extends Equatable {
-  final String? companyName,
+  final String companyName,
       email,
       mobileNumber,
       commercialRegistrationNo,
@@ -10,14 +10,15 @@ class BusinessInfoEntity extends Equatable {
       district,
       governorate;
 
+
   const BusinessInfoEntity({
-    this.companyName,
-    this.email,
-    this.mobileNumber,
-    this.commercialRegistrationNo,
-    this.shortAddress,
-    this.district,
-    this.governorate,
+    required this.companyName,
+    required this.email,
+    required this.mobileNumber,
+    required this.commercialRegistrationNo,
+    required this.shortAddress,
+    required this.district,
+    required this.governorate,
   });
 
   BusinessInfoEntity copyWith({
@@ -38,6 +39,30 @@ class BusinessInfoEntity extends Equatable {
       shortAddress: shortAddress ?? this.shortAddress,
       district: district ?? this.district,
       governorate: governorate ?? this.governorate,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'companyName': companyName,
+      'email': email,
+      'mobileNumber': mobileNumber,
+      'commercialRegistrationNo': commercialRegistrationNo,
+      'shortAddress': shortAddress,
+      'district': district,
+      'governorate': governorate,
+    };
+  }
+
+  factory BusinessInfoEntity.fromJson(Map<String, dynamic> map) {
+    return BusinessInfoEntity(
+      companyName: map['companyName'] as String,
+      email: map['email'] as String,
+      mobileNumber: map['mobileNumber'] as String,
+      commercialRegistrationNo: map['commercialRegistrationNo'] as String,
+      shortAddress: map['shortAddress'] as String,
+      district: map['district'] as String,
+      governorate: map['governorate'] as String,
     );
   }
 
