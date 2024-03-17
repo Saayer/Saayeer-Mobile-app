@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,8 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/address/add_address/presentation/screens/add_address_screen.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/screens/shipment_providers_screen.dart';
 import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_indicator.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/pages/address_shipment_page.dart';
@@ -20,21 +23,21 @@ class RequestShipmentPage extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     final RequestShipmentBloc userInfoViewPageBloc =
-    BlocProvider.of<RequestShipmentBloc>(context);
+        BlocProvider.of<RequestShipmentBloc>(context);
     final List<Widget> pages = [
-      const AddressShipmentScreen(),
-      const InformationShipmentScreen(),
+      const ShipmentProvidersScreen(),
+      const AddAddressScreen(),
       const CarriersShipmentScreen()
     ];
 
     return BlocConsumer<RequestShipmentBloc, RequestShipmentState>(
       buildWhen: (previousState, nextState) =>
-      (previousState.stateHelper.requestState !=
-          nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState !=
+              nextState.stateHelper.requestState),
       listener: (context, state) async {
         final bool isLoading =
-        (userInfoViewPageBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
+            (userInfoViewPageBloc.state.stateHelper.requestState ==
+                RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         // if (!isLoading) {
         //   if (state.stateHelper.requestState == RequestState.SUCCESS) {
@@ -49,10 +52,9 @@ class RequestShipmentPage extends StatelessWidget {
           canPop: true,
           child: Scaffold(
             backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-            appBar: const BaseAppBar(
+            appBar: BaseAppBar(
               showBackLeading: true,
-              title: 'Request Shipments',
-
+              title: 'request_shipment'.tr(),
             ),
             body: InkWell(
               onTap: () {
@@ -74,15 +76,15 @@ class RequestShipmentPage extends StatelessWidget {
                               child: LinearIndicator(
                                 color: isPrevious
                                     ? (SaayerTheme()
-                                    .getColorsPalette
-                                    .superDarkOrangeColor)
+                                        .getColorsPalette
+                                        .superDarkOrangeColor)
                                     : isCurrent
-                                    ? (SaayerTheme()
-                                    .getColorsPalette
-                                    .primaryColor)
-                                    : (SaayerTheme()
-                                    .getColorsPalette
-                                    .greyColor),
+                                        ? (SaayerTheme()
+                                            .getColorsPalette
+                                            .primaryColor)
+                                        : (SaayerTheme()
+                                            .getColorsPalette
+                                            .greyColor),
                               ));
                         }),
                       ),

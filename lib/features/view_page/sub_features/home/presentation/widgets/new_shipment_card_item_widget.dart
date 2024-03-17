@@ -4,11 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/common/bottom_sheet/log_in_bottom_sheet_widget.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
+import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/screens/request_shipment_screen.dart';
 
 class NewShipmentCardItemWidget extends StatelessWidget {
   const NewShipmentCardItemWidget({super.key});
@@ -19,8 +22,7 @@ class NewShipmentCardItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (!(viewPageBloc.state.isGuest!)) {
-          viewPageBloc.add(
-              const GoToPage(navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+          getIt<NavigationService>().navigateTo(const RequestShipmentScreen());
         } else {
           getLogInBottomSheetWidget();
         }
