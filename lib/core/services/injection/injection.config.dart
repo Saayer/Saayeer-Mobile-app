@@ -11,6 +11,18 @@
 import 'package:dio/dio.dart' as _i7;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
+import 'package:saayer/common/address_widgets/data/data_sources/remote/address_widgets_RDS.dart'
+    as _i68;
+import 'package:saayer/common/address_widgets/data/data_sources/remote/address_widgets_RDS_impl.dart'
+    as _i69;
+import 'package:saayer/common/address_widgets/data/repositories/address_widgets_repo_impl.dart'
+    as _i71;
+import 'package:saayer/common/address_widgets/domain/repositories/address_widgets_repo.dart'
+    as _i70;
+import 'package:saayer/common/address_widgets/domain/use_cases/get_cities_usecase.dart'
+    as _i79;
+import 'package:saayer/common/address_widgets/presentation/bloc/address_widgets_bloc.dart'
+    as _i89;
 import 'package:saayer/core/API/api_client.dart' as _i28;
 import 'package:saayer/core/API/api_consumer.dart' as _i27;
 import 'package:saayer/core/API/interceptors/api_interceptors.dart' as _i29;
@@ -21,7 +33,7 @@ import 'package:saayer/core/services/current_user/logged_in_checker_service.dart
     as _i10;
 import 'package:saayer/core/services/current_user/logged_in_service.dart'
     as _i11;
-import 'package:saayer/core/services/injection/injectable_modules.dart' as _i86;
+import 'package:saayer/core/services/injection/injectable_modules.dart' as _i91;
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart'
     as _i20;
 import 'package:saayer/core/services/navigation/navigation_service.dart'
@@ -34,12 +46,10 @@ import 'package:saayer/features/address/add_address/data/repositories/add_addres
     as _i67;
 import 'package:saayer/features/address/add_address/domain/repositories/add_address_info_repo.dart'
     as _i66;
-import 'package:saayer/features/address/add_address/domain/use_cases/get_cities_info_usecase.dart'
-    as _i75;
 import 'package:saayer/features/address/add_address/domain/use_cases/submit_address_info_usecase.dart'
-    as _i81;
+    as _i85;
 import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart'
-    as _i84;
+    as _i88;
 import 'package:saayer/features/address/address_details/presentation/bloc/address_details_bloc.dart'
     as _i3;
 import 'package:saayer/features/log_in/data/data_sources/remote/log_in_RDS.dart'
@@ -53,19 +63,19 @@ import 'package:saayer/features/log_in/domain/repositories/log_in_repo.dart'
 import 'package:saayer/features/log_in/domain/use_cases/log_in_usecase.dart'
     as _i42;
 import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart'
-    as _i78;
+    as _i82;
 import 'package:saayer/features/more_sub_features/addresses_book/data/data_sources/remote/addresses_book_RDS.dart'
-    as _i68;
+    as _i72;
 import 'package:saayer/features/more_sub_features/addresses_book/data/data_sources/remote/addresses_book_RDS_impl.dart'
-    as _i69;
+    as _i73;
 import 'package:saayer/features/more_sub_features/addresses_book/data/repositories/addresses_book_repo_impl.dart'
-    as _i71;
+    as _i75;
 import 'package:saayer/features/more_sub_features/addresses_book/domain/repositories/addresses_book_repo.dart'
-    as _i70;
-import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/get_addresses_usecase.dart'
     as _i74;
+import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/get_addresses_usecase.dart'
+    as _i78;
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart'
-    as _i85;
+    as _i90;
 import 'package:saayer/features/more_sub_features/contact_us/presentation/bloc/contact_us_bloc.dart'
     as _i6;
 import 'package:saayer/features/more_sub_features/help/presentation/bloc/help_bloc.dart'
@@ -97,7 +107,7 @@ import 'package:saayer/features/user_card/domain/repositories/user_card_repo.dar
 import 'package:saayer/features/user_card/domain/use_cases/user_card_usecase.dart'
     as _i59;
 import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart'
-    as _i82;
+    as _i86;
 import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart'
     as _i24;
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/data_sources/remote/business_info_RDS.dart'
@@ -111,7 +121,7 @@ import 'package:saayer/features/user_info_view_page/sub_features/business_info/d
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/use_cases/submit_business_info_usecase.dart'
     as _i52;
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/bloc/business_info_bloc.dart'
-    as _i72;
+    as _i76;
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/data/data_sources/remote/personal_info_RDS.dart'
     as _i43;
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/data/data_sources/remote/personal_info_RDS_impl.dart'
@@ -123,7 +133,7 @@ import 'package:saayer/features/user_info_view_page/sub_features/personal_info/d
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/domain/use_cases/submit_personal_info_usecase.dart'
     as _i53;
 import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/bloc/personal_info_bloc.dart'
-    as _i79;
+    as _i83;
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/data/data_sources/remote/store_info_RDS.dart'
     as _i48;
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/data/data_sources/remote/store_info_RDS_impl.dart'
@@ -135,7 +145,7 @@ import 'package:saayer/features/user_info_view_page/sub_features/store_info/doma
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/domain/use_cases/submit_store_info_usecase.dart'
     as _i54;
 import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/bloc/store_info_bloc.dart'
-    as _i80;
+    as _i84;
 import 'package:saayer/features/verify_otp/data/data_sources/verify_otp_RDS.dart'
     as _i60;
 import 'package:saayer/features/verify_otp/data/data_sources/verify_otp_RDS_impl.dart'
@@ -145,9 +155,9 @@ import 'package:saayer/features/verify_otp/data/repositories/verify_otp_repo_imp
 import 'package:saayer/features/verify_otp/domain/repositories/verify_otp_repo.dart'
     as _i62;
 import 'package:saayer/features/verify_otp/domain/use_cases/confirm_log_in_usecase.dart'
-    as _i73;
+    as _i77;
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart'
-    as _i83;
+    as _i87;
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart'
     as _i25;
 import 'package:saayer/features/view_page/sub_features/home/data/data_sources/remote/home_RDS.dart'
@@ -159,9 +169,9 @@ import 'package:saayer/features/view_page/sub_features/home/data/repositories/ho
 import 'package:saayer/features/view_page/sub_features/home/domain/repositories/home_repo.dart'
     as _i36;
 import 'package:saayer/features/view_page/sub_features/home/domain/use_cases/get_user_profile_usecase.dart'
-    as _i76;
+    as _i80;
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart'
-    as _i77;
+    as _i81;
 import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart'
     as _i12;
 import 'package:saayer/features/view_page/sub_features/profile/presentation/bloc/profile_bloc.dart'
@@ -258,45 +268,49 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i65.AddAddressInfoRDSImpl(apiConsumer: gh<_i27.ApiConsumer>()));
     gh.factory<_i66.AddAddressInfoRepo>(() => _i67.AddAddressInfoRepoImpl(
         addAddressInfoRDSImpl: gh<_i64.AddAddressInfoRDS>()));
-    gh.factory<_i68.AddressesBookRDS>(
-        () => _i69.AddressesBookRDSImpl(apiConsumer: gh<_i27.ApiConsumer>()));
-    gh.factory<_i70.AddressesBookRepo>(() => _i71.AddressesBookRepoImpl(
-        addressesBookRDSImpl: gh<_i68.AddressesBookRDS>()));
-    gh.factory<_i72.BusinessInfoBloc>(() => _i72.BusinessInfoBloc(
+    gh.factory<_i68.AddressWidgetsRDS>(
+        () => _i69.AddressWidgetsRDSImpl(apiConsumer: gh<_i27.ApiConsumer>()));
+    gh.factory<_i70.AddressWidgetsRepo>(() => _i71.AddressWidgetsRepoImpl(
+        addressWidgetsRDSImpl: gh<_i68.AddressWidgetsRDS>()));
+    gh.factory<_i72.AddressesBookRDS>(
+        () => _i73.AddressesBookRDSImpl(apiConsumer: gh<_i27.ApiConsumer>()));
+    gh.factory<_i74.AddressesBookRepo>(() => _i75.AddressesBookRepoImpl(
+        addressesBookRDSImpl: gh<_i72.AddressesBookRDS>()));
+    gh.factory<_i76.BusinessInfoBloc>(() => _i76.BusinessInfoBloc(
         submitBusinessInfoUseCase: gh<_i52.SubmitBusinessInfoUseCase>()));
-    gh.factory<_i73.ConfirmLogInUseCase>(() =>
-        _i73.ConfirmLogInUseCase(verifyOtpRepoImpl: gh<_i62.VerifyOtpRepo>()));
-    gh.factory<_i74.GetAddressesUseCase>(() => _i74.GetAddressesUseCase(
-        addressesBookRepoImpl: gh<_i70.AddressesBookRepo>()));
-    gh.factory<_i75.GetCitiesUseCase>(() => _i75.GetCitiesUseCase(
-        addAddressInfoRepoImpl: gh<_i66.AddAddressInfoRepo>()));
-    gh.factory<_i76.GetUserProfileUseCase>(
-        () => _i76.GetUserProfileUseCase(homeRepoImpl: gh<_i36.HomeRepo>()));
-    gh.factory<_i77.HomeBloc>(() =>
-        _i77.HomeBloc(getUserProfileUseCase: gh<_i76.GetUserProfileUseCase>()));
-    gh.factory<_i78.LogInBloc>(
-        () => _i78.LogInBloc(logInUseCase: gh<_i42.LogInUseCase>()));
-    gh.factory<_i79.PersonalInfoBloc>(() => _i79.PersonalInfoBloc(
+    gh.factory<_i77.ConfirmLogInUseCase>(() =>
+        _i77.ConfirmLogInUseCase(verifyOtpRepoImpl: gh<_i62.VerifyOtpRepo>()));
+    gh.factory<_i78.GetAddressesUseCase>(() => _i78.GetAddressesUseCase(
+        addressesBookRepoImpl: gh<_i74.AddressesBookRepo>()));
+    gh.factory<_i79.GetCitiesUseCase>(() => _i79.GetCitiesUseCase(
+        addressWidgetsRepoImpl: gh<_i70.AddressWidgetsRepo>()));
+    gh.factory<_i80.GetUserProfileUseCase>(
+        () => _i80.GetUserProfileUseCase(homeRepoImpl: gh<_i36.HomeRepo>()));
+    gh.factory<_i81.HomeBloc>(() =>
+        _i81.HomeBloc(getUserProfileUseCase: gh<_i80.GetUserProfileUseCase>()));
+    gh.factory<_i82.LogInBloc>(
+        () => _i82.LogInBloc(logInUseCase: gh<_i42.LogInUseCase>()));
+    gh.factory<_i83.PersonalInfoBloc>(() => _i83.PersonalInfoBloc(
         submitPersonalInfoUseCase: gh<_i53.SubmitPersonalInfoUseCase>()));
-    gh.factory<_i80.StoreInfoBloc>(() => _i80.StoreInfoBloc(
+    gh.factory<_i84.StoreInfoBloc>(() => _i84.StoreInfoBloc(
         submitStoreInfoUseCase: gh<_i54.SubmitStoreInfoUseCase>()));
-    gh.factory<_i81.SubmitAddressInfoUseCase>(() =>
-        _i81.SubmitAddressInfoUseCase(
+    gh.factory<_i85.SubmitAddressInfoUseCase>(() =>
+        _i85.SubmitAddressInfoUseCase(
             addAddressInfoRepoImpl: gh<_i66.AddAddressInfoRepo>()));
-    gh.factory<_i82.UserCardBloc>(
-        () => _i82.UserCardBloc(userCardUseCase: gh<_i59.UserCardUseCase>()));
-    gh.factory<_i83.VerifyOtpBloc>(() => _i83.VerifyOtpBloc(
+    gh.factory<_i86.UserCardBloc>(
+        () => _i86.UserCardBloc(userCardUseCase: gh<_i59.UserCardUseCase>()));
+    gh.factory<_i87.VerifyOtpBloc>(() => _i87.VerifyOtpBloc(
           logInUseCase: gh<_i42.LogInUseCase>(),
-          confirmLogInUseCase: gh<_i73.ConfirmLogInUseCase>(),
+          confirmLogInUseCase: gh<_i77.ConfirmLogInUseCase>(),
         ));
-    gh.factory<_i84.AddAddressBloc>(() => _i84.AddAddressBloc(
-          submitAddressInfoUseCase: gh<_i81.SubmitAddressInfoUseCase>(),
-          getCitiesUseCase: gh<_i75.GetCitiesUseCase>(),
-        ));
-    gh.factory<_i85.AddressesBookBloc>(() => _i85.AddressesBookBloc(
-        getAddressesUseCase: gh<_i74.GetAddressesUseCase>()));
+    gh.factory<_i88.AddAddressBloc>(() => _i88.AddAddressBloc(
+        submitAddressInfoUseCase: gh<_i85.SubmitAddressInfoUseCase>()));
+    gh.factory<_i89.AddressWidgetsBloc>(() =>
+        _i89.AddressWidgetsBloc(getCitiesUseCase: gh<_i79.GetCitiesUseCase>()));
+    gh.factory<_i90.AddressesBookBloc>(() => _i90.AddressesBookBloc(
+        getAddressesUseCase: gh<_i78.GetAddressesUseCase>()));
     return this;
   }
 }
 
-class _$InjectableModule extends _i86.InjectableModule {}
+class _$InjectableModule extends _i91.InjectableModule {}

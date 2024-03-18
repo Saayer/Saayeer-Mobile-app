@@ -1,4 +1,4 @@
-import 'package:saayer/features/address/add_address/domain/entities/city_entity.dart';
+import 'package:saayer/common/address_widgets/domain/entities/city_entity.dart';
 
 class GetCitiesResponseModel {
   GetCitiesResponseModel({

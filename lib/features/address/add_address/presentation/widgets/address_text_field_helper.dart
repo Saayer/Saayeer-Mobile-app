@@ -4,14 +4,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:saayer/common/address_widgets/domain/entities/city_entity.dart';
+import 'package:saayer/common/address_widgets/presentation/widgets/city_drop_down_text_field.dart';
 import 'package:saayer/common/label_txt.dart';
-import 'package:saayer/common/text_fields/drop_down_text_field.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
 import 'package:saayer/common/text_fields/phone_text_field.dart';
-import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_address/domain/entities/city_entity.dart';
 import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart';
 import 'dart:ui' as ui;
 
@@ -38,7 +37,7 @@ class AddressTextFieldHelper {
       //case AddAddressFieldsTypes.COUNTRY:
       case AddAddressFieldsTypes.CITY:
         {
-          return _getDropDownTextField();
+          return _getCityTextField();
         }
       default:
         {
@@ -145,31 +144,40 @@ class AddressTextFieldHelper {
     );
   }
 
-  Widget _getDropDownTextField() {
-    return DropDownTextField<CityEntity>(
-      label: addAddressFieldsType.name.toLowerCase(),
-      inputController: TextEditingController(
-          text: addAddressBloc.selectedCityEntity != null
-              ? (Localization.isEnglish()
-                  ? addAddressBloc.selectedCityEntity!.nameEn
-                  : addAddressBloc.selectedCityEntity!.nameAr)
-              : ""),
+  Widget _getCityTextField() {
+    return CityDropDownTextField(
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<CityEntity>(
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
       },
-      items: List.generate(addAddressBloc.cityEntityList.length, (index) {
-        final CityEntity city = addAddressBloc.cityEntityList[index];
-        return city;
-      }),
-      getItemName: (val) {
-        return Localization.isEnglish() ? val.nameEn : val.nameAr;
-      },
-      getIsSelectedItem: (val) {
-        return val == addAddressBloc.selectedCityEntity;
-      },
+      selectedCityEntity: addAddressBloc.selectedCityEntity,
     );
+    // return DropDownTextField<CityEntity>(
+    //   label: addAddressFieldsType.name.toLowerCase(),
+    //   inputController: TextEditingController(
+    //       text: addAddressBloc.selectedCityEntity != null
+    //           ? (Localization.isEnglish()
+    //               ? addAddressBloc.selectedCityEntity!.nameEn
+    //               : addAddressBloc.selectedCityEntity!.nameAr)
+    //           : ""),
+    //   onSelected: (val) {
+    //     addAddressBloc.add(OnItemSelectedFromDropDown<CityEntity>(
+    //       addAddressFieldsType: addAddressFieldsType,
+    //       item: val,
+    //     ));
+    //   },
+    //   items: List.generate(addAddressBloc.cityEntityList.length, (index) {
+    //     final CityEntity city = addAddressBloc.cityEntityList[index];
+    //     return city;
+    //   }),
+    //   getItemName: (val) {
+    //     return Localization.isEnglish() ? val.nameEn : val.nameAr;
+    //   },
+    //   getIsSelectedItem: (val) {
+    //     return val == addAddressBloc.selectedCityEntity;
+    //   },
+    // );
   }
 }

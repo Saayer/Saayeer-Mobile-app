@@ -7,15 +7,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:saayer/common/address_widgets/domain/entities/city_entity.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
-import 'package:saayer/features/address/add_address/domain/entities/city_entity.dart';
 import 'package:saayer/features/address/add_address/domain/entities/submit_address_info_entity.dart';
-import 'package:saayer/features/address/add_address/domain/use_cases/get_cities_info_usecase.dart';
 import 'package:saayer/features/address/add_address/domain/use_cases/submit_address_info_usecase.dart';
 import 'package:saayer/features/address/add_address/presentation/helper/init_address_helper.dart';
 
@@ -26,14 +25,11 @@ part 'add_address_state.dart';
 @Injectable()
 class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
   final SubmitAddressInfoUseCase submitAddressInfoUseCase;
-  final GetCitiesUseCase getCitiesUseCase;
   late final InitAddressHelper initAddressHelper;
 
-  AddAddressBloc(
-      {required this.submitAddressInfoUseCase, required this.getCitiesUseCase})
+  AddAddressBloc({required this.submitAddressInfoUseCase})
       : super(const AddAddressState()) {
-    initAddressHelper =
-        InitAddressHelper(getCitiesUseCase: getCitiesUseCase, state: state);
+    initAddressHelper = InitAddressHelper(state: state);
     on<InitAddAddress>(_initAddAddress);
     on<OnTextChange>(_onTextChange);
     on<OnItemSelectedFromDropDown>(_onItemSelectedFromDropDown);
@@ -57,11 +53,11 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
   Future<FutureOr<void>> _initAddAddress(
       InitAddAddress event, Emitter<AddAddressState> emit) async {
     initAddressHelper.updateState(state);
-    await initAddressHelper.getCities(
-        (cities) => cityEntityList.addAll(cities), emit);
-    cityEntityList.sort((a, b) => (event.isEnglish ? a.nameEn : a.nameAr)
-        .toLowerCase()
-        .compareTo((event.isEnglish ? b.nameEn : b.nameAr).toLowerCase()));
+    // await initAddressHelper.getCities(
+    //     (cities) => cityEntityList.addAll(cities), emit);
+    // cityEntityList.sort((a, b) => (event.isEnglish ? a.nameEn : a.nameAr)
+    //     .toLowerCase()
+    //     .compareTo((event.isEnglish ? b.nameEn : b.nameAr).toLowerCase()));
     //cityEntityList = List.from(cityEntityList.reversed);
     log("${cityEntityList.length}", name: "initAddAddress");
   }

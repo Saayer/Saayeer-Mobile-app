@@ -86,6 +86,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_my_bills.svg
   String get icMyBills => 'assets/icons/ic_my_bills.svg';
 
+  /// File path: assets/icons/ic_notification.svg
+  String get icNotification => 'assets/icons/ic_notification.svg';
+
+  /// File path: assets/icons/ic_notification2.svg
+  String get icNotification2 => 'assets/icons/ic_notification2.svg';
+
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
 
@@ -125,6 +131,8 @@ class $AssetsIconsGen {
         icMore,
         icMyBalance,
         icMyBills,
+        icNotification,
+        icNotification2,
         icProfile,
         icSettings,
         icShipment,
