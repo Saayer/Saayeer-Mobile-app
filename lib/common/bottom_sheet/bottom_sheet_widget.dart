@@ -5,8 +5,8 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 ///showBottomSheetWidget
-showBottomSheetWidget(
-    BuildContext buildContext, Widget widget, double widgetHeight) {
+showBottomSheetWidget(BuildContext buildContext, Widget widget,
+    double widgetHeight, void Function() whenComplete) {
   double width = MediaQuery.of(buildContext).size.width;
   double height = MediaQuery.of(buildContext).size.height;
   showModalBottomSheet(
@@ -70,7 +70,9 @@ showBottomSheetWidget(
             ),
           ],
         );
-      });
+      }).whenComplete(() {
+    whenComplete();
+  });
 }
 
 ///modalBottomSheetMenu

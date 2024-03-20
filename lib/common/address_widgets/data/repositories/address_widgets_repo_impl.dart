@@ -1,33 +1,30 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:saayer/common/address_widgets/data/data_sources/remote/address_widgets_RDS.dart';
+import 'package:saayer/common/address_widgets/data/models/get_cities/get_cities_response_model.dart';
 import 'package:saayer/common/address_widgets/domain/entities/city_entity.dart';
+import 'package:saayer/common/address_widgets/domain/repositories/address_widgets_repo.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/network/network_info.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/features/address/add_address/data/data_sources/remote/add_address_info_RDS.dart';
-import 'package:saayer/features/address/add_address/data/models/submit_address/submit_address_info_response_model.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
-import 'package:saayer/features/address/add_address/domain/entities/submit_address_info_entity.dart';
-import 'package:saayer/features/address/add_address/domain/repositories/add_address_info_repo.dart';
 
-@Injectable(as: AddAddressInfoRepo)
-class AddAddressInfoRepoImpl implements AddAddressInfoRepo {
-  final AddAddressInfoRDS addAddressInfoRDSImpl;
+@Injectable(as: AddressWidgetsRepo)
+class AddressWidgetsRepoImpl implements AddressWidgetsRepo {
+  final AddressWidgetsRDS addressWidgetsRDSImpl;
 
-  const AddAddressInfoRepoImpl({
-    required this.addAddressInfoRDSImpl,
+  const AddressWidgetsRepoImpl({
+    required this.addressWidgetsRDSImpl,
   });
 
   @override
-  Future<Either<Failure, SubmitAddressInfoEntity?>> submitAddressInfo(
-      AddressInfoEntity addressInfoEntity) async {
+  Future<Either<Failure, List<CityEntity>>> getCities() async {
     log("AddressInfoRepoImpl");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
-        final SubmitAddressInfoResponseModel result =
-            await addAddressInfoRDSImpl.submitAddressInfo(addressInfoEntity);
+        final GetCitiesResponseModel result =
+            await addressWidgetsRDSImpl.getCities();
         log("AddressInfoRepoImpl Right $result");
         if (result != null) {
           return Right(result.toDomain());

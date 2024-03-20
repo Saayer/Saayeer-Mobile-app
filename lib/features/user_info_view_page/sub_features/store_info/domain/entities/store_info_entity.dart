@@ -37,10 +37,11 @@ class StoreInfoEntity extends Equatable {
 
   factory StoreInfoEntity.fromJson(Map<String, dynamic> map) {
     return StoreInfoEntity(
-      name: map['name'] as String,
-      url: map['url'] as String,
-      maroofId: map['maroofId'] as String,
-      commercialRegistrationNo: map['commercialRegistrationNo'] as String,
+      name: (map['name'] ?? "") as String,
+      url: (map['url'] ?? "") as String,
+      maroofId: (map['maroofId'] ?? "") as String,
+      commercialRegistrationNo:
+          (map['commercialRegistrationNo'] ?? "") as String,
     );
   }
 

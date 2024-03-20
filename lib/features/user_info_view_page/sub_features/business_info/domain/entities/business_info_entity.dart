@@ -10,7 +10,6 @@ class BusinessInfoEntity extends Equatable {
       district,
       governorate;
 
-
   const BusinessInfoEntity({
     required this.companyName,
     required this.email,
@@ -56,13 +55,14 @@ class BusinessInfoEntity extends Equatable {
 
   factory BusinessInfoEntity.fromJson(Map<String, dynamic> map) {
     return BusinessInfoEntity(
-      companyName: map['companyName'] as String,
-      email: map['email'] as String,
-      mobileNumber: map['mobileNumber'] as String,
-      commercialRegistrationNo: map['commercialRegistrationNo'] as String,
-      shortAddress: map['shortAddress'] as String,
-      district: map['district'] as String,
-      governorate: map['governorate'] as String,
+      companyName: (map['companyName'] ?? "") as String,
+      email: (map['email'] ?? "") as String,
+      mobileNumber: (map['mobileNumber'] ?? "") as String,
+      commercialRegistrationNo:
+          (map['commercialRegistrationNo'] ?? "") as String,
+      shortAddress: (map['shortAddress'] ?? "") as String,
+      district: (map['district'] ?? "") as String,
+      governorate: (map['governorate'] ?? "") as String,
     );
   }
 
