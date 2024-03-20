@@ -142,6 +142,11 @@
   "empty_notifications_title": "لا يوجد إشعارات!",
   "empty_notifications_desc": "عفوًا! يبدو أنه لا يوجد إشعارات حاليًا.",
   "delivery_days": "أيام التسليم",
-  "service_type": "نوع الخدمة"
-
+  "service_type": "نوع الخدمة",
+  "content": "محتوى",
+  "cost": "تكلفه",
+  "weigth": "حجم",
+  "lenght": "الطول",
+  "width": "العرض",
+  "hieght": "الارتفاع"
 }

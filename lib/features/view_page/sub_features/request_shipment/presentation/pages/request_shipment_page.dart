@@ -8,6 +8,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/add_address/presentation/screens/add_address_screen.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/screens/shipment_providers_screen.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/screens/shipment_specs_screen.dart';
 import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_indicator.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/pages/address_shipment_page.dart';
@@ -25,9 +26,10 @@ class RequestShipmentPage extends StatelessWidget {
     final RequestShipmentBloc userInfoViewPageBloc =
         BlocProvider.of<RequestShipmentBloc>(context);
     final List<Widget> pages = [
+      const ShipmentSpecsScreen(),
       const ShipmentProvidersScreen(),
       const AddAddressScreen(),
-      const CarriersShipmentScreen()
+      // const ShipmentSpecsScreen()
     ];
 
     return BlocConsumer<RequestShipmentBloc, RequestShipmentState>(

@@ -141,5 +141,11 @@
   "empty_notifications_title": "No Notifications Found!",
   "empty_notifications_desc": "Oops! It looks like there are currently no notifications.",
   "delivery_days": "Delivery days",
-  "service_type": "Service type"
+  "service_type": "Service type",
+  "content": "content",
+  "cost": "cost",
+  "weigth": "Weight",
+  "lenght": "Lenght",
+  "width": "Width",
+  "hieght": "Hieght"
 }
