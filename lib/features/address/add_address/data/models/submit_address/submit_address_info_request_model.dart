@@ -9,7 +9,7 @@ class SubmitAddressInfoRequestModel {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map["districtId"] = addressInfoEntity.district;
+    // map["districtId"] = addressInfoEntity.district;
     map["cityId"] = int.tryParse(addressInfoEntity.city) ?? 1;
     map["countryId"] = 1;
     map["fullName"] = addressInfoEntity.name;
