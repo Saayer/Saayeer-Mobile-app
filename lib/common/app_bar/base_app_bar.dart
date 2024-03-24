@@ -13,6 +13,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final bool? centerTitle;
   final bool showBackLeading;
+  final bool showAppBar;
   final Widget leadingWidget;
   final double height;
 
@@ -23,48 +24,55 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.centerTitle = true,
     this.showBackLeading = true,
+    this.showAppBar = true,
     this.leadingWidget = const SizedBox(),
     this.height = 50,
   });
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-      centerTitle: centerTitle,
-      titleSpacing: 0,
-      elevation: 2,
-      title: title == null
-          ? Container(
-              width: 100.w,
-              height: 40.h,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                          Constants.getIconPath("ic_logo_text.png")))),
-            )
-          : Text(
-              title!.tr(),
-              style: AppTextStyles.mainFocusedLabel(),
-            ),
-      actions: actions ?? [],
-      //leadingWidth: !(showBackLeading) ? 20.w : null,
-      leading: showBackLeading
-          ? GestureDetector(
-              onTap: onTapLeading ??
-                  () {
-                    FocusScope.of(context).unfocus();
-                    getIt<NavigationService>().pop();
-                  },
-              child: Icon(
-                Icons.arrow_back_ios_sharp,
-                color: SaayerTheme().getColorsPalette.blackTextColor,
-              ),
-            )
-          : leadingWidget,
-    );
+    return showAppBar
+        ? AppBar(
+            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+            centerTitle: centerTitle,
+            titleSpacing: 0,
+            elevation: 2,
+            title: title == null
+                ? Container(
+                    width: 100.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                                Constants.getIconPath("ic_logo_text.png")))),
+                  )
+                : Text(
+                    title!.tr(),
+                    style: AppTextStyles.mainFocusedLabel(),
+                  ),
+            actions: actions ?? [],
+            //leadingWidth: !(showBackLeading) ? 20.w : null,
+            leading: showBackLeading
+                ? GestureDetector(
+                    onTap: onTapLeading ??
+                        () {
+                          FocusScope.of(context).unfocus();
+                          getIt<NavigationService>().pop();
+                        },
+                    child: Icon(
+                      Icons.arrow_back_ios_sharp,
+                      color: SaayerTheme().getColorsPalette.blackTextColor,
+                    ),
+                  )
+                : leadingWidget,
+          )
+        : PreferredSize(
+            preferredSize: Size.fromHeight(0.0),
+            child: Container(),
+          );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height.h);
+  Size get preferredSize =>
+      showAppBar ? Size.fromHeight(height.h) : Size.fromHeight(0.0);
 }

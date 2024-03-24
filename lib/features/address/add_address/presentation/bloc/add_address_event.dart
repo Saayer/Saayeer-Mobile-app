@@ -6,9 +6,11 @@ abstract class AddAddressEvent extends Equatable {
 
 class InitAddAddress extends AddAddressEvent {
   final bool isEnglish;
+  final bool isAddShipmentRequest;
 
   const InitAddAddress({
     required this.isEnglish,
+    required this.isAddShipmentRequest,
   });
 
   @override

@@ -76,7 +76,9 @@ class AddressesBookPage extends StatelessWidget {
                     borderRadius: 16.r,
                     onPressed: () {
                       getIt<NavigationService>()
-                          .navigateTo(const AddAddressScreen(), onBack: (_) {
+                          .navigateTo(const AddAddressScreen(
+                        isAddShipmentRequest: true,
+                      ), onBack: (_) {
                         addressesBookBloc.add(const GetAddresses());
                       });
                     },

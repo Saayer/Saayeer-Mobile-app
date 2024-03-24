@@ -31,8 +31,10 @@ class EmptyAddressesBook extends StatelessWidget {
           btnLabel: "add_address",
           iconName: "addresses_book",
           onBtnPressed: () {
-            getIt<NavigationService>().navigateTo(const AddAddressScreen(),
-                onBack: (_) {
+            getIt<NavigationService>().navigateTo(
+                const AddAddressScreen(
+                  isAddShipmentRequest: true,
+                ), onBack: (_) {
               addressesBookBloc.add(const GetAddresses());
             });
           },

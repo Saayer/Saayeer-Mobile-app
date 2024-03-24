@@ -17,13 +17,18 @@ import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/features/address/add_address/core/errors/add_address_error_handler.dart';
 import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart';
 import 'dart:ui' as ui;
 
 import 'package:saayer/features/address/add_address/presentation/widgets/address_text_field_helper.dart';
 
 class AddAddressPage extends StatelessWidget {
-  const AddAddressPage({super.key});
+  final bool isAddShipmentRequest;
+  final void Function(AddressInfoEntity)? onBack;
+
+  const AddAddressPage(
+      {super.key, required this.isAddShipmentRequest, this.onBack});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,13 @@ class AddAddressPage extends StatelessWidget {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-            Navigator.pop(context);
+            if (isAddShipmentRequest) {
+              Navigator.pop(context);
+            } else {
+              print('isAddShipmentRequest');
+              onBack!(state.addressInfoEntity!);
+
+            }
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
@@ -56,6 +67,7 @@ class AddAddressPage extends StatelessWidget {
           appBar: BaseAppBar(
             title: "add_address".tr(),
             showBackLeading: true,
+            showAppBar: isAddShipmentRequest,
           ),
           bottomSheet: Container(
             width: width,

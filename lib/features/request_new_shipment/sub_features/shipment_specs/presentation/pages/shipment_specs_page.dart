@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
@@ -9,11 +10,16 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/core/utils/enums/enums.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/domain/entities/shipment_specs_entity.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/bloc/shipment_specs_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/widgets/shipment_specs_text_field_helper.dart';
 
 class ShipmentSpecsPage extends StatelessWidget {
-  const ShipmentSpecsPage({super.key});
+  final bool isAddShipmentRequest;
+  final void Function(ShipmentSpecsEntity)? onBack;
+
+  const ShipmentSpecsPage(
+      {super.key, required this.isAddShipmentRequest, this.onBack});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +38,16 @@ class ShipmentSpecsPage extends StatelessWidget {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-//todo
-            // userInfoViewPageBloc.add(GoToNextPageEvent());
+            if (isAddShipmentRequest) {
+              print('isAddShipmentRequest');
+              onBack!(state.shipmentSpecsEntity!);
+            } else {
+              Navigator.pop(context);
+            }
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
-            //todo
-            // StoreInfoErrorHandler(state: state)();
+            // AddAddressErrorHandler(state: state)();
           }
         }
       },
@@ -46,6 +55,11 @@ class ShipmentSpecsPage extends StatelessWidget {
         canPop: false,
         child: Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          appBar: BaseAppBar(
+            title: "shipment_details".tr(),
+            showBackLeading: true,
+            showAppBar: isAddShipmentRequest,
+          ),
           bottomSheet: Container(
             width: width,
             color: SaayerTheme().getColorsPalette.backgroundColor,

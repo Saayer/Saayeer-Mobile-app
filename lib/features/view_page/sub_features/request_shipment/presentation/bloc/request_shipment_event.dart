@@ -4,10 +4,10 @@ abstract class RequestShipmentEvent extends Equatable {
   const RequestShipmentEvent();
 }
 
-class InitUserInfoViewPageEvent extends RequestShipmentEvent {
+class InitRequestShipmentViewPageEvent extends RequestShipmentEvent {
   final int currentPage;
 
-  const InitUserInfoViewPageEvent({
+  const InitRequestShipmentViewPageEvent({
     required this.currentPage,
   });
 
@@ -18,4 +18,22 @@ class InitUserInfoViewPageEvent extends RequestShipmentEvent {
 class GoToNextPageEvent extends RequestShipmentEvent {
   @override
   List<Object> get props => [];
+}
+
+class AddAddressInfoEvent extends RequestShipmentEvent {
+  final AddressInfoEntity addressInfoEntity;
+
+  AddAddressInfoEvent(this.addressInfoEntity);
+
+  @override
+  List<Object> get props => [addressInfoEntity];
+}
+
+class AddShipmentSpecsEvent extends RequestShipmentEvent {
+  final ShipmentSpecsEntity shipmentSpecsEntity;
+
+  AddShipmentSpecsEvent(this.shipmentSpecsEntity);
+
+  @override
+  List<Object> get props => [shipmentSpecsEntity];
 }

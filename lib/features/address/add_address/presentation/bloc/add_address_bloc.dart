@@ -52,6 +52,9 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
 
   Future<FutureOr<void>> _initAddAddress(
       InitAddAddress event, Emitter<AddAddressState> emit) async {
+    emit(
+      state.copyWith(isAddShipmentRequest: event.isAddShipmentRequest),
+    );
     initAddressHelper.updateState(state);
     // await initAddressHelper.getCities(
     //     (cities) => cityEntityList.addAll(cities), emit);
