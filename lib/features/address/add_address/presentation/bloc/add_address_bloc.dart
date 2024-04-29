@@ -124,6 +124,7 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
             mobile: mobile,
             address: addressController.text,
             district: districtController.text,
+            //todo check with back end
             city: selectedCityEntity!.id,
             country: "")));
     await _uploadAddressData(emit);

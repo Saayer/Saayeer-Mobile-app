@@ -19,9 +19,7 @@ part 'shipment_specs_state.dart';
 
 @Injectable()
 class ShipmentSpecsBloc extends Bloc<ShipmentSpecsEvent, ShipmentSpecsState> {
-
-  ShipmentSpecsBloc()
-      : super(const ShipmentSpecsState()) {
+  ShipmentSpecsBloc() : super(const ShipmentSpecsState()) {
     on<OnTextChange>(_onTextChange);
     on<SubmitShipmentSpecsInfoData>(_submitStoreInfoData);
     on<ToggleAutoValidate>(_toggleAutoValidate);
@@ -34,14 +32,12 @@ class ShipmentSpecsBloc extends Bloc<ShipmentSpecsEvent, ShipmentSpecsState> {
   final TextEditingController widthController = TextEditingController();
   final TextEditingController costController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
-  final TextEditingController contentController =
-  TextEditingController();
-
+  final TextEditingController contentController = TextEditingController();
 
   Map<ShipmentSpecsFieldsTypes, bool> shipmentSpecsFieldsTypesValidMap = {};
 
-  FutureOr<void> _onTextChange(OnTextChange event,
-      Emitter<ShipmentSpecsState> emit) {
+  FutureOr<void> _onTextChange(
+      OnTextChange event, Emitter<ShipmentSpecsState> emit) {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     event.textEditingController!.text = event.str ?? "";
@@ -49,7 +45,7 @@ class ShipmentSpecsBloc extends Bloc<ShipmentSpecsEvent, ShipmentSpecsState> {
     event.textEditingController!.selection = previousSelection;
     log("onTextChange ${event.str}", name: "onTextChange");
     shipmentSpecsFieldsTypesValidMap[event.shipmentSpecsFieldsTypes] =
-    (event.str?.isNotEmpty ?? false);
+        (event.str?.isNotEmpty ?? false);
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
     ));
@@ -61,7 +57,10 @@ class ShipmentSpecsBloc extends Bloc<ShipmentSpecsEvent, ShipmentSpecsState> {
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     emit(state.copyWith(
-        stateHelper: const StateHelper(requestState: RequestState.LOADED),
+        stateHelper: const StateHelper(
+          // requestState: RequestState.LOADED,
+          requestState: RequestState.SUCCESS,
+        ),
         shipmentSpecsEntity: ShipmentSpecsEntity(
           width: widthController.text,
           weight: weightController.text,
@@ -71,11 +70,10 @@ class ShipmentSpecsBloc extends Bloc<ShipmentSpecsEvent, ShipmentSpecsState> {
           content: contentController.text,
         )));
     print('state.shipmentSpecsEntity!.length');
-    print( "daskjhsadkjads "+state.shipmentSpecsEntity!.length.toString());
-    print( "daskjhsadkjads "+state.shipmentSpecsEntity!.weight.toString());
+    print("daskjhsadkjads " + state.shipmentSpecsEntity!.length.toString());
+    print("daskjhsadkjads " + state.shipmentSpecsEntity!.weight.toString());
     // await _submitStoreInfo(SubmitStoreInfo(), emit);
   }
-
 
   // Future<FutureOr<void>> _submitStoreInfoData(
   //     SubmitShipmentSpecsInfo event, Emitter<ShipmentSpecsState> emit) async {
@@ -95,8 +93,8 @@ class ShipmentSpecsBloc extends Bloc<ShipmentSpecsEvent, ShipmentSpecsState> {
   //   await _submitStoreInfo(SubmitShipmentSpecsInfo(), emit);
   // }
 
-  FutureOr<void> _toggleAutoValidate(ToggleAutoValidate event,
-      Emitter<ShipmentSpecsState> emit) {
+  FutureOr<void> _toggleAutoValidate(
+      ToggleAutoValidate event, Emitter<ShipmentSpecsState> emit) {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
@@ -105,8 +103,8 @@ class ShipmentSpecsBloc extends Bloc<ShipmentSpecsEvent, ShipmentSpecsState> {
         autoValidateMode: AutovalidateMode.always));
   }
 
-  Future<FutureOr<void>> _submitStoreInfo(ShipmentSpecsEvent event,
-      Emitter<ShipmentSpecsState> emit) async {
+  Future<FutureOr<void>> _submitStoreInfo(
+      ShipmentSpecsEvent event, Emitter<ShipmentSpecsState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 

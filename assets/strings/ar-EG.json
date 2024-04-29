@@ -149,5 +149,6 @@
   "width": "العرض",
   "hieght": "الارتفاع",
   "empty_notifications_desc": "عفوًا! يبدو أنه لا يوجد إشعارات حاليًا.",
-  "search": "بحث"
+  "search": "بحث",
+  "sender_city": "مدينة المرسل : "
 }

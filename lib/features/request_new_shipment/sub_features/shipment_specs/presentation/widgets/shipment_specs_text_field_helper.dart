@@ -10,10 +10,26 @@ class ShipmentSpecsTextFieldHelper {
   Widget getTextField(ShipmentSpecsBloc shipmentSpecsBloc,
       ShipmentSpecsFieldsTypes shipmentSpecsFieldsTypes) {
     switch (shipmentSpecsFieldsTypes) {
+      case ShipmentSpecsFieldsTypes.CONTENT:
+        {
+          return InputTextField(
+            label: shipmentSpecsFieldsTypes.name.toLowerCase(),
+            inputController: _getInputController(
+                shipmentSpecsBloc, shipmentSpecsFieldsTypes),
+            onChanged: (val) {
+              shipmentSpecsBloc.add(OnTextChange(
+                  str: val,
+                  shipmentSpecsFieldsTypes: shipmentSpecsFieldsTypes,
+                  textEditingController: _getInputController(
+                      shipmentSpecsBloc, shipmentSpecsFieldsTypes)));
+            },
+          );
+        }
       default:
         {
           return InputTextField(
             label: shipmentSpecsFieldsTypes.name.toLowerCase(),
+            keyboardType:  TextInputType.number,
             inputController: _getInputController(
                 shipmentSpecsBloc, shipmentSpecsFieldsTypes),
             onChanged: (val) {

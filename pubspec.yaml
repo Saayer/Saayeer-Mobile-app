@@ -87,6 +87,7 @@ dependencies:
   encrypt_decrypt_plus: ^1.1.0
   line_icons: ^2.0.3
   shimmer: ^3.0.0
+  dotted_line: ^3.2.2
 
 #fvm flutter packages pub run build_runner build
 # fvm dart run build_runner build

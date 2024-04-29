@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/cached_network_image_widget.dart';
 import 'package:saayer/common/text/rich_text_widget.dart';
+import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_provider_model.dart';
+import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
 
 class ShipmentProviderCard extends StatelessWidget {
   final ShipmentProviderModel shipmentProviderModel;
@@ -15,6 +17,9 @@ class ShipmentProviderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        getIt<RequestShipmentBloc>().add(GoToNextPageEvent());
+      },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
         child: Container(
@@ -60,7 +65,6 @@ class ShipmentProviderCard extends StatelessWidget {
                       SizedBox(
                         height: 8.0,
                       ),
-
                       RichTextWidget(
                         keyStr: 'delivery_days'.tr(),
                         valueStr: shipmentProviderModel.deliverDaysPharse!,

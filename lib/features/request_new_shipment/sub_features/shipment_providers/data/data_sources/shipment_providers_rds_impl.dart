@@ -5,6 +5,7 @@ import 'package:saayer/core/API/end_points/end_points/shipment/shipment_endpoint
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/data_sources/shipment_prroviders_rds.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/request_shipment_provider.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_providers_response.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/entities/get_shipment_providers_entity.dart';
 
 @Injectable(as: ShipmentProvidersRDS)
 class ShipmentProvidersRDSImpl implements ShipmentProvidersRDS {
@@ -13,15 +14,15 @@ class ShipmentProvidersRDSImpl implements ShipmentProvidersRDS {
   ShipmentProvidersRDSImpl({required this.apiConsumer});
 
   @override
-  Future<ShipmentProvidersResponse> getShipmentProviders() async {
+  Future<ShipmentProvidersResponse> getShipmentProviders( GetShipmentProvidersEntity shipmentProvidersEntity) async {
     print('ShipmentProvidersRDSImpl');
-    //todo entity
-    final RequestShipmentProvider requestShipmentProvider =
-        RequestShipmentProvider();
+    // //todo entity
+    // final RequestShipmentProvider requestShipmentProvider =
+    //     RequestShipmentProvider();
 
     Map<String, dynamic> result = Map<String, dynamic>.from(
       await apiConsumer.post(ShipmentEndpoints.getShipmentProviders,
-          body: requestShipmentProvider.toJson()),
+          body: shipmentProvidersEntity.toJson()),
     );
 
     print('result');

@@ -53,7 +53,8 @@ class ShipmentProvidersPage extends StatelessWidget {
                         state.shipmentProvidersResponse!.data!.length - 1);
 
                     return ShipmentProviderCard(
-                        shipmentProviderModel: shipmentProviderModel);
+                      shipmentProviderModel: shipmentProviderModel,
+                    );
                   })
               : Container(),
         );

@@ -9,6 +9,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/add_address/presentation/screens/add_address_screen.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_provider_model.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/screens/shipment_providers_screen.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/domain/entities/shipment_specs_entity.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/screens/shipment_specs_screen.dart';
@@ -17,6 +18,7 @@ import 'package:saayer/features/view_page/sub_features/request_shipment/presenta
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/pages/address_shipment_page.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/screens/address_shipment_screen.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipment_information/presentation/screens/information_shipment_screen.dart';
+import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipment_preview/presentation/screens/shipment_preview_screen.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipments_cariers_selection/presentation/screens/carriers_shipment_screen.dart';
 
 class RequestShipmentPage extends StatelessWidget {
@@ -29,6 +31,7 @@ class RequestShipmentPage extends StatelessWidget {
     final RequestShipmentBloc requestShipmentBloc =
         BlocProvider.of<RequestShipmentBloc>(context);
     final List<Widget> pages = [
+      ShipmentPreviewScreen(),
       AddAddressScreen(
         isAddShipmentRequest: false,
         onBack: (AddressInfoEntity addressInfoEntity) {
@@ -41,7 +44,7 @@ class RequestShipmentPage extends StatelessWidget {
           requestShipmentBloc.add(AddShipmentSpecsEvent(shipmentSpecsEntity));
         },
       ),
-      const ShipmentProvidersScreen(),
+      // ShipmentPreviewScreen(),
     ];
 
     return BlocConsumer<RequestShipmentBloc, RequestShipmentState>(
@@ -63,8 +66,6 @@ class RequestShipmentPage extends StatelessWidget {
         // }
       },
       builder: (context, state) {
-        print('state.currentPage');
-        print(state.currentPage);
         return PopScope(
           canPop: true,
           child: Scaffold(
@@ -85,11 +86,11 @@ class RequestShipmentPage extends StatelessWidget {
                         height: 20.h,
                       ),
                       Row(
-                        children: List.generate(3, (index) {
+                        children: List.generate(4, (index) {
                           final bool isPrevious = (state.currentPage > index);
                           final bool isCurrent = (state.currentPage == index);
                           return SizedBox(
-                              width: width / 3,
+                              width: width / 4,
                               child: LinearIndicator(
                                 color: isPrevious
                                     ? (SaayerTheme()

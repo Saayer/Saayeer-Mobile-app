@@ -38,12 +38,13 @@ class ShipmentSpecsPage extends StatelessWidget {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-            if (isAddShipmentRequest) {
-              print('isAddShipmentRequest');
-              onBack!(state.shipmentSpecsEntity!);
-            } else {
-              Navigator.pop(context);
-            }
+            print('SUCCESS');
+            // if (isAddShipmentRequest) {
+            //   print('isAddShipmentRequest');
+            onBack!(state.shipmentSpecsEntity!);
+            // } else {
+            //   Navigator.pop(context);
+            // }
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
@@ -55,6 +56,7 @@ class ShipmentSpecsPage extends StatelessWidget {
         canPop: false,
         child: Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          resizeToAvoidBottomInset: false,
           appBar: BaseAppBar(
             title: "shipment_details".tr(),
             showBackLeading: true,

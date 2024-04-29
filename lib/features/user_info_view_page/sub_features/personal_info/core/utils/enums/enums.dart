@@ -2,9 +2,9 @@ enum PersonalInfoFieldsTypes {
   NAME._(name: "name"),
   EMAIL._(name: "email"),
   NATIONAL_ID._(name: "national_id"),
+  GOVERNORATE._(name: "governorate"),
   ADDRESS._(name: "address"),
-  DISTRICT._(name: "district"),
-  GOVERNORATE._(name: "governorate");
+  DISTRICT._(name: "district");
 
   final String name;
 
