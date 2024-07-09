@@ -31,7 +31,6 @@ class RequestShipmentPage extends StatelessWidget {
     final RequestShipmentBloc requestShipmentBloc =
         BlocProvider.of<RequestShipmentBloc>(context);
     final List<Widget> pages = [
-      ShipmentPreviewScreen(),
       AddAddressScreen(
         isAddShipmentRequest: false,
         onBack: (AddressInfoEntity addressInfoEntity) {
@@ -44,7 +43,8 @@ class RequestShipmentPage extends StatelessWidget {
           requestShipmentBloc.add(AddShipmentSpecsEvent(shipmentSpecsEntity));
         },
       ),
-      // ShipmentPreviewScreen(),
+      CarriersShipmentScreen(),
+      ShipmentPreviewScreen(),
     ];
 
     return BlocConsumer<RequestShipmentBloc, RequestShipmentState>(

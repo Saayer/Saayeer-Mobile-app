@@ -9,7 +9,7 @@ class AddressEndPoints {
   static String get getAddresses {
     return EndPointBuilder.build(
             resourcePath: "GetClients",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsClientCollection())
         .fullUrl;
   }
 }

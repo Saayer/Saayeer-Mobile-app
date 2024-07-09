@@ -14,7 +14,7 @@ class EndPointsBaseUrl {
       case FlavorType.DEV:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "http://34.140.10.214/api/");
+              baseUrl: "http://34.140.10.214/v0-2/");
         }
       case FlavorType.STAGING:
       case FlavorType.PROD:
