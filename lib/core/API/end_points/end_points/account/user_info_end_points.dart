@@ -5,28 +5,28 @@ class UserInfoEndPoints {
   static String get updatePersonalInfo {
     return EndPointBuilder.build(
             resourcePath: "UpdatePersonalInfo",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsProfileCollection())
         .fullUrl;
   }
 
   static String get updateBusinessInfo {
     return EndPointBuilder.build(
             resourcePath: "UpdateBusinessInfo",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsProfileCollection())
         .fullUrl;
   }
 
   static String get createStoreInfo {
     return EndPointBuilder.build(
             resourcePath: "CreateStoreInfo",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsStoreCollection())
         .fullUrl;
   }
 
   static String get updateStoreInfo {
     return EndPointBuilder.build(
             resourcePath: "UpdateStoreInfo",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsStoreCollection())
         .fullUrl;
   }
 }

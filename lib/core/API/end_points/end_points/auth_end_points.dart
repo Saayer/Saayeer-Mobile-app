@@ -6,7 +6,7 @@ class AuthEndPoints {
   }
 
   static String get confirmLogin {
-    return EndPointBuilder.build(resourcePath: "Authlogin").fullUrl;
+    return EndPointBuilder.build(resourcePath: "auth").fullUrl;
   }
 
   static String get entry {

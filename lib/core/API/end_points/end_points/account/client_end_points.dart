@@ -5,14 +5,14 @@ class ClientEndPoints {
   static String get getClients {
     return EndPointBuilder.build(
             resourcePath: "GetClients",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsClientCollection())
         .fullUrl;
   }
 
   static String get addClient {
     return EndPointBuilder.build(
             resourcePath: "AddClient",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsClientCollection())
         .fullUrl;
   }
 }
