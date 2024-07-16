@@ -89,6 +89,10 @@ dependencies:
   shimmer: ^3.0.0
   dotted_line: ^3.2.2
 
+  #openapi
+  openapi:
+    path: ./api
+
 #fvm flutter packages pub run build_runner build
 # fvm dart run build_runner build
 dev_dependencies:
