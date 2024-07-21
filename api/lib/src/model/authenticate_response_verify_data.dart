@@ -6,55 +6,55 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'authenticated_response.g.dart';
+part 'authenticate_response_verify_data.g.dart';
 
-/// AuthenticatedResponse
+/// AuthenticateResponseVerifyData
 ///
 /// Properties:
-/// * [token] 
-/// * [refreshToken] 
+/// * [otp] 
+/// * [message] 
 @BuiltValue()
-abstract class AuthenticatedResponse implements Built<AuthenticatedResponse, AuthenticatedResponseBuilder> {
-  @BuiltValueField(wireName: r'token')
-  String? get token;
+abstract class AuthenticateResponseVerifyData implements Built<AuthenticateResponseVerifyData, AuthenticateResponseVerifyDataBuilder> {
+  @BuiltValueField(wireName: r'Otp')
+  String? get otp;
 
-  @BuiltValueField(wireName: r'refreshToken')
-  String? get refreshToken;
+  @BuiltValueField(wireName: r'Message')
+  String? get message;
 
-  AuthenticatedResponse._();
+  AuthenticateResponseVerifyData._();
 
-  factory AuthenticatedResponse([void updates(AuthenticatedResponseBuilder b)]) = _$AuthenticatedResponse;
+  factory AuthenticateResponseVerifyData([void updates(AuthenticateResponseVerifyDataBuilder b)]) = _$AuthenticateResponseVerifyData;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AuthenticatedResponseBuilder b) => b;
+  static void _defaults(AuthenticateResponseVerifyDataBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AuthenticatedResponse> get serializer => _$AuthenticatedResponseSerializer();
+  static Serializer<AuthenticateResponseVerifyData> get serializer => _$AuthenticateResponseVerifyDataSerializer();
 }
 
-class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<AuthenticatedResponse> {
+class _$AuthenticateResponseVerifyDataSerializer implements PrimitiveSerializer<AuthenticateResponseVerifyData> {
   @override
-  final Iterable<Type> types = const [AuthenticatedResponse, _$AuthenticatedResponse];
+  final Iterable<Type> types = const [AuthenticateResponseVerifyData, _$AuthenticateResponseVerifyData];
 
   @override
-  final String wireName = r'AuthenticatedResponse';
+  final String wireName = r'AuthenticateResponseVerifyData';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AuthenticatedResponse object, {
+    AuthenticateResponseVerifyData object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.token != null) {
-      yield r'token';
+    if (object.otp != null) {
+      yield r'Otp';
       yield serializers.serialize(
-        object.token,
+        object.otp,
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.refreshToken != null) {
-      yield r'refreshToken';
+    if (object.message != null) {
+      yield r'Message';
       yield serializers.serialize(
-        object.refreshToken,
+        object.message,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -63,7 +63,7 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
   @override
   Object serialize(
     Serializers serializers,
-    AuthenticatedResponse object, {
+    AuthenticateResponseVerifyData object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -74,28 +74,28 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AuthenticatedResponseBuilder result,
+    required AuthenticateResponseVerifyDataBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'token':
+        case r'Otp':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.token = valueDes;
+          result.otp = valueDes;
           break;
-        case r'refreshToken':
+        case r'Message':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.refreshToken = valueDes;
+          result.message = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -106,12 +106,12 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
   }
 
   @override
-  AuthenticatedResponse deserialize(
+  AuthenticateResponseVerifyData deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AuthenticatedResponseBuilder();
+    final result = AuthenticateResponseVerifyDataBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

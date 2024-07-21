@@ -3,59 +3,71 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/address_get_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'authenticated_response.g.dart';
+part 'customer_get_dto.g.dart';
 
-/// AuthenticatedResponse
+/// CustomerGetDto
 ///
 /// Properties:
-/// * [token] 
-/// * [refreshToken] 
+/// * [id] 
+/// * [fullName] 
+/// * [address] 
 @BuiltValue()
-abstract class AuthenticatedResponse implements Built<AuthenticatedResponse, AuthenticatedResponseBuilder> {
-  @BuiltValueField(wireName: r'token')
-  String? get token;
+abstract class CustomerGetDto implements Built<CustomerGetDto, CustomerGetDtoBuilder> {
+  @BuiltValueField(wireName: r'id')
+  int? get id;
 
-  @BuiltValueField(wireName: r'refreshToken')
-  String? get refreshToken;
+  @BuiltValueField(wireName: r'fullName')
+  String? get fullName;
 
-  AuthenticatedResponse._();
+  @BuiltValueField(wireName: r'address')
+  AddressGetDto? get address;
 
-  factory AuthenticatedResponse([void updates(AuthenticatedResponseBuilder b)]) = _$AuthenticatedResponse;
+  CustomerGetDto._();
+
+  factory CustomerGetDto([void updates(CustomerGetDtoBuilder b)]) = _$CustomerGetDto;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AuthenticatedResponseBuilder b) => b;
+  static void _defaults(CustomerGetDtoBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AuthenticatedResponse> get serializer => _$AuthenticatedResponseSerializer();
+  static Serializer<CustomerGetDto> get serializer => _$CustomerGetDtoSerializer();
 }
 
-class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<AuthenticatedResponse> {
+class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> {
   @override
-  final Iterable<Type> types = const [AuthenticatedResponse, _$AuthenticatedResponse];
+  final Iterable<Type> types = const [CustomerGetDto, _$CustomerGetDto];
 
   @override
-  final String wireName = r'AuthenticatedResponse';
+  final String wireName = r'CustomerGetDto';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AuthenticatedResponse object, {
+    CustomerGetDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.token != null) {
-      yield r'token';
+    if (object.id != null) {
+      yield r'id';
       yield serializers.serialize(
-        object.token,
+        object.id,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.fullName != null) {
+      yield r'fullName';
+      yield serializers.serialize(
+        object.fullName,
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.refreshToken != null) {
-      yield r'refreshToken';
+    if (object.address != null) {
+      yield r'address';
       yield serializers.serialize(
-        object.refreshToken,
-        specifiedType: const FullType.nullable(String),
+        object.address,
+        specifiedType: const FullType(AddressGetDto),
       );
     }
   }
@@ -63,7 +75,7 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
   @override
   Object serialize(
     Serializers serializers,
-    AuthenticatedResponse object, {
+    CustomerGetDto object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -74,28 +86,34 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AuthenticatedResponseBuilder result,
+    required CustomerGetDtoBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'token':
+        case r'id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.token = valueDes;
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
           break;
-        case r'refreshToken':
+        case r'fullName':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.refreshToken = valueDes;
+          result.fullName = valueDes;
+          break;
+        case r'address':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(AddressGetDto),
+          ) as AddressGetDto;
+          result.address.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -106,12 +124,12 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
   }
 
   @override
-  AuthenticatedResponse deserialize(
+  CustomerGetDto deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AuthenticatedResponseBuilder();
+    final result = CustomerGetDtoBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

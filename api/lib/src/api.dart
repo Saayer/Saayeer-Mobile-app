@@ -11,8 +11,10 @@ import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/account_api.dart';
 import 'package:openapi/src/api/address_api.dart';
+import 'package:openapi/src/api/address_lookups_api.dart';
 import 'package:openapi/src/api/attachments_api.dart';
 import 'package:openapi/src/api/client_api.dart';
+import 'package:openapi/src/api/customers_api.dart';
 import 'package:openapi/src/api/profile_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/shipment_api.dart';
@@ -84,6 +86,12 @@ class Openapi {
     return AddressApi(dio, serializers);
   }
 
+  /// Get AddressLookupsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  AddressLookupsApi getAddressLookupsApi() {
+    return AddressLookupsApi(dio, serializers);
+  }
+
   /// Get AttachmentsApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   AttachmentsApi getAttachmentsApi() {
@@ -94,6 +102,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   ClientApi getClientApi() {
     return ClientApi(dio, serializers);
+  }
+
+  /// Get CustomersApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  CustomersApi getCustomersApi() {
+    return CustomersApi(dio, serializers);
   }
 
   /// Get ProfileApi instance, base route and serializer can be overridden by a given but be careful,

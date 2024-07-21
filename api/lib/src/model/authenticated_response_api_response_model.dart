@@ -18,16 +18,16 @@ part 'authenticated_response_api_response_model.g.dart';
 /// * [reqSecureKey] 
 @BuiltValue()
 abstract class AuthenticatedResponseApiResponseModel implements Built<AuthenticatedResponseApiResponseModel, AuthenticatedResponseApiResponseModelBuilder> {
-  @BuiltValueField(wireName: r'Success')
+  @BuiltValueField(wireName: r'success')
   bool? get success;
 
-  @BuiltValueField(wireName: r'Data')
+  @BuiltValueField(wireName: r'data')
   AuthenticatedResponse? get data;
 
-  @BuiltValueField(wireName: r'ErrorMessage')
+  @BuiltValueField(wireName: r'errorMessage')
   String? get errorMessage;
 
-  @BuiltValueField(wireName: r'ReqSecureKey')
+  @BuiltValueField(wireName: r'reqSecureKey')
   String? get reqSecureKey;
 
   AuthenticatedResponseApiResponseModel._();
@@ -54,28 +54,28 @@ class _$AuthenticatedResponseApiResponseModelSerializer implements PrimitiveSeri
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.success != null) {
-      yield r'Success';
+      yield r'success';
       yield serializers.serialize(
         object.success,
         specifiedType: const FullType(bool),
       );
     }
     if (object.data != null) {
-      yield r'Data';
+      yield r'data';
       yield serializers.serialize(
         object.data,
         specifiedType: const FullType(AuthenticatedResponse),
       );
     }
     if (object.errorMessage != null) {
-      yield r'ErrorMessage';
+      yield r'errorMessage';
       yield serializers.serialize(
         object.errorMessage,
         specifiedType: const FullType.nullable(String),
       );
     }
     if (object.reqSecureKey != null) {
-      yield r'ReqSecureKey';
+      yield r'reqSecureKey';
       yield serializers.serialize(
         object.reqSecureKey,
         specifiedType: const FullType.nullable(String),
@@ -104,21 +104,21 @@ class _$AuthenticatedResponseApiResponseModelSerializer implements PrimitiveSeri
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'Success':
+        case r'success':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(bool),
           ) as bool;
           result.success = valueDes;
           break;
-        case r'Data':
+        case r'data':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(AuthenticatedResponse),
           ) as AuthenticatedResponse;
           result.data.replace(valueDes);
           break;
-        case r'ErrorMessage':
+        case r'errorMessage':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
@@ -126,7 +126,7 @@ class _$AuthenticatedResponseApiResponseModelSerializer implements PrimitiveSeri
           if (valueDes == null) continue;
           result.errorMessage = valueDes;
           break;
-        case r'ReqSecureKey':
+        case r'reqSecureKey':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),

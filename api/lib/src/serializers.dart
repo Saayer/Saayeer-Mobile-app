@@ -14,11 +14,15 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
+import 'package:openapi/src/model/address_add_dto.dart';
+import 'package:openapi/src/model/address_get_dto.dart';
+import 'package:openapi/src/model/address_look_up_dto.dart';
 import 'package:openapi/src/model/app_settings.dart';
 import 'package:openapi/src/model/app_settings_api_response_public_model.dart';
 import 'package:openapi/src/model/authenticate_request.dart';
 import 'package:openapi/src/model/authenticate_request_verify.dart';
 import 'package:openapi/src/model/authenticate_response_verify.dart';
+import 'package:openapi/src/model/authenticate_response_verify_data.dart';
 import 'package:openapi/src/model/authenticated_response.dart';
 import 'package:openapi/src/model/authenticated_response_api_response_model.dart';
 import 'package:openapi/src/model/boolean_api_response_model.dart';
@@ -31,6 +35,8 @@ import 'package:openapi/src/model/cost_response_dto.dart';
 import 'package:openapi/src/model/cost_response_dto_list_api_response_model.dart';
 import 'package:openapi/src/model/create_shipment_request_dto.dart';
 import 'package:openapi/src/model/create_store_information_vm.dart';
+import 'package:openapi/src/model/customer_add_dto.dart';
+import 'package:openapi/src/model/customer_get_dto.dart';
 import 'package:openapi/src/model/login_device_informations.dart';
 import 'package:openapi/src/model/lookup_dto.dart';
 import 'package:openapi/src/model/lookup_dto_list_api_response_model.dart';
@@ -51,11 +57,15 @@ import 'package:openapi/src/model/user_profile_vm_api_response_model.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
+  AddressAddDto,
+  AddressGetDto,
+  AddressLookUpDto,
   AppSettings,
   AppSettingsApiResponsePublicModel,
   AuthenticateRequest,
   AuthenticateRequestVerify,
   AuthenticateResponseVerify,
+  AuthenticateResponseVerifyData,
   AuthenticatedResponse,
   AuthenticatedResponseApiResponseModel,
   BooleanApiResponseModel,
@@ -68,6 +78,8 @@ part 'serializers.g.dart';
   CostResponseDtoListApiResponseModel,
   CreateShipmentRequestDto,
   CreateStoreInformationVM,
+  CustomerAddDto,
+  CustomerGetDto,
   LoginDeviceInformations,
   LookupDto,
   LookupDtoListApiResponseModel,
@@ -86,6 +98,14 @@ part 'serializers.g.dart';
   UserProfileVMApiResponseModel,
 ])
 Serializers serializers = (_$serializers.toBuilder()
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(AddressLookUpDto)]),
+        () => ListBuilder<AddressLookUpDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CustomerGetDto)]),
+        () => ListBuilder<CustomerGetDto>(),
+      )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())

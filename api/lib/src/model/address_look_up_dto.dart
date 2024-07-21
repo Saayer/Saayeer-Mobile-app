@@ -6,55 +6,66 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'authenticated_response.g.dart';
+part 'address_look_up_dto.g.dart';
 
-/// AuthenticatedResponse
+/// AddressLookUpDto
 ///
 /// Properties:
-/// * [token] 
-/// * [refreshToken] 
+/// * [id] 
+/// * [nameEn] 
+/// * [nameAr] 
 @BuiltValue()
-abstract class AuthenticatedResponse implements Built<AuthenticatedResponse, AuthenticatedResponseBuilder> {
-  @BuiltValueField(wireName: r'token')
-  String? get token;
+abstract class AddressLookUpDto implements Built<AddressLookUpDto, AddressLookUpDtoBuilder> {
+  @BuiltValueField(wireName: r'id')
+  int? get id;
 
-  @BuiltValueField(wireName: r'refreshToken')
-  String? get refreshToken;
+  @BuiltValueField(wireName: r'name_en')
+  String? get nameEn;
 
-  AuthenticatedResponse._();
+  @BuiltValueField(wireName: r'name_ar')
+  String? get nameAr;
 
-  factory AuthenticatedResponse([void updates(AuthenticatedResponseBuilder b)]) = _$AuthenticatedResponse;
+  AddressLookUpDto._();
+
+  factory AddressLookUpDto([void updates(AddressLookUpDtoBuilder b)]) = _$AddressLookUpDto;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AuthenticatedResponseBuilder b) => b;
+  static void _defaults(AddressLookUpDtoBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AuthenticatedResponse> get serializer => _$AuthenticatedResponseSerializer();
+  static Serializer<AddressLookUpDto> get serializer => _$AddressLookUpDtoSerializer();
 }
 
-class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<AuthenticatedResponse> {
+class _$AddressLookUpDtoSerializer implements PrimitiveSerializer<AddressLookUpDto> {
   @override
-  final Iterable<Type> types = const [AuthenticatedResponse, _$AuthenticatedResponse];
+  final Iterable<Type> types = const [AddressLookUpDto, _$AddressLookUpDto];
 
   @override
-  final String wireName = r'AuthenticatedResponse';
+  final String wireName = r'AddressLookUpDto';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AuthenticatedResponse object, {
+    AddressLookUpDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.token != null) {
-      yield r'token';
+    if (object.id != null) {
+      yield r'id';
       yield serializers.serialize(
-        object.token,
+        object.id,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.nameEn != null) {
+      yield r'name_en';
+      yield serializers.serialize(
+        object.nameEn,
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.refreshToken != null) {
-      yield r'refreshToken';
+    if (object.nameAr != null) {
+      yield r'name_ar';
       yield serializers.serialize(
-        object.refreshToken,
+        object.nameAr,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -63,7 +74,7 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
   @override
   Object serialize(
     Serializers serializers,
-    AuthenticatedResponse object, {
+    AddressLookUpDto object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -74,28 +85,35 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AuthenticatedResponseBuilder result,
+    required AddressLookUpDtoBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'token':
+        case r'id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.token = valueDes;
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
           break;
-        case r'refreshToken':
+        case r'name_en':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.refreshToken = valueDes;
+          result.nameEn = valueDes;
+          break;
+        case r'name_ar':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.nameAr = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -106,12 +124,12 @@ class _$AuthenticatedResponseSerializer implements PrimitiveSerializer<Authentic
   }
 
   @override
-  AuthenticatedResponse deserialize(
+  AddressLookUpDto deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AuthenticatedResponseBuilder();
+    final result = AddressLookUpDtoBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

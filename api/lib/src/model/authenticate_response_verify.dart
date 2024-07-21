@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/authenticate_response_verify_data.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -11,15 +12,23 @@ part 'authenticate_response_verify.g.dart';
 /// AuthenticateResponseVerify
 ///
 /// Properties:
-/// * [otp] 
-/// * [message] 
+/// * [reqSecureKey] 
+/// * [success] 
+/// * [data] 
+/// * [errorMessage] 
 @BuiltValue()
 abstract class AuthenticateResponseVerify implements Built<AuthenticateResponseVerify, AuthenticateResponseVerifyBuilder> {
-  @BuiltValueField(wireName: r'Otp')
-  String? get otp;
+  @BuiltValueField(wireName: r'reqSecureKey')
+  String? get reqSecureKey;
 
-  @BuiltValueField(wireName: r'Message')
-  String? get message;
+  @BuiltValueField(wireName: r'success')
+  bool? get success;
+
+  @BuiltValueField(wireName: r'data')
+  AuthenticateResponseVerifyData? get data;
+
+  @BuiltValueField(wireName: r'errorMessage')
+  String? get errorMessage;
 
   AuthenticateResponseVerify._();
 
@@ -44,17 +53,31 @@ class _$AuthenticateResponseVerifySerializer implements PrimitiveSerializer<Auth
     AuthenticateResponseVerify object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.otp != null) {
-      yield r'Otp';
+    if (object.reqSecureKey != null) {
+      yield r'reqSecureKey';
       yield serializers.serialize(
-        object.otp,
+        object.reqSecureKey,
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.message != null) {
-      yield r'Message';
+    if (object.success != null) {
+      yield r'success';
       yield serializers.serialize(
-        object.message,
+        object.success,
+        specifiedType: const FullType.nullable(bool),
+      );
+    }
+    if (object.data != null) {
+      yield r'data';
+      yield serializers.serialize(
+        object.data,
+        specifiedType: const FullType(AuthenticateResponseVerifyData),
+      );
+    }
+    if (object.errorMessage != null) {
+      yield r'errorMessage';
+      yield serializers.serialize(
+        object.errorMessage,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -81,21 +104,36 @@ class _$AuthenticateResponseVerifySerializer implements PrimitiveSerializer<Auth
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'Otp':
+        case r'reqSecureKey':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.otp = valueDes;
+          result.reqSecureKey = valueDes;
           break;
-        case r'Message':
+        case r'success':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(bool),
+          ) as bool?;
+          if (valueDes == null) continue;
+          result.success = valueDes;
+          break;
+        case r'data':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(AuthenticateResponseVerifyData),
+          ) as AuthenticateResponseVerifyData;
+          result.data.replace(valueDes);
+          break;
+        case r'errorMessage':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.message = valueDes;
+          result.errorMessage = valueDes;
           break;
         default:
           unhandled.add(key);

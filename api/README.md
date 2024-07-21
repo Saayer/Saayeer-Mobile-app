@@ -75,9 +75,18 @@ Class | Method | HTTP request | Description
 [*AddressApi*](doc/AddressApi.md) | [**addressCityIdCityIdGet**](doc/AddressApi.md#addresscityidcityidget) | **GET** /Address/cityId/{cityId} | 
 [*AddressApi*](doc/AddressApi.md) | [**addressCountriesGet**](doc/AddressApi.md#addresscountriesget) | **GET** /Address/countries | 
 [*AddressApi*](doc/AddressApi.md) | [**addressCountryIdCountryIdGet**](doc/AddressApi.md#addresscountryidcountryidget) | **GET** /Address/countryId/{countryId} | 
+[*AddressLookupsApi*](doc/AddressLookupsApi.md) | [**apiAddressLookupsAreasCityIdGet**](doc/AddressLookupsApi.md#apiaddresslookupsareascityidget) | **GET** /api/AddressLookups/Areas/{cityId} | 
+[*AddressLookupsApi*](doc/AddressLookupsApi.md) | [**apiAddressLookupsCitiesGovernorateIdGet**](doc/AddressLookupsApi.md#apiaddresslookupscitiesgovernorateidget) | **GET** /api/AddressLookups/Cities/{governorateId} | 
+[*AddressLookupsApi*](doc/AddressLookupsApi.md) | [**apiAddressLookupsCountriesGet**](doc/AddressLookupsApi.md#apiaddresslookupscountriesget) | **GET** /api/AddressLookups/Countries | 
+[*AddressLookupsApi*](doc/AddressLookupsApi.md) | [**apiAddressLookupsGovernoratesCountryIdGet**](doc/AddressLookupsApi.md#apiaddresslookupsgovernoratescountryidget) | **GET** /api/AddressLookups/Governorates/{countryId} | 
 [*AttachmentsApi*](doc/AttachmentsApi.md) | [**attachmentsUploadPost**](doc/AttachmentsApi.md#attachmentsuploadpost) | **POST** /Attachments/Upload | 
 [*ClientApi*](doc/ClientApi.md) | [**clientAddClientPost**](doc/ClientApi.md#clientaddclientpost) | **POST** /Client/AddClient | 
 [*ClientApi*](doc/ClientApi.md) | [**clientGetClientsGet**](doc/ClientApi.md#clientgetclientsget) | **GET** /Client/GetClients | 
+[*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersGet**](doc/CustomersApi.md#apicustomersget) | **GET** /api/Customers | 
+[*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersIdDelete**](doc/CustomersApi.md#apicustomersiddelete) | **DELETE** /api/Customers/{id} | 
+[*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersIdGet**](doc/CustomersApi.md#apicustomersidget) | **GET** /api/Customers/{id} | 
+[*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersPost**](doc/CustomersApi.md#apicustomerspost) | **POST** /api/Customers | 
+[*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersPut**](doc/CustomersApi.md#apicustomersput) | **PUT** /api/Customers | 
 [*ProfileApi*](doc/ProfileApi.md) | [**profileGetProfileGet**](doc/ProfileApi.md#profilegetprofileget) | **GET** /Profile/GetProfile | 
 [*ProfileApi*](doc/ProfileApi.md) | [**profileGetUserProfileGet**](doc/ProfileApi.md#profilegetuserprofileget) | **GET** /Profile/GetUserProfile | 
 [*ProfileApi*](doc/ProfileApi.md) | [**profileUpdateBusinessInfoPost**](doc/ProfileApi.md#profileupdatebusinessinfopost) | **POST** /Profile/UpdateBusinessInfo | 
@@ -94,11 +103,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AddressAddDto](doc/AddressAddDto.md)
+ - [AddressGetDto](doc/AddressGetDto.md)
+ - [AddressLookUpDto](doc/AddressLookUpDto.md)
  - [AppSettings](doc/AppSettings.md)
  - [AppSettingsApiResponsePublicModel](doc/AppSettingsApiResponsePublicModel.md)
  - [AuthenticateRequest](doc/AuthenticateRequest.md)
  - [AuthenticateRequestVerify](doc/AuthenticateRequestVerify.md)
  - [AuthenticateResponseVerify](doc/AuthenticateResponseVerify.md)
+ - [AuthenticateResponseVerifyData](doc/AuthenticateResponseVerifyData.md)
  - [AuthenticatedResponse](doc/AuthenticatedResponse.md)
  - [AuthenticatedResponseApiResponseModel](doc/AuthenticatedResponseApiResponseModel.md)
  - [BooleanApiResponseModel](doc/BooleanApiResponseModel.md)
@@ -111,6 +124,8 @@ Class | Method | HTTP request | Description
  - [CostResponseDtoListApiResponseModel](doc/CostResponseDtoListApiResponseModel.md)
  - [CreateShipmentRequestDto](doc/CreateShipmentRequestDto.md)
  - [CreateStoreInformationVM](doc/CreateStoreInformationVM.md)
+ - [CustomerAddDto](doc/CustomerAddDto.md)
+ - [CustomerGetDto](doc/CustomerGetDto.md)
  - [LoginDeviceInformations](doc/LoginDeviceInformations.md)
  - [LookupDto](doc/LookupDto.md)
  - [LookupDtoListApiResponseModel](doc/LookupDtoListApiResponseModel.md)

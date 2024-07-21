@@ -8,15 +8,21 @@ part of 'authenticate_response_verify.dart';
 
 class _$AuthenticateResponseVerify extends AuthenticateResponseVerify {
   @override
-  final String? otp;
+  final String? reqSecureKey;
   @override
-  final String? message;
+  final bool? success;
+  @override
+  final AuthenticateResponseVerifyData? data;
+  @override
+  final String? errorMessage;
 
   factory _$AuthenticateResponseVerify(
           [void Function(AuthenticateResponseVerifyBuilder)? updates]) =>
       (new AuthenticateResponseVerifyBuilder()..update(updates))._build();
 
-  _$AuthenticateResponseVerify._({this.otp, this.message}) : super._();
+  _$AuthenticateResponseVerify._(
+      {this.reqSecureKey, this.success, this.data, this.errorMessage})
+      : super._();
 
   @override
   AuthenticateResponseVerify rebuild(
@@ -31,15 +37,19 @@ class _$AuthenticateResponseVerify extends AuthenticateResponseVerify {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AuthenticateResponseVerify &&
-        otp == other.otp &&
-        message == other.message;
+        reqSecureKey == other.reqSecureKey &&
+        success == other.success &&
+        data == other.data &&
+        errorMessage == other.errorMessage;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, otp.hashCode);
-    _$hash = $jc(_$hash, message.hashCode);
+    _$hash = $jc(_$hash, reqSecureKey.hashCode);
+    _$hash = $jc(_$hash, success.hashCode);
+    _$hash = $jc(_$hash, data.hashCode);
+    _$hash = $jc(_$hash, errorMessage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -47,8 +57,10 @@ class _$AuthenticateResponseVerify extends AuthenticateResponseVerify {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'AuthenticateResponseVerify')
-          ..add('otp', otp)
-          ..add('message', message))
+          ..add('reqSecureKey', reqSecureKey)
+          ..add('success', success)
+          ..add('data', data)
+          ..add('errorMessage', errorMessage))
         .toString();
   }
 }
@@ -58,13 +70,22 @@ class AuthenticateResponseVerifyBuilder
         Builder<AuthenticateResponseVerify, AuthenticateResponseVerifyBuilder> {
   _$AuthenticateResponseVerify? _$v;
 
-  String? _otp;
-  String? get otp => _$this._otp;
-  set otp(String? otp) => _$this._otp = otp;
+  String? _reqSecureKey;
+  String? get reqSecureKey => _$this._reqSecureKey;
+  set reqSecureKey(String? reqSecureKey) => _$this._reqSecureKey = reqSecureKey;
 
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
+  bool? _success;
+  bool? get success => _$this._success;
+  set success(bool? success) => _$this._success = success;
+
+  AuthenticateResponseVerifyDataBuilder? _data;
+  AuthenticateResponseVerifyDataBuilder get data =>
+      _$this._data ??= new AuthenticateResponseVerifyDataBuilder();
+  set data(AuthenticateResponseVerifyDataBuilder? data) => _$this._data = data;
+
+  String? _errorMessage;
+  String? get errorMessage => _$this._errorMessage;
+  set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
 
   AuthenticateResponseVerifyBuilder() {
     AuthenticateResponseVerify._defaults(this);
@@ -73,8 +94,10 @@ class AuthenticateResponseVerifyBuilder
   AuthenticateResponseVerifyBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _otp = $v.otp;
-      _message = $v.message;
+      _reqSecureKey = $v.reqSecureKey;
+      _success = $v.success;
+      _data = $v.data?.toBuilder();
+      _errorMessage = $v.errorMessage;
       _$v = null;
     }
     return this;
@@ -95,8 +118,25 @@ class AuthenticateResponseVerifyBuilder
   AuthenticateResponseVerify build() => _build();
 
   _$AuthenticateResponseVerify _build() {
-    final _$result =
-        _$v ?? new _$AuthenticateResponseVerify._(otp: otp, message: message);
+    _$AuthenticateResponseVerify _$result;
+    try {
+      _$result = _$v ??
+          new _$AuthenticateResponseVerify._(
+              reqSecureKey: reqSecureKey,
+              success: success,
+              data: _data?.build(),
+              errorMessage: errorMessage);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'data';
+        _data?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'AuthenticateResponseVerify', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
