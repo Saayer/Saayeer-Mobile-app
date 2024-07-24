@@ -6,12 +6,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/log_in/core/utils/enums/enums.dart';
-import 'package:saayer/features/log_in/domain/entities/log_in_entity.dart';
-import 'package:saayer/features/log_in/domain/entities/submit_log_in_entity.dart';
 import 'package:saayer/features/log_in/domain/use_cases/log_in_usecase.dart';
 
 part 'log_in_event.dart';
@@ -48,7 +47,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         logInEntity:
-            LogInEntity(phoneNumber: event.phoneNumber ?? PhoneNumber())));
+        AuthenticateRequest((b) => b..mobileNumber= event.phoneNumber?.phoneNumber ??  '')));
   }
 
   Future<FutureOr<void>> _submitLogInData(
@@ -56,7 +55,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, SubmitLogInEntity?> result =
+    final Either<Failure, AuthenticateResponseVerify?> result =
         await logInUseCase(LogInParameters(logInEntity: state.logInEntity!));
 
     if (result.isLeft()) {
@@ -67,10 +66,10 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
               requestState: RequestState.ERROR,
               errorStatus: LogInErrorStatus.ERROR_LOG_IN)));
     } else {
-      final SubmitLogInEntity? rightResult = (result as Right).value;
+      final AuthenticateResponseVerify? rightResult = (result as Right).value;
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
-        if (rightResult.isSuccess) {
+        if (rightResult.data != null) {
           emit(state.copyWith(
             stateHelper: const StateHelper(
                 requestState: RequestState.SUCCESS, loadingMessage: ""),

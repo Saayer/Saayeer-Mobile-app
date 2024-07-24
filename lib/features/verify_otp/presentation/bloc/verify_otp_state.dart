@@ -3,11 +3,11 @@ part of 'verify_otp_bloc.dart';
 @immutable
 class VerifyOtpState extends Equatable {
   final StateHelper stateHelper;
-  final VerifyOtpEntity? verifyOtpEntity;
-  final SubmitVerifyOtpEntity? submitVerifyOtpEntity;
+  late AuthenticateRequestVerify? verifyOtpEntity;
+  final AuthenticatedResponseApiResponseModel? submitVerifyOtpEntity;
   final bool isVerified, resetExpiryDate, isOtpResent;
 
-  const VerifyOtpState(
+   VerifyOtpState(
       {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
       this.verifyOtpEntity,
       this.submitVerifyOtpEntity,
@@ -17,8 +17,8 @@ class VerifyOtpState extends Equatable {
 
   VerifyOtpState copyWith({
     StateHelper? stateHelper,
-    VerifyOtpEntity? verifyOtpEntity,
-    SubmitVerifyOtpEntity? submitVerifyOtpEntity,
+    AuthenticateRequestVerify? verifyOtpEntity,
+    AuthenticatedResponseApiResponseModel? submitVerifyOtpEntity,
     bool? isVerified,
     bool? resetExpiryDate,
     bool? isOtpResent,

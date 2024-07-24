@@ -56,7 +56,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
     super.initState();
     setState(() {
       filteredItems = [...widget.items];
-      log("${filteredItems.length}", name: "filteredItems -->");
+      //log("${filteredItems.length}", name: "filteredItems -->");
     });
   }
 
@@ -67,7 +67,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
     if (oldWidget.items != widget.items) {
       setState(() {
         filteredItems = [...widget.items];
-        log("${filteredItems.length}", name: "filteredItems -->");
+        //log("${filteredItems.length}", name: "filteredItems -->");
       });
     }
   }

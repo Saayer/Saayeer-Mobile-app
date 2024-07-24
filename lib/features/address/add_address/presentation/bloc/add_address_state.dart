@@ -7,30 +7,38 @@ class AddAddressState extends Equatable {
   final AddressInfoEntity? addressInfoEntity;
   final SubmitAddressInfoEntity? submitAddressInfoEntity;
   final bool? isAddShipmentRequest;
+  final int? countryId;
+  final int? governorateId;
+  final int? cityId;
 
-  const AddAddressState({
-    this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
-    this.autoValidateMode = AutovalidateMode.disabled,
-    this.addressInfoEntity,
-    this.submitAddressInfoEntity,
-    this.isAddShipmentRequest,
-  });
+  const AddAddressState(
+      {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
+      this.autoValidateMode = AutovalidateMode.disabled,
+      this.addressInfoEntity,
+      this.submitAddressInfoEntity,
+      this.isAddShipmentRequest,
+      this.countryId,
+      this.governorateId,
+      this.cityId});
 
-  AddAddressState copyWith({
-    StateHelper? stateHelper,
-    AutovalidateMode? autoValidateMode,
-    AddressInfoEntity? addressInfoEntity,
-    SubmitAddressInfoEntity? submitAddressInfoEntity,
-    bool? isAddShipmentRequest,
-  }) {
+  AddAddressState copyWith(
+      {StateHelper? stateHelper,
+      AutovalidateMode? autoValidateMode,
+      AddressInfoEntity? addressInfoEntity,
+      SubmitAddressInfoEntity? submitAddressInfoEntity,
+      bool? isAddShipmentRequest,
+      int? countryId,
+      int? governorateId,
+      int? cityId}) {
     return AddAddressState(
-      stateHelper: stateHelper ?? this.stateHelper,
-      autoValidateMode: autoValidateMode ?? this.autoValidateMode,
-      addressInfoEntity: addressInfoEntity ?? this.addressInfoEntity,
-      submitAddressInfoEntity:
-          submitAddressInfoEntity ?? this.submitAddressInfoEntity,
-      isAddShipmentRequest: isAddShipmentRequest ?? this.isAddShipmentRequest,
-    );
+        stateHelper: stateHelper ?? this.stateHelper,
+        autoValidateMode: autoValidateMode ?? this.autoValidateMode,
+        addressInfoEntity: addressInfoEntity ?? this.addressInfoEntity,
+        submitAddressInfoEntity: submitAddressInfoEntity ?? this.submitAddressInfoEntity,
+        isAddShipmentRequest: isAddShipmentRequest ?? this.isAddShipmentRequest,
+        countryId: countryId ?? this.countryId,
+        governorateId: governorateId ?? this.governorateId,
+        cityId: cityId ?? this.cityId);
   }
 
   @override
@@ -40,5 +48,8 @@ class AddAddressState extends Equatable {
         addressInfoEntity,
         submitAddressInfoEntity,
         isAddShipmentRequest,
+        countryId,
+        governorateId,
+        cityId,
       ];
 }

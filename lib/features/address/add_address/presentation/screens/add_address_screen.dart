@@ -22,6 +22,7 @@ class AddAddressScreen extends StatelessWidget {
           bloc.add(InitAddAddress(
               isEnglish: Localization.isEnglish(),
               isAddShipmentRequest: isAddShipmentRequest));
+          bloc.add(const GetCountries());
           return bloc;
         },
         child: AddAddressPage(isAddShipmentRequest: isAddShipmentRequest , onBack: onBack,));

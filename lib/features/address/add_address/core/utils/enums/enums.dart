@@ -2,9 +2,10 @@ enum AddAddressFieldsTypes {
   NAME._(name: "name"),
   MOBILE._(name: "phone_num"),
   EMAIL._(name: "email"),
-  // COUNTRY._(name: "country"),
+  COUNTRY._(name: "country"),
+  GOVERNORATE._(name: "governorate"),
   CITY._(name: "city"),
-  DISTRICT._(name: "district"),
+  AREA._(name: "area"),
   ADDRESS._(name: "address");
 
   final String name;

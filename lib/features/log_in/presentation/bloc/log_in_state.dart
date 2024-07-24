@@ -4,8 +4,8 @@ part of 'log_in_bloc.dart';
 class LogInState extends Equatable {
   final StateHelper stateHelper;
   final AutovalidateMode autoValidateMode;
-  final LogInEntity? logInEntity;
-  final SubmitLogInEntity? submitLogInEntity;
+  final AuthenticateRequest? logInEntity;
+  final AuthenticateResponseVerify? submitLogInEntity;
 
   const LogInState(
       {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
@@ -16,8 +16,8 @@ class LogInState extends Equatable {
   LogInState copyWith({
     StateHelper? stateHelper,
     AutovalidateMode? autoValidateMode,
-    LogInEntity? logInEntity,
-    SubmitLogInEntity? submitLogInEntity,
+    AuthenticateRequest? logInEntity,
+    AuthenticateResponseVerify? submitLogInEntity,
   }) {
     return LogInState(
       stateHelper: stateHelper ?? this.stateHelper,

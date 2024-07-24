@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -144,12 +143,22 @@ class AddressDetailsPage extends StatelessWidget {
             map[addAddressFieldsType.name] = addressInfoEntity.email ?? "";
             break;
           }
+        case AddAddressFieldsTypes.COUNTRY:
+          {
+            map[addAddressFieldsType.name] = addressInfoEntity.country ?? "";
+            break;
+          }
         case AddAddressFieldsTypes.CITY:
           {
             map[addAddressFieldsType.name] = addressInfoEntity.city ?? "";
             break;
           }
-        case AddAddressFieldsTypes.DISTRICT:
+        case AddAddressFieldsTypes.GOVERNORATE:
+          {
+            map[addAddressFieldsType.name] = addressInfoEntity.district ?? "";
+            break;
+          }
+        case AddAddressFieldsTypes.AREA:
           {
             map[addAddressFieldsType.name] = addressInfoEntity.district ?? "";
             break;

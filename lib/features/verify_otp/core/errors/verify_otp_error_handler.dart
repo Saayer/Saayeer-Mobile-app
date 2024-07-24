@@ -36,7 +36,7 @@ class VerifyOtpErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
               title: "error_title",
-              message: state.submitVerifyOtpEntity?.message ?? 'error_msg');
+              message: state.submitVerifyOtpEntity?.errorMessage ?? 'error_msg');
           break;
         }
       default:
@@ -44,7 +44,7 @@ class VerifyOtpErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
             title: "error_title",
-            message: state.submitVerifyOtpEntity?.message ?? 'error_msg',
+            message: state.submitVerifyOtpEntity?.errorMessage ?? 'error_msg',
           );
           break;
         }

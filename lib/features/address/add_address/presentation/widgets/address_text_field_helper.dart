@@ -1,11 +1,10 @@
 import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:saayer/common/address_widgets/domain/entities/city_entity.dart';
-import 'package:saayer/common/address_widgets/presentation/widgets/city_drop_down_text_field.dart';
+import 'package:openapi/openapi.dart';
+import 'package:saayer/common/address_widgets/presentation/widgets/items_drop_down_text_field.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
@@ -18,7 +17,7 @@ class AddressTextFieldHelper {
   final AddAddressBloc addAddressBloc;
   final AddAddressFieldsTypes addAddressFieldsType;
 
-  const AddressTextFieldHelper({
+  AddressTextFieldHelper({
     required this.addAddressBloc,
     required this.addAddressFieldsType,
   });
@@ -34,10 +33,21 @@ class AddressTextFieldHelper {
         {
           return _getMobileTextField();
         }
-      //case AddAddressFieldsTypes.COUNTRY:
+      case AddAddressFieldsTypes.COUNTRY:
+        {
+          return _getCountryTextField();
+        }
+      case AddAddressFieldsTypes.GOVERNORATE:
+        {
+          return _getGovernorateTextField();
+        }
       case AddAddressFieldsTypes.CITY:
         {
           return _getCityTextField();
+        }
+      case AddAddressFieldsTypes.AREA:
+        {
+          return _getAreaTextField();
         }
       default:
         {
@@ -76,7 +86,7 @@ class AddressTextFieldHelper {
         {
           return TextEditingController();
         }
-      case AddAddressFieldsTypes.DISTRICT:
+      case AddAddressFieldsTypes.AREA:
         {
           return addAddressBloc.districtController;
         }
@@ -84,10 +94,14 @@ class AddressTextFieldHelper {
         {
           return addAddressBloc.cityController;
         }
-      // case AddAddressFieldsTypes.COUNTRY:
-      //   {
-      //     return addAddressBloc.countryController;
-      //   }
+      case AddAddressFieldsTypes.COUNTRY:
+        {
+          return addAddressBloc.countryController;
+        }
+      case AddAddressFieldsTypes.GOVERNORATE:
+        {
+          return addAddressBloc.governorateController;
+        }
     }
   }
 
@@ -145,39 +159,64 @@ class AddressTextFieldHelper {
   }
 
   Widget _getCityTextField() {
-    return CityDropDownTextField(
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
       onSelected: (val) {
-        addAddressBloc.add(OnItemSelectedFromDropDown<CityEntity>(
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+          addAddressFieldsType: addAddressFieldsType,
+          item: val,
+        ));
+        ///
+        addAddressBloc.add(const GetAreas());
+      },
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedCity,
+    );
+  }
+
+  Widget _getCountryTextField() {
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
+      onSelected: (val) {
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+          addAddressFieldsType: addAddressFieldsType,
+          item: val,
+        ));
+        ///
+        addAddressBloc.add(const GetGovernorates());
+      },
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedCountry,
+    );
+  }
+
+  Widget _getGovernorateTextField() {
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
+      onSelected: (val) {
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+          addAddressFieldsType: addAddressFieldsType,
+          item: val,
+        ));
+        ///
+        addAddressBloc.add(const GetCities());
+      },
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedGovernorate,
+    );
+  }
+
+  Widget _getAreaTextField() {
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
+      onSelected: (val) {
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
       },
-      selectedCityEntity: addAddressBloc.selectedCityEntity,
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedArea,
     );
-    // return DropDownTextField<CityEntity>(
-    //   label: addAddressFieldsType.name.toLowerCase(),
-    //   inputController: TextEditingController(
-    //       text: addAddressBloc.selectedCityEntity != null
-    //           ? (Localization.isEnglish()
-    //               ? addAddressBloc.selectedCityEntity!.nameEn
-    //               : addAddressBloc.selectedCityEntity!.nameAr)
-    //           : ""),
-    //   onSelected: (val) {
-    //     addAddressBloc.add(OnItemSelectedFromDropDown<CityEntity>(
-    //       addAddressFieldsType: addAddressFieldsType,
-    //       item: val,
-    //     ));
-    //   },
-    //   items: List.generate(addAddressBloc.cityEntityList.length, (index) {
-    //     final CityEntity city = addAddressBloc.cityEntityList[index];
-    //     return city;
-    //   }),
-    //   getItemName: (val) {
-    //     return Localization.isEnglish() ? val.nameEn : val.nameAr;
-    //   },
-    //   getIsSelectedItem: (val) {
-    //     return val == addAddressBloc.selectedCityEntity;
-    //   },
-    // );
   }
 }

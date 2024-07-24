@@ -10,6 +10,7 @@ import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/splash/presentation/screens/splash_screen.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class SaayerApp extends StatelessWidget {
   final FlavorType flavorType;
@@ -45,6 +46,15 @@ class SaayerApp extends StatelessWidget {
                       .blackColor
                       .withOpacity(0.8),
                   child: MaterialApp(
+                    builder: (context, child) => ResponsiveBreakpoints.builder(
+                      child: child!,
+                      breakpoints: [
+                        const Breakpoint(start: 0, end: 450, name: MOBILE),
+                        const Breakpoint(start: 451, end: 800, name: TABLET),
+                        const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+                        const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+                      ],
+                    ),
                     navigatorKey: getIt<NavigationService>().mainNavigatorKey,
                     debugShowCheckedModeBanner: false,
                     title: Constants.appName,

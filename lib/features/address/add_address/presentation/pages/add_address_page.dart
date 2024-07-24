@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/common/text/rich_text_widget.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -25,33 +22,30 @@ class AddAddressPage extends StatefulWidget {
 
   final void Function(AddressInfoEntity)? onBack;
 
-  AddAddressPage({
+  const AddAddressPage({
     super.key,
     required this.isAddShipmentRequest,
     this.onBack,
   });
 
   @override
-  State<AddAddressPage> createState() => _AddAdressPageState();
+  State<AddAddressPage> createState() => _AddAddressPageState();
 }
 
-class _AddAdressPageState extends State<AddAddressPage> {
+class _AddAddressPageState extends State<AddAddressPage> {
   String address = '';
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    final AddAddressBloc addAddressBloc =
-        BlocProvider.of<AddAddressBloc>(context);
+    final AddAddressBloc addAddressBloc = BlocProvider.of<AddAddressBloc>(context);
     getUserCity();
     return BlocConsumer<AddAddressBloc, AddAddressState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) async {
-        final bool isLoading =
-            (state.stateHelper.requestState == RequestState.LOADING);
+        final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
@@ -81,20 +75,17 @@ class _AddAdressPageState extends State<AddAddressPage> {
             width: width,
             color: SaayerTheme().getColorsPalette.backgroundColor,
             child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
+              padding: EdgeInsets.only(bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
               child: SaayerDefaultTextButton(
                 text: "confirm",
                 isEnabled: enableAddress(addAddressBloc),
                 borderRadius: 16.r,
                 onPressed: () {
-                  final bool isFormValid =
-                      (addAddressBloc.formKey.currentState!.validate());
+                  final bool isFormValid = (addAddressBloc.formKey.currentState!.validate());
                   addAddressBloc.add(ToggleAutoValidate());
                   isFormValid
                       ? addAddressBloc.add(SubmitAddressData())
-                      : SaayerToast()
-                          .showErrorToast(msg: "empty_fields_error".tr());
+                      : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
                 },
                 btnWidth: width / 1.2,
                 btnHeight: 50.h,
@@ -122,39 +113,15 @@ class _AddAdressPageState extends State<AddAddressPage> {
                                   children: [
                                     TextSpan(
                                         text: 'sender_city'.tr(),
-                                        style: AppTextStyles.label(SaayerTheme()
-                                            .getColorsPalette
-                                            .greyColor)),
-                                    TextSpan(
-                                        text: address.tr(),
-                                        style: AppTextStyles.boldLabel()),
+                                        style: AppTextStyles.label(SaayerTheme().getColorsPalette.greyColor)),
+                                    TextSpan(text: address.tr(), style: AppTextStyles.boldLabel()),
                                   ],
                                 ),
                               )
                             : Container(),
-                        // SizedBox(
-                        //   height: 20.h,
-                        // ),
-                        // Padding(
-                        //   padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     children: [
-                        //       Text(
-                        //         "personal_info".tr(),
-                        //         textAlign: TextAlign.start,
-                        //         style: AppTextStyles.sectionTitle(),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: 10.h,
-                        // ),
                         ...(AddAddressFieldsTypes.values.map((e) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 0.w, vertical: 10.h),
+                            padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 10.h),
                             child: _getTextField(addAddressBloc, e),
                           );
                         }).toList()),
@@ -173,28 +140,24 @@ class _AddAdressPageState extends State<AddAddressPage> {
     );
   }
 
-  Widget _getTextField(AddAddressBloc addAddressBloc,
-      AddAddressFieldsTypes addAddressFieldsType) {
+  Widget _getTextField(AddAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     return AddressTextFieldHelper(
-            addAddressBloc: addAddressBloc,
-            addAddressFieldsType: addAddressFieldsType)
+        addAddressBloc: addAddressBloc,
+        addAddressFieldsType: addAddressFieldsType)
         .getTextField();
   }
 
   bool enableAddress(AddAddressBloc addAddressBloc) {
-    log("${addAddressBloc.addAddressFieldsValidMap}",
-        name: "enableAddress --->");
-    if (addAddressBloc.addAddressFieldsValidMap.values.length ==
-        AddAddressFieldsTypes.values.length) {
-      return addAddressBloc.addAddressFieldsValidMap.values
-          .every((element) => element == true);
+    // log("${addAddressBloc.addAddressFieldsValidMap}",
+    //     name: "enableAddress --->");
+    if (addAddressBloc.addAddressFieldsValidMap.values.length == AddAddressFieldsTypes.values.length) {
+      return addAddressBloc.addAddressFieldsValidMap.values.every((element) => element == true);
     }
     return false;
   }
 
   getUserCity() async {
-    final UserCardEntity? userCardEntity =
-        await SecureStorageService().getUserCardInfo();
+    final UserCardEntity? userCardEntity = await SecureStorageService().getUserCardInfo();
 
     if (userCardEntity != null) {
       setState(() {
