@@ -1,1 +1,1 @@
-enum AddressWidgetsErrorStatus { ERROR_GET_CITIES }
+enum AddressWidgetsErrorStatus { ERROR_GET_CITIES, ERROR_GET_COUNTRIES, ERROR_GET_GOVERNORATES, ERROR_GET_AREAS }

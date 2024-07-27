@@ -5,7 +5,7 @@ abstract class VerifyOtpEvent extends Equatable {
 }
 
 class InitVerifyOtpEvent extends VerifyOtpEvent {
-  final VerifyOtpEntity verifyOtpEntity;
+  final AuthenticateRequestVerify verifyOtpEntity;
 
   const InitVerifyOtpEvent({
     required this.verifyOtpEntity,

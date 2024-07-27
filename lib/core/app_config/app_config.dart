@@ -28,6 +28,8 @@ class AppConfig {
   void initializeApp() async {
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
+    //disable logger
+    EasyLocalization.logger.enableBuildModes = [];
     configureInjection();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

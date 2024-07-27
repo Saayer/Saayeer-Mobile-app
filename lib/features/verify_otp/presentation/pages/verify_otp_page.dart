@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,13 +12,11 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
-import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/verify_otp/core/errors/verify_otp_error_handler.dart';
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart';
 import 'dart:ui' as ui;
 import 'package:saayer/features/verify_otp/presentation/widgets/down_bill_timer_counter_widget.dart';
 import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
-import 'package:saayer/features/view_page/sub_features/home/presentation/screens/home_screen.dart';
 
 class VerifyOtpPage extends StatelessWidget {
   const VerifyOtpPage({super.key});
@@ -47,7 +44,7 @@ class VerifyOtpPage extends StatelessWidget {
                   .navigateTo(const ViewPageScreen());
             } else {
               SaayerToast().showSuccessToast(
-                  msg: state.submitVerifyOtpEntity?.message ?? "");
+                  msg: state.submitVerifyOtpEntity?.errorMessage ?? "");
             }
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {

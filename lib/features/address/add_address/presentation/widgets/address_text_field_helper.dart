@@ -1,11 +1,9 @@
 import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:saayer/common/address_widgets/domain/entities/city_entity.dart';
-import 'package:saayer/common/address_widgets/presentation/widgets/city_drop_down_text_field.dart';
+import 'package:openapi/openapi.dart';
+import 'package:saayer/common/address_widgets/presentation/widgets/items_drop_down_text_field.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
@@ -18,7 +16,7 @@ class AddressTextFieldHelper {
   final AddAddressBloc addAddressBloc;
   final AddAddressFieldsTypes addAddressFieldsType;
 
-  const AddressTextFieldHelper({
+  AddressTextFieldHelper({
     required this.addAddressBloc,
     required this.addAddressFieldsType,
   });
@@ -34,31 +32,43 @@ class AddressTextFieldHelper {
         {
           return _getMobileTextField();
         }
-      //case AddAddressFieldsTypes.COUNTRY:
+      case AddAddressFieldsTypes.ALTERNATIVE_MOBILE:
+        {
+          return _getSecondMobileTextField();
+        }
+      case AddAddressFieldsTypes.COUNTRY:
+        {
+          return _getCountryTextField();
+        }
+      case AddAddressFieldsTypes.GOVERNORATE:
+        {
+          return _getGovernorateTextField();
+        }
       case AddAddressFieldsTypes.CITY:
         {
           return _getCityTextField();
+        }
+      case AddAddressFieldsTypes.AREA:
+        {
+          return _getAreaTextField();
         }
       default:
         {
           return InputTextField(
             label: addAddressFieldsType.name.toLowerCase(),
-            inputController:
-                _getInputController(addAddressBloc, addAddressFieldsType),
+            inputController: _getInputController(addAddressBloc, addAddressFieldsType),
             onChanged: (val) {
               addAddressBloc.add(OnTextChange(
                   str: val,
                   addAddressFieldsType: addAddressFieldsType,
-                  textEditingController: _getInputController(
-                      addAddressBloc, addAddressFieldsType)));
+                  textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
             },
           );
         }
     }
   }
 
-  TextEditingController _getInputController(AddAddressBloc addAddressBloc,
-      AddAddressFieldsTypes addAddressFieldsType) {
+  TextEditingController _getInputController(AddAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     switch (addAddressFieldsType) {
       case AddAddressFieldsTypes.NAME:
         {
@@ -76,7 +86,11 @@ class AddressTextFieldHelper {
         {
           return TextEditingController();
         }
-      case AddAddressFieldsTypes.DISTRICT:
+      case AddAddressFieldsTypes.ALTERNATIVE_MOBILE:
+        {
+          return TextEditingController();
+        }
+      case AddAddressFieldsTypes.AREA:
         {
           return addAddressBloc.districtController;
         }
@@ -84,23 +98,29 @@ class AddressTextFieldHelper {
         {
           return addAddressBloc.cityController;
         }
-      // case AddAddressFieldsTypes.COUNTRY:
-      //   {
-      //     return addAddressBloc.countryController;
-      //   }
+      case AddAddressFieldsTypes.COUNTRY:
+        {
+          return addAddressBloc.countryController;
+        }
+      case AddAddressFieldsTypes.GOVERNORATE:
+        {
+          return addAddressBloc.governorateController;
+        }
+      case AddAddressFieldsTypes.ZIPCODE:
+        {
+          return addAddressBloc.zipCodeController;
+        }
     }
   }
 
   Widget _getEmailTextField() {
     return EmailTextField(
-      emailController:
-          _getInputController(addAddressBloc, addAddressFieldsType),
+      emailController: _getInputController(addAddressBloc, addAddressFieldsType),
       onChanged: (val) {
         addAddressBloc.add(OnTextChange(
             str: val,
             addAddressFieldsType: AddAddressFieldsTypes.EMAIL,
-            textEditingController:
-                _getInputController(addAddressBloc, addAddressFieldsType)));
+            textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
       },
     );
   }
@@ -117,25 +137,22 @@ class AddressTextFieldHelper {
           ],
         ),
         SizedBox(
-          height: 8.h,
+          height: 8,
         ),
         Directionality(
           textDirection: ui.TextDirection.ltr,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: PhoneTextField(
-              phoneNumController:
-                  _getInputController(addAddressBloc, addAddressFieldsType),
+              phoneNumController: _getInputController(addAddressBloc, addAddressFieldsType),
               onInputChanged: (PhoneNumber phoneNumber) {
                 log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
                     name: "onInputChanged --->");
-                log("${phoneNumber.phoneNumber}",
-                    name: "PhoneTextField onInputChanged ->");
+                log("${phoneNumber.phoneNumber}", name: "PhoneTextField onInputChanged ->");
                 addAddressBloc.add(OnTextChange(
                     phoneNumber: phoneNumber,
                     addAddressFieldsType: AddAddressFieldsTypes.MOBILE,
-                    textEditingController: _getInputController(
-                        addAddressBloc, addAddressFieldsType)));
+                    textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
               },
             ),
           ),
@@ -145,39 +162,104 @@ class AddressTextFieldHelper {
   }
 
   Widget _getCityTextField() {
-    return CityDropDownTextField(
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
       onSelected: (val) {
-        addAddressBloc.add(OnItemSelectedFromDropDown<CityEntity>(
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+          addAddressFieldsType: addAddressFieldsType,
+          item: val,
+        ));
+
+        ///
+        addAddressBloc.add(const GetAreas());
+      },
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedCity,
+    );
+  }
+
+  Widget _getCountryTextField() {
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
+      onSelected: (val) {
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+          addAddressFieldsType: addAddressFieldsType,
+          item: val,
+        ));
+
+        ///
+        addAddressBloc.add(const GetGovernorates());
+      },
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedCountry,
+    );
+  }
+
+  Widget _getGovernorateTextField() {
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
+      onSelected: (val) {
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+          addAddressFieldsType: addAddressFieldsType,
+          item: val,
+        ));
+
+        ///
+        addAddressBloc.add(const GetCities());
+      },
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedGovernorate,
+    );
+  }
+
+  Widget _getAreaTextField() {
+    return ItemsDropDownTextField(
+      addressWidgetsBloc: addAddressBloc,
+      onSelected: (val) {
+        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
       },
-      selectedCityEntity: addAddressBloc.selectedCityEntity,
+      addAddressFieldsType: addAddressFieldsType,
+      selectedItem: addAddressBloc.selectedArea,
     );
-    // return DropDownTextField<CityEntity>(
-    //   label: addAddressFieldsType.name.toLowerCase(),
-    //   inputController: TextEditingController(
-    //       text: addAddressBloc.selectedCityEntity != null
-    //           ? (Localization.isEnglish()
-    //               ? addAddressBloc.selectedCityEntity!.nameEn
-    //               : addAddressBloc.selectedCityEntity!.nameAr)
-    //           : ""),
-    //   onSelected: (val) {
-    //     addAddressBloc.add(OnItemSelectedFromDropDown<CityEntity>(
-    //       addAddressFieldsType: addAddressFieldsType,
-    //       item: val,
-    //     ));
-    //   },
-    //   items: List.generate(addAddressBloc.cityEntityList.length, (index) {
-    //     final CityEntity city = addAddressBloc.cityEntityList[index];
-    //     return city;
-    //   }),
-    //   getItemName: (val) {
-    //     return Localization.isEnglish() ? val.nameEn : val.nameAr;
-    //   },
-    //   getIsSelectedItem: (val) {
-    //     return val == addAddressBloc.selectedCityEntity;
-    //   },
-    // );
+  }
+
+  Widget _getSecondMobileTextField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LabelTxt(txt: addAddressFieldsType.name.tr()),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Directionality(
+          textDirection: ui.TextDirection.ltr,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: PhoneTextField(
+              phoneNumController: _getInputController(addAddressBloc, addAddressFieldsType),
+              withValidator: false,
+              onInputChanged: (PhoneNumber phoneNumber) {
+                log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                    name: "onInputChanged --->");
+                log("${phoneNumber.phoneNumber}", name: "PhoneTextField onInputChanged ->");
+                addAddressBloc.add(OnTextChange(
+                    alternativePhoneNumber: phoneNumber,
+                    addAddressFieldsType: AddAddressFieldsTypes.ALTERNATIVE_MOBILE,
+                    textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
+              },
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

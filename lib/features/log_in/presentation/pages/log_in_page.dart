@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
@@ -35,21 +36,21 @@ class LogInPage extends StatelessWidget {
 
     return BlocConsumer<LogInBloc, LogInState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) async {
-        final bool isLoading =
-            (logInBloc.state.stateHelper.requestState == RequestState.LOADING);
+        final bool isLoading = (logInBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-            SaayerToast()
-                .showSuccessToast(msg: state.submitLogInEntity?.message ?? "");
+            SaayerToast().showSuccessToast(msg: state.submitLogInEntity?.data?.message ?? "");
             getIt<NavigationService>().navigateTo(VerifyOtpScreen(
-              verifyOtpEntity: VerifyOtpEntity(
-                  phoneNumber: state.logInEntity?.phoneNumber.phoneNumber ?? "",
-                  otp: state.submitLogInEntity?.otp ?? ""),
-            ));
+                verifyOtpEntity: AuthenticateRequestVerify((b) => b
+                  ..mobileNumber = state.logInEntity?.mobileNumber ?? ""
+                  ..otp = state.submitLogInEntity?.data?.otp ?? ""),
+                // VerifyOtpEntity(
+                //   phoneNumber: state.logInEntity?.mobileNumber ?? "",
+                //   otp: state.submitLogInEntity?.data?.otp ?? ""),
+                ));
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
@@ -69,8 +70,7 @@ class LogInPage extends StatelessWidget {
             //height: 100.h,
             color: SaayerTheme().getColorsPalette.backgroundColor,
             child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
+              padding: EdgeInsets.only(bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -79,12 +79,10 @@ class LogInPage extends StatelessWidget {
                     isEnabled: enableLogIn(logInBloc),
                     borderRadius: 16.r,
                     onPressed: () {
-                      final bool isFormValid =
-                          (logInBloc.formKey.currentState!.validate());
+                      final bool isFormValid = (logInBloc.formKey.currentState!.validate());
                       isFormValid
                           ? logInBloc.add(SubmitLogInData())
-                          : SaayerToast()
-                              .showErrorToast(msg: "empty_fields_error".tr());
+                          : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
                     },
                     btnWidth: width / 1.2,
                     btnHeight: 50.h,
@@ -94,13 +92,11 @@ class LogInPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      getIt<NavigationService>()
-                          .navigateAndFinish(const ViewPageScreen());
+                      getIt<NavigationService>().navigateAndFinish(const ViewPageScreen());
                     },
                     child: Text(
                       "enter_as_guest".tr(),
-                      style: AppTextStyles.boldLabel(
-                          SaayerTheme().getColorsPalette.blackTextColor),
+                      style: AppTextStyles.boldLabel(SaayerTheme().getColorsPalette.blackTextColor),
                     ),
                   ),
                 ],
@@ -143,8 +139,7 @@ class LogInPage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.w, vertical: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
                           child: Directionality(
                             textDirection: ui.TextDirection.ltr,
                             child: PhoneTextField(
@@ -155,11 +150,9 @@ class LogInPage extends StatelessWidget {
                                 log("${phoneNumber.phoneNumber}-${phoneNumber.parseNumber()}",
                                     name: "PhoneTextField onInputChanged ->");
                                 logInBloc.add(OnTextChange(
-                                    logInFieldsType:
-                                        LogInFieldsTypes.PHONE_NUMBER,
+                                    logInFieldsType: LogInFieldsTypes.PHONE_NUMBER,
                                     phoneNumber: phoneNumber,
-                                    textEditingController:
-                                        logInBloc.phoneController));
+                                    textEditingController: logInBloc.phoneController));
                               },
                             ),
                           ),
@@ -179,8 +172,7 @@ class LogInPage extends StatelessWidget {
   bool enableLogIn(LogInBloc logInBloc) {
     log("${logInBloc.logInFieldsValidMap}", name: "enableLogIn --->");
     if (logInBloc.logInFieldsValidMap.values.length == 1) {
-      return logInBloc.logInFieldsValidMap.values
-          .every((element) => element == true);
+      return logInBloc.logInFieldsValidMap.values.every((element) => element == true);
     }
     return false;
   }

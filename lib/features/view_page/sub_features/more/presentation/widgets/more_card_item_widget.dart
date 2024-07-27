@@ -27,7 +27,7 @@ class MoreCardItemWidget extends StatelessWidget {
         }
       },
       child: Container(
-        height: 84.h,
+        height: 84,
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
           borderRadius: BorderRadius.circular(16.r),
@@ -41,7 +41,7 @@ class MoreCardItemWidget extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.all(8.r),
+          padding: EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,18 +51,18 @@ class MoreCardItemWidget extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     Constants.getIconPath("ic_$iconName.svg"),
-                    height: 22.h,
-                    width: 22.w,
+                    height: 22,
+                    width: 22,
                     fit: BoxFit.cover,
                     color: SaayerTheme().getColorsPalette.orangeColor,
                   ),
                   Icon(Icons.arrow_forward_ios,
-                      size: 15.r,
+                      size: 15,
                       color: SaayerTheme().getColorsPalette.greyColor),
                 ],
               ),
               SizedBox(
-                height: 8.h,
+                height: 8,
               ),
               Row(
                 children: [

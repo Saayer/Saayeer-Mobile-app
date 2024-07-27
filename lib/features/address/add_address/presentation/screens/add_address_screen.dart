@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart';
 import 'package:saayer/features/address/add_address/presentation/pages/add_address_page.dart';
 
 class AddAddressScreen extends StatelessWidget {
   final bool isAddShipmentRequest;
-  final void Function(AddressInfoEntity)? onBack ;
+  final void Function(CustomerAddDto)? onBack ;
   const AddAddressScreen({super.key, required this.isAddShipmentRequest, this.onBack, });
 
   @override
@@ -22,6 +22,7 @@ class AddAddressScreen extends StatelessWidget {
           bloc.add(InitAddAddress(
               isEnglish: Localization.isEnglish(),
               isAddShipmentRequest: isAddShipmentRequest));
+          bloc.add(const GetCountries());
           return bloc;
         },
         child: AddAddressPage(isAddShipmentRequest: isAddShipmentRequest , onBack: onBack,));

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
@@ -56,7 +55,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
     super.initState();
     setState(() {
       filteredItems = [...widget.items];
-      log("${filteredItems.length}", name: "filteredItems -->");
+      //log("${filteredItems.length}", name: "filteredItems -->");
     });
   }
 
@@ -67,7 +66,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
     if (oldWidget.items != widget.items) {
       setState(() {
         filteredItems = [...widget.items];
-        log("${filteredItems.length}", name: "filteredItems -->");
+        //log("${filteredItems.length}", name: "filteredItems -->");
       });
     }
   }
@@ -93,13 +92,13 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               return Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: SearchTextField(
                       inputController: searchTextController,
                       onChanged: (val) {
                         log(val, name: "SearchTextField");
                         setState(() {
-                          searchTextController.text = val ?? "";
+                          searchTextController.text = val;
                           TextSelection previousSelection =
                               searchTextController.selection;
                           searchTextController.selection = previousSelection;
@@ -146,7 +145,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 8.h, right: 16.w, left: 16.w),
+          margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
           child: baseTextField,
         ),
       ],
@@ -173,7 +172,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               Navigator.pop(context);
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -186,7 +185,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
                     color: isSelected
                         ? SaayerTheme().getColorsPalette.primaryColor
                         : SaayerTheme().getColorsPalette.greyColor,
-                    size: 30.r,
+                    size: 30,
                   ),
                 ],
               ),

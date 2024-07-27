@@ -67,7 +67,9 @@ class GetAddressesResponseModel {
           address: dataItem.address ?? "",
           district: dataItem.district ?? "",
           city: dataItem.city ?? "",
-          country: dataItem.country ?? "");
+          country: dataItem.country ?? "",
+          alternativeMobile: '',
+          zipCode: '');
     });
   }
 }

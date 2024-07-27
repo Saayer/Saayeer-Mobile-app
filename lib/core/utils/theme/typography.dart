@@ -5,10 +5,10 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 class AppTextStyles {
   static TextStyle label([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 12.sp,
+        fontSize: 12,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w400,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle boldLabel([Color? color]) => GoogleFonts.alexandria(
@@ -26,10 +26,10 @@ class AppTextStyles {
       );
 
   static TextStyle liteLabel([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 14.sp,
+        fontSize: 14,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w400,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle mainLabel([Color? color]) => GoogleFonts.alexandria(
@@ -128,10 +128,10 @@ class AppTextStyles {
       );
 
   static TextStyle mainFocusedLabel([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 16.sp,
+        fontSize: 16,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w600,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle buttonLabel([Color? color]) => GoogleFonts.alexandria(

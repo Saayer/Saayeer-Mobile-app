@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 abstract class NetworkInfo {
   Future<bool> get isConnected;
@@ -10,15 +10,14 @@ abstract class NetworkInfo {
 @LazySingleton(as: NetworkInfo)
 class NetworkInfoImpl implements NetworkInfo {
   Future<bool> execute() async {
-    final InternetConnectionChecker customInstance =
-        InternetConnectionChecker.createInstance(
-      checkTimeout: const Duration(seconds: 1),
+    final InternetConnection customInstance =
+    InternetConnection.createInstance(
       checkInterval: const Duration(seconds: 1),
     );
     // Simple check to see if we have Internet
     // ignore: avoid_log
     log('''The statement 'this machine is connected to the Internet' is: ''');
-    bool isConnected = await customInstance.hasConnection;
+    bool isConnected = await customInstance.hasInternetAccess;
     // ignore: avoid_log
     log(
       isConnected.toString(),
@@ -27,22 +26,22 @@ class NetworkInfoImpl implements NetworkInfo {
     // We can also get an enum instead of a bool
     // ignore: avoid_log
     log(
-      'Current status: ${await customInstance.connectionStatus}',
+      'Current status: ${await customInstance.internetStatus}',
     );
     // logs either InternetConnectionStatus.connected
     // or InternetConnectionStatus.disconnected
 
     // actively listen for status updates
-    final StreamSubscription<InternetConnectionStatus> listener =
+    final StreamSubscription<InternetStatus> listener =
         customInstance.onStatusChange.listen(
-      (InternetConnectionStatus status) {
+      (InternetStatus status) {
         switch (status) {
-          case InternetConnectionStatus.connected:
+          case InternetStatus.connected:
             // ignore: avoid_log
             log('Data connection is available.');
             isConnected = true;
             break;
-          case InternetConnectionStatus.disconnected:
+          case InternetStatus.disconnected:
             // ignore: avoid_log
             log('You are disconnected from the internet.');
             isConnected = false;

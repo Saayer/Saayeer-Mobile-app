@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,11 +16,6 @@ class AddressDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-
-    final AddressDetailsBloc addressDetailsBloc =
-        BlocProvider.of<AddressDetailsBloc>(context);
     return BlocConsumer<AddressDetailsBloc, AddressDetailsState>(
       buildWhen: (previousState, nextState) =>
           (previousState.stateHelper.requestState !=
@@ -36,13 +30,6 @@ class AddressDetailsPage extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final Widget dividerWidget = Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          child: Divider(
-            thickness: 0.5,
-            color: SaayerTheme().getColorsPalette.greyColor,
-          ),
-        );
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           appBar: BaseAppBar(
@@ -113,8 +100,7 @@ class AddressDetailsPage extends StatelessWidget {
                                   ));
                             })
                             .values
-                            .toList() ??
-                        [])
+                            .toList())
                 ],
               ),
             ),
@@ -131,32 +117,52 @@ class AddressDetailsPage extends StatelessWidget {
       switch (addAddressFieldsType) {
         case AddAddressFieldsTypes.NAME:
           {
-            map[addAddressFieldsType.name] = addressInfoEntity.name ?? "";
+            map[addAddressFieldsType.name] = addressInfoEntity.name;
             break;
           }
         case AddAddressFieldsTypes.MOBILE:
           {
-            map[addAddressFieldsType.name] = addressInfoEntity.mobile ?? "";
+            map[addAddressFieldsType.name] = addressInfoEntity.mobile;
+            break;
+          }
+        case AddAddressFieldsTypes.ALTERNATIVE_MOBILE:
+          {
+            map[addAddressFieldsType.name] = addressInfoEntity.alternativeMobile;
             break;
           }
         case AddAddressFieldsTypes.EMAIL:
           {
-            map[addAddressFieldsType.name] = addressInfoEntity.email ?? "";
+            map[addAddressFieldsType.name] = addressInfoEntity.email;
+            break;
+          }
+        case AddAddressFieldsTypes.COUNTRY:
+          {
+            map[addAddressFieldsType.name] = addressInfoEntity.country;
             break;
           }
         case AddAddressFieldsTypes.CITY:
           {
-            map[addAddressFieldsType.name] = addressInfoEntity.city ?? "";
+            map[addAddressFieldsType.name] = addressInfoEntity.city;
             break;
           }
-        case AddAddressFieldsTypes.DISTRICT:
+        case AddAddressFieldsTypes.GOVERNORATE:
           {
-            map[addAddressFieldsType.name] = addressInfoEntity.district ?? "";
+            map[addAddressFieldsType.name] = addressInfoEntity.district;
+            break;
+          }
+        case AddAddressFieldsTypes.AREA:
+          {
+            map[addAddressFieldsType.name] = addressInfoEntity.district;
             break;
           }
         case AddAddressFieldsTypes.ADDRESS:
           {
-            map[addAddressFieldsType.name] = addressInfoEntity.address ?? "";
+            map[addAddressFieldsType.name] = addressInfoEntity.address;
+            break;
+          }
+        case AddAddressFieldsTypes.ZIPCODE:
+          {
+            map[addAddressFieldsType.name] = addressInfoEntity.zipCode;
             break;
           }
       }

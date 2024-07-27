@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -51,6 +50,11 @@ class AddressItemWidget extends StatelessWidget {
               style: AppTextStyles.smallParagraph(
                   SaayerTheme().getColorsPalette.greyColor),
             ),
+            trailing: IconButton(onPressed: (){}, icon: Icon(
+              Icons.delete_rounded,
+              size: 30.r,
+              color: SaayerTheme().getColorsPalette.error0,
+            )),
           )),
     );
   }

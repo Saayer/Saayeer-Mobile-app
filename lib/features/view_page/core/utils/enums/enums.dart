@@ -1,7 +1,7 @@
 enum NavBarIconTypes {
   HOME._(name: "home"),
   SHIPMENTS._(name: "shipments"),
-  REQUEST_SHIPMENT._(name: "request_shipment"),
+  REQUEST_SHIPMENT._(name: "shipment"),
   PROFILE._(name: "profile"),
   MORE._(name: "more");
 
