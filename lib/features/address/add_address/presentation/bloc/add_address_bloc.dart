@@ -19,8 +19,6 @@ import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
-import 'package:saayer/features/address/add_address/domain/entities/submit_address_info_entity.dart';
 import 'package:saayer/features/address/add_address/domain/use_cases/submit_address_info_usecase.dart';
 import 'package:saayer/features/address/add_address/presentation/helper/init_address_helper.dart';
 
@@ -60,11 +58,13 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   String mobile = "";
+  String alternativeMobile = "";
   final TextEditingController addressController = TextEditingController();
   final TextEditingController districtController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
   final TextEditingController governorateController = TextEditingController();
+  final TextEditingController zipCodeController = TextEditingController();
   AddressLookUpDto? selectedCountry;
   AddressLookUpDto? selectedGovernorate;
   AddressLookUpDto? selectedCity;
@@ -87,12 +87,16 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     final bool isPhone = (event.addAddressFieldsType == AddAddressFieldsTypes.MOBILE);
+    final bool isAlternativePhone = (event.addAddressFieldsType == AddAddressFieldsTypes.ALTERNATIVE_MOBILE);
     if (!isPhone) {
       event.textEditingController!.text = event.str ?? "";
       TextSelection previousSelection = event.textEditingController!.selection;
       event.textEditingController!.selection = previousSelection;
     } else {
       mobile = event.phoneNumber?.phoneNumber ?? "";
+    }
+    if (isAlternativePhone) {
+      alternativeMobile = event.alternativePhoneNumber?.phoneNumber ?? "";
     }
     log("onTextChange ${event.str}", name: "onTextChange");
     addAddressFieldsValidMap[event.addAddressFieldsType] =
@@ -105,7 +109,7 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
   FutureOr<void> _onItemSelectedFromDropDown(OnItemSelectedFromDropDown event, Emitter<AddAddressState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     addAddressFieldsValidMap[event.addAddressFieldsType] = true;
-     if (event.addAddressFieldsType == AddAddressFieldsTypes.COUNTRY) {
+    if (event.addAddressFieldsType == AddAddressFieldsTypes.COUNTRY) {
       selectedCountry = event.item;
       emit(state.copyWith(countryId: event.item.id));
       selectedGovernorate = null;
@@ -122,11 +126,11 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
       citiesList.clear();
       areasList.clear();
     } else if (event.addAddressFieldsType == AddAddressFieldsTypes.CITY) {
-       selectedCity = event.item;
-       emit(state.copyWith(cityId: event.item.id));
-       selectedArea = null;
-       areasList.clear();
-     } else if (event.addAddressFieldsType == AddAddressFieldsTypes.AREA) {
+      selectedCity = event.item;
+      emit(state.copyWith(cityId: event.item.id));
+      selectedArea = null;
+      areasList.clear();
+    } else if (event.addAddressFieldsType == AddAddressFieldsTypes.AREA) {
       selectedArea = event.item;
     }
     emit(state.copyWith(
@@ -146,24 +150,24 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
 
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
-        addressInfoEntity: AddressInfoEntity(
-            name: nameController.text,
-            email: emailController.text,
-            mobile: mobile,
-            address: addressController.text,
-            district: districtController.text,
-            //todo check with back end
-            city: "",
-            //selectedCityEntity!.id,
-            country: "")));
+        addressInfoEntity: CustomerAddDto((b) => b
+          ..fullName = nameController.text
+          ..email = emailController.text
+          ..phoneNo = mobile
+          ..phoneNo2 = alternativeMobile
+          ..countryId = selectedCountry!.id
+          ..cityId = selectedCity!.id
+          ..governorateId = selectedGovernorate!.id
+          ..areaId = selectedArea!.id
+          ..addressDetails = addressController.text
+          ..zipcode = zipCodeController.text)));
     await _uploadAddressData(emit);
   }
 
   Future<void> _uploadAddressData(Emitter<AddAddressState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, SubmitAddressInfoEntity?> result =
-        await submitAddressInfoUseCase(AddressInfoParameters(addressInfoEntity: state.addressInfoEntity!));
+    final Either<Failure, CustomerGetDto?> result = await submitAddressInfoUseCase(state.addressInfoEntity!);
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -172,21 +176,14 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_ADD_ADDRESS_INFO)));
     } else {
-      final SubmitAddressInfoEntity? rightResult = (result as Right).value;
+      final CustomerGetDto? rightResult = (result as Right).value;
       log("right submitPersonalInfoData $rightResult");
       if (rightResult != null) {
-        if (rightResult.isSuccess) {
           emit(state.copyWith(
             stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
             submitAddressInfoEntity: rightResult,
           ));
-        } else {
-          emit(state.copyWith(
-            stateHelper: const StateHelper(
-                requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_ADD_ADDRESS_INFO),
-            submitAddressInfoEntity: rightResult,
-          ));
-        }
+
       } else {
         log("", name: "SubmitPersonalInfoEvent error");
         emit(state.copyWith(

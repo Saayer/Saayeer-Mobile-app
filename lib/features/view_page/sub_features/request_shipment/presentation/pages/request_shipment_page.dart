@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/add_address/presentation/screens/add_address_screen.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/domain/entities/shipment_specs_entity.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/screens/shipment_specs_screen.dart';
@@ -27,8 +27,8 @@ class RequestShipmentPage extends StatelessWidget {
     final List<Widget> pages = [
       AddAddressScreen(
         isAddShipmentRequest: false,
-        onBack: (AddressInfoEntity addressInfoEntity) {
-          requestShipmentBloc.add(AddAddressInfoEvent(addressInfoEntity));
+        onBack: (CustomerAddDto addressInfoEntity) {
+          //requestShipmentBloc.add(AddAddressInfoEvent(addressInfoEntity));
         },
       ),
       ShipmentSpecsScreen(

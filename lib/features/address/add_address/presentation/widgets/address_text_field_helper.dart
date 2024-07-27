@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/address_widgets/presentation/widgets/items_drop_down_text_field.dart';
@@ -33,6 +32,10 @@ class AddressTextFieldHelper {
         {
           return _getMobileTextField();
         }
+      case AddAddressFieldsTypes.ALTERNATIVE_MOBILE:
+        {
+          return _getSecondMobileTextField();
+        }
       case AddAddressFieldsTypes.COUNTRY:
         {
           return _getCountryTextField();
@@ -53,22 +56,19 @@ class AddressTextFieldHelper {
         {
           return InputTextField(
             label: addAddressFieldsType.name.toLowerCase(),
-            inputController:
-                _getInputController(addAddressBloc, addAddressFieldsType),
+            inputController: _getInputController(addAddressBloc, addAddressFieldsType),
             onChanged: (val) {
               addAddressBloc.add(OnTextChange(
                   str: val,
                   addAddressFieldsType: addAddressFieldsType,
-                  textEditingController: _getInputController(
-                      addAddressBloc, addAddressFieldsType)));
+                  textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
             },
           );
         }
     }
   }
 
-  TextEditingController _getInputController(AddAddressBloc addAddressBloc,
-      AddAddressFieldsTypes addAddressFieldsType) {
+  TextEditingController _getInputController(AddAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     switch (addAddressFieldsType) {
       case AddAddressFieldsTypes.NAME:
         {
@@ -83,6 +83,10 @@ class AddressTextFieldHelper {
           return addAddressBloc.addressController;
         }
       case AddAddressFieldsTypes.MOBILE:
+        {
+          return TextEditingController();
+        }
+      case AddAddressFieldsTypes.ALTERNATIVE_MOBILE:
         {
           return TextEditingController();
         }
@@ -102,19 +106,21 @@ class AddressTextFieldHelper {
         {
           return addAddressBloc.governorateController;
         }
+      case AddAddressFieldsTypes.ZIPCODE:
+        {
+          return addAddressBloc.zipCodeController;
+        }
     }
   }
 
   Widget _getEmailTextField() {
     return EmailTextField(
-      emailController:
-          _getInputController(addAddressBloc, addAddressFieldsType),
+      emailController: _getInputController(addAddressBloc, addAddressFieldsType),
       onChanged: (val) {
         addAddressBloc.add(OnTextChange(
             str: val,
             addAddressFieldsType: AddAddressFieldsTypes.EMAIL,
-            textEditingController:
-                _getInputController(addAddressBloc, addAddressFieldsType)));
+            textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
       },
     );
   }
@@ -131,25 +137,22 @@ class AddressTextFieldHelper {
           ],
         ),
         SizedBox(
-          height: 8.h,
+          height: 8,
         ),
         Directionality(
           textDirection: ui.TextDirection.ltr,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: PhoneTextField(
-              phoneNumController:
-                  _getInputController(addAddressBloc, addAddressFieldsType),
+              phoneNumController: _getInputController(addAddressBloc, addAddressFieldsType),
               onInputChanged: (PhoneNumber phoneNumber) {
                 log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
                     name: "onInputChanged --->");
-                log("${phoneNumber.phoneNumber}",
-                    name: "PhoneTextField onInputChanged ->");
+                log("${phoneNumber.phoneNumber}", name: "PhoneTextField onInputChanged ->");
                 addAddressBloc.add(OnTextChange(
                     phoneNumber: phoneNumber,
                     addAddressFieldsType: AddAddressFieldsTypes.MOBILE,
-                    textEditingController: _getInputController(
-                        addAddressBloc, addAddressFieldsType)));
+                    textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
               },
             ),
           ),
@@ -166,6 +169,7 @@ class AddressTextFieldHelper {
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
+
         ///
         addAddressBloc.add(const GetAreas());
       },
@@ -182,6 +186,7 @@ class AddressTextFieldHelper {
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
+
         ///
         addAddressBloc.add(const GetGovernorates());
       },
@@ -198,6 +203,7 @@ class AddressTextFieldHelper {
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
+
         ///
         addAddressBloc.add(const GetCities());
       },
@@ -217,6 +223,43 @@ class AddressTextFieldHelper {
       },
       addAddressFieldsType: addAddressFieldsType,
       selectedItem: addAddressBloc.selectedArea,
+    );
+  }
+
+  Widget _getSecondMobileTextField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LabelTxt(txt: addAddressFieldsType.name.tr()),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Directionality(
+          textDirection: ui.TextDirection.ltr,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: PhoneTextField(
+              phoneNumController: _getInputController(addAddressBloc, addAddressFieldsType),
+              withValidator: false,
+              onInputChanged: (PhoneNumber phoneNumber) {
+                log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                    name: "onInputChanged --->");
+                log("${phoneNumber.phoneNumber}", name: "PhoneTextField onInputChanged ->");
+                addAddressBloc.add(OnTextChange(
+                    alternativePhoneNumber: phoneNumber,
+                    addAddressFieldsType: AddAddressFieldsTypes.ALTERNATIVE_MOBILE,
+                    textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

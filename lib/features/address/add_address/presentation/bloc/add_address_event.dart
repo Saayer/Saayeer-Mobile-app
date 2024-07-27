@@ -21,9 +21,10 @@ class OnTextChange extends AddAddressEvent {
   final TextEditingController? textEditingController;
   final String? str;
   final PhoneNumber? phoneNumber;
+  final PhoneNumber? alternativePhoneNumber;
   final AddAddressFieldsTypes addAddressFieldsType;
 
-  const OnTextChange({this.textEditingController, this.str, required this.addAddressFieldsType, this.phoneNumber})
+  const OnTextChange({this.textEditingController, this.str, required this.addAddressFieldsType, this.phoneNumber, this.alternativePhoneNumber})
       : assert(addAddressFieldsType == AddAddressFieldsTypes.MOBILE ? phoneNumber != null : phoneNumber == null);
 
   @override

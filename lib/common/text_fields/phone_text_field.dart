@@ -4,19 +4,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/input_text_field_decoration.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'dart:ui' as ui;
 
 class PhoneTextField extends StatelessWidget {
   final TextEditingController phoneNumController;
   final void Function(PhoneNumber)? onInputChanged;
+  final bool? withValidator;
 
-  const PhoneTextField(
-      {super.key, required this.phoneNumController, this.onInputChanged});
+  const PhoneTextField({super.key, required this.phoneNumController, this.onInputChanged, this.withValidator});
 
   @override
   Widget build(BuildContext context) {
@@ -30,44 +28,39 @@ class PhoneTextField extends StatelessWidget {
           onInputChanged!(number);
         }
       },
-      validator: (String? value) {
-        if (value?.isEmpty ?? true) {
-          return 'empty_field_error'
-              .tr()
-              .replaceFirst("{}", "phone_num".tr());
-        }
-        if (value!.length < 10) {
-          return 'invalid_field_error'
-              .tr()
-              .replaceFirst("{}", "phone_num".tr());
-        }
-        return null;
-      },
+      validator: (withValidator ?? true)
+          ? (String? value) {
+              if (value?.isEmpty ?? true) {
+                return 'empty_field_error'.tr().replaceFirst("{}", "phone_num".tr());
+              }
+              if (value!.length < 10) {
+                return 'invalid_field_error'.tr().replaceFirst("{}", "phone_num".tr());
+              }
+              return null;
+            }
+          : null,
       onInputValidated: (bool value) {
         log("$value", name: "onInputValidated --->");
       },
       maxLength: 12,
       selectorConfig: const SelectorConfig(
-        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-        useBottomSheetSafeArea: true,
-      ),
+          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          useBottomSheetSafeArea: true,
+          leadingPadding: 8,
+          setSelectorButtonAsPrefixIcon: true),
       ignoreBlank: false,
       hintText: "phone_num".tr(),
-      errorMessage:
-          'invalid_field_error'.tr().replaceFirst("{}", "phone_num".tr()),
+      errorMessage: (withValidator ?? true) ? 'invalid_field_error'.tr().replaceFirst("{}", "phone_num".tr()) : null,
       autoValidateMode: AutovalidateMode.onUserInteraction,
       selectorTextStyle: AppTextStyles.liteLabel(),
       textStyle: AppTextStyles.liteLabel(),
       initialValue: PhoneNumber(isoCode: 'SA'),
       textFieldController: phoneNumController,
       formatInput: true,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: true, decimal: true),
-      inputDecoration: InputTextFieldDecoration()(
-          hintText: "xxx xxx xxxx"),
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+      inputDecoration: InputTextFieldDecoration()(hintText: "xxx xxx xxxx"),
       inputBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-            color: SaayerTheme().getColorsPalette.greyColor, width: 1.w),
+        borderSide: BorderSide(color: SaayerTheme().getColorsPalette.greyColor, width: 1.w),
         borderRadius: BorderRadius.all(Radius.circular(10.r)),
       ),
       onSaved: (PhoneNumber number) {

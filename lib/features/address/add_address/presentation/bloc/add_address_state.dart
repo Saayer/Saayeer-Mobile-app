@@ -4,8 +4,8 @@ part of 'add_address_bloc.dart';
 class AddAddressState extends Equatable {
   final StateHelper stateHelper;
   final AutovalidateMode autoValidateMode;
-  final AddressInfoEntity? addressInfoEntity;
-  final SubmitAddressInfoEntity? submitAddressInfoEntity;
+  final CustomerAddDto? addressInfoEntity;
+  final CustomerGetDto? submitAddressInfoEntity;
   final bool? isAddShipmentRequest;
   final int? countryId;
   final int? governorateId;
@@ -24,8 +24,8 @@ class AddAddressState extends Equatable {
   AddAddressState copyWith(
       {StateHelper? stateHelper,
       AutovalidateMode? autoValidateMode,
-      AddressInfoEntity? addressInfoEntity,
-      SubmitAddressInfoEntity? submitAddressInfoEntity,
+      CustomerAddDto? addressInfoEntity,
+      CustomerGetDto? submitAddressInfoEntity,
       bool? isAddShipmentRequest,
       int? countryId,
       int? governorateId,

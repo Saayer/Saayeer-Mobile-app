@@ -6,35 +6,27 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'customer_add_dto.g.dart';
+part 'customer_query.g.dart';
 
-/// CustomerAddDto
+/// CustomerQuery
 ///
 /// Properties:
-/// * [addressDetails] 
-/// * [zipcode] 
-/// * [phoneNo] 
-/// * [email] 
+/// * [general] 
+/// * [phone] 
 /// * [countryId] 
 /// * [governorateId] 
 /// * [cityId] 
-/// * [areaId] 
-/// * [customerId] 
-/// * [fullName] 
-/// * [phoneNo2] 
+/// * [totalShipmentsMin] 
+/// * [totalShipmentsMax] 
+/// * [skip] 
+/// * [take] 
 @BuiltValue()
-abstract class CustomerAddDto implements Built<CustomerAddDto, CustomerAddDtoBuilder> {
-  @BuiltValueField(wireName: r'addressDetails')
-  String? get addressDetails;
+abstract class CustomerQuery implements Built<CustomerQuery, CustomerQueryBuilder> {
+  @BuiltValueField(wireName: r'general')
+  String? get general;
 
-  @BuiltValueField(wireName: r'zipcode')
-  String? get zipcode;
-
-  @BuiltValueField(wireName: r'phoneNo')
-  String? get phoneNo;
-
-  @BuiltValueField(wireName: r'email')
-  String? get email;
+  @BuiltValueField(wireName: r'phone')
+  String? get phone;
 
   @BuiltValueField(wireName: r'countryId')
   int? get countryId;
@@ -45,66 +37,52 @@ abstract class CustomerAddDto implements Built<CustomerAddDto, CustomerAddDtoBui
   @BuiltValueField(wireName: r'cityId')
   int? get cityId;
 
-  @BuiltValueField(wireName: r'areaId')
-  int? get areaId;
+  @BuiltValueField(wireName: r'totalShipmentsMin')
+  int? get totalShipmentsMin;
 
-  @BuiltValueField(wireName: r'customerId')
-  int? get customerId;
+  @BuiltValueField(wireName: r'totalShipmentsMax')
+  int? get totalShipmentsMax;
 
-  @BuiltValueField(wireName: r'fullName')
-  String? get fullName;
+  @BuiltValueField(wireName: r'skip')
+  int? get skip;
 
-  @BuiltValueField(wireName: r'phoneNo2')
-  String? get phoneNo2;
+  @BuiltValueField(wireName: r'take')
+  int? get take;
 
-  CustomerAddDto._();
+  CustomerQuery._();
 
-  factory CustomerAddDto([void updates(CustomerAddDtoBuilder b)]) = _$CustomerAddDto;
+  factory CustomerQuery([void updates(CustomerQueryBuilder b)]) = _$CustomerQuery;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(CustomerAddDtoBuilder b) => b;
+  static void _defaults(CustomerQueryBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CustomerAddDto> get serializer => _$CustomerAddDtoSerializer();
+  static Serializer<CustomerQuery> get serializer => _$CustomerQuerySerializer();
 }
 
-class _$CustomerAddDtoSerializer implements PrimitiveSerializer<CustomerAddDto> {
+class _$CustomerQuerySerializer implements PrimitiveSerializer<CustomerQuery> {
   @override
-  final Iterable<Type> types = const [CustomerAddDto, _$CustomerAddDto];
+  final Iterable<Type> types = const [CustomerQuery, _$CustomerQuery];
 
   @override
-  final String wireName = r'CustomerAddDto';
+  final String wireName = r'CustomerQuery';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    CustomerAddDto object, {
+    CustomerQuery object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.addressDetails != null) {
-      yield r'addressDetails';
+    if (object.general != null) {
+      yield r'general';
       yield serializers.serialize(
-        object.addressDetails,
+        object.general,
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.zipcode != null) {
-      yield r'zipcode';
+    if (object.phone != null) {
+      yield r'phone';
       yield serializers.serialize(
-        object.zipcode,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.phoneNo != null) {
-      yield r'phoneNo';
-      yield serializers.serialize(
-        object.phoneNo,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.email != null) {
-      yield r'email';
-      yield serializers.serialize(
-        object.email,
+        object.phone,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -112,49 +90,49 @@ class _$CustomerAddDtoSerializer implements PrimitiveSerializer<CustomerAddDto> 
       yield r'countryId';
       yield serializers.serialize(
         object.countryId,
-        specifiedType: const FullType(int),
+        specifiedType: const FullType.nullable(int),
       );
     }
     if (object.governorateId != null) {
       yield r'governorateId';
       yield serializers.serialize(
         object.governorateId,
-        specifiedType: const FullType(int),
+        specifiedType: const FullType.nullable(int),
       );
     }
     if (object.cityId != null) {
       yield r'cityId';
       yield serializers.serialize(
         object.cityId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.areaId != null) {
-      yield r'areaId';
-      yield serializers.serialize(
-        object.areaId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.customerId != null) {
-      yield r'customerId';
-      yield serializers.serialize(
-        object.customerId,
         specifiedType: const FullType.nullable(int),
       );
     }
-    if (object.fullName != null) {
-      yield r'fullName';
+    if (object.totalShipmentsMin != null) {
+      yield r'totalShipmentsMin';
       yield serializers.serialize(
-        object.fullName,
-        specifiedType: const FullType.nullable(String),
+        object.totalShipmentsMin,
+        specifiedType: const FullType.nullable(int),
       );
     }
-    if (object.phoneNo2 != null) {
-      yield r'phoneNo2';
+    if (object.totalShipmentsMax != null) {
+      yield r'totalShipmentsMax';
       yield serializers.serialize(
-        object.phoneNo2,
-        specifiedType: const FullType.nullable(String),
+        object.totalShipmentsMax,
+        specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.skip != null) {
+      yield r'skip';
+      yield serializers.serialize(
+        object.skip,
+        specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.take != null) {
+      yield r'take';
+      yield serializers.serialize(
+        object.take,
+        specifiedType: const FullType.nullable(int),
       );
     }
   }
@@ -162,7 +140,7 @@ class _$CustomerAddDtoSerializer implements PrimitiveSerializer<CustomerAddDto> 
   @override
   Object serialize(
     Serializers serializers,
-    CustomerAddDto object, {
+    CustomerQuery object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -173,96 +151,84 @@ class _$CustomerAddDtoSerializer implements PrimitiveSerializer<CustomerAddDto> 
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required CustomerAddDtoBuilder result,
+    required CustomerQueryBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'addressDetails':
+        case r'general':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.addressDetails = valueDes;
+          result.general = valueDes;
           break;
-        case r'zipcode':
+        case r'phone':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.zipcode = valueDes;
-          break;
-        case r'phoneNo':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.phoneNo = valueDes;
-          break;
-        case r'email':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.email = valueDes;
+          result.phone = valueDes;
           break;
         case r'countryId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.countryId = valueDes;
-          break;
-        case r'governorateId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.governorateId = valueDes;
-          break;
-        case r'cityId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.cityId = valueDes;
-          break;
-        case r'areaId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.areaId = valueDes;
-          break;
-        case r'customerId':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(int),
           ) as int?;
           if (valueDes == null) continue;
-          result.customerId = valueDes;
+          result.countryId = valueDes;
           break;
-        case r'fullName':
+        case r'governorateId':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
           if (valueDes == null) continue;
-          result.fullName = valueDes;
+          result.governorateId = valueDes;
           break;
-        case r'phoneNo2':
+        case r'cityId':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
           if (valueDes == null) continue;
-          result.phoneNo2 = valueDes;
+          result.cityId = valueDes;
+          break;
+        case r'totalShipmentsMin':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.totalShipmentsMin = valueDes;
+          break;
+        case r'totalShipmentsMax':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.totalShipmentsMax = valueDes;
+          break;
+        case r'skip':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.skip = valueDes;
+          break;
+        case r'take':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.take = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -273,12 +239,12 @@ class _$CustomerAddDtoSerializer implements PrimitiveSerializer<CustomerAddDto> 
   }
 
   @override
-  CustomerAddDto deserialize(
+  CustomerQuery deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = CustomerAddDtoBuilder();
+    final result = CustomerQueryBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

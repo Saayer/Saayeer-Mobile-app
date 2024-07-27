@@ -259,6 +259,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i801.SayeerOpenAPIConfig(sayeerOpenapi: gh<_i711.Openapi>()));
     gh.lazySingleton<_i801.OpenAPIConfig>(
         () => _i801.OpenAPIConfig(openapi: gh<_i711.Openapi>()));
+    gh.factory<_i335.AddAddressInfoRepo>(() => _i419.AddAddressInfoRepoImpl());
     gh.lazySingleton<_i919.NetworkInfo>(() => _i919.NetworkInfoImpl());
     gh.lazySingleton<_i151.ApiConsumer>(
         () => _i9.DioConsumer(client: gh<_i361.Dio>()));
@@ -270,8 +271,6 @@ extension GetItInjectableX on _i174.GetIt {
         _i500.AddAddressInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i389.VerifyOtpRDS>(
         () => _i23.VerifyOtpRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i335.AddAddressInfoRepo>(() => _i419.AddAddressInfoRepoImpl(
-        addAddressInfoRDSImpl: gh<_i173.AddAddressInfoRDS>()));
     gh.factory<_i211.AddressesBookRDS>(
         () => _i788.AddressesBookRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i927.RefreshToken>(

@@ -3,7 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/address_get_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -12,19 +11,83 @@ part 'customer_get_dto.g.dart';
 /// CustomerGetDto
 ///
 /// Properties:
-/// * [id] 
+/// * [addressDetails] 
+/// * [zipcode] 
+/// * [phoneNo] 
+/// * [email] 
+/// * [countryNameEn] 
+/// * [countryNameAr] 
+/// * [governorateNameEn] 
+/// * [governorateNameAr] 
+/// * [cityNameEn] 
+/// * [cityNameAr] 
+/// * [areaNameEn] 
+/// * [areaNameAr] 
+/// * [customerId] 
 /// * [fullName] 
-/// * [address] 
+/// * [phoneNo2] 
+/// * [totalShipments] 
+/// * [lastShipmentDate] 
+/// * [totalPaid] 
+/// * [totalGain] 
 @BuiltValue()
 abstract class CustomerGetDto implements Built<CustomerGetDto, CustomerGetDtoBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int? get id;
+  @BuiltValueField(wireName: r'addressDetails')
+  String? get addressDetails;
+
+  @BuiltValueField(wireName: r'zipcode')
+  String? get zipcode;
+
+  @BuiltValueField(wireName: r'phoneNo')
+  String? get phoneNo;
+
+  @BuiltValueField(wireName: r'email')
+  String? get email;
+
+  @BuiltValueField(wireName: r'countryName_en')
+  String? get countryNameEn;
+
+  @BuiltValueField(wireName: r'countryName_ar')
+  String? get countryNameAr;
+
+  @BuiltValueField(wireName: r'governorateName_en')
+  String? get governorateNameEn;
+
+  @BuiltValueField(wireName: r'governorateName_ar')
+  String? get governorateNameAr;
+
+  @BuiltValueField(wireName: r'cityName_en')
+  String? get cityNameEn;
+
+  @BuiltValueField(wireName: r'cityName_ar')
+  String? get cityNameAr;
+
+  @BuiltValueField(wireName: r'areaName_en')
+  String? get areaNameEn;
+
+  @BuiltValueField(wireName: r'areaName_ar')
+  String? get areaNameAr;
+
+  @BuiltValueField(wireName: r'customerId')
+  int? get customerId;
 
   @BuiltValueField(wireName: r'fullName')
   String? get fullName;
 
-  @BuiltValueField(wireName: r'address')
-  AddressGetDto? get address;
+  @BuiltValueField(wireName: r'phoneNo2')
+  String? get phoneNo2;
+
+  @BuiltValueField(wireName: r'totalShipments')
+  int? get totalShipments;
+
+  @BuiltValueField(wireName: r'lastShipmentDate')
+  DateTime? get lastShipmentDate;
+
+  @BuiltValueField(wireName: r'totalPaid')
+  double? get totalPaid;
+
+  @BuiltValueField(wireName: r'totalGain')
+  double? get totalGain;
 
   CustomerGetDto._();
 
@@ -49,10 +112,94 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
     CustomerGetDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
+    if (object.addressDetails != null) {
+      yield r'addressDetails';
       yield serializers.serialize(
-        object.id,
+        object.addressDetails,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.zipcode != null) {
+      yield r'zipcode';
+      yield serializers.serialize(
+        object.zipcode,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.phoneNo != null) {
+      yield r'phoneNo';
+      yield serializers.serialize(
+        object.phoneNo,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.email != null) {
+      yield r'email';
+      yield serializers.serialize(
+        object.email,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.countryNameEn != null) {
+      yield r'countryName_en';
+      yield serializers.serialize(
+        object.countryNameEn,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.countryNameAr != null) {
+      yield r'countryName_ar';
+      yield serializers.serialize(
+        object.countryNameAr,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.governorateNameEn != null) {
+      yield r'governorateName_en';
+      yield serializers.serialize(
+        object.governorateNameEn,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.governorateNameAr != null) {
+      yield r'governorateName_ar';
+      yield serializers.serialize(
+        object.governorateNameAr,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.cityNameEn != null) {
+      yield r'cityName_en';
+      yield serializers.serialize(
+        object.cityNameEn,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.cityNameAr != null) {
+      yield r'cityName_ar';
+      yield serializers.serialize(
+        object.cityNameAr,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.areaNameEn != null) {
+      yield r'areaName_en';
+      yield serializers.serialize(
+        object.areaNameEn,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.areaNameAr != null) {
+      yield r'areaName_ar';
+      yield serializers.serialize(
+        object.areaNameAr,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.customerId != null) {
+      yield r'customerId';
+      yield serializers.serialize(
+        object.customerId,
         specifiedType: const FullType(int),
       );
     }
@@ -63,11 +210,39 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.address != null) {
-      yield r'address';
+    if (object.phoneNo2 != null) {
+      yield r'phoneNo2';
       yield serializers.serialize(
-        object.address,
-        specifiedType: const FullType(AddressGetDto),
+        object.phoneNo2,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.totalShipments != null) {
+      yield r'totalShipments';
+      yield serializers.serialize(
+        object.totalShipments,
+        specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.lastShipmentDate != null) {
+      yield r'lastShipmentDate';
+      yield serializers.serialize(
+        object.lastShipmentDate,
+        specifiedType: const FullType.nullable(DateTime),
+      );
+    }
+    if (object.totalPaid != null) {
+      yield r'totalPaid';
+      yield serializers.serialize(
+        object.totalPaid,
+        specifiedType: const FullType.nullable(double),
+      );
+    }
+    if (object.totalGain != null) {
+      yield r'totalGain';
+      yield serializers.serialize(
+        object.totalGain,
+        specifiedType: const FullType.nullable(double),
       );
     }
   }
@@ -93,12 +268,108 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
+        case r'addressDetails':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.addressDetails = valueDes;
+          break;
+        case r'zipcode':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.zipcode = valueDes;
+          break;
+        case r'phoneNo':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.phoneNo = valueDes;
+          break;
+        case r'email':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.email = valueDes;
+          break;
+        case r'countryName_en':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.countryNameEn = valueDes;
+          break;
+        case r'countryName_ar':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.countryNameAr = valueDes;
+          break;
+        case r'governorateName_en':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.governorateNameEn = valueDes;
+          break;
+        case r'governorateName_ar':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.governorateNameAr = valueDes;
+          break;
+        case r'cityName_en':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.cityNameEn = valueDes;
+          break;
+        case r'cityName_ar':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.cityNameAr = valueDes;
+          break;
+        case r'areaName_en':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.areaNameEn = valueDes;
+          break;
+        case r'areaName_ar':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.areaNameAr = valueDes;
+          break;
+        case r'customerId':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
-          result.id = valueDes;
+          result.customerId = valueDes;
           break;
         case r'fullName':
           final valueDes = serializers.deserialize(
@@ -108,12 +379,45 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
           if (valueDes == null) continue;
           result.fullName = valueDes;
           break;
-        case r'address':
+        case r'phoneNo2':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(AddressGetDto),
-          ) as AddressGetDto;
-          result.address.replace(valueDes);
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.phoneNo2 = valueDes;
+          break;
+        case r'totalShipments':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.totalShipments = valueDes;
+          break;
+        case r'lastShipmentDate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(DateTime),
+          ) as DateTime?;
+          if (valueDes == null) continue;
+          result.lastShipmentDate = valueDes;
+          break;
+        case r'totalPaid':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(double),
+          ) as double?;
+          if (valueDes == null) continue;
+          result.totalPaid = valueDes;
+          break;
+        case r'totalGain':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(double),
+          ) as double?;
+          if (valueDes == null) continue;
+          result.totalGain = valueDes;
           break;
         default:
           unhandled.add(key);

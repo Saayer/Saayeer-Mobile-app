@@ -8,38 +8,41 @@ import 'package:saayer/core/API/status_code.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/network/network_info.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/features/address/add_address/data/data_sources/remote/add_address_info_RDS.dart';
-import 'package:saayer/features/address/add_address/data/models/submit_address/submit_address_info_response_model.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
-import 'package:saayer/features/address/add_address/domain/entities/submit_address_info_entity.dart';
 import 'package:saayer/features/address/add_address/domain/repositories/add_address_info_repo.dart';
 
 @Injectable(as: AddAddressInfoRepo)
 class AddAddressInfoRepoImpl implements AddAddressInfoRepo {
-  final AddAddressInfoRDS addAddressInfoRDSImpl;
 
   ///Todo: Need Modification after add it to new server
   late Openapi sayeerOpenapi;
 
-  AddAddressInfoRepoImpl({
-    required this.addAddressInfoRDSImpl,
-  });
+  AddAddressInfoRepoImpl();
 
   @override
-  Future<Either<Failure, SubmitAddressInfoEntity?>> submitAddressInfo(AddressInfoEntity addressInfoEntity) async {
-    log("AddressInfoRepoImpl");
+  Future<Either<Failure, CustomerGetDto?>> submitAddressInfo(CustomerAddDto customerAddDto) async {
+    log("submitAddressInfo");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
-        final SubmitAddressInfoResponseModel result = await addAddressInfoRDSImpl.submitAddressInfo(addressInfoEntity);
-        log("AddressInfoRepoImpl Right $result");
-        if (result != null) {
-          return Right(result.toDomain());
+        ///
+        sayeerOpenapi = Openapi(
+            dio: Dio(BaseOptions(
+                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
+                validateStatus: (status) {
+                  return (status == StatusCode.ok) || (status == StatusCode.success);
+                },
+
+                ///ConnectionTimeOut in ms
+                connectTimeout: const Duration(milliseconds: 20000))));
+        final Response<CustomerGetDto> result = await sayeerOpenapi.getCustomersApi().apiCustomersPost(customerAddDto: customerAddDto);
+        log("submitAddressInfo Right $result");
+        if (result.data != null) {
+          return Right(result.data);
         } else {
           return Left(Failure(failureMessage: "Request failed"));
         }
       } catch (e) {
-        log("AddressInfoRepoImpl Failure ${e.toString()}");
+        log("submitAddressInfo Failure ${e.toString()}");
         return Left(Failure(failureMessage: "Request failed"));
       }
     }
@@ -57,7 +60,7 @@ class AddAddressInfoRepoImpl implements AddAddressInfoRepo {
         ///
         sayeerOpenapi = Openapi(
             dio: Dio(BaseOptions(
-                baseUrl: 'http://34.140.10.214/saayer-v0-1/',
+                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
                 validateStatus: (status) {
                   return (status == StatusCode.ok) || (status == StatusCode.success);
                 },
@@ -92,7 +95,7 @@ class AddAddressInfoRepoImpl implements AddAddressInfoRepo {
         ///
         sayeerOpenapi = Openapi(
             dio: Dio(BaseOptions(
-                baseUrl: 'http://34.140.10.214/saayer-v0-1/',
+                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
                 validateStatus: (status) {
                   return (status == StatusCode.ok) || (status == StatusCode.success);
                 },
@@ -129,7 +132,7 @@ class AddAddressInfoRepoImpl implements AddAddressInfoRepo {
         ///
         sayeerOpenapi = Openapi(
             dio: Dio(BaseOptions(
-                baseUrl: 'http://34.140.10.214/saayer-v0-1/',
+                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
                 validateStatus: (status) {
                   return (status == StatusCode.ok) || (status == StatusCode.success);
                 },
@@ -166,7 +169,7 @@ class AddAddressInfoRepoImpl implements AddAddressInfoRepo {
         ///
         sayeerOpenapi = Openapi(
             dio: Dio(BaseOptions(
-                baseUrl: 'http://34.140.10.214/saayer-v0-1/',
+                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
                 validateStatus: (status) {
                   return (status == StatusCode.ok) || (status == StatusCode.success);
                 },

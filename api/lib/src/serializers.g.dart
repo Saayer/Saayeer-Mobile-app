@@ -7,8 +7,6 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(AddressAddDto.serializer)
-      ..add(AddressGetDto.serializer)
       ..add(AddressLookUpDto.serializer)
       ..add(AppSettings.serializer)
       ..add(AppSettingsApiResponsePublicModel.serializer)
@@ -30,6 +28,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CreateStoreInformationVM.serializer)
       ..add(CustomerAddDto.serializer)
       ..add(CustomerGetDto.serializer)
+      ..add(CustomerQuery.serializer)
       ..add(LoginDeviceInformations.serializer)
       ..add(LookupDto.serializer)
       ..add(LookupDtoListApiResponseModel.serializer)

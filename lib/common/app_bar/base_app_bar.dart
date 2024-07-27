@@ -39,8 +39,8 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             elevation: 2,
             title: title == null
                 ? Container(
-                    width: 100.w,
-                    height: 40.h,
+                    width: 100,
+                    height: 40,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(

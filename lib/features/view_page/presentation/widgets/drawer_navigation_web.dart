@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
@@ -24,11 +26,18 @@ class NavigationWebDrawer extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
+              DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: SaayerTheme().getColorsPalette.backgroundColor,
                 ),
-                child: Text('Drawer Header'),
+                child: Container(
+                  width: 100.h,
+                  height: 40.w,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              Constants.getIconPath("ic_logo_text.png")))),
+                ),
               ),
               ...List.generate(viewPageBloc.navBarIconEntityList.length, (index)=> ListTile(
                 title: Text(

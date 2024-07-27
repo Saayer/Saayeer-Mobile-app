@@ -26,14 +26,14 @@ class AddAddressErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
               title: "error_title",
-              message: state.submitAddressInfoEntity?.message ?? 'error_msg');
+              message: 'error_msg');
           break;
         }
       case AddAddressErrorStatus.ERROR_GET_CITIES:
         {
           SaayerDialogs().oneBtnDialog(
               title: "error_title",
-              message: state.submitAddressInfoEntity?.message ?? 'error_msg');
+              message: 'error_msg');
           break;
         }
       default:
@@ -41,7 +41,7 @@ class AddAddressErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
             title: "error_title",
-            message: state.submitAddressInfoEntity?.message ?? 'error_msg',
+            message: 'error_msg',
           );
           break;
         }

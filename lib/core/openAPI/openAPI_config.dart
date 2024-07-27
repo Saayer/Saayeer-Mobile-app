@@ -53,7 +53,7 @@ class SayeerOpenAPIConfig {
   }) {
     HttpOverrides.global = MyHttpOverrides();
     sayeerOpenapi.dio.options = BaseOptions(
-        baseUrl: 'http://34.140.10.214/saayer-v0-1/',
+        baseUrl: 'http://34.140.10.214/saayer-v0-2/',
         validateStatus: (status) {
           return (status == StatusCode.ok) || (status == StatusCode.success);
         },

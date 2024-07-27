@@ -83,6 +83,7 @@ Class | Method | HTTP request | Description
 [*ClientApi*](doc/ClientApi.md) | [**clientAddClientPost**](doc/ClientApi.md#clientaddclientpost) | **POST** /Client/AddClient | 
 [*ClientApi*](doc/ClientApi.md) | [**clientGetClientsGet**](doc/ClientApi.md#clientgetclientsget) | **GET** /Client/GetClients | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersGet**](doc/CustomersApi.md#apicustomersget) | **GET** /api/Customers | 
+[*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersGetCustomersByPost**](doc/CustomersApi.md#apicustomersgetcustomersbypost) | **POST** /api/Customers/GetCustomersBy | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersIdDelete**](doc/CustomersApi.md#apicustomersiddelete) | **DELETE** /api/Customers/{id} | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersIdGet**](doc/CustomersApi.md#apicustomersidget) | **GET** /api/Customers/{id} | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersPost**](doc/CustomersApi.md#apicustomerspost) | **POST** /api/Customers | 
@@ -103,8 +104,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AddressAddDto](doc/AddressAddDto.md)
- - [AddressGetDto](doc/AddressGetDto.md)
  - [AddressLookUpDto](doc/AddressLookUpDto.md)
  - [AppSettings](doc/AppSettings.md)
  - [AppSettingsApiResponsePublicModel](doc/AppSettingsApiResponsePublicModel.md)
@@ -126,6 +125,7 @@ Class | Method | HTTP request | Description
  - [CreateStoreInformationVM](doc/CreateStoreInformationVM.md)
  - [CustomerAddDto](doc/CustomerAddDto.md)
  - [CustomerGetDto](doc/CustomerGetDto.md)
+ - [CustomerQuery](doc/CustomerQuery.md)
  - [LoginDeviceInformations](doc/LoginDeviceInformations.md)
  - [LookupDto](doc/LookupDto.md)
  - [LookupDtoListApiResponseModel](doc/LookupDtoListApiResponseModel.md)

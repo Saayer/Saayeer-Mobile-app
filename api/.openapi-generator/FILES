@@ -2,9 +2,7 @@
 README.md
 analysis_options.yaml
 doc/AccountApi.md
-doc/AddressAddDto.md
 doc/AddressApi.md
-doc/AddressGetDto.md
 doc/AddressLookUpDto.md
 doc/AddressLookupsApi.md
 doc/AppSettings.md
@@ -29,6 +27,7 @@ doc/CreateShipmentRequestDto.md
 doc/CreateStoreInformationVM.md
 doc/CustomerAddDto.md
 doc/CustomerGetDto.md
+doc/CustomerQuery.md
 doc/CustomersApi.md
 doc/LoginDeviceInformations.md
 doc/LookupDto.md
@@ -69,8 +68,6 @@ lib/src/auth/basic_auth.dart
 lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
-lib/src/model/address_add_dto.dart
-lib/src/model/address_get_dto.dart
 lib/src/model/address_look_up_dto.dart
 lib/src/model/app_settings.dart
 lib/src/model/app_settings_api_response_public_model.dart
@@ -92,6 +89,7 @@ lib/src/model/create_shipment_request_dto.dart
 lib/src/model/create_store_information_vm.dart
 lib/src/model/customer_add_dto.dart
 lib/src/model/customer_get_dto.dart
+lib/src/model/customer_query.dart
 lib/src/model/date.dart
 lib/src/model/login_device_informations.dart
 lib/src/model/lookup_dto.dart
@@ -111,10 +109,4 @@ lib/src/model/user_profile_vm.dart
 lib/src/model/user_profile_vm_api_response_model.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/address_add_dto_test.dart
-test/address_get_dto_test.dart
-test/address_look_up_dto_test.dart
-test/address_lookups_api_test.dart
-test/customer_add_dto_test.dart
-test/customer_get_dto_test.dart
-test/customers_api_test.dart
+test/customer_query_test.dart

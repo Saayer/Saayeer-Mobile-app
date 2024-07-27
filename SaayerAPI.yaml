@@ -1081,6 +1081,40 @@ paths:
       responses:
         '200':
           description: Success
+  "/api/Customers/GetCustomersBy":
+    post:
+      tags:
+      - Customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerQuery"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerQuery"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/CustomerQuery"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
 components:
   schemas:
     AppSettings:
@@ -1702,48 +1736,6 @@ components:
           nullable: true
       additionalProperties: false
 #############################
-    AddressAddDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          nullable: true
-        details:
-          type: string
-          nullable: true
-        countryId:
-          type: integer
-          format: int32
-        governorateId:
-          type: integer
-          format: int32
-        cityId:
-          type: integer
-          format: int32
-        areaId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    AddressGetDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          nullable: true
-        details:
-          type: string
-          nullable: true
-        country:
-          "$ref": "#/components/schemas/AddressLookUpDto"
-        governorate:
-          "$ref": "#/components/schemas/AddressLookUpDto"
-        city:
-          "$ref": "#/components/schemas/AddressLookUpDto"
-        area:
-          "$ref": "#/components/schemas/AddressLookUpDto"
-      additionalProperties: false
     AddressLookUpDto:
       type: object
       properties:
@@ -1760,27 +1752,143 @@ components:
     CustomerAddDto:
       type: object
       properties:
-        id:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        customerId:
           type: integer
           format: int64
           nullable: true
         fullName:
           type: string
           nullable: true
-        address:
-          "$ref": "#/components/schemas/AddressAddDto"
+        phoneNo2:
+          type: string
+          nullable: true
       additionalProperties: false
     CustomerGetDto:
       type: object
       properties:
-        id:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        countryName_en:
+          type: string
+          nullable: true
+        countryName_ar:
+          type: string
+          nullable: true
+        governorateName_en:
+          type: string
+          nullable: true
+        governorateName_ar:
+          type: string
+          nullable: true
+        cityName_en:
+          type: string
+          nullable: true
+        cityName_ar:
+          type: string
+          nullable: true
+        areaName_en:
+          type: string
+          nullable: true
+        areaName_ar:
+          type: string
+          nullable: true
+        customerId:
           type: integer
           format: int64
         fullName:
           type: string
           nullable: true
-        address:
-          "$ref": "#/components/schemas/AddressGetDto"
+        phoneNo2:
+          type: string
+          nullable: true
+        totalShipments:
+          type: integer
+          format: int64
+          nullable: true
+        lastShipmentDate:
+          type: string
+          format: date-time
+          nullable: true
+        totalPaid:
+          type: number
+          format: double
+          nullable: true
+        totalGain:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    CustomerQuery:
+      type: object
+      properties:
+        general:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+          nullable: true
+        governorateId:
+          type: integer
+          format: int32
+          nullable: true
+        cityId:
+          type: integer
+          format: int32
+          nullable: true
+        totalShipmentsMin:
+          type: integer
+          format: int32
+          nullable: true
+        totalShipmentsMax:
+          type: integer
+          format: int32
+          nullable: true
+        skip:
+          type: integer
+          format: int32
+          nullable: true
+        take:
+          type: integer
+          format: int32
+          nullable: true
       additionalProperties: false
   securitySchemes:
     Bearer:

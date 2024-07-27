@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost/v0-2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiCustomersGet**](CustomersApi.md#apicustomersget) | **GET** /api/Customers | 
+[**apiCustomersGetCustomersByPost**](CustomersApi.md#apicustomersgetcustomersbypost) | **POST** /api/Customers/GetCustomersBy | 
 [**apiCustomersIdDelete**](CustomersApi.md#apicustomersiddelete) | **DELETE** /api/Customers/{id} | 
 [**apiCustomersIdGet**](CustomersApi.md#apicustomersidget) | **GET** /api/Customers/{id} | 
 [**apiCustomersPost**](CustomersApi.md#apicustomerspost) | **POST** /api/Customers | 
@@ -49,6 +50,47 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiCustomersGetCustomersByPost**
+> BuiltList<CustomerGetDto> apiCustomersGetCustomersByPost(customerQuery)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getCustomersApi();
+final CustomerQuery customerQuery = ; // CustomerQuery | 
+
+try {
+    final response = api.apiCustomersGetCustomersByPost(customerQuery);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling CustomersApi->apiCustomersGetCustomersByPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customerQuery** | [**CustomerQuery**](CustomerQuery.md)|  | [optional] 
+
+### Return type
+
+[**BuiltList&lt;CustomerGetDto&gt;**](CustomerGetDto.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

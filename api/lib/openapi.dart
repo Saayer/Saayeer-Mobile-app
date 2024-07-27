@@ -20,8 +20,6 @@ export 'package:openapi/src/api/settings_api.dart';
 export 'package:openapi/src/api/shipment_api.dart';
 export 'package:openapi/src/api/store_api.dart';
 
-export 'package:openapi/src/model/address_add_dto.dart';
-export 'package:openapi/src/model/address_get_dto.dart';
 export 'package:openapi/src/model/address_look_up_dto.dart';
 export 'package:openapi/src/model/app_settings.dart';
 export 'package:openapi/src/model/app_settings_api_response_public_model.dart';
@@ -43,6 +41,7 @@ export 'package:openapi/src/model/create_shipment_request_dto.dart';
 export 'package:openapi/src/model/create_store_information_vm.dart';
 export 'package:openapi/src/model/customer_add_dto.dart';
 export 'package:openapi/src/model/customer_get_dto.dart';
+export 'package:openapi/src/model/customer_query.dart';
 export 'package:openapi/src/model/login_device_informations.dart';
 export 'package:openapi/src/model/lookup_dto.dart';
 export 'package:openapi/src/model/lookup_dto_list_api_response_model.dart';
