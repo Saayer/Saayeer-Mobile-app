@@ -12,10 +12,10 @@ class AppTextStyles {
       );
 
   static TextStyle boldLabel([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 12.sp,
+        fontSize: 12,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w700,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle boldLiteLabel([Color? color]) => GoogleFonts.alexandria(
@@ -75,18 +75,18 @@ class AppTextStyles {
       );
 
   static TextStyle xSmallLabel([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 9.sp,
+        fontSize: 9,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w500,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle smallParagraph([Color? color, FontWeight? fontWeight]) =>
       GoogleFonts.alexandria(
-        fontSize: 12.sp,
+        fontSize: 12,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: fontWeight ?? FontWeight.w500,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle hintButtonLabel(
@@ -115,10 +115,10 @@ class AppTextStyles {
       );
 
   static TextStyle paragraph([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 14.sp,
+        fontSize: 14,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w600,
-        height: 1.5.h,
+        height: 1.5,
       );
 
   static TextStyle paragraphTinyHeavy([Color? color]) => GoogleFonts.alexandria(

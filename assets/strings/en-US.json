@@ -152,5 +152,9 @@
   "empty_notifications_desc": "Oops! It looks like there are currently no notifications.",
   "search": "Search",
   "sender_city": "Sender City : ",
-  "zipCode": "zip Code"
+  "zipCode": "zip Code",
+  "total_shipments_max_error": "Must be more than min value",
+  "total_shipments_min_error": "Must be less than max value",
+  "address_added_successfully": "Customer address has been added successfully",
+  "address_deleted_successfully": "Customer address has been deleted successfully"
 }

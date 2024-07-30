@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:openapi/openapi.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/address_details/presentation/screens/address_details_screen.dart';
 
 class AddressItemWidget extends StatelessWidget {
-  final AddressInfoEntity addressInfoEntity;
+  final CustomerGetDto addressInfoEntity;
+  final VoidCallback onDelete;
+  final VoidCallback onEdit;
 
-  const AddressItemWidget({super.key, required this.addressInfoEntity});
+  const AddressItemWidget({super.key, required this.addressInfoEntity, required this.onDelete, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        getIt<NavigationService>().navigateTo(
-            AddressDetailsScreen(addressInfoEntity: addressInfoEntity));
+        getIt<NavigationService>().navigateTo(AddressDetailsScreen(addressInfoEntity: addressInfoEntity));
       },
       child: Container(
           decoration: BoxDecoration(
             color: SaayerTheme().getColorsPalette.backgroundColor,
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color:
-                    SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
+                color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
                 spreadRadius: 5,
                 blurRadius: 10,
                 offset: const Offset(0, 0), // changes position of shadow
@@ -34,28 +35,63 @@ class AddressItemWidget extends StatelessWidget {
             ],
           ),
           child: ListTile(
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             leading: Icon(
               Icons.pin_drop,
-              size: 30.r,
+              size: 30,
               color: SaayerTheme().getColorsPalette.orangeColor,
             ),
             title: Text(
-              addressInfoEntity.name,
+              addressInfoEntity.fullName ?? '',
               style: AppTextStyles.boldLabel(),
             ),
-            subtitle: Text(
-              addressInfoEntity.address,
-              style: AppTextStyles.smallParagraph(
-                  SaayerTheme().getColorsPalette.greyColor),
+            subtitle: ResponsiveBreakpoints.of(context).largerThan(MOBILE)
+                ? _buildFullAddress()
+                : Text(
+                    addressInfoEntity.addressDetails ?? '',
+                    style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
+                  ),
+            trailing: SizedBox(
+              width: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                      onPressed: onEdit,
+                      icon: Icon(
+                        Icons.edit,
+                        size: 25,
+                        color: SaayerTheme().getColorsPalette.greenColor,
+                      )),
+                  if ((addressInfoEntity.totalShipments ?? 0) == 0)
+                    IconButton(
+                        onPressed: onDelete,
+                        icon: Icon(
+                          Icons.delete_rounded,
+                          size: 25,
+                          color: SaayerTheme().getColorsPalette.error0,
+                        )),
+                ],
+              ),
             ),
-            trailing: IconButton(onPressed: (){}, icon: Icon(
-              Icons.delete_rounded,
-              size: 30.r,
-              color: SaayerTheme().getColorsPalette.error0,
-            )),
           )),
     );
+  }
+
+  _buildFullAddress() {
+    return Text.rich(TextSpan(children: [
+      TextSpan(
+          text: StringsUtil.getLanguageName(
+              arName: addressInfoEntity.countryNameAr ?? '', enName: addressInfoEntity.countryNameAr ?? ''),
+          style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
+      TextSpan(
+          text:
+              ' - ${StringsUtil.getLanguageName(arName: addressInfoEntity.governorateNameAr ?? '', enName: addressInfoEntity.governorateNameEn ?? '')}',
+          style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
+      TextSpan(
+          text:
+              ' - ${StringsUtil.getLanguageName(arName: addressInfoEntity.cityNameAr ?? '', enName: addressInfoEntity.cityNameEn ?? '')}',
+          style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor))
+    ]));
   }
 }

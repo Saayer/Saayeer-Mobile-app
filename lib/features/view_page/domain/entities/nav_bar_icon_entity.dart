@@ -52,9 +52,9 @@ class RequestShipmentNavBarIconEntity extends NavBarIconEntity {
 
 class ProfileNavBarIconEntity extends NavBarIconEntity {
   const ProfileNavBarIconEntity(
-      {super.iconData = Icons.file_copy_outlined,
+      {super.iconData = Icons.location_on,
       super.isSelected = false,
-      super.navBarIconType = NavBarIconTypes.PROFILE});
+      super.navBarIconType = NavBarIconTypes.ADDRESESS});
 }
 
 class MoreNavBarIconEntity extends NavBarIconEntity {

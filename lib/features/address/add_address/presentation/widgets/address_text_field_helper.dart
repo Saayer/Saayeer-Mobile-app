@@ -57,11 +57,12 @@ class AddressTextFieldHelper {
           return InputTextField(
             label: addAddressFieldsType.name.toLowerCase(),
             inputController: _getInputController(addAddressBloc, addAddressFieldsType),
+            keyboardType: TextInputType.text,
             onChanged: (val) {
-              addAddressBloc.add(OnTextChange(
-                  str: val,
-                  addAddressFieldsType: addAddressFieldsType,
-                  textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
+              // addAddressBloc.add(OnTextChange(
+              //     str: val,
+              //     addAddressFieldsType: addAddressFieldsType,
+              //     textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
             },
           );
         }
@@ -117,10 +118,10 @@ class AddressTextFieldHelper {
     return EmailTextField(
       emailController: _getInputController(addAddressBloc, addAddressFieldsType),
       onChanged: (val) {
-        addAddressBloc.add(OnTextChange(
-            str: val,
-            addAddressFieldsType: AddAddressFieldsTypes.EMAIL,
-            textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
+        // addAddressBloc.add(OnTextChange(
+        //     str: val,
+        //     addAddressFieldsType: AddAddressFieldsTypes.EMAIL,
+        //     textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
       },
     );
   }
@@ -136,13 +137,13 @@ class AddressTextFieldHelper {
             LabelTxt(txt: addAddressFieldsType.name.tr()),
           ],
         ),
-        SizedBox(
-          height: 8,
+        const SizedBox(
+          height: 5,
         ),
         Directionality(
           textDirection: ui.TextDirection.ltr,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: PhoneTextField(
               phoneNumController: _getInputController(addAddressBloc, addAddressFieldsType),
               onInputChanged: (PhoneNumber phoneNumber) {
@@ -163,7 +164,7 @@ class AddressTextFieldHelper {
 
   Widget _getCityTextField() {
     return ItemsDropDownTextField(
-      addressWidgetsBloc: addAddressBloc,
+      bloc: addAddressBloc,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -180,7 +181,7 @@ class AddressTextFieldHelper {
 
   Widget _getCountryTextField() {
     return ItemsDropDownTextField(
-      addressWidgetsBloc: addAddressBloc,
+      bloc: addAddressBloc,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -197,7 +198,7 @@ class AddressTextFieldHelper {
 
   Widget _getGovernorateTextField() {
     return ItemsDropDownTextField(
-      addressWidgetsBloc: addAddressBloc,
+      bloc: addAddressBloc,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -214,7 +215,7 @@ class AddressTextFieldHelper {
 
   Widget _getAreaTextField() {
     return ItemsDropDownTextField(
-      addressWidgetsBloc: addAddressBloc,
+      bloc: addAddressBloc,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -238,12 +239,12 @@ class AddressTextFieldHelper {
           ],
         ),
         const SizedBox(
-          height: 8,
+          height: 5,
         ),
         Directionality(
           textDirection: ui.TextDirection.ltr,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: PhoneTextField(
               phoneNumController: _getInputController(addAddressBloc, addAddressFieldsType),
               withValidator: false,

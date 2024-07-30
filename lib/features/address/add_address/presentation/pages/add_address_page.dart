@@ -122,12 +122,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   child: ResponsiveGridView.builder(
                     alignment: Alignment.centerRight,
                     gridDelegate: ResponsiveGridDelegate(
-                        crossAxisExtent: ResponsiveBreakpoints.of(context).isMobile ? width / 1.11 : 370,
+                        crossAxisExtent: ResponsiveBreakpoints.of(context).largerThan(MOBILE) ? 370 : width,
                         maxCrossAxisExtent: 4,
                         minCrossAxisExtent: 1,
-                        childAspectRatio: 1 / 0.34,
-                        crossAxisSpacing: 1,
-                        mainAxisSpacing: 1),
+                        childAspectRatio: 1 / 0.28,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 0),
                     itemCount: AddAddressFieldsTypes.values.length,
                     itemBuilder: (BuildContext context, int index) {
                       return _getTextField(addAddressBloc, AddAddressFieldsTypes.values[index]);

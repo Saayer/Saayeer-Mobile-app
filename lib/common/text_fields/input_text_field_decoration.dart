@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
@@ -19,9 +18,9 @@ class InputTextFieldDecoration {
           AppTextStyles.liteLabel(SaayerTheme().getColorsPalette.greyColor),
       filled: true,
       fillColor: fillColor ?? SaayerTheme().getColorsPalette.textFieldFillColor,
-      contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+      contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular((borderRadius ?? 10).r)),
+        borderRadius: BorderRadius.all(Radius.circular((borderRadius ?? 10))),
       ),
       errorStyle: TextStyle(color: SaayerTheme().getColorsPalette.primaryColor),
       errorMaxLines: 5,
@@ -29,27 +28,27 @@ class InputTextFieldDecoration {
       suffixIcon: suffixWidget,
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-            color: SaayerTheme().getColorsPalette.primaryColor, width: 1.w),
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+            color: SaayerTheme().getColorsPalette.primaryColor, width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-            color: SaayerTheme().getColorsPalette.primaryColor, width: 2.w),
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+            color: SaayerTheme().getColorsPalette.primaryColor, width: 2),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
             color:
                 enabledBorderColor ?? SaayerTheme().getColorsPalette.greyColor,
-            width: 1.w),
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+            width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
             color:
                 focusedBorderColor ?? SaayerTheme().getColorsPalette.greyColor,
-            width: 2.w),
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+            width: 2),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
     );
   }

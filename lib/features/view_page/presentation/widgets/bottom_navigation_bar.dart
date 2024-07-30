@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
@@ -20,7 +19,7 @@ class SaayerBottomNavigationBar extends StatelessWidget {
       },
       builder: (context, state) {
         return BottomAppBar(
-          height: 80.h,
+          height: 80,
           elevation: 2,
           //alignment: Alignment.topCenter,
           color: SaayerTheme().getColorsPalette.backgroundColor,
@@ -42,19 +41,19 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: isMiddle ? 20.w : 0,
+                        width: isMiddle ? 20 : 0,
                       ),
                       Stack(
                         alignment: Alignment.topCenter,
                         children: [
                           SizedBox(
-                            height: 80.h,
-                            width: 60.w,
+                            height: 80,
+                            width: 60,
                           ),
                           if (navBarIconEntity.navBarIconType !=
                               NavBarIconTypes.REQUEST_SHIPMENT)
                             Positioned(
-                              top: 0.h,
+                              top: 0,
                               child: NavBarIconWidget(
                                 navBarIconType: navBarIconEntity.navBarIconType,
                                 onPressed: () {
@@ -68,9 +67,9 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                           if (navBarIconEntity.navBarIconType !=
                               NavBarIconTypes.REQUEST_SHIPMENT)
                             Positioned(
-                              top: 35.h,
+                              top: 35,
                               child: SizedBox(
-                                width: 60.w,
+                                width: 60,
                                 child: GestureDetector(
                                   onTap: () {
                                     viewPageBloc.add(GoToPage(
@@ -100,9 +99,9 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                 }).toList(),
               ),
               Positioned(
-                top: 35.h,
+                top: 35,
                 child: SizedBox(
-                  width: 60.w,
+                  width: 60,
                   child: GestureDetector(
                     onTap: () {
                       viewPageBloc.add(const GoToPage(

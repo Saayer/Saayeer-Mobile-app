@@ -6,19 +6,13 @@ import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/domain/repositories/addresses_book_repo.dart';
 
 @injectable
-class GetAddressesUseCase
-    implements
-        BaseUseCase<Future<Either<Failure, List<CustomerGetDto>>>,
-            CustomerQuery?> {
+class EditAddressesUseCase implements BaseUseCase<Future<Either<Failure, void>>, CustomerAddDto?> {
   final AddressesBookRepo addressesBookRepoImpl;
 
-  const GetAddressesUseCase({
-    required this.addressesBookRepoImpl,
-  });
+  const EditAddressesUseCase({required this.addressesBookRepoImpl});
 
   @override
-  Future<Either<Failure, List<CustomerGetDto>>> call(
-      CustomerQuery? customerQuery) async {
-    return await addressesBookRepoImpl.getAddresses(customerQuery);
+  Future<Either<Failure, void>> call(CustomerAddDto? customerDto) async {
+    return await addressesBookRepoImpl.editAddresses(customerDto);
   }
 }

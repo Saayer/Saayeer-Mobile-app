@@ -152,5 +152,9 @@
   "empty_notifications_desc": "عفوًا! يبدو أنه لا يوجد إشعارات حاليًا.",
   "search": "بحث",
   "sender_city": "مدينة المرسل : ",
-  "zipCode": "الرمز البريدي"
+  "zipCode": "الرمز البريدي",
+  "total_shipments_max_error": "يجب أن يكون أكثر من الحد الأدنى للقيمة",
+  "total_shipments_min_error": "يجب أن يكون أقل من القيمة القصوى",
+  "address_added_successfully": "تم إضافة عنوان العميل بنجاح",
+  "address_deleted_successfully": "تم حذف عنوان العميل بنجاح"
 }

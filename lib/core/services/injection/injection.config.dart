@@ -83,6 +83,10 @@ import 'package:saayer/features/more_sub_features/addresses_book/data/repositori
     as _i292;
 import 'package:saayer/features/more_sub_features/addresses_book/domain/repositories/addresses_book_repo.dart'
     as _i29;
+import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/delete_address_usecase.dart'
+    as _i180;
+import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/edit_address_usecase.dart'
+    as _i401;
 import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/get_addresses_usecase.dart'
     as _i44;
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart'
@@ -358,6 +362,10 @@ extension GetItInjectableX on _i174.GetIt {
         addressWidgetsRDSImpl: gh<_i369.AddressWidgetsRDS>()));
     gh.factory<_i44.GetAddressesUseCase>(() => _i44.GetAddressesUseCase(
         addressesBookRepoImpl: gh<_i29.AddressesBookRepo>()));
+    gh.factory<_i401.EditAddressesUseCase>(() => _i401.EditAddressesUseCase(
+        addressesBookRepoImpl: gh<_i29.AddressesBookRepo>()));
+    gh.factory<_i180.DeleteAddressesUseCase>(() => _i180.DeleteAddressesUseCase(
+        addressesBookRepoImpl: gh<_i29.AddressesBookRepo>()));
     gh.factory<_i396.SubmitBusinessInfoUseCase>(() =>
         _i396.SubmitBusinessInfoUseCase(
             businessInfoRepoImpl: gh<_i192.BusinessInfoRepo>()));
@@ -370,12 +378,18 @@ extension GetItInjectableX on _i174.GetIt {
         submitBusinessInfoUseCase: gh<_i396.SubmitBusinessInfoUseCase>()));
     gh.factory<_i689.GetUserProfileUseCase>(
         () => _i689.GetUserProfileUseCase(homeRepoImpl: gh<_i586.HomeRepo>()));
-    gh.factory<_i138.AddressesBookBloc>(() => _i138.AddressesBookBloc(
-        getAddressesUseCase: gh<_i44.GetAddressesUseCase>()));
     gh.factory<_i620.StoreInfoBloc>(() => _i620.StoreInfoBloc(
         submitStoreInfoUseCase: gh<_i736.SubmitStoreInfoUseCase>()));
     gh.factory<_i248.HomeBloc>(() => _i248.HomeBloc(
         getUserProfileUseCase: gh<_i689.GetUserProfileUseCase>()));
+    gh.factory<_i138.AddressesBookBloc>(() => _i138.AddressesBookBloc(
+          getAddressesUseCase: gh<_i44.GetAddressesUseCase>(),
+          getCountriesUseCase: gh<_i133.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i402.GetGovernoratesUseCase>(),
+          getCitiesUseCase: gh<_i555.GetCitiesUseCase>(),
+          editAddressesUseCase: gh<_i401.EditAddressesUseCase>(),
+          deleteAddressesUseCase: gh<_i180.DeleteAddressesUseCase>(),
+        ));
     gh.factory<_i897.GetShipmentProvidersUseCase>(() =>
         _i897.GetShipmentProvidersUseCase(
             shipmentProvidersRepo: gh<_i377.ShipmentProvidersRepo>()));

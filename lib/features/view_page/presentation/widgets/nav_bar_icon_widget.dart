@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -27,8 +26,8 @@ class NavBarIconWidget extends StatelessWidget {
       },
       icon: SvgPicture.asset(
         Constants.getIconPath("ic_${navBarIconType.name.toLowerCase()}.svg"),
-        width: size.w,
-        height: size.h,
+        width: size,
+        height: size,
         color: isSelected
             ? SaayerTheme().getColorsPalette.primaryColor
             : SaayerTheme().getColorsPalette.blackTextColor,
@@ -38,7 +37,7 @@ class NavBarIconWidget extends StatelessWidget {
 
   double get _getIconSize {
     switch (navBarIconType) {
-      case NavBarIconTypes.PROFILE:
+      case NavBarIconTypes.ADDRESESS:
       case NavBarIconTypes.MORE:
         {
           return 20;

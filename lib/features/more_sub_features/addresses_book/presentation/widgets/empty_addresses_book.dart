@@ -30,6 +30,7 @@ class EmptyAddressesBook extends StatelessWidget {
           desc: "empty_addresses_book_desc".tr(),
           btnLabel: "add_address",
           iconName: "addresses_book",
+          hasButton: false,
           onBtnPressed: () {
             getIt<NavigationService>().navigateTo(
                 const AddAddressScreen(

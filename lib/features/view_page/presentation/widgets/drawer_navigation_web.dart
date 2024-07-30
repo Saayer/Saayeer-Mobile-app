@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -31,8 +30,8 @@ class NavigationWebDrawer extends StatelessWidget {
                   color: SaayerTheme().getColorsPalette.backgroundColor,
                 ),
                 child: Container(
-                  width: 100.h,
-                  height: 40.w,
+                  width: 100,
+                  height: 40,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(
@@ -42,7 +41,7 @@ class NavigationWebDrawer extends StatelessWidget {
               ...List.generate(viewPageBloc.navBarIconEntityList.length, (index)=> ListTile(
                 title: Text(
                   viewPageBloc.navBarIconEntityList[index].navBarIconType.name.tr(),
-                  style: AppTextStyles.xSmallLabel(
+                  style: AppTextStyles.smallParagraph(
                       viewPageBloc.navBarIconEntityList[index].isSelected
                           ? SaayerTheme()
                           .getColorsPalette

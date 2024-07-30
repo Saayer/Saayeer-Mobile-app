@@ -1,1 +1,1 @@
-enum AddressesBookErrorStatus { ERROR_GET_ADDRESSES }
+enum AddressesBookErrorStatus { ERROR_GET_ADDRESSES, ERROR_DELETE_ADDRESS, ERROR_EDIT_ADDRESS }
