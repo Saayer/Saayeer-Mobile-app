@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/features/more_sub_features/addresses_book/presentation/screens/addresses_book_screen.dart';
+import 'package:saayer/features/address/addresses_book/presentation/screens/addresses_book_screen.dart';
 import 'package:saayer/features/more_sub_features/shipping_rates/presentation/screens/shipping_rates_screen.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/widgets/more_card_item_widget.dart';
 
