@@ -8,7 +8,7 @@ import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/address/add_address/presentation/screens/add_address_screen.dart';
+import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/widgets/address_item_widget.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/widgets/addresses_filters_widget.dart';
@@ -71,9 +71,12 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
                     borderRadius: 16,
                     onPressed: () {
                       getIt<NavigationService>().navigateTo(
-                          const AddAddressScreen(
+                          AddEditAddressScreen(
                             isAddShipmentRequest: true,
+                            addEditAddressType: AddEditAddressType.addAddress,
+                            customerModel: CustomerGetDto(),
                           ), onBack: (_) {
+                        addressesBookBloc.add(const ResetList());
                         addressesBookBloc.add(const GetAddresses());
                       });
                     },
@@ -103,7 +106,17 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             child: AddressItemWidget(
               addressInfoEntity: addresses[index],
-              onEdit: () {},
+              onEdit: () {
+                getIt<NavigationService>().navigateTo(
+                    AddEditAddressScreen(
+                      isAddShipmentRequest: true,
+                      addEditAddressType: AddEditAddressType.editAddress,
+                      customerModel: addresses[index],
+                    ), onBack: (_) {
+                  addressesBookBloc.add(const ResetList());
+                  addressesBookBloc.add(const GetAddresses());
+                });
+              },
               onDelete: () {
                 addressesBookBloc.add(OnAddressDelete(deleteAddress: addresses[index]));
               },

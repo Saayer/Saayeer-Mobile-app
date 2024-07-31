@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
+import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 
 part 'address_details_event.dart';
 

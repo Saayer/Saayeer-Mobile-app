@@ -109,4 +109,3 @@ lib/src/model/user_profile_vm.dart
 lib/src/model/user_profile_vm_api_response_model.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/customer_query_test.dart

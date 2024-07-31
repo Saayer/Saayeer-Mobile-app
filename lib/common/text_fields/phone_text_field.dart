@@ -13,8 +13,10 @@ class PhoneTextField extends StatelessWidget {
   final TextEditingController phoneNumController;
   final void Function(PhoneNumber)? onInputChanged;
   final bool? withValidator;
+  final PhoneNumber? initialValue;
 
-  const PhoneTextField({super.key, required this.phoneNumController, this.onInputChanged, this.withValidator});
+  const PhoneTextField(
+      {super.key, required this.phoneNumController, this.onInputChanged, this.withValidator, this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class PhoneTextField extends StatelessWidget {
       autoValidateMode: AutovalidateMode.onUserInteraction,
       selectorTextStyle: AppTextStyles.liteLabel(),
       textStyle: AppTextStyles.liteLabel(),
-      initialValue: PhoneNumber(isoCode: 'SA'),
+      initialValue: initialValue ?? PhoneNumber(isoCode: 'SA'),
       textFieldController: phoneNumController,
       formatInput: true,
       keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/text_fields/drop_down_text_field.dart';
 import 'package:saayer/core/services/localization/localization.dart';
-import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 
 class ItemsDropDownTextField<T> extends StatelessWidget {
@@ -14,9 +14,10 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
   final AddressLookUpDto? selectedItem;
   final AddAddressFieldsTypes addAddressFieldsType;
   final T bloc;
+  final bool? withValidator;
 
   const ItemsDropDownTextField(
-      {super.key, required this.onSelected, this.selectedItem, required this.addAddressFieldsType, required this.bloc});
+      {super.key, required this.onSelected, this.withValidator, this.selectedItem, required this.addAddressFieldsType, required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +26,12 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
       inputController: TextEditingController(
           text: selectedItem != null ? (Localization.isEnglish() ? selectedItem!.nameEn : selectedItem!.nameAr) : ""),
       onSelected: (v) => onSelected(v),
+      withValidator: withValidator,
       items: getList(bloc).isNotEmpty
           ? List.generate(getList(bloc).length, (index) {
-              final AddressLookUpDto item = getList(bloc)[index];
-              return item;
-            })
+        final AddressLookUpDto item = getList(bloc)[index];
+        return item;
+      })
           : [],
       getItemName: (val) {
         return Localization.isEnglish() ? val.nameEn ?? '' : val.nameAr ?? '';
@@ -71,7 +73,7 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
   }
 
   List<AddressLookUpDto> getList(T bloc) {
-    if (bloc is AddAddressBloc) {
+    if (bloc is AddEditAddressBloc) {
       switch (addAddressFieldsType) {
         case AddAddressFieldsTypes.COUNTRY:
           {

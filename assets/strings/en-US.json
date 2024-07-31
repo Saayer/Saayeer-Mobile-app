@@ -116,7 +116,7 @@
   "new_shipment_home_card_label": "You can now request a new shipment with Saayer",
   "empty_addresses_book_title": "No Addresses Found!",
   "empty_addresses_book_desc": "Oops! It looks like there are currently no addresses.",
-  "add_address": "Add Address",
+  "add_address": "Add Customer Address",
   "complete_profile_title": "Complete Your Profile Now!",
   "complete_profile_desc": "Unlock the full potential of your experience by completing your profile! Take a moment to update your information and enhance your journey with us. Your privacy and preferences matter, and completing your profile allows us to serve you better.",
   "complete_profile": "Complete Profile",
@@ -156,5 +156,10 @@
   "total_shipments_max_error": "Must be more than min value",
   "total_shipments_min_error": "Must be less than max value",
   "address_added_successfully": "Customer address has been added successfully",
-  "address_deleted_successfully": "Customer address has been deleted successfully"
+  "address_deleted_successfully": "Customer address has been deleted successfully",
+  "address_updated_successfully": "Customer address has been updated successfully",
+  "select_date_from": "Select Date From",
+  "select_date_to": "Select Date To",
+  "total_shipments_min": "Total Shipments Min",
+  "total_shipments_max": "Total Shipments Max"
 }

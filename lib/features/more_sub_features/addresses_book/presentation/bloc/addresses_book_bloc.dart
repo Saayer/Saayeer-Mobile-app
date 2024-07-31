@@ -19,10 +19,10 @@ import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_address/domain/use_cases/get_cities_usecase.dart';
-import 'package:saayer/features/address/add_address/domain/use_cases/get_countries_usecase.dart';
-import 'package:saayer/features/address/add_address/domain/use_cases/get_governorate_usecase.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_cities_usecase.dart';
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_countries_usecase.dart';
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_governorate_usecase.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/delete_address_usecase.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/edit_address_usecase.dart';
@@ -57,6 +57,7 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
     on<OnItemSelectedFromDropDown>(_onItemSelectedFromDropDown);
     on<OnAddressDelete>(_onAddressDelete);
     on<OnScrollPagination>(_onScrollPagination);
+    on<ResetList>(_resetList);
   }
 
   ///
@@ -354,5 +355,9 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
   Future<void> close() {
     scrollController..removeListener(()=>_onScrollPagination)..dispose();
     return super.close();
+  }
+
+  FutureOr<void> _resetList(ResetList event, Emitter<AddressesBookState> emit) {
+    addressesList = [];
   }
 }

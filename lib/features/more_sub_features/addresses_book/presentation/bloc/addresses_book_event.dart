@@ -70,3 +70,10 @@ class OnScrollPagination extends AddressesBookEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ResetList extends AddressesBookEvent {
+  const ResetList();
+
+  @override
+  List<Object?> get props => [];
+}

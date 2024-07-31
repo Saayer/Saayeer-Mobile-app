@@ -116,7 +116,7 @@
   "new_shipment_home_card_label": "بإمكانك الآن طلب شحنة جديدة مع ساير",
   "empty_addresses_book_title": "لا يوجد عناوين!",
   "empty_addresses_book_desc": "عفوًا! يبدو أنه لا يوجد عناوين حاليًا.",
-  "add_address": "اضف عنوان",
+  "add_address": "اضف عنوان عميل",
   "complete_profile_title": "أكمل ملفك الشخصي الآن!",
   "complete_profile_desc": "أطلق العنان للإمكانيات الكاملة لتجربتك من خلال إكمال ملفك الشخصي! خصص بعض الوقت لتحديث معلوماتك وتعزيز رحلتك معنا. خصوصيتك وتفضيلاتك مهمة، واستكمال ملفك الشخصي يتيح لنا خدمتك بشكل أفضل.",
   "complete_profile": "أكمل الملف الشخصي",
@@ -156,5 +156,10 @@
   "total_shipments_max_error": "يجب أن يكون أكثر من الحد الأدنى للقيمة",
   "total_shipments_min_error": "يجب أن يكون أقل من القيمة القصوى",
   "address_added_successfully": "تم إضافة عنوان العميل بنجاح",
-  "address_deleted_successfully": "تم حذف عنوان العميل بنجاح"
+  "address_deleted_successfully": "تم حذف عنوان العميل بنجاح",
+  "address_updated_successfully": "تم تعديل عنوان العميل بنجاح",
+  "select_date_from": "حدد التاريخ من",
+  "select_date_to": "حدد التاريخ إلى",
+  "total_shipments_min": "الحد الأدنى لإجمالي الشحنات",
+  "total_shipments_max": "إجمالي الشحنات كحد أقصى"
 }

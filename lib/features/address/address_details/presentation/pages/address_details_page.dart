@@ -8,7 +8,7 @@ import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.da
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/address_details/presentation/bloc/address_details_bloc.dart';
 
 class AddressDetailsPage extends StatelessWidget {

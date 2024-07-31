@@ -16,6 +16,14 @@ class _$CustomerGetDto extends CustomerGetDto {
   @override
   final String? email;
   @override
+  final int? countryId;
+  @override
+  final int? governorateId;
+  @override
+  final int? cityId;
+  @override
+  final int? areaId;
+  @override
   final String? countryNameEn;
   @override
   final String? countryNameAr;
@@ -54,6 +62,10 @@ class _$CustomerGetDto extends CustomerGetDto {
       this.zipcode,
       this.phoneNo,
       this.email,
+      this.countryId,
+      this.governorateId,
+      this.cityId,
+      this.areaId,
       this.countryNameEn,
       this.countryNameAr,
       this.governorateNameEn,
@@ -87,6 +99,10 @@ class _$CustomerGetDto extends CustomerGetDto {
         zipcode == other.zipcode &&
         phoneNo == other.phoneNo &&
         email == other.email &&
+        countryId == other.countryId &&
+        governorateId == other.governorateId &&
+        cityId == other.cityId &&
+        areaId == other.areaId &&
         countryNameEn == other.countryNameEn &&
         countryNameAr == other.countryNameAr &&
         governorateNameEn == other.governorateNameEn &&
@@ -111,6 +127,10 @@ class _$CustomerGetDto extends CustomerGetDto {
     _$hash = $jc(_$hash, zipcode.hashCode);
     _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, countryId.hashCode);
+    _$hash = $jc(_$hash, governorateId.hashCode);
+    _$hash = $jc(_$hash, cityId.hashCode);
+    _$hash = $jc(_$hash, areaId.hashCode);
     _$hash = $jc(_$hash, countryNameEn.hashCode);
     _$hash = $jc(_$hash, countryNameAr.hashCode);
     _$hash = $jc(_$hash, governorateNameEn.hashCode);
@@ -137,6 +157,10 @@ class _$CustomerGetDto extends CustomerGetDto {
           ..add('zipcode', zipcode)
           ..add('phoneNo', phoneNo)
           ..add('email', email)
+          ..add('countryId', countryId)
+          ..add('governorateId', governorateId)
+          ..add('cityId', cityId)
+          ..add('areaId', areaId)
           ..add('countryNameEn', countryNameEn)
           ..add('countryNameAr', countryNameAr)
           ..add('governorateNameEn', governorateNameEn)
@@ -176,6 +200,23 @@ class CustomerGetDtoBuilder
   String? _email;
   String? get email => _$this._email;
   set email(String? email) => _$this._email = email;
+
+  int? _countryId;
+  int? get countryId => _$this._countryId;
+  set countryId(int? countryId) => _$this._countryId = countryId;
+
+  int? _governorateId;
+  int? get governorateId => _$this._governorateId;
+  set governorateId(int? governorateId) =>
+      _$this._governorateId = governorateId;
+
+  int? _cityId;
+  int? get cityId => _$this._cityId;
+  set cityId(int? cityId) => _$this._cityId = cityId;
+
+  int? _areaId;
+  int? get areaId => _$this._areaId;
+  set areaId(int? areaId) => _$this._areaId = areaId;
 
   String? _countryNameEn;
   String? get countryNameEn => _$this._countryNameEn;
@@ -254,6 +295,10 @@ class CustomerGetDtoBuilder
       _zipcode = $v.zipcode;
       _phoneNo = $v.phoneNo;
       _email = $v.email;
+      _countryId = $v.countryId;
+      _governorateId = $v.governorateId;
+      _cityId = $v.cityId;
+      _areaId = $v.areaId;
       _countryNameEn = $v.countryNameEn;
       _countryNameAr = $v.countryNameAr;
       _governorateNameEn = $v.governorateNameEn;
@@ -295,6 +340,10 @@ class CustomerGetDtoBuilder
             zipcode: zipcode,
             phoneNo: phoneNo,
             email: email,
+            countryId: countryId,
+            governorateId: governorateId,
+            cityId: cityId,
+            areaId: areaId,
             countryNameEn: countryNameEn,
             countryNameAr: countryNameAr,
             governorateNameEn: governorateNameEn,

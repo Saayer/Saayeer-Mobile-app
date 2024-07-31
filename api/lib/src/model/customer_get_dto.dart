@@ -15,6 +15,10 @@ part 'customer_get_dto.g.dart';
 /// * [zipcode] 
 /// * [phoneNo] 
 /// * [email] 
+/// * [countryId] 
+/// * [governorateId] 
+/// * [cityId] 
+/// * [areaId] 
 /// * [countryNameEn] 
 /// * [countryNameAr] 
 /// * [governorateNameEn] 
@@ -43,6 +47,18 @@ abstract class CustomerGetDto implements Built<CustomerGetDto, CustomerGetDtoBui
 
   @BuiltValueField(wireName: r'email')
   String? get email;
+
+  @BuiltValueField(wireName: r'countryId')
+  int? get countryId;
+
+  @BuiltValueField(wireName: r'governorateId')
+  int? get governorateId;
+
+  @BuiltValueField(wireName: r'cityId')
+  int? get cityId;
+
+  @BuiltValueField(wireName: r'areaId')
+  int? get areaId;
 
   @BuiltValueField(wireName: r'countryName_en')
   String? get countryNameEn;
@@ -138,6 +154,34 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
       yield serializers.serialize(
         object.email,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.countryId != null) {
+      yield r'countryId';
+      yield serializers.serialize(
+        object.countryId,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.governorateId != null) {
+      yield r'governorateId';
+      yield serializers.serialize(
+        object.governorateId,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.cityId != null) {
+      yield r'cityId';
+      yield serializers.serialize(
+        object.cityId,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.areaId != null) {
+      yield r'areaId';
+      yield serializers.serialize(
+        object.areaId,
+        specifiedType: const FullType(int),
       );
     }
     if (object.countryNameEn != null) {
@@ -299,6 +343,34 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
           ) as String?;
           if (valueDes == null) continue;
           result.email = valueDes;
+          break;
+        case r'countryId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.countryId = valueDes;
+          break;
+        case r'governorateId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.governorateId = valueDes;
+          break;
+        case r'cityId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.cityId = valueDes;
+          break;
+        case r'areaId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.areaId = valueDes;
           break;
         case r'countryName_en':
           final valueDes = serializers.deserialize(

@@ -11,7 +11,7 @@ import 'package:saayer/common/generic_expansionTile_widget.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
 import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
-import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 import 'dart:ui' as ui;
 
@@ -25,6 +25,7 @@ class AddressesFiltersWidget extends StatefulWidget {
 }
 
 class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -33,72 +34,79 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GenericExpansionTileWidget(title: 'search'.tr(), iconPath: '', children: [
-      ///
-      ResponsiveRowColumn(
-        layout: ResponsiveValue(context,
-                conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
-                defaultValue: ResponsiveRowColumnType.COLUMN)
-            .value,
-        columnVerticalDirection: VerticalDirection.down,
-        columnSpacing: 5,
-        children: [
-          ResponsiveRowColumnItem(
-            rowFit: FlexFit.loose,
-
-            /// Search By Text & Search by Phone
-            child: _buildFirstFiltersRow(),
-          ),
-          ResponsiveRowColumnItem(
+    return Form(
+      key: formKey,
+      child: GenericExpansionTileWidget(title: 'search'.tr(), iconPath: '', children: [
+        ///
+        ResponsiveRowColumn(
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 5,
+          children: [
+            ResponsiveRowColumnItem(
               rowFit: FlexFit.loose,
 
-              /// Country & Governorate & City
-              child: _buildSecondFiltersRow())
-        ],
-      ),
-      const SizedBox(height: 10),
+              /// Search By Text & Search by Phone
+              child: _buildFirstFiltersRow(),
+            ),
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.loose,
 
-      ///
-      ResponsiveRowColumn(
-        layout: ResponsiveValue(context,
-                conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
-                defaultValue: ResponsiveRowColumnType.COLUMN)
-            .value,
-        columnVerticalDirection: VerticalDirection.down,
-        columnSpacing: 5,
-        rowSpacing: 10,
-        children: [
-          ResponsiveRowColumnItem(
-            rowFit: FlexFit.loose,
+                /// Country & Governorate & City
+                child: _buildSecondFiltersRow())
+          ],
+        ),
+        const SizedBox(height: 10),
 
-            /// Search By Shipments (From - To) Date
-            child: _buildShipmentsDateFilter(),
-          ),
-          ResponsiveRowColumnItem(
+        ///
+        ResponsiveRowColumn(
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 5,
+          rowSpacing: 10,
+          children: [
+            ResponsiveRowColumnItem(
               rowFit: FlexFit.loose,
 
-              /// Search By Total Shipments Min/MX than
-              child: _buildTotalShipmentsFilters())
-        ],
-      ),
+              /// Search By Shipments (From - To) Date
+              child: _buildShipmentsDateFilter(),
+            ),
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.loose,
 
-      ///
-      const SizedBox(height: 10),
+                /// Search By Total Shipments Min/MX than
+                child: _buildTotalShipmentsFilters())
+          ],
+        ),
 
-      ///
-      Align(
-        alignment: Alignment.center,
-        child: SaayerDefaultTextButton(
-            text: 'search'.tr(),
-            isEnabled: true,
-            borderRadius: 16,
-            onPressed: () {
-              widget.addressesBookBloc.add(const GetAddresses());
-            },
-            btnWidth: ResponsiveBreakpoints.of(context).screenWidth / 2,
-            btnHeight: 50),
-      )
-    ]);
+        ///
+        const SizedBox(height: 10),
+
+        ///
+        Align(
+          alignment: Alignment.center,
+          child: SaayerDefaultTextButton(
+              text: 'search'.tr(),
+              isEnabled: true,
+              borderRadius: 16,
+              onPressed: () {
+                final bool isFormValid = (formKey.currentState!.validate());
+                if (isFormValid) {
+                  widget.addressesBookBloc.add(const ResetList());
+                  widget.addressesBookBloc.add(const GetAddresses());
+                }
+              },
+              btnWidth: ResponsiveBreakpoints.of(context).screenWidth / 2,
+              btnHeight: 50),
+        )
+      ]),
+    );
   }
 
   _buildFirstFiltersRow() {
@@ -141,6 +149,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
         Expanded(
           child: ItemsDropDownTextField<AddressesBookBloc>(
             bloc: widget.addressesBookBloc,
+            withValidator: false,
             onSelected: (val) {
               widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
                 addAddressFieldsType: AddAddressFieldsTypes.COUNTRY,
@@ -157,6 +166,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
         Expanded(
             child: ItemsDropDownTextField<AddressesBookBloc>(
           bloc: widget.addressesBookBloc,
+          withValidator: false,
           onSelected: (val) {
             widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
               addAddressFieldsType: AddAddressFieldsTypes.GOVERNORATE,
@@ -172,6 +182,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
         Expanded(
             child: ItemsDropDownTextField<AddressesBookBloc>(
           bloc: widget.addressesBookBloc,
+          withValidator: false,
           onSelected: (val) {
             widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
               addAddressFieldsType: AddAddressFieldsTypes.CITY,
@@ -190,7 +201,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
       children: [
         Expanded(
             child: BaseTextField(
-          hintText: 'Select Date From',
+          hintText: 'select_date_from'.tr(),
           controller: widget.addressesBookBloc.shipmentDateFromController,
           isReadOnly: true,
           onTap: () async {
@@ -204,7 +215,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
         const SizedBox(width: 8),
         Expanded(
             child: BaseTextField(
-          hintText: 'Select Date To',
+          hintText: 'select_date_to'.tr(),
           controller: widget.addressesBookBloc.shipmentDateToController,
           isReadOnly: true,
           onTap: () async {
@@ -225,7 +236,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
       children: [
         Expanded(
             child: BaseTextField(
-          hintText: 'Total Shipments Min'.tr(),
+          hintText: 'total_shipments_min'.tr(),
           controller: widget.addressesBookBloc.totalShipmentsMin,
           onChanged: (val) {},
           validator: (value) {
@@ -242,7 +253,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
         const SizedBox(width: 8),
         Expanded(
             child: BaseTextField(
-          hintText: 'Total Shipments Max'.tr(),
+          hintText: 'total_shipments_max'.tr(),
           controller: widget.addressesBookBloc.totalShipmentsMax,
           onChanged: (val) {},
           validator: (value) {
