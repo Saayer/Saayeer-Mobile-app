@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:saayer/common/dialogs/saayer_dialogs.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 

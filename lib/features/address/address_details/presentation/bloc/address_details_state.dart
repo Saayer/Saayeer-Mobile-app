@@ -3,7 +3,7 @@ part of 'address_details_bloc.dart';
 @immutable
 class AddressDetailsState extends Equatable {
   final StateHelper stateHelper;
-  final AddressInfoEntity? addressInfoEntity;
+  final CustomerGetDto? addressInfoEntity;
 
   const AddressDetailsState(
       {this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
@@ -11,7 +11,7 @@ class AddressDetailsState extends Equatable {
 
   AddressDetailsState copyWith({
     StateHelper? stateHelper,
-    AddressInfoEntity? addressInfoEntity,
+    CustomerGetDto? addressInfoEntity,
   }) {
     return AddressDetailsState(
       stateHelper: stateHelper ?? this.stateHelper,

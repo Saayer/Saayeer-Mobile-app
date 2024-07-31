@@ -13,6 +13,7 @@ class AddressesBookScreen extends StatelessWidget {
       create: (context) {
         final AddressesBookBloc bloc = getIt<AddressesBookBloc>();
         bloc.add(const GetAddresses());
+        bloc.add(const GetCountries());
         return bloc;
       },
       child: const AddressesBookPage(),

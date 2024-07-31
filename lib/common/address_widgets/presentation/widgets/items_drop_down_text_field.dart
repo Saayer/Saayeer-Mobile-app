@@ -5,21 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/text_fields/drop_down_text_field.dart';
 import 'package:saayer/core/services/localization/localization.dart';
-import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart';
+import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 
-class ItemsDropDownTextField extends StatelessWidget {
+class ItemsDropDownTextField<T> extends StatelessWidget {
   final void Function(AddressLookUpDto) onSelected;
   final AddressLookUpDto? selectedItem;
   final AddAddressFieldsTypes addAddressFieldsType;
-  final AddAddressBloc addressWidgetsBloc;
+  final T bloc;
+  final bool? withValidator;
 
   const ItemsDropDownTextField(
-      {super.key,
-      required this.onSelected,
-      this.selectedItem,
-      required this.addAddressFieldsType,
-      required this.addressWidgetsBloc});
+      {super.key, required this.onSelected, this.withValidator, this.selectedItem, required this.addAddressFieldsType, required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +26,12 @@ class ItemsDropDownTextField extends StatelessWidget {
       inputController: TextEditingController(
           text: selectedItem != null ? (Localization.isEnglish() ? selectedItem!.nameEn : selectedItem!.nameAr) : ""),
       onSelected: (v) => onSelected(v),
-      items: getList(addressWidgetsBloc).isNotEmpty
-          ? List.generate(getList(addressWidgetsBloc).length, (index) {
-              final AddressLookUpDto item = getList(addressWidgetsBloc)[index];
-              return item;
-            })
+      withValidator: withValidator,
+      items: getList(bloc).isNotEmpty
+          ? List.generate(getList(bloc).length, (index) {
+        final AddressLookUpDto item = getList(bloc)[index];
+        return item;
+      })
           : [],
       getItemName: (val) {
         return Localization.isEnglish() ? val.nameEn ?? '' : val.nameAr ?? '';
@@ -73,28 +72,55 @@ class ItemsDropDownTextField extends StatelessWidget {
     }
   }
 
-  List<AddressLookUpDto> getList(AddAddressBloc addressWidgetsBloc) {
-    switch (addAddressFieldsType) {
-      case AddAddressFieldsTypes.COUNTRY:
-        {
-          return addressWidgetsBloc.countriesList;
-        }
-      case AddAddressFieldsTypes.GOVERNORATE:
-        {
-          return addressWidgetsBloc.governoratesList;
-        }
-      case AddAddressFieldsTypes.CITY:
-        {
-          return addressWidgetsBloc.citiesList;
-        }
-      case AddAddressFieldsTypes.AREA:
-        {
-          return addressWidgetsBloc.areasList;
-        }
-      default:
-        {
-          return [];
-        }
+  List<AddressLookUpDto> getList(T bloc) {
+    if (bloc is AddEditAddressBloc) {
+      switch (addAddressFieldsType) {
+        case AddAddressFieldsTypes.COUNTRY:
+          {
+            return bloc.countriesList;
+          }
+        case AddAddressFieldsTypes.GOVERNORATE:
+          {
+            return bloc.governoratesList;
+          }
+        case AddAddressFieldsTypes.CITY:
+          {
+            return bloc.citiesList;
+          }
+        case AddAddressFieldsTypes.AREA:
+          {
+            return bloc.areasList;
+          }
+        default:
+          {
+            return [];
+          }
+      }
+    } else if (bloc is AddressesBookBloc) {
+      switch (addAddressFieldsType) {
+        case AddAddressFieldsTypes.COUNTRY:
+          {
+            return bloc.countriesList;
+          }
+        case AddAddressFieldsTypes.GOVERNORATE:
+          {
+            return bloc.governoratesList;
+          }
+        case AddAddressFieldsTypes.CITY:
+          {
+            return bloc.citiesList;
+          }
+        case AddAddressFieldsTypes.AREA:
+          {
+            return bloc.areasList;
+          }
+        default:
+          {
+            return [];
+          }
+      }
+    } else {
+      return [];
     }
   }
 }

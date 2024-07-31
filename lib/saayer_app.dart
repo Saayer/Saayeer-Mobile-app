@@ -9,6 +9,7 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/features/more_sub_features/addresses_book/presentation/screens/addresses_book_screen.dart';
 import 'package:saayer/features/splash/presentation/screens/splash_screen.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 

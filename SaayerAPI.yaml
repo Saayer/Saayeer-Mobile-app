@@ -1802,6 +1802,18 @@ components:
         email:
           type: string
           nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
         countryName_en:
           type: string
           nullable: true

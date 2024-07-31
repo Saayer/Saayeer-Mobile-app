@@ -22,6 +22,7 @@ class DropDownTextField<T> extends StatefulWidget {
   final String Function(T) getItemName;
   final bool Function(T) getIsSelectedItem;
   final bool? showSearch;
+  final bool? withValidator;
   final bool Function(T, String)? onSearch;
 
   const DropDownTextField(
@@ -39,6 +40,7 @@ class DropDownTextField<T> extends StatefulWidget {
       required this.getItemName,
       required this.getIsSelectedItem,
       this.showSearch = false,
+      this.withValidator,
       this.onSearch});
 
   @override
@@ -122,7 +124,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               setState(() {});
             });
       },
-      validator: (value) {
+      validator: !(widget.withValidator ?? true) ? null : (value) {
         if (value?.isEmpty ?? true) {
           return 'empty_field_error'.tr().replaceFirst("{}", "input".tr());
         }
@@ -145,7 +147,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
           ],
         ),
         Container(
-          margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
+          margin: const EdgeInsets.only(top: 5, right: 10, left: 10),
           child: baseTextField,
         ),
       ],
@@ -172,7 +174,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               Navigator.pop(context);
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -62,7 +62,7 @@ class InputTextField extends StatelessWidget {
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 8, right: 16, left: 16),
+          margin: const EdgeInsets.only(top: 5, right: 10, left: 10),
           child: baseTextField,
         ),
       ],

@@ -1,4 +1,4 @@
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
+import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 
 /// success : true
 /// data : [{"district":null,"city":"الثميد","country":"Åland‬‏","fullName":"Saad sh","address":"45 street a","mobile":"044444444","email":"dev@gmail.com"}]

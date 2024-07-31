@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
@@ -35,7 +32,7 @@ class SaayerDefaultTextButton extends StatelessWidget {
     final Color buttonColor = isEnabled
         ? (enabledColor ?? SaayerTheme().getColorsPalette.primaryColor)
         : (disabledColor ?? SaayerTheme().getColorsPalette.greyColor);
-    final Radius buttonRadius = Radius.circular(borderRadius ?? 30.r);
+    final Radius buttonRadius = Radius.circular(borderRadius ?? 30);
     ButtonStyle buttonStyle = TextButton.styleFrom(
       foregroundColor: buttonColor,
       fixedSize: Size(btnWidth, btnHeight),

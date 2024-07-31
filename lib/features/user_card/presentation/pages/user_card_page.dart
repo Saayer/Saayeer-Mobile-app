@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,6 @@ import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart'
 import 'package:saayer/features/user_card/presentation/helper/user_card_helper.dart';
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
-import 'dart:ui' as ui;
 
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
@@ -90,7 +88,7 @@ class UserCardPage extends StatelessWidget {
                   ));
                 } else {
                   viewPageBloc.add(
-                      const GoToPage(navBarIconType: NavBarIconTypes.PROFILE));
+                      const GoToPage(navBarIconType: NavBarIconTypes.ADDRESESS));
                 }
               },
               child: Container(

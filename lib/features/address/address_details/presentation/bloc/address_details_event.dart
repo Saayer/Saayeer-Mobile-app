@@ -5,7 +5,7 @@ abstract class AddressDetailsEvent extends Equatable {
 }
 
 class InitAddressDetails extends AddressDetailsEvent {
-  final AddressInfoEntity addressInfoEntity;
+  final CustomerGetDto addressInfoEntity;
 
   const InitAddressDetails({required this.addressInfoEntity});
 
