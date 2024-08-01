@@ -7,7 +7,7 @@ import 'package:saayer/common/text_fields/drop_down_text_field.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart';
-import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart';
+import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 
 class ItemsDropDownTextField<T> extends StatelessWidget {
   final void Function(AddressLookUpDto) onSelected;
