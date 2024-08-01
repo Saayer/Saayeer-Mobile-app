@@ -247,6 +247,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
                 }
               }
             }
+            return null;
           },
           keyboardType: TextInputType.number,
         )),
@@ -264,6 +265,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
                 }
               }
             }
+            return null;
           },
           keyboardType: TextInputType.number,
         ))

@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
-import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/address/address_details/presentation/screens/address_details_screen.dart';
 
 class AddressItemWidget extends StatelessWidget {
   final CustomerGetDto addressInfoEntity;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
+  final VoidCallback onTap;
 
-  const AddressItemWidget({super.key, required this.addressInfoEntity, required this.onDelete, required this.onEdit});
+  const AddressItemWidget({super.key, required this.addressInfoEntity, required this.onDelete, required this.onEdit, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        getIt<NavigationService>().navigateTo(AddressDetailsScreen(addressInfoEntity: addressInfoEntity));
-      },
+      onTap: onTap,
       child: Container(
           decoration: BoxDecoration(
             color: SaayerTheme().getColorsPalette.backgroundColor,

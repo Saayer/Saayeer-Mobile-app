@@ -7,8 +7,8 @@ import 'package:saayer/features/address/address_details/presentation/pages/addre
 
 class AddressDetailsScreen extends StatelessWidget {
   final CustomerGetDto addressInfoEntity;
-
-  const AddressDetailsScreen({super.key, required this.addressInfoEntity});
+  final VoidCallback onDelete;
+  const AddressDetailsScreen({super.key, required this.addressInfoEntity, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class AddressDetailsScreen extends StatelessWidget {
         bloc.add(InitAddressDetails(addressInfoEntity: addressInfoEntity));
         return bloc;
       },
-      child: const AddressDetailsPage(),
+      child: AddressDetailsPage(onDelete: onDelete,),
     );
   }
 }

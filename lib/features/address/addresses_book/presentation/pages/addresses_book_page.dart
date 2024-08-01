@@ -9,6 +9,7 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
+import 'package:saayer/features/address/address_details/presentation/screens/address_details_screen.dart';
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 import 'package:saayer/features/address/addresses_book/presentation/widgets/address_item_widget.dart';
 import 'package:saayer/features/address/addresses_book/presentation/widgets/addresses_filters_widget.dart';
@@ -106,6 +107,15 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             child: AddressItemWidget(
               addressInfoEntity: addresses[index],
+              onTap: () {
+                getIt<NavigationService>().navigateTo(AddressDetailsScreen(
+                  addressInfoEntity: addresses[index],
+                  onDelete: () {
+                    getIt<NavigationService>().pop();
+                    addressesBookBloc.add(OnAddressDelete(deleteAddress: addresses[index]));
+                  },
+                ));
+              },
               onEdit: () {
                 getIt<NavigationService>().navigateTo(
                     AddEditAddressScreen(

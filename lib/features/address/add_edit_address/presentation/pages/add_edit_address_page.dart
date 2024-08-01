@@ -120,26 +120,58 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
           child: Form(
             autovalidateMode: state.autoValidateMode,
             key: addAddressBloc.formKey,
-            child: Column(
+            child: ListView(
               children: [
-                Expanded(
-                  child: ResponsiveGridView.builder(
-                    alignment: Alignment.centerRight,
-                    gridDelegate: ResponsiveGridDelegate(
-                        crossAxisExtent: ResponsiveBreakpoints.of(context).largerThan(MOBILE) ? 370 : width,
-                        maxCrossAxisExtent: 4,
-                        minCrossAxisExtent: 1,
-                        childAspectRatio: 1 / 0.28,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0),
-                    itemCount: AddAddressFieldsTypes.values.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _getTextField(addAddressBloc, AddAddressFieldsTypes.values[index]);
-                    },
-                  ),
+                /// FullName & Phone & Alternative Phone & Email
+                ResponsiveRowColumn(
+                  layout: ResponsiveValue(context,
+                          conditionalValues: [
+                            const Condition.largerThan(breakpoint: 900, value: ResponsiveRowColumnType.ROW)
+                          ],
+                          defaultValue: ResponsiveRowColumnType.COLUMN)
+                      .value,
+                  columnVerticalDirection: VerticalDirection.down,
+                  columnSpacing: 10,
+                  rowSpacing: 15,
+                  children: [
+                    /// FullName & Phone
+                    _buildFirstColumnRowField(addAddressBloc),
+
+                    /// Alternative Phone & Email
+                    _buildSecondColumnRowField(addAddressBloc),
+                  ],
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                /// country & governorate & city & area
+                ResponsiveRowColumn(
+                  layout: ResponsiveValue(context,
+                          conditionalValues: [
+                            const Condition.largerThan(breakpoint: 900, value: ResponsiveRowColumnType.ROW)
+                          ],
+                          defaultValue: ResponsiveRowColumnType.COLUMN)
+                      .value,
+                  columnVerticalDirection: VerticalDirection.down,
+                  columnSpacing: 10,
+                  rowSpacing: 15,
+                  children: [
+                    /// country & governorate
+                    _buildThirdColumnRowField(addAddressBloc),
+
+                    /// city & area
+                    _buildFourthColumnRowField(addAddressBloc),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                /// address & zipCode
+                _buildFifthColumnRowField(addAddressBloc),
                 SizedBox(
-                  height: MediaQuery.of(context).viewInsets.bottom + 80,
+                  height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
               ],
             ),
@@ -156,5 +188,123 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
       return addAddressBloc.addAddressFieldsValidMap.values.every((element) => element == true);
     }
     return false;
+  }
+
+  _buildFirstColumnRowField(AddEditAddressBloc addAddressBloc) {
+    return ResponsiveRowColumnItem(
+        rowFit: FlexFit.tight,
+        child: ResponsiveRowColumn(
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 10,
+          rowSpacing: 15,
+          children: [
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[0]),
+            ),
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[1]),
+            ),
+          ],
+        ));
+  }
+
+  _buildSecondColumnRowField(AddEditAddressBloc addAddressBloc) {
+    return ResponsiveRowColumnItem(
+        rowFit: FlexFit.tight,
+        child: ResponsiveRowColumn(
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 10,
+          rowSpacing: 15,
+          children: [
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[2]),
+            ),
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[3]),
+            ),
+          ],
+        ));
+  }
+
+  _buildThirdColumnRowField(AddEditAddressBloc addAddressBloc) {
+    return ResponsiveRowColumnItem(
+        rowFit: FlexFit.tight,
+        child: ResponsiveRowColumn(
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 10,
+          rowSpacing: 15,
+          children: [
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[4]),
+            ),
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[5]),
+            ),
+          ],
+        ));
+  }
+
+  _buildFourthColumnRowField(AddEditAddressBloc addAddressBloc) {
+    return ResponsiveRowColumnItem(
+        rowFit: FlexFit.tight,
+        child: ResponsiveRowColumn(
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 10,
+          rowSpacing: 15,
+          children: [
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[6]),
+            ),
+            ResponsiveRowColumnItem(
+              rowFit: FlexFit.tight,
+              child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[7]),
+            ),
+          ],
+        ));
+  }
+
+  _buildFifthColumnRowField(AddEditAddressBloc addAddressBloc) {
+    return ResponsiveRowColumn(
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          rowFit: FlexFit.tight,
+          child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[8]),
+        ),
+        ResponsiveRowColumnItem(
+          rowFit: FlexFit.tight,
+          child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[9]),
+        ),
+      ],
+    );
   }
 }
