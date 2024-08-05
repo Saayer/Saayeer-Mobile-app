@@ -161,5 +161,7 @@
   "select_date_from": "Select Date From",
   "select_date_to": "Select Date To",
   "total_shipments_min": "Total Shipments Min",
-  "total_shipments_max": "Total Shipments Max"
+  "total_shipments_max": "Total Shipments Max",
+  "code_sent": "OTP has been sent successfully",
+  "area": "area"
 }

@@ -9,7 +9,7 @@ import 'package:saayer/features/log_in/domain/repositories/log_in_repo.dart';
 @injectable
 class LogInUseCase
     implements
-        BaseUseCase<Future<Either<Failure, AuthenticateResponseVerify?>>,
+        BaseUseCase<Future<Either<Failure, LoginResponseDto?>>,
             LogInParameters> {
   final LogInRepo logInRepoImpl;
 
@@ -18,17 +18,17 @@ class LogInUseCase
   });
 
   @override
-  Future<Either<Failure, AuthenticateResponseVerify?>> call(
+  Future<Either<Failure, LoginResponseDto?>> call(
       LogInParameters parameters) async {
-    return await logInRepoImpl.logIn(parameters.logInEntity);
+    return await logInRepoImpl.logIn(parameters.loginRequestDto);
   }
 }
 
 class LogInParameters extends Equatable {
-  final AuthenticateRequest logInEntity;
+  final LoginRequestDto loginRequestDto;
 
-  const LogInParameters({required this.logInEntity});
+  const LogInParameters({required this.loginRequestDto});
 
   @override
-  List<Object?> get props => [logInEntity];
+  List<Object?> get props => [loginRequestDto];
 }

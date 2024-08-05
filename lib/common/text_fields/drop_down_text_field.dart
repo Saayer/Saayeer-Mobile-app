@@ -75,7 +75,6 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
 
     final Widget baseTextField = BaseTextField(
@@ -126,7 +125,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
       },
       validator: !(widget.withValidator ?? true) ? null : (value) {
         if (value?.isEmpty ?? true) {
-          return 'empty_field_error'.tr().replaceFirst("{}", "input".tr());
+          return 'empty_field_error'.tr().replaceFirst("{}", widget.label);
         }
         return null;
       },

@@ -36,7 +36,7 @@ class InputTextField extends StatelessWidget {
       borderRadius: borderRadius,
       validator: (value) {
         if (value?.isEmpty ?? true) {
-          return 'empty_field_error'.tr().replaceFirst("{}", "input".tr());
+          return 'empty_field_error'.tr().replaceFirst("{}", label.tr());
         }
         // if (ValidationUtils.isValidinput(value ?? "")) {
         //   return 'invalid_field_error'

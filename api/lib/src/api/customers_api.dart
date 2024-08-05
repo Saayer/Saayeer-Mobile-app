@@ -25,6 +25,7 @@ class CustomersApi {
   /// 
   ///
   /// Parameters:
+  /// * [apiKey] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -35,6 +36,7 @@ class CustomersApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<CustomerGetDto>] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<CustomerGetDto>>> apiCustomersGet({ 
+    required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -46,6 +48,7 @@ class CustomersApi {
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -53,7 +56,7 @@ class CustomersApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -104,6 +107,7 @@ class CustomersApi {
   /// 
   ///
   /// Parameters:
+  /// * [apiKey] 
   /// * [customerQuery] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -115,6 +119,7 @@ class CustomersApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<CustomerGetDto>] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<CustomerGetDto>>> apiCustomersGetCustomersByPost({ 
+    required String apiKey,
     CustomerQuery? customerQuery,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -127,6 +132,7 @@ class CustomersApi {
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -134,7 +140,7 @@ class CustomersApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -206,6 +212,7 @@ class CustomersApi {
   ///
   /// Parameters:
   /// * [id] 
+  /// * [apiKey] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -217,6 +224,7 @@ class CustomersApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<void>> apiCustomersIdDelete({ 
     required int id,
+    required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -228,6 +236,7 @@ class CustomersApi {
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -235,7 +244,7 @@ class CustomersApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -259,6 +268,7 @@ class CustomersApi {
   ///
   /// Parameters:
   /// * [id] 
+  /// * [apiKey] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -270,6 +280,7 @@ class CustomersApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<CustomerGetDto>> apiCustomersIdGet({ 
     required int id,
+    required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -281,6 +292,7 @@ class CustomersApi {
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -288,7 +300,7 @@ class CustomersApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -339,6 +351,7 @@ class CustomersApi {
   /// 
   ///
   /// Parameters:
+  /// * [apiKey] 
   /// * [customerAddDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -350,6 +363,7 @@ class CustomersApi {
   /// Returns a [Future] containing a [Response] with a [CustomerGetDto] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<CustomerGetDto>> apiCustomersPost({ 
+    required String apiKey,
     CustomerAddDto? customerAddDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -362,6 +376,7 @@ class CustomersApi {
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -369,7 +384,7 @@ class CustomersApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -440,6 +455,7 @@ class CustomersApi {
   /// 
   ///
   /// Parameters:
+  /// * [apiKey] 
   /// * [customerAddDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -451,6 +467,7 @@ class CustomersApi {
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
   Future<Response<void>> apiCustomersPut({ 
+    required String apiKey,
     CustomerAddDto? customerAddDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -463,6 +480,7 @@ class CustomersApi {
     final _options = Options(
       method: r'PUT',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -470,7 +488,7 @@ class CustomersApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,

@@ -1,873 +1,21 @@
+---
 openapi: 3.0.1
 info:
-  title: Saayer Api
-  version: v1
+  title: Saayer API
+  version: dev-4
 servers:
-  - url: /v0-2
+  - url: "/saayer-5-dev"
 paths:
-  /login:
-    post:
-      tags:
-        - Account
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AuthenticateRequest'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthenticateResponseVerify'
-  /auth:
-    post:
-      tags:
-        - Account
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AuthenticateRequestVerify'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthenticatedResponseApiResponseModel'
-  /refreshToken:
-    post:
-      tags:
-        - Account
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TokenApiModel'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AuthenticatedResponseApiResponseModel'
-  /revokeToken:
-    post:
-      tags:
-        - Account
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TokenApiModel'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-  /Address/countries:
-    get:
-      tags:
-        - Address
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-        '404':
-          description: Not Found
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /Address/countryId/{countryId}:
-    get:
-      tags:
-        - Address
-      parameters:
-        - name: countryId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-        '404':
-          description: Not Found
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /Address/cityId/{cityId}:
-    get:
-      tags:
-        - Address
-      parameters:
-        - name: cityId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/LookupDtoListApiResponseModel'
-        '404':
-          description: Not Found
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /Attachments/Upload:
-    post:
-      tags:
-        - Attachments
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-        '404':
-          description: Not Found
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /Client/AddClient:
-    post:
-      tags:
-        - Client
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/ClientsInformationRequestVM'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ClientsInformationRequestVM'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/ClientsInformationRequestVM'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/ClientsInformationRequestVM'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-  /Client/GetClients:
-    get:
-      tags:
-        - Client
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: >-
-                  #/components/schemas/ClientsInformationResponseVMListApiResponseModel
-            application/json:
-              schema:
-                $ref: >-
-                  #/components/schemas/ClientsInformationResponseVMListApiResponseModel
-            text/json:
-              schema:
-                $ref: >-
-                  #/components/schemas/ClientsInformationResponseVMListApiResponseModel
-  /Profile/UpdatePersonalInfo:
-    post:
-      tags:
-        - Profile
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/PersonalInformationRequestVM'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PersonalInformationRequestVM'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/PersonalInformationRequestVM'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/PersonalInformationRequestVM'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-  /Profile/UpdateBusinessInfo:
-    post:
-      tags:
-        - Profile
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/BusinessInformationRequestVM'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BusinessInformationRequestVM'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/BusinessInformationRequestVM'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/BusinessInformationRequestVM'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-  /Profile/GetProfile:
-    get:
-      tags:
-        - Profile
-      parameters:
-        - name: profileTye
-          in: query
-          schema:
-            $ref: '#/components/schemas/ProfileTye'
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/UserInformationVMApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserInformationVMApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/UserInformationVMApiResponseModel'
-        '404':
-          description: Not Found
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /Profile/GetUserProfile:
-    get:
-      tags:
-        - Profile
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/UserProfileVMApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserProfileVMApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/UserProfileVMApiResponseModel'
-        '404':
-          description: Not Found
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /entry:
-    post:
-      tags:
-        - Settings
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-  /configurations:
-    post:
-      tags:
-        - Settings
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppSettingsApiResponsePublicModel'
-  /awb:
-    get:
-      tags:
-        - Settings
-      parameters:
-        - name: refNumber
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppSettingsApiResponsePublicModel'
-  /Shipment/CalculateCost:
-    post:
-      tags:
-        - Shipment
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/PackageDetails'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PackageDetails'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/PackageDetails'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/PackageDetails'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CostResponseDtoListApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CostResponseDtoListApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CostResponseDtoListApiResponseModel'
-  /Shipment/CreateShipment:
-    post:
-      tags:
-        - Shipment
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/CreateShipmentRequestDto'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateShipmentRequestDto'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/CreateShipmentRequestDto'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/CreateShipmentRequestDto'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-  /Shipment/GetShipments:
-    post:
-      tags:
-        - Shipment
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponseModel'
-  /Store/CreateStoreInfo:
-    post:
-      tags:
-        - Store
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/CreateStoreInformationVM'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateStoreInformationVM'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/CreateStoreInformationVM'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/CreateStoreInformationVM'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-  /Store/UpdateStoreInfo:
-    post:
-      tags:
-        - Store
-      parameters:
-        - name: X-Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: Accept-Language
-          in: header
-          schema:
-            type: string
-        - name: X-Request-Key
-          in: header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/StoreInformationVM'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StoreInformationVM'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/StoreInformationVM'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/StoreInformationVM'
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/BooleanApiResponseModel'
-#############################
   "/api/AddressLookups/Countries":
     get:
       tags:
-      - AddressLookups
+        - AddressLookups
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -890,14 +38,19 @@ paths:
   "/api/AddressLookups/Governorates/{countryId}":
     get:
       tags:
-      - AddressLookups
+        - AddressLookups
       parameters:
-      - name: countryId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: countryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -920,14 +73,19 @@ paths:
   "/api/AddressLookups/Cities/{governorateId}":
     get:
       tags:
-      - AddressLookups
+        - AddressLookups
       parameters:
-      - name: governorateId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: governorateId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -950,14 +108,19 @@ paths:
   "/api/AddressLookups/Areas/{cityId}":
     get:
       tags:
-      - AddressLookups
+        - AddressLookups
       parameters:
-      - name: cityId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: cityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -977,10 +140,84 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/Auth/signup":
+    post:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+  "/api/Auth/token":
+    post:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequestDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequestDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequestDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
   "/api/Customers":
     get:
       tags:
-      - Customers
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -1002,7 +239,13 @@ paths:
                   "$ref": "#/components/schemas/CustomerGetDto"
     put:
       tags:
-      - Customers
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1019,7 +262,13 @@ paths:
           description: Success
     post:
       tags:
-      - Customers
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1047,14 +296,19 @@ paths:
   "/api/Customers/{id}":
     get:
       tags:
-      - Customers
+        - Customers
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -1070,21 +324,32 @@ paths:
                 "$ref": "#/components/schemas/CustomerGetDto"
     delete:
       tags:
-      - Customers
+        - Customers
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
   "/api/Customers/GetCustomersBy":
     post:
       tags:
-      - Customers
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1117,625 +382,6 @@ paths:
                   "$ref": "#/components/schemas/CustomerGetDto"
 components:
   schemas:
-    AppSettings:
-      type: object
-      properties:
-        AndroidVersion:
-          type: string
-          nullable: true
-        IosVersion:
-          type: string
-          nullable: true
-      additionalProperties: false
-    AppSettingsApiResponsePublicModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          $ref: '#/components/schemas/AppSettings'
-        ErrorMessage:
-          type: string
-          nullable: true
-      additionalProperties: false
-    AuthenticateRequest:
-      required:
-        - MobileNumber
-      type: object
-      properties:
-        MobileNumber:
-          minLength: 1
-          type: string
-      additionalProperties: false
-    AuthenticateRequestVerify:
-      required:
-        - MobileNumber
-        - Otp
-      type: object
-      properties:
-        MobileNumber:
-          minLength: 1
-          type: string
-        Otp:
-          minLength: 1
-          type: string
-        DeviceInformation:
-          $ref: '#/components/schemas/LoginDeviceInformations'
-      additionalProperties: false
-    AuthenticateResponseVerify:
-      type: object
-      properties:
-        reqSecureKey:
-          type: string
-          nullable: true
-        success:
-          type: boolean
-          nullable: true
-        data:
-          type: object
-          properties:
-            Otp:
-              type: string
-              nullable: true
-            Message:
-              type: string
-              nullable: true
-        errorMessage:
-          type: string
-          nullable: true
-      additionalProperties: false
-    AuthenticatedResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: true
-        refreshToken:
-          type: string
-          nullable: true
-      additionalProperties: false
-    AuthenticatedResponseApiResponseModel:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/AuthenticatedResponse'
-        errorMessage:
-          type: string
-          nullable: true
-        reqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    BooleanApiResponseModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          type: boolean
-        ErrorMessage:
-          type: string
-          nullable: true
-        ReqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    BusinessInformationRequestVM:
-      type: object
-      properties:
-        CompanyName:
-          type: string
-          nullable: true
-        Email:
-          type: string
-          nullable: true
-        MobileNumber:
-          type: string
-          nullable: true
-        CommercialRegistrationNo:
-          type: string
-          nullable: true
-        ShortAddress:
-          type: string
-          nullable: true
-        DistrictId:
-          type: integer
-          format: int64
-          nullable: true
-        CityId:
-          type: integer
-          format: int64
-        CountryId:
-          type: integer
-          format: int64
-      additionalProperties: false
-    BusinessInformationResponseVM:
-      type: object
-      properties:
-        CompanyName:
-          type: string
-          nullable: true
-        Email:
-          type: string
-          nullable: true
-        MobileNumber:
-          type: string
-          nullable: true
-        CommercialRegistrationNo:
-          type: string
-          nullable: true
-        ShortAddress:
-          type: string
-          nullable: true
-        District:
-          type: string
-          nullable: true
-        City:
-          type: string
-          nullable: true
-        Country:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ClientsInformationRequestVM:
-      type: object
-      properties:
-        FullName:
-          type: string
-          nullable: true
-        Address:
-          type: string
-          nullable: true
-        Mobile:
-          type: string
-          nullable: true
-        Email:
-          type: string
-          nullable: true
-        DistrictId:
-          type: integer
-          format: int64
-          nullable: true
-        CityId:
-          type: integer
-          format: int64
-        CountryId:
-          type: integer
-          format: int64
-      additionalProperties: false
-    ClientsInformationResponseVM:
-      type: object
-      properties:
-        FullName:
-          type: string
-          nullable: true
-        Address:
-          type: string
-          nullable: true
-        Mobile:
-          type: string
-          nullable: true
-        Email:
-          type: string
-          nullable: true
-        District:
-          type: string
-          nullable: true
-        City:
-          type: string
-          nullable: true
-        Country:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ClientsInformationResponseVMListApiResponseModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientsInformationResponseVM'
-          nullable: true
-        ErrorMessage:
-          type: string
-          nullable: true
-        ReqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CostResponseDto:
-      type: object
-      properties:
-        ShipperCode:
-          type: string
-          nullable: true
-        Name:
-          type: string
-          nullable: true
-        Icon:
-          type: string
-          nullable: true
-        FeatuereName:
-          type: string
-          nullable: true
-        DeliverDays:
-          type: integer
-          format: int32
-        DeliverDaysPharse:
-          type: string
-          nullable: true
-        TotalPrice:
-          type: number
-          format: float
-      additionalProperties: false
-    CostResponseDtoListApiResponseModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostResponseDto'
-          nullable: true
-        ErrorMessage:
-          type: string
-          nullable: true
-        ReqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CreateShipmentRequestDto:
-      type: object
-      properties:
-        shipperId:
-          type: integer
-          format: int64
-        storeId:
-          type: integer
-          format: int64
-        senderCityId:
-          type: integer
-          format: int64
-        reciverCityId:
-          type: integer
-          format: int64
-        orderAmount:
-          type: integer
-          format: int32
-        reciverName:
-          type: string
-          nullable: true
-        reciverAddress:
-          type: string
-          nullable: true
-        reciverPhone:
-          type: integer
-          format: int32
-        senderName:
-          type: string
-          nullable: true
-        senderAddress:
-          type: string
-          nullable: true
-        senderPhone:
-          type: integer
-          format: int32
-        packageDescription:
-          type: string
-          nullable: true
-        PackageDetails:
-          $ref: '#/components/schemas/PackageDetails'
-      additionalProperties: false
-    CreateStoreInformationVM:
-      type: object
-      properties:
-        Name:
-          type: string
-          nullable: true
-        Url:
-          type: string
-          nullable: true
-        MaroofID:
-          type: string
-          nullable: true
-        CommercialRegistrationNo:
-          type: string
-          nullable: true
-        StoreImage:
-          type: string
-          nullable: true
-      additionalProperties: false
-    LoginDeviceInformations:
-      type: object
-      properties:
-        IsMobile:
-          type: boolean
-        DeviceInformation:
-          type: string
-          nullable: true
-        LocationInformations:
-          type: string
-          nullable: true
-      additionalProperties: false
-    LookupDto:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int64
-        Name:
-          type: string
-          nullable: true
-      additionalProperties: false
-    LookupDtoListApiResponseModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LookupDto'
-          nullable: true
-        ErrorMessage:
-          type: string
-          nullable: true
-        ReqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ObjectApiResponseModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          nullable: true
-        ErrorMessage:
-          type: string
-          nullable: true
-        ReqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    PackageDetails:
-      type: object
-      properties:
-        Weight:
-          type: number
-          format: float
-        Length:
-          type: number
-          format: float
-        Width:
-          type: number
-          format: float
-        Height:
-          type: number
-          format: float
-        From:
-          type: string
-          nullable: true
-        To:
-          type: string
-          nullable: true
-        Cost:
-          type: number
-          format: double
-      additionalProperties: false
-    PersonalInformationRequestVM:
-      type: object
-      properties:
-        Name:
-          type: string
-          nullable: true
-        Email:
-          type: string
-          nullable: true
-        NationalId:
-          type: string
-          nullable: true
-        Address:
-          type: string
-          nullable: true
-        DistrictId:
-          type: integer
-          format: int64
-          nullable: true
-        CityId:
-          type: integer
-          format: int64
-        CountryId:
-          type: integer
-          format: int64
-      additionalProperties: false
-    PersonalInformationResponseVM:
-      type: object
-      properties:
-        Name:
-          type: string
-          nullable: true
-        Email:
-          type: string
-          nullable: true
-        NationalId:
-          type: string
-          nullable: true
-        Address:
-          type: string
-          nullable: true
-        District:
-          type: string
-          nullable: true
-        City:
-          type: string
-          nullable: true
-        Country:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        Type:
-          type: string
-          nullable: true
-        Title:
-          type: string
-          nullable: true
-        Status:
-          type: integer
-          format: int32
-          nullable: true
-        Detail:
-          type: string
-          nullable: true
-        Instance:
-          type: string
-          nullable: true
-      additionalProperties: {}
-    ProfileTye:
-      enum:
-        - All
-        - Personal
-        - Bussiness
-        - Stores
-      type: string
-    ShipmentVM:
-      type: object
-      properties:
-        Number:
-          type: string
-          nullable: true
-        Reciver:
-          type: string
-          nullable: true
-        Size:
-          type: string
-          nullable: true
-        Cost:
-          type: number
-          format: double
-        BillStatus:
-          type: string
-          nullable: true
-      additionalProperties: false
-    StoreInformationVM:
-      type: object
-      properties:
-        Name:
-          type: string
-          nullable: true
-        Url:
-          type: string
-          nullable: true
-        MaroofID:
-          type: string
-          nullable: true
-        CommercialRegistrationNo:
-          type: string
-          nullable: true
-        StoreImage:
-          type: string
-          nullable: true
-      additionalProperties: false
-    TokenApiModel:
-      type: object
-      properties:
-        Token:
-          type: string
-          nullable: true
-        RefreshToken:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UserInformationVM:
-      type: object
-      properties:
-        Personal:
-          $ref: '#/components/schemas/PersonalInformationResponseVM'
-        Business:
-          $ref: '#/components/schemas/BusinessInformationResponseVM'
-        Stores:
-          type: array
-          items:
-            $ref: '#/components/schemas/StoreInformationVM'
-          nullable: true
-        Clients:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClientsInformationResponseVM'
-          nullable: true
-        Score:
-          type: number
-          format: float
-          readOnly: true
-        ScorePercentage:
-          type: string
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    UserInformationVMApiResponseModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          $ref: '#/components/schemas/UserInformationVM'
-        ErrorMessage:
-          type: string
-          nullable: true
-        ReqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UserProfileVM:
-      type: object
-      properties:
-        Name:
-          type: string
-          nullable: true
-        Status:
-          type: string
-          nullable: true
-        TotalShipments:
-          type: integer
-          format: int32
-        Balance:
-          type: number
-          format: double
-        TotalBills:
-          type: integer
-          format: int32
-        TotalStoreRequests:
-          type: integer
-          format: int32
-        NewShipmenst:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShipmentVM'
-          nullable: true
-      additionalProperties: false
-    UserProfileVMApiResponseModel:
-      type: object
-      properties:
-        Success:
-          type: boolean
-        Data:
-          $ref: '#/components/schemas/UserProfileVM'
-        ErrorMessage:
-          type: string
-          nullable: true
-        ReqSecureKey:
-          type: string
-          nullable: true
-      additionalProperties: false
-#############################
     AddressLookUpDto:
       type: object
       properties:
@@ -1902,11 +548,48 @@ components:
           format: int32
           nullable: true
       additionalProperties: false
+    LoginRequestDto:
+      type: object
+      properties:
+        phoneNo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LoginResponseDto:
+      type: object
+      properties:
+        verificationCode_temp:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TokenRequestDto:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          nullable: true
+        verificationCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TokenResponseDto:
+      type: object
+      properties:
+        role:
+          type: string
+          nullable: true
+        token:
+          type: string
+          nullable: true
+        expiration:
+          type: string
+          format: date-time
+      additionalProperties: false
   securitySchemes:
-    Bearer:
+    bearer:
       type: http
-      description: Please enter token
+      description: Put **_ONLY_** your JWT Bearer token on textbox below!
       scheme: bearer
       bearerFormat: JWT
 security:
-  - Bearer: []
+  - bearer: []

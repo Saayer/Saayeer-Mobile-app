@@ -3,5 +3,5 @@ import 'package:saayer/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class LogInRepo {
-  Future<Either<Failure, AuthenticateResponseVerify?>> logIn(AuthenticateRequest authenticateRequest);
+  Future<Either<Failure, LoginResponseDto?>> logIn(LoginRequestDto loginRequestDto);
 }

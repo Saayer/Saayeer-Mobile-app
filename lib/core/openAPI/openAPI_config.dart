@@ -43,22 +43,3 @@ class OpenAPIConfig {
     }
   }
 }
-
-@lazySingleton
-class SayeerOpenAPIConfig {
-  final Openapi sayeerOpenapi;
-
-  SayeerOpenAPIConfig({
-    required this.sayeerOpenapi,
-  }) {
-    HttpOverrides.global = MyHttpOverrides();
-    sayeerOpenapi.dio.options = BaseOptions(
-        baseUrl: 'http://34.140.10.214/saayer-v0-2/',
-        validateStatus: (status) {
-          return (status == StatusCode.ok) || (status == StatusCode.success);
-        },
-
-        ///ConnectionTimeOut in ms
-        connectTimeout: const Duration(milliseconds: 20000));
-  }
-}

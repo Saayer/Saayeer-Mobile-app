@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/v0-2*
+All URIs are relative to *http://localhost/saayer-5-dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **apiAddressLookupsAreasCityIdGet**
-> BuiltList<AddressLookUpDto> apiAddressLookupsAreasCityIdGet(cityId)
+> BuiltList<AddressLookUpDto> apiAddressLookupsAreasCityIdGet(cityId, apiKey)
 
 
 
@@ -26,9 +26,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getAddressLookupsApi();
 final int cityId = 56; // int | 
+final String apiKey = apiKey_example; // String | 
 
 try {
-    final response = api.apiAddressLookupsAreasCityIdGet(cityId);
+    final response = api.apiAddressLookupsAreasCityIdGet(cityId, apiKey);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling AddressLookupsApi->apiAddressLookupsAreasCityIdGet: $e\n');
@@ -40,6 +41,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cityId** | **int**|  | 
+ **apiKey** | **String**|  | 
 
 ### Return type
 
@@ -47,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -57,7 +59,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiAddressLookupsCitiesGovernorateIdGet**
-> BuiltList<AddressLookUpDto> apiAddressLookupsCitiesGovernorateIdGet(governorateId)
+> BuiltList<AddressLookUpDto> apiAddressLookupsCitiesGovernorateIdGet(governorateId, apiKey)
 
 
 
@@ -67,9 +69,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getAddressLookupsApi();
 final int governorateId = 56; // int | 
+final String apiKey = apiKey_example; // String | 
 
 try {
-    final response = api.apiAddressLookupsCitiesGovernorateIdGet(governorateId);
+    final response = api.apiAddressLookupsCitiesGovernorateIdGet(governorateId, apiKey);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling AddressLookupsApi->apiAddressLookupsCitiesGovernorateIdGet: $e\n');
@@ -81,6 +84,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **governorateId** | **int**|  | 
+ **apiKey** | **String**|  | 
 
 ### Return type
 
@@ -88,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -98,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiAddressLookupsCountriesGet**
-> BuiltList<AddressLookUpDto> apiAddressLookupsCountriesGet()
+> BuiltList<AddressLookUpDto> apiAddressLookupsCountriesGet(apiKey)
 
 
 
@@ -107,9 +111,10 @@ Name | Type | Description  | Notes
 import 'package:openapi/api.dart';
 
 final api = Openapi().getAddressLookupsApi();
+final String apiKey = apiKey_example; // String | 
 
 try {
-    final response = api.apiAddressLookupsCountriesGet();
+    final response = api.apiAddressLookupsCountriesGet(apiKey);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling AddressLookupsApi->apiAddressLookupsCountriesGet: $e\n');
@@ -117,7 +122,10 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
 
 ### Return type
 
@@ -125,7 +133,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -135,7 +143,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiAddressLookupsGovernoratesCountryIdGet**
-> BuiltList<AddressLookUpDto> apiAddressLookupsGovernoratesCountryIdGet(countryId)
+> BuiltList<AddressLookUpDto> apiAddressLookupsGovernoratesCountryIdGet(countryId, apiKey)
 
 
 
@@ -145,9 +153,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getAddressLookupsApi();
 final int countryId = 56; // int | 
+final String apiKey = apiKey_example; // String | 
 
 try {
-    final response = api.apiAddressLookupsGovernoratesCountryIdGet(countryId);
+    final response = api.apiAddressLookupsGovernoratesCountryIdGet(countryId, apiKey);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling AddressLookupsApi->apiAddressLookupsGovernoratesCountryIdGet: $e\n');
@@ -159,6 +168,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **countryId** | **int**|  | 
+ **apiKey** | **String**|  | 
 
 ### Return type
 
@@ -166,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

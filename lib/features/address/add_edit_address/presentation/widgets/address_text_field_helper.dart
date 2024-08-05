@@ -55,21 +55,18 @@ class AddressTextFieldHelper {
       default:
         {
           return InputTextField(
-            label: addAddressFieldsType.name.toLowerCase(),
+            label: addAddressFieldsType.name,
             inputController: _getInputController(addAddressBloc, addAddressFieldsType),
-            keyboardType: TextInputType.text,
-            onChanged: (val) {
-              // addAddressBloc.add(OnTextChange(
-              //     str: val,
-              //     addAddressFieldsType: addAddressFieldsType,
-              //     textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
-            },
+            keyboardType:
+                addAddressFieldsType == AddAddressFieldsTypes.ZIPCODE ? TextInputType.number : TextInputType.text,
+            onChanged: (val) {},
           );
         }
     }
   }
 
-  TextEditingController _getInputController(AddEditAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
+  TextEditingController _getInputController(
+      AddEditAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     switch (addAddressFieldsType) {
       case AddAddressFieldsTypes.NAME:
         {

@@ -21,17 +21,17 @@ class LogInRepoImpl implements LogInRepo {
   });
 
   @override
-  Future<Either<Failure, AuthenticateResponseVerify?>> logIn(AuthenticateRequest authenticateRequest) async {
+  Future<Either<Failure, LoginResponseDto?>> logIn(LoginRequestDto loginRequestDto) async {
     log("LogInRepoImpl");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
-        final Response<AuthenticateResponseVerify> result = await openAPIConfig.openapi
-            .getAccountApi()
-            .loginPost(authenticateRequest: authenticateRequest, xApiKey: NetworkKeys.init().networkKeys.xApiKey);
+        final Response<LoginResponseDto?> result = await openAPIConfig.openapi
+            .getAuthApi()
+            .apiAuthSignupPost(loginRequestDto: loginRequestDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
         log("LogInRepoImpl Right $result");
-        if (result.data != null) {
-          return Right(result.data!);
+        if (result.statusCode == 200 || result.statusCode == 201) {
+          return Right(result.data);
         } else {
           return Left(Failure(failureMessage: "Log in failed"));
         }

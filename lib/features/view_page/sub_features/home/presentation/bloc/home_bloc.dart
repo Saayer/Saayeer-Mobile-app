@@ -15,7 +15,6 @@ import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/view_page/sub_features/home/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/sub_features/home/domain/entities/user_profile_entity.dart';
-import 'package:saayer/features/view_page/sub_features/home/domain/entities/user_profile_entity.dart';
 import 'package:saayer/features/view_page/sub_features/home/domain/use_cases/get_user_profile_usecase.dart';
 
 part 'home_event.dart';
@@ -38,12 +37,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final CurrentUserTypes currentUserType =
         await getIt<LoggedInCheckerService>().getCurrentUserType();
     final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
-    if (!isGuest) {
-      await _getUserProfile(emit);
-    } else {
+    //if (!isGuest) {
+      //await _getUserProfile(emit);
+    //} else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED)));
-    }
+    //}
   }
 
   _getUserProfile(Emitter<HomeState> emit) async {

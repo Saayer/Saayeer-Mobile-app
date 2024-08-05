@@ -9,9 +9,6 @@ import 'package:saayer/core/network/network_info.dart';
 import 'package:saayer/core/openAPI/openAPI_config.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/features/verify_otp/data/data_sources/verify_otp_RDS.dart';
-import 'package:saayer/features/verify_otp/data/models/verify_otp_response_model.dart';
-import 'package:saayer/features/verify_otp/domain/entities/submit_verify_otp_entity.dart';
-import 'package:saayer/features/verify_otp/domain/entities/verify_otp_entity.dart';
 import 'package:saayer/features/verify_otp/domain/repositories/verify_otp_repo.dart';
 
 @Injectable(as: VerifyOtpRepo)
@@ -25,15 +22,15 @@ class VerifyOtpRepoImpl implements VerifyOtpRepo {
   });
 
   @override
-  Future<Either<Failure, AuthenticatedResponseApiResponseModel?>> confirmLogIn(
-      AuthenticateRequestVerify verifyOtpEntity) async {
+  Future<Either<Failure, TokenResponseDto?>> confirmLogIn(
+      TokenRequestDto tokenRequestDto) async {
     log("VerifyOtpRepoImpl");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
-        final Response<AuthenticatedResponseApiResponseModel> result =
+        final Response<TokenResponseDto> result =
             await openAPIConfig.openapi
-                .getAccountApi().authPost(xApiKey: NetworkKeys.init().networkKeys.xApiKey, authenticateRequestVerify: verifyOtpEntity);
+                .getAuthApi().apiAuthTokenPost(apiKey: NetworkKeys.init().networkKeys.apiKey, tokenRequestDto: tokenRequestDto);
         log("VerifyOtpRepoImpl Right $result");
         if (result.statusCode == 200) {
           return Right(result.data);

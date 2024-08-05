@@ -135,17 +135,17 @@ class AppTextStyles {
       );
 
   static TextStyle buttonLabel([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 18.sp,
+        fontSize: 18,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w600,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle highlightedLabel([Color? color]) => GoogleFonts.alexandria(
-        fontSize: 14.sp,
+        fontSize: 14,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w900,
-        height: 1.1.h,
+        height: 1.1,
       );
 
   static TextStyle sectionTitle([Color? color]) => GoogleFonts.alexandria(
