@@ -23,6 +23,9 @@ class DropDownTextField<T> extends StatefulWidget {
   final bool Function(T) getIsSelectedItem;
   final bool? showSearch;
   final bool? withValidator;
+  final bool? isFieldRequired;
+  final bool? hasLabel;
+  final bool? hasMargin;
   final bool Function(T, String)? onSearch;
 
   const DropDownTextField(
@@ -41,6 +44,9 @@ class DropDownTextField<T> extends StatefulWidget {
       required this.getIsSelectedItem,
       this.showSearch = false,
       this.withValidator,
+      this.isFieldRequired,
+      this.hasMargin,
+      this.hasLabel,
       this.onSearch});
 
   @override
@@ -88,8 +94,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
       onTap: () {
         showBottomSheetWidget(
             context,
-            StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
+            StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
               return Column(
                 children: [
                   Padding(
@@ -100,15 +105,11 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
                         log(val, name: "SearchTextField");
                         setState(() {
                           searchTextController.text = val;
-                          TextSelection previousSelection =
-                              searchTextController.selection;
+                          TextSelection previousSelection = searchTextController.selection;
                           searchTextController.selection = previousSelection;
                           filteredItems.clear();
                           filteredItems.addAll(widget.items.where((element) =>
-                              widget.onSearch != null
-                                  ? widget.onSearch!(
-                                      element, searchTextController.text)
-                                  : true));
+                              widget.onSearch != null ? widget.onSearch!(element, searchTextController.text) : true));
                         });
                       },
                     ),
@@ -123,12 +124,14 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               setState(() {});
             });
       },
-      validator: !(widget.withValidator ?? true) ? null : (value) {
-        if (value?.isEmpty ?? true) {
-          return 'empty_field_error'.tr().replaceFirst("{}", widget.label);
-        }
-        return null;
-      },
+      validator: !(widget.withValidator ?? true)
+          ? null
+          : (value) {
+              if (value?.isEmpty ?? true) {
+                return 'empty_field_error'.tr().replaceFirst("{}", widget.label);
+              }
+              return null;
+            },
       keyboardType: widget.keyboardType,
       onChanged: (val) {},
     );
@@ -139,14 +142,16 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            LabelTxt(txt: widget.label.tr()),
-          ],
-        ),
+        (widget.hasLabel ?? true)
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  LabelTxt(txt: (widget.isFieldRequired ?? false) ? '${widget.label.tr()} *' : widget.label.tr()),
+                ],
+              )
+            : Container(),
         Container(
-          margin: const EdgeInsets.only(top: 5, right: 10, left: 10),
+          margin: (widget.hasMargin ?? true) ? const EdgeInsets.only(top: 5, right: 10, left: 10) : EdgeInsets.zero,
           child: baseTextField,
         ),
       ],
@@ -177,12 +182,9 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(itemName,
-                      textAlign: TextAlign.start, style: AppTextStyles.label()),
+                  Text(itemName, textAlign: TextAlign.start, style: AppTextStyles.label()),
                   Icon(
-                    isSelected
-                        ? Icons.radio_button_checked
-                        : Icons.radio_button_off,
+                    isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
                     color: isSelected
                         ? SaayerTheme().getColorsPalette.primaryColor
                         : SaayerTheme().getColorsPalette.greyColor,

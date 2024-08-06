@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
+import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
@@ -41,7 +41,7 @@ class AddressItemWidget extends StatelessWidget {
               addressInfoEntity.fullName ?? '',
               style: AppTextStyles.boldLabel(),
             ),
-            subtitle: ResponsiveBreakpoints.of(context).largerThan(MOBILE)
+            subtitle: largerThanMobile(context)
                 ? _buildFullAddress()
                 : Text(
                     addressInfoEntity.addressDetails ?? '',

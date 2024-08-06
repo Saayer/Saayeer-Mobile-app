@@ -11,6 +11,9 @@ import 'package:saayer/common/generic_expansionTile_widget.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
 import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
+import 'package:saayer/core/utils/responsive_utils.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 import 'dart:ui' as ui;
@@ -36,76 +39,84 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: GenericExpansionTileWidget(title: 'search'.tr(), iconPath: '', children: [
-        ///
-        ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 5,
+      child: GenericExpansionTileWidget(
+          title: 'search'.tr(),
+          iconPath: Constants.getIconPath('filter.svg'),
+          iconColor: SaayerTheme().getColorsPalette.primaryColor,
           children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+            ///
+            ResponsiveRowColumn(
+              layout: ResponsiveValue(context,
+                      conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
+                      defaultValue: ResponsiveRowColumnType.COLUMN)
+                  .value,
+              columnVerticalDirection: VerticalDirection.down,
+              columnSpacing: 5,
+              rowSpacing: 10,
+              children: [
+                ResponsiveRowColumnItem(
+                  rowFit: FlexFit.loose,
 
-              /// Search By Text & Search by Phone
-              child: _buildFirstFiltersRow(),
+                  /// Search By Text & Search by Phone
+                  child: _buildFirstFiltersRow(),
+                ),
+                ResponsiveRowColumnItem(
+                    rowFit: FlexFit.loose,
+
+                    /// Country & Governorate & City
+                    child: _buildSecondFiltersRow())
+              ],
             ),
-            ResponsiveRowColumnItem(
-                rowFit: FlexFit.loose,
+            const SizedBox(height: 10),
 
-                /// Country & Governorate & City
-                child: _buildSecondFiltersRow())
-          ],
-        ),
-        const SizedBox(height: 10),
+            ///
+            ResponsiveRowColumn(
+              layout: ResponsiveValue(context,
+                      conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
+                      defaultValue: ResponsiveRowColumnType.COLUMN)
+                  .value,
+              columnVerticalDirection: VerticalDirection.down,
+              columnSpacing: 10,
+              rowSpacing: 10,
+              children: [
+                ResponsiveRowColumnItem(
+                  rowFit: FlexFit.loose,
 
-        ///
-        ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 5,
-          rowSpacing: 10,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+                  /// Search By Shipments (From - To) Date
+                  child: _buildShipmentsDateFilter(),
+                ),
+                ResponsiveRowColumnItem(
+                    rowFit: FlexFit.loose,
 
-              /// Search By Shipments (From - To) Date
-              child: _buildShipmentsDateFilter(),
+                    /// Search By Total Shipments Min/MX than
+                    child: _buildTotalShipmentsFilters())
+              ],
             ),
-            ResponsiveRowColumnItem(
-                rowFit: FlexFit.loose,
 
-                /// Search By Total Shipments Min/MX than
-                child: _buildTotalShipmentsFilters())
-          ],
-        ),
+            ///
+            const SizedBox(height: 10),
 
-        ///
-        const SizedBox(height: 10),
-
-        ///
-        Align(
-          alignment: Alignment.center,
-          child: SaayerDefaultTextButton(
-              text: 'search'.tr(),
-              isEnabled: true,
-              borderRadius: 16,
-              onPressed: () {
-                final bool isFormValid = (formKey.currentState!.validate());
-                if (isFormValid) {
-                  widget.addressesBookBloc.add(const ResetList());
-                  widget.addressesBookBloc.add(const GetAddresses());
-                }
-              },
-              btnWidth: ResponsiveBreakpoints.of(context).screenWidth / 2,
-              btnHeight: 50),
-        )
-      ]),
+            ///
+            Align(
+              alignment: Alignment.center,
+              child: SaayerDefaultTextButton(
+                  text: 'search'.tr(),
+                  isEnabled: true,
+                  borderRadius: 16,
+                  onPressed: () {
+                    final bool isFormValid = (formKey.currentState!.validate());
+                    if (isFormValid) {
+                      widget.addressesBookBloc.add(const ResetList());
+                      widget.addressesBookBloc.add(const GetAddresses());
+                    }
+                  },
+                  btnWidth: halfScreenWidth(context),
+                  btnHeight: 50),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+          ]),
     );
   }
 
@@ -115,7 +126,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
       children: [
         Expanded(
             child: BaseTextField(
-          hintText: 'search'.tr(),
+          hintText: 'search_hint'.tr(),
           controller: widget.addressesBookBloc.searchController,
           onChanged: (val) {},
           validator: null,
@@ -149,7 +160,9 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
         Expanded(
           child: ItemsDropDownTextField<AddressesBookBloc>(
             bloc: widget.addressesBookBloc,
+            hasLabel: false,
             withValidator: false,
+            hasMargin: false,
             onSelected: (val) {
               widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
                 addAddressFieldsType: AddAddressFieldsTypes.COUNTRY,
@@ -163,10 +176,15 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
             selectedItem: widget.addressesBookBloc.selectedCountry,
           ),
         ),
+        const SizedBox(
+          width: 8,
+        ),
         Expanded(
             child: ItemsDropDownTextField<AddressesBookBloc>(
           bloc: widget.addressesBookBloc,
+          hasLabel: false,
           withValidator: false,
+          hasMargin: false,
           onSelected: (val) {
             widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
               addAddressFieldsType: AddAddressFieldsTypes.GOVERNORATE,
@@ -179,10 +197,15 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
           addAddressFieldsType: AddAddressFieldsTypes.GOVERNORATE,
           selectedItem: widget.addressesBookBloc.selectedGovernorate,
         )),
+        const SizedBox(
+          width: 8,
+        ),
         Expanded(
             child: ItemsDropDownTextField<AddressesBookBloc>(
           bloc: widget.addressesBookBloc,
+          hasLabel: false,
           withValidator: false,
+          hasMargin: false,
           onSelected: (val) {
             widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
               addAddressFieldsType: AddAddressFieldsTypes.CITY,

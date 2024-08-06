@@ -18,7 +18,7 @@ class InputTextFieldDecoration {
           AppTextStyles.liteLabel(SaayerTheme().getColorsPalette.greyColor),
       filled: true,
       fillColor: fillColor ?? SaayerTheme().getColorsPalette.textFieldFillColor,
-      contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular((borderRadius ?? 10))),
       ),

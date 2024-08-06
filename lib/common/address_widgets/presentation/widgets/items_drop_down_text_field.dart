@@ -15,23 +15,37 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
   final AddAddressFieldsTypes addAddressFieldsType;
   final T bloc;
   final bool? withValidator;
+  final bool? isFieldRequired;
+  final bool? hasLabel;
+  final bool? hasMargin;
 
   const ItemsDropDownTextField(
-      {super.key, required this.onSelected, this.withValidator, this.selectedItem, required this.addAddressFieldsType, required this.bloc});
+      {super.key,
+      required this.onSelected,
+      this.withValidator,
+      this.selectedItem,
+      this.isFieldRequired,
+      this.hasLabel,
+      this.hasMargin,
+      required this.addAddressFieldsType,
+      required this.bloc});
 
   @override
   Widget build(BuildContext context) {
     return DropDownTextField<AddressLookUpDto>(
       label: getFieldLabel(),
+      hasLabel: hasLabel,
+      isFieldRequired: isFieldRequired,
+      hasMargin: hasMargin,
       inputController: TextEditingController(
           text: selectedItem != null ? (Localization.isEnglish() ? selectedItem!.nameEn : selectedItem!.nameAr) : ""),
       onSelected: (v) => onSelected(v),
       withValidator: withValidator,
       items: getList(bloc).isNotEmpty
           ? List.generate(getList(bloc).length, (index) {
-        final AddressLookUpDto item = getList(bloc)[index];
-        return item;
-      })
+              final AddressLookUpDto item = getList(bloc)[index];
+              return item;
+            })
           : [],
       getItemName: (val) {
         return Localization.isEnglish() ? val.nameEn ?? '' : val.nameAr ?? '';

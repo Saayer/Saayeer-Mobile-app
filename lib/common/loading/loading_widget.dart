@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 
 class SaayerLoader extends StatelessWidget {
@@ -13,8 +12,8 @@ class SaayerLoader extends StatelessWidget {
       child: Image.asset(
         // Constants.getGifPath("squishy_logo.gif"),
         Constants.getGifPath("tenbyten_logo.gif"),
-        height: (size ?? 150).h,
-        width: (size ?? 150).w,
+        height: (size ?? 150),
+        width: (size ?? 150),
         fit: BoxFit.cover,
       ),
     );

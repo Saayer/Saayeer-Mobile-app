@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
@@ -10,6 +9,7 @@ import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
@@ -99,11 +99,11 @@ class VerifyOtpPage extends StatelessWidget {
                           child: Directionality(
                             textDirection: ui.TextDirection.ltr,
                             child: SizedBox(
-                              width: ResponsiveBreakpoints.of(context).isMobile
+                              width: equalToMobile(context)
                                   ? width / 1.3
-                                  : ResponsiveBreakpoints.of(context).isTablet
+                                  : equalToTablet(context)
                                       ? width / 1.8
-                                      : ResponsiveBreakpoints.of(context).largerThan(TABLET)
+                                      : largerThanTablet(context)
                                           ? width / 2
                                           : width / 1.3,
                               child: PinCodeTextField(

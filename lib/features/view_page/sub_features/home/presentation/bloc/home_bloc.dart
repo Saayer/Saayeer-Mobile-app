@@ -8,9 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
-import 'package:saayer/core/services/current_user/current_user_enums.dart';
-import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
-import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/view_page/sub_features/home/core/utils/enums/enums.dart';
@@ -34,9 +31,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       InitHome event, Emitter<HomeState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    final CurrentUserTypes currentUserType =
-        await getIt<LoggedInCheckerService>().getCurrentUserType();
-    final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
+    //final CurrentUserTypes currentUserType =
+        //await getIt<LoggedInCheckerService>().getCurrentUserType();
+    //final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
     //if (!isGuest) {
       //await _getUserProfile(emit);
     //} else {

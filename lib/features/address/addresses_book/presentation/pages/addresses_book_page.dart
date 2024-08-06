@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
+import 'package:saayer/common/dialogs/saayer_dialogs.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -25,8 +26,6 @@ class AddressesBookPage extends StatefulWidget {
 class _AddressesBookPageState extends State<AddressesBookPage> {
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     final AddressesBookBloc addressesBookBloc = BlocProvider.of<AddressesBookBloc>(context);
     return BlocConsumer<AddressesBookBloc, AddressesBookState>(
@@ -49,6 +48,9 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
                   AddressesFiltersWidget(addressesBookBloc: addressesBookBloc),
                   const SizedBox(
                     height: 10,
@@ -81,8 +83,6 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
                         addressesBookBloc.add(const GetAddresses());
                       });
                     },
-                    btnWidth: width / 1.008,
-                    btnHeight: 50,
                   ),
                   const SizedBox(
                     height: 20,
@@ -111,8 +111,13 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
                 getIt<NavigationService>().navigateTo(AddressDetailsScreen(
                   addressInfoEntity: addresses[index],
                   onDelete: () {
-                    getIt<NavigationService>().pop();
-                    addressesBookBloc.add(OnAddressDelete(deleteAddress: addresses[index]));
+                    SaayerDialogs().twoBtnsDialog(
+                        title: "warning",
+                        message: 'are_you_sure_delete_address',
+                        onTapDismiss: () {
+                          getIt<NavigationService>().pop();
+                          addressesBookBloc.add(OnAddressDelete(deleteAddress: addresses[index]));
+                        });
                   },
                 ));
               },
@@ -128,7 +133,12 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
                 });
               },
               onDelete: () {
-                addressesBookBloc.add(OnAddressDelete(deleteAddress: addresses[index]));
+                SaayerDialogs().twoBtnsDialog(
+                    title: "warning",
+                    message: 'are_you_sure_delete_address',
+                    onTapDismiss: () {
+                      addressesBookBloc.add(OnAddressDelete(deleteAddress: addresses[index]));
+                    });
               },
             ),
           );

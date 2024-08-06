@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/loading/loading_container.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -74,8 +73,8 @@ class UserCardPage extends StatelessWidget {
           }
           return Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: (horizontalPadding).w,
-                vertical: (verticalPadding).h),
+                horizontal: (horizontalPadding),
+                vertical: (verticalPadding)),
             child: GestureDetector(
               onTap: () {
                 if (isUncompletedProfile) {
@@ -91,11 +90,11 @@ class UserCardPage extends StatelessWidget {
                   decoration: cardDecoration,
                   child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: ListTile(
                         contentPadding: EdgeInsets.zero,
                         title: Padding(
-                          padding: EdgeInsets.only(bottom: 5.h),
+                          padding: const EdgeInsets.only(bottom: 5),
                           child: Text(
                             (state.userCardEntity?.hasPersonalInformation ??
                                     false)

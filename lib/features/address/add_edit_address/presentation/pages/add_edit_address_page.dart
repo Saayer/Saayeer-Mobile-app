@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi/openapi.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -33,10 +32,12 @@ class AddEditAddressPage extends StatefulWidget {
 }
 
 class _AddEditAddressPageState extends State<AddEditAddressPage> {
+  ///
+  GlobalKey zipCodeKey = GlobalKey<State<StatefulWidget>>();
+  GlobalKey addressKey = GlobalKey<State<StatefulWidget>>();
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     final AddEditAddressBloc addAddressBloc = BlocProvider.of<AddEditAddressBloc>(context);
     return GeneralResponsiveScaledBoxWidget(
       child: BlocConsumer<AddEditAddressBloc, AddEditAddressState>(
@@ -60,19 +61,16 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
             }
           }
         },
-        builder: (context, state) => PopScope(
-          canPop: false,
-          child: Scaffold(
-            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-            resizeToAvoidBottomInset: false,
-            appBar: BaseAppBar(
-              title: "add_address".tr(),
-              showBackLeading: true,
-              showAppBar: widget.isAddShipmentRequest,
-            ),
-            bottomSheet: _buildConfirmButton(addAddressBloc, width),
-            body: _buildAddAddressFieldsWidget(addAddressBloc, width, state),
+        builder: (context, state) => Scaffold(
+          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          resizeToAvoidBottomInset: false,
+          appBar: BaseAppBar(
+            title: "add_address".tr(),
+            showBackLeading: true,
+            showAppBar: widget.isAddShipmentRequest,
           ),
+          bottomSheet: _buildConfirmButton(addAddressBloc, width),
+          body: _buildAddAddressFieldsWidget(addAddressBloc, width, state),
         ),
       ),
     );
@@ -80,31 +78,25 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
 
   Widget _getTextField(AddEditAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     return AddressTextFieldHelper(addAddressBloc: addAddressBloc, addAddressFieldsType: addAddressFieldsType)
-        .getTextField();
+        .getTextField(zipCodeKey:zipCodeKey, addressKey:addressKey);
   }
 
   _buildConfirmButton(AddEditAddressBloc addAddressBloc, double width) {
-    return Container(
-      width: width,
-      color: SaayerTheme().getColorsPalette.transparent,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        child: SaayerDefaultTextButton(
-          text: "confirm",
-          isEnabled: enableAddress(addAddressBloc),
-          borderRadius: 16,
-          onPressed: () {
-            final bool isFormValid = (addAddressBloc.formKey.currentState!.validate());
-            addAddressBloc.add(ToggleAutoValidate());
-            isFormValid
-                ? widget.addEditAddressType == AddEditAddressType.addAddress
-                    ? addAddressBloc.add(SubmitAddressData())
-                    : addAddressBloc.add(const OnUpdateAddress())
-                : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
-          },
-          btnWidth: width / 1.2,
-          btnHeight: 50,
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      child: SaayerDefaultTextButton(
+        text: "confirm",
+        isEnabled: enableAddress(addAddressBloc),
+        borderRadius: 16,
+        onPressed: () {
+          final bool isFormValid = (addAddressBloc.formKey.currentState!.validate());
+          addAddressBloc.add(ToggleAutoValidate());
+          isFormValid
+              ? widget.addEditAddressType == AddEditAddressType.addAddress
+                  ? addAddressBloc.add(SubmitAddressData())
+                  : addAddressBloc.add(const OnUpdateAddress())
+              : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
+        },
       ),
     );
   }
@@ -121,6 +113,8 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
             autovalidateMode: state.autoValidateMode,
             key: addAddressBloc.formKey,
             child: ListView(
+              controller: ScrollController(),
+              physics: const BouncingScrollPhysics(),
               children: [
                 /// FullName & Phone & Alternative Phone & Email
                 ResponsiveRowColumn(
@@ -182,10 +176,15 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   }
 
   bool enableAddress(AddEditAddressBloc addAddressBloc) {
-    // log("${addAddressBloc.addAddressFieldsValidMap}",
-    //     name: "enableAddress --->");
-    if (addAddressBloc.addAddressFieldsValidMap.values.length == AddAddressFieldsTypes.values.length) {
-      return addAddressBloc.addAddressFieldsValidMap.values.every((element) => element == true);
+    if (addAddressBloc.nameController.text.isNotEmpty &&
+        (addAddressBloc.mobile.phoneNumber != null) &&
+        (addAddressBloc.mobile.phoneNumber!.length > 13) &&
+        addAddressBloc.addressController.text.isNotEmpty &&
+        (addAddressBloc.selectedCountry != null) &&
+        (addAddressBloc.selectedGovernorate != null) &&
+        (addAddressBloc.selectedCity != null) &&
+        (addAddressBloc.selectedArea != null)) {
+      return true;
     }
     return false;
   }

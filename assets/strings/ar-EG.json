@@ -163,5 +163,7 @@
   "total_shipments_min": "الحد الأدنى لإجمالي الشحنات",
   "total_shipments_max": "إجمالي الشحنات كحد أقصى",
   "code_sent": "تم إرسال OTP بنجاح",
-  "area": "المنطقة"
+  "area": "المنطقة",
+  "are_you_sure_delete_address": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
+  "search_hint": "البحث حسب الاسم أو العنوان"
 }

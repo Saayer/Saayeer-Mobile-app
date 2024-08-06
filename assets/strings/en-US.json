@@ -163,5 +163,7 @@
   "total_shipments_min": "Total Shipments Min",
   "total_shipments_max": "Total Shipments Max",
   "code_sent": "OTP has been sent successfully",
-  "area": "area"
+  "area": "area",
+  "are_you_sure_delete_address": "Are you sure you want to delete this address ?",
+  "search_hint": "Search by name or address"
 }
