@@ -37,7 +37,7 @@ class MoreBloc extends Bloc<MoreEvent, MoreState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    await getIt<LoggedInCheckerService>().logOut();
+    getIt<LoggedInCheckerService>().logOut();
 
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),

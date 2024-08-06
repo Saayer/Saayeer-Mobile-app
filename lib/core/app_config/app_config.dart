@@ -8,8 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/API/http_overrides.dart';
 import 'package:saayer/core/app_config/app_flavor.dart';
 import 'package:saayer/core/app_config/app_flavor_entity.dart';
-import 'package:saayer/core/services/encryption/encryption.dart';
 import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/colors/dark_colors.dart';
@@ -35,12 +35,14 @@ class AppConfig {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     initAppFlavorEntity();
+
+    /// init sharedPreferences
+    getIt<SharedPrefService>().initPref();
     log("$flavorType", name: "flavorType");
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: DarkColorsPalette().navBarColor,
       statusBarIconBrightness: Brightness.dark,
     ));
-
 
     HttpOverrides.global = MyHttpOverrides();
     SystemChrome.setPreferredOrientations([
@@ -48,10 +50,8 @@ class AppConfig {
       DeviceOrientation.portraitUp,
     ]);
 
-
     await ScreenUtil.ensureScreenSize();
-    final AdaptiveThemeMode? savedThemeMode =
-        await AdaptiveTheme.getThemeMode();
+    final AdaptiveThemeMode? savedThemeMode = await AdaptiveTheme.getThemeMode();
     //await getIt<FirebaseDeepLink>().onDynamicLink();
     runApp(EasyLocalization(
       supportedLocales: Localization.getLocaleList(),
@@ -68,8 +68,7 @@ class AppConfig {
   }
 
   void initAppFlavorEntity() {
-    final AppFlavorEntity appFlavorEntity = AppFlavorEntity(
-        appName: appName, flavorType: flavorType, versionNum: "");
+    final AppFlavorEntity appFlavorEntity = AppFlavorEntity(appName: appName, flavorType: flavorType, versionNum: "");
     getIt<AppFlavor>().setAppFlavorEntity(appFlavorEntity);
   }
 }
