@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
-import 'package:saayer/core/API/status_code.dart';
+import 'package:saayer/core/API/network_keys/network_keys.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/network/network_info.dart';
+import 'package:saayer/core/openAPI/openAPI_config.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/features/address/addresses_book/data/data_sources/remote/addresses_book_RDS.dart';
 import 'package:saayer/features/address/addresses_book/domain/repositories/addresses_book_repo.dart';
@@ -14,12 +14,9 @@ import 'package:saayer/features/address/addresses_book/domain/repositories/addre
 class AddressesBookRepoImpl implements AddressesBookRepo {
   final AddressesBookRDS addressesBookRDSImpl;
 
-  ///Todo: Need Modification after add it to new server
-  late Openapi sayeerOpenapi;
+  final OpenAPIConfig openAPIConfig;
 
-  AddressesBookRepoImpl({
-    required this.addressesBookRDSImpl,
-  });
+  AddressesBookRepoImpl({required this.addressesBookRDSImpl, required this.openAPIConfig});
 
   @override
   Future<Either<Failure, List<CustomerGetDto>>> getAddresses(CustomerQuery? customerQuery) async {
@@ -28,18 +25,8 @@ class AddressesBookRepoImpl implements AddressesBookRepo {
     if (isConnected) {
       try {
         ///
-        sayeerOpenapi = Openapi(
-            dio: Dio(BaseOptions(
-                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
-                validateStatus: (status) {
-                  return (status == StatusCode.ok) || (status == StatusCode.success);
-                },
-
-                ///ConnectionTimeOut in ms
-                connectTimeout: const Duration(milliseconds: 20000))));
-
-        ///
-        final result = await sayeerOpenapi.getCustomersApi().apiCustomersGetCustomersByPost(customerQuery: customerQuery);
+        final result = await openAPIConfig.openapi.getCustomersApi().apiCustomersGetCustomersByPost(
+            customerQuery: customerQuery, apiKey: NetworkKeys.init().networkKeys.apiKey);
         log("AddressInfoRepoImpl Right $result");
         if (result.data != null) {
           return Right(result.data!.toList());
@@ -56,24 +43,15 @@ class AddressesBookRepoImpl implements AddressesBookRepo {
   }
 
   @override
-  Future<Either<Failure, void>> deleteAddresses(int addressId) async{
+  Future<Either<Failure, void>> deleteAddresses(int addressId) async {
     log("deleteAddressesRepoImpl");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
         ///
-        sayeerOpenapi = Openapi(
-            dio: Dio(BaseOptions(
-                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
-                validateStatus: (status) {
-                  return (status == StatusCode.ok) || (status == StatusCode.success);
-                },
-
-                ///ConnectionTimeOut in ms
-                connectTimeout: const Duration(milliseconds: 20000))));
-
-        ///
-        final result = await sayeerOpenapi.getCustomersApi().apiCustomersIdDelete(id: addressId);
+        final result = await openAPIConfig.openapi
+            .getCustomersApi()
+            .apiCustomersIdDelete(id: addressId, apiKey: NetworkKeys.init().networkKeys.apiKey);
         log("DeleteAddressesRepoImpl Right $result");
         return Right(result.data);
       } catch (e) {
@@ -86,27 +64,18 @@ class AddressesBookRepoImpl implements AddressesBookRepo {
   }
 
   @override
-  Future<Either<Failure, void>> editAddresses(CustomerAddDto? customerDto) async{
+  Future<Either<Failure, void>> editAddresses(CustomerAddDto? customerDto) async {
     log("editAddressesRepoImpl");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
         ///
-        sayeerOpenapi = Openapi(
-            dio: Dio(BaseOptions(
-                baseUrl: 'http://34.140.10.214/saayer-v0-2/',
-                validateStatus: (status) {
-                  return (status == StatusCode.ok) || (status == StatusCode.success);
-                },
-
-                ///ConnectionTimeOut in ms
-                connectTimeout: const Duration(milliseconds: 20000))));
-
-        ///
-        final result = await sayeerOpenapi.getCustomersApi().apiCustomersPut(customerAddDto: customerDto);
+        final result = await openAPIConfig.openapi
+            .getCustomersApi()
+            .apiCustomersPut(customerAddDto: customerDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
         log("editAddressesRepoImpl Right $result");
         return Right(result.data);
-            } catch (e) {
+      } catch (e) {
         log("edit AddressesRepoImpl Failure ${e.toString()}");
         return Left(Failure(failureMessage: "edit Addresses failed"));
       }

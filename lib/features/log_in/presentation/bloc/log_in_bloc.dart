@@ -46,8 +46,8 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
         : (event.phoneNumber?.phoneNumber?.isNotEmpty ?? false);
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
-        logInEntity:
-        AuthenticateRequest((b) => b..mobileNumber= event.phoneNumber?.phoneNumber ??  '')));
+        loginRequestDto:
+        LoginRequestDto((b) => b..phoneNo= event.phoneNumber?.phoneNumber ??  '')));
   }
 
   Future<FutureOr<void>> _submitLogInData(
@@ -55,8 +55,8 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, AuthenticateResponseVerify?> result =
-        await logInUseCase(LogInParameters(logInEntity: state.logInEntity!));
+    final Either<Failure, LoginResponseDto?> result =
+        await logInUseCase(LogInParameters(loginRequestDto: state.loginRequestDto!));
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -66,23 +66,15 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
               requestState: RequestState.ERROR,
               errorStatus: LogInErrorStatus.ERROR_LOG_IN)));
     } else {
-      final AuthenticateResponseVerify? rightResult = (result as Right).value;
+      final LoginResponseDto? rightResult = (result as Right).value;
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
-        if (rightResult.data != null) {
           emit(state.copyWith(
             stateHelper: const StateHelper(
                 requestState: RequestState.SUCCESS, loadingMessage: ""),
             submitLogInEntity: rightResult,
           ));
-        } else {
-          emit(state.copyWith(
-            stateHelper: const StateHelper(
-                requestState: RequestState.ERROR,
-                errorStatus: LogInErrorStatus.ERROR_LOG_IN),
-            submitLogInEntity: rightResult,
-          ));
-        }
+
       } else {
         log("", name: "SubmitLogInEvent error");
         emit(state.copyWith(

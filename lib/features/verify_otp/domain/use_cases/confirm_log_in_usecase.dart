@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
@@ -9,8 +8,8 @@ import 'package:saayer/features/verify_otp/domain/repositories/verify_otp_repo.d
 @injectable
 class ConfirmLogInUseCase
     implements
-        BaseUseCase<Future<Either<Failure, AuthenticatedResponseApiResponseModel?>>,
-            ConfirmLogInParameters> {
+        BaseUseCase<Future<Either<Failure, TokenResponseDto?>>,
+            TokenRequestDto> {
   final VerifyOtpRepo verifyOtpRepoImpl;
 
   const ConfirmLogInUseCase({
@@ -18,17 +17,8 @@ class ConfirmLogInUseCase
   });
 
   @override
-  Future<Either<Failure, AuthenticatedResponseApiResponseModel?>> call(
-      ConfirmLogInParameters parameters) async {
-    return await verifyOtpRepoImpl.confirmLogIn(parameters.verifyOtpEntity);
+  Future<Either<Failure, TokenResponseDto?>> call(
+      TokenRequestDto parameters) async {
+    return await verifyOtpRepoImpl.confirmLogIn(parameters);
   }
-}
-
-class ConfirmLogInParameters extends Equatable {
-  final AuthenticateRequestVerify verifyOtpEntity;
-
-  const ConfirmLogInParameters({required this.verifyOtpEntity});
-
-  @override
-  List<Object?> get props => [verifyOtpEntity];
 }

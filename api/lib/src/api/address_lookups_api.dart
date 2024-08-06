@@ -24,6 +24,7 @@ class AddressLookupsApi {
   ///
   /// Parameters:
   /// * [cityId] 
+  /// * [apiKey] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -35,6 +36,7 @@ class AddressLookupsApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<AddressLookUpDto>>> apiAddressLookupsAreasCityIdGet({ 
     required int cityId,
+    required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -46,6 +48,7 @@ class AddressLookupsApi {
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -53,7 +56,7 @@ class AddressLookupsApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -105,6 +108,7 @@ class AddressLookupsApi {
   ///
   /// Parameters:
   /// * [governorateId] 
+  /// * [apiKey] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -116,6 +120,7 @@ class AddressLookupsApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<AddressLookUpDto>>> apiAddressLookupsCitiesGovernorateIdGet({ 
     required int governorateId,
+    required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -127,6 +132,7 @@ class AddressLookupsApi {
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -134,7 +140,7 @@ class AddressLookupsApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -185,6 +191,7 @@ class AddressLookupsApi {
   /// 
   ///
   /// Parameters:
+  /// * [apiKey] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -195,6 +202,7 @@ class AddressLookupsApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<AddressLookUpDto>] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<AddressLookUpDto>>> apiAddressLookupsCountriesGet({ 
+    required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -206,6 +214,7 @@ class AddressLookupsApi {
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -213,7 +222,7 @@ class AddressLookupsApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,
@@ -265,6 +274,7 @@ class AddressLookupsApi {
   ///
   /// Parameters:
   /// * [countryId] 
+  /// * [apiKey] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -276,6 +286,7 @@ class AddressLookupsApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<AddressLookUpDto>>> apiAddressLookupsGovernoratesCountryIdGet({ 
     required int countryId,
+    required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -287,6 +298,7 @@ class AddressLookupsApi {
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
+        r'Api-Key': apiKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -294,7 +306,7 @@ class AddressLookupsApi {
           {
             'type': 'http',
             'scheme': 'bearer',
-            'name': 'Bearer',
+            'name': 'bearer',
           },
         ],
         ...?extra,

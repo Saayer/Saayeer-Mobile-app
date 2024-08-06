@@ -1,20 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/loading/loading_container.dart';
-import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/user_card/core/errors/user_card_error_handler.dart';
 import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart';
 import 'package:saayer/features/user_card/presentation/helper/user_card_helper.dart';
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
-
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
 class UserCardPage extends StatelessWidget {
@@ -30,10 +26,9 @@ class UserCardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
-    final UserCardBloc userCardBloc = BlocProvider.of<UserCardBloc>(context);
+    //final UserCardBloc userCardBloc = BlocProvider.of<UserCardBloc>(context);
 
     return BlocConsumer<UserCardBloc, UserCardState>(
         buildWhen: (previousState, nextState) =>
@@ -42,12 +37,12 @@ class UserCardPage extends StatelessWidget {
         listener: (context, state) async {
           final bool isLoading =
               (state.stateHelper.requestState == RequestState.LOADING);
-          LoadingDialog.setIsLoading(context, isLoading || isParentLoading);
+          //LoadingDialog.setIsLoading(context, isLoading || isParentLoading);
           if (!isLoading) {
             if (state.stateHelper.requestState == RequestState.SUCCESS) {}
             if (state.stateHelper.requestState == RequestState.ERROR) {
               //showToast(msg: state.stateHelper.errorMessage ?? "");
-              UserCardErrorHandler(state: state)();
+              //UserCardErrorHandler(state: state)();
             }
           }
         },
@@ -78,8 +73,8 @@ class UserCardPage extends StatelessWidget {
           }
           return Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: (horizontalPadding).w,
-                vertical: (verticalPadding).h),
+                horizontal: (horizontalPadding),
+                vertical: (verticalPadding)),
             child: GestureDetector(
               onTap: () {
                 if (isUncompletedProfile) {
@@ -95,11 +90,11 @@ class UserCardPage extends StatelessWidget {
                   decoration: cardDecoration,
                   child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: ListTile(
                         contentPadding: EdgeInsets.zero,
                         title: Padding(
-                          padding: EdgeInsets.only(bottom: 5.h),
+                          padding: const EdgeInsets.only(bottom: 5),
                           child: Text(
                             (state.userCardEntity?.hasPersonalInformation ??
                                     false)

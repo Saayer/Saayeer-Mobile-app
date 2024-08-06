@@ -10,7 +10,6 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/features/log_in/domain/entities/submit_log_in_entity.dart';
 import 'package:saayer/features/log_in/domain/use_cases/log_in_usecase.dart';
 import 'package:saayer/features/verify_otp/core/utils/enums/enums.dart';
 import 'package:saayer/features/verify_otp/domain/use_cases/confirm_log_in_usecase.dart';
@@ -34,14 +33,14 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     emit(state.copyWith(
-        stateHelper: const StateHelper(requestState: RequestState.LOADED), verifyOtpEntity: event.verifyOtpEntity));
+        stateHelper: const StateHelper(requestState: RequestState.LOADED), tokenRequestDto: event.tokenRequestDto));
   }
 
   Future<FutureOr<void>> _resendOtpEvent(ResendOtpEvent event, Emitter<VerifyOtpState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, AuthenticateResponseVerify?> result = await logInUseCase(LogInParameters(
-        logInEntity: AuthenticateRequest((b) => b..mobileNumber = state.verifyOtpEntity?.mobileNumber ?? "")
+    final Either<Failure, LoginResponseDto?> result = await logInUseCase(LogInParameters(
+        loginRequestDto: LoginRequestDto((b) => b..phoneNo = state.tokenRequestDto?.phoneNumber ?? "")
         // LogInEntity(
         //     phoneNumber: PhoneNumber(
         //         phoneNumber: state.verifyOtpEntity?.phoneNumber ?? ""))
@@ -54,22 +53,16 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_RESEND_CODE)));
     } else {
-      final SubmitLogInEntity? rightResult = (result as Right).value;
+      final LoginResponseDto? rightResult = (result as Right).value;
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
-        if (rightResult.isSuccess) {
           emit(state.copyWith(
               stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
-              verifyOtpEntity: state.verifyOtpEntity?.rebuild((model) => model.otp = '3f\$*;sSkV'), //'3f\$*;sSkV',
+              tokenRequestDto: state.tokenRequestDto?.rebuild((model) => model.verificationCode = '3f\$*;sSkV'), //'3f\$*;sSkV',
               //state.verifyOtpEntity!.copyWith(otp: rightResult.otp),
               isOtpResent: true,
               resetExpiryDate: true));
-        } else {
-          emit(state.copyWith(
-            stateHelper: const StateHelper(
-                requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_RESEND_CODE),
-          ));
-        }
+
       } else {
         log("", name: "SubmitLogInEvent error");
         emit(state.copyWith(
@@ -82,9 +75,9 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
 
   Future<FutureOr<void>> _checkOtpEvent(CheckOtpEvent event, Emitter<VerifyOtpState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    state.verifyOtpEntity = AuthenticateRequestVerify((b) => b
-      ..otp = '3f\$*;sSkV'
-      ..mobileNumber = state.verifyOtpEntity?.mobileNumber ?? '');
+    //state.tokenRequestDto = AuthenticateRequestVerify((b) => b
+      //..otp = '3f\$*;sSkV'
+      //..mobileNumber = state.tokenRequestDto?.mobileNumber ?? '');
     //state.verifyOtpEntity!.copyWith(otp: event.otp);
     // final bool isVerifiedOtp =
     //     (event.otp.compareTo(state.verifyOtpEntity!.otp) == 0);
@@ -100,7 +93,7 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
   }
 
   _confirmLogin(Emitter<VerifyOtpState> emit) async {
-    final result = await confirmLogInUseCase(ConfirmLogInParameters(verifyOtpEntity: state.verifyOtpEntity!));
+    final result = await confirmLogInUseCase(state.tokenRequestDto!);
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -109,10 +102,10 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_CONFIRM_LOGIN)));
     } else {
-      final AuthenticatedResponseApiResponseModel? rightResult = (result as Right).value;
+      final TokenResponseDto? rightResult = (result as Right).value;
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
-        if (rightResult.data != null) {
+        if (rightResult.token != null) {
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
                 isVerified: true));

@@ -9,9 +9,12 @@ class InputTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final TextInputType keyboardType;
   final bool showOnlyTextField;
+  final bool? isFieldRequired;
   final Color? fillColor, enabledBorderColor, focusedBorderColor;
-
+  final int? maxLength;
   final double? borderRadius;
+  final bool? withValidator;
+  final Function()? onTap;
 
   const InputTextField(
       {super.key,
@@ -23,6 +26,10 @@ class InputTextField extends StatelessWidget {
       this.fillColor,
       this.enabledBorderColor,
       this.focusedBorderColor,
+      this.isFieldRequired,
+      this.maxLength,
+      this.withValidator,
+      this.onTap,
       this.borderRadius});
 
   @override
@@ -34,19 +41,18 @@ class InputTextField extends StatelessWidget {
       enabledBorderColor: enabledBorderColor,
       focusedBorderColor: focusedBorderColor,
       borderRadius: borderRadius,
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'empty_field_error'.tr().replaceFirst("{}", "input".tr());
-        }
-        // if (ValidationUtils.isValidinput(value ?? "")) {
-        //   return 'invalid_field_error'
-        //       .tr()
-        //       .replaceFirst("{}", label.tr());
-        // }
-        return null;
-      },
+      maxLength: maxLength,
+      validator: (withValidator ?? true)
+          ? (value) {
+              if (value?.isEmpty ?? true) {
+                return 'empty_field_error'.tr().replaceFirst("{}", label.tr());
+              }
+              return null;
+            }
+          : null,
       keyboardType: keyboardType,
       onChanged: onChanged,
+      onTap: onTap,
     );
     if (showOnlyTextField) {
       return baseTextField;
@@ -58,7 +64,7 @@ class InputTextField extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            LabelTxt(txt: label.tr()),
+            LabelTxt(txt: (isFieldRequired ?? false) ? '${label.tr()} *' : label.tr()),
           ],
         ),
         Container(

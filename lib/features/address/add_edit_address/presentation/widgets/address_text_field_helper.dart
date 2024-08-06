@@ -22,11 +22,12 @@ class AddressTextFieldHelper {
   });
 
   //
-  Widget getTextField() {
+  Widget getTextField(
+      {required GlobalKey<State<StatefulWidget>> zipCodeKey, required GlobalKey<State<StatefulWidget>> addressKey}) {
     switch (addAddressFieldsType) {
-      case AddAddressFieldsTypes.EMAIL:
+      case AddAddressFieldsTypes.NAME:
         {
-          return _getEmailTextField();
+          return _getFullNameTextField();
         }
       case AddAddressFieldsTypes.MOBILE:
         {
@@ -35,6 +36,10 @@ class AddressTextFieldHelper {
       case AddAddressFieldsTypes.ALTERNATIVE_MOBILE:
         {
           return _getSecondMobileTextField();
+        }
+      case AddAddressFieldsTypes.EMAIL:
+        {
+          return _getEmailTextField();
         }
       case AddAddressFieldsTypes.COUNTRY:
         {
@@ -52,24 +57,33 @@ class AddressTextFieldHelper {
         {
           return _getAreaTextField();
         }
-      default:
+      case AddAddressFieldsTypes.ADDRESS:
         {
-          return InputTextField(
-            label: addAddressFieldsType.name.toLowerCase(),
-            inputController: _getInputController(addAddressBloc, addAddressFieldsType),
-            keyboardType: TextInputType.text,
-            onChanged: (val) {
-              // addAddressBloc.add(OnTextChange(
-              //     str: val,
-              //     addAddressFieldsType: addAddressFieldsType,
-              //     textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
-            },
-          );
+          return _getAddressTextField(addressKey);
+        }
+      case AddAddressFieldsTypes.ZIPCODE:
+        {
+          return _getZipCodeTextField(zipCodeKey);
         }
     }
   }
 
-  TextEditingController _getInputController(AddEditAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
+  /// auto scroll the bottom textFields on focused to be visible when keyboard display
+  Future<void> ensureVisibleOnTextArea({required GlobalKey textFieldKey}) async {
+    final keyContext = textFieldKey.currentContext;
+    if (keyContext != null) {
+      await Future.delayed(const Duration(milliseconds: 500)).then(
+        (value) => Scrollable.ensureVisible(
+          keyContext,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.decelerate,
+        ),
+      );
+    }
+  }
+
+  TextEditingController _getInputController(
+      AddEditAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     switch (addAddressFieldsType) {
       case AddAddressFieldsTypes.NAME:
         {
@@ -117,12 +131,7 @@ class AddressTextFieldHelper {
   Widget _getEmailTextField() {
     return EmailTextField(
       emailController: _getInputController(addAddressBloc, addAddressFieldsType),
-      onChanged: (val) {
-        // addAddressBloc.add(OnTextChange(
-        //     str: val,
-        //     addAddressFieldsType: AddAddressFieldsTypes.EMAIL,
-        //     textEditingController: _getInputController(addAddressBloc, addAddressFieldsType)));
-      },
+      onChanged: (val) {},
     );
   }
 
@@ -134,7 +143,7 @@ class AddressTextFieldHelper {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            LabelTxt(txt: addAddressFieldsType.name.tr()),
+            LabelTxt(txt: '${addAddressFieldsType.name.tr()} *'),
           ],
         ),
         const SizedBox(
@@ -145,7 +154,6 @@ class AddressTextFieldHelper {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: PhoneTextField(
-              //initialValue: addAddressBloc.mobile,
               phoneNumController: _getInputController(addAddressBloc, addAddressFieldsType),
               onInputChanged: (PhoneNumber phoneNumber) {
                 log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
@@ -166,6 +174,7 @@ class AddressTextFieldHelper {
   Widget _getCityTextField() {
     return ItemsDropDownTextField(
       bloc: addAddressBloc,
+      isFieldRequired: true,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -183,6 +192,7 @@ class AddressTextFieldHelper {
   Widget _getCountryTextField() {
     return ItemsDropDownTextField(
       bloc: addAddressBloc,
+      isFieldRequired: true,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -200,6 +210,7 @@ class AddressTextFieldHelper {
   Widget _getGovernorateTextField() {
     return ItemsDropDownTextField(
       bloc: addAddressBloc,
+      isFieldRequired: true,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -217,6 +228,7 @@ class AddressTextFieldHelper {
   Widget _getAreaTextField() {
     return ItemsDropDownTextField(
       bloc: addAddressBloc,
+      isFieldRequired: true,
       onSelected: (val) {
         addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
           addAddressFieldsType: addAddressFieldsType,
@@ -263,6 +275,49 @@ class AddressTextFieldHelper {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _getAddressTextField(GlobalKey<State<StatefulWidget>> addressKey) {
+    return InputTextField(
+      key: addressKey,
+      label: addAddressFieldsType.name,
+      isFieldRequired: true,
+      withValidator: true,
+      inputController: _getInputController(addAddressBloc, addAddressFieldsType),
+      maxLength: 250,
+      keyboardType: TextInputType.text,
+      onChanged: (val) {},
+      onTap: () {
+        ensureVisibleOnTextArea(textFieldKey: addressKey);
+      },
+    );
+  }
+
+  Widget _getZipCodeTextField(GlobalKey<State<StatefulWidget>> zipCodeKey) {
+    return InputTextField(
+      key: zipCodeKey,
+      label: addAddressFieldsType.name,
+      isFieldRequired: false,
+      withValidator: false,
+      inputController: _getInputController(addAddressBloc, addAddressFieldsType),
+      maxLength: null,
+      keyboardType: TextInputType.number,
+      onChanged: (val) {},
+      onTap: () {
+        ensureVisibleOnTextArea(textFieldKey: zipCodeKey);
+      },
+    );
+  }
+
+  Widget _getFullNameTextField() {
+    return InputTextField(
+      withValidator: true,
+      isFieldRequired: true,
+      label: addAddressFieldsType.name,
+      inputController: _getInputController(addAddressBloc, addAddressFieldsType),
+      keyboardType: TextInputType.text,
+      onChanged: (val) {},
     );
   }
 }

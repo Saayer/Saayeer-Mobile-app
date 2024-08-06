@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/core/services/injection/injection.dart';
@@ -17,7 +16,7 @@ import 'dart:ui' as ui;
 class UserCardHelper {
   static Decoration getCardDecoration() {
     return BoxDecoration(
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(12),
       boxShadow: [
         BoxShadow(
           color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.3),
@@ -43,11 +42,11 @@ class UserCardHelper {
       double horizontalPadding, double verticalPadding, double width) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: (horizontalPadding).w, vertical: (verticalPadding).h),
+          horizontal: (horizontalPadding), vertical: (verticalPadding)),
       child: Container(
         decoration: cardDecoration,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -57,23 +56,23 @@ class UserCardHelper {
                 style: AppTextStyles.boldLiteLabel(
                     SaayerTheme().getColorsPalette.darkOrangeColor),
               ),
-              SizedBox(height: 16.h,),
+              const SizedBox(height: 16),
               Text(
                 "log_in_message".tr(),
                 style: AppTextStyles.label(),
               ),
-              SizedBox(height: 16.h,),
+              const SizedBox(height: 16),
               Center(
                 child: SaayerDefaultTextButton(
                   text: "log_in",
                   isEnabled: true,
-                  borderRadius: 16.r,
+                  borderRadius: 16,
                   onPressed: () {
                     getIt<NavigationService>()
                         .navigateAndFinish(const LogInScreen());
                   },
                   btnWidth: width / 1,
-                  btnHeight: 50.h,
+                  btnHeight: 50,
                 ),
               ),
             ],
@@ -92,16 +91,17 @@ class UserCardHelper {
       if (!isUncompletedProfile) {
         return SvgPicture.asset(
           Constants.getIconPath("ic_hi.svg"),
-          width: 50.w,
-          height: 50.h,
+          width: 50,
+          height: 50,
           fit: BoxFit.cover,
         );
       }
       return Stack(
         alignment: Alignment.center,
+        clipBehavior: Clip.antiAlias,
         children: [
           CustomPaint(
-            size: ui.Size(50.w, 50.h),
+            size: const ui.Size(50, 50),
             painter: CirclePainter(
                 startFraction: 0,
                 endFraction: 1,
@@ -109,7 +109,7 @@ class UserCardHelper {
                     SaayerTheme().getColorsPalette.greyColor.withOpacity(0.5)),
           ),
           CustomPaint(
-            size: ui.Size(50.w, 50.h),
+            size: const ui.Size(50, 50),
             painter: CirclePainter(
                 startFraction: 0,
                 endFraction: numberOfDoneUserCardInfo / userCardInfoList.length,

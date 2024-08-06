@@ -1,14 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/addresses_book/presentation/screens/addresses_book_screen.dart';
 import 'package:saayer/features/notifications/presentation/screens/notifications_screen.dart';
@@ -65,22 +64,23 @@ class ViewPagePage extends StatelessWidget {
                           .tr()
                       : null,
                   showBackLeading: false,
-                  leadingWidget: ResponsiveBreakpoints.of(context).largerThan(TABLET)
+                  leadingWidget: largerThanTablet(context)
                       ? Builder(
-                    builder: (context) {
-                      return IconButton(
-                        icon: const Icon(Icons.menu),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                      );
-                    },
-                  ) : Container(),
+                          builder: (context) {
+                            return IconButton(
+                              icon: const Icon(Icons.menu),
+                              onPressed: () {
+                                Scaffold.of(context).openDrawer();
+                              },
+                            );
+                          },
+                        )
+                      : Container(),
                   height: 50,
                   actions: [
                     if (isHome)
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: GestureDetector(
                           onTap: () {
                             getIt<NavigationService>().navigateTo(const NotificationsScreen());
@@ -95,18 +95,13 @@ class ViewPagePage extends StatelessWidget {
                           child: Icon(
                             Icons.notifications,
                             color: SaayerTheme().getColorsPalette.blackTextColor,
-                            size: 35.r,
+                            size: 35,
                           ),
                         ),
                       ),
                   ]),
-              floatingActionButton: ResponsiveBreakpoints.of(context).largerThan(TABLET)
-                  ? null
-                  : const SaayerFloatingActionButton(),
-              bottomNavigationBar:
-                  ResponsiveBreakpoints.of(context).largerThan(TABLET)
-                      ? null
-                      : const SaayerBottomNavigationBar(),
+              floatingActionButton: largerThanTablet(context) ? null : const SaayerFloatingActionButton(),
+              bottomNavigationBar: largerThanTablet(context) ? null : const SaayerBottomNavigationBar(),
               body: _getBody(selectedNavBarIconEntity)),
         );
       },

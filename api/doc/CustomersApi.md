@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/v0-2*
+All URIs are relative to *http://localhost/saayer-5-dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **apiCustomersGet**
-> BuiltList<CustomerGetDto> apiCustomersGet()
+> BuiltList<CustomerGetDto> apiCustomersGet(apiKey)
 
 
 
@@ -27,9 +27,10 @@ Method | HTTP request | Description
 import 'package:openapi/api.dart';
 
 final api = Openapi().getCustomersApi();
+final String apiKey = apiKey_example; // String | 
 
 try {
-    final response = api.apiCustomersGet();
+    final response = api.apiCustomersGet(apiKey);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling CustomersApi->apiCustomersGet: $e\n');
@@ -37,7 +38,10 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
 
 ### Return type
 
@@ -45,7 +49,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -55,7 +59,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiCustomersGetCustomersByPost**
-> BuiltList<CustomerGetDto> apiCustomersGetCustomersByPost(customerQuery)
+> BuiltList<CustomerGetDto> apiCustomersGetCustomersByPost(apiKey, customerQuery)
 
 
 
@@ -64,10 +68,11 @@ This endpoint does not need any parameter.
 import 'package:openapi/api.dart';
 
 final api = Openapi().getCustomersApi();
+final String apiKey = apiKey_example; // String | 
 final CustomerQuery customerQuery = ; // CustomerQuery | 
 
 try {
-    final response = api.apiCustomersGetCustomersByPost(customerQuery);
+    final response = api.apiCustomersGetCustomersByPost(apiKey, customerQuery);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling CustomersApi->apiCustomersGetCustomersByPost: $e\n');
@@ -78,6 +83,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
  **customerQuery** | [**CustomerQuery**](CustomerQuery.md)|  | [optional] 
 
 ### Return type
@@ -86,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -96,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiCustomersIdDelete**
-> apiCustomersIdDelete(id)
+> apiCustomersIdDelete(id, apiKey)
 
 
 
@@ -106,9 +112,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getCustomersApi();
 final int id = 789; // int | 
+final String apiKey = apiKey_example; // String | 
 
 try {
-    api.apiCustomersIdDelete(id);
+    api.apiCustomersIdDelete(id, apiKey);
 } catch on DioException (e) {
     print('Exception when calling CustomersApi->apiCustomersIdDelete: $e\n');
 }
@@ -119,6 +126,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
+ **apiKey** | **String**|  | 
 
 ### Return type
 
@@ -126,7 +134,7 @@ void (empty response body)
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -136,7 +144,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiCustomersIdGet**
-> CustomerGetDto apiCustomersIdGet(id)
+> CustomerGetDto apiCustomersIdGet(id, apiKey)
 
 
 
@@ -146,9 +154,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getCustomersApi();
 final int id = 789; // int | 
+final String apiKey = apiKey_example; // String | 
 
 try {
-    final response = api.apiCustomersIdGet(id);
+    final response = api.apiCustomersIdGet(id, apiKey);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling CustomersApi->apiCustomersIdGet: $e\n');
@@ -160,6 +169,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
+ **apiKey** | **String**|  | 
 
 ### Return type
 
@@ -167,7 +177,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -177,7 +187,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiCustomersPost**
-> CustomerGetDto apiCustomersPost(customerAddDto)
+> CustomerGetDto apiCustomersPost(apiKey, customerAddDto)
 
 
 
@@ -186,10 +196,11 @@ Name | Type | Description  | Notes
 import 'package:openapi/api.dart';
 
 final api = Openapi().getCustomersApi();
+final String apiKey = apiKey_example; // String | 
 final CustomerAddDto customerAddDto = ; // CustomerAddDto | 
 
 try {
-    final response = api.apiCustomersPost(customerAddDto);
+    final response = api.apiCustomersPost(apiKey, customerAddDto);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling CustomersApi->apiCustomersPost: $e\n');
@@ -200,6 +211,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
  **customerAddDto** | [**CustomerAddDto**](CustomerAddDto.md)|  | [optional] 
 
 ### Return type
@@ -208,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -218,7 +230,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiCustomersPut**
-> apiCustomersPut(customerAddDto)
+> apiCustomersPut(apiKey, customerAddDto)
 
 
 
@@ -227,10 +239,11 @@ Name | Type | Description  | Notes
 import 'package:openapi/api.dart';
 
 final api = Openapi().getCustomersApi();
+final String apiKey = apiKey_example; // String | 
 final CustomerAddDto customerAddDto = ; // CustomerAddDto | 
 
 try {
-    api.apiCustomersPut(customerAddDto);
+    api.apiCustomersPut(apiKey, customerAddDto);
 } catch on DioException (e) {
     print('Exception when calling CustomersApi->apiCustomersPut: $e\n');
 }
@@ -240,6 +253,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
  **customerAddDto** | [**CustomerAddDto**](CustomerAddDto.md)|  | [optional] 
 
 ### Return type
@@ -248,7 +262,7 @@ void (empty response body)
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[bearer](../README.md#bearer)
 
 ### HTTP request headers
 

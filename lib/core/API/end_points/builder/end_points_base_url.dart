@@ -14,13 +14,17 @@ class EndPointsBaseUrl {
       case FlavorType.DEV:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "http://34.140.10.214/v0-2/");
+              baseUrl: "http://34.140.10.214/saayer-5-dev");
         }
       case FlavorType.STAGING:
+        {
+          return const EndPointsBaseUrl._internal(
+              baseUrl: "http://34.140.10.214/saayer-5/stag");
+        }
       case FlavorType.PROD:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "http://34.140.10.214/api/");
+              baseUrl: "http://34.140.10.214/saayer-5-dev");
         }
     }
   }

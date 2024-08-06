@@ -33,6 +33,9 @@ class $AssetsGifsGen {
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/filter.svg
+  String get filter => 'assets/icons/filter.svg';
+
   /// File path: assets/icons/ic_addresses_book.png
   AssetGenImage get icAddressesBookPng =>
       const AssetGenImage('assets/icons/ic_addresses_book.png');
@@ -115,6 +118,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        filter,
         icAddressesBookPng,
         icAddressesBookSvg,
         icBill,

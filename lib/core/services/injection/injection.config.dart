@@ -261,10 +261,34 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i355.NavigationService>(() => _i355.NavigationService());
     gh.singleton<_i361.Dio>(() => injectableModule.dio);
     gh.singleton<_i711.Openapi>(() => injectableModule.openapi);
-    gh.lazySingleton<_i801.SayeerOpenAPIConfig>(
-        () => _i801.SayeerOpenAPIConfig(sayeerOpenapi: gh<_i711.Openapi>()));
-    gh.factory<_i79.AddEditAddressInfoRepo>(
-        () => _i31.AddEditAddressInfoRepoImpl());
+    gh.lazySingleton<_i801.OpenAPIConfig>(
+        () => _i801.OpenAPIConfig(openapi: gh<_i711.Openapi>()));
+    gh.lazySingleton<_i919.NetworkInfo>(() => _i919.NetworkInfoImpl());
+    gh.lazySingleton<_i151.ApiConsumer>(
+        () => _i9.DioConsumer(client: gh<_i361.Dio>()));
+    gh.lazySingleton<_i970.OpenapiInterceptors>(
+        () => _i970.OpenapiInterceptors(client: gh<_i361.Dio>()));
+    gh.lazySingleton<_i1059.AppInterceptors>(
+        () => _i1059.AppInterceptors(client: gh<_i361.Dio>()));
+    gh.factory<_i389.VerifyOtpRDS>(
+        () => _i23.VerifyOtpRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i927.RefreshToken>(
+        () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i79.AddEditAddressInfoRepo>(() =>
+        _i31.AddEditAddressInfoRepoImpl(
+            openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i618.StoreInfoRDS>(
+        () => _i764.StoreInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i689.VerifyOtpRepo>(() => _i408.VerifyOtpRepoImpl(
+          verifyOtpRDSImpl: gh<_i389.VerifyOtpRDS>(),
+          openAPIConfig: gh<_i801.OpenAPIConfig>(),
+        ));
+    gh.factory<_i400.LogInRDS>(
+        () => _i211.LogInRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i1066.AddAddressInfoRDS>(
+        () => _i16.AddAddressInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i785.BusinessInfoRDS>(
+        () => _i882.BusinessInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i65.GetAreasUseCase>(() => _i65.GetAreasUseCase(
         addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
     gh.factory<_i465.SubmitAddressInfoUseCase>(() =>
@@ -278,6 +302,10 @@ extension GetItInjectableX on _i174.GetIt {
         addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
     gh.factory<_i590.GetCitiesUseCase>(() => _i590.GetCitiesUseCase(
         addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
+    gh.factory<_i635.PersonalInfoRDS>(
+        () => _i119.PersonalInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i451.AddressesBookRDS>(
+        () => _i699.AddressesBookRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i191.AddressWidgetsBloc>(() => _i191.AddressWidgetsBloc(
           getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
@@ -292,35 +320,6 @@ extension GetItInjectableX on _i174.GetIt {
           updateAddressUseCase: gh<_i469.UpdateAddressUseCase>(),
           getAreasUseCase: gh<_i65.GetAreasUseCase>(),
         ));
-    gh.lazySingleton<_i801.OpenAPIConfig>(
-        () => _i801.OpenAPIConfig(openapi: gh<_i711.Openapi>()));
-    gh.lazySingleton<_i919.NetworkInfo>(() => _i919.NetworkInfoImpl());
-    gh.lazySingleton<_i151.ApiConsumer>(
-        () => _i9.DioConsumer(client: gh<_i361.Dio>()));
-    gh.lazySingleton<_i970.OpenapiInterceptors>(
-        () => _i970.OpenapiInterceptors(client: gh<_i361.Dio>()));
-    gh.lazySingleton<_i1059.AppInterceptors>(
-        () => _i1059.AppInterceptors(client: gh<_i361.Dio>()));
-    gh.factory<_i389.VerifyOtpRDS>(
-        () => _i23.VerifyOtpRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i927.RefreshToken>(
-        () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i618.StoreInfoRDS>(
-        () => _i764.StoreInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i689.VerifyOtpRepo>(() => _i408.VerifyOtpRepoImpl(
-          verifyOtpRDSImpl: gh<_i389.VerifyOtpRDS>(),
-          openAPIConfig: gh<_i801.OpenAPIConfig>(),
-        ));
-    gh.factory<_i400.LogInRDS>(
-        () => _i211.LogInRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i1066.AddAddressInfoRDS>(
-        () => _i16.AddAddressInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i785.BusinessInfoRDS>(
-        () => _i882.BusinessInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i635.PersonalInfoRDS>(
-        () => _i119.PersonalInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i451.AddressesBookRDS>(
-        () => _i699.AddressesBookRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i735.LogInRepo>(() => _i681.LogInRepoImpl(
           logInRDSImpl: gh<_i400.LogInRDS>(),
           openAPIConfig: gh<_i801.OpenAPIConfig>(),
@@ -335,8 +334,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i64.UserCardRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i192.BusinessInfoRepo>(() => _i655.BusinessInfoRepoImpl(
         businessInfoRDSImpl: gh<_i785.BusinessInfoRDS>()));
-    gh.factory<_i42.AddressesBookRepo>(() => _i1022.AddressesBookRepoImpl(
-        addressesBookRDSImpl: gh<_i451.AddressesBookRDS>()));
     gh.factory<_i99.HomeRDS>(
         () => _i322.HomeRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i586.HomeRepo>(
@@ -345,6 +342,10 @@ extension GetItInjectableX on _i174.GetIt {
         verifyOtpRepoImpl: gh<_i689.VerifyOtpRepo>()));
     gh.factory<_i599.StoreInfoRepo>(() =>
         _i656.StoreInfoRepoImpl(storeInfoRDSImpl: gh<_i618.StoreInfoRDS>()));
+    gh.factory<_i42.AddressesBookRepo>(() => _i1022.AddressesBookRepoImpl(
+          addressesBookRDSImpl: gh<_i451.AddressesBookRDS>(),
+          openAPIConfig: gh<_i801.OpenAPIConfig>(),
+        ));
     gh.factory<_i68.UserCardRepo>(
         () => _i671.UserCardRepoImpl(userCardRDSImpl: gh<_i609.UserCardRDS>()));
     gh.factory<_i736.UserCardUseCase>(

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -21,23 +20,23 @@ class OpenapiInterceptors extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     final String? authToken =
     await SecureStorageService().getAccessToken();
-    final String? reqSecureKey =
-    await SecureStorageService().getReqSecureKey();
+    //final String? reqSecureKey =
+    //await SecureStorageService().getReqSecureKey();
     final bool isLogin = options.path.contains("login");
-    final bool isEntry = options.path.contains("entry");
+    //final bool isEntry = options.path.contains("entry");
     options.queryParameters.addAll(
       ApiConfig.queryParameters,
     );
     options.headers["Content-Type"] = "application/json; charset=utf-8";
-    options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys.xApiKey;
+    options.headers["Api-Key"] = NetworkKeys.init().networkKeys.apiKey;
     options.headers["Accept-Language"] = Localization.getLocale();
 
     if (authToken != null && !isLogin) {
       options.headers['Authorization'] = 'Bearer $authToken';
     }
-    if (reqSecureKey != null && !isLogin && !isEntry) {
-      options.headers['X-Request-Key'] = reqSecureKey;
-    }
+    // if (reqSecureKey != null && !isLogin && !isEntry) {
+    //   options.headers['X-Request-Key'] = reqSecureKey;
+    // }
     super.onRequest(options, handler);
   }
 
@@ -48,13 +47,16 @@ class OpenapiInterceptors extends Interceptor {
     response.data.toString().contains("token");
     final bool hasReqSecure =
     response.data.toString().contains("reqSecureKey");
-    final Map responseData = response.data ;
+    Map responseData = {};
+    if(response.data is Map){
+      responseData = response.data;
+    }
 
     if (hasToken) {
-      final String? authToken = responseData["data"]["token"];
+      final String? authToken = responseData["token"];
       if (authToken != null) {
         await SecureStorageService().setAccessToken(authToken);
-        responseData["data"].remove(authToken);
+        responseData.remove(authToken);
         response.data = responseData;
       }
     }
@@ -83,7 +85,7 @@ class OpenapiInterceptors extends Interceptor {
     (err.response?.statusCode == StatusCode.quotaExceeded);
     if ((unauthorized || expiredRequestKey) && !quotaExceeded) {
       try {
-        await getIt<RefreshToken>().refreshToken();
+        //await getIt<RefreshToken>().refreshToken();
         final retryRequest =
         await getIt<RefreshToken>().retryRequest(err.requestOptions);
         return handler.resolve(retryRequest);
