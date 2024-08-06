@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
@@ -23,6 +22,10 @@ class DropDownTextField<T> extends StatefulWidget {
   final String Function(T) getItemName;
   final bool Function(T) getIsSelectedItem;
   final bool? showSearch;
+  final bool? withValidator;
+  final bool? isFieldRequired;
+  final bool? hasLabel;
+  final bool? hasMargin;
   final bool Function(T, String)? onSearch;
 
   const DropDownTextField(
@@ -40,6 +43,10 @@ class DropDownTextField<T> extends StatefulWidget {
       required this.getItemName,
       required this.getIsSelectedItem,
       this.showSearch = false,
+      this.withValidator,
+      this.isFieldRequired,
+      this.hasMargin,
+      this.hasLabel,
       this.onSearch});
 
   @override
@@ -56,7 +63,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
     super.initState();
     setState(() {
       filteredItems = [...widget.items];
-      log("${filteredItems.length}", name: "filteredItems -->");
+      //log("${filteredItems.length}", name: "filteredItems -->");
     });
   }
 
@@ -67,14 +74,13 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
     if (oldWidget.items != widget.items) {
       setState(() {
         filteredItems = [...widget.items];
-        log("${filteredItems.length}", name: "filteredItems -->");
+        //log("${filteredItems.length}", name: "filteredItems -->");
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
 
     final Widget baseTextField = BaseTextField(
@@ -88,27 +94,22 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
       onTap: () {
         showBottomSheetWidget(
             context,
-            StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
+            StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
               return Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: SearchTextField(
                       inputController: searchTextController,
                       onChanged: (val) {
                         log(val, name: "SearchTextField");
                         setState(() {
-                          searchTextController.text = val ?? "";
-                          TextSelection previousSelection =
-                              searchTextController.selection;
+                          searchTextController.text = val;
+                          TextSelection previousSelection = searchTextController.selection;
                           searchTextController.selection = previousSelection;
                           filteredItems.clear();
                           filteredItems.addAll(widget.items.where((element) =>
-                              widget.onSearch != null
-                                  ? widget.onSearch!(
-                                      element, searchTextController.text)
-                                  : true));
+                              widget.onSearch != null ? widget.onSearch!(element, searchTextController.text) : true));
                         });
                       },
                     ),
@@ -123,12 +124,14 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               setState(() {});
             });
       },
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'empty_field_error'.tr().replaceFirst("{}", "input".tr());
-        }
-        return null;
-      },
+      validator: !(widget.withValidator ?? true)
+          ? null
+          : (value) {
+              if (value?.isEmpty ?? true) {
+                return 'empty_field_error'.tr().replaceFirst("{}", widget.label);
+              }
+              return null;
+            },
       keyboardType: widget.keyboardType,
       onChanged: (val) {},
     );
@@ -139,14 +142,16 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            LabelTxt(txt: widget.label.tr()),
-          ],
-        ),
+        (widget.hasLabel ?? true)
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  LabelTxt(txt: (widget.isFieldRequired ?? false) ? '${widget.label.tr()} *' : widget.label.tr()),
+                ],
+              )
+            : Container(),
         Container(
-          margin: EdgeInsets.only(top: 8.h, right: 16.w, left: 16.w),
+          margin: (widget.hasMargin ?? true) ? const EdgeInsets.only(top: 5, right: 10, left: 10) : EdgeInsets.zero,
           child: baseTextField,
         ),
       ],
@@ -173,20 +178,17 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
               Navigator.pop(context);
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(itemName,
-                      textAlign: TextAlign.start, style: AppTextStyles.label()),
+                  Text(itemName, textAlign: TextAlign.start, style: AppTextStyles.label()),
                   Icon(
-                    isSelected
-                        ? Icons.radio_button_checked
-                        : Icons.radio_button_off,
+                    isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
                     color: isSelected
                         ? SaayerTheme().getColorsPalette.primaryColor
                         : SaayerTheme().getColorsPalette.greyColor,
-                    size: 30.r,
+                    size: 30,
                   ),
                 ],
               ),

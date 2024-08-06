@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart';
-import 'package:saayer/core/utils/theme/typography.dart';
 
 DateTime? expiryDate = DateTime.now().add(const Duration(minutes: 2));
 
@@ -55,15 +53,15 @@ class DownBillTimerCounterWidget extends StatelessWidget {
                           ]
                         : [
                             Container(
-                              height: 48.h,
+                              height: 48,
                               alignment: Alignment.center,
                               child: Text(
                                 Localization.translate("resend_code_in"),
                                 style: AppTextStyles.label(),
                               ),
                             ),
-                            SizedBox(
-                              width: 8.w,
+                            const SizedBox(
+                              width: 8,
                             ),
                             Text(
                               "${time.min != null ? time.min.toString().padLeft(2, "0") : '00'} : ${time.sec != null ? time.sec.toString().padLeft(2, "0") : '00'}",

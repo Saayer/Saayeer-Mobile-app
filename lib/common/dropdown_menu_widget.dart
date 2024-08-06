@@ -34,15 +34,15 @@ class DropDownMenuWidget extends StatelessWidget {
               filled: true,
               fillColor: Colors.white,
               contentPadding:
-                  EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
-              border: OutlineInputBorder(
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent, width: 2.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
@@ -56,8 +56,9 @@ class DropDownMenuWidget extends StatelessWidget {
                 icon: Icon(
                   Icons.keyboard_arrow_down,
                   color: SaayerTheme().getColorsPalette.blackTextColor,
-                  size: 30,
+                  size: 25,
                 ),
+                dropdownColor: SaayerTheme().getColorsPalette.whiteColor,
                 items: items.map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,

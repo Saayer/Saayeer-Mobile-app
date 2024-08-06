@@ -12,11 +12,7 @@ class HomeCardItemWidget extends StatelessWidget {
   final Color color;
 
   const HomeCardItemWidget(
-      {super.key,
-      required this.label,
-      required this.title,
-      required this.iconName,
-      required this.color});
+      {super.key, required this.label, required this.title, required this.iconName, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -42,55 +38,59 @@ class HomeCardItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    child: Text(
-                      label.tr(),
-                      maxLines: 2,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.smallBoldLabel(),
-                    ),
-                  ),
-                  SizedBox(width: 5.w,),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
-                      child: SvgPicture.asset(
-                        Constants.getIconPath("ic_$iconName.svg"),
-                        height: 20.h,
-                        width: 20.w,
-                        fit: BoxFit.cover,
-                        color: color,
-                        //color: SaayerTheme().getColorsPalette.blackTextColor,
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: Text(
+                        label.tr(),
+                        maxLines: 2,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.smallBoldLabel(),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: color.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                        child: SvgPicture.asset(
+                          Constants.getIconPath("ic_$iconName.svg"),
+                          height: 20.h,
+                          width: 20.w,
+                          fit: BoxFit.cover,
+                          color: color,
+                          //color: SaayerTheme().getColorsPalette.blackTextColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 8.h,
               ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      title.tr(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.smallLabel(
-                          SaayerTheme().getColorsPalette.greyColor),
+              Expanded(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        title.tr(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.greyColor),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

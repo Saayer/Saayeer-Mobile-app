@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:injectable/injectable.dart';
 import 'package:saayer/core/entities/logged_in_user_entity.dart';
 import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
 import 'package:saayer/core/services/encryption/encryption.dart';

@@ -2,22 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
-import 'package:saayer/features/address/add_address/presentation/screens/add_address_screen.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_provider_model.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/screens/shipment_providers_screen.dart';
+import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/domain/entities/shipment_specs_entity.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/screens/shipment_specs_screen.dart';
 import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_indicator.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/pages/address_shipment_page.dart';
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/screens/address_shipment_screen.dart';
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipment_information/presentation/screens/information_shipment_screen.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipment_preview/presentation/screens/shipment_preview_screen.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipments_cariers_selection/presentation/screens/carriers_shipment_screen.dart';
 
@@ -31,11 +25,12 @@ class RequestShipmentPage extends StatelessWidget {
     final RequestShipmentBloc requestShipmentBloc =
         BlocProvider.of<RequestShipmentBloc>(context);
     final List<Widget> pages = [
-      ShipmentPreviewScreen(),
-      AddAddressScreen(
+      AddEditAddressScreen(
         isAddShipmentRequest: false,
-        onBack: (AddressInfoEntity addressInfoEntity) {
-          requestShipmentBloc.add(AddAddressInfoEvent(addressInfoEntity));
+        addEditAddressType: AddEditAddressType.addAddress,
+        customerModel: CustomerGetDto(),
+        onBack: (CustomerAddDto addressInfoEntity) {
+          //requestShipmentBloc.add(AddAddressInfoEvent(addressInfoEntity));
         },
       ),
       ShipmentSpecsScreen(
@@ -44,7 +39,8 @@ class RequestShipmentPage extends StatelessWidget {
           requestShipmentBloc.add(AddShipmentSpecsEvent(shipmentSpecsEntity));
         },
       ),
-      // ShipmentPreviewScreen(),
+      CarriersShipmentScreen(),
+      ShipmentPreviewScreen(),
     ];
 
     return BlocConsumer<RequestShipmentBloc, RequestShipmentState>(

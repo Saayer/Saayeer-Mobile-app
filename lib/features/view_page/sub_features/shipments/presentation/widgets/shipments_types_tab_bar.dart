@@ -88,7 +88,7 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                        width: width / 1.4, height: 50.h, child: saayerTabBar),
+                        width: width / 1.4, height: 50, child: saayerTabBar),
                     GestureDetector(
                       onTap: () {
                         final ViewPageBloc viewPageBloc =
@@ -104,13 +104,13 @@ class _ShipmentsTypesTabBarState extends State<ShipmentsTypesTabBar>
                             style: AppTextStyles.smallLabel(),
                           ),
                           SizedBox(
-                            width: 5.w,
+                            width: 5,
                           ),
                           Icon(Icons.arrow_forward_ios,
-                              size: 15.r,
+                              size: 1,
                               color: SaayerTheme().getColorsPalette.greyColor),
                           SizedBox(
-                            width: 16.w,
+                            width: 16,
                           )
                         ],
                       ),

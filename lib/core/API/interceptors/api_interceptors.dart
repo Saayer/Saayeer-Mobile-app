@@ -29,7 +29,7 @@ class AppInterceptors extends Interceptor {
       ApiConfig.queryParameters,
     );
     options.headers["Content-Type"] = "application/json; charset=utf-8";
-    options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys.xApiKey;
+    options.headers["X-Api-Key"] = NetworkKeys.init().networkKeys.apiKey;
     options.headers["Accept-Language"] = Localization.getLocale();
 
     if (authToken != null && !isLogin) {

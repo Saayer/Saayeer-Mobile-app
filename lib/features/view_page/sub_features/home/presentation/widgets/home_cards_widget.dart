@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/view_page/sub_features/home/domain/entities/user_profile_entity.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/widgets/home_card_item_widget.dart';

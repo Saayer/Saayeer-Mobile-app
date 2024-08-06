@@ -1,7 +1,7 @@
 abstract class BaseNetworkKeys {
-  final String xApiKey;
+  final String apiKey;
 
   BaseNetworkKeys({
-    required this.xApiKey,
+    required this.apiKey,
   });
 }

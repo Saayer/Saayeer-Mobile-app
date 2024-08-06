@@ -12,8 +12,8 @@ import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/address/add_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_address/domain/entities/address_info_entity.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
+import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/notifications/domain/entities/notification_entity.dart';
 import 'package:saayer/features/notifications/presentation/bloc/notifications_bloc.dart';
 

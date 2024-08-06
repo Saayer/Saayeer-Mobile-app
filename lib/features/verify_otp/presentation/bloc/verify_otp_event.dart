@@ -5,14 +5,14 @@ abstract class VerifyOtpEvent extends Equatable {
 }
 
 class InitVerifyOtpEvent extends VerifyOtpEvent {
-  final VerifyOtpEntity verifyOtpEntity;
+  final TokenRequestDto tokenRequestDto;
 
   const InitVerifyOtpEvent({
-    required this.verifyOtpEntity,
+    required this.tokenRequestDto,
   });
 
   @override
-  List<Object> get props => [verifyOtpEntity];
+  List<Object> get props => [tokenRequestDto];
 }
 
 class ResendOtpEvent extends VerifyOtpEvent {

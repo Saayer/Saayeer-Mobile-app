@@ -40,13 +40,13 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
       emit(state.copyWith(isGuest: false));
       final UserCardEntity? userCardEntity =
           await SecureStorageService().getUserCardInfo();
-      if (userCardEntity != null) {
+      //if (userCardEntity != null) {
         emit(state.copyWith(
-            stateHelper: const StateHelper(requestState: RequestState.LOADED),
+            stateHelper: const StateHelper(requestState: RequestState.SUCCESS),
             userCardEntity: userCardEntity));
-      } else {
-        await _getProfileStatus(emit);
-      }
+      //} else {
+        //await _getProfileStatus(emit);
+      //}
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED),

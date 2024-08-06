@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart';
-import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart';
+import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_provider_model.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/blocs/shipment_providers_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/pages/shipment_providers_page.dart';

@@ -1,0 +1,595 @@
+---
+openapi: 3.0.1
+info:
+  title: Saayer API
+  version: dev-4
+servers:
+  - url: "/saayer-5-dev"
+paths:
+  "/api/AddressLookups/Countries":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/AddressLookups/Governorates/{countryId}":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: countryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/AddressLookups/Cities/{governorateId}":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: governorateId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/AddressLookups/Areas/{cityId}":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: cityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/Auth/signup":
+    post:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+  "/api/Auth/token":
+    post:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequestDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequestDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequestDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+  "/api/Customers":
+    get:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+    put:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/CustomerAddDto"
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/CustomerAddDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+  "/api/Customers/{id}":
+    get:
+      tags:
+        - Customers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+    delete:
+      tags:
+        - Customers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/Customers/GetCustomersBy":
+    post:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerQuery"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerQuery"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/CustomerQuery"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+components:
+  schemas:
+    AddressLookUpDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name_en:
+          type: string
+          nullable: true
+        name_ar:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CustomerAddDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        customerId:
+          type: integer
+          format: int64
+          nullable: true
+        fullName:
+          type: string
+          nullable: true
+        phoneNo2:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CustomerGetDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        countryName_en:
+          type: string
+          nullable: true
+        countryName_ar:
+          type: string
+          nullable: true
+        governorateName_en:
+          type: string
+          nullable: true
+        governorateName_ar:
+          type: string
+          nullable: true
+        cityName_en:
+          type: string
+          nullable: true
+        cityName_ar:
+          type: string
+          nullable: true
+        areaName_en:
+          type: string
+          nullable: true
+        areaName_ar:
+          type: string
+          nullable: true
+        customerId:
+          type: integer
+          format: int64
+        fullName:
+          type: string
+          nullable: true
+        phoneNo2:
+          type: string
+          nullable: true
+        totalShipments:
+          type: integer
+          format: int64
+          nullable: true
+        lastShipmentDate:
+          type: string
+          format: date-time
+          nullable: true
+        totalPaid:
+          type: number
+          format: double
+          nullable: true
+        totalGain:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    CustomerQuery:
+      type: object
+      properties:
+        general:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+          nullable: true
+        governorateId:
+          type: integer
+          format: int32
+          nullable: true
+        cityId:
+          type: integer
+          format: int32
+          nullable: true
+        totalShipmentsMin:
+          type: integer
+          format: int32
+          nullable: true
+        totalShipmentsMax:
+          type: integer
+          format: int32
+          nullable: true
+        skip:
+          type: integer
+          format: int32
+          nullable: true
+        take:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    LoginRequestDto:
+      type: object
+      properties:
+        phoneNo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LoginResponseDto:
+      type: object
+      properties:
+        verificationCode_temp:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TokenRequestDto:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          nullable: true
+        verificationCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TokenResponseDto:
+      type: object
+      properties:
+        role:
+          type: string
+          nullable: true
+        token:
+          type: string
+          nullable: true
+        expiration:
+          type: string
+          format: date-time
+      additionalProperties: false
+  securitySchemes:
+    bearer:
+      type: http
+      description: Put **_ONLY_** your JWT Bearer token on textbox below!
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearer: []

@@ -1,34 +1,37 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:openapi/openapi.dart';
+import 'package:saayer/core/API/network_keys/network_keys.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/network/network_info.dart';
+import 'package:saayer/core/openAPI/openAPI_config.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/features/log_in/data/data_sources/remote/log_in_RDS.dart';
-import 'package:saayer/features/log_in/data/models/log_in_response_model.dart';
-import 'package:saayer/features/log_in/domain/entities/log_in_entity.dart';
-import 'package:saayer/features/log_in/domain/entities/submit_log_in_entity.dart';
 import 'package:saayer/features/log_in/domain/repositories/log_in_repo.dart';
 
 @Injectable(as: LogInRepo)
 class LogInRepoImpl implements LogInRepo {
   final LogInRDS logInRDSImpl;
+  final OpenAPIConfig openAPIConfig;
 
-  const LogInRepoImpl({
-    required this.logInRDSImpl,
+   const LogInRepoImpl({
+    required this.logInRDSImpl,required this.openAPIConfig
   });
 
   @override
-  Future<Either<Failure, SubmitLogInEntity?>> logIn(
-      LogInEntity logInEntity) async {
+  Future<Either<Failure, LoginResponseDto?>> logIn(LoginRequestDto loginRequestDto) async {
     log("LogInRepoImpl");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
-        final LogInResponseModel result = await logInRDSImpl.logIn(logInEntity);
+        final Response<LoginResponseDto?> result = await openAPIConfig.openapi
+            .getAuthApi()
+            .apiAuthSignupPost(loginRequestDto: loginRequestDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
         log("LogInRepoImpl Right $result");
-        if (result != null) {
-          return Right(result.toDomain());
+        if (result.statusCode == 200 || result.statusCode == 201) {
+          return Right(result.data);
         } else {
           return Left(Failure(failureMessage: "Log in failed"));
         }
