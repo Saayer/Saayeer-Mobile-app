@@ -80,17 +80,14 @@ class AppTextStyles {
         height: 1.1,
       );
 
-  static TextStyle smallParagraph([Color? color, FontWeight? fontWeight]) =>
-      GoogleFonts.alexandria(
+  static TextStyle smallParagraph([Color? color, FontWeight? fontWeight]) => GoogleFonts.alexandria(
         fontSize: 12,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: fontWeight ?? FontWeight.w500,
         height: 1.1,
       );
 
-  static TextStyle hintButtonLabel(
-          [Color? color, TextDecoration? decoration]) =>
-      GoogleFonts.alexandria(
+  static TextStyle hintButtonLabel([Color? color, TextDecoration? decoration]) => GoogleFonts.alexandria(
         fontSize: 14,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w500,
@@ -98,8 +95,7 @@ class AppTextStyles {
         height: 1.1,
       );
 
-  static TextStyle hintButtonExpandedLabel([Color? color]) =>
-      GoogleFonts.alexandria(
+  static TextStyle hintButtonExpandedLabel([Color? color]) => GoogleFonts.alexandria(
         fontSize: 14,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w500,
@@ -166,5 +162,19 @@ class AppTextStyles {
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w900,
         height: 1.1,
+      );
+
+  static TextStyle staticPagesHeader([Color? color]) => GoogleFonts.alexandria(
+        fontSize: 15,
+        color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
+        fontWeight: FontWeight.w900,
+        height: 2,
+      );
+
+  static TextStyle staticPagesBody([Color? color]) => GoogleFonts.alexandria(
+        fontSize: 14,
+        color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
+        fontWeight: FontWeight.w600,
+        height: 2.5,
       );
 }

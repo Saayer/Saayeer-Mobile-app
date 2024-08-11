@@ -55,7 +55,7 @@ class AddressLookupsApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -139,7 +139,7 @@ class AddressLookupsApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -221,7 +221,7 @@ class AddressLookupsApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -305,7 +305,7 @@ class AddressLookupsApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],

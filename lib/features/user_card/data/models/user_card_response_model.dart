@@ -1,7 +1,7 @@
+import 'package:openapi/openapi.dart';
+import 'package:saayer/features/more_sub_features/personal_info/domain/entities/personal_info_entity.dart';
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/entities/business_info_entity.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/domain/entities/personal_info_entity.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/domain/entities/store_info_entity.dart';
 
 /// success : true
 /// data : {"personal":{"district":null,"city":"لا يوجد","country":null,"name":"Mohameed","email":"MCT.ahmed@gmail.com","nationalId":"111","address":"25"},"business":{"district":null,"city":"لا يوجد","country":null,"companyName":"test test","email":"business@gmail.com","mobileNumber":"054412366777777'","commercialRegistrationNo":"55555555","shortAddress":"sdfsdfsdfsd"},"stores":[{"name":"tradeline","url":"https://www.tradeline.com","maroofID":"555555","commercialRegistrationNo":null,"storeImage":null}],"clients":[{"district":null,"city":null,"country":null,"fullName":"Aly Ahmed","address":"45 street a","mobile":"044444444","email":"dev@gmail.com"}],"score":0.84615386,"scorePercentage":"84.62%"}
@@ -67,29 +67,30 @@ class UserCardResponseModel {
             ? PersonalInfoEntity(
                 name: data?.personal?.name ?? "",
                 email: data?.personal?.email ?? "",
-                nationalId: data?.personal?.nationalId ?? "",
-                address: data?.personal?.address ?? "",
-                district: data?.personal?.district ?? "",
-                governorate: data?.personal?.city ?? "")
+                phone: data?.personal?.nationalId ?? "",
+                businessName: data?.personal?.address ?? "")
             : null,
         businessInfoEntity: data?.business != null
             ? BusinessInfoEntity(
                 companyName: data?.business?.companyName ?? "",
                 email: data?.business?.email ?? "",
                 mobileNumber: data?.business?.mobileNumber ?? "",
-                commercialRegistrationNo:
-                    data?.business?.commercialRegistrationNo ?? "",
+                commercialRegistrationNo: data?.business?.commercialRegistrationNo ?? "",
                 shortAddress: data?.business?.shortAddress ?? "",
                 district: data?.business?.district ?? "",
                 governorate: data?.business?.city ?? "")
             : null,
         storeInfoEntity: (data?.stores?.isNotEmpty ?? false)
-            ? StoreInfoEntity(
-                name: data?.stores?[0].name ?? "",
-                url: data?.stores?[0].url ?? "",
-                maroofId: data?.stores?[0].maroofID ?? "",
-                commercialRegistrationNo:
-                    data?.stores?[0].commercialRegistrationNo ?? "")
+            ? StoreGetDto((b) => b
+              ..name = data?.stores?[0].name ?? ""
+              ..countryNameEn = data?.stores?[0].country ?? ""
+              ..governorateNameEn = data?.stores?[0].governorate ?? ""
+              ..countryNameEn = data?.stores?[0].city ?? ""
+              ..areaNameEn = data?.stores?[0].area ?? ""
+              ..addressDetails = data?.stores?[0].address ?? ""
+              ..zipcode = data?.stores?[0].zipcode ?? ""
+              ..financialRecordNumber = data?.stores?[0].financialRecordNo ?? ""
+              ..freelanceCertificateNumber = data?.stores?[0].freelanceCertificateNo ?? "")
             : null);
   }
 }
@@ -119,10 +120,8 @@ class Data {
   }
 
   Data.fromJson(dynamic json) {
-    _personal =
-        json['personal'] != null ? Personal.fromJson(json['personal']) : null;
-    _business =
-        json['business'] != null ? Business.fromJson(json['business']) : null;
+    _personal = json['personal'] != null ? Personal.fromJson(json['personal']) : null;
+    _business = json['business'] != null ? Business.fromJson(json['business']) : null;
     if (json['stores'] != null) {
       _stores = [];
       json['stores'].forEach((v) {
@@ -295,66 +294,75 @@ class Clients {
 class Stores {
   Stores({
     String? name,
-    String? url,
-    String? maroofID,
-    dynamic commercialRegistrationNo,
-    dynamic storeImage,
+    String? country,
+    String? governorate,
+    String? city,
+    String? area,
+    String? address,
+    String? zipcode,
+    String? financialRecordNo,
+    String? freelanceCertificateNo,
   }) {
-    _name = name;
-    _url = url;
-    _maroofID = maroofID;
-    _commercialRegistrationNo = commercialRegistrationNo;
-    _storeImage = storeImage;
+    name = name;
+    country = country;
+    governorate = governorate;
+    city = city;
+    area = area;
+    address = address;
+    zipcode = zipcode;
+    financialRecordNo = financialRecordNo;
+    freelanceCertificateNo = freelanceCertificateNo;
   }
 
   Stores.fromJson(dynamic json) {
-    _name = json['name'];
-    _url = json['url'];
-    _maroofID = json['maroofID'];
-    _commercialRegistrationNo = json['commercialRegistrationNo'];
-    _storeImage = json['storeImage'];
+    name = (json['name'] ?? "") as String;
+    country = (json['country'] ?? "") as String;
+    governorate = (json['governorate'] ?? "") as String;
+    city = (json['city'] ?? "") as String;
+    area = (json['area'] ?? "") as String;
+    address = (json['address'] ?? "") as String;
+    zipcode = (json['zipcode'] ?? "") as String;
+    financialRecordNo = (json['financialRecordNo'] ?? "") as String;
+    freelanceCertificateNo = (json['freelanceCertificateNo'] ?? "") as String;
   }
 
-  String? _name;
-  String? _url;
-  String? _maroofID;
-  dynamic _commercialRegistrationNo;
-  dynamic _storeImage;
+  String? name, country, governorate, city, area, address, zipcode, financialRecordNo, freelanceCertificateNo;
 
   Stores copyWith({
     String? name,
-    String? url,
-    String? maroofID,
-    dynamic commercialRegistrationNo,
-    dynamic storeImage,
+    String? country,
+    String? governorate,
+    String? city,
+    String? area,
+    String? address,
+    String? zipcode,
+    String? financialRecordNo,
+    String? freelanceCertificateNo,
   }) =>
       Stores(
-        name: name ?? _name,
-        url: url ?? _url,
-        maroofID: maroofID ?? _maroofID,
-        commercialRegistrationNo:
-            commercialRegistrationNo ?? _commercialRegistrationNo,
-        storeImage: storeImage ?? _storeImage,
+        name: name ?? this.name,
+        country: country ?? this.country,
+        governorate: governorate ?? this.governorate,
+        city: city ?? this.city,
+        area: area ?? this.area,
+        address: address ?? this.address,
+        zipcode: zipcode ?? this.zipcode,
+        financialRecordNo: financialRecordNo ?? this.financialRecordNo,
+        freelanceCertificateNo: freelanceCertificateNo ?? this.freelanceCertificateNo,
       );
 
-  String? get name => _name;
-
-  String? get url => _url;
-
-  String? get maroofID => _maroofID;
-
-  dynamic get commercialRegistrationNo => _commercialRegistrationNo;
-
-  dynamic get storeImage => _storeImage;
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['name'] = _name;
-    map['url'] = _url;
-    map['maroofID'] = _maroofID;
-    map['commercialRegistrationNo'] = _commercialRegistrationNo;
-    map['storeImage'] = _storeImage;
-    return map;
+    return {
+      'name': name,
+      'country': country,
+      'governorate': governorate,
+      'city': city,
+      'area': area,
+      'address': address,
+      'zipcode': zipcode,
+      'financialRecordNo': financialRecordNo,
+      'freelanceCertificateNo': freelanceCertificateNo,
+    };
   }
 }
 
@@ -425,8 +433,7 @@ class Business {
         companyName: companyName ?? _companyName,
         email: email ?? _email,
         mobileNumber: mobileNumber ?? _mobileNumber,
-        commercialRegistrationNo:
-            commercialRegistrationNo ?? _commercialRegistrationNo,
+        commercialRegistrationNo: commercialRegistrationNo ?? _commercialRegistrationNo,
         shortAddress: shortAddress ?? _shortAddress,
       );
 

@@ -5,13 +5,57 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-5-dev*
+All URIs are relative to *http://localhost/saayer-6/dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiAuthSignupClientPost**](AuthApi.md#apiauthsignupclientpost) | **POST** /api/Auth/signup-client | 
 [**apiAuthSignupPost**](AuthApi.md#apiauthsignuppost) | **POST** /api/Auth/signup | 
 [**apiAuthTokenPost**](AuthApi.md#apiauthtokenpost) | **POST** /api/Auth/token | 
 
+
+# **apiAuthSignupClientPost**
+> LoginResponseDto apiAuthSignupClientPost(apiKey, loginRequestDto)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAuthApi();
+final String apiKey = apiKey_example; // String | 
+final LoginRequestDto loginRequestDto = ; // LoginRequestDto | 
+
+try {
+    final response = api.apiAuthSignupClientPost(apiKey, loginRequestDto);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AuthApi->apiAuthSignupClientPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+ **loginRequestDto** | [**LoginRequestDto**](LoginRequestDto.md)|  | [optional] 
+
+### Return type
+
+[**LoginResponseDto**](LoginResponseDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiAuthSignupPost**
 > LoginResponseDto apiAuthSignupPost(apiKey, loginRequestDto)

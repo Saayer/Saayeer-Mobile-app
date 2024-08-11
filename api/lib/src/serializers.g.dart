@@ -8,11 +8,15 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AddressLookUpDto.serializer)
+      ..add(ClientAddDto.serializer)
+      ..add(ClientGetDto.serializer)
       ..add(CustomerAddDto.serializer)
       ..add(CustomerGetDto.serializer)
       ..add(CustomerQuery.serializer)
       ..add(LoginRequestDto.serializer)
       ..add(LoginResponseDto.serializer)
+      ..add(StoreAddDto.serializer)
+      ..add(StoreGetDto.serializer)
       ..add(TokenRequestDto.serializer)
       ..add(TokenResponseDto.serializer))
     .build();

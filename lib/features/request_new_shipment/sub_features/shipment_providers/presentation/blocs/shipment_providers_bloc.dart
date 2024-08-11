@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -9,7 +7,6 @@ import 'package:injectable/injectable.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
-import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_providers_response.dart';
@@ -44,7 +41,7 @@ class ShipmentProvidersBloc
           length: event.shipmentSpecsEntity!.length,
           weight: event.shipmentSpecsEntity!.weight,
           cost: event.shipmentSpecsEntity!.cost,
-          from: userCardEntity!.personalInfoEntity!.address,
+          from: userCardEntity!.personalInfoEntity!.businessName,
           to: event.addressInfoEntity!.city,
         ));
 

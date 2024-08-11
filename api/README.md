@@ -62,7 +62,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost/saayer-5-dev*
+All URIs are relative to *http://localhost/saayer-6/dev*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -70,24 +70,36 @@ Class | Method | HTTP request | Description
 [*AddressLookupsApi*](doc/AddressLookupsApi.md) | [**apiAddressLookupsCitiesGovernorateIdGet**](doc/AddressLookupsApi.md#apiaddresslookupscitiesgovernorateidget) | **GET** /api/AddressLookups/Cities/{governorateId} | 
 [*AddressLookupsApi*](doc/AddressLookupsApi.md) | [**apiAddressLookupsCountriesGet**](doc/AddressLookupsApi.md#apiaddresslookupscountriesget) | **GET** /api/AddressLookups/Countries | 
 [*AddressLookupsApi*](doc/AddressLookupsApi.md) | [**apiAddressLookupsGovernoratesCountryIdGet**](doc/AddressLookupsApi.md#apiaddresslookupsgovernoratescountryidget) | **GET** /api/AddressLookups/Governorates/{countryId} | 
+[*AuthApi*](doc/AuthApi.md) | [**apiAuthSignupClientPost**](doc/AuthApi.md#apiauthsignupclientpost) | **POST** /api/Auth/signup-client | 
 [*AuthApi*](doc/AuthApi.md) | [**apiAuthSignupPost**](doc/AuthApi.md#apiauthsignuppost) | **POST** /api/Auth/signup | 
 [*AuthApi*](doc/AuthApi.md) | [**apiAuthTokenPost**](doc/AuthApi.md#apiauthtokenpost) | **POST** /api/Auth/token | 
+[*ClientsApi*](doc/ClientsApi.md) | [**apiClientsGet**](doc/ClientsApi.md#apiclientsget) | **GET** /api/Clients | 
+[*ClientsApi*](doc/ClientsApi.md) | [**apiClientsPut**](doc/ClientsApi.md#apiclientsput) | **PUT** /api/Clients | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersGet**](doc/CustomersApi.md#apicustomersget) | **GET** /api/Customers | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersGetCustomersByPost**](doc/CustomersApi.md#apicustomersgetcustomersbypost) | **POST** /api/Customers/GetCustomersBy | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersIdDelete**](doc/CustomersApi.md#apicustomersiddelete) | **DELETE** /api/Customers/{id} | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersIdGet**](doc/CustomersApi.md#apicustomersidget) | **GET** /api/Customers/{id} | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersPost**](doc/CustomersApi.md#apicustomerspost) | **POST** /api/Customers | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersPut**](doc/CustomersApi.md#apicustomersput) | **PUT** /api/Customers | 
+[*StoresApi*](doc/StoresApi.md) | [**apiStoresGet**](doc/StoresApi.md#apistoresget) | **GET** /api/Stores | 
+[*StoresApi*](doc/StoresApi.md) | [**apiStoresIdDelete**](doc/StoresApi.md#apistoresiddelete) | **DELETE** /api/Stores/{id} | 
+[*StoresApi*](doc/StoresApi.md) | [**apiStoresIdGet**](doc/StoresApi.md#apistoresidget) | **GET** /api/Stores/{id} | 
+[*StoresApi*](doc/StoresApi.md) | [**apiStoresPost**](doc/StoresApi.md#apistorespost) | **POST** /api/Stores | 
+[*StoresApi*](doc/StoresApi.md) | [**apiStoresPut**](doc/StoresApi.md#apistoresput) | **PUT** /api/Stores | 
 
 
 ## Documentation For Models
 
  - [AddressLookUpDto](doc/AddressLookUpDto.md)
+ - [ClientAddDto](doc/ClientAddDto.md)
+ - [ClientGetDto](doc/ClientGetDto.md)
  - [CustomerAddDto](doc/CustomerAddDto.md)
  - [CustomerGetDto](doc/CustomerGetDto.md)
  - [CustomerQuery](doc/CustomerQuery.md)
  - [LoginRequestDto](doc/LoginRequestDto.md)
  - [LoginResponseDto](doc/LoginResponseDto.md)
+ - [StoreAddDto](doc/StoreAddDto.md)
+ - [StoreGetDto](doc/StoreGetDto.md)
  - [TokenRequestDto](doc/TokenRequestDto.md)
  - [TokenResponseDto](doc/TokenResponseDto.md)
 

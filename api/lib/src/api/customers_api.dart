@@ -55,7 +55,7 @@ class CustomersApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -139,7 +139,7 @@ class CustomersApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -243,7 +243,7 @@ class CustomersApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -299,7 +299,7 @@ class CustomersApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -383,7 +383,7 @@ class CustomersApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
@@ -487,7 +487,7 @@ class CustomersApi {
         'secure': <Map<String, String>>[
           {
             'type': 'http',
-            'scheme': 'bearer',
+            'scheme': 'Bearer',
             'name': 'bearer',
           },
         ],
