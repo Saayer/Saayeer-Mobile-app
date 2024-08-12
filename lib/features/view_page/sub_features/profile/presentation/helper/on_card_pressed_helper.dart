@@ -10,7 +10,7 @@ import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/profile_sub_features/bills/presentation/screens/bills_screen.dart';
 import 'package:saayer/features/profile_sub_features/info/core/utils/enums/enums.dart';
 import 'package:saayer/features/profile_sub_features/info/presentation/screens/info_screen.dart';
-import 'package:saayer/features/profile_sub_features/reports/presentation/screens/reports_screen.dart';
+import 'package:saayer/features/more_sub_features/reports/presentation/screens/reports_screen.dart';
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 

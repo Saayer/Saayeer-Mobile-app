@@ -1,10 +1,8 @@
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
-import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -15,8 +13,7 @@ import 'package:saayer/features/user_info_view_page/sub_features/business_info/c
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/utils/enums/enums.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/bloc/business_info_bloc.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/widgets/business_info_text_field_helper.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
-import 'dart:ui' as ui;
+
 
 class BusinessInfoPage extends StatelessWidget {
   const BusinessInfoPage({super.key});
@@ -24,7 +21,6 @@ class BusinessInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     final UserInfoViewPageBloc userInfoViewPageBloc =
         BlocProvider.of<UserInfoViewPageBloc>(context);
     final BusinessInfoBloc businessInfoBloc =

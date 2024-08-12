@@ -12,10 +12,6 @@ class _$CustomerAddDto extends CustomerAddDto {
   @override
   final String? zipcode;
   @override
-  final String? phoneNo;
-  @override
-  final String? email;
-  @override
   final int? countryId;
   @override
   final int? governorateId;
@@ -28,6 +24,10 @@ class _$CustomerAddDto extends CustomerAddDto {
   @override
   final String? fullName;
   @override
+  final String? email;
+  @override
+  final String? phoneNo;
+  @override
   final String? phoneNo2;
 
   factory _$CustomerAddDto([void Function(CustomerAddDtoBuilder)? updates]) =>
@@ -36,14 +36,14 @@ class _$CustomerAddDto extends CustomerAddDto {
   _$CustomerAddDto._(
       {this.addressDetails,
       this.zipcode,
-      this.phoneNo,
-      this.email,
       this.countryId,
       this.governorateId,
       this.cityId,
       this.areaId,
       this.customerId,
       this.fullName,
+      this.email,
+      this.phoneNo,
       this.phoneNo2})
       : super._();
 
@@ -61,14 +61,14 @@ class _$CustomerAddDto extends CustomerAddDto {
     return other is CustomerAddDto &&
         addressDetails == other.addressDetails &&
         zipcode == other.zipcode &&
-        phoneNo == other.phoneNo &&
-        email == other.email &&
         countryId == other.countryId &&
         governorateId == other.governorateId &&
         cityId == other.cityId &&
         areaId == other.areaId &&
         customerId == other.customerId &&
         fullName == other.fullName &&
+        email == other.email &&
+        phoneNo == other.phoneNo &&
         phoneNo2 == other.phoneNo2;
   }
 
@@ -77,14 +77,14 @@ class _$CustomerAddDto extends CustomerAddDto {
     var _$hash = 0;
     _$hash = $jc(_$hash, addressDetails.hashCode);
     _$hash = $jc(_$hash, zipcode.hashCode);
-    _$hash = $jc(_$hash, phoneNo.hashCode);
-    _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, countryId.hashCode);
     _$hash = $jc(_$hash, governorateId.hashCode);
     _$hash = $jc(_$hash, cityId.hashCode);
     _$hash = $jc(_$hash, areaId.hashCode);
     _$hash = $jc(_$hash, customerId.hashCode);
     _$hash = $jc(_$hash, fullName.hashCode);
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jc(_$hash, phoneNo2.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -95,14 +95,14 @@ class _$CustomerAddDto extends CustomerAddDto {
     return (newBuiltValueToStringHelper(r'CustomerAddDto')
           ..add('addressDetails', addressDetails)
           ..add('zipcode', zipcode)
-          ..add('phoneNo', phoneNo)
-          ..add('email', email)
           ..add('countryId', countryId)
           ..add('governorateId', governorateId)
           ..add('cityId', cityId)
           ..add('areaId', areaId)
           ..add('customerId', customerId)
           ..add('fullName', fullName)
+          ..add('email', email)
+          ..add('phoneNo', phoneNo)
           ..add('phoneNo2', phoneNo2))
         .toString();
   }
@@ -120,14 +120,6 @@ class CustomerAddDtoBuilder
   String? _zipcode;
   String? get zipcode => _$this._zipcode;
   set zipcode(String? zipcode) => _$this._zipcode = zipcode;
-
-  String? _phoneNo;
-  String? get phoneNo => _$this._phoneNo;
-  set phoneNo(String? phoneNo) => _$this._phoneNo = phoneNo;
-
-  String? _email;
-  String? get email => _$this._email;
-  set email(String? email) => _$this._email = email;
 
   int? _countryId;
   int? get countryId => _$this._countryId;
@@ -154,6 +146,14 @@ class CustomerAddDtoBuilder
   String? get fullName => _$this._fullName;
   set fullName(String? fullName) => _$this._fullName = fullName;
 
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _phoneNo;
+  String? get phoneNo => _$this._phoneNo;
+  set phoneNo(String? phoneNo) => _$this._phoneNo = phoneNo;
+
   String? _phoneNo2;
   String? get phoneNo2 => _$this._phoneNo2;
   set phoneNo2(String? phoneNo2) => _$this._phoneNo2 = phoneNo2;
@@ -167,14 +167,14 @@ class CustomerAddDtoBuilder
     if ($v != null) {
       _addressDetails = $v.addressDetails;
       _zipcode = $v.zipcode;
-      _phoneNo = $v.phoneNo;
-      _email = $v.email;
       _countryId = $v.countryId;
       _governorateId = $v.governorateId;
       _cityId = $v.cityId;
       _areaId = $v.areaId;
       _customerId = $v.customerId;
       _fullName = $v.fullName;
+      _email = $v.email;
+      _phoneNo = $v.phoneNo;
       _phoneNo2 = $v.phoneNo2;
       _$v = null;
     }
@@ -200,14 +200,14 @@ class CustomerAddDtoBuilder
         new _$CustomerAddDto._(
             addressDetails: addressDetails,
             zipcode: zipcode,
-            phoneNo: phoneNo,
-            email: email,
             countryId: countryId,
             governorateId: governorateId,
             cityId: cityId,
             areaId: areaId,
             customerId: customerId,
             fullName: fullName,
+            email: email,
+            phoneNo: phoneNo,
             phoneNo2: phoneNo2);
     replace(_$result);
     return _$result;

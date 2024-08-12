@@ -13,3 +13,8 @@ class LogOutEvent extends MoreEvent {
   @override
   List<Object> get props => [];
 }
+
+class OnDeleteAccount extends MoreEvent {
+  @override
+  List<Object> get props => [];
+}

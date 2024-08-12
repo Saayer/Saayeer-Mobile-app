@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/features/address/addresses_book/presentation/screens/addresses_book_screen.dart';
-import 'package:saayer/features/more_sub_features/shipping_rates/presentation/screens/shipping_rates_screen.dart';
+import 'package:saayer/core/utils/responsive_utils.dart';
+import 'package:saayer/features/more_sub_features/reports/presentation/screens/reports_screen.dart';
+import 'package:saayer/features/more_sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:saayer/features/view_page/sub_features/more/presentation/widgets/more_card_item_widget.dart';
 
 class MoreCardsWidget extends StatelessWidget {
@@ -10,18 +10,18 @@ class MoreCardsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, Widget> moreCardsStrMap = {
-      "addresses_book": const AddressesBookScreen(),
-      "shipping_rates": const ShippingRatesScreen()
+      "profile": const PersonalInfoScreen(),
+      "reports": const ReportsScreen(),
     };
     return GridView.builder(
       shrinkWrap: true,
-      padding: EdgeInsets.symmetric(vertical: 0.h),
+      padding: const EdgeInsets.symmetric(vertical: 0),
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: (170).w / (84).h,
-        mainAxisSpacing: (8 * 2).h,
-        crossAxisSpacing: (8 * 2).w,
+        childAspectRatio: largerThanTablet(context) ? 3.5 : 2,
+        mainAxisSpacing: (8 * 2),
+        crossAxisSpacing: (8 * 2),
       ),
       itemCount: moreCardsStrMap.entries.toList().length,
       itemBuilder: (context, index) {

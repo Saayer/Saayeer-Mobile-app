@@ -7,6 +7,7 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/domain/entities/shipment_specs_entity.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/screens/shipment_specs_screen.dart';
@@ -21,7 +22,6 @@ class RequestShipmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     final RequestShipmentBloc requestShipmentBloc =
         BlocProvider.of<RequestShipmentBloc>(context);
     final List<Widget> pages = [

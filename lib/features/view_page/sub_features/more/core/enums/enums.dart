@@ -1,0 +1,1 @@
+enum MoreErrorStatus { ERROR_DELETE_ACCOUNT }

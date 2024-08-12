@@ -15,6 +15,8 @@ enum AddAddressFieldsTypes {
   const AddAddressFieldsTypes._({required this.name});
 }
 
+enum AddEditAddressType { addAddress, editAddress }
+
 enum AddAddressErrorStatus {
   ERROR_GET_CITIES,
   ERROR_GET_COUNTRIES,

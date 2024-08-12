@@ -28,7 +28,7 @@ class LogInRepoImpl implements LogInRepo {
       try {
         final Response<LoginResponseDto?> result = await openAPIConfig.openapi
             .getAuthApi()
-            .apiAuthSignupPost(loginRequestDto: loginRequestDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+            .apiAuthSignupClientPost(loginRequestDto: loginRequestDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
         log("LogInRepoImpl Right $result");
         if (result.statusCode == 200 || result.statusCode == 201) {
           return Right(result.data);

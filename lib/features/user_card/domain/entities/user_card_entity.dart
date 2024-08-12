@@ -1,16 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/entities/business_info_entity.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/domain/entities/personal_info_entity.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/domain/entities/store_info_entity.dart';
 
 class UserCardEntity extends Equatable {
   final bool isSuccess,
       hasPersonalInformation,
       hasBusinessInformation,
       hasStoresInformation;
-  final PersonalInfoEntity? personalInfoEntity;
+  final ClientAddDto? personalInfoEntity;
   final BusinessInfoEntity? businessInfoEntity;
-  final StoreInfoEntity? storeInfoEntity;
+  final StoreGetDto? storeInfoEntity;
   final double score;
   final String scorePercentage;
 
@@ -31,9 +30,9 @@ class UserCardEntity extends Equatable {
     bool? hasPersonalInformation,
     bool? hasBusinessInformation,
     bool? hasStoresInformation,
-    PersonalInfoEntity? personalInfoEntity,
+    ClientAddDto? personalInfoEntity,
     BusinessInfoEntity? businessInfoEntity,
-    StoreInfoEntity? storeInfoEntity,
+    StoreGetDto? storeInfoEntity,
     double? score,
     String? scorePercentage,
   }) {
@@ -68,9 +67,9 @@ class UserCardEntity extends Equatable {
       'hasPersonalInformation': hasPersonalInformation,
       'hasBusinessInformation': hasBusinessInformation,
       'hasStoresInformation': hasStoresInformation,
-      'personalInfoEntity': personalInfoEntity?.toJson() ?? {},
+      //'personalInfoEntity': personalInfoEntity?.toJson() ?? {},
       'businessInfoEntity': businessInfoEntity?.toJson() ?? {},
-      'storeInfoEntity': storeInfoEntity?.toJson() ?? {},
+      'storeInfoEntity': storeInfoEntity ?? {},
       'score': score,
       'scorePercentage': scorePercentage,
     };
@@ -82,11 +81,11 @@ class UserCardEntity extends Equatable {
       hasPersonalInformation: map['hasPersonalInformation'] as bool,
       hasBusinessInformation: map['hasBusinessInformation'] as bool,
       hasStoresInformation: map['hasStoresInformation'] as bool,
-      personalInfoEntity:
-          PersonalInfoEntity.fromJson(map['personalInfoEntity']),
+      //personalInfoEntity:
+          //ClientAddDto.fromJson(map['personalInfoEntity']),
       businessInfoEntity:
           BusinessInfoEntity.fromJson(map['businessInfoEntity']),
-      storeInfoEntity: StoreInfoEntity.fromJson(map['storeInfoEntity']),
+      //storeInfoEntity: StoreInfoEntity.fromJson(map['storeInfoEntity']),
       score: map['score'] as double,
       scorePercentage: map['scorePercentage'] as String,
     );

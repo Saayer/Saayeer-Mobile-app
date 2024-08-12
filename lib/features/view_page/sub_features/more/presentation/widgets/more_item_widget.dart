@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
@@ -28,8 +27,8 @@ class MoreItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: _getLeadingImage(),
-      contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
-      horizontalTitleGap: 10.w,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+      horizontalTitleGap: 10,
       onTap: () {
         if (onPressedWidget != null) {
           getIt<NavigationService>().navigateTo(onPressedWidget!);
@@ -40,21 +39,20 @@ class MoreItemWidget extends StatelessWidget {
         style: AppTextStyles.liteLabel(),
       ),
       trailing: Icon(Icons.arrow_forward_ios,
-          size: 15.r, color: SaayerTheme().getColorsPalette.greyColor),
+          size: 15, color: SaayerTheme().getColorsPalette.greyColor),
     );
   }
 
   Widget _getLeadingImage() {
     if (isPngIcon) {
       return Image.asset(Constants.getIconPath("ic_$iconName.png"),
-          width: size.w,
-          height: size.h,
+          width: size,
+          height: size,
           color: SaayerTheme().getColorsPalette.orangeColor);
     }
-    return SvgPicture.asset(
-      Constants.getIconPath("ic_$iconName.svg"),
-      width: size.w,
-      height: size.h,
+    return GenericSvgWidget(
+      path: Constants.getIconPath("ic_$iconName.svg"),
+      size: size,
       color: SaayerTheme().getColorsPalette.orangeColor,
     );
   }
