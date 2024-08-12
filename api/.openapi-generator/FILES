@@ -47,9 +47,3 @@ lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/client_add_dto_test.dart
-test/client_get_dto_test.dart
-test/clients_api_test.dart
-test/store_add_dto_test.dart
-test/store_get_dto_test.dart
-test/stores_api_test.dart

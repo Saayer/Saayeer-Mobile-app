@@ -129,21 +129,31 @@ class MorePage extends StatelessWidget {
                     height: 0,
                   ),
                   if (!(viewPageBloc.state.isGuest!))
-                    Container(
-                      color: SaayerTheme().getColorsPalette.backgroundColor,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 50, left: 16, right: 16, top: 20),
-                        child: SaayerDefaultTextButton(
-                          text: "log_out",
-                          isEnabled: true,
-                          borderRadius: 16,
-                          onPressed: () {
-                            moreBloc.add(LogOutEvent());
-                          },
-                          btnHeight: 50,
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                      child: SaayerDefaultTextButton(
+                        text: "log_out",
+                        isEnabled: true,
+                        borderRadius: 16,
+                        onPressed: () {
+                          moreBloc.add(LogOutEvent());
+                        },
                       ),
                     ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SaayerDefaultTextButton(
+                      text: "delete_account",
+                      isEnabled: true,
+                      borderRadius: 16,
+                      onPressed: () {
+                        moreBloc.add(OnDeleteAccount());
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ),

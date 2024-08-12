@@ -2,7 +2,7 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: dev-4
+  version: v-x
 servers:
   - url: "/saayer-6/dev"
 paths:
@@ -243,6 +243,19 @@ paths:
             text/json:
               schema:
                 "$ref": "#/components/schemas/TokenResponseDto"
+  "/api/Auth":
+    delete:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
   "/api/Clients":
     get:
       tags:

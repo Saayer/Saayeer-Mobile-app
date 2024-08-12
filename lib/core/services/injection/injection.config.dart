@@ -211,6 +211,12 @@ import 'package:saayer/features/view_page/sub_features/home/domain/use_cases/get
     as _i689;
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart'
     as _i248;
+import 'package:saayer/features/view_page/sub_features/more/data/repositories/more_repo_impl.dart'
+    as _i820;
+import 'package:saayer/features/view_page/sub_features/more/domain/repositories/more_repo.dart'
+    as _i933;
+import 'package:saayer/features/view_page/sub_features/more/domain/use_cases/delete_account_usecase.dart'
+    as _i737;
 import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart'
     as _i778;
 import 'package:saayer/features/view_page/sub_features/profile/presentation/bloc/profile_bloc.dart'
@@ -243,8 +249,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i212.SettingsBloc>(() => _i212.SettingsBloc());
     gh.factory<_i900.WhySaayerBloc>(() => _i900.WhySaayerBloc());
     gh.factory<_i206.ContactUsBloc>(() => _i206.ContactUsBloc());
+    gh.factory<_i352.StaticPagesBloc>(() => _i352.StaticPagesBloc());
     gh.factory<_i360.ShippingRatesBloc>(() => _i360.ShippingRatesBloc());
     gh.factory<_i609.HelpBloc>(() => _i609.HelpBloc());
+    gh.factory<_i374.ReportsBloc>(() => _i374.ReportsBloc());
     gh.factory<_i1037.UserInfoViewPageBloc>(
         () => _i1037.UserInfoViewPageBloc());
     gh.factory<_i671.ShipmentDetailsBloc>(() => _i671.ShipmentDetailsBloc());
@@ -257,13 +265,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1055.InformationShipmentBloc>(
         () => _i1055.InformationShipmentBloc());
     gh.factory<_i304.RequestShipmentBloc>(() => _i304.RequestShipmentBloc());
-    gh.factory<_i778.MoreBloc>(() => _i778.MoreBloc());
     gh.factory<_i199.ProfileBloc>(() => _i199.ProfileBloc());
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
     gh.factory<_i110.NotificationsBloc>(() => _i110.NotificationsBloc());
-    gh.factory<_i374.ReportsBloc>(() => _i374.ReportsBloc());
-    gh.factory<_i352.StaticPagesBloc>(() => _i352.StaticPagesBloc());
     gh.singleton<_i552.AppFlavor>(() => _i552.AppFlavor());
     gh.singleton<_i502.SharedPrefService>(() => _i502.SharedPrefService());
     gh.singleton<_i275.LoggedInService>(() => _i275.LoggedInService());
@@ -285,6 +290,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i23.VerifyOtpRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i586.HomeRepo>(
         () => _i168.HomeRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i933.MoreRepo>(
+        () => _i820.MoreRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i927.RefreshToken>(
         () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i79.AddEditAddressInfoRepo>(() =>
@@ -379,12 +386,16 @@ extension GetItInjectableX on _i174.GetIt {
             addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
     gh.factory<_i436.GetAddressesUseCase>(() => _i436.GetAddressesUseCase(
         addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
+    gh.factory<_i737.DeleteAccountUseCase>(
+        () => _i737.DeleteAccountUseCase(moreRepoImpl: gh<_i933.MoreRepo>()));
     gh.factory<_i833.GetStoresUseCase>(() =>
         _i833.GetStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
     gh.factory<_i490.DeleteStoresUseCase>(() =>
         _i490.DeleteStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
     gh.factory<_i260.UserCardBloc>(
         () => _i260.UserCardBloc(userCardUseCase: gh<_i736.UserCardUseCase>()));
+    gh.factory<_i778.MoreBloc>(() =>
+        _i778.MoreBloc(deleteAccountUseCase: gh<_i737.DeleteAccountUseCase>()));
     gh.factory<_i22.LogInBloc>(
         () => _i22.LogInBloc(logInUseCase: gh<_i356.LogInUseCase>()));
     gh.factory<_i613.VerifyOtpBloc>(() => _i613.VerifyOtpBloc(
