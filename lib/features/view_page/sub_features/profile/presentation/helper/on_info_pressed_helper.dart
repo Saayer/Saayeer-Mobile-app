@@ -112,13 +112,13 @@ class OnInfoPressedHelper {
         case PersonalInfoFieldsTypes.NAME:
           {
             map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.name ?? "";
+                userCardEntity.personalInfoEntity?.fullName ?? "";
             break;
           }
         case PersonalInfoFieldsTypes.PHONE:
           {
             map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.phone ?? "";
+                userCardEntity.personalInfoEntity?.phoneNo ?? "";
             break;
           }
         case PersonalInfoFieldsTypes.EMAIL:

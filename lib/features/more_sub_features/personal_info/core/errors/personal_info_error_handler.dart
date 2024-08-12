@@ -26,7 +26,7 @@ class PersonalInfoErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
               title: "error_title",
-              message: state.submitPersonalInfoEntity?.message ?? 'error_msg');
+              message: 'error_msg');
           break;
         }
       default:
@@ -34,7 +34,7 @@ class PersonalInfoErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
             title: "error_title",
-            message: state.submitPersonalInfoEntity?.message ?? 'error_msg',
+            message: 'error_msg',
           );
           break;
         }

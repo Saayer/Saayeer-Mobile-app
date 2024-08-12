@@ -179,5 +179,6 @@
   "freelance_certificate_number": "رقم شهادة العمل الحر",
   "store_added_successfully": "تم إضافة المتجر بنجاح",
   "store_deleted_successfully": "تم حذف المتجر بنجاح",
-  "are_you_sure_delete_store": "هل أنت متأكد أنك تريد حذف هذا المتجر؟"
+  "are_you_sure_delete_store": "هل أنت متأكد أنك تريد حذف هذا المتجر؟",
+  "profile_updated_successfully": "تم تعديل ملفك الشخصي بنجاح"
 }

@@ -98,7 +98,7 @@ class UserCardPage extends StatelessWidget {
                           child: Text(
                             (state.userCardEntity?.hasPersonalInformation ??
                                     false)
-                                ? ("${"hi".tr()}, ${state.userCardEntity?.personalInfoEntity?.name ?? ""}")
+                                ? ("${"hi".tr()}, ${state.userCardEntity?.personalInfoEntity?.fullName ?? ""}")
                                 : "welcome_to_saayer".tr(),
                             style: AppTextStyles.boldLiteLabel(
                                 SaayerTheme().getColorsPalette.darkOrangeColor),

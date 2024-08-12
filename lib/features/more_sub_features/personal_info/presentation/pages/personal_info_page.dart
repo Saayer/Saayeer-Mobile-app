@@ -27,7 +27,9 @@ class PersonalInfoPage extends StatelessWidget {
         final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {
+            Navigator.pop(context);
+          }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             //showToast(msg: state.stateHelper.errorMessage ?? "");
             PersonalInfoErrorHandler(state: state)();
@@ -50,23 +52,19 @@ class PersonalInfoPage extends StatelessWidget {
   }
 
   _buildSubmitButtonWidget(PersonalInfoBloc personalInfoBloc) {
-    return Container(
-      color: SaayerTheme().getColorsPalette.backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 50, left: 16, right: 16, top: 20),
-        child: SaayerDefaultTextButton(
-          text: "next",
-          isEnabled: PersonalInfoTextFieldHelper.enablePersonalInfo(personalInfoBloc),
-          borderRadius: 16,
-          onPressed: () {
-            final bool isFormValid = (personalInfoBloc.formKey.currentState!.validate());
-            personalInfoBloc.add(ToggleAutoValidate());
-            isFormValid
-                ? personalInfoBloc.add(SubmitPersonalInfoData())
-                : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
-          },
-          btnHeight: 50,
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      child: SaayerDefaultTextButton(
+        text: "next",
+        isEnabled: enableAddress(personalInfoBloc),
+        borderRadius: 16,
+        onPressed: () {
+          final bool isFormValid = (personalInfoBloc.formKey.currentState!.validate());
+          personalInfoBloc.add(ToggleAutoValidate());
+          isFormValid
+              ? personalInfoBloc.add(const EditClientData())
+              : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
+        },
       ),
     );
   }
@@ -108,14 +106,8 @@ class PersonalInfoPage extends StatelessWidget {
                     _buildSecondColumnRowField(personalInfoBloc, context),
                   ],
                 ),
-                // ...(PersonalInfoFieldsTypes.values.map((e) {
-                //   return Padding(
-                //     padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                //     child: PersonalInfoTextFieldHelper().getTextField(personalInfoBloc, e),
-                //   );
-                // }).toList()),
-                const SizedBox(
-                  height: 150,
+                SizedBox(
+                  height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
               ],
             ),
@@ -139,11 +131,15 @@ class PersonalInfoPage extends StatelessWidget {
           children: [
             ResponsiveRowColumnItem(
               rowFit: FlexFit.tight,
-              child: PersonalInfoTextFieldHelper().getTextField(personalInfoBloc, PersonalInfoFieldsTypes.NAME),
+              child: PersonalInfoTextFieldHelper(
+                      personalInfoBloc: personalInfoBloc, personalInfoFieldsType: PersonalInfoFieldsTypes.NAME)
+                  .getTextField(),
             ),
             ResponsiveRowColumnItem(
               rowFit: FlexFit.tight,
-              child: PersonalInfoTextFieldHelper().getTextField(personalInfoBloc, PersonalInfoFieldsTypes.PHONE),
+              child: PersonalInfoTextFieldHelper(
+                      personalInfoBloc: personalInfoBloc, personalInfoFieldsType: PersonalInfoFieldsTypes.PHONE)
+                  .getTextField(),
             ),
           ],
         ));
@@ -163,13 +159,25 @@ class PersonalInfoPage extends StatelessWidget {
           children: [
             ResponsiveRowColumnItem(
               rowFit: FlexFit.tight,
-              child: PersonalInfoTextFieldHelper().getTextField(personalInfoBloc, PersonalInfoFieldsTypes.EMAIL),
+              child: PersonalInfoTextFieldHelper(
+                      personalInfoBloc: personalInfoBloc, personalInfoFieldsType: PersonalInfoFieldsTypes.EMAIL)
+                  .getTextField(),
             ),
             ResponsiveRowColumnItem(
               rowFit: FlexFit.tight,
-              child: PersonalInfoTextFieldHelper().getTextField(personalInfoBloc, PersonalInfoFieldsTypes.BUSINESSNAME),
+              child: PersonalInfoTextFieldHelper(
+                      personalInfoBloc: personalInfoBloc, personalInfoFieldsType: PersonalInfoFieldsTypes.BUSINESSNAME)
+                  .getTextField(),
             ),
           ],
         ));
+  }
+
+  enableAddress(PersonalInfoBloc personalInfoBloc) {
+    if (personalInfoBloc.nameController.text.isNotEmpty &&
+        (personalInfoBloc.mobile.phoneNumber != null)) {
+      return true;
+    }
+    return false;
   }
 }

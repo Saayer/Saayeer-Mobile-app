@@ -4,35 +4,33 @@ part of 'personal_info_bloc.dart';
 class PersonalInfoState extends Equatable {
   final StateHelper stateHelper;
   final AutovalidateMode autoValidateMode;
-  final PersonalInfoEntity? personalInfoEntity;
-  final SubmitPersonalInfoEntity? submitPersonalInfoEntity;
+  final ClientAddDto? clientEditRequest;
+  final ClientGetDto? clientGetDto;
 
   const PersonalInfoState(
       {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
       this.autoValidateMode = AutovalidateMode.disabled,
-      this.personalInfoEntity,
-      this.submitPersonalInfoEntity});
+      this.clientEditRequest,
+      this.clientGetDto});
 
   PersonalInfoState copyWith({
     StateHelper? stateHelper,
     AutovalidateMode? autoValidateMode,
-    PersonalInfoEntity? personalInfoEntity,
-    SubmitPersonalInfoEntity? submitPersonalInfoEntity,
+    ClientAddDto? clientEditRequest,
+    ClientGetDto? clientGetDto,
   }) {
     return PersonalInfoState(
-      stateHelper: stateHelper ?? this.stateHelper,
-      autoValidateMode: autoValidateMode ?? this.autoValidateMode,
-      personalInfoEntity: personalInfoEntity ?? this.personalInfoEntity,
-      submitPersonalInfoEntity:
-          submitPersonalInfoEntity ?? this.submitPersonalInfoEntity,
-    );
+        stateHelper: stateHelper ?? this.stateHelper,
+        autoValidateMode: autoValidateMode ?? this.autoValidateMode,
+        clientEditRequest: clientEditRequest ?? this.clientEditRequest,
+        clientGetDto: clientGetDto ?? this.clientGetDto);
   }
 
   @override
   List<Object?> get props => [
         stateHelper,
         autoValidateMode,
-        personalInfoEntity,
-        submitPersonalInfoEntity,
+        clientEditRequest,
+        clientGetDto,
       ];
 }

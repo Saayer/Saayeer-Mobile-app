@@ -1,5 +1,4 @@
 import 'package:openapi/openapi.dart';
-import 'package:saayer/features/more_sub_features/personal_info/domain/entities/personal_info_entity.dart';
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/entities/business_info_entity.dart';
 
@@ -64,11 +63,11 @@ class UserCardResponseModel {
         score: data?.score?.toDouble() ?? 0,
         scorePercentage: data?.scorePercentage ?? "0%",
         personalInfoEntity: data?.personal != null
-            ? PersonalInfoEntity(
-                name: data?.personal?.name ?? "",
-                email: data?.personal?.email ?? "",
-                phone: data?.personal?.nationalId ?? "",
-                businessName: data?.personal?.address ?? "")
+            ? ClientAddDto((b) => b
+              ..fullName = data?.personal?.name ?? ""
+              ..email = data?.personal?.email ?? ""
+              ..phoneNo = data?.personal?.nationalId ?? ""
+              ..businessName = data?.personal?.address ?? "")
             : null,
         businessInfoEntity: data?.business != null
             ? BusinessInfoEntity(

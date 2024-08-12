@@ -1,7 +1,7 @@
 enum PersonalInfoFieldsTypes {
   NAME._(name: "name"),
   EMAIL._(name: "email"),
-  PHONE._(name: "phone"),
+  PHONE._(name: "phone_num"),
   BUSINESSNAME._(name: "business_name");
 
   final String name;

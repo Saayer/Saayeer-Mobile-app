@@ -41,7 +41,7 @@ class ShipmentProvidersBloc
           length: event.shipmentSpecsEntity!.length,
           weight: event.shipmentSpecsEntity!.weight,
           cost: event.shipmentSpecsEntity!.cost,
-          from: userCardEntity!.personalInfoEntity!.businessName,
+          from: userCardEntity!.personalInfoEntity!.businessName ?? '',
           to: event.addressInfoEntity!.city,
         ));
 

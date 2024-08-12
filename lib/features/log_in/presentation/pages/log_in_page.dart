@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -22,7 +21,6 @@ import 'package:saayer/common/toast/toast_widget.dart';
 import 'dart:ui' as ui;
 
 import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
@@ -86,15 +84,15 @@ class LogInPage extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        getIt<NavigationService>().navigateAndFinish(const ViewPageScreen());
-                      },
-                      child: Text(
-                        "enter_as_guest".tr(),
-                        style: AppTextStyles.boldLabel(SaayerTheme().getColorsPalette.blackTextColor),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     getIt<NavigationService>().navigateAndFinish(const ViewPageScreen());
+                    //   },
+                    //   child: Text(
+                    //     "enter_as_guest".tr(),
+                    //     style: AppTextStyles.boldLabel(SaayerTheme().getColorsPalette.blackTextColor),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

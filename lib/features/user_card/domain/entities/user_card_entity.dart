@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:openapi/openapi.dart';
-import 'package:saayer/features/more_sub_features/personal_info/domain/entities/personal_info_entity.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/entities/business_info_entity.dart';
 
 class UserCardEntity extends Equatable {
@@ -8,7 +7,7 @@ class UserCardEntity extends Equatable {
       hasPersonalInformation,
       hasBusinessInformation,
       hasStoresInformation;
-  final PersonalInfoEntity? personalInfoEntity;
+  final ClientAddDto? personalInfoEntity;
   final BusinessInfoEntity? businessInfoEntity;
   final StoreGetDto? storeInfoEntity;
   final double score;
@@ -31,7 +30,7 @@ class UserCardEntity extends Equatable {
     bool? hasPersonalInformation,
     bool? hasBusinessInformation,
     bool? hasStoresInformation,
-    PersonalInfoEntity? personalInfoEntity,
+    ClientAddDto? personalInfoEntity,
     BusinessInfoEntity? businessInfoEntity,
     StoreGetDto? storeInfoEntity,
     double? score,
@@ -68,7 +67,7 @@ class UserCardEntity extends Equatable {
       'hasPersonalInformation': hasPersonalInformation,
       'hasBusinessInformation': hasBusinessInformation,
       'hasStoresInformation': hasStoresInformation,
-      'personalInfoEntity': personalInfoEntity?.toJson() ?? {},
+      //'personalInfoEntity': personalInfoEntity?.toJson() ?? {},
       'businessInfoEntity': businessInfoEntity?.toJson() ?? {},
       'storeInfoEntity': storeInfoEntity ?? {},
       'score': score,
@@ -82,8 +81,8 @@ class UserCardEntity extends Equatable {
       hasPersonalInformation: map['hasPersonalInformation'] as bool,
       hasBusinessInformation: map['hasBusinessInformation'] as bool,
       hasStoresInformation: map['hasStoresInformation'] as bool,
-      personalInfoEntity:
-          PersonalInfoEntity.fromJson(map['personalInfoEntity']),
+      //personalInfoEntity:
+          //ClientAddDto.fromJson(map['personalInfoEntity']),
       businessInfoEntity:
           BusinessInfoEntity.fromJson(map['businessInfoEntity']),
       //storeInfoEntity: StoreInfoEntity.fromJson(map['storeInfoEntity']),

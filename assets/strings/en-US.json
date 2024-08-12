@@ -179,5 +179,6 @@
   "freelance_certificate_number": "Freelance Certificate Number",
   "store_added_successfully": "The Store has been added successfully",
   "store_deleted_successfully": "he Store has been deleted successfully",
-  "are_you_sure_delete_store": "Are you sure you want to delete this store ?"
+  "are_you_sure_delete_store": "Are you sure you want to delete this store ?",
+  "profile_updated_successfully": "your profile has been updated successfully"
 }

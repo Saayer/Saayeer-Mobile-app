@@ -97,10 +97,6 @@ import 'package:saayer/features/more_sub_features/contact_us/presentation/bloc/c
     as _i206;
 import 'package:saayer/features/more_sub_features/help/presentation/bloc/help_bloc.dart'
     as _i609;
-import 'package:saayer/features/more_sub_features/personal_info/data/data_sources/remote/personal_info_RDS.dart'
-    as _i61;
-import 'package:saayer/features/more_sub_features/personal_info/data/data_sources/remote/personal_info_RDS_impl.dart'
-    as _i643;
 import 'package:saayer/features/more_sub_features/personal_info/data/repositories/personal_info_repo_impl.dart'
     as _i508;
 import 'package:saayer/features/more_sub_features/personal_info/domain/repositories/personal_info_repo.dart'
@@ -287,6 +283,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i469.StoreInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i389.VerifyOtpRDS>(
         () => _i23.VerifyOtpRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i586.HomeRepo>(
+        () => _i168.HomeRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i927.RefreshToken>(
         () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i79.AddEditAddressInfoRepo>(() =>
@@ -298,8 +296,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i400.LogInRDS>(
         () => _i211.LogInRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i61.PersonalInfoRDS>(
-        () => _i643.PersonalInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i1066.AddAddressInfoRDS>(
         () => _i16.AddAddressInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i785.BusinessInfoRDS>(
@@ -353,10 +349,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i64.UserCardRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i192.BusinessInfoRepo>(() => _i655.BusinessInfoRepoImpl(
         businessInfoRDSImpl: gh<_i785.BusinessInfoRDS>()));
+    gh.factory<_i689.GetUserProfileUseCase>(
+        () => _i689.GetUserProfileUseCase(homeRepoImpl: gh<_i586.HomeRepo>()));
     gh.factory<_i99.HomeRDS>(
         () => _i322.HomeRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i586.HomeRepo>(
-        () => _i168.HomeRepoImpl(homeRDSImpl: gh<_i99.HomeRDS>()));
     gh.factory<_i233.ConfirmLogInUseCase>(() => _i233.ConfirmLogInUseCase(
         verifyOtpRepoImpl: gh<_i689.VerifyOtpRepo>()));
     gh.factory<_i5.SubmitStoreInfoUseCase>(() => _i5.SubmitStoreInfoUseCase(
@@ -370,6 +366,8 @@ extension GetItInjectableX on _i174.GetIt {
           addressesBookRDSImpl: gh<_i451.AddressesBookRDS>(),
           openAPIConfig: gh<_i801.OpenAPIConfig>(),
         ));
+    gh.factory<_i248.HomeBloc>(() => _i248.HomeBloc(
+        getUserProfileUseCase: gh<_i689.GetUserProfileUseCase>()));
     gh.factory<_i68.UserCardRepo>(
         () => _i671.UserCardRepoImpl(userCardRDSImpl: gh<_i609.UserCardRDS>()));
     gh.factory<_i736.UserCardUseCase>(
@@ -381,8 +379,6 @@ extension GetItInjectableX on _i174.GetIt {
             addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
     gh.factory<_i436.GetAddressesUseCase>(() => _i436.GetAddressesUseCase(
         addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
-    gh.factory<_i23.PersonalInfoBloc>(() => _i23.PersonalInfoBloc(
-        submitPersonalInfoUseCase: gh<_i477.EditPersonalInfoUseCase>()));
     gh.factory<_i833.GetStoresUseCase>(() =>
         _i833.GetStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
     gh.factory<_i490.DeleteStoresUseCase>(() =>
@@ -397,6 +393,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i1030.AddressWidgetsRepo>(() => _i572.AddressWidgetsRepoImpl(
         addressWidgetsRDSImpl: gh<_i369.AddressWidgetsRDS>()));
+    gh.factory<_i23.PersonalInfoBloc>(() => _i23.PersonalInfoBloc(
+          submitPersonalInfoUseCase: gh<_i477.EditPersonalInfoUseCase>(),
+          getPersonalInfoUseCase: gh<_i639.GetPersonalInfoUseCase>(),
+        ));
     gh.factory<_i396.SubmitBusinessInfoUseCase>(() =>
         _i396.SubmitBusinessInfoUseCase(
             businessInfoRepoImpl: gh<_i192.BusinessInfoRepo>()));
@@ -409,8 +409,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i684.BusinessInfoBloc>(() => _i684.BusinessInfoBloc(
         submitBusinessInfoUseCase: gh<_i396.SubmitBusinessInfoUseCase>()));
-    gh.factory<_i689.GetUserProfileUseCase>(
-        () => _i689.GetUserProfileUseCase(homeRepoImpl: gh<_i586.HomeRepo>()));
     gh.factory<_i613.AddressesBookBloc>(() => _i613.AddressesBookBloc(
           getAddressesUseCase: gh<_i436.GetAddressesUseCase>(),
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
@@ -427,8 +425,6 @@ extension GetItInjectableX on _i174.GetIt {
           getAreasUseCase: gh<_i65.GetAreasUseCase>(),
           editStoreUseCase: gh<_i987.EditStoreUseCase>(),
         ));
-    gh.factory<_i248.HomeBloc>(() => _i248.HomeBloc(
-        getUserProfileUseCase: gh<_i689.GetUserProfileUseCase>()));
     gh.factory<_i897.GetShipmentProvidersUseCase>(() =>
         _i897.GetShipmentProvidersUseCase(
             shipmentProvidersRepo: gh<_i377.ShipmentProvidersRepo>()));

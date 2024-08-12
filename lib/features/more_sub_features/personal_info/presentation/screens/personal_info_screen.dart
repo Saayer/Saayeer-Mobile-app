@@ -12,7 +12,11 @@ class PersonalInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GeneralResponsiveScaledBoxWidget(
       child: BlocProvider<PersonalInfoBloc>(
-          create: (context) => getIt<PersonalInfoBloc>(),
+          create: (context) {
+            final PersonalInfoBloc bloc = getIt<PersonalInfoBloc>();
+            bloc.add(const GetClientInfo());
+            return bloc;
+          },
           child: const PersonalInfoPage()),
     );
   }
