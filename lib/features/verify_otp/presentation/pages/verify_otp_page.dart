@@ -6,7 +6,7 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
+import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
@@ -38,7 +38,7 @@ class VerifyOtpPage extends StatelessWidget {
             if (state.stateHelper.requestState == RequestState.SUCCESS) {
               if (state.isVerified) {
                 SaayerToast().showSuccessToast(msg: "welcome".tr());
-                await SecureStorageService().setIsLoggedIn(true);
+                await getIt<SharedPrefService>().setIsLoggedIn(true);
                 getIt<NavigationService>().navigateTo(const ViewPageScreen());
               } else {
                 SaayerToast().showSuccessToast(msg: 'invalid_otp_error_description'.tr());

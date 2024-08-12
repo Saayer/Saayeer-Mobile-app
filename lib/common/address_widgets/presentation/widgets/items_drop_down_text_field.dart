@@ -8,6 +8,7 @@ import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart';
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
+import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/bloc/add_edit_store_bloc.dart';
 
 class ItemsDropDownTextField<T> extends StatelessWidget {
   final void Function(AddressLookUpDto) onSelected;
@@ -111,6 +112,29 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
           }
       }
     } else if (bloc is AddressesBookBloc) {
+      switch (addAddressFieldsType) {
+        case AddAddressFieldsTypes.COUNTRY:
+          {
+            return bloc.countriesList;
+          }
+        case AddAddressFieldsTypes.GOVERNORATE:
+          {
+            return bloc.governoratesList;
+          }
+        case AddAddressFieldsTypes.CITY:
+          {
+            return bloc.citiesList;
+          }
+        case AddAddressFieldsTypes.AREA:
+          {
+            return bloc.areasList;
+          }
+        default:
+          {
+            return [];
+          }
+      }
+    } else if (bloc is AddEditStoreBloc) {
       switch (addAddressFieldsType) {
         case AddAddressFieldsTypes.COUNTRY:
           {

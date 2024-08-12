@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: dev-4
+  version: v-x
 servers:
-  - url: "/saayer-5-dev"
+  - url: "/saayer-6/dev"
 paths:
   "/api/AddressLookups/Countries":
     get:
@@ -174,6 +174,41 @@ paths:
             text/json:
               schema:
                 "$ref": "#/components/schemas/LoginResponseDto"
+      deprecated: true
+  "/api/Auth/signup-client":
+    post:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequestDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
   "/api/Auth/token":
     post:
       tags:
@@ -208,6 +243,65 @@ paths:
             text/json:
               schema:
                 "$ref": "#/components/schemas/TokenResponseDto"
+  "/api/Auth":
+    delete:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/Clients":
+    get:
+      tags:
+        - Clients
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+    put:
+      tags:
+        - Clients
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ClientAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/ClientAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/ClientAddDto"
+      responses:
+        '200':
+          description: Success
   "/api/Customers":
     get:
       tags:
@@ -380,6 +474,138 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/CustomerGetDto"
+  "/api/Stores":
+    get:
+      tags:
+        - Stores
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/StoreGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/StoreGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/StoreGetDto"
+    put:
+      tags:
+        - Stores
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/StoreAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/StoreAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/StoreAddDto"
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Stores
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/StoreAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/StoreAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/StoreAddDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+  "/api/Stores/{id}":
+    get:
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+    delete:
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
 components:
   schemas:
     AddressLookUpDto:
@@ -395,6 +621,38 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    ClientAddDto:
+      type: object
+      properties:
+        fullName:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        businessName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ClientGetDto:
+      type: object
+      properties:
+        fullName:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        businessName:
+          type: string
+          nullable: true
+      additionalProperties: false
     CustomerAddDto:
       type: object
       properties:
@@ -402,12 +660,6 @@ components:
           type: string
           nullable: true
         zipcode:
-          type: string
-          nullable: true
-        phoneNo:
-          type: string
-          nullable: true
-        email:
           type: string
           nullable: true
         countryId:
@@ -429,6 +681,12 @@ components:
         fullName:
           type: string
           nullable: true
+        email:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
         phoneNo2:
           type: string
           nullable: true
@@ -440,12 +698,6 @@ components:
           type: string
           nullable: true
         zipcode:
-          type: string
-          nullable: true
-        phoneNo:
-          type: string
-          nullable: true
-        email:
           type: string
           nullable: true
         countryId:
@@ -488,6 +740,12 @@ components:
           type: integer
           format: int64
         fullName:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
           type: string
           nullable: true
         phoneNo2:
@@ -562,6 +820,99 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    StoreAddDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        storeId:
+          type: integer
+          format: int64
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        financialRecordNumber:
+          type: string
+          nullable: true
+        freelanceCertificateNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
+    StoreGetDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        countryName_en:
+          type: string
+          nullable: true
+        countryName_ar:
+          type: string
+          nullable: true
+        governorateName_en:
+          type: string
+          nullable: true
+        governorateName_ar:
+          type: string
+          nullable: true
+        cityName_en:
+          type: string
+          nullable: true
+        cityName_ar:
+          type: string
+          nullable: true
+        areaName_en:
+          type: string
+          nullable: true
+        areaName_ar:
+          type: string
+          nullable: true
+        storeId:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        financialRecordNumber:
+          type: string
+          nullable: true
+        freelanceCertificateNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
     TokenRequestDto:
       type: object
       properties:
@@ -589,7 +940,7 @@ components:
     bearer:
       type: http
       description: Put **_ONLY_** your JWT Bearer token on textbox below!
-      scheme: bearer
+      scheme: Bearer
       bearerFormat: JWT
 security:
   - bearer: []

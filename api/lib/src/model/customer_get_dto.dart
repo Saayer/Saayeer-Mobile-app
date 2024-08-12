@@ -13,8 +13,6 @@ part 'customer_get_dto.g.dart';
 /// Properties:
 /// * [addressDetails] 
 /// * [zipcode] 
-/// * [phoneNo] 
-/// * [email] 
 /// * [countryId] 
 /// * [governorateId] 
 /// * [cityId] 
@@ -29,6 +27,8 @@ part 'customer_get_dto.g.dart';
 /// * [areaNameAr] 
 /// * [customerId] 
 /// * [fullName] 
+/// * [phoneNo] 
+/// * [email] 
 /// * [phoneNo2] 
 /// * [totalShipments] 
 /// * [lastShipmentDate] 
@@ -41,12 +41,6 @@ abstract class CustomerGetDto implements Built<CustomerGetDto, CustomerGetDtoBui
 
   @BuiltValueField(wireName: r'zipcode')
   String? get zipcode;
-
-  @BuiltValueField(wireName: r'phoneNo')
-  String? get phoneNo;
-
-  @BuiltValueField(wireName: r'email')
-  String? get email;
 
   @BuiltValueField(wireName: r'countryId')
   int? get countryId;
@@ -89,6 +83,12 @@ abstract class CustomerGetDto implements Built<CustomerGetDto, CustomerGetDtoBui
 
   @BuiltValueField(wireName: r'fullName')
   String? get fullName;
+
+  @BuiltValueField(wireName: r'phoneNo')
+  String? get phoneNo;
+
+  @BuiltValueField(wireName: r'email')
+  String? get email;
 
   @BuiltValueField(wireName: r'phoneNo2')
   String? get phoneNo2;
@@ -139,20 +139,6 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
       yield r'zipcode';
       yield serializers.serialize(
         object.zipcode,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.phoneNo != null) {
-      yield r'phoneNo';
-      yield serializers.serialize(
-        object.phoneNo,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.email != null) {
-      yield r'email';
-      yield serializers.serialize(
-        object.email,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -254,6 +240,20 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
         specifiedType: const FullType.nullable(String),
       );
     }
+    if (object.phoneNo != null) {
+      yield r'phoneNo';
+      yield serializers.serialize(
+        object.phoneNo,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.email != null) {
+      yield r'email';
+      yield serializers.serialize(
+        object.email,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.phoneNo2 != null) {
       yield r'phoneNo2';
       yield serializers.serialize(
@@ -327,22 +327,6 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
           ) as String?;
           if (valueDes == null) continue;
           result.zipcode = valueDes;
-          break;
-        case r'phoneNo':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.phoneNo = valueDes;
-          break;
-        case r'email':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.email = valueDes;
           break;
         case r'countryId':
           final valueDes = serializers.deserialize(
@@ -450,6 +434,22 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
           ) as String?;
           if (valueDes == null) continue;
           result.fullName = valueDes;
+          break;
+        case r'phoneNo':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.phoneNo = valueDes;
+          break;
+        case r'email':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.email = valueDes;
           break;
         case r'phoneNo2':
           final valueDes = serializers.deserialize(

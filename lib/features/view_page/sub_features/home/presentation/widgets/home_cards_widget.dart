@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/features/view_page/sub_features/home/domain/entities/user_profile_entity.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/widgets/home_card_item_widget.dart';
 
@@ -13,17 +11,17 @@ class HomeCardsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
     final Map<String, String> homeCardsMap =
-        _getHomeCardsMap(homeBloc.state.userProfileEntity!);
+        _getHomeCardsMap(homeBloc.state.clientDto!);
     final List<Color> colors = _getHomeCardsColors();
     return GridView.builder(
       shrinkWrap: true,
-      padding: EdgeInsets.symmetric(vertical: 0.h),
+      padding: const EdgeInsets.symmetric(vertical: 0),
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: (160).w / (84).h,
-        mainAxisSpacing: (8 * 2).h,
-        crossAxisSpacing: (8 * 2).w,
+        childAspectRatio: (160) / (84),
+        mainAxisSpacing: (8 * 2),
+        crossAxisSpacing: (8 * 2),
       ),
       itemCount: homeCardsMap.entries.toList().length,
       itemBuilder: (context, index) {
@@ -39,10 +37,10 @@ class HomeCardsWidget extends StatelessWidget {
     );
   }
 
-  Map<String, String> _getHomeCardsMap(UserProfileEntity userProfileEntity) {
+  Map<String, String> _getHomeCardsMap(ClientGetDto userProfileEntity) {
     Map<String, String> homeCardsMap = {};
-    homeCardsMap["my_balance"] = "${userProfileEntity.balance} ${"sr".tr()}";
-    homeCardsMap["total_shipments"] = userProfileEntity.totalShipments;
+    //homeCardsMap["my_balance"] = "${userProfileEntity.balance} ${"sr".tr()}";
+    //homeCardsMap["total_shipments"] = userProfileEntity.totalShipments;
     // homeCardsMap["my_bills"] = userProfileEntity.totalBills;
     // homeCardsMap["total_store_requests"] = userProfileEntity.totalStoreRequests;
     return homeCardsMap;

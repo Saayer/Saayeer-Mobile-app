@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/common/empty/empty_status_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 
@@ -14,8 +14,6 @@ class EmptyAddressesBook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     final AddressesBookBloc addressesBookBloc =
         BlocProvider.of<AddressesBookBloc>(context);

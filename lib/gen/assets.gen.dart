@@ -33,9 +33,6 @@ class $AssetsGifsGen {
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/filter.svg
-  String get filter => 'assets/icons/filter.svg';
-
   /// File path: assets/icons/ic_addresses_book.png
   AssetGenImage get icAddressesBookPng =>
       const AssetGenImage('assets/icons/ic_addresses_book.png');
@@ -51,6 +48,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_ebills.svg
   String get icEbills => 'assets/icons/ic_ebills.svg';
+
+  /// File path: assets/icons/ic_filter.svg
+  String get icFilter => 'assets/icons/ic_filter.svg';
 
   /// File path: assets/icons/ic_help.svg
   String get icHelp => 'assets/icons/ic_help.svg';
@@ -95,8 +95,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_notification2.svg
   String get icNotification2 => 'assets/icons/ic_notification2.svg';
 
+  /// File path: assets/icons/ic_privacy_policy.svg
+  String get icPrivacyPolicy => 'assets/icons/ic_privacy_policy.svg';
+
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
+
+  /// File path: assets/icons/ic_replacement_refund_policy.svg
+  String get icReplacementRefundPolicy =>
+      'assets/icons/ic_replacement_refund_policy.svg';
+
+  /// File path: assets/icons/ic_reports.svg
+  String get icReports => 'assets/icons/ic_reports.svg';
 
   /// File path: assets/icons/ic_settings.svg
   String get icSettings => 'assets/icons/ic_settings.svg';
@@ -110,6 +120,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_shipping_rates.svg
   String get icShippingRates => 'assets/icons/ic_shipping_rates.svg';
 
+  /// File path: assets/icons/ic_terms_conditions.svg
+  String get icTermsConditions => 'assets/icons/ic_terms_conditions.svg';
+
   /// File path: assets/icons/ic_total_shipments.svg
   String get icTotalShipments => 'assets/icons/ic_total_shipments.svg';
 
@@ -118,12 +131,12 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        filter,
         icAddressesBookPng,
         icAddressesBookSvg,
         icBill,
         icContactUs,
         icEbills,
+        icFilter,
         icHelp,
         icHi,
         icHome,
@@ -137,11 +150,15 @@ class $AssetsIconsGen {
         icMyBills,
         icNotification,
         icNotification2,
+        icPrivacyPolicy,
         icProfile,
+        icReplacementRefundPolicy,
+        icReports,
         icSettings,
         icShipment,
         icShipments,
         icShippingRates,
+        icTermsConditions,
         icTotalShipments,
         icTotalStoreRequests
       ];

@@ -8,6 +8,7 @@ import 'package:saayer/core/API/refresh_token.dart';
 import 'package:saayer/core/API/status_code.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
+import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 
 @lazySingleton
@@ -20,9 +21,7 @@ class AppInterceptors extends Interceptor {
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final String? authToken =
-        await SecureStorageService().getAccessToken();
-    final String? reqSecureKey =
-        await SecureStorageService().getReqSecureKey();
+    getIt<SharedPrefService>().getAccessToken();
     final bool isLogin = options.path.contains("login");
     final bool isEntry = options.path.contains("entry");
     options.queryParameters.addAll(
@@ -35,10 +34,6 @@ class AppInterceptors extends Interceptor {
     if (authToken != null && !isLogin) {
       //log("$accessToken", name: "has accessToken");
       options.headers['Authorization'] = 'Bearer $authToken';
-    }
-    if (reqSecureKey != null && !isLogin && !isEntry) {
-      //log("$reqSecureKey", name: "has reqSecureKey");
-      options.headers['X-Request-Key'] = reqSecureKey;
     }
     super.onRequest(options, handler);
   }

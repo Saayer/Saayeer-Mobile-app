@@ -41,7 +41,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
       key: formKey,
       child: GenericExpansionTileWidget(
           title: 'search'.tr(),
-          iconPath: Constants.getIconPath('filter.svg'),
+          iconPath: Constants.getIconPath('ic_filter.svg'),
           iconColor: SaayerTheme().getColorsPalette.primaryColor,
           children: [
             ///

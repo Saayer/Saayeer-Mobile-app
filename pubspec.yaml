@@ -40,7 +40,7 @@ dependencies:
   flutter_bloc: 8.1.6
   dio: 5.5.0+1
   equatable: 2.0.5
-  flutter_inappwebview: 6.0.0 #
+  flutter_inappwebview: 6.0.0
   # not web
   lottie: 3.1.2
   # not web

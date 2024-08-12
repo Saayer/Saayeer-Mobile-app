@@ -6,7 +6,6 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/user_card/presentation/screens/user_card_screen.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/view_page/sub_features/home/presentation/widgets/new_shipment_card_item_widget.dart';
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/screens/shipments_screen.dart';
@@ -37,17 +36,18 @@ class HomePage extends StatelessWidget {
           final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
           return Scaffold(
             backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-            body: Column(
+            body: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Flexible(
-                  child: UserCardScreen(
-                    isParentLoading: isLoading,
-                  ),
-                ),
-                const NewShipmentCardItemWidget(),
-                const SizedBox(
+                // Flexible(
+                //   child: UserCardScreen(
+                //     isParentLoading: isLoading,
+                //   ),
+                // ),
+                SizedBox(height: 10),
+                NewShipmentCardItemWidget(),
+                SizedBox(
                   height: 16,
                 ),
                 // if ((!(viewPageBloc.state.isGuest!)) &&
@@ -69,8 +69,8 @@ class HomePage extends StatelessWidget {
                 //     height: 5,
                 //   ),
                 // ],
-                if (state.userProfileEntity != null)
-                  const SizedBox(
+                //if (state.clientDto != null)
+                  SizedBox(
                     height: 400,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 0),

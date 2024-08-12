@@ -25,9 +25,9 @@ class SplashPage extends StatelessWidget {
             (previousState.requestState != nextState.requestState),
         listener: (context, state) async {
           if (state.requestState == RequestState.LOADED) {
-            Timer(const Duration(seconds: 3), () async {
+            Timer(const Duration(seconds: 3), () {
               final bool isLoggedIn =
-                  await getIt<LoggedInCheckerService>().isLoggedIn();
+                  getIt<LoggedInCheckerService>().isLoggedIn();
               log("$isLoggedIn", name: "isLoggedIn");
               //if (isLoggedIn) getIt<LoggedInCheckerService>().initLoggedUser();
               getIt<NavigationService>().navigateAndFinish(

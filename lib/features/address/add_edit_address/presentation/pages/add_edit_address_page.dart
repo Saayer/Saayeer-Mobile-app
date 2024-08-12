@@ -6,7 +6,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -39,39 +38,37 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final AddEditAddressBloc addAddressBloc = BlocProvider.of<AddEditAddressBloc>(context);
-    return GeneralResponsiveScaledBoxWidget(
-      child: BlocConsumer<AddEditAddressBloc, AddEditAddressState>(
-        buildWhen: (previousState, nextState) =>
-            (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
-        listener: (context, state) async {
-          final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
-          LoadingDialog.setIsLoading(context, isLoading);
-          if (!isLoading) {
-            if (state.stateHelper.requestState == RequestState.SUCCESS) {
-              if (widget.isAddShipmentRequest) {
-                Navigator.pop(context);
-              } else {
-                print('isAddShipmentRequest');
-                widget.onBack!(state.addressInfoEntity!);
-              }
-            }
-            if (state.stateHelper.requestState == RequestState.ERROR) {
-              //showToast(msg: state.stateHelper.errorMessage ?? "");
-              AddAddressErrorHandler(state: state)();
+    return BlocConsumer<AddEditAddressBloc, AddEditAddressState>(
+      buildWhen: (previousState, nextState) =>
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
+      listener: (context, state) async {
+        final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
+        LoadingDialog.setIsLoading(context, isLoading);
+        if (!isLoading) {
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {
+            if (widget.isAddShipmentRequest) {
+              Navigator.pop(context);
+            } else {
+              print('isAddShipmentRequest');
+              widget.onBack!(state.addressInfoEntity!);
             }
           }
-        },
-        builder: (context, state) => Scaffold(
-          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-          resizeToAvoidBottomInset: false,
-          appBar: BaseAppBar(
-            title: "add_address".tr(),
-            showBackLeading: true,
-            showAppBar: widget.isAddShipmentRequest,
-          ),
-          bottomSheet: _buildConfirmButton(addAddressBloc, width),
-          body: _buildAddAddressFieldsWidget(addAddressBloc, width, state),
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            //showToast(msg: state.stateHelper.errorMessage ?? "");
+            AddAddressErrorHandler(state: state)();
+          }
+        }
+      },
+      builder: (context, state) => Scaffold(
+        backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+        resizeToAvoidBottomInset: false,
+        appBar: BaseAppBar(
+          title: "add_address".tr(),
+          showBackLeading: true,
+          showAppBar: widget.isAddShipmentRequest,
         ),
+        bottomSheet: _buildConfirmButton(addAddressBloc, width),
+        body: _buildAddAddressFieldsWidget(addAddressBloc, width, state),
       ),
     );
   }

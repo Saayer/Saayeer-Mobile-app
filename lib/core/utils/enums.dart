@@ -8,8 +8,6 @@ enum DataSource { REMOTE, LOCAL }
 
 enum UserConnectWay { FACEBOOK, GOOGLE, MANUAL }
 
-enum AddEditAddressType { addAddress, editAddress }
-
 enum PaymentMethodType {
   CASH._("Cash"),
   WALLET._("Wallet"),

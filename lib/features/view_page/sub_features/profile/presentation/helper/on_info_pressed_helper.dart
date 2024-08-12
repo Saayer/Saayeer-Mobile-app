@@ -13,8 +13,8 @@ import 'package:saayer/features/profile_sub_features/info/presentation/screens/i
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/utils/enums/enums.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/core/utils/enums/enums.dart';
+import 'package:saayer/features/more_sub_features/personal_info/core/utils/enums/enums.dart';
+import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/utils/enums/enums.dart';
 
 class OnInfoPressedHelper {
   final BuildContext context =
@@ -112,7 +112,13 @@ class OnInfoPressedHelper {
         case PersonalInfoFieldsTypes.NAME:
           {
             map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.name ?? "";
+                userCardEntity.personalInfoEntity?.fullName ?? "";
+            break;
+          }
+        case PersonalInfoFieldsTypes.PHONE:
+          {
+            map[personalInfoFieldsType.name] =
+                userCardEntity.personalInfoEntity?.phoneNo ?? "";
             break;
           }
         case PersonalInfoFieldsTypes.EMAIL:
@@ -121,28 +127,10 @@ class OnInfoPressedHelper {
                 userCardEntity.personalInfoEntity?.email ?? "";
             break;
           }
-        case PersonalInfoFieldsTypes.NATIONAL_ID:
+        case PersonalInfoFieldsTypes.BUSINESSNAME:
           {
             map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.nationalId ?? "";
-            break;
-          }
-        case PersonalInfoFieldsTypes.ADDRESS:
-          {
-            map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.address ?? "";
-            break;
-          }
-        case PersonalInfoFieldsTypes.DISTRICT:
-          {
-            map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.district ?? "";
-            break;
-          }
-        case PersonalInfoFieldsTypes.GOVERNORATE:
-          {
-            map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.governorate ?? "";
+                userCardEntity.personalInfoEntity?.businessName ?? "";
             break;
           }
       }
@@ -214,22 +202,52 @@ class OnInfoPressedHelper {
                 userCardEntity.storeInfoEntity?.name ?? "";
             break;
           }
-        case StoreInfoFieldsTypes.URL:
+        case StoreInfoFieldsTypes.COUNTRY:
           {
             map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.url ?? "";
+                userCardEntity.storeInfoEntity?.countryNameEn ?? "";
             break;
           }
-        case StoreInfoFieldsTypes.MAROOF_ID:
+        case StoreInfoFieldsTypes.GOVERNORATE:
           {
             map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.maroofId ?? "";
+                userCardEntity.storeInfoEntity?.governorateNameEn ?? "";
             break;
           }
-        case StoreInfoFieldsTypes.COMMERCIAL_REGISTERATION_NO:
+        case StoreInfoFieldsTypes.CITY:
           {
             map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.commercialRegistrationNo ?? "";
+                userCardEntity.storeInfoEntity?.cityNameEn ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.AREA:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.areaNameEn ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.ADDRESS:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.addressDetails ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.ZIPCODE:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.zipcode ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.FINANCIAL_RECORD_NUMBER:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.financialRecordNumber ?? "";
+            break;
+          }
+        case StoreInfoFieldsTypes.FREELANCE_CERTIFICATE_NUMBER:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.freelanceCertificateNumber ?? "";
             break;
           }
       }

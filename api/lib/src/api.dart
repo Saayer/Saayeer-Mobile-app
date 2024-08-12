@@ -11,10 +11,12 @@ import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/address_lookups_api.dart';
 import 'package:openapi/src/api/auth_api.dart';
+import 'package:openapi/src/api/clients_api.dart';
 import 'package:openapi/src/api/customers_api.dart';
+import 'package:openapi/src/api/stores_api.dart';
 
 class Openapi {
-  static const String basePath = r'http://localhost/saayer-5-dev';
+  static const String basePath = r'http://localhost/saayer-6/dev';
 
   final Dio dio;
   final Serializers serializers;
@@ -79,9 +81,21 @@ class Openapi {
     return AuthApi(dio, serializers);
   }
 
+  /// Get ClientsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  ClientsApi getClientsApi() {
+    return ClientsApi(dio, serializers);
+  }
+
   /// Get CustomersApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   CustomersApi getCustomersApi() {
     return CustomersApi(dio, serializers);
+  }
+
+  /// Get StoresApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  StoresApi getStoresApi() {
+    return StoresApi(dio, serializers);
   }
 }
