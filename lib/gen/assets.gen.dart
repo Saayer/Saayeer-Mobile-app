@@ -101,12 +101,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
 
+  /// File path: assets/icons/ic_reciever.svg
+  String get icReciever => 'assets/icons/ic_reciever.svg';
+
   /// File path: assets/icons/ic_replacement_refund_policy.svg
   String get icReplacementRefundPolicy =>
       'assets/icons/ic_replacement_refund_policy.svg';
 
   /// File path: assets/icons/ic_reports.svg
   String get icReports => 'assets/icons/ic_reports.svg';
+
+  /// File path: assets/icons/ic_sender.svg
+  String get icSender => 'assets/icons/ic_sender.svg';
 
   /// File path: assets/icons/ic_settings.svg
   String get icSettings => 'assets/icons/ic_settings.svg';
@@ -152,8 +158,10 @@ class $AssetsIconsGen {
         icNotification2,
         icPrivacyPolicy,
         icProfile,
+        icReciever,
         icReplacementRefundPolicy,
         icReports,
+        icSender,
         icSettings,
         icShipment,
         icShipments,

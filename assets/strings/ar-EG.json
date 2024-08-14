@@ -182,5 +182,10 @@
   "are_you_sure_delete_store": "هل أنت متأكد أنك تريد حذف هذا المتجر؟",
   "profile_updated_successfully": "تم تعديل ملفك الشخصي بنجاح",
   "delete_account": "حذف الحساب",
-  "account_deleted_successfully": "تم حذف الحساب بنجاح"
+  "account_deleted_successfully": "تم حذف الحساب بنجاح",
+  "customer": "عميل",
+  "store": "متجر",
+  "new_customer": "عميل جديد",
+  "new_store": "متجر جديد",
+  "customers": "العملاء"
 }

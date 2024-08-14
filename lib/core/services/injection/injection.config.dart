@@ -264,7 +264,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i526.AddressShipmentBloc>(() => _i526.AddressShipmentBloc());
     gh.factory<_i1055.InformationShipmentBloc>(
         () => _i1055.InformationShipmentBloc());
-    gh.factory<_i304.RequestShipmentBloc>(() => _i304.RequestShipmentBloc());
     gh.factory<_i199.ProfileBloc>(() => _i199.ProfileBloc());
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
@@ -435,6 +434,10 @@ extension GetItInjectableX on _i174.GetIt {
           getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
           getAreasUseCase: gh<_i65.GetAreasUseCase>(),
           editStoreUseCase: gh<_i987.EditStoreUseCase>(),
+        ));
+    gh.factory<_i304.RequestShipmentBloc>(() => _i304.RequestShipmentBloc(
+          getCustomersAddressesUseCase: gh<_i436.GetAddressesUseCase>(),
+          getStoresUseCase: gh<_i833.GetStoresUseCase>(),
         ));
     gh.factory<_i897.GetShipmentProvidersUseCase>(() =>
         _i897.GetShipmentProvidersUseCase(

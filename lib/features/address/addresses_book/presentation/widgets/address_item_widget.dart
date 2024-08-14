@@ -78,7 +78,7 @@ class AddressItemWidget extends StatelessWidget {
     return Text.rich(TextSpan(children: [
       TextSpan(
           text: StringsUtil.getLanguageName(
-              arName: addressInfoEntity.countryNameAr ?? '', enName: addressInfoEntity.countryNameAr ?? ''),
+              arName: addressInfoEntity.countryNameAr ?? '', enName: addressInfoEntity.countryNameEn ?? ''),
           style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
       TextSpan(
           text:

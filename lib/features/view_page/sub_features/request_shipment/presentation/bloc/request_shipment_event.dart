@@ -20,6 +20,41 @@ class GoToNextPageEvent extends RequestShipmentEvent {
   List<Object> get props => [];
 }
 
+class GoToPreviousPage extends RequestShipmentEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class GetCustomersAddresses extends RequestShipmentEvent {
+  const GetCustomersAddresses();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetStoresAddresses extends RequestShipmentEvent {
+
+  const GetStoresAddresses();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class OnScrollCustomersPagination extends RequestShipmentEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class OnSenderSelectedFromDropDown extends RequestShipmentEvent {
+  final SenderReceiverType senderType;
+  final dynamic item;
+
+  const OnSenderSelectedFromDropDown({required this.senderType, required this.item});
+
+  @override
+  List<Object?> get props => [senderType, item];
+}
+
 class AddAddressInfoEvent extends RequestShipmentEvent {
   final AddressInfoEntity addressInfoEntity;
 

@@ -182,5 +182,10 @@
   "are_you_sure_delete_store": "Are you sure you want to delete this store ?",
   "profile_updated_successfully": "your profile has been updated successfully",
   "delete_account": "Delete Account",
-  "account_deleted_successfully": "your Account has been deleted successfully"
+  "account_deleted_successfully": "your Account has been deleted successfully",
+  "customer": "Customer",
+  "store": "Store",
+  "new_customer": "New Customer",
+  "new_store": "New Store",
+  "customers": "Customers"
 }
