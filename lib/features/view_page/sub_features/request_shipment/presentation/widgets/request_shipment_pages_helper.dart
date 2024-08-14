@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
+import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/receiver/presentation/pages/receiver_page.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/sender/presentation/pages/sender_page.dart';
 
 
@@ -9,22 +10,7 @@ class RequestShipmentPagesHelper {
 
   List<Widget> requestShipmentPages () => [
     const SenderPage(),
-    Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Reciever'),
-            MaterialButton(
-              onPressed: () {
-                requestShipmentBloc.add(GoToNextPageEvent());
-              },
-              child: Text('Next'),
-            )
-          ],
-        ),
-      ),
-    ),
+    const ReceiverPage(),
     Container(
       child: Center(
         child: Column(

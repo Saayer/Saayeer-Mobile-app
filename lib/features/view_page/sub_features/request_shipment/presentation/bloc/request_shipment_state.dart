@@ -6,7 +6,8 @@ class RequestShipmentState extends Equatable {
   final AddressInfoEntity? addressInfoEntity;
   final ShipmentSpecsEntity? shipmentSpecsEntity;
   final List<CustomerGetDto>? customersAddresses;
-  final CustomerQuery? customerQuery;
+  final CustomerQuery? senderCustomerQuery;
+  final CustomerQuery? receiverCustomerQuery;
   final bool? hasNextPage;
   final List<StoreGetDto>? storesList;
 
@@ -16,7 +17,8 @@ class RequestShipmentState extends Equatable {
     this.addressInfoEntity,
     this.shipmentSpecsEntity,
     this.customersAddresses,
-    this.customerQuery,
+    this.senderCustomerQuery,
+    this.receiverCustomerQuery,
     this.hasNextPage,
     this.storesList,
   });
@@ -27,7 +29,8 @@ class RequestShipmentState extends Equatable {
     AddressInfoEntity? addressInfoEntity,
     ShipmentSpecsEntity? shipmentSpecsEntity,
     List<CustomerGetDto>? customersAddresses,
-    CustomerQuery? customerQuery,
+    CustomerQuery? senderCustomerQuery,
+    CustomerQuery? receiverCustomerQuery,
     bool? hasNextPage,
     List<StoreGetDto>? storesList,
   }) {
@@ -37,7 +40,8 @@ class RequestShipmentState extends Equatable {
       addressInfoEntity: addressInfoEntity ?? this.addressInfoEntity,
       shipmentSpecsEntity: shipmentSpecsEntity ?? this.shipmentSpecsEntity,
       customersAddresses: customersAddresses ?? this.customersAddresses,
-      customerQuery: customerQuery ?? this.customerQuery,
+      senderCustomerQuery: senderCustomerQuery ?? this.senderCustomerQuery,
+      receiverCustomerQuery: receiverCustomerQuery ?? this.receiverCustomerQuery,
       hasNextPage: hasNextPage ?? this.hasNextPage,
       storesList: storesList ?? this.storesList,
     );
@@ -50,7 +54,8 @@ class RequestShipmentState extends Equatable {
         addressInfoEntity,
         shipmentSpecsEntity,
         customersAddresses,
-        customerQuery,
+        senderCustomerQuery,
+        receiverCustomerQuery,
         hasNextPage,
         storesList,
       ];

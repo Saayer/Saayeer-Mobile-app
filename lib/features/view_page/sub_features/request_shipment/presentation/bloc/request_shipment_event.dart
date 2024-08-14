@@ -26,21 +26,27 @@ class GoToPreviousPage extends RequestShipmentEvent {
 }
 
 class GetCustomersAddresses extends RequestShipmentEvent {
-  const GetCustomersAddresses();
+  final RequestShipmentTypes requestShipmentTypes;
+
+  const GetCustomersAddresses({required this.requestShipmentTypes});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [requestShipmentTypes];
 }
 
 class GetStoresAddresses extends RequestShipmentEvent {
-
   const GetStoresAddresses();
 
   @override
   List<Object?> get props => [];
 }
 
-class OnScrollCustomersPagination extends RequestShipmentEvent {
+class OnScrollSenderCustomersPagination extends RequestShipmentEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class OnScrollReceiverCustomersPagination extends RequestShipmentEvent {
   @override
   List<Object?> get props => [];
 }
@@ -53,6 +59,16 @@ class OnSenderSelectedFromDropDown extends RequestShipmentEvent {
 
   @override
   List<Object?> get props => [senderType, item];
+}
+
+class OnReceiverSelectedFromDropDown extends RequestShipmentEvent {
+  final SenderReceiverType receiverType;
+  final dynamic item;
+
+  const OnReceiverSelectedFromDropDown({required this.receiverType, required this.item});
+
+  @override
+  List<Object?> get props => [receiverType, item];
 }
 
 class AddAddressInfoEvent extends RequestShipmentEvent {

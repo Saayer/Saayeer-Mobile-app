@@ -8,7 +8,7 @@ import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_indicator.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/widgets/request_shipment_pages_helper.dart';
+import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/widgets/request_shipment_pages_helper.dart';
 
 class RequestShipmentPage extends StatelessWidget {
   const RequestShipmentPage({super.key});

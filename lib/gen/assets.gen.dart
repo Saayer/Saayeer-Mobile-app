@@ -101,8 +101,8 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
 
-  /// File path: assets/icons/ic_reciever.svg
-  String get icReciever => 'assets/icons/ic_reciever.svg';
+  /// File path: assets/icons/ic_receiver.svg
+  String get icReceiver => 'assets/icons/ic_receiver.svg';
 
   /// File path: assets/icons/ic_replacement_refund_policy.svg
   String get icReplacementRefundPolicy =>
@@ -158,7 +158,7 @@ class $AssetsIconsGen {
         icNotification2,
         icPrivacyPolicy,
         icProfile,
-        icReciever,
+        icReceiver,
         icReplacementRefundPolicy,
         icReports,
         icSender,

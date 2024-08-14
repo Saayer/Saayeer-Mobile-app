@@ -39,23 +39,35 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
     on<AddShipmentSpecsEvent>(_addShipmentSpecsEvent);
     on<GetCustomersAddresses>(_getCustomerAddresses);
     on<GetStoresAddresses>(_getStoresAddresses);
-    on<OnScrollCustomersPagination>(_onScrollCustomersPagination);
+    on<OnScrollSenderCustomersPagination>(_onScrollSenderCustomersPagination);
+    on<OnScrollReceiverCustomersPagination>(_onScrollReceiverCustomersPagination);
     on<OnSenderSelectedFromDropDown>(_onSenderSelectedFromDropDown);
+    on<OnReceiverSelectedFromDropDown>(_onReceiverSelectedFromDropDown);
   }
 
   ///
-  final ScrollController scrollController = ScrollController();
+  SenderReceiverType? senderType = SenderReceiverType.store;
+  SenderReceiverType? receiverType = SenderReceiverType.store;
+
+  ///
+  final ScrollController senderCustomersScrollController = ScrollController();
+  final ScrollController receiverCustomersScrollController = ScrollController();
 
   ///pagination util
-  final _pageSize = 10;
+  final _senderCustomersPageSize = 10;
+  final _receiverCustomersPageSize = 10;
 
   ///
   List<CustomerGetDto> senderCustomersList = [];
   List<StoreGetDto> senderStoresList = [];
+  List<CustomerGetDto> receiverCustomersList = [];
+  List<StoreGetDto> receiverStoresList = [];
 
   ///
   CustomerGetDto? selectedSenderCustomerAddress;
   StoreGetDto? selectedSenderStoreAddress;
+  CustomerGetDto? selectedReceiverCustomerAddress;
+  StoreGetDto? selectedReceiverStoreAddress;
 
   FutureOr<void> _initRequestShipmentViewPageEvent(
       InitRequestShipmentViewPageEvent event, Emitter<RequestShipmentState> emit) {
@@ -94,13 +106,22 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
   }
 
   Future<FutureOr<void>> _getCustomerAddresses(GetCustomersAddresses event, Emitter<RequestShipmentState> emit) async {
-    emit(state.copyWith(
-        stateHelper: const StateHelper(requestState: RequestState.LOADING),
-        customerQuery: CustomerQuery((b) => b
-          ..skip = senderCustomersList.length
-          ..take = _pageSize)));
+    if(event.requestShipmentTypes == RequestShipmentTypes.sender){
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADING),
+          senderCustomerQuery: CustomerQuery((b) => b
+            ..skip = senderCustomersList.length
+            ..take = _senderCustomersPageSize)));
+    }else{
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADING),
+          receiverCustomerQuery: CustomerQuery((b) => b
+            ..skip = receiverCustomersList.length
+            ..take = _receiverCustomersPageSize)));
+    }
 
-    await getCustomersAddressesUseCase(state.customerQuery).then((result) {
+
+    await getCustomersAddressesUseCase(state.senderCustomerQuery).then((result) {
       if (result.isLeft()) {
         emit(state.copyWith(
             stateHelper: state.stateHelper.copyWith(
@@ -109,7 +130,7 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
         final List<CustomerGetDto>? rightResult = (result as Right).value;
 
         if (rightResult != null) {
-          if (rightResult.length < _pageSize) {
+          if (rightResult.length < _senderCustomersPageSize) {
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
                 hasNextPage: false));
@@ -150,7 +171,9 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
 
           for (var item in rightResult) {
             senderStoresList.putIfAbsent(item);
+            receiverStoresList.putIfAbsent(item);
           }
+          selectedReceiverStoreAddress = senderStoresList.first;
 
           /// to show autoSelected last store added
           var storeId = getIt<SharedPrefService>().getLastStoreAddedId();
@@ -173,13 +196,14 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
     });
   }
 
-  FutureOr<void> _onScrollCustomersPagination(OnScrollCustomersPagination event, Emitter<RequestShipmentState> emit) {
-    if (!scrollController.hasClients) return null;
-    final maxScroll = scrollController.position.maxScrollExtent;
-    final currentScroll = scrollController.position.pixels;
+  FutureOr<void> _onScrollSenderCustomersPagination(
+      OnScrollSenderCustomersPagination event, Emitter<RequestShipmentState> emit) {
+    if (!senderCustomersScrollController.hasClients) return null;
+    final maxScroll = senderCustomersScrollController.position.maxScrollExtent;
+    final currentScroll = senderCustomersScrollController.position.pixels;
     if (currentScroll == maxScroll) {
       if (state.hasNextPage ?? false) {
-        add(const GetCustomersAddresses());
+        add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
       }
     }
   }
@@ -232,5 +256,30 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
     print('state.addressInfoEntity.name');
     print(state.addressInfoEntity!.name);
     print(state.currentPage);
+  }
+
+  FutureOr<void> _onScrollReceiverCustomersPagination(
+      OnScrollReceiverCustomersPagination event, Emitter<RequestShipmentState> emit) {
+    if (!receiverCustomersScrollController.hasClients) return null;
+    final maxScroll = receiverCustomersScrollController.position.maxScrollExtent;
+    final currentScroll = receiverCustomersScrollController.position.pixels;
+    if (currentScroll == maxScroll) {
+      if (state.hasNextPage ?? false) {
+        add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
+      }
+    }
+  }
+
+  FutureOr<void> _onReceiverSelectedFromDropDown(
+      OnReceiverSelectedFromDropDown event, Emitter<RequestShipmentState> emit) {
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    if (event.receiverType == SenderReceiverType.store) {
+      selectedReceiverStoreAddress = event.item;
+    } else if (event.receiverType == SenderReceiverType.customer) {
+      selectedReceiverCustomerAddress = event.item;
+    }
+    emit(state.copyWith(
+      stateHelper: const StateHelper(requestState: RequestState.LOADED),
+    ));
   }
 }

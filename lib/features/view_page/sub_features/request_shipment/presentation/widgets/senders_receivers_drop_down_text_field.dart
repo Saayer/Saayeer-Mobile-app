@@ -7,19 +7,20 @@ import 'package:saayer/common/text_fields/drop_down_text_field.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/data/core/utils/enums.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
 
-class SendersDropDownTextField extends StatelessWidget {
+class SendersReceiversDropDownTextField extends StatelessWidget {
   final void Function(CustomerGetDto) onCustomerAddressSelected;
   final void Function(StoreGetDto) onStoreAddressSelected;
   final CustomerGetDto? selectedCustomerAddress;
   final StoreGetDto? selectedStoreAddress;
-  final SenderReceiverType senderType;
+  final SenderReceiverType senderReceiverType;
+  final RequestShipmentTypes requestShipmentTypes;
   final RequestShipmentBloc bloc;
   final bool? withValidator;
   final bool? isFieldRequired;
   final bool? hasLabel;
   final bool? hasMargin;
 
-  const SendersDropDownTextField(
+  const SendersReceiversDropDownTextField(
       {super.key,
       required this.onCustomerAddressSelected,
       required this.onStoreAddressSelected,
@@ -29,21 +30,26 @@ class SendersDropDownTextField extends StatelessWidget {
       this.isFieldRequired,
       this.hasLabel,
       this.hasMargin,
-      required this.senderType,
+      required this.senderReceiverType,
+      required this.requestShipmentTypes,
       required this.bloc});
 
   @override
   Widget build(BuildContext context) {
     return DropDownTextField(
+      scrollController: requestShipmentTypes == RequestShipmentTypes.sender
+          ? bloc.senderCustomersScrollController
+          : bloc.receiverCustomersScrollController,
       label: getFieldLabel(),
       hasLabel: hasLabel,
       isFieldRequired: isFieldRequired,
       hasMargin: hasMargin,
       inputController: TextEditingController(
-          text: (senderType == SenderReceiverType.customer
+          text: (senderReceiverType == SenderReceiverType.customer
               ? (selectedCustomerAddress != null ? selectedCustomerAddress!.fullName : "")
               : (selectedStoreAddress != null ? selectedStoreAddress!.name : ""))),
-      onSelected: (v) => senderType == SenderReceiverType.customer ? onCustomerAddressSelected(v) : onStoreAddressSelected(v),
+      onSelected: (v) =>
+          senderReceiverType == SenderReceiverType.customer ? onCustomerAddressSelected(v) : onStoreAddressSelected(v),
       withValidator: withValidator,
       items: getList().isNotEmpty
           ? List.generate(getList().length, (index) {
@@ -52,21 +58,23 @@ class SendersDropDownTextField extends StatelessWidget {
             })
           : [],
       getItemName: (val) {
-        return senderType == SenderReceiverType.customer ? val.fullName ?? '' : val.name ?? '';
+        return senderReceiverType == SenderReceiverType.customer ? val.fullName ?? '' : val.name ?? '';
       },
       getIsSelectedItem: (val) {
-        return val == (senderType == SenderReceiverType.customer ? selectedCustomerAddress : selectedStoreAddress);
+        return val ==
+            (senderReceiverType == SenderReceiverType.customer ? selectedCustomerAddress : selectedStoreAddress);
       },
       showSearch: true,
       onSearch: (val, searchStr) {
         log(searchStr, name: "items");
-        return (senderType == SenderReceiverType.customer ? val.fullName ?? '' : val.name ?? '').contains(searchStr);
+        return (senderReceiverType == SenderReceiverType.customer ? val.fullName ?? '' : val.name ?? '')
+            .contains(searchStr);
       },
     );
   }
 
   String getFieldLabel() {
-    switch (senderType) {
+    switch (senderReceiverType) {
       case SenderReceiverType.customer:
         {
           return "customers".tr();
@@ -83,14 +91,18 @@ class SendersDropDownTextField extends StatelessWidget {
   }
 
   List<dynamic> getList() {
-    switch (senderType) {
+    switch (senderReceiverType) {
       case SenderReceiverType.customer:
         {
-          return bloc.senderCustomersList;
+          return requestShipmentTypes == RequestShipmentTypes.sender
+              ? bloc.senderCustomersList
+              : bloc.receiverCustomersList;
         }
       case SenderReceiverType.store:
         {
-          return bloc.senderStoresList;
+          return requestShipmentTypes == RequestShipmentTypes.sender
+              ? bloc.senderStoresList
+              : bloc.receiverStoresList;
         }
       default:
         {

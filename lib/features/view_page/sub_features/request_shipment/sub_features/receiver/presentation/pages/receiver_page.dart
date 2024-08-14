@@ -19,37 +19,37 @@ import 'package:saayer/features/view_page/sub_features/request_shipment/presenta
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/widgets/sender_receiver_item_details_widget.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/widgets/senders_receivers_drop_down_text_field.dart';
 
-class SenderPage extends StatefulWidget {
-  const SenderPage({super.key});
+class ReceiverPage extends StatefulWidget {
+  const ReceiverPage({super.key});
 
   @override
-  State<SenderPage> createState() => _SenderPageState();
+  State<ReceiverPage> createState() => _ReceiverPageState();
 }
 
-class _SenderPageState extends State<SenderPage> {
+class _ReceiverPageState extends State<ReceiverPage> {
+
   @override
   Widget build(BuildContext context) {
     final RequestShipmentBloc requestShipmentBloc = BlocProvider.of<RequestShipmentBloc>(context);
     return BlocConsumer<RequestShipmentBloc, RequestShipmentState>(
-      buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
-      listener: (context, state) async {
-        final bool isLoading = (requestShipmentBloc.state.stateHelper.requestState == RequestState.LOADING);
-        LoadingDialog.setIsLoading(context, isLoading);
+        buildWhen: (previousState, nextState) =>
+        (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
+        listener: (context, state) async {
+          final bool isLoading = (requestShipmentBloc.state.stateHelper.requestState == RequestState.LOADING);
+          LoadingDialog.setIsLoading(context, isLoading);
 
-        if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-          if (state.stateHelper.requestState == RequestState.ERROR) {}
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-          body: _buildSenderBodyWidget(requestShipmentBloc),
-          bottomSheet: _buildNextButtonWidget(requestShipmentBloc),
-        );
-      },
-    );
+          if (!isLoading) {
+            if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+            if (state.stateHelper.requestState == RequestState.ERROR) {}
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+            body: _buildReceiverBodyWidget(requestShipmentBloc),
+            bottomSheet: _buildNextButtonWidget(requestShipmentBloc),
+          );
+        },);
   }
 
   _buildNextButtonWidget(RequestShipmentBloc requestShipmentBloc) {
@@ -66,7 +66,7 @@ class _SenderPageState extends State<SenderPage> {
     );
   }
 
-  _buildSenderBodyWidget(RequestShipmentBloc requestShipmentBloc) {
+  _buildReceiverBodyWidget(RequestShipmentBloc requestShipmentBloc) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
@@ -76,7 +76,7 @@ class _SenderPageState extends State<SenderPage> {
           const SizedBox(height: 10),
           Center(
             child: Text(
-              'sender'.tr(),
+              'receiver'.tr(),
               style: AppTextStyles.mainFocusedLabel(),
             ),
           ),
@@ -90,11 +90,11 @@ class _SenderPageState extends State<SenderPage> {
                 child: RadioListTile<SenderReceiverType>(
                   title: Text('store'.tr(), style: AppTextStyles.liteLabel()),
                   value: SenderReceiverType.store,
-                  groupValue: requestShipmentBloc.senderType,
+                  groupValue: requestShipmentBloc.receiverType,
                   activeColor: SaayerTheme().getColorsPalette.primaryColor,
                   onChanged: (SenderReceiverType? value) {
                     setState(() {
-                      requestShipmentBloc.senderType = value;
+                      requestShipmentBloc.receiverType = value;
                     });
                   },
                 ),
@@ -105,14 +105,14 @@ class _SenderPageState extends State<SenderPage> {
                 child: RadioListTile<SenderReceiverType>(
                   title: Text('customer'.tr(), style: AppTextStyles.liteLabel()),
                   value: SenderReceiverType.customer,
-                  groupValue: requestShipmentBloc.senderType,
+                  groupValue: requestShipmentBloc.receiverType,
                   activeColor: SaayerTheme().getColorsPalette.primaryColor,
                   onChanged: (SenderReceiverType? value) {
-                    if (requestShipmentBloc.senderCustomersList.isEmpty) {
-                      requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
+                    if (requestShipmentBloc.receiverCustomersList.isEmpty) {
+                      requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
                     }
                     setState(() {
-                      requestShipmentBloc.senderType = value;
+                      requestShipmentBloc.receiverType = value;
                     });
                   },
                 ),
@@ -126,7 +126,7 @@ class _SenderPageState extends State<SenderPage> {
             transitionBuilder: (Widget child, Animation<double> animation) {
               return FadeTransition(opacity: animation, child: child);
             },
-            child: requestShipmentBloc.senderType == SenderReceiverType.store
+            child: requestShipmentBloc.receiverType == SenderReceiverType.store
                 ? _buildStoresListDropdownWidget(requestShipmentBloc)
                 : _buildCustomersListDropdownWidget(requestShipmentBloc),
           ),
@@ -139,10 +139,10 @@ class _SenderPageState extends State<SenderPage> {
 
           ///
           SenderItemDetailsWidget(
-            requestShipmentTypes: RequestShipmentTypes.sender,
-            senderType: requestShipmentBloc.senderType,
-            customerItem: requestShipmentBloc.selectedSenderCustomerAddress,
-            storeItem: requestShipmentBloc.selectedSenderStoreAddress,
+            requestShipmentTypes: RequestShipmentTypes.receiver,
+            senderType: requestShipmentBloc.receiverType,
+            customerItem: requestShipmentBloc.selectedReceiverCustomerAddress,
+            storeItem: requestShipmentBloc.selectedReceiverStoreAddress,
           ),
         ],
       ),
@@ -156,18 +156,18 @@ class _SenderPageState extends State<SenderPage> {
         SizedBox(
           width: largerThanTablet(context) ? screenWidth(context) / 2 : null,
           child: SendersReceiversDropDownTextField(
-            requestShipmentTypes: RequestShipmentTypes.sender,
+            requestShipmentTypes: RequestShipmentTypes.receiver,
             bloc: requestShipmentBloc,
             isFieldRequired: false,
             onCustomerAddressSelected: (customer) {},
             onStoreAddressSelected: (store) {
-              requestShipmentBloc.add(OnSenderSelectedFromDropDown(
-                senderType: SenderReceiverType.store,
+              requestShipmentBloc.add(OnReceiverSelectedFromDropDown(
+                receiverType: SenderReceiverType.store,
                 item: store,
               ));
             },
-            senderReceiverType: requestShipmentBloc.senderType ?? SenderReceiverType.store,
-            selectedStoreAddress: requestShipmentBloc.selectedSenderStoreAddress,
+            senderReceiverType: requestShipmentBloc.receiverType ?? SenderReceiverType.store,
+            selectedStoreAddress: requestShipmentBloc.selectedReceiverStoreAddress,
           ),
         ),
         const SizedBox(height: 5),
@@ -183,8 +183,8 @@ class _SenderPageState extends State<SenderPage> {
                 getIt<NavigationService>().navigateTo(
                     AddEditStoreScreen(addEditStoreType: AddEditStoreType.addStore, storeDto: StoreGetDto()),
                     onBack: (result) {
-                  requestShipmentBloc.add(const GetStoresAddresses());
-                });
+                      requestShipmentBloc.add(const GetStoresAddresses());
+                    });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,
               icon: Row(
@@ -207,18 +207,18 @@ class _SenderPageState extends State<SenderPage> {
         SizedBox(
           width: largerThanTablet(context) ? screenWidth(context) / 2 : null,
           child: SendersReceiversDropDownTextField(
-            requestShipmentTypes: RequestShipmentTypes.sender,
+            requestShipmentTypes: RequestShipmentTypes.receiver,
             bloc: requestShipmentBloc,
             isFieldRequired: false,
             onCustomerAddressSelected: (customer) {
-              requestShipmentBloc.add(OnSenderSelectedFromDropDown(
-                senderType: SenderReceiverType.customer,
+              requestShipmentBloc.add(OnReceiverSelectedFromDropDown(
+                receiverType: SenderReceiverType.customer,
                 item: customer,
               ));
             },
             onStoreAddressSelected: (store) {},
-            senderReceiverType: requestShipmentBloc.senderType ?? SenderReceiverType.customer,
-            selectedCustomerAddress: requestShipmentBloc.selectedSenderCustomerAddress,
+            senderReceiverType: requestShipmentBloc.receiverType ?? SenderReceiverType.customer,
+            selectedCustomerAddress: requestShipmentBloc.selectedReceiverCustomerAddress,
           ),
         ),
         const SizedBox(height: 5),
@@ -237,7 +237,7 @@ class _SenderPageState extends State<SenderPage> {
                       customerModel: CustomerGetDto(),
                       isAddShipmentRequest: true,
                     ), onBack: (result) {
-                  requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
+                  requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
                 });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,

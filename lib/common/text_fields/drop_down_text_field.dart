@@ -27,6 +27,7 @@ class DropDownTextField<T> extends StatefulWidget {
   final bool? hasLabel;
   final bool? hasMargin;
   final bool Function(T, String)? onSearch;
+  final ScrollController? scrollController;
 
   const DropDownTextField(
       {super.key,
@@ -47,6 +48,7 @@ class DropDownTextField<T> extends StatefulWidget {
       this.isFieldRequired,
       this.hasMargin,
       this.hasLabel,
+      this.scrollController,
       this.onSearch});
 
   @override
@@ -160,6 +162,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
 
   Widget get _getListView {
     return ListView.builder(
+        controller: widget.scrollController,
         shrinkWrap: true,
         itemCount: filteredItems.length,
         itemBuilder: (context, index) {

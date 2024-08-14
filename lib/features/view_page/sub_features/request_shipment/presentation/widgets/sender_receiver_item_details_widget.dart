@@ -12,12 +12,13 @@ class SenderItemDetailsWidget extends StatelessWidget {
   final SenderReceiverType? senderType;
   final CustomerGetDto? customerItem;
   final StoreGetDto? storeItem;
+  final RequestShipmentTypes requestShipmentTypes;
 
-  const SenderItemDetailsWidget({super.key, this.senderType, this.customerItem, this.storeItem});
+  const SenderItemDetailsWidget(
+      {super.key, this.senderType, this.customerItem, this.storeItem, required this.requestShipmentTypes});
 
   @override
   Widget build(BuildContext context) {
-
     if (senderType == SenderReceiverType.store && storeItem != null) {
       return _buildStoreAddressDetails(storeItem!);
     } else if (senderType == SenderReceiverType.customer && customerItem != null) {
@@ -44,7 +45,10 @@ class SenderItemDetailsWidget extends StatelessWidget {
       ),
       child: ListTile(
         leading: GenericSvgWidget(
-          path: Constants.getIconPath("ic_sender.svg"),
+          path: Constants.getIconPath(
+              requestShipmentTypes == RequestShipmentTypes.sender
+                  ? "ic_sender.svg"
+                  : "ic_receiver.svg"),
           color: SaayerTheme().getColorsPalette.orangeColor,
           size: 30,
         ),
