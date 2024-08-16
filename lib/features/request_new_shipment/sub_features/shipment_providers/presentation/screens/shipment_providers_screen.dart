@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/blocs/shipment_providers_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/pages/shipment_providers_page.dart';
-import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
+import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
 
 class ShipmentProvidersScreen extends StatelessWidget {
   const ShipmentProvidersScreen({super.key});
@@ -11,7 +11,7 @@ class ShipmentProvidersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return BlocConsumer<RequestShipmentBloc, RequestShipmentState>(
+    return BlocConsumer<RequestNewShipmentBloc, RequestNewShipmentState>(
         buildWhen: (previousState, nextState) =>
             (previousState.stateHelper.requestState !=
                 nextState.stateHelper.requestState),

@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/core/helper/outbound_shipment_widget_helper.dart';
+import 'package:saayer/features/shipments/core/helper/outbound_shipment_widget_helper.dart';
 
 class BasicInfo extends StatelessWidget {
   final ShipmentDetailsEntity shipmentDetailsEntity;
@@ -19,20 +19,17 @@ class BasicInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<InfoRow> infoRowList = [
-      InfoRow(
-          iconData: LineIcons.weight,
-          text: "${shipmentDetailsEntity.weight ?? ""} ${"kg".tr()}"),
+      InfoRow(iconData: LineIcons.weight, text: "${shipmentDetailsEntity.weight} ${"kg".tr()}"),
       InfoRow(
         iconData: LineIcons.moneyBill,
-        text: "${shipmentDetailsEntity.price ?? ""} ${"sr".tr()}",
+        text: "${shipmentDetailsEntity.price} ${"sr".tr()}",
       ),
       InfoRow(
         iconData: Icons.date_range,
         text: shipmentDetailsEntity.date,
       ),
     ];
-    final Color shipmentStatusColor = OutboundShipmentWidgetHelper()
-        .getColor(shipmentDetailsEntity.shipmentStatus);
+    final Color shipmentStatusColor = OutboundShipmentWidgetHelper().getColor(shipmentDetailsEntity.shipmentStatus);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       decoration: BoxDecoration(
@@ -55,7 +52,7 @@ class BasicInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                shipmentDetailsEntity.type ?? "",
+                shipmentDetailsEntity.type,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.buttonLabel(),
@@ -80,11 +77,9 @@ class BasicInfo extends StatelessWidget {
           ),
           Column(
             children: [
-              SvgPicture.asset(
-                Constants.getIconPath("ic_shipment.svg"),
-                fit: BoxFit.contain,
-                height: 50.h,
-                width: 50.w,
+              GenericSvgWidget(
+                path: Constants.getIconPath("ic_shipment.svg"),
+                size: 50,
                 color: SaayerTheme().getColorsPalette.blackTextColor,
               ),
               SizedBox(
@@ -97,8 +92,7 @@ class BasicInfo extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50.r),
                   ),
                   child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                     child: Text(
                       shipmentDetailsEntity.shipmentStatus.name.tr(),
                       style: AppTextStyles.label(),

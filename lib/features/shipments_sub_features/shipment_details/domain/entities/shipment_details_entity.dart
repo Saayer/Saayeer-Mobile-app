@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
+import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
 
 class ShipmentDetailsEntity extends Equatable {
   final String id,

@@ -7,7 +7,7 @@ import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_provider_model.dart';
-import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart';
+import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
 
 class ShipmentProviderCard extends StatelessWidget {
   final ShipmentProviderModel shipmentProviderModel;
@@ -18,7 +18,7 @@ class ShipmentProviderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        getIt<RequestShipmentBloc>().add(GoToNextPageEvent());
+        getIt<RequestNewShipmentBloc>().add(GoToNextPageEvent());
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),

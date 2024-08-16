@@ -5,10 +5,9 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/bloc/shipment_details_bloc.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/widgets/shipment_details_types_tab_bar.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
+import 'package:saayer/features/shipments/domain/entities/shipment_entity.dart';
 
 class ShipmentDetailsPage extends StatelessWidget {
   final ShipmentEntity shipmentEntity;
@@ -17,8 +16,6 @@ class ShipmentDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     final ShipmentDetailsBloc shipmentDetailsBloc =
         BlocProvider.of<ShipmentDetailsBloc>(context);
     return BlocConsumer<ShipmentDetailsBloc, ShipmentDetailsState>(
