@@ -474,6 +474,178 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/CustomerGetDto"
+  "/api/Logistics/shipment-costs":
+    get:
+      tags:
+        - Logistics
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentCost"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentCost"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentCost"
+  "/api/Shipments":
+    get:
+      tags:
+        - Shipments
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+    put:
+      tags:
+        - Shipments
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Shipments
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/ShipmentAddDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+  "/api/Shipments/{id}":
+    get:
+      tags:
+        - Shipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+    delete:
+      tags:
+        - Shipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
   "/api/Stores":
     get:
       tags:
@@ -818,6 +990,98 @@ components:
       properties:
         verificationCode_temp:
           type: string
+          nullable: true
+      additionalProperties: false
+    ShipmentAddDto:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+          nullable: true
+        length:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
+        weight:
+          type: integer
+          format: int32
+        contentDesc:
+          type: integer
+          format: int32
+        contentValue:
+          type: integer
+          format: int32
+          nullable: true
+        senderCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        senderStoreId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverStoreId:
+          type: integer
+          format: int64
+          nullable: true
+      additionalProperties: false
+    ShipmentCost:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        company:
+          type: string
+          nullable: true
+        cost:
+          type: number
+          format: double
+      additionalProperties: false
+    ShipmentGetDto:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        length:
+          type: number
+          format: float
+        height:
+          type: number
+          format: float
+        weight:
+          type: number
+          format: float
+        contentDesc:
+          type: string
+          nullable: true
+        contentValue:
+          type: number
+          format: float
+          nullable: true
+        senderCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        senderStoreId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverStoreId:
+          type: integer
+          format: int64
           nullable: true
       additionalProperties: false
     StoreAddDto:

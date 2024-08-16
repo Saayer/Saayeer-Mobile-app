@@ -187,5 +187,12 @@
   "store": "متجر",
   "new_customer": "عميل جديد",
   "new_store": "متجر جديد",
-  "customers": "العملاء"
+  "customers": "العملاء",
+  "length_cm": "الطول (سم)",
+  "width_cm": "العرض (سم)",
+  "height_cm": "الارتفاع (سم)",
+  "weight_kg": "الوزن (كجم)",
+  "content_description": "وصف المحتوى",
+  "content_value": "قيمة المحتوى",
+  "content_value_desc": "لا نقدم خدمة \"الدفع عند الاستلام\" حاليًا. هذا فقط للعلم"
 }

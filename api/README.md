@@ -82,6 +82,12 @@ Class | Method | HTTP request | Description
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersIdGet**](doc/CustomersApi.md#apicustomersidget) | **GET** /api/Customers/{id} | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersPost**](doc/CustomersApi.md#apicustomerspost) | **POST** /api/Customers | 
 [*CustomersApi*](doc/CustomersApi.md) | [**apiCustomersPut**](doc/CustomersApi.md#apicustomersput) | **PUT** /api/Customers | 
+[*LogisticsApi*](doc/LogisticsApi.md) | [**apiLogisticsShipmentCostsGet**](doc/LogisticsApi.md#apilogisticsshipmentcostsget) | **GET** /api/Logistics/shipment-costs | 
+[*ShipmentsApi*](doc/ShipmentsApi.md) | [**apiShipmentsGet**](doc/ShipmentsApi.md#apishipmentsget) | **GET** /api/Shipments | 
+[*ShipmentsApi*](doc/ShipmentsApi.md) | [**apiShipmentsIdDelete**](doc/ShipmentsApi.md#apishipmentsiddelete) | **DELETE** /api/Shipments/{id} | 
+[*ShipmentsApi*](doc/ShipmentsApi.md) | [**apiShipmentsIdGet**](doc/ShipmentsApi.md#apishipmentsidget) | **GET** /api/Shipments/{id} | 
+[*ShipmentsApi*](doc/ShipmentsApi.md) | [**apiShipmentsPost**](doc/ShipmentsApi.md#apishipmentspost) | **POST** /api/Shipments | 
+[*ShipmentsApi*](doc/ShipmentsApi.md) | [**apiShipmentsPut**](doc/ShipmentsApi.md#apishipmentsput) | **PUT** /api/Shipments | 
 [*StoresApi*](doc/StoresApi.md) | [**apiStoresGet**](doc/StoresApi.md#apistoresget) | **GET** /api/Stores | 
 [*StoresApi*](doc/StoresApi.md) | [**apiStoresIdDelete**](doc/StoresApi.md#apistoresiddelete) | **DELETE** /api/Stores/{id} | 
 [*StoresApi*](doc/StoresApi.md) | [**apiStoresIdGet**](doc/StoresApi.md#apistoresidget) | **GET** /api/Stores/{id} | 
@@ -99,6 +105,9 @@ Class | Method | HTTP request | Description
  - [CustomerQuery](doc/CustomerQuery.md)
  - [LoginRequestDto](doc/LoginRequestDto.md)
  - [LoginResponseDto](doc/LoginResponseDto.md)
+ - [ShipmentAddDto](doc/ShipmentAddDto.md)
+ - [ShipmentCost](doc/ShipmentCost.md)
+ - [ShipmentGetDto](doc/ShipmentGetDto.md)
  - [StoreAddDto](doc/StoreAddDto.md)
  - [StoreGetDto](doc/StoreGetDto.md)
  - [TokenRequestDto](doc/TokenRequestDto.md)

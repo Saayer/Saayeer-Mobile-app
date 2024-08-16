@@ -13,6 +13,8 @@ export 'package:openapi/src/api/address_lookups_api.dart';
 export 'package:openapi/src/api/auth_api.dart';
 export 'package:openapi/src/api/clients_api.dart';
 export 'package:openapi/src/api/customers_api.dart';
+export 'package:openapi/src/api/logistics_api.dart';
+export 'package:openapi/src/api/shipments_api.dart';
 export 'package:openapi/src/api/stores_api.dart';
 
 export 'package:openapi/src/model/address_look_up_dto.dart';
@@ -23,6 +25,9 @@ export 'package:openapi/src/model/customer_get_dto.dart';
 export 'package:openapi/src/model/customer_query.dart';
 export 'package:openapi/src/model/login_request_dto.dart';
 export 'package:openapi/src/model/login_response_dto.dart';
+export 'package:openapi/src/model/shipment_add_dto.dart';
+export 'package:openapi/src/model/shipment_cost.dart';
+export 'package:openapi/src/model/shipment_get_dto.dart';
 export 'package:openapi/src/model/store_add_dto.dart';
 export 'package:openapi/src/model/store_get_dto.dart';
 export 'package:openapi/src/model/token_request_dto.dart';

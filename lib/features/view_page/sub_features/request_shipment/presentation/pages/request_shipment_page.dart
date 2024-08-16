@@ -37,6 +37,7 @@ class RequestShipmentPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          resizeToAvoidBottomInset: false,
           appBar: BaseAppBar(
             showBackLeading: true,
             onTapLeading: () {

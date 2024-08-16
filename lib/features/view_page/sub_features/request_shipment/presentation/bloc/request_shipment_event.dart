@@ -25,6 +25,11 @@ class GoToPreviousPage extends RequestShipmentEvent {
   List<Object> get props => [];
 }
 
+class ToggleAutoValidate extends RequestShipmentEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class GetCustomersAddresses extends RequestShipmentEvent {
   final RequestShipmentTypes requestShipmentTypes;
 
@@ -80,11 +85,10 @@ class AddAddressInfoEvent extends RequestShipmentEvent {
   List<Object> get props => [addressInfoEntity];
 }
 
-class AddShipmentSpecsEvent extends RequestShipmentEvent {
-  final ShipmentSpecsEntity shipmentSpecsEntity;
+class GetServiceProviders extends RequestShipmentEvent {
 
-  AddShipmentSpecsEvent(this.shipmentSpecsEntity);
+  const GetServiceProviders();
 
   @override
-  List<Object> get props => [shipmentSpecsEntity];
+  List<Object> get props => [];
 }

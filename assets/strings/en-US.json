@@ -187,5 +187,12 @@
   "store": "Store",
   "new_customer": "New Customer",
   "new_store": "New Store",
-  "customers": "Customers"
+  "customers": "Customers",
+  "length_cm": "Length (cm)",
+  "width_cm": "Width (cm)",
+  "height_cm": "Height (cm)",
+  "weight_kg": "Weight (Kg)",
+  "content_description": "Content Description",
+  "content_value": "Content Value",
+  "content_value_desc": "We don\\'t offer \"Pay on delivery\" now. This is only for info."
 }

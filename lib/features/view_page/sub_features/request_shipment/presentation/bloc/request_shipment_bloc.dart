@@ -16,7 +16,6 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/addresses_book/domain/use_cases/get_addresses_usecase.dart';
 import 'package:saayer/features/more_sub_features/stores/stores_list/domain/usecases/get_stores_usecase.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/domain/entities/shipment_specs_entity.dart';
 import 'package:saayer/features/view_page/sub_features/request_shipment/data/core/utils/enums.dart';
 
 part 'request_shipment_event.dart';
@@ -35,8 +34,9 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
     on<InitRequestShipmentViewPageEvent>(_initRequestShipmentViewPageEvent);
     on<GoToNextPageEvent>(_goToNextPageEvent);
     on<GoToPreviousPage>(_goToPreviousPage);
+    on<ToggleAutoValidate>(_toggleAutoValidate);
     on<AddAddressInfoEvent>(_addAddressInfoEvent);
-    on<AddShipmentSpecsEvent>(_addShipmentSpecsEvent);
+    on<GetServiceProviders>(_getServiceProviders);
     on<GetCustomersAddresses>(_getCustomerAddresses);
     on<GetStoresAddresses>(_getStoresAddresses);
     on<OnScrollSenderCustomersPagination>(_onScrollSenderCustomersPagination);
@@ -52,6 +52,15 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
   ///
   final ScrollController senderCustomersScrollController = ScrollController();
   final ScrollController receiverCustomersScrollController = ScrollController();
+
+  /// shipment details text controller
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController lengthController = TextEditingController();
+  final TextEditingController widthController = TextEditingController();
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+  final TextEditingController contentDescriptionController = TextEditingController();
+  final TextEditingController contentValueController = TextEditingController();
 
   ///pagination util
   final _senderCustomersPageSize = 10;
@@ -106,20 +115,19 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
   }
 
   Future<FutureOr<void>> _getCustomerAddresses(GetCustomersAddresses event, Emitter<RequestShipmentState> emit) async {
-    if(event.requestShipmentTypes == RequestShipmentTypes.sender){
+    if (event.requestShipmentTypes == RequestShipmentTypes.sender) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderCustomerQuery: CustomerQuery((b) => b
             ..skip = senderCustomersList.length
             ..take = _senderCustomersPageSize)));
-    }else{
+    } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverCustomerQuery: CustomerQuery((b) => b
             ..skip = receiverCustomersList.length
             ..take = _receiverCustomersPageSize)));
     }
-
 
     await getCustomersAddressesUseCase(state.senderCustomerQuery).then((result) {
       if (result.isLeft()) {
@@ -173,14 +181,14 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
             senderStoresList.putIfAbsent(item);
             receiverStoresList.putIfAbsent(item);
           }
-          selectedReceiverStoreAddress = senderStoresList.first;
+          selectedReceiverStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
 
           /// to show autoSelected last store added
           var storeId = getIt<SharedPrefService>().getLastStoreAddedId();
           if (storeId != null) {
             selectedSenderStoreAddress = senderStoresList.firstWhere((store) => store.storeId == storeId);
           } else {
-            selectedSenderStoreAddress = senderStoresList.first;
+            selectedSenderStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
           }
 
           emit(state.copyWith(
@@ -239,23 +247,25 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
     print(state.currentPage);
   }
 
-  FutureOr<void> _addShipmentSpecsEvent(AddShipmentSpecsEvent event, Emitter<RequestShipmentState> emit) {
-    print('_addAddressInfoEvent');
+  FutureOr<void> _getServiceProviders(GetServiceProviders event, Emitter<RequestShipmentState> emit) {
     emit(
       state.copyWith(
-        stateHelper: const StateHelper(
-          requestState: RequestState.LOADING,
-        ),
-        shipmentSpecsEntity: event.shipmentSpecsEntity,
+        stateHelper: const StateHelper(requestState: RequestState.LOADING),
+        shipmentDtoBody: ShipmentAddDto((b) => b
+          ..length = int.parse(lengthController.text)
+          ..height = int.parse(heightController.text)
+          ..weight = int.parse(weightController.text)
+          ..contentDesc = 0 //int.parse(contentDescriptionController.text)
+          ..contentValue = contentValueController.text.isEmpty ? null : int.parse(contentValueController.text)
+          ..senderStoreId = state.senderStoreId
+          ..senderCustomerId = state.senderCustomerId
+          ..receiverStoreId = state.receiverStoreId
+          ..receiverCustomerId = state.receiverCustomerId),
       ),
     );
 
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: state.currentPage + 1));
-
-    print('state.addressInfoEntity.name');
-    print(state.addressInfoEntity!.name);
-    print(state.currentPage);
   }
 
   FutureOr<void> _onScrollReceiverCustomersPagination(
@@ -281,5 +291,12 @@ class RequestShipmentBloc extends Bloc<RequestShipmentEvent, RequestShipmentStat
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
     ));
+  }
+
+  FutureOr<void> _toggleAutoValidate(ToggleAutoValidate event, Emitter<RequestShipmentState> emit) {
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADED), autoValidateMode: AutovalidateMode.always));
   }
 }

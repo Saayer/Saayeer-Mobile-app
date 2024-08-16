@@ -225,8 +225,6 @@ import 'package:saayer/features/view_page/sub_features/request_shipment/presenta
     as _i304;
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/bloc/address_shipment_bloc.dart'
     as _i526;
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipment_information/presentation/bloc/information_shipment_bloc.dart'
-    as _i1055;
 import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipments_cariers_selection/presentation/bloc/carriers_shipment_bloc.dart'
     as _i509;
 import 'package:saayer/features/view_page/sub_features/shipments/presentation/bloc/shipments_bloc.dart'
@@ -262,8 +260,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i217.ShipmentsBloc>(() => _i217.ShipmentsBloc());
     gh.factory<_i509.CarriersShipmentBloc>(() => _i509.CarriersShipmentBloc());
     gh.factory<_i526.AddressShipmentBloc>(() => _i526.AddressShipmentBloc());
-    gh.factory<_i1055.InformationShipmentBloc>(
-        () => _i1055.InformationShipmentBloc());
     gh.factory<_i199.ProfileBloc>(() => _i199.ProfileBloc());
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());

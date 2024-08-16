@@ -22,6 +22,9 @@ import 'package:openapi/src/model/customer_get_dto.dart';
 import 'package:openapi/src/model/customer_query.dart';
 import 'package:openapi/src/model/login_request_dto.dart';
 import 'package:openapi/src/model/login_response_dto.dart';
+import 'package:openapi/src/model/shipment_add_dto.dart';
+import 'package:openapi/src/model/shipment_cost.dart';
+import 'package:openapi/src/model/shipment_get_dto.dart';
 import 'package:openapi/src/model/store_add_dto.dart';
 import 'package:openapi/src/model/store_get_dto.dart';
 import 'package:openapi/src/model/token_request_dto.dart';
@@ -38,6 +41,9 @@ part 'serializers.g.dart';
   CustomerQuery,
   LoginRequestDto,
   LoginResponseDto,
+  ShipmentAddDto,
+  ShipmentCost,
+  ShipmentGetDto,
   StoreAddDto,
   StoreGetDto,
   TokenRequestDto,
@@ -45,8 +51,16 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ShipmentCost)]),
+        () => ListBuilder<ShipmentCost>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(AddressLookUpDto)]),
         () => ListBuilder<AddressLookUpDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ShipmentGetDto)]),
+        () => ListBuilder<ShipmentGetDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(StoreGetDto)]),
