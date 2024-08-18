@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_details/data/core/utils/enums.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_spec_info/data/core/utils/enums.dart';
 
-class ShipmentDetailsTextFieldHelper {
+class ShipmentSpecInfoTextFieldHelper {
   final RequestNewShipmentBloc requestShipmentBloc;
-  final ShipmentDetailsFieldsTypes shipmentDetailsFieldsTypes;
+  final ShipmentSpecInfoFieldsTypes shipmentDetailsFieldsTypes;
 
-  ShipmentDetailsTextFieldHelper({required this.requestShipmentBloc, required this.shipmentDetailsFieldsTypes});
+  ShipmentSpecInfoTextFieldHelper({required this.requestShipmentBloc, required this.shipmentDetailsFieldsTypes});
 
   Widget getTextField({
     required GlobalKey<State<StatefulWidget>> contentDescriptionKey,
     required GlobalKey<State<StatefulWidget>> contentValueKey,
   }) {
     switch (shipmentDetailsFieldsTypes) {
-      case ShipmentDetailsFieldsTypes.LENGTH:
+      case ShipmentSpecInfoFieldsTypes.LENGTH:
         {
           return _getLengthTextField();
         }
-      case ShipmentDetailsFieldsTypes.WIDTH:
+      case ShipmentSpecInfoFieldsTypes.WIDTH:
         {
           return _getWidthTextField();
         }
-      case ShipmentDetailsFieldsTypes.HEIGHT:
+      case ShipmentSpecInfoFieldsTypes.HEIGHT:
         {
           return _getHeightTextField();
         }
-      case ShipmentDetailsFieldsTypes.WEIGHT:
+      case ShipmentSpecInfoFieldsTypes.WEIGHT:
         {
           return _getWeightTextField();
         }
-      case ShipmentDetailsFieldsTypes.CONTENT_DESCRIPTION:
+      case ShipmentSpecInfoFieldsTypes.CONTENT_DESCRIPTION:
         {
           return _getContentDescriptionTextField(contentDescriptionKey);
         }
-      case ShipmentDetailsFieldsTypes.CONTENT_VALUE:
+      case ShipmentSpecInfoFieldsTypes.CONTENT_VALUE:
         {
           return _getContentValueTextField(contentValueKey);
         }
@@ -43,27 +43,27 @@ class ShipmentDetailsTextFieldHelper {
 
   TextEditingController _getInputController() {
     switch (shipmentDetailsFieldsTypes) {
-      case ShipmentDetailsFieldsTypes.LENGTH:
+      case ShipmentSpecInfoFieldsTypes.LENGTH:
         {
           return requestShipmentBloc.lengthController;
         }
-      case ShipmentDetailsFieldsTypes.WIDTH:
+      case ShipmentSpecInfoFieldsTypes.WIDTH:
         {
           return requestShipmentBloc.widthController;
         }
-      case ShipmentDetailsFieldsTypes.HEIGHT:
+      case ShipmentSpecInfoFieldsTypes.HEIGHT:
         {
           return requestShipmentBloc.heightController;
         }
-      case ShipmentDetailsFieldsTypes.WEIGHT:
+      case ShipmentSpecInfoFieldsTypes.WEIGHT:
         {
           return requestShipmentBloc.weightController;
         }
-      case ShipmentDetailsFieldsTypes.CONTENT_DESCRIPTION:
+      case ShipmentSpecInfoFieldsTypes.CONTENT_DESCRIPTION:
         {
           return requestShipmentBloc.contentDescriptionController;
         }
-      case ShipmentDetailsFieldsTypes.CONTENT_VALUE:
+      case ShipmentSpecInfoFieldsTypes.CONTENT_VALUE:
         {
           return requestShipmentBloc.contentValueController;
         }

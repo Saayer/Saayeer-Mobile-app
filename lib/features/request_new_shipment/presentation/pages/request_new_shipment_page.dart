@@ -17,7 +17,7 @@ class RequestNewShipmentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final RequestNewShipmentBloc requestShipmentBloc = BlocProvider.of<RequestNewShipmentBloc>(context);
     final List<Widget> pages =
-        RequestNewShipmentPagesHelper(requestShipmentBloc: requestShipmentBloc).requestShipmentPages();
+        RequestNewShipmentPagesHelper().requestShipmentPages();
 
     return BlocConsumer<RequestNewShipmentBloc, RequestNewShipmentState>(
       buildWhen: (previousState, nextState) =>

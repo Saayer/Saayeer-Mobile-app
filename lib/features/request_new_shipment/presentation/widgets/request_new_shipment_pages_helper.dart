@@ -1,64 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/receiver/presentation/pages/receiver_page.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/sender/presentation/pages/sender_page.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_details/presentation/pages/shipment_details_page.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/receiver/presentation/screens/receiver_screen.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/sender/presentation/screens/sender_screen.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_preview/presentation/screens/shipment_preview_screen.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/screens/shipment_providers_screen.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_spec_info/presentation/screens/shipment_spec_info_screen.dart';
 
 class RequestNewShipmentPagesHelper {
-  final RequestNewShipmentBloc requestShipmentBloc;
+  RequestNewShipmentPagesHelper();
 
-  RequestNewShipmentPagesHelper({required this.requestShipmentBloc});
-
-  List<Widget> requestShipmentPages() =>
-      [
-        const SenderPage(),
-        const ReceiverPage(),
-        const ShipmentDetailsPage(),
-        Container(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Service Provider'),
-                MaterialButton(
-                  onPressed: () {
-                    requestShipmentBloc.add(GoToNextPageEvent());
-                  },
-                  child: Text('Next'),
-                )
-              ],
-            ),
-          ),
-        ),
-        Container(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Checkout'),
-                MaterialButton(
-                  onPressed: () {},
-                  child: Text('Next'),
-                )
-              ],
-            ),
-          ),
-        ),
-        // AddEditAddressScreen(
-        //   isAddShipmentRequest: false,
-        //   addEditAddressType: AddEditAddressType.addAddress,
-        //   customerModel: CustomerGetDto(),
-        //   onBack: (CustomerAddDto addressInfoEntity) {
-        //     //requestShipmentBloc.add(AddAddressInfoEvent(addressInfoEntity));
-        //   },
-        // ),
-        // ShipmentSpecsScreen(
-        //   isAddShipmentRequest: false,
-        //   onBack: (ShipmentSpecsEntity shipmentSpecsEntity) {
-        //     requestShipmentBloc.add(AddShipmentSpecsEvent(shipmentSpecsEntity));
-        //   },
-        // ),
-        // CarriersShipmentScreen(),
-        // ShipmentPreviewScreen(),
+  List<Widget> requestShipmentPages() => [
+        const SenderScreen(),
+        const ReceiverScreen(),
+        const ShipmentSpecInfoScreen(),
+        const ShipmentProvidersScreen(),
+        const ShipmentPreviewScreen(),
       ];
 }

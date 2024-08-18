@@ -5,12 +5,19 @@ abstract class ShipmentProvidersEvent extends Equatable {
 }
 
 class GetShipmentProvidersEvent extends ShipmentProvidersEvent {
-  final AddressInfoEntity? addressInfoEntity;
   final ShipmentAddDto? shipmentSpecsEntity;
 
-
-  const GetShipmentProvidersEvent(this.addressInfoEntity, this.shipmentSpecsEntity);
+  const GetShipmentProvidersEvent(this.shipmentSpecsEntity);
 
   @override
-  List<Object?> get props => [addressInfoEntity , shipmentSpecsEntity];
+  List<Object?> get props => [shipmentSpecsEntity];
+}
+
+class AddNewShipment extends ShipmentProvidersEvent {
+  final ShipmentAddDto? shipmentAddDto;
+
+  const AddNewShipment(this.shipmentAddDto);
+
+  @override
+  List<Object?> get props => [shipmentAddDto];
 }

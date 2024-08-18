@@ -9,19 +9,19 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_details/data/core/utils/enums.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_details/presentation/widgets/shipment_details_text_field_helper.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_spec_info/data/core/utils/enums.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_spec_info/presentation/widgets/shipment_spec_info_text_field_helper.dart';
 
-class ShipmentDetailsPage extends StatefulWidget {
-  const ShipmentDetailsPage({
+class ShipmentSpecInfoScreen extends StatefulWidget {
+  const ShipmentSpecInfoScreen({
     super.key,
   });
 
   @override
-  State<ShipmentDetailsPage> createState() => _ShipmentDetailsPageState();
+  State<ShipmentSpecInfoScreen> createState() => _ShipmentSpecInfoScreenState();
 }
 
-class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
+class _ShipmentSpecInfoScreenState extends State<ShipmentSpecInfoScreen> {
   ///
   GlobalKey contentDescriptionKey = GlobalKey<State<StatefulWidget>>();
   GlobalKey contentValueKey = GlobalKey<State<StatefulWidget>>();
@@ -65,7 +65,7 @@ class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
           final bool isFormValid = (requestShipmentBloc.formKey.currentState!.validate());
           requestShipmentBloc.add(ToggleAutoValidate());
           isFormValid
-              ? requestShipmentBloc.add(const GetServiceProviders())
+              ? requestShipmentBloc.add(const GoToServiceProvidersPage())
               : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
         },
       ),
@@ -158,8 +158,8 @@ class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
       columnSpacing: 10,
       rowSpacing: 15,
       children: [
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentDetailsFieldsTypes.values[0])),
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentDetailsFieldsTypes.values[1])),
+        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[0])),
+        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[1])),
       ],
     ));
   }
@@ -176,8 +176,8 @@ class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
       columnSpacing: 10,
       rowSpacing: 15,
       children: [
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentDetailsFieldsTypes.values[2])),
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentDetailsFieldsTypes.values[3])),
+        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[2])),
+        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[3])),
       ],
     ));
   }
@@ -194,14 +194,14 @@ class _ShipmentDetailsPageState extends State<ShipmentDetailsPage> {
       columnSpacing: 10,
       rowSpacing: 15,
       children: [
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentDetailsFieldsTypes.values[4])),
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentDetailsFieldsTypes.values[5])),
+        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[4])),
+        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[5])),
       ],
     ));
   }
 
-  _getTextField(RequestNewShipmentBloc requestShipmentBloc, ShipmentDetailsFieldsTypes type) {
-    return ShipmentDetailsTextFieldHelper(requestShipmentBloc: requestShipmentBloc, shipmentDetailsFieldsTypes: type)
+  _getTextField(RequestNewShipmentBloc requestShipmentBloc, ShipmentSpecInfoFieldsTypes type) {
+    return ShipmentSpecInfoTextFieldHelper(requestShipmentBloc: requestShipmentBloc, shipmentDetailsFieldsTypes: type)
         .getTextField(contentDescriptionKey: contentDescriptionKey, contentValueKey: contentValueKey);
   }
 

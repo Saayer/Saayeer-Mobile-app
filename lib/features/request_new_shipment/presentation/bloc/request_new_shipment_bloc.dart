@@ -36,13 +36,15 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     on<GoToPreviousPage>(_goToPreviousPage);
     on<ToggleAutoValidate>(_toggleAutoValidate);
     on<AddAddressInfoEvent>(_addAddressInfoEvent);
-    on<GetServiceProviders>(_getServiceProviders);
+    on<GoToServiceProvidersPage>(_goToServiceProvidersPage);
     on<GetCustomersAddresses>(_getCustomerAddresses);
     on<GetStoresAddresses>(_getStoresAddresses);
     on<OnScrollSenderCustomersPagination>(_onScrollSenderCustomersPagination);
     on<OnScrollReceiverCustomersPagination>(_onScrollReceiverCustomersPagination);
     on<OnSenderSelectedFromDropDown>(_onSenderSelectedFromDropDown);
     on<OnReceiverSelectedFromDropDown>(_onReceiverSelectedFromDropDown);
+    on<OnSetSenderId>(_onSetSenderId);
+    on<OnSetReceiverId>(_onSetReceiverId);
   }
 
   ///
@@ -114,7 +116,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     }
   }
 
-  Future<FutureOr<void>> _getCustomerAddresses(GetCustomersAddresses event, Emitter<RequestNewShipmentState> emit) async {
+  Future<FutureOr<void>> _getCustomerAddresses(
+      GetCustomersAddresses event, Emitter<RequestNewShipmentState> emit) async {
     if (event.requestShipmentTypes == RequestShipmentTypes.sender) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
@@ -169,8 +172,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     await getStoresUseCase(const NoParameters()).then((result) {
       if (result.isLeft()) {
         emit(state.copyWith(
-            stateHelper: state.stateHelper
-                .copyWith(requestState: RequestState.ERROR, errorStatus: RequestNewShipmentErrorStatus.ERROR_GET_STORES)));
+            stateHelper: state.stateHelper.copyWith(
+                requestState: RequestState.ERROR, errorStatus: RequestNewShipmentErrorStatus.ERROR_GET_STORES)));
       } else {
         final List<StoreGetDto>? rightResult = (result as Right).value;
 
@@ -216,7 +219,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     }
   }
 
-  FutureOr<void> _onSenderSelectedFromDropDown(OnSenderSelectedFromDropDown event, Emitter<RequestNewShipmentState> emit) {
+  FutureOr<void> _onSenderSelectedFromDropDown(
+      OnSenderSelectedFromDropDown event, Emitter<RequestNewShipmentState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     if (event.senderType == SenderReceiverType.store) {
       selectedSenderStoreAddress = event.item;
@@ -247,7 +251,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     print(state.currentPage);
   }
 
-  FutureOr<void> _getServiceProviders(GetServiceProviders event, Emitter<RequestNewShipmentState> emit) {
+  FutureOr<void> _goToServiceProvidersPage(GoToServiceProvidersPage event, Emitter<RequestNewShipmentState> emit) {
     emit(
       state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING),
@@ -298,5 +302,39 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
 
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED), autoValidateMode: AutovalidateMode.always));
+  }
+
+  FutureOr<void> _onSetSenderId(OnSetSenderId event, Emitter<RequestNewShipmentState> emit) {
+    if (senderType == SenderReceiverType.store) {
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADING),
+          senderStoreId: selectedSenderStoreAddress!.storeId,
+          senderCustomerId: null));
+    } else {
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADING),
+          senderStoreId: null,
+          senderCustomerId: selectedSenderCustomerAddress!.customerId));
+    }
+
+    add(GoToNextPageEvent());
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+  }
+
+  FutureOr<void> _onSetReceiverId(OnSetReceiverId event, Emitter<RequestNewShipmentState> emit) {
+    if (receiverType == SenderReceiverType.store) {
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADING),
+          receiverStoreId: selectedReceiverStoreAddress!.storeId,
+          receiverCustomerId: null));
+    } else {
+      emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.LOADING),
+          receiverStoreId: null,
+          receiverCustomerId: selectedSenderCustomerAddress!.customerId));
+    }
+
+    add(GoToNextPageEvent());
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
   }
 }

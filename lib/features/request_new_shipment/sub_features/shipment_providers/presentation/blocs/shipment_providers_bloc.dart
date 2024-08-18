@@ -1,4 +1,5 @@
-import 'dart:developer';
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -7,83 +8,81 @@ import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
-import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/models/shipment_providers_response.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/entities/get_shipment_providers_entity.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/use_cases/add_new_shipment_usecase.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/use_cases/get_shipment_providers_usecase.dart';
-import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 
 part 'shipment_providers_event.dart';
 
 part 'shipment_providers_state.dart';
 
 @Injectable()
-class ShipmentProvidersBloc
-    extends Bloc<ShipmentProvidersEvent, ShipmentProvidersState> {
+class ShipmentProvidersBloc extends Bloc<ShipmentProvidersEvent, ShipmentProvidersState> {
   final GetShipmentProvidersUseCase getShipmentProvidersUseCase;
+  final AddNewShipmentUseCase addNewShipmentUseCase;
 
-  ShipmentProvidersBloc({required this.getShipmentProvidersUseCase})
-      : super(ShipmentProvidersState()) {
-    on<ShipmentProvidersEvent>((event, emit) async {
-      if (event is GetShipmentProvidersEvent) {
+  ShipmentProvidersBloc({required this.getShipmentProvidersUseCase, required this.addNewShipmentUseCase}) : super(const ShipmentProvidersState()) {
+    on<GetShipmentProvidersEvent>(_getShipmentProvidersList);
+    on<AddNewShipment>(_addNewShipment);
+  }
+
+  ///
+  ShipmentCost? selectedServiceProvider;
+
+  FutureOr<void> _getShipmentProvidersList(GetShipmentProvidersEvent event, Emitter<ShipmentProvidersState> emit) async {
+      emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+      final Either<Failure, List<ShipmentCost>> result =
+      await getShipmentProvidersUseCase(event.shipmentSpecsEntity ?? ShipmentAddDto());
+
+      if (result.isLeft()) {
         emit(state.copyWith(
-            stateHelper:
-                const StateHelper(requestState: RequestState.LOADING)));
-        final UserCardEntity? userCardEntity =
-            await SecureStorageService().getUserCardInfo();
-
-        final Either<Failure, ShipmentProvidersResponse?> result =
-            await getShipmentProvidersUseCase(GetShipmentProvidersEntity(
-          width: '',
-          height: event.shipmentSpecsEntity!.height.toString(),
-          length: event.shipmentSpecsEntity!.length.toString(),
-          weight: event.shipmentSpecsEntity!.weight.toString(),
-          cost: '',
-          from: userCardEntity!.personalInfoEntity!.businessName ?? '',
-          to: event.addressInfoEntity!.city,
-        ));
-
-        if (result.isLeft()) {
-          final Failure leftResult = (result as Left).value;
-          log("left submitPersonalInfoData $leftResult");
+            stateHelper: state.stateHelper.copyWith(
+              requestState: RequestState.ERROR,
+            )));
+      } else {
+        final List<ShipmentCost>? rightResult = (result as Right).value;
+        if (rightResult != null) {
+          selectedServiceProvider = rightResult.first;
           emit(state.copyWith(
-              stateHelper: state.stateHelper.copyWith(
-            requestState: RequestState.ERROR,
-            //        errorStatus: AddAddressErrorStatus.ERROR_ADD_ADDRESS_INFO
-          )));
+            stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
+            shipmentProvidersResponse: rightResult,
+          ));
         } else {
-          final ShipmentProvidersResponse? rightResult =
-              (result as Right).value;
-          log("right submitPersonalInfoData $rightResult");
-          if (rightResult != null) {
-            if (rightResult.success!) {
-              emit(state.copyWith(
-                stateHelper: const StateHelper(
-                    requestState: RequestState.SUCCESS, loadingMessage: ""),
-                shipmentProvidersResponse: rightResult,
-              ));
-            } else {
-              emit(state.copyWith(
-                stateHelper: const StateHelper(
-                  requestState: RequestState.ERROR,
-                  //          errorStatus: AddAddressErrorStatus.ERROR_ADD_ADDRESS_INFO
-                ),
-                shipmentProvidersResponse: rightResult,
-              ));
-            }
-          } else {
-            log("", name: "SubmitPersonalInfoEvent error");
-            emit(state.copyWith(
-              stateHelper: const StateHelper(
-                requestState: RequestState.ERROR,
-                //        errorStatus: AddAddressErrorStatus.ERROR_ADD_ADDRESS_INFO
-              ),
-            ));
-          }
+          emit(state.copyWith(
+            stateHelper: const StateHelper(
+              requestState: RequestState.ERROR,
+            ),
+          ));
         }
       }
-    });
+  }
+
+  FutureOr<void> _addNewShipment(AddNewShipment event, Emitter<ShipmentProvidersState> emit) async{
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+    final Either<Failure, ShipmentGetDto> result =
+    await addNewShipmentUseCase(event.shipmentAddDto ?? ShipmentAddDto());
+
+    if (result.isLeft()) {
+      emit(state.copyWith(
+          stateHelper: state.stateHelper.copyWith(
+            requestState: RequestState.ERROR,
+          )));
+    } else {
+      final ShipmentGetDto? rightResult = (result as Right).value;
+      if (rightResult != null) {
+        emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
+          shipmentGetDto: rightResult,
+        ));
+      } else {
+        emit(state.copyWith(
+          stateHelper: const StateHelper(
+            requestState: RequestState.ERROR,
+          ),
+        ));
+      }
+    }
   }
 }

@@ -19,14 +19,14 @@ import 'package:saayer/features/request_new_shipment/presentation/bloc/request_n
 import 'package:saayer/features/request_new_shipment/presentation/widgets/sender_receiver_item_details_widget.dart';
 import 'package:saayer/features/request_new_shipment/presentation/widgets/senders_receivers_drop_down_text_field.dart';
 
-class SenderPage extends StatefulWidget {
-  const SenderPage({super.key});
+class SenderScreen extends StatefulWidget {
+  const SenderScreen({super.key});
 
   @override
-  State<SenderPage> createState() => _SenderPageState();
+  State<SenderScreen> createState() => _SenderScreenState();
 }
 
-class _SenderPageState extends State<SenderPage> {
+class _SenderScreenState extends State<SenderScreen> {
   @override
   Widget build(BuildContext context) {
     final RequestNewShipmentBloc requestShipmentBloc = BlocProvider.of<RequestNewShipmentBloc>(context);
@@ -60,7 +60,8 @@ class _SenderPageState extends State<SenderPage> {
         isEnabled: true,
         borderRadius: 16,
         onPressed: () {
-          requestShipmentBloc.add(GoToNextPageEvent());
+          requestShipmentBloc
+              .add(const OnSetSenderId());
         },
       ),
     );
@@ -109,7 +110,8 @@ class _SenderPageState extends State<SenderPage> {
                   activeColor: SaayerTheme().getColorsPalette.primaryColor,
                   onChanged: (SenderReceiverType? value) {
                     if (requestShipmentBloc.senderCustomersList.isEmpty) {
-                      requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
+                      requestShipmentBloc
+                          .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
                     }
                     setState(() {
                       requestShipmentBloc.senderType = value;
@@ -237,7 +239,8 @@ class _SenderPageState extends State<SenderPage> {
                       customerModel: CustomerGetDto(),
                       isAddShipmentRequest: true,
                     ), onBack: (result) {
-                  requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
+                  requestShipmentBloc
+                      .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
                 });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,

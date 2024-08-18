@@ -85,9 +85,22 @@ class AddAddressInfoEvent extends RequestNewShipmentEvent {
   List<Object> get props => [addressInfoEntity];
 }
 
-class GetServiceProviders extends RequestNewShipmentEvent {
+class GoToServiceProvidersPage extends RequestNewShipmentEvent {
+  const GoToServiceProvidersPage();
 
-  const GetServiceProviders();
+  @override
+  List<Object> get props => [];
+}
+
+class OnSetSenderId extends RequestNewShipmentEvent {
+  const OnSetSenderId();
+
+  @override
+  List<Object> get props => [];
+}
+
+class OnSetReceiverId extends RequestNewShipmentEvent {
+  const OnSetReceiverId();
 
   @override
   List<Object> get props => [];

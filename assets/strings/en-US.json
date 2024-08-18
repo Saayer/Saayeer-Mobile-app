@@ -194,5 +194,11 @@
   "weight_kg": "Weight (Kg)",
   "content_description": "Content Description",
   "content_value": "Content Value",
-  "content_value_desc": "We don\\'t offer \"Pay on delivery\" now. This is only for info."
+  "content_value_desc": "We don\\'t offer \"Pay on delivery\" now. This is only for info.",
+  "service_providers": "Service Providers",
+  "business_days": "Business Days",
+  "sar": "SAR",
+  "select_same_sender_store_error": "should\\'nt be same sender store",
+  "empty_service_providers_title": "No Service Providers Found!",
+  "empty_service_providers_desc": "Oops! It looks like there are currently no Service Providers."
 }

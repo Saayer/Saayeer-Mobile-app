@@ -19,6 +19,7 @@ class SendersReceiversDropDownTextField extends StatelessWidget {
   final bool? isFieldRequired;
   final bool? hasLabel;
   final bool? hasMargin;
+  final String? Function(String?)? validator;
 
   const SendersReceiversDropDownTextField(
       {super.key,
@@ -30,6 +31,7 @@ class SendersReceiversDropDownTextField extends StatelessWidget {
       this.isFieldRequired,
       this.hasLabel,
       this.hasMargin,
+      this.validator,
       required this.senderReceiverType,
       required this.requestShipmentTypes,
       required this.bloc});
@@ -51,6 +53,7 @@ class SendersReceiversDropDownTextField extends StatelessWidget {
       onSelected: (v) =>
           senderReceiverType == SenderReceiverType.customer ? onCustomerAddressSelected(v) : onStoreAddressSelected(v),
       withValidator: withValidator,
+      validator: validator,
       items: getList().isNotEmpty
           ? List.generate(getList().length, (index) {
               final item = getList()[index];

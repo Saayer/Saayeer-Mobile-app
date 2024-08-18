@@ -1,4 +1,4 @@
-enum ShipmentDetailsFieldsTypes {
+enum ShipmentSpecInfoFieldsTypes {
   LENGTH._(name: "length_cm"),
   WIDTH._(name: "width_cm"),
   HEIGHT._(name: "height_cm"),
@@ -8,5 +8,5 @@ enum ShipmentDetailsFieldsTypes {
 
   final String name;
 
-  const ShipmentDetailsFieldsTypes._({required this.name});
+  const ShipmentSpecInfoFieldsTypes._({required this.name});
 }

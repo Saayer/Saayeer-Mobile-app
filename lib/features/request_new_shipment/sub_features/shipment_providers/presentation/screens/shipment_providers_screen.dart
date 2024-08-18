@@ -10,24 +10,21 @@ class ShipmentProvidersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<RequestNewShipmentBloc, RequestNewShipmentState>(
         buildWhen: (previousState, nextState) =>
-            (previousState.stateHelper.requestState !=
-                nextState.stateHelper.requestState),
+            (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
         listener: (context, state) async {},
         builder: (context, state) {
           return BlocProvider<ShipmentProvidersBloc>(
               create: (context) {
-                final ShipmentProvidersBloc bloc =
-                    getIt<ShipmentProvidersBloc>();
+                final RequestNewShipmentBloc requestShipmentBloc = BlocProvider.of<RequestNewShipmentBloc>(context);
+                final ShipmentProvidersBloc bloc = getIt<ShipmentProvidersBloc>();
                 bloc.add(GetShipmentProvidersEvent(
-                  state.addressInfoEntity,
-                  state.shipmentDtoBody,
+                  requestShipmentBloc.state.shipmentDtoBody,
                 ));
                 return bloc;
               },
-              child: ShipmentProvidersPage());
+              child: const ShipmentProvidersPage());
         });
   }
 }

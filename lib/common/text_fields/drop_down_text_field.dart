@@ -28,6 +28,7 @@ class DropDownTextField<T> extends StatefulWidget {
   final bool? hasMargin;
   final bool Function(T, String)? onSearch;
   final ScrollController? scrollController;
+  final String? Function(String?)? validator;
 
   const DropDownTextField(
       {super.key,
@@ -49,6 +50,7 @@ class DropDownTextField<T> extends StatefulWidget {
       this.hasMargin,
       this.hasLabel,
       this.scrollController,
+      this.validator,
       this.onSearch});
 
   @override
@@ -128,12 +130,13 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
       },
       validator: !(widget.withValidator ?? true)
           ? null
-          : (value) {
-              if (value?.isEmpty ?? true) {
-                return 'empty_field_error'.tr().replaceFirst("{}", widget.label);
-              }
-              return null;
-            },
+          : widget.validator ??
+              (value) {
+                if (value?.isEmpty ?? true) {
+                  return 'empty_field_error'.tr().replaceFirst("{}", widget.label);
+                }
+                return null;
+              },
       keyboardType: widget.keyboardType,
       onChanged: (val) {},
     );

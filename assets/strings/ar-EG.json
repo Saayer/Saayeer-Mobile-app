@@ -194,5 +194,11 @@
   "weight_kg": "الوزن (كجم)",
   "content_description": "وصف المحتوى",
   "content_value": "قيمة المحتوى",
-  "content_value_desc": "لا نقدم خدمة \"الدفع عند الاستلام\" حاليًا. هذا فقط للعلم"
+  "content_value_desc": "لا نقدم خدمة \"الدفع عند الاستلام\" حاليًا. هذا فقط للعلم",
+  "service_providers": "مقدمي الخدمة",
+  "business_days": "أيام العمل",
+  "sar": "ريال سعودي",
+  "select_same_sender_store_error": "لا ينبغي أن يكون نفس متجر المرسل",
+  "empty_service_providers_title": "لم يتم العثور على أي مقدمي الخدمة!",
+  "empty_service_providers_desc": "عفواً! يبدو أنه لا يوجد مقدمي الخدمة حاليًا."
 }

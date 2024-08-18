@@ -6,15 +6,15 @@ import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/repositories/shipment_providers_repo.dart';
 
 @injectable
-class GetShipmentProvidersUseCase implements BaseUseCase<Future<Either<Failure, List<ShipmentCost>>>, ShipmentAddDto> {
+class AddNewShipmentUseCase implements BaseUseCase<Future<Either<Failure, ShipmentGetDto>>, ShipmentAddDto> {
   final ShipmentProvidersRepo shipmentProvidersRepo;
 
-  const GetShipmentProvidersUseCase({
+  const AddNewShipmentUseCase({
     required this.shipmentProvidersRepo,
   });
 
   @override
-  Future<Either<Failure, List<ShipmentCost>>> call(ShipmentAddDto shipmentProvidersEntity) async {
-    return await shipmentProvidersRepo.getShipmentProviders(shipmentProvidersEntity);
+  Future<Either<Failure, ShipmentGetDto>> call(ShipmentAddDto shipmentAddDto) async {
+    return await shipmentProvidersRepo.addNewShipment(shipmentAddDto);
   }
 }

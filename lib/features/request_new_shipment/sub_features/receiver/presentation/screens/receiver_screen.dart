@@ -19,37 +19,39 @@ import 'package:saayer/features/request_new_shipment/presentation/bloc/request_n
 import 'package:saayer/features/request_new_shipment/presentation/widgets/sender_receiver_item_details_widget.dart';
 import 'package:saayer/features/request_new_shipment/presentation/widgets/senders_receivers_drop_down_text_field.dart';
 
-class ReceiverPage extends StatefulWidget {
-  const ReceiverPage({super.key});
+class ReceiverScreen extends StatefulWidget {
+  const ReceiverScreen({super.key});
 
   @override
-  State<ReceiverPage> createState() => _ReceiverPageState();
+  State<ReceiverScreen> createState() => _ReceiverScreenState();
 }
 
-class _ReceiverPageState extends State<ReceiverPage> {
+class _ReceiverScreenState extends State<ReceiverScreen> {
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final RequestNewShipmentBloc requestShipmentBloc = BlocProvider.of<RequestNewShipmentBloc>(context);
     return BlocConsumer<RequestNewShipmentBloc, RequestNewShipmentState>(
-        buildWhen: (previousState, nextState) =>
-        (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
-        listener: (context, state) async {
-          final bool isLoading = (requestShipmentBloc.state.stateHelper.requestState == RequestState.LOADING);
-          LoadingDialog.setIsLoading(context, isLoading);
+      buildWhen: (previousState, nextState) =>
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
+      listener: (context, state) async {
+        final bool isLoading = (requestShipmentBloc.state.stateHelper.requestState == RequestState.LOADING);
+        LoadingDialog.setIsLoading(context, isLoading);
 
-          if (!isLoading) {
-            if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-            if (state.stateHelper.requestState == RequestState.ERROR) {}
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-            body: _buildReceiverBodyWidget(requestShipmentBloc),
-            bottomSheet: _buildNextButtonWidget(requestShipmentBloc),
-          );
-        },);
+        if (!isLoading) {
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {}
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          body: _buildReceiverBodyWidget(requestShipmentBloc),
+          bottomSheet: _buildNextButtonWidget(requestShipmentBloc),
+        );
+      },
+    );
   }
 
   _buildNextButtonWidget(RequestNewShipmentBloc requestShipmentBloc) {
@@ -60,91 +62,100 @@ class _ReceiverPageState extends State<ReceiverPage> {
         isEnabled: true,
         borderRadius: 16,
         onPressed: () {
-          requestShipmentBloc.add(GoToNextPageEvent());
+          final bool isFormValid = (formKey.currentState!.validate());
+          if (isFormValid) {
+            requestShipmentBloc.add(const OnSetReceiverId());
+          }
         },
       ),
     );
   }
 
   _buildReceiverBodyWidget(RequestNewShipmentBloc requestShipmentBloc) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          Center(
-            child: Text(
-              'receiver'.tr(),
-              style: AppTextStyles.mainFocusedLabel(),
+    return Form(
+      key: formKey,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            Center(
+              child: Text(
+                'receiver'.tr(),
+                style: AppTextStyles.mainFocusedLabel(),
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-          ///
-          Row(
-            children: [
-              ///
-              Expanded(
-                child: RadioListTile<SenderReceiverType>(
-                  title: Text('store'.tr(), style: AppTextStyles.liteLabel()),
-                  value: SenderReceiverType.store,
-                  groupValue: requestShipmentBloc.receiverType,
-                  activeColor: SaayerTheme().getColorsPalette.primaryColor,
-                  onChanged: (SenderReceiverType? value) {
-                    setState(() {
-                      requestShipmentBloc.receiverType = value;
-                    });
-                  },
+            ///
+            Row(
+              children: [
+                ///
+                Expanded(
+                  child: RadioListTile<SenderReceiverType>(
+                    title: Text('store'.tr(), style: AppTextStyles.liteLabel()),
+                    value: SenderReceiverType.store,
+                    groupValue: requestShipmentBloc.receiverType,
+                    activeColor: SaayerTheme().getColorsPalette.primaryColor,
+                    onChanged: (SenderReceiverType? value) {
+                      setState(() {
+                        requestShipmentBloc.receiverType = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
 
-              ///
-              Expanded(
-                child: RadioListTile<SenderReceiverType>(
-                  title: Text('customer'.tr(), style: AppTextStyles.liteLabel()),
-                  value: SenderReceiverType.customer,
-                  groupValue: requestShipmentBloc.receiverType,
-                  activeColor: SaayerTheme().getColorsPalette.primaryColor,
-                  onChanged: (SenderReceiverType? value) {
-                    if (requestShipmentBloc.receiverCustomersList.isEmpty) {
-                      requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
-                    }
-                    setState(() {
-                      requestShipmentBloc.receiverType = value;
-                    });
-                  },
+                ///
+                Expanded(
+                  child: RadioListTile<SenderReceiverType>(
+                    title: Text('customer'.tr(), style: AppTextStyles.liteLabel()),
+                    value: SenderReceiverType.customer,
+                    groupValue: requestShipmentBloc.receiverType,
+                    activeColor: SaayerTheme().getColorsPalette.primaryColor,
+                    onChanged: requestShipmentBloc.senderType == SenderReceiverType.customer
+                        ? null
+                        : (SenderReceiverType? value) {
+                            if (requestShipmentBloc.receiverCustomersList.isEmpty) {
+                              requestShipmentBloc.add(
+                                  const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
+                            }
+                            setState(() {
+                              requestShipmentBloc.receiverType = value;
+                            });
+                          },
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
 
-          ///
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return FadeTransition(opacity: animation, child: child);
-            },
-            child: requestShipmentBloc.receiverType == SenderReceiverType.store
-                ? _buildStoresListDropdownWidget(requestShipmentBloc)
-                : _buildCustomersListDropdownWidget(requestShipmentBloc),
-          ),
-          const SizedBox(height: 10),
-          Divider(
-            height: 1,
-            color: SaayerTheme().getColorsPalette.lightGreyColor,
-          ),
-          const SizedBox(height: 15),
+            ///
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+              child: requestShipmentBloc.receiverType == SenderReceiverType.store
+                  ? _buildStoresListDropdownWidget(requestShipmentBloc)
+                  : _buildCustomersListDropdownWidget(requestShipmentBloc),
+            ),
+            const SizedBox(height: 10),
+            Divider(
+              height: 1,
+              color: SaayerTheme().getColorsPalette.lightGreyColor,
+            ),
+            const SizedBox(height: 15),
 
-          ///
-          SenderItemDetailsWidget(
-            requestShipmentTypes: RequestShipmentTypes.receiver,
-            senderType: requestShipmentBloc.receiverType,
-            customerItem: requestShipmentBloc.selectedReceiverCustomerAddress,
-            storeItem: requestShipmentBloc.selectedReceiverStoreAddress,
-          ),
-        ],
+            ///
+            SenderItemDetailsWidget(
+              requestShipmentTypes: RequestShipmentTypes.receiver,
+              senderType: requestShipmentBloc.receiverType,
+              customerItem: requestShipmentBloc.selectedReceiverCustomerAddress,
+              storeItem: requestShipmentBloc.selectedReceiverStoreAddress,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -159,6 +170,15 @@ class _ReceiverPageState extends State<ReceiverPage> {
             requestShipmentTypes: RequestShipmentTypes.receiver,
             bloc: requestShipmentBloc,
             isFieldRequired: false,
+            withValidator: true,
+            validator: (value) {
+              if (requestShipmentBloc.senderType == SenderReceiverType.store &&
+                  requestShipmentBloc.selectedSenderStoreAddress?.storeId ==
+                      requestShipmentBloc.selectedReceiverStoreAddress?.storeId) {
+                return 'select_same_sender_store_error'.tr();
+              }
+              return null;
+            },
             onCustomerAddressSelected: (customer) {},
             onStoreAddressSelected: (store) {
               requestShipmentBloc.add(OnReceiverSelectedFromDropDown(
@@ -183,8 +203,8 @@ class _ReceiverPageState extends State<ReceiverPage> {
                 getIt<NavigationService>().navigateTo(
                     AddEditStoreScreen(addEditStoreType: AddEditStoreType.addStore, storeDto: StoreGetDto()),
                     onBack: (result) {
-                      requestShipmentBloc.add(const GetStoresAddresses());
-                    });
+                  requestShipmentBloc.add(const GetStoresAddresses());
+                });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,
               icon: Row(
@@ -237,7 +257,8 @@ class _ReceiverPageState extends State<ReceiverPage> {
                       customerModel: CustomerGetDto(),
                       isAddShipmentRequest: true,
                     ), onBack: (result) {
-                  requestShipmentBloc.add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
+                  requestShipmentBloc
+                      .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
                 });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,
