@@ -8,8 +8,7 @@ import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_tracking_entity.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/screens/shipment_details_screen.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/core/helper/outbound_shipment_widget_helper.dart';
+import 'package:saayer/features/shipments/core/helper/outbound_shipment_widget_helper.dart';
 
 class StatusInfo extends StatelessWidget {
   final ShipmentTrackingEntity shipmentTrackingEntity;
@@ -23,7 +22,6 @@ class StatusInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     final Color shipmentStatusColor = OutboundShipmentWidgetHelper()
         .getColor(shipmentDetailsEntity.shipmentStatus);
     final String statusName = shipmentDetailsEntity.shipmentStatus.name;

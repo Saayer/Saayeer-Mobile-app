@@ -8,9 +8,9 @@ import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_tracking_entity.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/core/utils/enums/enums.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/outbound_shipment_entity.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/domain/entities/shipment_entity.dart';
+import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
+import 'package:saayer/features/shipments/domain/entities/outbound_shipment_entity.dart';
+import 'package:saayer/features/shipments/domain/entities/shipment_entity.dart';
 
 part 'shipment_details_event.dart';
 

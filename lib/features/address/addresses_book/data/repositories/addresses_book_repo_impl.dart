@@ -7,16 +7,14 @@ import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/network/network_info.dart';
 import 'package:saayer/core/openAPI/openAPI_config.dart';
 import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/features/address/addresses_book/data/data_sources/remote/addresses_book_RDS.dart';
 import 'package:saayer/features/address/addresses_book/domain/repositories/addresses_book_repo.dart';
 
 @Injectable(as: AddressesBookRepo)
 class AddressesBookRepoImpl implements AddressesBookRepo {
-  final AddressesBookRDS addressesBookRDSImpl;
 
   final OpenAPIConfig openAPIConfig;
 
-  AddressesBookRepoImpl({required this.addressesBookRDSImpl, required this.openAPIConfig});
+  AddressesBookRepoImpl({required this.openAPIConfig});
 
   @override
   Future<Either<Failure, List<CustomerGetDto>>> getAddresses(CustomerQuery? customerQuery) async {

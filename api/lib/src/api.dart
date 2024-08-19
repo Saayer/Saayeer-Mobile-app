@@ -13,6 +13,8 @@ import 'package:openapi/src/api/address_lookups_api.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/clients_api.dart';
 import 'package:openapi/src/api/customers_api.dart';
+import 'package:openapi/src/api/logistics_api.dart';
+import 'package:openapi/src/api/shipments_api.dart';
 import 'package:openapi/src/api/stores_api.dart';
 
 class Openapi {
@@ -91,6 +93,18 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   CustomersApi getCustomersApi() {
     return CustomersApi(dio, serializers);
+  }
+
+  /// Get LogisticsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  LogisticsApi getLogisticsApi() {
+    return LogisticsApi(dio, serializers);
+  }
+
+  /// Get ShipmentsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  ShipmentsApi getShipmentsApi() {
+    return ShipmentsApi(dio, serializers);
   }
 
   /// Get StoresApi instance, base route and serializer can be overridden by a given but be careful,

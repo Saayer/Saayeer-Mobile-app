@@ -13,6 +13,13 @@ doc/CustomerQuery.md
 doc/CustomersApi.md
 doc/LoginRequestDto.md
 doc/LoginResponseDto.md
+doc/LogisticsApi.md
+doc/ShipmentAddDto.md
+doc/ShipmentCost.md
+doc/ShipmentGetDto.md
+doc/ShipmentQuery.md
+doc/ShipmentStatus.md
+doc/ShipmentsApi.md
 doc/StoreAddDto.md
 doc/StoreGetDto.md
 doc/StoresApi.md
@@ -24,6 +31,8 @@ lib/src/api/address_lookups_api.dart
 lib/src/api/auth_api.dart
 lib/src/api/clients_api.dart
 lib/src/api/customers_api.dart
+lib/src/api/logistics_api.dart
+lib/src/api/shipments_api.dart
 lib/src/api/stores_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
@@ -41,6 +50,11 @@ lib/src/model/customer_query.dart
 lib/src/model/date.dart
 lib/src/model/login_request_dto.dart
 lib/src/model/login_response_dto.dart
+lib/src/model/shipment_add_dto.dart
+lib/src/model/shipment_cost.dart
+lib/src/model/shipment_get_dto.dart
+lib/src/model/shipment_query.dart
+lib/src/model/shipment_status.dart
 lib/src/model/store_add_dto.dart
 lib/src/model/store_get_dto.dart
 lib/src/model/token_request_dto.dart

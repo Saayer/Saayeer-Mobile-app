@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:saayer/common/text_fields/input_text_field_decoration.dart';
 import 'package:saayer/core/services/localization/localization.dart';
@@ -62,8 +61,8 @@ class PhoneTextField extends StatelessWidget {
       keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputDecoration: InputTextFieldDecoration()(hintText: "xxx xxx xxxx"),
       inputBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: SaayerTheme().getColorsPalette.greyColor, width: 1.w),
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+        borderSide: BorderSide(color: SaayerTheme().getColorsPalette.greyColor, width: 1),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       onSaved: (PhoneNumber number) {
         log('On Saved: $number');

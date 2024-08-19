@@ -11,16 +11,16 @@ import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/addresses_book/presentation/screens/addresses_book_screen.dart';
 import 'package:saayer/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/domain/entities/nav_bar_icon_entity.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:saayer/features/view_page/presentation/widgets/drawer_navigation_web.dart';
 import 'package:saayer/features/view_page/presentation/widgets/floating_action_button.dart';
-import 'package:saayer/features/view_page/sub_features/home/presentation/screens/home_screen.dart';
-import 'package:saayer/features/view_page/sub_features/more/presentation/screens/more_screen.dart';
-import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/screens/request_shipment_screen.dart';
-import 'package:saayer/features/view_page/sub_features/shipments/presentation/screens/shipments_screen.dart';
+import 'package:saayer/features/home/presentation/screens/home_screen.dart';
+import 'package:saayer/features/more/presentation/screens/more_screen.dart';
+import 'package:saayer/features/shipments/presentation/screens/shipments_screen.dart';
 
 class ViewPagePage extends StatelessWidget {
   const ViewPagePage({super.key});
@@ -120,7 +120,7 @@ class ViewPagePage extends StatelessWidget {
         }
       case NavBarIconTypes.REQUEST_SHIPMENT:
         {
-          return const RequestShipmentScreen();
+          return const RequestNewShipmentScreen();
         }
       case NavBarIconTypes.ADDRESESS:
         {

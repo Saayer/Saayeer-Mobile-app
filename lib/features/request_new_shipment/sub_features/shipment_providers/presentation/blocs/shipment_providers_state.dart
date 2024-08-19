@@ -3,7 +3,7 @@ part of 'shipment_providers_bloc.dart';
 @immutable
 class ShipmentProvidersState extends Equatable {
   final StateHelper stateHelper;
-  final ShipmentProvidersResponse? shipmentProvidersResponse;
+  final List<ShipmentCost>? shipmentProvidersResponse;
 
   const ShipmentProvidersState({
     this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
@@ -12,12 +12,11 @@ class ShipmentProvidersState extends Equatable {
 
   ShipmentProvidersState copyWith({
     StateHelper? stateHelper,
-    ShipmentProvidersResponse? shipmentProvidersResponse,
+    List<ShipmentCost>? shipmentProvidersResponse,
   }) {
     return ShipmentProvidersState(
       stateHelper: stateHelper ?? this.stateHelper,
-      shipmentProvidersResponse:
-          shipmentProvidersResponse ?? this.shipmentProvidersResponse,
+      shipmentProvidersResponse: shipmentProvidersResponse ?? this.shipmentProvidersResponse,
     );
   }
 
