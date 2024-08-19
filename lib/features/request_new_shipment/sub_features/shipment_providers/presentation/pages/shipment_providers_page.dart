@@ -52,11 +52,11 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: SaayerDefaultTextButton(
-        text: "submit",
+        text: "next",
         isEnabled: true,
         borderRadius: 16,
         onPressed: () {
-          shipmentProvidersBloc.add(AddNewShipment(requestShipmentBloc.state.shipmentDtoBody));
+          requestShipmentBloc.add(GoToNextPageEvent());
         },
       ),
     );

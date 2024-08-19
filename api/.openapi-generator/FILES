@@ -17,6 +17,8 @@ doc/LogisticsApi.md
 doc/ShipmentAddDto.md
 doc/ShipmentCost.md
 doc/ShipmentGetDto.md
+doc/ShipmentQuery.md
+doc/ShipmentStatus.md
 doc/ShipmentsApi.md
 doc/StoreAddDto.md
 doc/StoreGetDto.md
@@ -51,14 +53,11 @@ lib/src/model/login_response_dto.dart
 lib/src/model/shipment_add_dto.dart
 lib/src/model/shipment_cost.dart
 lib/src/model/shipment_get_dto.dart
+lib/src/model/shipment_query.dart
+lib/src/model/shipment_status.dart
 lib/src/model/store_add_dto.dart
 lib/src/model/store_get_dto.dart
 lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/logistics_api_test.dart
-test/shipment_add_dto_test.dart
-test/shipment_cost_test.dart
-test/shipment_get_dto_test.dart
-test/shipments_api_test.dart

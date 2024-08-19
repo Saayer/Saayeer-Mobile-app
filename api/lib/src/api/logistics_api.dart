@@ -19,7 +19,7 @@ class LogisticsApi {
 
   const LogisticsApi(this._dio, this._serializers);
 
-  /// apiLogisticsShipmentCostsGet
+  /// apiLogisticsShipmentCostsPost
   /// 
   ///
   /// Parameters:
@@ -34,7 +34,7 @@ class LogisticsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<ShipmentCost>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<ShipmentCost>>> apiLogisticsShipmentCostsGet({ 
+  Future<Response<BuiltList<ShipmentCost>>> apiLogisticsShipmentCostsPost({ 
     required String apiKey,
     ShipmentAddDto? shipmentAddDto,
     CancelToken? cancelToken,
@@ -46,7 +46,7 @@ class LogisticsApi {
   }) async {
     final _path = r'/api/Logistics/shipment-costs';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         r'Api-Key': apiKey,
         ...?headers,

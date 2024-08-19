@@ -14,6 +14,7 @@ part 'shipment_cost.g.dart';
 /// * [name] 
 /// * [company] 
 /// * [cost] 
+/// * [estimatedShipmentDays] 
 @BuiltValue()
 abstract class ShipmentCost implements Built<ShipmentCost, ShipmentCostBuilder> {
   @BuiltValueField(wireName: r'name')
@@ -24,6 +25,9 @@ abstract class ShipmentCost implements Built<ShipmentCost, ShipmentCostBuilder> 
 
   @BuiltValueField(wireName: r'cost')
   double? get cost;
+
+  @BuiltValueField(wireName: r'estimatedShipmentDays')
+  String? get estimatedShipmentDays;
 
   ShipmentCost._();
 
@@ -67,6 +71,13 @@ class _$ShipmentCostSerializer implements PrimitiveSerializer<ShipmentCost> {
       yield serializers.serialize(
         object.cost,
         specifiedType: const FullType(double),
+      );
+    }
+    if (object.estimatedShipmentDays != null) {
+      yield r'estimatedShipmentDays';
+      yield serializers.serialize(
+        object.estimatedShipmentDays,
+        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -114,6 +125,14 @@ class _$ShipmentCostSerializer implements PrimitiveSerializer<ShipmentCost> {
             specifiedType: const FullType(double),
           ) as double;
           result.cost = valueDes;
+          break;
+        case r'estimatedShipmentDays':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.estimatedShipmentDays = valueDes;
           break;
         default:
           unhandled.add(key);

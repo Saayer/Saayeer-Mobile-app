@@ -9,15 +9,17 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **shipmentId** | **int** |  | [optional] 
-**length** | **int** |  | [optional] 
-**height** | **int** |  | [optional] 
-**weight** | **int** |  | [optional] 
-**contentDesc** | **int** |  | [optional] 
-**contentValue** | **int** |  | [optional] 
+**length** | **double** |  | [optional] 
+**height** | **double** |  | [optional] 
+**width** | **double** |  | [optional] 
+**weight** | **double** |  | [optional] 
+**contentDesc** | **String** |  | [optional] 
+**contentValue** | **double** |  | [optional] 
 **senderCustomerId** | **int** |  | [optional] 
 **receiverCustomerId** | **int** |  | [optional] 
 **senderStoreId** | **int** |  | [optional] 
 **receiverStoreId** | **int** |  | [optional] 
+**logisticServiceName** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

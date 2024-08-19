@@ -12,12 +12,3 @@ class GetShipmentProvidersEvent extends ShipmentProvidersEvent {
   @override
   List<Object?> get props => [shipmentSpecsEntity];
 }
-
-class AddNewShipment extends ShipmentProvidersEvent {
-  final ShipmentAddDto? shipmentAddDto;
-
-  const AddNewShipment(this.shipmentAddDto);
-
-  @override
-  List<Object?> get props => [shipmentAddDto];
-}

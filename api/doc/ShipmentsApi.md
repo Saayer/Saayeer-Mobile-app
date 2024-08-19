@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost/saayer-6/dev*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiShipmentsGet**](ShipmentsApi.md#apishipmentsget) | **GET** /api/Shipments | 
+[**apiShipmentsGetbyPost**](ShipmentsApi.md#apishipmentsgetbypost) | **POST** /api/Shipments/getby | 
 [**apiShipmentsIdDelete**](ShipmentsApi.md#apishipmentsiddelete) | **DELETE** /api/Shipments/{id} | 
 [**apiShipmentsIdGet**](ShipmentsApi.md#apishipmentsidget) | **GET** /api/Shipments/{id} | 
 [**apiShipmentsPost**](ShipmentsApi.md#apishipmentspost) | **POST** /api/Shipments | 
@@ -53,6 +54,49 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiShipmentsGetbyPost**
+> BuiltList<ShipmentGetDto> apiShipmentsGetbyPost(apiKey, shipmentQuery)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getShipmentsApi();
+final String apiKey = apiKey_example; // String | 
+final ShipmentQuery shipmentQuery = ; // ShipmentQuery | 
+
+try {
+    final response = api.apiShipmentsGetbyPost(apiKey, shipmentQuery);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling ShipmentsApi->apiShipmentsGetbyPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+ **shipmentQuery** | [**ShipmentQuery**](ShipmentQuery.md)|  | [optional] 
+
+### Return type
+
+[**BuiltList&lt;ShipmentGetDto&gt;**](ShipmentGetDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

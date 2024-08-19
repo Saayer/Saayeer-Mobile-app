@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/common/cached_network_image_widget.dart';
+import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
@@ -51,8 +53,9 @@ class ShipmentProviderCard extends StatelessWidget {
   }
 
   Widget _getLeadingWidget() {
-    return const CachedNetworkImageWidget(
-      imageUrl: 'https://www.ecommerce-nation.fr/wp-content/uploads/2019/10/dhl_express_livraison_internationale.png',
+    return CachedNetworkImageWidget(
+      imageUrl: EndPointsBaseUrl.init().baseUrl +
+          Constants.imagesBaseUrl.replaceFirst("{}", shipmentProviderModel.name ?? ''),
       height: 60,
       width: 60,
     );

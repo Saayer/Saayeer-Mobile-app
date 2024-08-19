@@ -14,9 +14,14 @@ part 'shipment_get_dto.g.dart';
 /// * [shipmentId] 
 /// * [length] 
 /// * [height] 
+/// * [width] 
 /// * [weight] 
 /// * [contentDesc] 
 /// * [contentValue] 
+/// * [cost] 
+/// * [shipingDate] 
+/// * [logisticServiceName] 
+/// * [status] 
 /// * [senderCustomerId] 
 /// * [receiverCustomerId] 
 /// * [senderStoreId] 
@@ -32,6 +37,9 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
   @BuiltValueField(wireName: r'height')
   double? get height;
 
+  @BuiltValueField(wireName: r'width')
+  double? get width;
+
   @BuiltValueField(wireName: r'weight')
   double? get weight;
 
@@ -40,6 +48,18 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
 
   @BuiltValueField(wireName: r'contentValue')
   double? get contentValue;
+
+  @BuiltValueField(wireName: r'cost')
+  double? get cost;
+
+  @BuiltValueField(wireName: r'shipingDate')
+  DateTime? get shipingDate;
+
+  @BuiltValueField(wireName: r'logisticServiceName')
+  String? get logisticServiceName;
+
+  @BuiltValueField(wireName: r'status')
+  String? get status;
 
   @BuiltValueField(wireName: r'senderCustomerId')
   int? get senderCustomerId;
@@ -97,6 +117,13 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
         specifiedType: const FullType(double),
       );
     }
+    if (object.width != null) {
+      yield r'width';
+      yield serializers.serialize(
+        object.width,
+        specifiedType: const FullType(double),
+      );
+    }
     if (object.weight != null) {
       yield r'weight';
       yield serializers.serialize(
@@ -116,6 +143,34 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
       yield serializers.serialize(
         object.contentValue,
         specifiedType: const FullType.nullable(double),
+      );
+    }
+    if (object.cost != null) {
+      yield r'cost';
+      yield serializers.serialize(
+        object.cost,
+        specifiedType: const FullType.nullable(double),
+      );
+    }
+    if (object.shipingDate != null) {
+      yield r'shipingDate';
+      yield serializers.serialize(
+        object.shipingDate,
+        specifiedType: const FullType.nullable(DateTime),
+      );
+    }
+    if (object.logisticServiceName != null) {
+      yield r'logisticServiceName';
+      yield serializers.serialize(
+        object.logisticServiceName,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.status != null) {
+      yield r'status';
+      yield serializers.serialize(
+        object.status,
+        specifiedType: const FullType.nullable(String),
       );
     }
     if (object.senderCustomerId != null) {
@@ -190,6 +245,13 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
           ) as double;
           result.height = valueDes;
           break;
+        case r'width':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double;
+          result.width = valueDes;
+          break;
         case r'weight':
           final valueDes = serializers.deserialize(
             value,
@@ -212,6 +274,38 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
           ) as double?;
           if (valueDes == null) continue;
           result.contentValue = valueDes;
+          break;
+        case r'cost':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(double),
+          ) as double?;
+          if (valueDes == null) continue;
+          result.cost = valueDes;
+          break;
+        case r'shipingDate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(DateTime),
+          ) as DateTime?;
+          if (valueDes == null) continue;
+          result.shipingDate = valueDes;
+          break;
+        case r'logisticServiceName':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.logisticServiceName = valueDes;
+          break;
+        case r'status':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.status = valueDes;
           break;
         case r'senderCustomerId':
           final valueDes = serializers.deserialize(

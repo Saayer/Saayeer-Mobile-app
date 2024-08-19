@@ -25,6 +25,8 @@ import 'package:openapi/src/model/login_response_dto.dart';
 import 'package:openapi/src/model/shipment_add_dto.dart';
 import 'package:openapi/src/model/shipment_cost.dart';
 import 'package:openapi/src/model/shipment_get_dto.dart';
+import 'package:openapi/src/model/shipment_query.dart';
+import 'package:openapi/src/model/shipment_status.dart';
 import 'package:openapi/src/model/store_add_dto.dart';
 import 'package:openapi/src/model/store_get_dto.dart';
 import 'package:openapi/src/model/token_request_dto.dart';
@@ -44,6 +46,8 @@ part 'serializers.g.dart';
   ShipmentAddDto,
   ShipmentCost,
   ShipmentGetDto,
+  ShipmentQuery,
+  ShipmentStatus,
   StoreAddDto,
   StoreGetDto,
   TokenRequestDto,

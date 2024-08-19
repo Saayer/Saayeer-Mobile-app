@@ -10,15 +10,17 @@ class _$ShipmentAddDto extends ShipmentAddDto {
   @override
   final int? shipmentId;
   @override
-  final int? length;
+  final double? length;
   @override
-  final int? height;
+  final double? height;
   @override
-  final int? weight;
+  final double? width;
   @override
-  final int? contentDesc;
+  final double? weight;
   @override
-  final int? contentValue;
+  final String? contentDesc;
+  @override
+  final double? contentValue;
   @override
   final int? senderCustomerId;
   @override
@@ -27,6 +29,8 @@ class _$ShipmentAddDto extends ShipmentAddDto {
   final int? senderStoreId;
   @override
   final int? receiverStoreId;
+  @override
+  final String? logisticServiceName;
 
   factory _$ShipmentAddDto([void Function(ShipmentAddDtoBuilder)? updates]) =>
       (new ShipmentAddDtoBuilder()..update(updates))._build();
@@ -35,13 +39,15 @@ class _$ShipmentAddDto extends ShipmentAddDto {
       {this.shipmentId,
       this.length,
       this.height,
+      this.width,
       this.weight,
       this.contentDesc,
       this.contentValue,
       this.senderCustomerId,
       this.receiverCustomerId,
       this.senderStoreId,
-      this.receiverStoreId})
+      this.receiverStoreId,
+      this.logisticServiceName})
       : super._();
 
   @override
@@ -59,13 +65,15 @@ class _$ShipmentAddDto extends ShipmentAddDto {
         shipmentId == other.shipmentId &&
         length == other.length &&
         height == other.height &&
+        width == other.width &&
         weight == other.weight &&
         contentDesc == other.contentDesc &&
         contentValue == other.contentValue &&
         senderCustomerId == other.senderCustomerId &&
         receiverCustomerId == other.receiverCustomerId &&
         senderStoreId == other.senderStoreId &&
-        receiverStoreId == other.receiverStoreId;
+        receiverStoreId == other.receiverStoreId &&
+        logisticServiceName == other.logisticServiceName;
   }
 
   @override
@@ -74,6 +82,7 @@ class _$ShipmentAddDto extends ShipmentAddDto {
     _$hash = $jc(_$hash, shipmentId.hashCode);
     _$hash = $jc(_$hash, length.hashCode);
     _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jc(_$hash, width.hashCode);
     _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, contentDesc.hashCode);
     _$hash = $jc(_$hash, contentValue.hashCode);
@@ -81,6 +90,7 @@ class _$ShipmentAddDto extends ShipmentAddDto {
     _$hash = $jc(_$hash, receiverCustomerId.hashCode);
     _$hash = $jc(_$hash, senderStoreId.hashCode);
     _$hash = $jc(_$hash, receiverStoreId.hashCode);
+    _$hash = $jc(_$hash, logisticServiceName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -91,13 +101,15 @@ class _$ShipmentAddDto extends ShipmentAddDto {
           ..add('shipmentId', shipmentId)
           ..add('length', length)
           ..add('height', height)
+          ..add('width', width)
           ..add('weight', weight)
           ..add('contentDesc', contentDesc)
           ..add('contentValue', contentValue)
           ..add('senderCustomerId', senderCustomerId)
           ..add('receiverCustomerId', receiverCustomerId)
           ..add('senderStoreId', senderStoreId)
-          ..add('receiverStoreId', receiverStoreId))
+          ..add('receiverStoreId', receiverStoreId)
+          ..add('logisticServiceName', logisticServiceName))
         .toString();
   }
 }
@@ -110,25 +122,29 @@ class ShipmentAddDtoBuilder
   int? get shipmentId => _$this._shipmentId;
   set shipmentId(int? shipmentId) => _$this._shipmentId = shipmentId;
 
-  int? _length;
-  int? get length => _$this._length;
-  set length(int? length) => _$this._length = length;
+  double? _length;
+  double? get length => _$this._length;
+  set length(double? length) => _$this._length = length;
 
-  int? _height;
-  int? get height => _$this._height;
-  set height(int? height) => _$this._height = height;
+  double? _height;
+  double? get height => _$this._height;
+  set height(double? height) => _$this._height = height;
 
-  int? _weight;
-  int? get weight => _$this._weight;
-  set weight(int? weight) => _$this._weight = weight;
+  double? _width;
+  double? get width => _$this._width;
+  set width(double? width) => _$this._width = width;
 
-  int? _contentDesc;
-  int? get contentDesc => _$this._contentDesc;
-  set contentDesc(int? contentDesc) => _$this._contentDesc = contentDesc;
+  double? _weight;
+  double? get weight => _$this._weight;
+  set weight(double? weight) => _$this._weight = weight;
 
-  int? _contentValue;
-  int? get contentValue => _$this._contentValue;
-  set contentValue(int? contentValue) => _$this._contentValue = contentValue;
+  String? _contentDesc;
+  String? get contentDesc => _$this._contentDesc;
+  set contentDesc(String? contentDesc) => _$this._contentDesc = contentDesc;
+
+  double? _contentValue;
+  double? get contentValue => _$this._contentValue;
+  set contentValue(double? contentValue) => _$this._contentValue = contentValue;
 
   int? _senderCustomerId;
   int? get senderCustomerId => _$this._senderCustomerId;
@@ -150,6 +166,11 @@ class ShipmentAddDtoBuilder
   set receiverStoreId(int? receiverStoreId) =>
       _$this._receiverStoreId = receiverStoreId;
 
+  String? _logisticServiceName;
+  String? get logisticServiceName => _$this._logisticServiceName;
+  set logisticServiceName(String? logisticServiceName) =>
+      _$this._logisticServiceName = logisticServiceName;
+
   ShipmentAddDtoBuilder() {
     ShipmentAddDto._defaults(this);
   }
@@ -160,6 +181,7 @@ class ShipmentAddDtoBuilder
       _shipmentId = $v.shipmentId;
       _length = $v.length;
       _height = $v.height;
+      _width = $v.width;
       _weight = $v.weight;
       _contentDesc = $v.contentDesc;
       _contentValue = $v.contentValue;
@@ -167,6 +189,7 @@ class ShipmentAddDtoBuilder
       _receiverCustomerId = $v.receiverCustomerId;
       _senderStoreId = $v.senderStoreId;
       _receiverStoreId = $v.receiverStoreId;
+      _logisticServiceName = $v.logisticServiceName;
       _$v = null;
     }
     return this;
@@ -192,13 +215,15 @@ class ShipmentAddDtoBuilder
             shipmentId: shipmentId,
             length: length,
             height: height,
+            width: width,
             weight: weight,
             contentDesc: contentDesc,
             contentValue: contentValue,
             senderCustomerId: senderCustomerId,
             receiverCustomerId: receiverCustomerId,
             senderStoreId: senderStoreId,
-            receiverStoreId: receiverStoreId);
+            receiverStoreId: receiverStoreId,
+            logisticServiceName: logisticServiceName);
     replace(_$result);
     return _$result;
   }

@@ -14,11 +14,21 @@ class _$ShipmentGetDto extends ShipmentGetDto {
   @override
   final double? height;
   @override
+  final double? width;
+  @override
   final double? weight;
   @override
   final String? contentDesc;
   @override
   final double? contentValue;
+  @override
+  final double? cost;
+  @override
+  final DateTime? shipingDate;
+  @override
+  final String? logisticServiceName;
+  @override
+  final String? status;
   @override
   final int? senderCustomerId;
   @override
@@ -35,9 +45,14 @@ class _$ShipmentGetDto extends ShipmentGetDto {
       {this.shipmentId,
       this.length,
       this.height,
+      this.width,
       this.weight,
       this.contentDesc,
       this.contentValue,
+      this.cost,
+      this.shipingDate,
+      this.logisticServiceName,
+      this.status,
       this.senderCustomerId,
       this.receiverCustomerId,
       this.senderStoreId,
@@ -59,9 +74,14 @@ class _$ShipmentGetDto extends ShipmentGetDto {
         shipmentId == other.shipmentId &&
         length == other.length &&
         height == other.height &&
+        width == other.width &&
         weight == other.weight &&
         contentDesc == other.contentDesc &&
         contentValue == other.contentValue &&
+        cost == other.cost &&
+        shipingDate == other.shipingDate &&
+        logisticServiceName == other.logisticServiceName &&
+        status == other.status &&
         senderCustomerId == other.senderCustomerId &&
         receiverCustomerId == other.receiverCustomerId &&
         senderStoreId == other.senderStoreId &&
@@ -74,9 +94,14 @@ class _$ShipmentGetDto extends ShipmentGetDto {
     _$hash = $jc(_$hash, shipmentId.hashCode);
     _$hash = $jc(_$hash, length.hashCode);
     _$hash = $jc(_$hash, height.hashCode);
+    _$hash = $jc(_$hash, width.hashCode);
     _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, contentDesc.hashCode);
     _$hash = $jc(_$hash, contentValue.hashCode);
+    _$hash = $jc(_$hash, cost.hashCode);
+    _$hash = $jc(_$hash, shipingDate.hashCode);
+    _$hash = $jc(_$hash, logisticServiceName.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, senderCustomerId.hashCode);
     _$hash = $jc(_$hash, receiverCustomerId.hashCode);
     _$hash = $jc(_$hash, senderStoreId.hashCode);
@@ -91,9 +116,14 @@ class _$ShipmentGetDto extends ShipmentGetDto {
           ..add('shipmentId', shipmentId)
           ..add('length', length)
           ..add('height', height)
+          ..add('width', width)
           ..add('weight', weight)
           ..add('contentDesc', contentDesc)
           ..add('contentValue', contentValue)
+          ..add('cost', cost)
+          ..add('shipingDate', shipingDate)
+          ..add('logisticServiceName', logisticServiceName)
+          ..add('status', status)
           ..add('senderCustomerId', senderCustomerId)
           ..add('receiverCustomerId', receiverCustomerId)
           ..add('senderStoreId', senderStoreId)
@@ -118,6 +148,10 @@ class ShipmentGetDtoBuilder
   double? get height => _$this._height;
   set height(double? height) => _$this._height = height;
 
+  double? _width;
+  double? get width => _$this._width;
+  set width(double? width) => _$this._width = width;
+
   double? _weight;
   double? get weight => _$this._weight;
   set weight(double? weight) => _$this._weight = weight;
@@ -129,6 +163,23 @@ class ShipmentGetDtoBuilder
   double? _contentValue;
   double? get contentValue => _$this._contentValue;
   set contentValue(double? contentValue) => _$this._contentValue = contentValue;
+
+  double? _cost;
+  double? get cost => _$this._cost;
+  set cost(double? cost) => _$this._cost = cost;
+
+  DateTime? _shipingDate;
+  DateTime? get shipingDate => _$this._shipingDate;
+  set shipingDate(DateTime? shipingDate) => _$this._shipingDate = shipingDate;
+
+  String? _logisticServiceName;
+  String? get logisticServiceName => _$this._logisticServiceName;
+  set logisticServiceName(String? logisticServiceName) =>
+      _$this._logisticServiceName = logisticServiceName;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
 
   int? _senderCustomerId;
   int? get senderCustomerId => _$this._senderCustomerId;
@@ -160,9 +211,14 @@ class ShipmentGetDtoBuilder
       _shipmentId = $v.shipmentId;
       _length = $v.length;
       _height = $v.height;
+      _width = $v.width;
       _weight = $v.weight;
       _contentDesc = $v.contentDesc;
       _contentValue = $v.contentValue;
+      _cost = $v.cost;
+      _shipingDate = $v.shipingDate;
+      _logisticServiceName = $v.logisticServiceName;
+      _status = $v.status;
       _senderCustomerId = $v.senderCustomerId;
       _receiverCustomerId = $v.receiverCustomerId;
       _senderStoreId = $v.senderStoreId;
@@ -192,9 +248,14 @@ class ShipmentGetDtoBuilder
             shipmentId: shipmentId,
             length: length,
             height: height,
+            width: width,
             weight: weight,
             contentDesc: contentDesc,
             contentValue: contentValue,
+            cost: cost,
+            shipingDate: shipingDate,
+            logisticServiceName: logisticServiceName,
+            status: status,
             senderCustomerId: senderCustomerId,
             receiverCustomerId: receiverCustomerId,
             senderStoreId: senderStoreId,

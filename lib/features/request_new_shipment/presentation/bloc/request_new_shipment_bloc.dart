@@ -256,11 +256,12 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
       state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING),
         shipmentDtoBody: ShipmentAddDto((b) => b
-          ..length = int.parse(lengthController.text)
-          ..height = int.parse(heightController.text)
-          ..weight = int.parse(weightController.text)
-          ..contentDesc = 0 //int.parse(contentDescriptionController.text)
-          ..contentValue = contentValueController.text.isEmpty ? null : int.parse(contentValueController.text)
+          ..length = double.parse(lengthController.text)
+          ..height = double.parse(heightController.text)
+          ..weight = double.parse(weightController.text)
+          ..width = double.parse(widthController.text)
+          ..contentDesc = contentDescriptionController.text
+          ..contentValue = contentValueController.text.isEmpty ? null : double.parse(contentValueController.text)
           ..senderStoreId = state.senderStoreId
           ..senderCustomerId = state.senderCustomerId
           ..receiverStoreId = state.receiverStoreId

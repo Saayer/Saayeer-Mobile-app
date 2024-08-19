@@ -9,11 +9,11 @@ All URIs are relative to *http://localhost/saayer-6/dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiLogisticsShipmentCostsGet**](LogisticsApi.md#apilogisticsshipmentcostsget) | **GET** /api/Logistics/shipment-costs | 
+[**apiLogisticsShipmentCostsPost**](LogisticsApi.md#apilogisticsshipmentcostspost) | **POST** /api/Logistics/shipment-costs | 
 
 
-# **apiLogisticsShipmentCostsGet**
-> BuiltList<ShipmentCost> apiLogisticsShipmentCostsGet(apiKey, shipmentAddDto)
+# **apiLogisticsShipmentCostsPost**
+> BuiltList<ShipmentCost> apiLogisticsShipmentCostsPost(apiKey, shipmentAddDto)
 
 
 
@@ -26,10 +26,10 @@ final String apiKey = apiKey_example; // String |
 final ShipmentAddDto shipmentAddDto = ; // ShipmentAddDto | 
 
 try {
-    final response = api.apiLogisticsShipmentCostsGet(apiKey, shipmentAddDto);
+    final response = api.apiLogisticsShipmentCostsPost(apiKey, shipmentAddDto);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling LogisticsApi->apiLogisticsShipmentCostsGet: $e\n');
+    print('Exception when calling LogisticsApi->apiLogisticsShipmentCostsPost: $e\n');
 }
 ```
 

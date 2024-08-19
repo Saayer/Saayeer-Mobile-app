@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -27,6 +28,8 @@ class SenderScreen extends StatefulWidget {
 }
 
 class _SenderScreenState extends State<SenderScreen> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final RequestNewShipmentBloc requestShipmentBloc = BlocProvider.of<RequestNewShipmentBloc>(context);
@@ -60,93 +63,98 @@ class _SenderScreenState extends State<SenderScreen> {
         isEnabled: true,
         borderRadius: 16,
         onPressed: () {
-          requestShipmentBloc
-              .add(const OnSetSenderId());
+          final bool isFormValid = (formKey.currentState!.validate());
+          isFormValid
+              ? requestShipmentBloc.add(const OnSetSenderId())
+              : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
         },
       ),
     );
   }
 
   _buildSenderBodyWidget(RequestNewShipmentBloc requestShipmentBloc) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          Center(
-            child: Text(
-              'sender'.tr(),
-              style: AppTextStyles.mainFocusedLabel(),
+    return Form(
+      key: formKey,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            Center(
+              child: Text(
+                'sender'.tr(),
+                style: AppTextStyles.mainFocusedLabel(),
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-          ///
-          Row(
-            children: [
-              ///
-              Expanded(
-                child: RadioListTile<SenderReceiverType>(
-                  title: Text('store'.tr(), style: AppTextStyles.liteLabel()),
-                  value: SenderReceiverType.store,
-                  groupValue: requestShipmentBloc.senderType,
-                  activeColor: SaayerTheme().getColorsPalette.primaryColor,
-                  onChanged: (SenderReceiverType? value) {
-                    setState(() {
-                      requestShipmentBloc.senderType = value;
-                    });
-                  },
+            ///
+            Row(
+              children: [
+                ///
+                Expanded(
+                  child: RadioListTile<SenderReceiverType>(
+                    title: Text('store'.tr(), style: AppTextStyles.liteLabel()),
+                    value: SenderReceiverType.store,
+                    groupValue: requestShipmentBloc.senderType,
+                    activeColor: SaayerTheme().getColorsPalette.primaryColor,
+                    onChanged: (SenderReceiverType? value) {
+                      setState(() {
+                        requestShipmentBloc.senderType = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
 
-              ///
-              Expanded(
-                child: RadioListTile<SenderReceiverType>(
-                  title: Text('customer'.tr(), style: AppTextStyles.liteLabel()),
-                  value: SenderReceiverType.customer,
-                  groupValue: requestShipmentBloc.senderType,
-                  activeColor: SaayerTheme().getColorsPalette.primaryColor,
-                  onChanged: (SenderReceiverType? value) {
-                    if (requestShipmentBloc.senderCustomersList.isEmpty) {
-                      requestShipmentBloc
-                          .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
-                    }
-                    setState(() {
-                      requestShipmentBloc.senderType = value;
-                    });
-                  },
+                ///
+                Expanded(
+                  child: RadioListTile<SenderReceiverType>(
+                    title: Text('customer'.tr(), style: AppTextStyles.liteLabel()),
+                    value: SenderReceiverType.customer,
+                    groupValue: requestShipmentBloc.senderType,
+                    activeColor: SaayerTheme().getColorsPalette.primaryColor,
+                    onChanged: (SenderReceiverType? value) {
+                      if (requestShipmentBloc.senderCustomersList.isEmpty) {
+                        requestShipmentBloc
+                            .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
+                      }
+                      setState(() {
+                        requestShipmentBloc.senderType = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
 
-          ///
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return FadeTransition(opacity: animation, child: child);
-            },
-            child: requestShipmentBloc.senderType == SenderReceiverType.store
-                ? _buildStoresListDropdownWidget(requestShipmentBloc)
-                : _buildCustomersListDropdownWidget(requestShipmentBloc),
-          ),
-          const SizedBox(height: 10),
-          Divider(
-            height: 1,
-            color: SaayerTheme().getColorsPalette.lightGreyColor,
-          ),
-          const SizedBox(height: 15),
+            ///
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+              child: requestShipmentBloc.senderType == SenderReceiverType.store
+                  ? _buildStoresListDropdownWidget(requestShipmentBloc)
+                  : _buildCustomersListDropdownWidget(requestShipmentBloc),
+            ),
+            const SizedBox(height: 10),
+            Divider(
+              height: 1,
+              color: SaayerTheme().getColorsPalette.lightGreyColor,
+            ),
+            const SizedBox(height: 15),
 
-          ///
-          SenderItemDetailsWidget(
-            requestShipmentTypes: RequestShipmentTypes.sender,
-            senderType: requestShipmentBloc.senderType,
-            customerItem: requestShipmentBloc.selectedSenderCustomerAddress,
-            storeItem: requestShipmentBloc.selectedSenderStoreAddress,
-          ),
-        ],
+            ///
+            SenderItemDetailsWidget(
+              requestShipmentTypes: RequestShipmentTypes.sender,
+              senderType: requestShipmentBloc.senderType,
+              customerItem: requestShipmentBloc.selectedSenderCustomerAddress,
+              storeItem: requestShipmentBloc.selectedSenderStoreAddress,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -212,6 +220,7 @@ class _SenderScreenState extends State<SenderScreen> {
             requestShipmentTypes: RequestShipmentTypes.sender,
             bloc: requestShipmentBloc,
             isFieldRequired: false,
+            withValidator: true,
             onCustomerAddressSelected: (customer) {
               requestShipmentBloc.add(OnSenderSelectedFromDropDown(
                 senderType: SenderReceiverType.customer,

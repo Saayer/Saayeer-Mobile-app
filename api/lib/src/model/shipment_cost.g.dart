@@ -13,11 +13,15 @@ class _$ShipmentCost extends ShipmentCost {
   final String? company;
   @override
   final double? cost;
+  @override
+  final String? estimatedShipmentDays;
 
   factory _$ShipmentCost([void Function(ShipmentCostBuilder)? updates]) =>
       (new ShipmentCostBuilder()..update(updates))._build();
 
-  _$ShipmentCost._({this.name, this.company, this.cost}) : super._();
+  _$ShipmentCost._(
+      {this.name, this.company, this.cost, this.estimatedShipmentDays})
+      : super._();
 
   @override
   ShipmentCost rebuild(void Function(ShipmentCostBuilder) updates) =>
@@ -32,7 +36,8 @@ class _$ShipmentCost extends ShipmentCost {
     return other is ShipmentCost &&
         name == other.name &&
         company == other.company &&
-        cost == other.cost;
+        cost == other.cost &&
+        estimatedShipmentDays == other.estimatedShipmentDays;
   }
 
   @override
@@ -41,6 +46,7 @@ class _$ShipmentCost extends ShipmentCost {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, company.hashCode);
     _$hash = $jc(_$hash, cost.hashCode);
+    _$hash = $jc(_$hash, estimatedShipmentDays.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,7 +56,8 @@ class _$ShipmentCost extends ShipmentCost {
     return (newBuiltValueToStringHelper(r'ShipmentCost')
           ..add('name', name)
           ..add('company', company)
-          ..add('cost', cost))
+          ..add('cost', cost)
+          ..add('estimatedShipmentDays', estimatedShipmentDays))
         .toString();
   }
 }
@@ -71,6 +78,11 @@ class ShipmentCostBuilder
   double? get cost => _$this._cost;
   set cost(double? cost) => _$this._cost = cost;
 
+  String? _estimatedShipmentDays;
+  String? get estimatedShipmentDays => _$this._estimatedShipmentDays;
+  set estimatedShipmentDays(String? estimatedShipmentDays) =>
+      _$this._estimatedShipmentDays = estimatedShipmentDays;
+
   ShipmentCostBuilder() {
     ShipmentCost._defaults(this);
   }
@@ -81,6 +93,7 @@ class ShipmentCostBuilder
       _name = $v.name;
       _company = $v.company;
       _cost = $v.cost;
+      _estimatedShipmentDays = $v.estimatedShipmentDays;
       _$v = null;
     }
     return this;
@@ -101,8 +114,12 @@ class ShipmentCostBuilder
   ShipmentCost build() => _build();
 
   _$ShipmentCost _build() {
-    final _$result =
-        _$v ?? new _$ShipmentCost._(name: name, company: company, cost: cost);
+    final _$result = _$v ??
+        new _$ShipmentCost._(
+            name: name,
+            company: company,
+            cost: cost,
+            estimatedShipmentDays: estimatedShipmentDays);
     replace(_$result);
     return _$result;
   }

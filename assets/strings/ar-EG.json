@@ -200,5 +200,8 @@
   "sar": "ريال سعودي",
   "select_same_sender_store_error": "لا ينبغي أن يكون نفس متجر المرسل",
   "empty_service_providers_title": "لم يتم العثور على أي مقدمي الخدمة!",
-  "empty_service_providers_desc": "عفواً! يبدو أنه لا يوجد مقدمي الخدمة حاليًا."
+  "empty_service_providers_desc": "عفواً! يبدو أنه لا يوجد مقدمي الخدمة حاليًا.",
+  "new_shipment": "شحنة جديدة",
+  "payment_successfully": "تم الدفع بنجاح",
+  "checkout": "الدفع"
 }

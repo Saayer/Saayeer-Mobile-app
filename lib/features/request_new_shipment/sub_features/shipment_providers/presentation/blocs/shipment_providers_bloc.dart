@@ -9,7 +9,7 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/use_cases/add_new_shipment_usecase.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_checkout_payment/domain/use_cases/add_new_shipment_usecase.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/use_cases/get_shipment_providers_usecase.dart';
 
 part 'shipment_providers_event.dart';
@@ -23,7 +23,6 @@ class ShipmentProvidersBloc extends Bloc<ShipmentProvidersEvent, ShipmentProvide
 
   ShipmentProvidersBloc({required this.getShipmentProvidersUseCase, required this.addNewShipmentUseCase}) : super(const ShipmentProvidersState()) {
     on<GetShipmentProvidersEvent>(_getShipmentProvidersList);
-    on<AddNewShipment>(_addNewShipment);
   }
 
   ///
@@ -56,33 +55,5 @@ class ShipmentProvidersBloc extends Bloc<ShipmentProvidersEvent, ShipmentProvide
           ));
         }
       }
-  }
-
-  FutureOr<void> _addNewShipment(AddNewShipment event, Emitter<ShipmentProvidersState> emit) async{
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-
-    final Either<Failure, ShipmentGetDto> result =
-    await addNewShipmentUseCase(event.shipmentAddDto ?? ShipmentAddDto());
-
-    if (result.isLeft()) {
-      emit(state.copyWith(
-          stateHelper: state.stateHelper.copyWith(
-            requestState: RequestState.ERROR,
-          )));
-    } else {
-      final ShipmentGetDto? rightResult = (result as Right).value;
-      if (rightResult != null) {
-        emit(state.copyWith(
-          stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
-          shipmentGetDto: rightResult,
-        ));
-      } else {
-        emit(state.copyWith(
-          stateHelper: const StateHelper(
-            requestState: RequestState.ERROR,
-          ),
-        ));
-      }
-    }
   }
 }

@@ -200,5 +200,8 @@
   "sar": "SAR",
   "select_same_sender_store_error": "should\\'nt be same sender store",
   "empty_service_providers_title": "No Service Providers Found!",
-  "empty_service_providers_desc": "Oops! It looks like there are currently no Service Providers."
+  "empty_service_providers_desc": "Oops! It looks like there are currently no Service Providers.",
+  "new_shipment": "New Shipment",
+  "payment_successfully": "Payment Successfully",
+  "checkout": "Checkout"
 }

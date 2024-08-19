@@ -28,6 +28,8 @@ export 'package:openapi/src/model/login_response_dto.dart';
 export 'package:openapi/src/model/shipment_add_dto.dart';
 export 'package:openapi/src/model/shipment_cost.dart';
 export 'package:openapi/src/model/shipment_get_dto.dart';
+export 'package:openapi/src/model/shipment_query.dart';
+export 'package:openapi/src/model/shipment_status.dart';
 export 'package:openapi/src/model/store_add_dto.dart';
 export 'package:openapi/src/model/store_get_dto.dart';
 export 'package:openapi/src/model/token_request_dto.dart';
