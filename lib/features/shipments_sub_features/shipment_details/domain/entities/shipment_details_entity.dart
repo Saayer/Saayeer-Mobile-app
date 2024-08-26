@@ -14,9 +14,9 @@ class ShipmentDetailsEntity extends Equatable {
       shippingFees,
       totalPrice;
 
-  final ShipmentsTypes shipmentsType;
+  final ShipmentsListTypes shipmentsType;
 
-  final ShipmentStatus shipmentStatus;
+  final ShipmentsStatus shipmentStatus;
 
   const ShipmentDetailsEntity(
       {required this.id,
@@ -48,8 +48,8 @@ class ShipmentDetailsEntity extends Equatable {
     String? receiverAddress,
     String? shippingFees,
     String? totalPrice,
-    ShipmentsTypes? shipmentsType,
-    ShipmentStatus? shipmentStatus,
+    ShipmentsListTypes? shipmentsType,
+    ShipmentsStatus? shipmentStatus,
   }) {
     return ShipmentDetailsEntity(
       id: id ?? this.id,

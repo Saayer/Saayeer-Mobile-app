@@ -22,6 +22,10 @@ class _$ShipmentAddDto extends ShipmentAddDto {
   @override
   final double? contentValue;
   @override
+  final double? cost;
+  @override
+  final String? logisticServiceName;
+  @override
   final int? senderCustomerId;
   @override
   final int? receiverCustomerId;
@@ -29,8 +33,6 @@ class _$ShipmentAddDto extends ShipmentAddDto {
   final int? senderStoreId;
   @override
   final int? receiverStoreId;
-  @override
-  final String? logisticServiceName;
 
   factory _$ShipmentAddDto([void Function(ShipmentAddDtoBuilder)? updates]) =>
       (new ShipmentAddDtoBuilder()..update(updates))._build();
@@ -43,11 +45,12 @@ class _$ShipmentAddDto extends ShipmentAddDto {
       this.weight,
       this.contentDesc,
       this.contentValue,
+      this.cost,
+      this.logisticServiceName,
       this.senderCustomerId,
       this.receiverCustomerId,
       this.senderStoreId,
-      this.receiverStoreId,
-      this.logisticServiceName})
+      this.receiverStoreId})
       : super._();
 
   @override
@@ -69,11 +72,12 @@ class _$ShipmentAddDto extends ShipmentAddDto {
         weight == other.weight &&
         contentDesc == other.contentDesc &&
         contentValue == other.contentValue &&
+        cost == other.cost &&
+        logisticServiceName == other.logisticServiceName &&
         senderCustomerId == other.senderCustomerId &&
         receiverCustomerId == other.receiverCustomerId &&
         senderStoreId == other.senderStoreId &&
-        receiverStoreId == other.receiverStoreId &&
-        logisticServiceName == other.logisticServiceName;
+        receiverStoreId == other.receiverStoreId;
   }
 
   @override
@@ -86,11 +90,12 @@ class _$ShipmentAddDto extends ShipmentAddDto {
     _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, contentDesc.hashCode);
     _$hash = $jc(_$hash, contentValue.hashCode);
+    _$hash = $jc(_$hash, cost.hashCode);
+    _$hash = $jc(_$hash, logisticServiceName.hashCode);
     _$hash = $jc(_$hash, senderCustomerId.hashCode);
     _$hash = $jc(_$hash, receiverCustomerId.hashCode);
     _$hash = $jc(_$hash, senderStoreId.hashCode);
     _$hash = $jc(_$hash, receiverStoreId.hashCode);
-    _$hash = $jc(_$hash, logisticServiceName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -105,11 +110,12 @@ class _$ShipmentAddDto extends ShipmentAddDto {
           ..add('weight', weight)
           ..add('contentDesc', contentDesc)
           ..add('contentValue', contentValue)
+          ..add('cost', cost)
+          ..add('logisticServiceName', logisticServiceName)
           ..add('senderCustomerId', senderCustomerId)
           ..add('receiverCustomerId', receiverCustomerId)
           ..add('senderStoreId', senderStoreId)
-          ..add('receiverStoreId', receiverStoreId)
-          ..add('logisticServiceName', logisticServiceName))
+          ..add('receiverStoreId', receiverStoreId))
         .toString();
   }
 }
@@ -146,6 +152,15 @@ class ShipmentAddDtoBuilder
   double? get contentValue => _$this._contentValue;
   set contentValue(double? contentValue) => _$this._contentValue = contentValue;
 
+  double? _cost;
+  double? get cost => _$this._cost;
+  set cost(double? cost) => _$this._cost = cost;
+
+  String? _logisticServiceName;
+  String? get logisticServiceName => _$this._logisticServiceName;
+  set logisticServiceName(String? logisticServiceName) =>
+      _$this._logisticServiceName = logisticServiceName;
+
   int? _senderCustomerId;
   int? get senderCustomerId => _$this._senderCustomerId;
   set senderCustomerId(int? senderCustomerId) =>
@@ -166,11 +181,6 @@ class ShipmentAddDtoBuilder
   set receiverStoreId(int? receiverStoreId) =>
       _$this._receiverStoreId = receiverStoreId;
 
-  String? _logisticServiceName;
-  String? get logisticServiceName => _$this._logisticServiceName;
-  set logisticServiceName(String? logisticServiceName) =>
-      _$this._logisticServiceName = logisticServiceName;
-
   ShipmentAddDtoBuilder() {
     ShipmentAddDto._defaults(this);
   }
@@ -185,11 +195,12 @@ class ShipmentAddDtoBuilder
       _weight = $v.weight;
       _contentDesc = $v.contentDesc;
       _contentValue = $v.contentValue;
+      _cost = $v.cost;
+      _logisticServiceName = $v.logisticServiceName;
       _senderCustomerId = $v.senderCustomerId;
       _receiverCustomerId = $v.receiverCustomerId;
       _senderStoreId = $v.senderStoreId;
       _receiverStoreId = $v.receiverStoreId;
-      _logisticServiceName = $v.logisticServiceName;
       _$v = null;
     }
     return this;
@@ -219,11 +230,12 @@ class ShipmentAddDtoBuilder
             weight: weight,
             contentDesc: contentDesc,
             contentValue: contentValue,
+            cost: cost,
+            logisticServiceName: logisticServiceName,
             senderCustomerId: senderCustomerId,
             receiverCustomerId: receiverCustomerId,
             senderStoreId: senderStoreId,
-            receiverStoreId: receiverStoreId,
-            logisticServiceName: logisticServiceName);
+            receiverStoreId: receiverStoreId);
     replace(_$result);
     return _$result;
   }

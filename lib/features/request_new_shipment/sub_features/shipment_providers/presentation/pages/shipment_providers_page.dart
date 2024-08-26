@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -53,10 +54,16 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: SaayerDefaultTextButton(
         text: "next",
-        isEnabled: true,
+        isEnabled: shipmentProvidersBloc.selectedServiceProvider != null ? true : false,
         borderRadius: 16,
         onPressed: () {
-          requestShipmentBloc.add(GoToNextPageEvent());
+          if (shipmentProvidersBloc.selectedServiceProvider != null) {
+            requestShipmentBloc.add(
+                SetSelectedServiceProvider(selectedServiceProvider: shipmentProvidersBloc.selectedServiceProvider!));
+            requestShipmentBloc.add(GoToNextPageEvent());
+          }else{
+            SaayerToast().showErrorToast(msg: "must_select_service_provider".tr());
+          }
         },
       ),
     );
@@ -96,12 +103,12 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
             itemCount: shipmentProvidersBloc.state.shipmentProvidersResponse!.length,
             physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              final ShipmentCost shipmentProviderModel = shipmentProvidersBloc.state.shipmentProvidersResponse![index];
+              final ServiceCost shipmentProviderModel = shipmentProvidersBloc.state.shipmentProvidersResponse![index];
 
               return ShipmentProviderCard(
                 shipmentProviderModel: shipmentProviderModel,
                 groupValue: shipmentProvidersBloc.selectedServiceProvider,
-                onChanged: (ShipmentCost? model) {
+                onChanged: (ServiceCost? model) {
                   setState(() {
                     shipmentProvidersBloc.selectedServiceProvider = model;
                   });

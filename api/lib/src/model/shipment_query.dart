@@ -110,7 +110,7 @@ class _$ShipmentQuerySerializer implements PrimitiveSerializer<ShipmentQuery> {
       yield r'status';
       yield serializers.serialize(
         object.status,
-        specifiedType: const FullType(ShipmentStatus),
+        specifiedType: const FullType.nullable(ShipmentStatus),
       );
     }
     if (object.storeId != null) {
@@ -206,8 +206,9 @@ class _$ShipmentQuerySerializer implements PrimitiveSerializer<ShipmentQuery> {
         case r'status':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(ShipmentStatus),
-          ) as ShipmentStatus;
+            specifiedType: const FullType.nullable(ShipmentStatus),
+          ) as ShipmentStatus?;
+          if (valueDes == null) continue;
           result.status = valueDes;
           break;
         case r'storeId':

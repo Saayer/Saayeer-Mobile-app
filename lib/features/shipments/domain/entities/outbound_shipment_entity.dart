@@ -5,7 +5,7 @@ class OutboundShipmentEntity extends ShipmentEntity {
   final String receiverName;
 
   const OutboundShipmentEntity({
-    super.shipmentsType = ShipmentsTypes.OUTBOUND,
+    super.shipmentsType = ShipmentsListTypes.EXPORT,
     required super.id,
     required super.date,
     required super.amount,
@@ -14,12 +14,12 @@ class OutboundShipmentEntity extends ShipmentEntity {
   });
 
   OutboundShipmentEntity copyWith({
-    ShipmentsTypes? shipmentsType,
+    ShipmentsListTypes? shipmentsType,
     String? id,
     String? date,
     String? amount,
     String? receiverName,
-    ShipmentStatus? shipmentStatus,
+    ShipmentsStatus? shipmentStatus,
   }) {
     return OutboundShipmentEntity(
       shipmentsType: shipmentsType ?? this.shipmentsType,

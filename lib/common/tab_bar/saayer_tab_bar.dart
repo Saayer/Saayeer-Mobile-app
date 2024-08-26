@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
@@ -22,18 +21,15 @@ class SaayerTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: (horizontalPadding ?? 16).w,
-          vertical: (verticalPadding ?? 10).h),
+      padding: EdgeInsets.symmetric(horizontal: (horizontalPadding ?? 16), vertical: (verticalPadding ?? 10)),
       child: Container(
-        height: 40.h,
+        height: 40,
         width: width / 1,
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
-          borderRadius: BorderRadius.circular(50.r),
+          borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
               color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
@@ -47,10 +43,10 @@ class SaayerTabBar extends StatelessWidget {
           controller: controller,
           indicatorSize: TabBarIndicatorSize.tab,
           indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(50.r),
+            borderRadius: BorderRadius.circular(50),
             color: SaayerTheme().getColorsPalette.primaryColor,
           ),
-          dividerHeight: 0.h,
+          dividerHeight: 0,
           onTap: onTap,
           labelStyle: labelStyle ?? AppTextStyles.smallParagraph(),
           labelColor: SaayerTheme().getColorsPalette.backgroundColor,

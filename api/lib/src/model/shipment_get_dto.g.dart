@@ -24,11 +24,11 @@ class _$ShipmentGetDto extends ShipmentGetDto {
   @override
   final double? cost;
   @override
-  final DateTime? shipingDate;
+  final DateTime? createdAt;
   @override
   final String? logisticServiceName;
   @override
-  final String? status;
+  final ShipmentStatus? status;
   @override
   final int? senderCustomerId;
   @override
@@ -37,6 +37,14 @@ class _$ShipmentGetDto extends ShipmentGetDto {
   final int? senderStoreId;
   @override
   final int? receiverStoreId;
+  @override
+  final CustomerShipmentGetDto? senderCustomer;
+  @override
+  final CustomerShipmentGetDto? receiverCustomer;
+  @override
+  final StoreShipmentGetDto? senderStore;
+  @override
+  final StoreShipmentGetDto? receiverStore;
 
   factory _$ShipmentGetDto([void Function(ShipmentGetDtoBuilder)? updates]) =>
       (new ShipmentGetDtoBuilder()..update(updates))._build();
@@ -50,13 +58,17 @@ class _$ShipmentGetDto extends ShipmentGetDto {
       this.contentDesc,
       this.contentValue,
       this.cost,
-      this.shipingDate,
+      this.createdAt,
       this.logisticServiceName,
       this.status,
       this.senderCustomerId,
       this.receiverCustomerId,
       this.senderStoreId,
-      this.receiverStoreId})
+      this.receiverStoreId,
+      this.senderCustomer,
+      this.receiverCustomer,
+      this.senderStore,
+      this.receiverStore})
       : super._();
 
   @override
@@ -79,13 +91,17 @@ class _$ShipmentGetDto extends ShipmentGetDto {
         contentDesc == other.contentDesc &&
         contentValue == other.contentValue &&
         cost == other.cost &&
-        shipingDate == other.shipingDate &&
+        createdAt == other.createdAt &&
         logisticServiceName == other.logisticServiceName &&
         status == other.status &&
         senderCustomerId == other.senderCustomerId &&
         receiverCustomerId == other.receiverCustomerId &&
         senderStoreId == other.senderStoreId &&
-        receiverStoreId == other.receiverStoreId;
+        receiverStoreId == other.receiverStoreId &&
+        senderCustomer == other.senderCustomer &&
+        receiverCustomer == other.receiverCustomer &&
+        senderStore == other.senderStore &&
+        receiverStore == other.receiverStore;
   }
 
   @override
@@ -99,13 +115,17 @@ class _$ShipmentGetDto extends ShipmentGetDto {
     _$hash = $jc(_$hash, contentDesc.hashCode);
     _$hash = $jc(_$hash, contentValue.hashCode);
     _$hash = $jc(_$hash, cost.hashCode);
-    _$hash = $jc(_$hash, shipingDate.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, logisticServiceName.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, senderCustomerId.hashCode);
     _$hash = $jc(_$hash, receiverCustomerId.hashCode);
     _$hash = $jc(_$hash, senderStoreId.hashCode);
     _$hash = $jc(_$hash, receiverStoreId.hashCode);
+    _$hash = $jc(_$hash, senderCustomer.hashCode);
+    _$hash = $jc(_$hash, receiverCustomer.hashCode);
+    _$hash = $jc(_$hash, senderStore.hashCode);
+    _$hash = $jc(_$hash, receiverStore.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -121,13 +141,17 @@ class _$ShipmentGetDto extends ShipmentGetDto {
           ..add('contentDesc', contentDesc)
           ..add('contentValue', contentValue)
           ..add('cost', cost)
-          ..add('shipingDate', shipingDate)
+          ..add('createdAt', createdAt)
           ..add('logisticServiceName', logisticServiceName)
           ..add('status', status)
           ..add('senderCustomerId', senderCustomerId)
           ..add('receiverCustomerId', receiverCustomerId)
           ..add('senderStoreId', senderStoreId)
-          ..add('receiverStoreId', receiverStoreId))
+          ..add('receiverStoreId', receiverStoreId)
+          ..add('senderCustomer', senderCustomer)
+          ..add('receiverCustomer', receiverCustomer)
+          ..add('senderStore', senderStore)
+          ..add('receiverStore', receiverStore))
         .toString();
   }
 }
@@ -168,18 +192,18 @@ class ShipmentGetDtoBuilder
   double? get cost => _$this._cost;
   set cost(double? cost) => _$this._cost = cost;
 
-  DateTime? _shipingDate;
-  DateTime? get shipingDate => _$this._shipingDate;
-  set shipingDate(DateTime? shipingDate) => _$this._shipingDate = shipingDate;
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
 
   String? _logisticServiceName;
   String? get logisticServiceName => _$this._logisticServiceName;
   set logisticServiceName(String? logisticServiceName) =>
       _$this._logisticServiceName = logisticServiceName;
 
-  String? _status;
-  String? get status => _$this._status;
-  set status(String? status) => _$this._status = status;
+  ShipmentStatus? _status;
+  ShipmentStatus? get status => _$this._status;
+  set status(ShipmentStatus? status) => _$this._status = status;
 
   int? _senderCustomerId;
   int? get senderCustomerId => _$this._senderCustomerId;
@@ -201,6 +225,30 @@ class ShipmentGetDtoBuilder
   set receiverStoreId(int? receiverStoreId) =>
       _$this._receiverStoreId = receiverStoreId;
 
+  CustomerShipmentGetDtoBuilder? _senderCustomer;
+  CustomerShipmentGetDtoBuilder get senderCustomer =>
+      _$this._senderCustomer ??= new CustomerShipmentGetDtoBuilder();
+  set senderCustomer(CustomerShipmentGetDtoBuilder? senderCustomer) =>
+      _$this._senderCustomer = senderCustomer;
+
+  CustomerShipmentGetDtoBuilder? _receiverCustomer;
+  CustomerShipmentGetDtoBuilder get receiverCustomer =>
+      _$this._receiverCustomer ??= new CustomerShipmentGetDtoBuilder();
+  set receiverCustomer(CustomerShipmentGetDtoBuilder? receiverCustomer) =>
+      _$this._receiverCustomer = receiverCustomer;
+
+  StoreShipmentGetDtoBuilder? _senderStore;
+  StoreShipmentGetDtoBuilder get senderStore =>
+      _$this._senderStore ??= new StoreShipmentGetDtoBuilder();
+  set senderStore(StoreShipmentGetDtoBuilder? senderStore) =>
+      _$this._senderStore = senderStore;
+
+  StoreShipmentGetDtoBuilder? _receiverStore;
+  StoreShipmentGetDtoBuilder get receiverStore =>
+      _$this._receiverStore ??= new StoreShipmentGetDtoBuilder();
+  set receiverStore(StoreShipmentGetDtoBuilder? receiverStore) =>
+      _$this._receiverStore = receiverStore;
+
   ShipmentGetDtoBuilder() {
     ShipmentGetDto._defaults(this);
   }
@@ -216,13 +264,17 @@ class ShipmentGetDtoBuilder
       _contentDesc = $v.contentDesc;
       _contentValue = $v.contentValue;
       _cost = $v.cost;
-      _shipingDate = $v.shipingDate;
+      _createdAt = $v.createdAt;
       _logisticServiceName = $v.logisticServiceName;
       _status = $v.status;
       _senderCustomerId = $v.senderCustomerId;
       _receiverCustomerId = $v.receiverCustomerId;
       _senderStoreId = $v.senderStoreId;
       _receiverStoreId = $v.receiverStoreId;
+      _senderCustomer = $v.senderCustomer?.toBuilder();
+      _receiverCustomer = $v.receiverCustomer?.toBuilder();
+      _senderStore = $v.senderStore?.toBuilder();
+      _receiverStore = $v.receiverStore?.toBuilder();
       _$v = null;
     }
     return this;
@@ -243,23 +295,46 @@ class ShipmentGetDtoBuilder
   ShipmentGetDto build() => _build();
 
   _$ShipmentGetDto _build() {
-    final _$result = _$v ??
-        new _$ShipmentGetDto._(
-            shipmentId: shipmentId,
-            length: length,
-            height: height,
-            width: width,
-            weight: weight,
-            contentDesc: contentDesc,
-            contentValue: contentValue,
-            cost: cost,
-            shipingDate: shipingDate,
-            logisticServiceName: logisticServiceName,
-            status: status,
-            senderCustomerId: senderCustomerId,
-            receiverCustomerId: receiverCustomerId,
-            senderStoreId: senderStoreId,
-            receiverStoreId: receiverStoreId);
+    _$ShipmentGetDto _$result;
+    try {
+      _$result = _$v ??
+          new _$ShipmentGetDto._(
+              shipmentId: shipmentId,
+              length: length,
+              height: height,
+              width: width,
+              weight: weight,
+              contentDesc: contentDesc,
+              contentValue: contentValue,
+              cost: cost,
+              createdAt: createdAt,
+              logisticServiceName: logisticServiceName,
+              status: status,
+              senderCustomerId: senderCustomerId,
+              receiverCustomerId: receiverCustomerId,
+              senderStoreId: senderStoreId,
+              receiverStoreId: receiverStoreId,
+              senderCustomer: _senderCustomer?.build(),
+              receiverCustomer: _receiverCustomer?.build(),
+              senderStore: _senderStore?.build(),
+              receiverStore: _receiverStore?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'senderCustomer';
+        _senderCustomer?.build();
+        _$failedField = 'receiverCustomer';
+        _receiverCustomer?.build();
+        _$failedField = 'senderStore';
+        _senderStore?.build();
+        _$failedField = 'receiverStore';
+        _receiverStore?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'ShipmentGetDto', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

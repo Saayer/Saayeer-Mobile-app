@@ -41,10 +41,29 @@ class GetReceiverCustomerDetailsById extends ShipmentCheckoutPaymentEvent {
 }
 
 class AddNewShipment extends ShipmentCheckoutPaymentEvent {
-  final ShipmentAddDto? shipmentAddDto;
+  final ShipmentCostObj? shipmentAddDto;
+  final ServiceCost? selectedServiceProvider;
+  final int? senderStoreId;
+  final int? senderCustomerId;
+  final int? receiverStoreId;
+  final int? receiverCustomerId;
 
-  const AddNewShipment(this.shipmentAddDto);
+  const AddNewShipment({
+    required this.shipmentAddDto,
+    required this.selectedServiceProvider,
+    required this.senderStoreId,
+    required this.senderCustomerId,
+    required this.receiverStoreId,
+    required this.receiverCustomerId,
+  });
 
   @override
-  List<Object?> get props => [shipmentAddDto];
+  List<Object?> get props => [
+        shipmentAddDto,
+        selectedServiceProvider,
+        senderStoreId,
+        senderCustomerId,
+        receiverStoreId,
+        receiverCustomerId,
+      ];
 }

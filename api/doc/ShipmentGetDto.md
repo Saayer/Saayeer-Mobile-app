@@ -16,13 +16,17 @@ Name | Type | Description | Notes
 **contentDesc** | **String** |  | [optional] 
 **contentValue** | **double** |  | [optional] 
 **cost** | **double** |  | [optional] 
-**shipingDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
 **logisticServiceName** | **String** |  | [optional] 
-**status** | **String** |  | [optional] 
+**status** | [**ShipmentStatus**](ShipmentStatus.md) |  | [optional] 
 **senderCustomerId** | **int** |  | [optional] 
 **receiverCustomerId** | **int** |  | [optional] 
 **senderStoreId** | **int** |  | [optional] 
 **receiverStoreId** | **int** |  | [optional] 
+**senderCustomer** | [**CustomerShipmentGetDto**](CustomerShipmentGetDto.md) |  | [optional] 
+**receiverCustomer** | [**CustomerShipmentGetDto**](CustomerShipmentGetDto.md) |  | [optional] 
+**senderStore** | [**StoreShipmentGetDto**](StoreShipmentGetDto.md) |  | [optional] 
+**receiverStore** | [**StoreShipmentGetDto**](StoreShipmentGetDto.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

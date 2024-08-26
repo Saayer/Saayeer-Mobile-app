@@ -73,8 +73,8 @@ class ShipmentSpecInfoTextFieldHelper {
   Widget _getLengthTextField() {
     return InputTextField(
       label: shipmentDetailsFieldsTypes.name,
-      isFieldRequired: true,
-      withValidator: true,
+      isFieldRequired: false,
+      withValidator: false,
       inputController: _getInputController(),
       maxLength: null,
       keyboardType: TextInputType.number,
@@ -85,8 +85,8 @@ class ShipmentSpecInfoTextFieldHelper {
   Widget _getWidthTextField() {
     return InputTextField(
       label: shipmentDetailsFieldsTypes.name,
-      isFieldRequired: true,
-      withValidator: true,
+      isFieldRequired: false,
+      withValidator: false,
       inputController: _getInputController(),
       maxLength: null,
       keyboardType: TextInputType.number,
@@ -97,8 +97,8 @@ class ShipmentSpecInfoTextFieldHelper {
   Widget _getHeightTextField() {
     return InputTextField(
       label: shipmentDetailsFieldsTypes.name,
-      isFieldRequired: true,
-      withValidator: true,
+      isFieldRequired: false,
+      withValidator: false,
       inputController: _getInputController(),
       maxLength: null,
       keyboardType: TextInputType.number,

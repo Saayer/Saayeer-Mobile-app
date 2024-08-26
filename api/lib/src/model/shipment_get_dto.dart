@@ -3,6 +3,9 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/store_shipment_get_dto.dart';
+import 'package:openapi/src/model/shipment_status.dart';
+import 'package:openapi/src/model/customer_shipment_get_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -19,13 +22,17 @@ part 'shipment_get_dto.g.dart';
 /// * [contentDesc] 
 /// * [contentValue] 
 /// * [cost] 
-/// * [shipingDate] 
+/// * [createdAt] 
 /// * [logisticServiceName] 
 /// * [status] 
 /// * [senderCustomerId] 
 /// * [receiverCustomerId] 
 /// * [senderStoreId] 
 /// * [receiverStoreId] 
+/// * [senderCustomer] 
+/// * [receiverCustomer] 
+/// * [senderStore] 
+/// * [receiverStore] 
 @BuiltValue()
 abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBuilder> {
   @BuiltValueField(wireName: r'shipmentId')
@@ -52,14 +59,15 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
   @BuiltValueField(wireName: r'cost')
   double? get cost;
 
-  @BuiltValueField(wireName: r'shipingDate')
-  DateTime? get shipingDate;
+  @BuiltValueField(wireName: r'createdAt')
+  DateTime? get createdAt;
 
   @BuiltValueField(wireName: r'logisticServiceName')
   String? get logisticServiceName;
 
   @BuiltValueField(wireName: r'status')
-  String? get status;
+  ShipmentStatus? get status;
+  // enum statusEnum {  Pending,  Paid,  };
 
   @BuiltValueField(wireName: r'senderCustomerId')
   int? get senderCustomerId;
@@ -72,6 +80,18 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
 
   @BuiltValueField(wireName: r'receiverStoreId')
   int? get receiverStoreId;
+
+  @BuiltValueField(wireName: r'senderCustomer')
+  CustomerShipmentGetDto? get senderCustomer;
+
+  @BuiltValueField(wireName: r'receiverCustomer')
+  CustomerShipmentGetDto? get receiverCustomer;
+
+  @BuiltValueField(wireName: r'senderStore')
+  StoreShipmentGetDto? get senderStore;
+
+  @BuiltValueField(wireName: r'receiverStore')
+  StoreShipmentGetDto? get receiverStore;
 
   ShipmentGetDto._();
 
@@ -152,11 +172,11 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
         specifiedType: const FullType.nullable(double),
       );
     }
-    if (object.shipingDate != null) {
-      yield r'shipingDate';
+    if (object.createdAt != null) {
+      yield r'createdAt';
       yield serializers.serialize(
-        object.shipingDate,
-        specifiedType: const FullType.nullable(DateTime),
+        object.createdAt,
+        specifiedType: const FullType(DateTime),
       );
     }
     if (object.logisticServiceName != null) {
@@ -170,7 +190,7 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
       yield r'status';
       yield serializers.serialize(
         object.status,
-        specifiedType: const FullType.nullable(String),
+        specifiedType: const FullType.nullable(ShipmentStatus),
       );
     }
     if (object.senderCustomerId != null) {
@@ -199,6 +219,34 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
       yield serializers.serialize(
         object.receiverStoreId,
         specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.senderCustomer != null) {
+      yield r'senderCustomer';
+      yield serializers.serialize(
+        object.senderCustomer,
+        specifiedType: const FullType.nullable(CustomerShipmentGetDto),
+      );
+    }
+    if (object.receiverCustomer != null) {
+      yield r'receiverCustomer';
+      yield serializers.serialize(
+        object.receiverCustomer,
+        specifiedType: const FullType.nullable(CustomerShipmentGetDto),
+      );
+    }
+    if (object.senderStore != null) {
+      yield r'senderStore';
+      yield serializers.serialize(
+        object.senderStore,
+        specifiedType: const FullType.nullable(StoreShipmentGetDto),
+      );
+    }
+    if (object.receiverStore != null) {
+      yield r'receiverStore';
+      yield serializers.serialize(
+        object.receiverStore,
+        specifiedType: const FullType.nullable(StoreShipmentGetDto),
       );
     }
   }
@@ -283,13 +331,12 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
           if (valueDes == null) continue;
           result.cost = valueDes;
           break;
-        case r'shipingDate':
+        case r'createdAt':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(DateTime),
-          ) as DateTime?;
-          if (valueDes == null) continue;
-          result.shipingDate = valueDes;
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdAt = valueDes;
           break;
         case r'logisticServiceName':
           final valueDes = serializers.deserialize(
@@ -302,8 +349,8 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
         case r'status':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+            specifiedType: const FullType.nullable(ShipmentStatus),
+          ) as ShipmentStatus?;
           if (valueDes == null) continue;
           result.status = valueDes;
           break;
@@ -338,6 +385,38 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
           ) as int?;
           if (valueDes == null) continue;
           result.receiverStoreId = valueDes;
+          break;
+        case r'senderCustomer':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(CustomerShipmentGetDto),
+          ) as CustomerShipmentGetDto?;
+          if (valueDes == null) continue;
+          result.senderCustomer.replace(valueDes);
+          break;
+        case r'receiverCustomer':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(CustomerShipmentGetDto),
+          ) as CustomerShipmentGetDto?;
+          if (valueDes == null) continue;
+          result.receiverCustomer.replace(valueDes);
+          break;
+        case r'senderStore':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(StoreShipmentGetDto),
+          ) as StoreShipmentGetDto?;
+          if (valueDes == null) continue;
+          result.senderStore.replace(valueDes);
+          break;
+        case r'receiverStore':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(StoreShipmentGetDto),
+          ) as StoreShipmentGetDto?;
+          if (valueDes == null) continue;
+          result.receiverStore.replace(valueDes);
           break;
         default:
           unhandled.add(key);

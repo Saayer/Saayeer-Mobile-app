@@ -18,11 +18,12 @@ part 'shipment_add_dto.g.dart';
 /// * [weight] 
 /// * [contentDesc] 
 /// * [contentValue] 
+/// * [cost] 
+/// * [logisticServiceName] 
 /// * [senderCustomerId] 
 /// * [receiverCustomerId] 
 /// * [senderStoreId] 
 /// * [receiverStoreId] 
-/// * [logisticServiceName] 
 @BuiltValue()
 abstract class ShipmentAddDto implements Built<ShipmentAddDto, ShipmentAddDtoBuilder> {
   @BuiltValueField(wireName: r'shipmentId')
@@ -46,6 +47,12 @@ abstract class ShipmentAddDto implements Built<ShipmentAddDto, ShipmentAddDtoBui
   @BuiltValueField(wireName: r'contentValue')
   double? get contentValue;
 
+  @BuiltValueField(wireName: r'cost')
+  double? get cost;
+
+  @BuiltValueField(wireName: r'logisticServiceName')
+  String? get logisticServiceName;
+
   @BuiltValueField(wireName: r'senderCustomerId')
   int? get senderCustomerId;
 
@@ -57,9 +64,6 @@ abstract class ShipmentAddDto implements Built<ShipmentAddDto, ShipmentAddDtoBui
 
   @BuiltValueField(wireName: r'receiverStoreId')
   int? get receiverStoreId;
-
-  @BuiltValueField(wireName: r'logisticServiceName')
-  String? get logisticServiceName;
 
   ShipmentAddDto._();
 
@@ -133,6 +137,20 @@ class _$ShipmentAddDtoSerializer implements PrimitiveSerializer<ShipmentAddDto> 
         specifiedType: const FullType.nullable(double),
       );
     }
+    if (object.cost != null) {
+      yield r'cost';
+      yield serializers.serialize(
+        object.cost,
+        specifiedType: const FullType.nullable(double),
+      );
+    }
+    if (object.logisticServiceName != null) {
+      yield r'logisticServiceName';
+      yield serializers.serialize(
+        object.logisticServiceName,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.senderCustomerId != null) {
       yield r'senderCustomerId';
       yield serializers.serialize(
@@ -159,13 +177,6 @@ class _$ShipmentAddDtoSerializer implements PrimitiveSerializer<ShipmentAddDto> 
       yield serializers.serialize(
         object.receiverStoreId,
         specifiedType: const FullType.nullable(int),
-      );
-    }
-    if (object.logisticServiceName != null) {
-      yield r'logisticServiceName';
-      yield serializers.serialize(
-        object.logisticServiceName,
-        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -243,6 +254,22 @@ class _$ShipmentAddDtoSerializer implements PrimitiveSerializer<ShipmentAddDto> 
           if (valueDes == null) continue;
           result.contentValue = valueDes;
           break;
+        case r'cost':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(double),
+          ) as double?;
+          if (valueDes == null) continue;
+          result.cost = valueDes;
+          break;
+        case r'logisticServiceName':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.logisticServiceName = valueDes;
+          break;
         case r'senderCustomerId':
           final valueDes = serializers.deserialize(
             value,
@@ -274,14 +301,6 @@ class _$ShipmentAddDtoSerializer implements PrimitiveSerializer<ShipmentAddDto> 
           ) as int?;
           if (valueDes == null) continue;
           result.receiverStoreId = valueDes;
-          break;
-        case r'logisticServiceName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.logisticServiceName = valueDes;
           break;
         default:
           unhandled.add(key);

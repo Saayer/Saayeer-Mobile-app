@@ -43,6 +43,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_bill.svg
   String get icBill => 'assets/icons/ic_bill.svg';
 
+  /// File path: assets/icons/ic_clear_filter.svg
+  String get icClearFilter => 'assets/icons/ic_clear_filter.svg';
+
   /// File path: assets/icons/ic_contact_us.svg
   String get icContactUs => 'assets/icons/ic_contact_us.svg';
 
@@ -140,6 +143,7 @@ class $AssetsIconsGen {
         icAddressesBookPng,
         icAddressesBookSvg,
         icBill,
+        icClearFilter,
         icContactUs,
         icEbills,
         icFilter,

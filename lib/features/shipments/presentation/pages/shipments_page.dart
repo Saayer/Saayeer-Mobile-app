@@ -18,8 +18,7 @@ class ShipmentsPage extends StatelessWidget {
               nextState.stateHelper.requestState),
       listener: (context, state) {
         final bool isLoading = (shipmentsBloc.state.stateHelper.requestState ==
-                RequestState.LOADING) &&
-            (state.shipmentEntityListMap?.isNotEmpty ?? false);
+                RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}

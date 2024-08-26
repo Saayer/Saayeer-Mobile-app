@@ -9,9 +9,9 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
 class ShipmentProviderCard extends StatelessWidget {
-  final ShipmentCost shipmentProviderModel;
-  final ValueChanged<ShipmentCost?>? onChanged;
-  final ShipmentCost? groupValue;
+  final ServiceCost shipmentProviderModel;
+  final ValueChanged<ServiceCost?>? onChanged;
+  final ServiceCost? groupValue;
 
   const ShipmentProviderCard(
       {super.key, required this.shipmentProviderModel, required this.onChanged, required this.groupValue});
@@ -33,21 +33,25 @@ class ShipmentProviderCard extends StatelessWidget {
               ),
             ],
           ),
-          child: RadioListTile<ShipmentCost>(
+          child: RadioListTile<ServiceCost>(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _getLeadingWidget(),
+                (shipmentProviderModel.hasError ?? false)
+                    ? Text('not_available'.tr(),
+                        style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
+                    :
 
-                /// Cost & Business days
-                _buildRowColumnWidget(context)
+                    /// Cost & Business days
+                    _buildRowColumnWidget(context)
               ],
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-            value: shipmentProviderModel,
+            value: (shipmentProviderModel.hasError ?? false) ? ServiceCost() : shipmentProviderModel,
             groupValue: groupValue,
             activeColor: SaayerTheme().getColorsPalette.primaryColor,
-            onChanged: onChanged,
+            onChanged: (shipmentProviderModel.hasError ?? false) ? null : onChanged,
           )),
     );
   }
@@ -79,7 +83,12 @@ class ShipmentProviderCard extends StatelessWidget {
           '${shipmentProviderModel.cost} ${'sar'.tr()}',
           style: AppTextStyles.boldLabel(),
         )),
-        ResponsiveRowColumnItem(child: Text('2 - 3 ${'business_days'.tr()}', style: AppTextStyles.xSmallLabel())),
+        ResponsiveRowColumnItem(
+            child: (shipmentProviderModel.estimatedShipmentDays == null ||
+                    shipmentProviderModel.estimatedShipmentDays!.isEmpty)
+                ? const Text('')
+                : Text('${shipmentProviderModel.estimatedShipmentDays} ${'business_days'.tr()}',
+                    style: AppTextStyles.xSmallLabel())),
       ],
     ));
   }
