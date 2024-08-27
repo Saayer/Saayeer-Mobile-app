@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
 class CachedNetworkImageWidget extends StatefulWidget {
@@ -38,9 +40,9 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> wit
             width: 47,
             fit: BoxFit.contain,
           )
-        : SizedBox(
-            height: 47,
-            width: 47,
+        : GenericSvgWidget(
+            path: Constants.getIconPath("ic_shipment.svg"),
+            color: SaayerTheme().getColorsPalette.blackTextColor,
           );
     return CachedNetworkImage(
       imageUrl: widget.imageUrl,

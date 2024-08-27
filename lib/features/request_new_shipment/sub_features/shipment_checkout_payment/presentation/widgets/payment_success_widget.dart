@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
@@ -71,7 +72,7 @@ class PaymentSuccessWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'payment_successfully',
+              'payment_successfully'.tr(),
               style: AppTextStyles.mainFocusedLabel(),
             ),
             Lottie.asset('assets/lottie/paid_shipment.json'),

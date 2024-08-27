@@ -31,7 +31,7 @@ class ShipmentDetailsBloc
         stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     late final ShipmentDetailsEntity shipmentDetailsEntity;
-    if (event.shipmentEntity.shipmentsType == ShipmentsTypes.OUTBOUND) {
+    if (event.shipmentEntity.shipmentsType == ShipmentsListTypes.EXPORT) {
       final OutboundShipmentEntity outboundShipmentEntity =
           (event.shipmentEntity as OutboundShipmentEntity);
       shipmentDetailsEntity = ShipmentDetailsEntity(

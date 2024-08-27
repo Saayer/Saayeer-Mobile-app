@@ -26,13 +26,13 @@ class ShipmentProvidersBloc extends Bloc<ShipmentProvidersEvent, ShipmentProvide
   }
 
   ///
-  ShipmentCost? selectedServiceProvider;
+  ServiceCost? selectedServiceProvider;
 
   FutureOr<void> _getShipmentProvidersList(GetShipmentProvidersEvent event, Emitter<ShipmentProvidersState> emit) async {
       emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-      final Either<Failure, List<ShipmentCost>> result =
-      await getShipmentProvidersUseCase(event.shipmentSpecsEntity ?? ShipmentAddDto());
+      final Either<Failure, List<ServiceCost>> result =
+      await getShipmentProvidersUseCase(event.shipmentSpecsEntity ?? ShipmentCostObj());
 
       if (result.isLeft()) {
         emit(state.copyWith(
@@ -40,9 +40,12 @@ class ShipmentProvidersBloc extends Bloc<ShipmentProvidersEvent, ShipmentProvide
               requestState: RequestState.ERROR,
             )));
       } else {
-        final List<ShipmentCost>? rightResult = (result as Right).value;
+        final List<ServiceCost>? rightResult = (result as Right).value;
         if (rightResult != null) {
-          selectedServiceProvider = rightResult.first;
+          if(!(rightResult.first.hasError ?? false)){
+            selectedServiceProvider = rightResult.first;
+          }
+
           emit(state.copyWith(
             stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
             shipmentProvidersResponse: rightResult,

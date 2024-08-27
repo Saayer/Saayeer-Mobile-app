@@ -9,7 +9,7 @@ import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart';
 
 class EmptyShipments extends StatelessWidget {
-  final ShipmentsTypes shipmentsType;
+  final ShipmentsListTypes shipmentsType;
 
   const EmptyShipments({super.key, required this.shipmentsType});
 
@@ -18,9 +18,7 @@ class EmptyShipments extends StatelessWidget {
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
 
     return BlocConsumer<ShipmentsBloc, ShipmentsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final double size = (state.isFromHome ? 40 : 65);
         return EmptyStatusWidget(

@@ -76,13 +76,13 @@ class OnReceiverSelectedFromDropDown extends RequestNewShipmentEvent {
   List<Object?> get props => [receiverType, item];
 }
 
-class AddAddressInfoEvent extends RequestNewShipmentEvent {
-  final AddressInfoEntity addressInfoEntity;
+class SetSelectedServiceProvider extends RequestNewShipmentEvent {
+  final ServiceCost selectedServiceProvider;
 
-  AddAddressInfoEvent(this.addressInfoEntity);
+  const SetSelectedServiceProvider({required this.selectedServiceProvider});
 
   @override
-  List<Object> get props => [addressInfoEntity];
+  List<Object> get props => [selectedServiceProvider];
 }
 
 class GoToServiceProvidersPage extends RequestNewShipmentEvent {

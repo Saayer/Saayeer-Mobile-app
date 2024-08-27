@@ -5,7 +5,7 @@ class RequestNewShipmentState extends Equatable {
   final AutovalidateMode autoValidateMode;
   final int currentPage;
   final AddressInfoEntity? addressInfoEntity;
-  final ShipmentAddDto? shipmentDtoBody;
+  final ShipmentCostObj? shipmentDtoBody;
   final List<CustomerGetDto>? customersAddresses;
   final CustomerQuery? senderCustomerQuery;
   final CustomerQuery? receiverCustomerQuery;
@@ -15,6 +15,9 @@ class RequestNewShipmentState extends Equatable {
   final int? senderCustomerId;
   final int? receiverStoreId;
   final int? receiverCustomerId;
+  final ServiceCost? selectedServiceProvider;
+  final AddressLogistics? senderAddress;
+  final AddressLogistics? receiverAddress;
 
   const RequestNewShipmentState({
     this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
@@ -31,6 +34,9 @@ class RequestNewShipmentState extends Equatable {
     this.senderCustomerId,
     this.receiverStoreId,
     this.receiverCustomerId,
+    this.selectedServiceProvider,
+    this.senderAddress,
+    this.receiverAddress,
   });
 
   RequestNewShipmentState copyWith({
@@ -38,7 +44,7 @@ class RequestNewShipmentState extends Equatable {
     AutovalidateMode? autoValidateMode,
     int? currentPage,
     AddressInfoEntity? addressInfoEntity,
-    ShipmentAddDto? shipmentDtoBody,
+    ShipmentCostObj? shipmentDtoBody,
     List<CustomerGetDto>? customersAddresses,
     CustomerQuery? senderCustomerQuery,
     CustomerQuery? receiverCustomerQuery,
@@ -48,6 +54,9 @@ class RequestNewShipmentState extends Equatable {
     int? senderCustomerId,
     int? receiverStoreId,
     int? receiverCustomerId,
+    ServiceCost? selectedServiceProvider,
+    AddressLogistics? senderAddress,
+    AddressLogistics? receiverAddress,
   }) {
     return RequestNewShipmentState(
       stateHelper: stateHelper ?? this.stateHelper,
@@ -64,6 +73,9 @@ class RequestNewShipmentState extends Equatable {
       senderCustomerId: senderCustomerId ?? this.senderCustomerId,
       receiverStoreId: receiverStoreId ?? this.receiverStoreId,
       receiverCustomerId: receiverCustomerId ?? this.receiverCustomerId,
+      selectedServiceProvider: selectedServiceProvider ?? this.selectedServiceProvider,
+      senderAddress: senderAddress ?? this.senderAddress,
+      receiverAddress: receiverAddress ?? this.receiverAddress,
     );
   }
 
@@ -83,5 +95,8 @@ class RequestNewShipmentState extends Equatable {
         senderCustomerId,
         receiverStoreId,
         receiverCustomerId,
+        selectedServiceProvider,
+        senderAddress,
+        receiverAddress,
       ];
 }

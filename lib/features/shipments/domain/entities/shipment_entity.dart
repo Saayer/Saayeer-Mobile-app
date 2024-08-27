@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
 
 abstract class ShipmentEntity extends Equatable {
-  final ShipmentsTypes shipmentsType;
+  final ShipmentsListTypes shipmentsType;
   final String id, date, amount;
 
-  final ShipmentStatus shipmentStatus;
+  final ShipmentsStatus shipmentStatus;
 
   const ShipmentEntity({
     required this.shipmentsType,

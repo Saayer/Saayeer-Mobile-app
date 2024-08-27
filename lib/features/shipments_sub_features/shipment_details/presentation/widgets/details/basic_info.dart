@@ -9,7 +9,7 @@ import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
-import 'package:saayer/features/shipments/core/helper/outbound_shipment_widget_helper.dart';
+import 'package:saayer/features/shipments/presentation/widgets/shipment_item_widget_helper.dart';
 
 class BasicInfo extends StatelessWidget {
   final ShipmentDetailsEntity shipmentDetailsEntity;
@@ -29,7 +29,7 @@ class BasicInfo extends StatelessWidget {
         text: shipmentDetailsEntity.date,
       ),
     ];
-    final Color shipmentStatusColor = OutboundShipmentWidgetHelper().getColor(shipmentDetailsEntity.shipmentStatus);
+    final Color shipmentStatusColor = ShipmentItemWidgetHelper().getColor(shipmentDetailsEntity.shipmentStatus);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       decoration: BoxDecoration(

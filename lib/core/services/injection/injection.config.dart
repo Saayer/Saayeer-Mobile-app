@@ -184,6 +184,14 @@ import 'package:saayer/features/request_new_shipment/sub_features/shipment_provi
     as _i897;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/blocs/shipment_providers_bloc.dart'
     as _i135;
+import 'package:saayer/features/shipments/data/repositories/shipments_list_repo_impl.dart'
+    as _i779;
+import 'package:saayer/features/shipments/domain/repositories/shipments_list_repo.dart'
+    as _i282;
+import 'package:saayer/features/shipments/domain/use_cases/get_service_providers_list_usecase.dart'
+    as _i580;
+import 'package:saayer/features/shipments/domain/use_cases/get_shipments_List_usecase.dart'
+    as _i437;
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart'
     as _i414;
 import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/bloc/shipment_details_bloc.dart'
@@ -261,7 +269,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
     gh.factory<_i110.NotificationsBloc>(() => _i110.NotificationsBloc());
-    gh.factory<_i414.ShipmentsBloc>(() => _i414.ShipmentsBloc());
     gh.singleton<_i552.AppFlavor>(() => _i552.AppFlavor());
     gh.singleton<_i502.SharedPrefService>(() => _i502.SharedPrefService());
     gh.singleton<_i275.LoggedInService>(() => _i275.LoggedInService());
@@ -324,6 +331,8 @@ extension GetItInjectableX on _i174.GetIt {
         addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
     gh.factory<_i792.PersonalInfoRepo>(() =>
         _i508.PersonalInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i282.ShipmentsListRepo>(() =>
+        _i779.ShipmentsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i451.AddressesBookRDS>(
         () => _i699.AddressesBookRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i191.AddressWidgetsBloc>(() => _i191.AddressWidgetsBloc(
@@ -425,6 +434,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i396.SubmitBusinessInfoUseCase>(() =>
         _i396.SubmitBusinessInfoUseCase(
             businessInfoRepoImpl: gh<_i192.BusinessInfoRepo>()));
+    gh.factory<_i437.GetShipmentsListUseCase>(() =>
+        _i437.GetShipmentsListUseCase(
+            shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i580.GetServiceProvidersListUseCase>(() =>
+        _i580.GetServiceProvidersListUseCase(
+            shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
     gh.factory<_i1066.HomeBloc>(() => _i1066.HomeBloc(
         getUserProfileUseCase: gh<_i22.GetUserProfileUseCase>()));
     gh.factory<_i959.StoresListBloc>(() => _i959.StoresListBloc(
@@ -452,6 +467,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i927.RequestNewShipmentBloc>(() => _i927.RequestNewShipmentBloc(
           getCustomersAddressesUseCase: gh<_i436.GetAddressesUseCase>(),
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
+        ));
+    gh.factory<_i414.ShipmentsBloc>(() => _i414.ShipmentsBloc(
+          getShipmentsListUseCase: gh<_i437.GetShipmentsListUseCase>(),
+          getStoresUseCase: gh<_i833.GetStoresUseCase>(),
+          getServiceProvidersListUseCase:
+              gh<_i580.GetServiceProvidersListUseCase>(),
         ));
     return this;
   }

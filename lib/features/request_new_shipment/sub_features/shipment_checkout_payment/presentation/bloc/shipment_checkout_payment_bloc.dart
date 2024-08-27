@@ -49,7 +49,6 @@ class ShipmentCheckoutPaymentBloc extends Bloc<ShipmentCheckoutPaymentEvent, Shi
       final StoreGetDto? rightResult = (result as Right).value;
       if (rightResult != null) {
         emit(state.copyWith(
-          stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
           senderStoreDto: rightResult,
         ));
       } else {
@@ -77,7 +76,6 @@ class ShipmentCheckoutPaymentBloc extends Bloc<ShipmentCheckoutPaymentEvent, Shi
       final CustomerGetDto? rightResult = (result as Right).value;
       if (rightResult != null) {
         emit(state.copyWith(
-          stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
           senderCustomerDto: rightResult,
         ));
       } else {
@@ -148,9 +146,21 @@ class ShipmentCheckoutPaymentBloc extends Bloc<ShipmentCheckoutPaymentEvent, Shi
 
   FutureOr<void> _addNewShipment(AddNewShipment event, Emitter<ShipmentCheckoutPaymentState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    final ShipmentAddDto shipmentDto = ShipmentAddDto((b) => b
+      ..length = event.shipmentAddDto?.length
+      ..height = event.shipmentAddDto?.height
+      ..width = event.shipmentAddDto?.width
+      ..weight = event.shipmentAddDto?.weight
+      ..contentDesc = event.shipmentAddDto?.contentDesc
+      ..contentValue = event.shipmentAddDto?.contentValue
+      ..senderCustomerId = event.senderCustomerId
+      ..receiverCustomerId = event.receiverCustomerId
+      ..senderStoreId = event.senderStoreId
+      ..receiverStoreId = event.receiverStoreId
+      ..cost = event.selectedServiceProvider?.cost
+      ..logisticServiceName = event.selectedServiceProvider?.name);
 
-    final Either<Failure, ShipmentGetDto> result =
-        await addNewShipmentUseCase(event.shipmentAddDto ?? ShipmentAddDto());
+    final Either<Failure, ShipmentGetDto> result = await addNewShipmentUseCase(shipmentDto);
 
     if (result.isLeft()) {
       emit(state.copyWith(

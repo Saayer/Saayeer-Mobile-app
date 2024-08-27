@@ -206,10 +206,7 @@ class _ShipmentSpecInfoScreenState extends State<ShipmentSpecInfoScreen> {
   }
 
   bool enableButton(RequestNewShipmentBloc requestShipmentBloc) {
-    if (requestShipmentBloc.lengthController.text.isNotEmpty &&
-        requestShipmentBloc.widthController.text.isNotEmpty &&
-        (requestShipmentBloc.heightController.text.isNotEmpty) &&
-        (requestShipmentBloc.weightController.text.isNotEmpty) &&
+    if ((requestShipmentBloc.weightController.text.isNotEmpty) &&
         (requestShipmentBloc.contentDescriptionController.text.isNotEmpty)) {
       return true;
     }

@@ -57,7 +57,13 @@ class ShipmentCheckoutPaymentPage extends StatelessWidget {
         isEnabled: true,
         borderRadius: 16,
         onPressed: () {
-          bloc.add(AddNewShipment(requestShipmentBloc.state.shipmentDtoBody));
+          bloc.add(AddNewShipment(
+              shipmentAddDto: requestShipmentBloc.state.shipmentDtoBody,
+              selectedServiceProvider: requestShipmentBloc.state.selectedServiceProvider,
+              senderCustomerId: requestShipmentBloc.state.senderCustomerId,
+              senderStoreId: requestShipmentBloc.state.senderStoreId,
+              receiverCustomerId: requestShipmentBloc.state.receiverCustomerId,
+              receiverStoreId: requestShipmentBloc.state.receiverStoreId));
         },
       ),
     );
@@ -102,6 +108,10 @@ class ShipmentCheckoutPaymentPage extends StatelessWidget {
               color: Colors.grey,
             ),
             _buildShipmentSpecInfo(bloc, requestShipmentBloc),
+            const Divider(
+              color: Colors.grey,
+            ),
+            _buildServiceProviderWidget(requestShipmentBloc),
             const SizedBox(
               height: 100,
             )
@@ -229,5 +239,17 @@ class ShipmentCheckoutPaymentPage extends StatelessWidget {
                 Text('${'content_value'.tr()}: ${requestShipmentBloc.state.shipmentDtoBody?.contentValue}'),
             ],
           );
+  }
+
+  _buildServiceProviderWidget(RequestNewShipmentBloc requestShipmentBloc) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('${'service_provider'.tr()}: '),
+        Text('${'name'.tr()}: ${requestShipmentBloc.state.selectedServiceProvider?.name}'),
+        Text('${'cost'.tr()}: ${requestShipmentBloc.state.selectedServiceProvider?.cost} ${'sar'.tr()}'),
+        Text('${'business_days'.tr()}: ${requestShipmentBloc.state.selectedServiceProvider?.estimatedShipmentDays}'),
+      ],
+    );
   }
 }
