@@ -6,6 +6,7 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/request_new_shipment/data/core/errors/new_shipment_error_handler.dart';
 import 'package:saayer/features/user_info_view_page/presentation/widgets/linear_indicator.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
 import 'package:saayer/features/request_new_shipment/presentation/widgets/request_new_shipment_pages_helper.dart';
@@ -16,8 +17,7 @@ class RequestNewShipmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RequestNewShipmentBloc requestShipmentBloc = BlocProvider.of<RequestNewShipmentBloc>(context);
-    final List<Widget> pages =
-        RequestNewShipmentPagesHelper().requestShipmentPages();
+    final List<Widget> pages = RequestNewShipmentPagesHelper().requestShipmentPages();
 
     return BlocConsumer<RequestNewShipmentBloc, RequestNewShipmentState>(
       buildWhen: (previousState, nextState) =>
@@ -28,7 +28,10 @@ class RequestNewShipmentPage extends StatelessWidget {
 
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-          if (state.stateHelper.requestState == RequestState.ERROR) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            ///
+            NewShipmentErrorHandler(state: state)();
+          }
         }
       },
       builder: (context, state) {
@@ -66,7 +69,7 @@ class RequestNewShipmentPage extends StatelessWidget {
                   final bool isCurrent = (state.currentPage == index);
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
-                    width: isCurrent ? screenWidth(context) / 4 : screenWidth(context) / 6,
+                    width: isCurrent ? screenWidth(context) / 5 : screenWidth(context) / 7,
                     child: LinearIndicator(
                       color: isPrevious
                           ? (SaayerTheme().getColorsPalette.superDarkOrangeColor)

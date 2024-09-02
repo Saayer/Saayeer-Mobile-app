@@ -18,6 +18,7 @@ class RequestNewShipmentState extends Equatable {
   final ServiceCost? selectedServiceProvider;
   final AddressLogistics? senderAddress;
   final AddressLogistics? receiverAddress;
+  final int? shipmentId;
 
   const RequestNewShipmentState({
     this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
@@ -37,6 +38,7 @@ class RequestNewShipmentState extends Equatable {
     this.selectedServiceProvider,
     this.senderAddress,
     this.receiverAddress,
+    this.shipmentId,
   });
 
   RequestNewShipmentState copyWith({
@@ -57,6 +59,7 @@ class RequestNewShipmentState extends Equatable {
     ServiceCost? selectedServiceProvider,
     AddressLogistics? senderAddress,
     AddressLogistics? receiverAddress,
+    int? shipmentId,
   }) {
     return RequestNewShipmentState(
       stateHelper: stateHelper ?? this.stateHelper,
@@ -76,6 +79,7 @@ class RequestNewShipmentState extends Equatable {
       selectedServiceProvider: selectedServiceProvider ?? this.selectedServiceProvider,
       senderAddress: senderAddress ?? this.senderAddress,
       receiverAddress: receiverAddress ?? this.receiverAddress,
+      shipmentId: shipmentId ?? this.shipmentId,
     );
   }
 
@@ -98,5 +102,6 @@ class RequestNewShipmentState extends Equatable {
         selectedServiceProvider,
         senderAddress,
         receiverAddress,
+        shipmentId,
       ];
 }

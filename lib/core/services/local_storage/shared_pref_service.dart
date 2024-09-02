@@ -17,6 +17,7 @@ class SharedPrefService {
   final String _keyAccessToken = 'AccessToken';
   final String _keyIsLoggedIn = 'IsLoggedIn';
   final String _keyLastStoreAdded = 'LastStoreAdded';
+  final String _keyClientPhone = 'ClientPhone';
 
   /// saving data to sharedpreference
   Future setAccessToken(String accessToken) async {
@@ -29,6 +30,10 @@ class SharedPrefService {
 
   Future setLastStoreAddedId(int storeId) async {
     await _preferences.setInt(_keyLastStoreAdded, storeId);
+  }
+
+  Future setClientPhone(String phoneNo) async {
+    await _preferences.setString(_keyClientPhone, phoneNo);
   }
 
   /// fetching data from sharedpreference
@@ -56,6 +61,15 @@ class SharedPrefService {
     if (_preferences.containsKey(_keyLastStoreAdded)) {
       final int? lastStoreAddedId = _preferences.get(_keyLastStoreAdded) as int?;
       return lastStoreAddedId;
+    } else {
+      return null;
+    }
+  }
+
+  String? getClientPhone() {
+    if (_preferences.containsKey(_keyClientPhone)) {
+      final String? phoneNumber = _preferences.get(_keyClientPhone) as String?;
+      return phoneNumber;
     } else {
       return null;
     }

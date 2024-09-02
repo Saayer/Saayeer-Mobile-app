@@ -9,6 +9,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/core/errors/shipment_providers_error_handler.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/blocs/shipment_providers_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/widgets/empty_service_providers.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/widgets/shipment_provider_card.dart';
@@ -35,7 +36,10 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
             requestShipmentBloc.add(GoToNextPageEvent());
           }
-          if (state.stateHelper.requestState == RequestState.ERROR) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            ///
+            ShipmentProvidersErrorHandler(state: state)();
+          }
         }
       },
       builder: (context, state) {
@@ -61,7 +65,7 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
             requestShipmentBloc.add(
                 SetSelectedServiceProvider(selectedServiceProvider: shipmentProvidersBloc.selectedServiceProvider!));
             requestShipmentBloc.add(GoToNextPageEvent());
-          }else{
+          } else {
             SaayerToast().showErrorToast(msg: "must_select_service_provider".tr());
           }
         },

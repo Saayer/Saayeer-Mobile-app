@@ -64,7 +64,7 @@ class _ReceiverScreenState extends State<ReceiverScreen> {
         onPressed: () {
           final bool isFormValid = (formKey.currentState!.validate());
           if (isFormValid) {
-            requestShipmentBloc.add(const OnSetReceiverId());
+            requestShipmentBloc.add(const OnSetReceiverAddress());
           }
         },
       ),

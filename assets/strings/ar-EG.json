@@ -208,5 +208,9 @@
   "checkout": "الدفع",
   "not_available": "غير متاح حاليا",
   "must_select_service_provider": "من فضلك اختر مزود الخدمة",
-  "shipment_filter_date_error": "يجب أن يكون أكثر من التاريخ الأدنى"
+  "shipment_filter_date_error": "يجب أن يكون أكثر من التاريخ الأدنى",
+  "shipment_summary": "ملخص الشحنة",
+  "stores_error_msg": "لا يمكننا الحصول على متاجرك. يرجى المحاولة مرة أخرى لاحقًا.",
+  "addresses_error_msg": "لا يمكننا الحصول على عناوين العملاء. يرجى المحاولة مرة أخرى لاحقًا.",
+  "payment_failed": "فشل الدفع"
 }

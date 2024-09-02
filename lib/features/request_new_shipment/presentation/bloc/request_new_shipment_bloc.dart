@@ -43,8 +43,9 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     on<OnScrollReceiverCustomersPagination>(_onScrollReceiverCustomersPagination);
     on<OnSenderSelectedFromDropDown>(_onSenderSelectedFromDropDown);
     on<OnReceiverSelectedFromDropDown>(_onReceiverSelectedFromDropDown);
-    on<OnSetSenderId>(_onSetSenderId);
-    on<OnSetReceiverId>(_onSetReceiverId);
+    on<OnSetSenderAddress>(_onSetSenderAddress);
+    on<OnSetReceiverAddress>(_onSetReceiverAddress);
+    on<SetShipmentId>(_setShipmentId);
   }
 
   ///
@@ -91,7 +92,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
   FutureOr<void> _goToNextPageEvent(GoToNextPageEvent event, Emitter<RequestNewShipmentState> emit) async {
     print('_goToNextPageEvent_goToNextPageEvent_goToNextPageEvent_goToNextPageEvent');
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    if (state.currentPage + 1 < 5) {
+    if (state.currentPage + 1 < 6) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: state.currentPage + 1));
     } else {
@@ -104,7 +105,6 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
   Future<FutureOr<void>> _goToPreviousPage(GoToPreviousPage event, Emitter<RequestNewShipmentState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    //await Future.delayed(Duration(seconds: 1));
     if (state.currentPage + 1 > 1) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: state.currentPage - 1));
@@ -197,14 +197,6 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
             receiverStoresList.putIfAbsent(item);
           }
           selectedReceiverStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
-          emit(state.copyWith(
-              receiverAddress: AddressLogistics((a) => a
-                ..addressDetails = selectedReceiverStoreAddress?.addressDetails
-                ..governorateNameEn = selectedReceiverStoreAddress?.governorateNameEn
-                ..cityNameEn = selectedReceiverStoreAddress?.cityNameEn
-                ..countryNameEn = selectedReceiverStoreAddress?.countryNameEn
-                ..countryCode = "1"
-                ..areaNameEn = selectedReceiverStoreAddress?.areaNameEn)));
 
           /// to show autoSelected last store added
           var storeId = getIt<SharedPrefService>().getLastStoreAddedId();
@@ -213,14 +205,6 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           } else {
             selectedSenderStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
           }
-          emit(state.copyWith(
-              senderAddress: AddressLogistics((a) => a
-                ..addressDetails = selectedSenderStoreAddress?.addressDetails
-                ..governorateNameEn = selectedSenderStoreAddress?.governorateNameEn
-                ..cityNameEn = selectedSenderStoreAddress?.cityNameEn
-                ..countryNameEn = selectedSenderStoreAddress?.countryNameEn
-                ..countryCode = "1"
-                ..areaNameEn = selectedSenderStoreAddress?.areaNameEn)));
 
           ///
           emit(state.copyWith(
@@ -253,24 +237,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     if (event.senderType == SenderReceiverType.store) {
       selectedSenderStoreAddress = event.item;
-      emit(state.copyWith(
-          senderAddress: AddressLogistics((a) => a
-            ..addressDetails = selectedSenderStoreAddress?.addressDetails
-            ..governorateNameEn = selectedSenderStoreAddress?.governorateNameEn
-            ..cityNameEn = selectedSenderStoreAddress?.cityNameEn
-            ..countryNameEn = selectedSenderStoreAddress?.countryNameEn
-            ..countryCode = "1"
-            ..areaNameEn = selectedSenderStoreAddress?.areaNameEn)));
     } else if (event.senderType == SenderReceiverType.customer) {
       selectedSenderCustomerAddress = event.item;
-      emit(state.copyWith(
-          senderAddress: AddressLogistics((a) => a
-            ..addressDetails = selectedSenderCustomerAddress?.addressDetails
-            ..governorateNameEn = selectedSenderCustomerAddress?.governorateNameEn
-            ..cityNameEn = selectedSenderCustomerAddress?.cityNameEn
-            ..countryNameEn = selectedSenderCustomerAddress?.countryNameEn
-            ..countryCode = "1"
-            ..areaNameEn = selectedSenderCustomerAddress?.areaNameEn)));
     }
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -329,24 +297,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     if (event.receiverType == SenderReceiverType.store) {
       selectedReceiverStoreAddress = event.item;
-      emit(state.copyWith(
-          receiverAddress: AddressLogistics((a) => a
-            ..addressDetails = selectedReceiverStoreAddress?.addressDetails
-            ..governorateNameEn = selectedReceiverStoreAddress?.governorateNameEn
-            ..cityNameEn = selectedReceiverStoreAddress?.cityNameEn
-            ..countryNameEn = selectedReceiverStoreAddress?.countryNameEn
-            ..countryCode = "1"
-            ..areaNameEn = selectedReceiverStoreAddress?.areaNameEn)));
     } else if (event.receiverType == SenderReceiverType.customer) {
       selectedReceiverCustomerAddress = event.item;
-      emit(state.copyWith(
-          receiverAddress: AddressLogistics((a) => a
-            ..addressDetails = selectedReceiverCustomerAddress?.addressDetails
-            ..governorateNameEn = selectedReceiverCustomerAddress?.governorateNameEn
-            ..cityNameEn = selectedReceiverCustomerAddress?.cityNameEn
-            ..countryNameEn = selectedReceiverCustomerAddress?.countryNameEn
-            ..countryCode = "1"
-            ..areaNameEn = selectedReceiverCustomerAddress?.areaNameEn)));
     }
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -360,37 +312,79 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
         stateHelper: const StateHelper(requestState: RequestState.LOADED), autoValidateMode: AutovalidateMode.always));
   }
 
-  FutureOr<void> _onSetSenderId(OnSetSenderId event, Emitter<RequestNewShipmentState> emit) {
+  FutureOr<void> _onSetSenderAddress(OnSetSenderAddress event, Emitter<RequestNewShipmentState> emit) {
     if (senderType == SenderReceiverType.store) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderStoreId: selectedSenderStoreAddress!.storeId,
-          senderCustomerId: null));
+          senderCustomerId: null,
+          senderAddress: AddressLogistics((a) => a
+            ..addressDetails = selectedSenderStoreAddress?.addressDetails
+            ..governorateNameEn = selectedSenderStoreAddress?.governorateNameEn
+            ..cityNameEn = selectedSenderStoreAddress?.cityNameEn
+            ..countryNameEn = selectedSenderStoreAddress?.countryNameEn
+            ..countryCode = "1"
+            ..areaNameEn = selectedSenderStoreAddress?.areaNameEn)));
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderStoreId: null,
-          senderCustomerId: selectedSenderCustomerAddress!.customerId));
+          senderCustomerId: selectedSenderCustomerAddress!.customerId,
+          senderAddress: AddressLogistics((a) => a
+            ..addressDetails = selectedSenderCustomerAddress?.addressDetails
+            ..governorateNameEn = selectedSenderCustomerAddress?.governorateNameEn
+            ..cityNameEn = selectedSenderCustomerAddress?.cityNameEn
+            ..countryNameEn = selectedSenderCustomerAddress?.countryNameEn
+            ..countryCode = "1"
+            ..areaNameEn = selectedSenderCustomerAddress?.areaNameEn)));
+      receiverType = SenderReceiverType.store;
+      selectedReceiverCustomerAddress = null;
     }
 
     add(GoToNextPageEvent());
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
   }
 
-  FutureOr<void> _onSetReceiverId(OnSetReceiverId event, Emitter<RequestNewShipmentState> emit) {
+  FutureOr<void> _onSetReceiverAddress(OnSetReceiverAddress event, Emitter<RequestNewShipmentState> emit) {
     if (receiverType == SenderReceiverType.store) {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverStoreId: selectedReceiverStoreAddress!.storeId,
-          receiverCustomerId: null));
+          receiverCustomerId: null,
+          receiverAddress: AddressLogistics((a) => a
+            ..addressDetails = selectedReceiverStoreAddress?.addressDetails
+            ..governorateNameEn = selectedReceiverStoreAddress?.governorateNameEn
+            ..cityNameEn = selectedReceiverStoreAddress?.cityNameEn
+            ..countryNameEn = selectedReceiverStoreAddress?.countryNameEn
+            ..countryCode = "1"
+            ..areaNameEn = selectedReceiverStoreAddress?.areaNameEn)));
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverStoreId: null,
-          receiverCustomerId: selectedReceiverCustomerAddress!.customerId));
+          receiverCustomerId: selectedReceiverCustomerAddress!.customerId,
+          receiverAddress: AddressLogistics((a) => a
+            ..addressDetails = selectedReceiverCustomerAddress?.addressDetails
+            ..governorateNameEn = selectedReceiverCustomerAddress?.governorateNameEn
+            ..cityNameEn = selectedReceiverCustomerAddress?.cityNameEn
+            ..countryNameEn = selectedReceiverCustomerAddress?.countryNameEn
+            ..countryCode = "1"
+            ..areaNameEn = selectedReceiverCustomerAddress?.areaNameEn)));
     }
 
     add(GoToNextPageEvent());
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+  }
+
+  FutureOr<void> _setShipmentId(SetShipmentId event, Emitter<RequestNewShipmentState> emit) {
+    ///
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING), shipmentId: event.shipmentId));
+
+    /// go to Shipment payment screen
+    add(GoToNextPageEvent());
+
+    ///
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
   }
 }
