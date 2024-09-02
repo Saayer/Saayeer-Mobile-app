@@ -92,16 +92,27 @@ class GoToServiceProvidersPage extends RequestNewShipmentEvent {
   List<Object> get props => [];
 }
 
-class OnSetSenderId extends RequestNewShipmentEvent {
-  const OnSetSenderId();
+class OnSetSenderAddress extends RequestNewShipmentEvent {
+  const OnSetSenderAddress();
 
   @override
   List<Object> get props => [];
 }
 
-class OnSetReceiverId extends RequestNewShipmentEvent {
-  const OnSetReceiverId();
+class OnSetReceiverAddress extends RequestNewShipmentEvent {
+  const OnSetReceiverAddress();
 
   @override
   List<Object> get props => [];
+}
+
+class SetShipmentId extends RequestNewShipmentEvent {
+  final int shipmentId;
+
+  const SetShipmentId({required this.shipmentId});
+
+  @override
+  List<Object> get props => [
+        shipmentId,
+      ];
 }

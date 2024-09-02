@@ -5,9 +5,16 @@ import 'package:saayer/core/utils/theme/typography.dart';
 
 class RichTextWidget extends StatelessWidget {
   final String keyStr, valueStr;
+  final TextStyle? keyTextStyle;
+  final TextStyle? valueTextStyle;
 
-  const RichTextWidget(
-      {super.key, required this.keyStr, required this.valueStr});
+  const RichTextWidget({
+    super.key,
+    required this.keyStr,
+    required this.valueStr,
+    this.keyTextStyle,
+    this.valueTextStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +23,8 @@ class RichTextWidget extends StatelessWidget {
         children: [
           TextSpan(
               text: "${keyStr.tr()} : ",
-              style: AppTextStyles.microLabel(
-                  SaayerTheme().getColorsPalette.greyColor)),
-          TextSpan(text: valueStr.tr(), style: AppTextStyles.xSmallLabel()),
+              style: keyTextStyle ?? AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
+          TextSpan(text: valueStr.tr(), style: valueTextStyle ?? AppTextStyles.xSmallLabel()),
         ],
       ),
     );

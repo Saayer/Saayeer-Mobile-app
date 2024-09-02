@@ -65,7 +65,7 @@ class _SenderScreenState extends State<SenderScreen> {
         onPressed: () {
           final bool isFormValid = (formKey.currentState!.validate());
           isFormValid
-              ? requestShipmentBloc.add(const OnSetSenderId())
+              ? requestShipmentBloc.add(const OnSetSenderAddress())
               : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
         },
       ),

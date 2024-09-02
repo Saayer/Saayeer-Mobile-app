@@ -9,6 +9,8 @@ import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/home/core/utils/enums/enums.dart';
@@ -33,7 +35,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     //await getIt<LoggedInCheckerService>().getCurrentUserType();
     //final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
     //if (!isGuest) {
-    //await _getUserProfile(emit);
+    await _getUserProfile(emit);
     //} else {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
     //}
@@ -57,6 +59,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         ///
         emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED), clientDto: rightResult));
+        if(rightResult.phoneNo != null){
+          getIt<SharedPrefService>().setClientPhone(rightResult.phoneNo!);
+        }
+
       } else {
         emit(state.copyWith(
           stateHelper:
