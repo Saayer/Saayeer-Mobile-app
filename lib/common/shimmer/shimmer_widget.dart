@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerWidget extends StatelessWidget {
   final double widgetHeight;
-  final Widget child;
 
-  const ShimmerWidget(
-      {super.key, this.widgetHeight = 100, required this.child});
+  const ShimmerWidget({super.key, this.widgetHeight = 100});
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    return SizedBox(
+    var width = MediaQuery.of(context).size.width;
+    return Container(
       width: width,
-      height: widgetHeight.h,
+      height: widgetHeight,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Shimmer.fromColors(
           baseColor: Colors.grey.shade300,
           highlightColor: Colors.grey.shade100,
@@ -24,22 +21,23 @@ class ShimmerWidget extends StatelessWidget {
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: List.generate(
                   10,
                   (index) => Column(
                         children: [
                           Container(
-                            height: 30.h,
+                            height: 70,
                             width: width,
                             decoration: BoxDecoration(
                               color: SaayerTheme().getColorsPalette.greyColor,
-                              borderRadius: BorderRadius.circular(12.r),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          SizedBox(
-                            height: 16.h,
+                          const SizedBox(
+                            height: 16,
                           )
                         ],
                       )),

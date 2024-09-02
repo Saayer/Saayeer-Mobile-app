@@ -16,6 +16,8 @@ class SharedPrefService {
 
   final String _keyAccessToken = 'AccessToken';
   final String _keyIsLoggedIn = 'IsLoggedIn';
+  final String _keyLastStoreAdded = 'LastStoreAdded';
+  final String _keyClientPhone = 'ClientPhone';
 
   /// saving data to sharedpreference
   Future setAccessToken(String accessToken) async {
@@ -24,6 +26,14 @@ class SharedPrefService {
 
   Future setIsLoggedIn(bool isLoggedIn) async {
     await _preferences.setBool(_keyIsLoggedIn, isLoggedIn);
+  }
+
+  Future setLastStoreAddedId(int storeId) async {
+    await _preferences.setInt(_keyLastStoreAdded, storeId);
+  }
+
+  Future setClientPhone(String phoneNo) async {
+    await _preferences.setString(_keyClientPhone, phoneNo);
   }
 
   /// fetching data from sharedpreference
@@ -42,6 +52,24 @@ class SharedPrefService {
       final bool? loggedInUserStr = _preferences.get(_keyIsLoggedIn) as bool?;
       final bool isLoggedIn = (loggedInUserStr != null) ? loggedInUserStr : false;
       return isLoggedIn;
+    } else {
+      return null;
+    }
+  }
+
+  int? getLastStoreAddedId() {
+    if (_preferences.containsKey(_keyLastStoreAdded)) {
+      final int? lastStoreAddedId = _preferences.get(_keyLastStoreAdded) as int?;
+      return lastStoreAddedId;
+    } else {
+      return null;
+    }
+  }
+
+  String? getClientPhone() {
+    if (_preferences.containsKey(_keyClientPhone)) {
+      final String? phoneNumber = _preferences.get(_keyClientPhone) as String?;
+      return phoneNumber;
     } else {
       return null;
     }

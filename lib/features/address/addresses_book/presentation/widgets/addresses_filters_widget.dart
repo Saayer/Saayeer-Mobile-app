@@ -8,11 +8,11 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/common/address_widgets/presentation/widgets/items_drop_down_text_field.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/generic_expansionTile_widget.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
 import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
-import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
@@ -96,22 +96,41 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
             ///
             const SizedBox(height: 10),
 
-            ///
-            Align(
-              alignment: Alignment.center,
-              child: SaayerDefaultTextButton(
-                  text: 'search'.tr(),
-                  isEnabled: true,
-                  borderRadius: 16,
+            ///Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ///reset filter
+                MaterialButton(
                   onPressed: () {
-                    final bool isFormValid = (formKey.currentState!.validate());
-                    if (isFormValid) {
-                      widget.addressesBookBloc.add(const ResetList());
-                      widget.addressesBookBloc.add(const GetAddresses());
-                    }
+                    _resetFilter();
                   },
-                  btnWidth: halfScreenWidth(context),
-                  btnHeight: 50),
+                  height: 50,
+                  minWidth: 90,
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: SaayerTheme().getColorsPalette.primaryColor),
+                      borderRadius: BorderRadius.circular(16)),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: GenericSvgWidget(
+                      path: Constants.getIconPath('ic_clear_filter.svg'),
+                      size: 30,
+                      color: SaayerTheme().getColorsPalette.primaryColor),
+                ),
+                const SizedBox(width: 8),
+                SaayerDefaultTextButton(
+                    text: 'search'.tr(),
+                    isEnabled: true,
+                    borderRadius: 16,
+                    onPressed: () {
+                      final bool isFormValid = (formKey.currentState!.validate());
+                      if (isFormValid) {
+                        widget.addressesBookBloc.add(const ResetList());
+                        widget.addressesBookBloc.add(const GetAddresses());
+                      }
+                    },
+                    btnWidth: 90,
+                    btnHeight: 50),
+              ],
             ),
             const SizedBox(
               height: 10,
@@ -299,5 +318,26 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
   Future<DateTime?> showDate() async {
     DateTime now = DateTime.now();
     return await showDatePicker(context: context, firstDate: DateTime(2023), lastDate: now);
+  }
+
+  void _resetFilter() {
+    widget.addressesBookBloc.searchController.clear();
+    widget.addressesBookBloc.shipmentDateFromController.clear();
+    widget.addressesBookBloc.shipmentDateToController.clear();
+    widget.addressesBookBloc.totalShipmentsMin.clear();
+    widget.addressesBookBloc.totalShipmentsMax.clear();
+    widget.addressesBookBloc.cityController.clear();
+    widget.addressesBookBloc.countryController.clear();
+    widget.addressesBookBloc.governorateController.clear();
+    widget.addressesBookBloc.shipmentDateFrom = null;
+    widget.addressesBookBloc.shipmentDateTo = null;
+    widget.addressesBookBloc.mobile = '';
+    widget.addressesBookBloc.selectedCountry = null;
+    widget.addressesBookBloc.selectedGovernorate = null;
+    widget.addressesBookBloc.selectedCity = null;
+    widget.addressesBookBloc.governoratesList.clear();
+    widget.addressesBookBloc.citiesList.clear();
+    widget.addressesBookBloc.areasList.clear();
+    setState(() {});
   }
 }

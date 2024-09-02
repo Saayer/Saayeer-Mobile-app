@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
@@ -11,7 +10,6 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:saayer/features/more_sub_features/settings/presentation/widgets/change_password_widget.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/widgets/dark_mode_widget.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/widgets/language_widget.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
@@ -22,17 +20,12 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
     return BlocConsumer<SettingsBloc, SettingsState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) {
-        final bool isLoading = (settingsBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
+        final bool isLoading = (settingsBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
@@ -41,7 +34,7 @@ class SettingsPage extends StatelessWidget {
       },
       builder: (context, state) {
         final Widget dividerWidget = Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Divider(
             thickness: 0.5,
             color: SaayerTheme().getColorsPalette.greyColor,
@@ -64,7 +57,7 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

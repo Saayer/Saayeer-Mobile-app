@@ -11,6 +11,8 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -128,6 +130,11 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
       if (rightResult != null) {
         ///
         SaayerToast().showSuccessToast(msg: "store_added_successfully".tr());
+
+        /// save last storeId added to use it in request shipment to view it in autoSelected
+        if (rightResult.storeId != null) {
+          getIt<SharedPrefService>().setLastStoreAddedId(rightResult.storeId!);
+        }
 
         ///
         emit(state.copyWith(

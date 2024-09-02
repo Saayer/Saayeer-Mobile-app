@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/core/helpers/utils_helper/validation_utils.dart';
-import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 
@@ -39,7 +36,7 @@ class SearchTextField extends StatelessWidget {
       onChanged: onChanged,
       prefixWidget: Icon(
         Icons.search,
-        size: 20.r,
+        size: 20,
         color: SaayerTheme().getColorsPalette.greyColor,
       ),
     );

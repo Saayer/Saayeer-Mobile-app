@@ -43,6 +43,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_bill.svg
   String get icBill => 'assets/icons/ic_bill.svg';
 
+  /// File path: assets/icons/ic_clear_filter.svg
+  String get icClearFilter => 'assets/icons/ic_clear_filter.svg';
+
   /// File path: assets/icons/ic_contact_us.svg
   String get icContactUs => 'assets/icons/ic_contact_us.svg';
 
@@ -101,12 +104,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
 
+  /// File path: assets/icons/ic_receiver.svg
+  String get icReceiver => 'assets/icons/ic_receiver.svg';
+
   /// File path: assets/icons/ic_replacement_refund_policy.svg
   String get icReplacementRefundPolicy =>
       'assets/icons/ic_replacement_refund_policy.svg';
 
   /// File path: assets/icons/ic_reports.svg
   String get icReports => 'assets/icons/ic_reports.svg';
+
+  /// File path: assets/icons/ic_sender.svg
+  String get icSender => 'assets/icons/ic_sender.svg';
 
   /// File path: assets/icons/ic_settings.svg
   String get icSettings => 'assets/icons/ic_settings.svg';
@@ -134,6 +143,7 @@ class $AssetsIconsGen {
         icAddressesBookPng,
         icAddressesBookSvg,
         icBill,
+        icClearFilter,
         icContactUs,
         icEbills,
         icFilter,
@@ -152,8 +162,10 @@ class $AssetsIconsGen {
         icNotification2,
         icPrivacyPolicy,
         icProfile,
+        icReceiver,
         icReplacementRefundPolicy,
         icReports,
+        icSender,
         icSettings,
         icShipment,
         icShipments,
