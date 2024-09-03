@@ -1,28 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:saayer/common/dashed_line_vertical_painter.dart';
+import 'package:openapi/openapi.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
 
 class BillInfo extends StatelessWidget {
-  final ShipmentDetailsEntity shipmentDetailsEntity;
+  final ShipmentGetDto shipmentDto;
 
-  const BillInfo({super.key, required this.shipmentDetailsEntity});
+  const BillInfo({super.key, required this.shipmentDto});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
@@ -37,15 +32,13 @@ class BillInfo extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SvgPicture.asset(
-                  Constants.getIconPath("ic_bill.svg"),
-                  fit: BoxFit.cover,
-                  height: 25.h,
-                  width: 25.w,
+                GenericSvgWidget(
+                  path: Constants.getIconPath("ic_bill.svg"),
+                  size: 25,
                   color: SaayerTheme().getColorsPalette.lightOrangeColor,
                 ),
-                SizedBox(
-                  width: 5.w,
+                const SizedBox(
+                  width: 5,
                 ),
                 Text(
                   "bill".tr(),
@@ -55,29 +48,28 @@ class BillInfo extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 16.h,
+            const SizedBox(
+              height: 16,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "shipping_fees".tr(),
+                  "service_provider".tr(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.label(),
                 ),
                 Text(
-                  "${shipmentDetailsEntity.shippingFees ?? ""} ${"sr".tr()}",
+                  shipmentDto.logisticServiceName ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.smallLabel(
-                      SaayerTheme().getColorsPalette.darkGreyColor),
+                  style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.darkGreyColor),
                 ),
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Divider(
                 thickness: 1,
                 color: SaayerTheme().getColorsPalette.blackTextColor,
@@ -87,17 +79,16 @@ class BillInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "total_price".tr(),
+                  "cost".tr(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.boldLabel(),
                 ),
                 Text(
-                  "${shipmentDetailsEntity.totalPrice ?? ""} ${"sr".tr()}",
+                  "${shipmentDto.cost ?? ""} ${"sr".tr()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.smallLabel(
-                      SaayerTheme().getColorsPalette.darkGreyColor),
+                  style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.darkGreyColor),
                 ),
               ],
             ),

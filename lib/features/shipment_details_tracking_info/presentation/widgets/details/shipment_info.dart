@@ -1,40 +1,53 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
+import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipment_item_widget_helper.dart';
 
-class BasicInfo extends StatelessWidget {
-  final ShipmentDetailsEntity shipmentDetailsEntity;
+class ShipmentInfo extends StatelessWidget {
+  final ShipmentGetDto shipmentDto;
 
-  const BasicInfo({super.key, required this.shipmentDetailsEntity});
+  const ShipmentInfo({super.key, required this.shipmentDto});
 
   @override
   Widget build(BuildContext context) {
     List<InfoRow> infoRowList = [
-      InfoRow(iconData: LineIcons.weight, text: "${shipmentDetailsEntity.weight} ${"kg".tr()}"),
       InfoRow(
-        iconData: LineIcons.moneyBill,
-        text: "${shipmentDetailsEntity.price} ${"sr".tr()}",
+        iconData: LineIcons.weight,
+        text: "${shipmentDto.weight} ${"kg".tr()}",
+      ),
+      InfoRow(
+        iconData: LineIcons.textWidth,
+        text: "${shipmentDto.width} ${"cm".tr()}",
+      ),
+      InfoRow(
+        iconData: LineIcons.textHeight,
+        text: "${shipmentDto.height} ${"cm".tr()}",
+      ),
+      InfoRow(
+        iconData: Icons.expand,
+        text: "${shipmentDto.length} ${"cm".tr()}",
+      ),
+      InfoRow(
+        iconData: LineIcons.info,
+        text: "${shipmentDto.contentDesc}",
       ),
       InfoRow(
         iconData: Icons.date_range,
-        text: shipmentDetailsEntity.date,
+        text: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt!.toString()) ?? '',
       ),
     ];
-    final Color shipmentStatusColor = ShipmentItemWidgetHelper().getColor(shipmentDetailsEntity.shipmentStatus);
+    final Color shipmentStatusColor = ShipmentItemWidgetHelper().getColor(shipmentDto.status!);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         color: SaayerTheme().getColorsPalette.backgroundColor,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
@@ -52,26 +65,26 @@ class BasicInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                shipmentDetailsEntity.type,
+                shipmentDto.senderStoreId == null ? 'import_shipment'.tr() : 'export_shipment'.tr(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.buttonLabel(),
               ),
-              SizedBox(
-                height: 5.h,
+              const SizedBox(
+                height: 5,
               ),
               ...(infoRowList.map((e) {
                 return Column(
                   children: [
                     e,
-                    SizedBox(
-                      height: 5.h,
+                    const SizedBox(
+                      height: 5,
                     ),
                   ],
                 );
               }).toList()),
-              SizedBox(
-                height: 5.h,
+              const SizedBox(
+                height: 5,
               ),
             ],
           ),
@@ -82,19 +95,19 @@ class BasicInfo extends StatelessWidget {
                 size: 50,
                 color: SaayerTheme().getColorsPalette.blackTextColor,
               ),
-              SizedBox(
-                height: 10.h,
+              const SizedBox(
+                height: 10,
               ),
               Container(
-                  width: 100.w,
+                  width: 100,
                   decoration: BoxDecoration(
                     color: shipmentStatusColor,
-                    borderRadius: BorderRadius.circular(50.r),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Text(
-                      shipmentDetailsEntity.shipmentStatus.name.tr(),
+                      shipmentDto.status!.name.tr(),
                       style: AppTextStyles.label(),
                       textAlign: TextAlign.center,
                     ),
@@ -124,11 +137,11 @@ class InfoRow extends StatelessWidget {
       children: [
         Icon(
           iconData,
-          size: 20.r,
+          size: 20,
           color: SaayerTheme().getColorsPalette.lightOrangeColor,
         ),
-        SizedBox(
-          width: 5.w,
+        const SizedBox(
+          width: 5,
         ),
         Text(
           text,

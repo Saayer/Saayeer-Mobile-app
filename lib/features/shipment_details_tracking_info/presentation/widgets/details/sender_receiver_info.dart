@@ -1,29 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/common/dashed_line_vertical_painter.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
+import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
 
-class ShippingInfo extends StatelessWidget {
-  final ShipmentDetailsEntity shipmentDetailsEntity;
+class SenderReceiverInfo extends StatelessWidget {
+  final ShipmentGetDto shipmentDto;
 
-  const ShippingInfo({super.key, required this.shipmentDetailsEntity});
+  const SenderReceiverInfo({super.key, required this.shipmentDto});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         color: SaayerTheme().getColorsPalette.backgroundColor,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
@@ -38,37 +35,33 @@ class ShippingInfo extends StatelessWidget {
         children: [
           Column(
             children: [
-              SvgPicture.asset(
-                Constants.getIconPath("ic_shipment.svg"),
-                fit: BoxFit.cover,
-                height: 28.h,
-                width: 28.w,
+              GenericSvgWidget(
+                path: Constants.getIconPath("ic_shipment.svg"),
+                size: 28,
                 color: SaayerTheme().getColorsPalette.primaryColor,
               ),
               Row(
                 children: [
                   if (Localization.isEnglish())
-                    SizedBox(
-                      width: 3.w,
+                    const SizedBox(
+                      width: 3,
                     ),
-                  CustomPaint(
-                      size: Size(3.w, 100.h),
-                      painter: DashedLineVerticalPainter()),
+                  CustomPaint(size: const Size(3, 100), painter: DashedLineVerticalPainter()),
                   if (Localization.isArabic())
-                    SizedBox(
-                      width: 3.w,
+                    const SizedBox(
+                      width: 3,
                     ),
                 ],
               ),
               Icon(
                 Icons.pin_drop_outlined,
-                size: 28.r,
+                size: 28,
                 color: SaayerTheme().getColorsPalette.orangeColor,
               ),
             ],
           ),
-          SizedBox(
-            width: 20.w,
+          const SizedBox(
+            width: 20,
           ),
           Expanded(
             child: Column(
@@ -76,7 +69,9 @@ class ShippingInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  shipmentDetailsEntity.senderName ?? "",
+                  shipmentDto.senderStore == null
+                      ? shipmentDto.senderCustomer!.fullName ?? ''
+                      : shipmentDto.senderStore!.name ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.boldLiteLabel(),
@@ -85,25 +80,30 @@ class ShippingInfo extends StatelessWidget {
                   "(${"sender".tr()})",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.smallLabel(
-                      SaayerTheme().getColorsPalette.greyColor),
+                  style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.greyColor),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Text(
-                  shipmentDetailsEntity.senderAddress ?? "",
+                  shipmentDto.senderStore == null
+                      ? _buildAddress(shipmentDto.senderCustomer!)
+                      : _buildAddress(shipmentDto.senderStore!),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.smallParagraph(),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                   child: Divider(
                     thickness: 1,
                     color: SaayerTheme().getColorsPalette.blackTextColor,
                   ),
                 ),
                 Text(
-                  shipmentDetailsEntity.receiverName ?? "",
+                  shipmentDto.receiverStore == null
+                      ? shipmentDto.receiverCustomer!.fullName ?? ''
+                      : shipmentDto.receiverStore!.name ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.boldLiteLabel(),
@@ -112,11 +112,15 @@ class ShippingInfo extends StatelessWidget {
                   "(${"receiver".tr()})",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.smallLabel(
-                      SaayerTheme().getColorsPalette.greyColor),
+                  style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.greyColor),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Text(
-                  shipmentDetailsEntity.receiverAddress ?? "",
+                  shipmentDto.receiverStore == null
+                      ? _buildAddress(shipmentDto.receiverCustomer!)
+                      : _buildAddress(shipmentDto.receiverStore!),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.smallParagraph(),
@@ -127,5 +131,10 @@ class ShippingInfo extends StatelessWidget {
         ],
       ),
     );
+  }
+  String _buildAddress(dynamic address) {
+    return '${StringsUtil.getLanguageName(arName: address.governorateNameAr ?? '', enName: address.governorateNameEn ?? '')} '
+        '- ${StringsUtil.getLanguageName(arName: address.cityNameAr ?? '', enName: address.cityNameEn ?? '')} '
+        '- ${address.addressDetails ?? ''}';
   }
 }

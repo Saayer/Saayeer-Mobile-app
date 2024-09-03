@@ -5,20 +5,20 @@ abstract class ShipmentDetailsEvent extends Equatable {
 }
 
 class InitShipmentDetails extends ShipmentDetailsEvent {
-  final ShipmentEntity shipmentEntity;
+  final ShipmentGetDto shipmentDto;
 
   const InitShipmentDetails({
-    required this.shipmentEntity,
+    required this.shipmentDto,
   });
 
   InitShipmentDetails copyWith({
-    ShipmentEntity? shipmentEntity,
+    ShipmentGetDto? shipmentDto,
   }) {
     return InitShipmentDetails(
-      shipmentEntity: shipmentEntity ?? this.shipmentEntity,
+      shipmentDto: shipmentDto ?? this.shipmentDto,
     );
   }
 
   @override
-  List<Object> get props => [shipmentEntity];
+  List<Object> get props => [shipmentDto];
 }

@@ -1,19 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:saayer/common/dashed_line_vertical_painter.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
 import 'package:saayer/core/services/localization/localization.dart';
-import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/domain/entities/shipment_details_entity.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/bloc/shipment_details_bloc.dart';
+import 'package:saayer/features/shipment_details_tracking_info/presentation/bloc/shipment_details_bloc.dart';
 
 class PromoCode extends StatelessWidget {
   const PromoCode({super.key});
@@ -28,12 +20,12 @@ class PromoCode extends StatelessWidget {
       },
       builder: (context, state) {
         final bool isEnglish = Localization.isEnglish();
-        final Radius borderRadius = Radius.circular(16.r);
+        final Radius borderRadius = Radius.circular(16);
         return Container(
-            padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
             decoration: BoxDecoration(
               color: SaayerTheme().getColorsPalette.backgroundColor,
-              borderRadius: BorderRadius.circular(16.r),
+              borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
                   color:
@@ -47,8 +39,8 @@ class PromoCode extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  height: 50.h,
-                  width: 100.w,
+                  height: 50,
+                  width: 100,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: SaayerTheme().getColorsPalette.orangeColor,

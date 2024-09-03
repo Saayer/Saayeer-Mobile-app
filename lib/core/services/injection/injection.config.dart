@@ -190,6 +190,8 @@ import 'package:saayer/features/request_new_shipment/sub_features/shipment_summa
     as _i447;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/bloc/shipment_summary_bloc.dart'
     as _i883;
+import 'package:saayer/features/shipment_details_tracking_info/presentation/bloc/shipment_details_bloc.dart'
+    as _i912;
 import 'package:saayer/features/shipments/data/repositories/shipments_list_repo_impl.dart'
     as _i779;
 import 'package:saayer/features/shipments/domain/repositories/shipments_list_repo.dart'
@@ -200,8 +202,6 @@ import 'package:saayer/features/shipments/domain/use_cases/get_shipments_List_us
     as _i437;
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart'
     as _i414;
-import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/bloc/shipment_details_bloc.dart'
-    as _i671;
 import 'package:saayer/features/user_card/data/data_sources/remote/user_card_RDS.dart'
     as _i609;
 import 'package:saayer/features/user_card/data/data_sources/remote/user_card_RDS_impl.dart'
@@ -268,13 +268,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i374.ReportsBloc>(() => _i374.ReportsBloc());
     gh.factory<_i1037.UserInfoViewPageBloc>(
         () => _i1037.UserInfoViewPageBloc());
-    gh.factory<_i671.ShipmentDetailsBloc>(() => _i671.ShipmentDetailsBloc());
     gh.factory<_i79.InfoBloc>(() => _i79.InfoBloc());
     gh.factory<_i386.BillsBloc>(() => _i386.BillsBloc());
     gh.factory<_i199.ProfileBloc>(() => _i199.ProfileBloc());
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
     gh.factory<_i110.NotificationsBloc>(() => _i110.NotificationsBloc());
+    gh.factory<_i912.ShipmentDetailsBloc>(() => _i912.ShipmentDetailsBloc());
     gh.singleton<_i552.AppFlavor>(() => _i552.AppFlavor());
     gh.singleton<_i502.SharedPrefService>(() => _i502.SharedPrefService());
     gh.singleton<_i275.LoggedInService>(() => _i275.LoggedInService());
