@@ -9,15 +9,15 @@ enum ShipmentsListTypes {
 
 enum ShipmentsErrorStatus { ERROR_GET_SHIPMENTS, ERROR_DELETE_SHIPMENTS, ERROR_EDIT_SHIPMENTS,ERROR_GET_STORES }
 
-enum ShipmentsStatus {
-  RECEIVED._(name: "received"),
-  DELIVERED._(name: "delivered"),
-  PAID._(name: "paid");
-
-  final String name;
-
-  const ShipmentsStatus._({required this.name});
-}
+// enum ShipmentsStatus {
+//   RECEIVED._(name: "received"),
+//   DELIVERED._(name: "delivered"),
+//   PAID._(name: "paid");
+//
+//   final String name;
+//
+//   const ShipmentsStatus._({required this.name});
+// }
 
 enum ShipmentsFilterTypes {
   SEARCH._(name: "search_hint"),

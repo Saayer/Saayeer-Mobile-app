@@ -8,7 +8,7 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
 import 'package:saayer/features/shipments/presentation/widgets/empty_shipments.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipments_filters_widget.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/screens/shipment_details_screen.dart';
+import 'package:saayer/features/shipment_details_tracking_info/presentation/screens/shipment_details_screen.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipment_item_widget_helper.dart';
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart';
 
@@ -96,7 +96,7 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        getIt<NavigationService>().navigateTo(ShipmentDetailsScreen(shipmentEntity: shipmentEntity));
+                        getIt<NavigationService>().navigateTo(ShipmentDetailsScreen(shipmentDto: shipmentEntity));
                       },
                       child: shipmentWidget),
                   if (isLast)

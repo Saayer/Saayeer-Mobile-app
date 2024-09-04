@@ -6,8 +6,8 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/bloc/shipment_details_bloc.dart';
-import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/widgets/shipment_details_types_tab_bar.dart';
+import 'package:saayer/features/shipment_details_tracking_info/presentation/bloc/shipment_details_bloc.dart';
+import 'package:saayer/features/shipment_details_tracking_info/presentation/widgets/shipment_details_types_tab_bar.dart';
 
 class ShipmentDetailsPage extends StatelessWidget {
   final ShipmentGetDto shipmentEntity;
@@ -16,16 +16,12 @@ class ShipmentDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ShipmentDetailsBloc shipmentDetailsBloc =
-        BlocProvider.of<ShipmentDetailsBloc>(context);
+    final ShipmentDetailsBloc shipmentDetailsBloc = BlocProvider.of<ShipmentDetailsBloc>(context);
     return BlocConsumer<ShipmentDetailsBloc, ShipmentDetailsState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) {
-        final bool isLoading =
-            (shipmentDetailsBloc.state.stateHelper.requestState ==
-                RequestState.LOADING);
+        final bool isLoading = (shipmentDetailsBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}

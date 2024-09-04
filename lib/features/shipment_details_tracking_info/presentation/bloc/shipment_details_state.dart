@@ -2,23 +2,23 @@ part of 'shipment_details_bloc.dart';
 
 class ShipmentDetailsState extends Equatable {
   final StateHelper stateHelper;
-  final ShipmentDetailsEntity? shipmentDetailsEntity;
+  final ShipmentGetDto? shipmentDto;
   final ShipmentTrackingEntity? shipmentTrackingEntity;
 
   const ShipmentDetailsState(
       {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
-      this.shipmentDetailsEntity,
+      this.shipmentDto,
       this.shipmentTrackingEntity});
 
   ShipmentDetailsState copyWith({
     StateHelper? stateHelper,
-    ShipmentDetailsEntity? shipmentDetailsEntity,
+    ShipmentGetDto? shipmentDto,
     ShipmentTrackingEntity? shipmentTrackingEntity,
   }) {
     return ShipmentDetailsState(
       stateHelper: stateHelper ?? this.stateHelper,
-      shipmentDetailsEntity:
-          shipmentDetailsEntity ?? this.shipmentDetailsEntity,
+      shipmentDto:
+          shipmentDto ?? this.shipmentDto,
       shipmentTrackingEntity:
           shipmentTrackingEntity ?? this.shipmentTrackingEntity,
     );
@@ -27,7 +27,7 @@ class ShipmentDetailsState extends Equatable {
   @override
   List<Object?> get props => [
         stateHelper,
-        shipmentDetailsEntity,
+        shipmentDto,
         shipmentTrackingEntity,
       ];
 }

@@ -17,7 +17,7 @@ class ShipmentItemWidgetHelper {
     required bool isFromHome,
     required ShipmentsListTypes shipmentsListType,
   }) {
-    final Color shipmentStatusColor = getColor(ShipmentsStatus.PAID);
+    final Color shipmentStatusColor = getColor(ShipmentStatus.paid);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: (isFromHome ? 5 : 10)),
       child: Container(
@@ -162,22 +162,25 @@ class ShipmentItemWidgetHelper {
     );
   }
 
-  Color getColor(ShipmentsStatus shipmentStatus) {
+  Color getColor(ShipmentStatus shipmentStatus) {
     switch (shipmentStatus) {
-      case ShipmentsStatus.RECEIVED:
+      case ShipmentStatus.pending:
         {
           return !SaayerTheme().isDarkThemeMode
               ? SaayerTheme().getColorsPalette.lightOrangeColor.withOpacity(0.3)
               : SaayerTheme().getColorsPalette.orangeColor.withOpacity(0.8);
         }
-      case ShipmentsStatus.DELIVERED:
-        {
-          return SaayerTheme().getColorsPalette.lightYellowColor;
-        }
-      case ShipmentsStatus.PAID:
+      // case ShipmentStatus.DELIVERED:
+      //   {
+      //     return SaayerTheme().getColorsPalette.lightYellowColor;
+      //   }
+      case ShipmentStatus.paid:
         {
           return SaayerTheme().getColorsPalette.lightGreenColor;
         }
+      default: {
+        return SaayerTheme().getColorsPalette.lightGreenColor;
+      }
     }
   }
 
