@@ -21,6 +21,7 @@ part 'store_add_dto.g.dart';
 /// * [name] 
 /// * [financialRecordNumber] 
 /// * [freelanceCertificateNumber] 
+/// * [phoneNo] 
 @BuiltValue()
 abstract class StoreAddDto implements Built<StoreAddDto, StoreAddDtoBuilder> {
   @BuiltValueField(wireName: r'addressDetails')
@@ -52,6 +53,9 @@ abstract class StoreAddDto implements Built<StoreAddDto, StoreAddDtoBuilder> {
 
   @BuiltValueField(wireName: r'freelanceCertificateNumber')
   String? get freelanceCertificateNumber;
+
+  @BuiltValueField(wireName: r'phoneNo')
+  String? get phoneNo;
 
   StoreAddDto._();
 
@@ -143,6 +147,13 @@ class _$StoreAddDtoSerializer implements PrimitiveSerializer<StoreAddDto> {
       yield r'freelanceCertificateNumber';
       yield serializers.serialize(
         object.freelanceCertificateNumber,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.phoneNo != null) {
+      yield r'phoneNo';
+      yield serializers.serialize(
+        object.phoneNo,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -244,6 +255,14 @@ class _$StoreAddDtoSerializer implements PrimitiveSerializer<StoreAddDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.freelanceCertificateNumber = valueDes;
+          break;
+        case r'phoneNo':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.phoneNo = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -168,6 +168,8 @@ import 'package:saayer/features/request_new_shipment/sub_features/shipment_payme
     as _i51;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/domain/repositories/shipment_payment_repo.dart'
     as _i791;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/domain/use_cases/create_payment_usecase.dart'
+    as _i694;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/bloc/shipment_payment_bloc.dart'
     as _i299;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/repositories/shipment_providers_repo_impl.dart'
@@ -306,6 +308,8 @@ extension GetItInjectableX on _i174.GetIt {
             shipmentProvidersRepo: gh<_i377.ShipmentProvidersRepo>()));
     gh.factory<_i386.MoreRepo>(
         () => _i152.MoreRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i694.CreatePaymentUseCase>(() => _i694.CreatePaymentUseCase(
+        shipmentPaymentRepo: gh<_i791.ShipmentPaymentRepo>()));
     gh.factory<_i927.RefreshToken>(
         () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i79.AddEditAddressInfoRepo>(() =>
@@ -412,12 +416,12 @@ extension GetItInjectableX on _i174.GetIt {
             addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
     gh.factory<_i436.GetAddressesUseCase>(() => _i436.GetAddressesUseCase(
         addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
-    gh.factory<_i299.ShipmentPaymentBloc>(() => _i299.ShipmentPaymentBloc(
-        addNewShipmentUseCase: gh<_i584.AddNewShipmentUseCase>()));
     gh.factory<_i833.GetStoresUseCase>(() =>
         _i833.GetStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
     gh.factory<_i490.DeleteStoresUseCase>(() =>
         _i490.DeleteStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
+    gh.factory<_i299.ShipmentPaymentBloc>(() => _i299.ShipmentPaymentBloc(
+        createPaymentUseCase: gh<_i694.CreatePaymentUseCase>()));
     gh.factory<_i260.UserCardBloc>(
         () => _i260.UserCardBloc(userCardUseCase: gh<_i736.UserCardUseCase>()));
     gh.factory<_i22.LogInBloc>(

@@ -15,6 +15,8 @@ class ShipmentStatus extends EnumClass {
   static const ShipmentStatus pending = _$pending;
   @BuiltValueEnumConst(wireName: r'Paid')
   static const ShipmentStatus paid = _$paid;
+  @BuiltValueEnumConst(wireName: r'Requested')
+  static const ShipmentStatus requested = _$requested;
 
   static Serializer<ShipmentStatus> get serializer => _$shipmentStatusSerializer;
 

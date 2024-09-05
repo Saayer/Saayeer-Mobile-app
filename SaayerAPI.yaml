@@ -2,10 +2,47 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-14
+  version: v-deploy
 servers:
   - url: "/saayer-6/dev"
 paths:
+  "/api/Accounting/create-payment":
+    post:
+      tags:
+        - Accounting
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/PaymentAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/PaymentAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/PaymentAddDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CreatePaymentResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CreatePaymentResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CreatePaymentResponse"
   "/api/AddressLookups/Countries":
     get:
       tags:
@@ -457,50 +494,6 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/CustomerGetDto"
-  "/api/Logistics/shipment-costs":
-    post:
-      tags:
-        - Logistics
-      parameters:
-        - name: Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - "$ref": "#/components/schemas/ShipmentAddDto"
-          text/json:
-            schema:
-              allOf:
-                - "$ref": "#/components/schemas/ShipmentAddDto"
-          application/*+json:
-            schema:
-              allOf:
-                - "$ref": "#/components/schemas/ShipmentAddDto"
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/ServiceCost"
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/ServiceCost"
-            text/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/ServiceCost"
-      deprecated: true
   "/api/Logistics/service-costs":
     post:
       tags:
@@ -602,32 +595,6 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/ShipmentGetDto"
-    put:
-      tags:
-        - Shipments
-      parameters:
-        - name: Api-Key
-          in: header
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - "$ref": "#/components/schemas/ShipmentAddDto"
-          text/json:
-            schema:
-              allOf:
-                - "$ref": "#/components/schemas/ShipmentAddDto"
-          application/*+json:
-            schema:
-              allOf:
-                - "$ref": "#/components/schemas/ShipmentAddDto"
-      responses:
-        '200':
-          description: Success
     post:
       tags:
         - Shipments
@@ -916,6 +883,9 @@ components:
         countryCode:
           type: string
           nullable: true
+        stateCode:
+          type: string
+          nullable: true
         countryName_en:
           type: string
           nullable: true
@@ -959,6 +929,17 @@ components:
           nullable: true
         businessName:
           type: string
+          nullable: true
+      additionalProperties: false
+    CreatePaymentResponse:
+      type: object
+      properties:
+        hasError:
+          type: boolean
+        errorMessages:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ErrorMessage"
           nullable: true
       additionalProperties: false
     CustomerAddDto:
@@ -1024,6 +1005,9 @@ components:
           type: string
           nullable: true
         countryName_ar:
+          type: string
+          nullable: true
+        countryCode:
           type: string
           nullable: true
         governorateName_en:
@@ -1148,6 +1132,22 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    ErrorCodes:
+      enum:
+        - Save_Payment
+        - Update_Shipment_Status
+        - Logistics_API
+      type: string
+    ErrorMessage:
+      type: object
+      properties:
+        code:
+          allOf:
+            - "$ref": "#/components/schemas/ErrorCodes"
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
     LoginRequestDto:
       type: object
       properties:
@@ -1173,6 +1173,31 @@ components:
           type: string
           nullable: true
           readOnly: true
+      additionalProperties: false
+    PaymentAddDto:
+      required:
+        - amount
+        - currency
+        - fee
+        - shipmentId
+        - transactionId
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        transactionId:
+          minLength: 1
+          type: string
+        amount:
+          type: number
+          format: double
+        fee:
+          type: number
+          format: double
+        currency:
+          minLength: 1
+          type: string
       additionalProperties: false
     ServiceCost:
       type: object
@@ -1393,6 +1418,7 @@ components:
       enum:
         - Pending
         - Paid
+        - Requested
       type: string
     StoreAddDto:
       type: object
@@ -1428,6 +1454,9 @@ components:
         freelanceCertificateNumber:
           type: string
           nullable: true
+        phoneNo:
+          type: string
+          nullable: true
       additionalProperties: false
     StoreGetDto:
       type: object
@@ -1454,6 +1483,9 @@ components:
           type: string
           nullable: true
         countryName_ar:
+          type: string
+          nullable: true
+        countryCode:
           type: string
           nullable: true
         governorateName_en:
@@ -1484,6 +1516,9 @@ components:
           type: string
           nullable: true
         freelanceCertificateNumber:
+          type: string
+          nullable: true
+        phoneNo:
           type: string
           nullable: true
       additionalProperties: false

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **areaId** | **int** |  | [optional] 
 **countryNameEn** | **String** |  | [optional] 
 **countryNameAr** | **String** |  | [optional] 
+**countryCode** | **String** |  | [optional] 
 **governorateNameEn** | **String** |  | [optional] 
 **governorateNameAr** | **String** |  | [optional] 
 **cityNameEn** | **String** |  | [optional] 

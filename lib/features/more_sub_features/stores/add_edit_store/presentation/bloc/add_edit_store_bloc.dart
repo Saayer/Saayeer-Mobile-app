@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/error/failure.dart';
@@ -61,6 +62,8 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  PhoneNumber mobile = PhoneNumber(isoCode: 'SA', dialCode: '+966');
   final TextEditingController countryController = TextEditingController();
   final TextEditingController governorateController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
@@ -85,10 +88,10 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
 
   FutureOr<void> _onTextChange(OnTextChange event, Emitter<AddEditStoreState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    event.textEditingController!.text = event.str ?? "";
-    TextSelection previousSelection = event.textEditingController!.selection;
-    event.textEditingController!.selection = previousSelection;
-    log("onTextChange ${event.str}", name: "onTextChange");
+    final bool isPhone = (event.storeInfoFieldsType == StoreInfoFieldsTypes.PHONE);
+    if (isPhone) {
+      mobile = event.phoneNumber!;
+    }
     storeInfoFieldsValidMap[event.storeInfoFieldsType] = (event.str?.isNotEmpty ?? false);
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -102,6 +105,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         storeAddDto: StoreAddDto((b) => b
           ..name = nameController.text
+          ..phoneNo = mobile.phoneNumber
           ..countryId = selectedCountry!.id
           ..governorateId = selectedGovernorate!.id
           ..cityId = selectedCity!.id
@@ -382,10 +386,13 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING), storeId: event.storeDto.storeId));
     nameController.text = event.storeDto.name ?? '';
+    mobileController.text = (event.storeDto.phoneNo ?? '').replaceAll('+966', '');
     addressController.text = event.storeDto.addressDetails ?? '';
     zipCodeController.text = event.storeDto.zipcode ?? '';
     freelanceCertificateNoController.text = event.storeDto.freelanceCertificateNumber ?? '';
     financialRecordNoController.text = event.storeDto.financialRecordNumber ?? '';
+    mobile = PhoneNumber(
+        isoCode: 'SA', dialCode: '+966', phoneNumber: (event.storeDto.phoneNo ?? '').replaceAll('+966', ''));
     selectedCountry = AddressLookUpDto((b) => b
       ..id = event.storeDto.countryId
       ..nameEn = event.storeDto.countryNameEn
@@ -414,6 +421,9 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
         stateHelper: const StateHelper(requestState: RequestState.LOADING),
         storeAddDto: StoreAddDto((b) => b
           ..name = nameController.text
+          ..phoneNo = (mobile.phoneNumber == null || mobile.phoneNumber == '+966')
+              ? null
+              : "+966${mobile.phoneNumber!.replaceAll('+966', '')}"
           ..storeId = state.storeId
           ..countryId = selectedCountry!.id
           ..cityId = selectedCity!.id

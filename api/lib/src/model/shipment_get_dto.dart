@@ -67,7 +67,7 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
 
   @BuiltValueField(wireName: r'status')
   ShipmentStatus? get status;
-  // enum statusEnum {  Pending,  Paid,  };
+  // enum statusEnum {  Pending,  Paid,  Requested,  };
 
   @BuiltValueField(wireName: r'senderCustomerId')
   int? get senderCustomerId;

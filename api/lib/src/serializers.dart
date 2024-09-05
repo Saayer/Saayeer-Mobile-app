@@ -18,13 +18,17 @@ import 'package:openapi/src/model/address_logistics.dart';
 import 'package:openapi/src/model/address_look_up_dto.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
+import 'package:openapi/src/model/create_payment_response.dart';
 import 'package:openapi/src/model/customer_add_dto.dart';
 import 'package:openapi/src/model/customer_get_dto.dart';
 import 'package:openapi/src/model/customer_query.dart';
 import 'package:openapi/src/model/customer_shipment_get_dto.dart';
+import 'package:openapi/src/model/error_codes.dart';
+import 'package:openapi/src/model/error_message.dart';
 import 'package:openapi/src/model/login_request_dto.dart';
 import 'package:openapi/src/model/login_response_dto.dart';
 import 'package:openapi/src/model/logistics_service_base.dart';
+import 'package:openapi/src/model/payment_add_dto.dart';
 import 'package:openapi/src/model/service_cost.dart';
 import 'package:openapi/src/model/shipment_add_dto.dart';
 import 'package:openapi/src/model/shipment_cost_obj.dart';
@@ -44,13 +48,17 @@ part 'serializers.g.dart';
   AddressLookUpDto,
   ClientAddDto,
   ClientGetDto,
+  CreatePaymentResponse,
   CustomerAddDto,
   CustomerGetDto,
   CustomerQuery,
   CustomerShipmentGetDto,
+  ErrorCodes,
+  ErrorMessage,
   LoginRequestDto,
   LoginResponseDto,
   LogisticsServiceBase,
+  PaymentAddDto,
   ServiceCost,
   ShipmentAddDto,
   ShipmentCostObj,

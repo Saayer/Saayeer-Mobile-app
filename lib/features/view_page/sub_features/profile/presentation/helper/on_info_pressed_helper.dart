@@ -202,6 +202,12 @@ class OnInfoPressedHelper {
                 userCardEntity.storeInfoEntity?.name ?? "";
             break;
           }
+        case StoreInfoFieldsTypes.PHONE:
+          {
+            map[storeInfoFieldsType.name] =
+                userCardEntity.storeInfoEntity?.phoneNo ?? "";
+            break;
+          }
         case StoreInfoFieldsTypes.COUNTRY:
           {
             map[storeInfoFieldsType.name] =
@@ -257,7 +263,6 @@ class OnInfoPressedHelper {
 
   Widget _getBottomSheetWidget(int numberOfDoneUserCardInfo) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     return Container(
       //height: 350.h,

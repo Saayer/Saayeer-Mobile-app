@@ -323,7 +323,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
             ..governorateNameEn = selectedSenderStoreAddress?.governorateNameEn
             ..cityNameEn = selectedSenderStoreAddress?.cityNameEn
             ..countryNameEn = selectedSenderStoreAddress?.countryNameEn
-            ..countryCode = "1"
+            ..countryCode = selectedSenderStoreAddress?.countryCode
             ..areaNameEn = selectedSenderStoreAddress?.areaNameEn)));
     } else {
       emit(state.copyWith(
@@ -335,7 +335,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
             ..governorateNameEn = selectedSenderCustomerAddress?.governorateNameEn
             ..cityNameEn = selectedSenderCustomerAddress?.cityNameEn
             ..countryNameEn = selectedSenderCustomerAddress?.countryNameEn
-            ..countryCode = "1"
+            ..countryCode = selectedSenderCustomerAddress?.countryCode
             ..areaNameEn = selectedSenderCustomerAddress?.areaNameEn)));
       receiverType = SenderReceiverType.store;
       selectedReceiverCustomerAddress = null;
@@ -356,7 +356,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
             ..governorateNameEn = selectedReceiverStoreAddress?.governorateNameEn
             ..cityNameEn = selectedReceiverStoreAddress?.cityNameEn
             ..countryNameEn = selectedReceiverStoreAddress?.countryNameEn
-            ..countryCode = "1"
+            ..countryCode = selectedReceiverStoreAddress?.countryCode
             ..areaNameEn = selectedReceiverStoreAddress?.areaNameEn)));
     } else {
       emit(state.copyWith(
@@ -368,7 +368,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
             ..governorateNameEn = selectedReceiverCustomerAddress?.governorateNameEn
             ..cityNameEn = selectedReceiverCustomerAddress?.cityNameEn
             ..countryNameEn = selectedReceiverCustomerAddress?.countryNameEn
-            ..countryCode = "1"
+            ..countryCode = selectedReceiverCustomerAddress?.countryCode
             ..areaNameEn = selectedReceiverCustomerAddress?.areaNameEn)));
     }
 

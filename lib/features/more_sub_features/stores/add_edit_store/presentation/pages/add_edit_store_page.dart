@@ -47,10 +47,9 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-              getIt<NavigationService>().pop();
+            getIt<NavigationService>().pop();
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
-            //showToast(msg: state.stateHelper.errorMessage ?? "");
             StoreInfoErrorHandler(state: state)();
           }
         }
@@ -98,6 +97,8 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
 
   bool enableAddress(AddEditStoreBloc storeInfoBloc) {
     if (storeInfoBloc.nameController.text.isNotEmpty &&
+        (storeInfoBloc.mobile.phoneNumber != null) &&
+        (storeInfoBloc.mobile.phoneNumber!.length > 13) &&
         storeInfoBloc.addressController.text.isNotEmpty &&
         (storeInfoBloc.selectedCountry != null) &&
         (storeInfoBloc.selectedGovernorate != null) &&
@@ -122,7 +123,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: <Widget>[
-                /// storeName & Country & Governorate & City
+                /// storeName & PhoneNum & Country & Governorate
                 ResponsiveRowColumn(
                   layout: ResponsiveValue(context,
                           conditionalValues: [
@@ -134,16 +135,16 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
                   columnSpacing: 10,
                   rowSpacing: 15,
                   children: [
-                    /// storeName & Country
+                    /// storeName & PhoneNum
                     _buildFirstColumnRowField(addEditStoreBloc),
 
-                    /// Governorate & City
+                    /// Country & Governorate
                     _buildSecondColumnRowField(addEditStoreBloc),
                   ],
                 ),
                 const SizedBox(height: 10),
 
-                /// area & addressDetails & zipCode & financialRecordNo
+                /// City & area & addressDetails & zipCode
                 ResponsiveRowColumn(
                   layout: ResponsiveValue(context,
                           conditionalValues: [
@@ -155,10 +156,10 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
                   columnSpacing: 10,
                   rowSpacing: 15,
                   children: [
-                    /// area & addressDetails
+                    /// City & area
                     _buildThirdColumnRowField(addEditStoreBloc),
 
-                    /// zipCode & financialRecordNo
+                    /// addressDetails & zipCode
                     _buildFourthColumnRowField(addEditStoreBloc),
                   ],
                 ),
@@ -166,8 +167,8 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
                   height: 10,
                 ),
 
-                /// freelance certificate number
-                _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[8]),
+                /// financialRecordNo & freelance certificate number
+                _buildFifthColumnRowField(addEditStoreBloc),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
@@ -181,97 +182,106 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
 
   _buildFirstColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[0]),
-            ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[1]),
-            ),
-          ],
-        ));
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[0]),
+        ),
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[1]),
+        ),
+      ],
+    ));
   }
 
   _buildSecondColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[2]),
-            ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[3]),
-            ),
-          ],
-        ));
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[2]),
+        ),
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[3]),
+        ),
+      ],
+    ));
   }
 
   _buildThirdColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[4]),
-            ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[5]),
-            ),
-          ],
-        ));
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[4]),
+        ),
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[5]),
+        ),
+      ],
+    ));
   }
 
   _buildFourthColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[6]),
-            ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[7]),
-            ),
-          ],
-        ));
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[6]),
+        ),
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[7]),
+        ),
+      ],
+    ));
+  }
+
+  _buildFifthColumnRowField(AddEditStoreBloc addEditStoreBloc) {
+    return ResponsiveRowColumnItem(
+        child: ResponsiveRowColumn(
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[8]),
+        ),
+        ResponsiveRowColumnItem(
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[9]),
+        ),
+      ],
+    ));
   }
 }

@@ -19,6 +19,7 @@ part 'customer_get_dto.g.dart';
 /// * [areaId] 
 /// * [countryNameEn] 
 /// * [countryNameAr] 
+/// * [countryCode] 
 /// * [governorateNameEn] 
 /// * [governorateNameAr] 
 /// * [cityNameEn] 
@@ -59,6 +60,9 @@ abstract class CustomerGetDto implements Built<CustomerGetDto, CustomerGetDtoBui
 
   @BuiltValueField(wireName: r'countryName_ar')
   String? get countryNameAr;
+
+  @BuiltValueField(wireName: r'countryCode')
+  String? get countryCode;
 
   @BuiltValueField(wireName: r'governorateName_en')
   String? get governorateNameEn;
@@ -181,6 +185,13 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
       yield r'countryName_ar';
       yield serializers.serialize(
         object.countryNameAr,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.countryCode != null) {
+      yield r'countryCode';
+      yield serializers.serialize(
+        object.countryCode,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -371,6 +382,14 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
           ) as String?;
           if (valueDes == null) continue;
           result.countryNameAr = valueDes;
+          break;
+        case r'countryCode':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.countryCode = valueDes;
           break;
         case r'governorateName_en':
           final valueDes = serializers.deserialize(

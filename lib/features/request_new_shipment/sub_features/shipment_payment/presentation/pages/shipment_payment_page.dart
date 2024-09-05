@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moyasar/moyasar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
@@ -9,6 +10,7 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/errors/shipment_payment_error_handler.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/bloc/shipment_payment_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/widgets/moyasar_payment_method_widget.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/widgets/payment_success_widget.dart';
@@ -33,7 +35,10 @@ class ShipmentPaymentPage extends StatelessWidget {
             ///
             getIt<NavigationService>().navigateAndReplacement(const PaymentSuccessWidget());
           }
-          if (state.stateHelper.requestState == RequestState.ERROR) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            ///
+            ShipmentPaymentErrorHandler(status: PaymentStatus.failed, message: 'create_payment_failed')();
+          }
         }
       },
       builder: (context, state) {
@@ -62,6 +67,7 @@ class ShipmentPaymentPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           MoyasarPaymentMethodWidget(
+              bloc: bloc,
               orderDesc: requestShipmentBloc.state.shipmentDtoBody?.contentDesc ?? '',
               amount: requestShipmentBloc.state.selectedServiceProvider?.cost ?? 0,
               weight: requestShipmentBloc.state.shipmentDtoBody?.weight ?? 0,

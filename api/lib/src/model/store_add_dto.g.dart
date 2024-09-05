@@ -27,6 +27,8 @@ class _$StoreAddDto extends StoreAddDto {
   final String? financialRecordNumber;
   @override
   final String? freelanceCertificateNumber;
+  @override
+  final String? phoneNo;
 
   factory _$StoreAddDto([void Function(StoreAddDtoBuilder)? updates]) =>
       (new StoreAddDtoBuilder()..update(updates))._build();
@@ -41,7 +43,8 @@ class _$StoreAddDto extends StoreAddDto {
       this.storeId,
       this.name,
       this.financialRecordNumber,
-      this.freelanceCertificateNumber})
+      this.freelanceCertificateNumber,
+      this.phoneNo})
       : super._();
 
   @override
@@ -64,7 +67,8 @@ class _$StoreAddDto extends StoreAddDto {
         storeId == other.storeId &&
         name == other.name &&
         financialRecordNumber == other.financialRecordNumber &&
-        freelanceCertificateNumber == other.freelanceCertificateNumber;
+        freelanceCertificateNumber == other.freelanceCertificateNumber &&
+        phoneNo == other.phoneNo;
   }
 
   @override
@@ -80,6 +84,7 @@ class _$StoreAddDto extends StoreAddDto {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, financialRecordNumber.hashCode);
     _$hash = $jc(_$hash, freelanceCertificateNumber.hashCode);
+    _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -96,7 +101,8 @@ class _$StoreAddDto extends StoreAddDto {
           ..add('storeId', storeId)
           ..add('name', name)
           ..add('financialRecordNumber', financialRecordNumber)
-          ..add('freelanceCertificateNumber', freelanceCertificateNumber))
+          ..add('freelanceCertificateNumber', freelanceCertificateNumber)
+          ..add('phoneNo', phoneNo))
         .toString();
   }
 }
@@ -148,6 +154,10 @@ class StoreAddDtoBuilder implements Builder<StoreAddDto, StoreAddDtoBuilder> {
   set freelanceCertificateNumber(String? freelanceCertificateNumber) =>
       _$this._freelanceCertificateNumber = freelanceCertificateNumber;
 
+  String? _phoneNo;
+  String? get phoneNo => _$this._phoneNo;
+  set phoneNo(String? phoneNo) => _$this._phoneNo = phoneNo;
+
   StoreAddDtoBuilder() {
     StoreAddDto._defaults(this);
   }
@@ -165,6 +175,7 @@ class StoreAddDtoBuilder implements Builder<StoreAddDto, StoreAddDtoBuilder> {
       _name = $v.name;
       _financialRecordNumber = $v.financialRecordNumber;
       _freelanceCertificateNumber = $v.freelanceCertificateNumber;
+      _phoneNo = $v.phoneNo;
       _$v = null;
     }
     return this;
@@ -196,7 +207,8 @@ class StoreAddDtoBuilder implements Builder<StoreAddDto, StoreAddDtoBuilder> {
             storeId: storeId,
             name: name,
             financialRecordNumber: financialRecordNumber,
-            freelanceCertificateNumber: freelanceCertificateNumber);
+            freelanceCertificateNumber: freelanceCertificateNumber,
+            phoneNo: phoneNo);
     replace(_$result);
     return _$result;
   }

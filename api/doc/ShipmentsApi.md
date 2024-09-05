@@ -14,7 +14,6 @@ Method | HTTP request | Description
 [**apiShipmentsIdDelete**](ShipmentsApi.md#apishipmentsiddelete) | **DELETE** /api/Shipments/{id} | 
 [**apiShipmentsIdGet**](ShipmentsApi.md#apishipmentsidget) | **GET** /api/Shipments/{id} | 
 [**apiShipmentsPost**](ShipmentsApi.md#apishipmentspost) | **POST** /api/Shipments | 
-[**apiShipmentsPut**](ShipmentsApi.md#apishipmentsput) | **PUT** /api/Shipments | 
 
 
 # **apiShipmentsGet**
@@ -226,48 +225,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **apiShipmentsPut**
-> apiShipmentsPut(apiKey, shipmentAddDto)
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getShipmentsApi();
-final String apiKey = apiKey_example; // String | 
-final ShipmentAddDto shipmentAddDto = ; // ShipmentAddDto | 
-
-try {
-    api.apiShipmentsPut(apiKey, shipmentAddDto);
-} catch on DioException (e) {
-    print('Exception when calling ShipmentsApi->apiShipmentsPut: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiKey** | **String**|  | 
- **shipmentAddDto** | [**ShipmentAddDto**](ShipmentAddDto.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
