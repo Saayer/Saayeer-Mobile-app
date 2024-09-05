@@ -13,6 +13,7 @@ part 'address_logistics.g.dart';
 /// Properties:
 /// * [addressDetails] 
 /// * [countryCode] 
+/// * [stateCode] 
 /// * [countryNameEn] 
 /// * [governorateNameEn] 
 /// * [cityNameEn] 
@@ -24,6 +25,9 @@ abstract class AddressLogistics implements Built<AddressLogistics, AddressLogist
 
   @BuiltValueField(wireName: r'countryCode')
   String? get countryCode;
+
+  @BuiltValueField(wireName: r'stateCode')
+  String? get stateCode;
 
   @BuiltValueField(wireName: r'countryName_en')
   String? get countryNameEn;
@@ -71,6 +75,13 @@ class _$AddressLogisticsSerializer implements PrimitiveSerializer<AddressLogisti
       yield r'countryCode';
       yield serializers.serialize(
         object.countryCode,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.stateCode != null) {
+      yield r'stateCode';
+      yield serializers.serialize(
+        object.stateCode,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -140,6 +151,14 @@ class _$AddressLogisticsSerializer implements PrimitiveSerializer<AddressLogisti
           ) as String?;
           if (valueDes == null) continue;
           result.countryCode = valueDes;
+          break;
+        case r'stateCode':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.stateCode = valueDes;
           break;
         case r'countryName_en':
           final valueDes = serializers.deserialize(

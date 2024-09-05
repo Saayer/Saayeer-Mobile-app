@@ -9,6 +9,7 @@ import 'package:openapi/src/auth/api_key_auth.dart';
 import 'package:openapi/src/auth/basic_auth.dart';
 import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
+import 'package:openapi/src/api/accounting_api.dart';
 import 'package:openapi/src/api/address_lookups_api.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/clients_api.dart';
@@ -69,6 +70,12 @@ class Openapi {
     if (this.dio.interceptors.any((i) => i is ApiKeyAuthInterceptor)) {
       (this.dio.interceptors.firstWhere((element) => element is ApiKeyAuthInterceptor) as ApiKeyAuthInterceptor).apiKeys[name] = apiKey;
     }
+  }
+
+  /// Get AccountingApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  AccountingApi getAccountingApi() {
+    return AccountingApi(dio, serializers);
   }
 
   /// Get AddressLookupsApi instance, base route and serializer can be overridden by a given but be careful,

@@ -3,26 +3,31 @@ part of 'shipment_payment_bloc.dart';
 @immutable
 class ShipmentPaymentState extends Equatable {
   final StateHelper stateHelper;
-  final ShipmentGetDto? shipmentGetDto;
+  final PaymentAddDto? paymentAddDto;
+  final CreatePaymentResponse? createPaymentResponse;
 
   const ShipmentPaymentState({
     this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
-    this.shipmentGetDto,
+    this.paymentAddDto,
+    this.createPaymentResponse,
   });
 
   ShipmentPaymentState copyWith({
     StateHelper? stateHelper,
-    ShipmentGetDto? shipmentGetDto,
+    PaymentAddDto? paymentAddDto,
+    CreatePaymentResponse? createPaymentResponse,
   }) {
     return ShipmentPaymentState(
       stateHelper: stateHelper ?? this.stateHelper,
-      shipmentGetDto: shipmentGetDto ?? this.shipmentGetDto,
+      paymentAddDto: paymentAddDto ?? this.paymentAddDto,
+      createPaymentResponse: createPaymentResponse ?? this.createPaymentResponse,
     );
   }
 
   @override
   List<Object?> get props => [
         stateHelper,
-        shipmentGetDto,
+        paymentAddDto,
+        createPaymentResponse,
       ];
 }

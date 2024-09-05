@@ -1,5 +1,6 @@
 enum StoreInfoFieldsTypes {
   NAME._(name: "name"),
+  PHONE._(name: "phone_num"),
   COUNTRY._(name: "country"),
   GOVERNORATE._(name: "governorate"),
   CITY._(name: "city"),

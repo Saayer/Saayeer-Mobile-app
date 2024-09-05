@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:moyasar/moyasar.dart';
-import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/localization/localization.dart' as localization;
-import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/errors/shipment_payment_error_handler.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/utils/constants/moyasar_constants.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/widgets/payment_success_widget.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/bloc/shipment_payment_bloc.dart';
 
 class MoyasarPaymentMethodWidget extends StatelessWidget {
   final double amount;
@@ -15,6 +13,7 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
   final double weight;
   final int shipmentId;
   final String clientPhone;
+  final ShipmentPaymentBloc bloc;
 
   const MoyasarPaymentMethodWidget({
     super.key,
@@ -23,6 +22,7 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
     required this.weight,
     required this.shipmentId,
     required this.clientPhone,
+    required this.bloc,
   });
 
   void onPaymentResult(result) {
@@ -31,7 +31,12 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
         case PaymentStatus.paid:
           {
             print('Moyasar Payment Succeed: $result');
-            getIt<NavigationService>().navigateAndReplacement(const PaymentSuccessWidget());
+            bloc.add(CreatePayment(
+                shipmentId: shipmentId,
+                transactionId: result.id,
+                amount: amount,
+                fee: result.fee.toDouble(),
+                currency: result.currency));
           }
           break;
         case PaymentStatus.failed:

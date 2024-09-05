@@ -4,30 +4,27 @@ abstract class ShipmentPaymentEvent extends Equatable {
   const ShipmentPaymentEvent();
 }
 
-class ConfirmPayment extends ShipmentPaymentEvent {
-  final ShipmentCostObj? shipmentAddDto;
-  final ServiceCost? selectedServiceProvider;
-  final int? senderStoreId;
-  final int? senderCustomerId;
-  final int? receiverStoreId;
-  final int? receiverCustomerId;
+class CreatePayment extends ShipmentPaymentEvent {
+  final int? shipmentId;
+  final String? transactionId;
+  final double? amount;
+  final double? fee;
+  final String? currency;
 
-  const ConfirmPayment({
-    required this.shipmentAddDto,
-    required this.selectedServiceProvider,
-    required this.senderStoreId,
-    required this.senderCustomerId,
-    required this.receiverStoreId,
-    required this.receiverCustomerId,
+  const CreatePayment({
+    required this.shipmentId,
+    required this.transactionId,
+    required this.amount,
+    required this.fee,
+    required this.currency,
   });
 
   @override
   List<Object?> get props => [
-        shipmentAddDto,
-        selectedServiceProvider,
-        senderStoreId,
-        senderCustomerId,
-        receiverStoreId,
-        receiverCustomerId,
+        shipmentId,
+        transactionId,
+        amount,
+        fee,
+        currency,
       ];
 }

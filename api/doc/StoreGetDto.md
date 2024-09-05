@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **areaId** | **int** |  | [optional] 
 **countryNameEn** | **String** |  | [optional] 
 **countryNameAr** | **String** |  | [optional] 
+**countryCode** | **String** |  | [optional] 
 **governorateNameEn** | **String** |  | [optional] 
 **governorateNameAr** | **String** |  | [optional] 
 **cityNameEn** | **String** |  | [optional] 
@@ -26,6 +27,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | [optional] 
 **financialRecordNumber** | **String** |  | [optional] 
 **freelanceCertificateNumber** | **String** |  | [optional] 
+**phoneNo** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

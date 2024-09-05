@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **addressDetails** | **String** |  | [optional] 
 **countryCode** | **String** |  | [optional] 
+**stateCode** | **String** |  | [optional] 
 **countryNameEn** | **String** |  | [optional] 
 **governorateNameEn** | **String** |  | [optional] 
 **cityNameEn** | **String** |  | [optional] 

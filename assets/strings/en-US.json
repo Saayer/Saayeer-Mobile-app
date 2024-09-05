@@ -216,5 +216,6 @@
   "shipment_summary": "Shipment Summary",
   "stores_error_msg": "We can't get your Stores. Please try again later.",
   "addresses_error_msg": "We can't get Customer Addresses. Please try again later.",
-  "payment_failed": "Payment failed"
+  "payment_failed": "Payment failed",
+  "create_payment_failed": "The Payment has been successfully, but there's an error with store the info"
 }

@@ -8,6 +8,7 @@ part of 'shipment_status.dart';
 
 const ShipmentStatus _$pending = const ShipmentStatus._('pending');
 const ShipmentStatus _$paid = const ShipmentStatus._('paid');
+const ShipmentStatus _$requested = const ShipmentStatus._('requested');
 
 ShipmentStatus _$valueOf(String name) {
   switch (name) {
@@ -15,6 +16,8 @@ ShipmentStatus _$valueOf(String name) {
       return _$pending;
     case 'paid':
       return _$paid;
+    case 'requested':
+      return _$requested;
     default:
       throw new ArgumentError(name);
   }
@@ -24,12 +27,14 @@ final BuiltSet<ShipmentStatus> _$values =
     new BuiltSet<ShipmentStatus>(const <ShipmentStatus>[
   _$pending,
   _$paid,
+  _$requested,
 ]);
 
 class _$ShipmentStatusMeta {
   const _$ShipmentStatusMeta();
   ShipmentStatus get pending => _$pending;
   ShipmentStatus get paid => _$paid;
+  ShipmentStatus get requested => _$requested;
   ShipmentStatus valueOf(String name) => _$valueOf(name);
   BuiltSet<ShipmentStatus> get values => _$values;
 }
@@ -47,10 +52,12 @@ class _$ShipmentStatusSerializer
   static const Map<String, Object> _toWire = const <String, Object>{
     'pending': 'Pending',
     'paid': 'Paid',
+    'requested': 'Requested',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'Pending': 'pending',
     'Paid': 'paid',
+    'Requested': 'requested',
   };
 
   @override

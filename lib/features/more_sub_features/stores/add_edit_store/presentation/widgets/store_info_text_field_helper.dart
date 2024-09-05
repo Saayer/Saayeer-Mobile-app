@@ -1,10 +1,17 @@
+import 'dart:developer';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/address_widgets/presentation/widgets/items_drop_down_text_field.dart';
+import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/input_text_field.dart';
+import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/bloc/add_edit_store_bloc.dart';
+import 'dart:ui' as ui;
 
 class StoreInfoTextFieldHelper {
   final AddEditStoreBloc addEditStoreBloc;
@@ -24,6 +31,10 @@ class StoreInfoTextFieldHelper {
       case StoreInfoFieldsTypes.NAME:
         {
           return _getFullNameTextField();
+        }
+      case StoreInfoFieldsTypes.PHONE:
+        {
+          return _getPhoneNumTextField();
         }
       case StoreInfoFieldsTypes.COUNTRY:
         {
@@ -57,17 +68,6 @@ class StoreInfoTextFieldHelper {
         {
           return _getFreelanceCertificateNoTextField(freelanceNoKey);
         }
-      default:
-        {
-          return InputTextField(
-            label: storeInfoFieldsType.name,
-            inputController: _getInputController(),
-            onChanged: (val) {
-              addEditStoreBloc.add(OnTextChange(
-                  str: val, storeInfoFieldsType: storeInfoFieldsType, textEditingController: _getInputController()));
-            },
-          );
-        }
     }
   }
 
@@ -76,6 +76,10 @@ class StoreInfoTextFieldHelper {
       case StoreInfoFieldsTypes.NAME:
         {
           return addEditStoreBloc.nameController;
+        }
+      case StoreInfoFieldsTypes.PHONE:
+        {
+          return addEditStoreBloc.mobileController;
         }
       case StoreInfoFieldsTypes.COUNTRY:
         {
@@ -268,5 +272,41 @@ class StoreInfoTextFieldHelper {
         ),
       );
     }
+  }
+
+  Widget _getPhoneNumTextField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LabelTxt(txt: '${storeInfoFieldsType.name.tr()} *'),
+          ],
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Directionality(
+          textDirection: ui.TextDirection.ltr,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: PhoneTextField(
+              phoneNumController: _getInputController(),
+              onInputChanged: (PhoneNumber phoneNumber) {
+                log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
+                    name: "onInputChanged --->");
+                log("${phoneNumber.phoneNumber}", name: "PhoneTextField onInputChanged ->");
+                addEditStoreBloc.add(OnTextChange(
+                    phoneNumber: phoneNumber,
+                    storeInfoFieldsType: StoreInfoFieldsTypes.PHONE,
+                    textEditingController: _getInputController()));
+              },
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
