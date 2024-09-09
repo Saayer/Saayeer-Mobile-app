@@ -9,10 +9,18 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **shipmentId** | **int** |  | 
-**transactionId** | **String** |  | 
 **amount** | **double** |  | 
-**fee** | **double** |  | 
 **currency** | **String** |  | 
+**fee** | **double** |  | 
+**transactionId** | **String** |  | 
+**sourceCompany** | **String** |  | [optional] 
+**sourceGatewayId** | **String** |  | [optional] 
+**sourceMessage** | **String** |  | [optional] 
+**sourceName** | **String** |  | [optional] 
+**sourceNumber** | **String** |  | [optional] 
+**sourceReferenceNumber** | **String** |  | [optional] 
+**sourceType** | **String** |  | [optional] 
+**status** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

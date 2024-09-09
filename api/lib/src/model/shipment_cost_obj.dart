@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/address_logistics.dart';
+import 'package:openapi/src/model/address_cost_logistics.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -41,10 +41,10 @@ abstract class ShipmentCostObj implements Built<ShipmentCostObj, ShipmentCostObj
   double? get contentValue;
 
   @BuiltValueField(wireName: r'senderAddress')
-  AddressLogistics? get senderAddress;
+  AddressCostLogistics? get senderAddress;
 
   @BuiltValueField(wireName: r'receiverAddress')
-  AddressLogistics? get receiverAddress;
+  AddressCostLogistics? get receiverAddress;
 
   ShipmentCostObj._();
 
@@ -115,14 +115,14 @@ class _$ShipmentCostObjSerializer implements PrimitiveSerializer<ShipmentCostObj
       yield r'senderAddress';
       yield serializers.serialize(
         object.senderAddress,
-        specifiedType: const FullType.nullable(AddressLogistics),
+        specifiedType: const FullType.nullable(AddressCostLogistics),
       );
     }
     if (object.receiverAddress != null) {
       yield r'receiverAddress';
       yield serializers.serialize(
         object.receiverAddress,
-        specifiedType: const FullType.nullable(AddressLogistics),
+        specifiedType: const FullType.nullable(AddressCostLogistics),
       );
     }
   }
@@ -195,16 +195,16 @@ class _$ShipmentCostObjSerializer implements PrimitiveSerializer<ShipmentCostObj
         case r'senderAddress':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(AddressLogistics),
-          ) as AddressLogistics?;
+            specifiedType: const FullType.nullable(AddressCostLogistics),
+          ) as AddressCostLogistics?;
           if (valueDes == null) continue;
           result.senderAddress.replace(valueDes);
           break;
         case r'receiverAddress':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(AddressLogistics),
-          ) as AddressLogistics?;
+            specifiedType: const FullType.nullable(AddressCostLogistics),
+          ) as AddressCostLogistics?;
           if (valueDes == null) continue;
           result.receiverAddress.replace(valueDes);
           break;

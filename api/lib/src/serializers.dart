@@ -14,7 +14,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
-import 'package:openapi/src/model/address_logistics.dart';
+import 'package:openapi/src/model/address_cost_logistics.dart';
 import 'package:openapi/src/model/address_look_up_dto.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
@@ -44,7 +44,7 @@ import 'package:openapi/src/model/token_response_dto.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
-  AddressLogistics,
+  AddressCostLogistics,
   AddressLookUpDto,
   ClientAddDto,
   ClientGetDto,

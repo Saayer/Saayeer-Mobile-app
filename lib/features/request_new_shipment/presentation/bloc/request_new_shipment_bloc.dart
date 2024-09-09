@@ -318,7 +318,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderStoreId: selectedSenderStoreAddress!.storeId,
           senderCustomerId: null,
-          senderAddress: AddressLogistics((a) => a
+          senderAddress: AddressCostLogistics((a) => a
             ..addressDetails = selectedSenderStoreAddress?.addressDetails
             ..governorateNameEn = selectedSenderStoreAddress?.governorateNameEn
             ..cityNameEn = selectedSenderStoreAddress?.cityNameEn
@@ -330,7 +330,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderStoreId: null,
           senderCustomerId: selectedSenderCustomerAddress!.customerId,
-          senderAddress: AddressLogistics((a) => a
+          senderAddress: AddressCostLogistics((a) => a
             ..addressDetails = selectedSenderCustomerAddress?.addressDetails
             ..governorateNameEn = selectedSenderCustomerAddress?.governorateNameEn
             ..cityNameEn = selectedSenderCustomerAddress?.cityNameEn
@@ -351,7 +351,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverStoreId: selectedReceiverStoreAddress!.storeId,
           receiverCustomerId: null,
-          receiverAddress: AddressLogistics((a) => a
+          receiverAddress: AddressCostLogistics((a) => a
             ..addressDetails = selectedReceiverStoreAddress?.addressDetails
             ..governorateNameEn = selectedReceiverStoreAddress?.governorateNameEn
             ..cityNameEn = selectedReceiverStoreAddress?.cityNameEn
@@ -363,7 +363,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverStoreId: null,
           receiverCustomerId: selectedReceiverCustomerAddress!.customerId,
-          receiverAddress: AddressLogistics((a) => a
+          receiverAddress: AddressCostLogistics((a) => a
             ..addressDetails = selectedReceiverCustomerAddress?.addressDetails
             ..governorateNameEn = selectedReceiverCustomerAddress?.governorateNameEn
             ..cityNameEn = selectedReceiverCustomerAddress?.cityNameEn

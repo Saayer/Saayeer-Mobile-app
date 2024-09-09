@@ -85,7 +85,11 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   final _pageSize = 10;
 
   ///
-  List<ShipmentStatus> shipmentStatusList = [ShipmentStatus.paid, ShipmentStatus.pending];
+  List<ShipmentStatus> shipmentStatusList = [
+    ShipmentStatus.pending,
+    ShipmentStatus.paid,
+    ShipmentStatus.requested,
+  ];
 
   FutureOr<void> _initShipments(InitShipments event, Emitter<ShipmentsState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));

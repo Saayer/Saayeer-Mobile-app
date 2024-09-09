@@ -20,9 +20,9 @@ class _$ShipmentCostObj extends ShipmentCostObj {
   @override
   final double? contentValue;
   @override
-  final AddressLogistics? senderAddress;
+  final AddressCostLogistics? senderAddress;
   @override
-  final AddressLogistics? receiverAddress;
+  final AddressCostLogistics? receiverAddress;
 
   factory _$ShipmentCostObj([void Function(ShipmentCostObjBuilder)? updates]) =>
       (new ShipmentCostObjBuilder()..update(updates))._build();
@@ -118,16 +118,16 @@ class ShipmentCostObjBuilder
   double? get contentValue => _$this._contentValue;
   set contentValue(double? contentValue) => _$this._contentValue = contentValue;
 
-  AddressLogisticsBuilder? _senderAddress;
-  AddressLogisticsBuilder get senderAddress =>
-      _$this._senderAddress ??= new AddressLogisticsBuilder();
-  set senderAddress(AddressLogisticsBuilder? senderAddress) =>
+  AddressCostLogisticsBuilder? _senderAddress;
+  AddressCostLogisticsBuilder get senderAddress =>
+      _$this._senderAddress ??= new AddressCostLogisticsBuilder();
+  set senderAddress(AddressCostLogisticsBuilder? senderAddress) =>
       _$this._senderAddress = senderAddress;
 
-  AddressLogisticsBuilder? _receiverAddress;
-  AddressLogisticsBuilder get receiverAddress =>
-      _$this._receiverAddress ??= new AddressLogisticsBuilder();
-  set receiverAddress(AddressLogisticsBuilder? receiverAddress) =>
+  AddressCostLogisticsBuilder? _receiverAddress;
+  AddressCostLogisticsBuilder get receiverAddress =>
+      _$this._receiverAddress ??= new AddressCostLogisticsBuilder();
+  set receiverAddress(AddressCostLogisticsBuilder? receiverAddress) =>
       _$this._receiverAddress = receiverAddress;
 
   ShipmentCostObjBuilder() {

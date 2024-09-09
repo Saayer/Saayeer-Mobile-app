@@ -2,7 +2,7 @@
 README.md
 analysis_options.yaml
 doc/AccountingApi.md
-doc/AddressLogistics.md
+doc/AddressCostLogistics.md
 doc/AddressLookUpDto.md
 doc/AddressLookupsApi.md
 doc/AuthApi.md
@@ -52,7 +52,7 @@ lib/src/auth/basic_auth.dart
 lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
-lib/src/model/address_logistics.dart
+lib/src/model/address_cost_logistics.dart
 lib/src/model/address_look_up_dto.dart
 lib/src/model/client_add_dto.dart
 lib/src/model/client_get_dto.dart
@@ -81,8 +81,3 @@ lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/accounting_api_test.dart
-test/create_payment_response_test.dart
-test/error_codes_test.dart
-test/error_message_test.dart
-test/payment_add_dto_test.dart

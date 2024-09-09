@@ -10,6 +10,14 @@ class CreatePayment extends ShipmentPaymentEvent {
   final double? amount;
   final double? fee;
   final String? currency;
+  final String? sourceCompany;
+  final String? sourceGatewayId;
+  final String? sourceMessage;
+  final String? sourceName;
+  final String? sourceNumber;
+  final String? sourceReferenceNumber;
+  final String? sourceType;
+  final String? status;
 
   const CreatePayment({
     required this.shipmentId,
@@ -17,6 +25,14 @@ class CreatePayment extends ShipmentPaymentEvent {
     required this.amount,
     required this.fee,
     required this.currency,
+    required this.sourceCompany,
+    required this.sourceGatewayId,
+    required this.sourceMessage,
+    required this.sourceName,
+    required this.sourceNumber,
+    required this.sourceReferenceNumber,
+    required this.sourceType,
+    required this.status,
   });
 
   @override
@@ -26,5 +42,13 @@ class CreatePayment extends ShipmentPaymentEvent {
         amount,
         fee,
         currency,
+        sourceCompany,
+        sourceGatewayId,
+        sourceMessage,
+        sourceName,
+        sourceNumber,
+        sourceReferenceNumber,
+        sourceType,
+        status,
       ];
 }
