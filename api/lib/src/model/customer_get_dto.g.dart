@@ -20,6 +20,8 @@ class _$CustomerGetDto extends CustomerGetDto {
   @override
   final int? areaId;
   @override
+  final String? citySplId;
+  @override
   final String? countryNameEn;
   @override
   final String? countryNameAr;
@@ -66,6 +68,7 @@ class _$CustomerGetDto extends CustomerGetDto {
       this.governorateId,
       this.cityId,
       this.areaId,
+      this.citySplId,
       this.countryNameEn,
       this.countryNameAr,
       this.countryCode,
@@ -104,6 +107,7 @@ class _$CustomerGetDto extends CustomerGetDto {
         governorateId == other.governorateId &&
         cityId == other.cityId &&
         areaId == other.areaId &&
+        citySplId == other.citySplId &&
         countryNameEn == other.countryNameEn &&
         countryNameAr == other.countryNameAr &&
         countryCode == other.countryCode &&
@@ -133,6 +137,7 @@ class _$CustomerGetDto extends CustomerGetDto {
     _$hash = $jc(_$hash, governorateId.hashCode);
     _$hash = $jc(_$hash, cityId.hashCode);
     _$hash = $jc(_$hash, areaId.hashCode);
+    _$hash = $jc(_$hash, citySplId.hashCode);
     _$hash = $jc(_$hash, countryNameEn.hashCode);
     _$hash = $jc(_$hash, countryNameAr.hashCode);
     _$hash = $jc(_$hash, countryCode.hashCode);
@@ -164,6 +169,7 @@ class _$CustomerGetDto extends CustomerGetDto {
           ..add('governorateId', governorateId)
           ..add('cityId', cityId)
           ..add('areaId', areaId)
+          ..add('citySplId', citySplId)
           ..add('countryNameEn', countryNameEn)
           ..add('countryNameAr', countryNameAr)
           ..add('countryCode', countryCode)
@@ -215,6 +221,10 @@ class CustomerGetDtoBuilder
   int? _areaId;
   int? get areaId => _$this._areaId;
   set areaId(int? areaId) => _$this._areaId = areaId;
+
+  String? _citySplId;
+  String? get citySplId => _$this._citySplId;
+  set citySplId(String? citySplId) => _$this._citySplId = citySplId;
 
   String? _countryNameEn;
   String? get countryNameEn => _$this._countryNameEn;
@@ -307,6 +317,7 @@ class CustomerGetDtoBuilder
       _governorateId = $v.governorateId;
       _cityId = $v.cityId;
       _areaId = $v.areaId;
+      _citySplId = $v.citySplId;
       _countryNameEn = $v.countryNameEn;
       _countryNameAr = $v.countryNameAr;
       _countryCode = $v.countryCode;
@@ -353,6 +364,7 @@ class CustomerGetDtoBuilder
             governorateId: governorateId,
             cityId: cityId,
             areaId: areaId,
+            citySplId: citySplId,
             countryNameEn: countryNameEn,
             countryNameAr: countryNameAr,
             countryCode: countryCode,

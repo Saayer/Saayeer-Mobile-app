@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **governorateId** | **int** |  | [optional] 
 **cityId** | **int** |  | [optional] 
 **areaId** | **int** |  | [optional] 
+**citySplId** | **String** |  | [optional] 
 **countryNameEn** | **String** |  | [optional] 
 **countryNameAr** | **String** |  | [optional] 
 **countryCode** | **String** |  | [optional] 

@@ -7,7 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(AddressLogistics.serializer)
+      ..add(AddressCostLogistics.serializer)
       ..add(AddressLookUpDto.serializer)
       ..add(ClientAddDto.serializer)
       ..add(ClientGetDto.serializer)

@@ -6,6 +6,7 @@ import 'package:saayer/core/services/localization/localization.dart' as localiza
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/errors/shipment_payment_error_handler.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/utils/constants/moyasar_constants.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/bloc/shipment_payment_bloc.dart';
+import 'package:moyasar/src/models/payment_type.dart';
 
 class MoyasarPaymentMethodWidget extends StatelessWidget {
   final double amount;
@@ -30,13 +31,23 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
       switch (result.status) {
         case PaymentStatus.paid:
           {
+            const CardCompany company = CardCompany.amex;
+            print(company.name);
             print('Moyasar Payment Succeed: $result');
             bloc.add(CreatePayment(
                 shipmentId: shipmentId,
                 transactionId: result.id,
                 amount: amount,
                 fee: result.fee.toDouble(),
-                currency: result.currency));
+                currency: result.currency,
+                sourceCompany: (result.source.company as CardCompany).name,
+                sourceGatewayId: result.source.gatewayId,
+                sourceMessage: result.source.message,
+                sourceName: result.source.name,
+                sourceNumber: result.source.number,
+                sourceReferenceNumber: result.source.referenceNumber ?? '',
+                sourceType: (result.source.type as PaymentType).name,
+                status: result.status.name));
           }
           break;
         case PaymentStatus.failed:

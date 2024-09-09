@@ -164,13 +164,13 @@ class ShipmentItemWidgetHelper {
 
   Color getColor(ShipmentStatus shipmentStatus) {
     switch (shipmentStatus) {
-      case ShipmentStatus.pending:
+      case ShipmentStatus.requested:
         {
           return !SaayerTheme().isDarkThemeMode
               ? SaayerTheme().getColorsPalette.lightOrangeColor.withOpacity(0.3)
               : SaayerTheme().getColorsPalette.orangeColor.withOpacity(0.8);
         }
-      // case ShipmentStatus.DELIVERED:
+      // case ShipmentStatus.delivered:
       //   {
       //     return SaayerTheme().getColorsPalette.lightYellowColor;
       //   }
@@ -178,9 +178,10 @@ class ShipmentItemWidgetHelper {
         {
           return SaayerTheme().getColorsPalette.lightGreenColor;
         }
-      default: {
-        return SaayerTheme().getColorsPalette.lightGreenColor;
-      }
+      default:
+        {
+          return SaayerTheme().getColorsPalette.lightGreenColor;
+        }
     }
   }
 

@@ -2,7 +2,7 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-deploy
+  version: v-17
 servers:
   - url: "/saayer-6/dev"
 paths:
@@ -861,20 +861,7 @@ paths:
           description: Success
 components:
   schemas:
-    AddressLookUpDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name_en:
-          type: string
-          nullable: true
-        name_ar:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Address_Logistics:
+    AddressCost_Logistics:
       type: object
       properties:
         addressDetails:
@@ -896,6 +883,19 @@ components:
           type: string
           nullable: true
         areaName_en:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AddressLookUpDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name_en:
+          type: string
+          nullable: true
+        name_ar:
           type: string
           nullable: true
       additionalProperties: false
@@ -984,6 +984,8 @@ components:
       type: object
       properties:
         addressDetails:
+          maxLength: 100
+          minLength: 1
           type: string
           nullable: true
         zipcode:
@@ -1001,6 +1003,9 @@ components:
         areaId:
           type: integer
           format: int32
+        citySplId:
+          type: string
+          nullable: true
         countryName_en:
           type: string
           nullable: true
@@ -1186,18 +1191,42 @@ components:
         shipmentId:
           type: integer
           format: int64
-        transactionId:
-          minLength: 1
-          type: string
         amount:
-          type: number
-          format: double
-        fee:
           type: number
           format: double
         currency:
           minLength: 1
           type: string
+        fee:
+          type: number
+          format: double
+        transactionId:
+          minLength: 1
+          type: string
+        sourceCompany:
+          type: string
+          nullable: true
+        sourceGateway_id:
+          type: string
+          nullable: true
+        sourceMessage:
+          type: string
+          nullable: true
+        sourceName:
+          type: string
+          nullable: true
+        sourceNumber:
+          type: string
+          nullable: true
+        sourceReference_Number:
+          type: string
+          nullable: true
+        sourceType:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
       additionalProperties: false
     ServiceCost:
       type: object
@@ -1294,11 +1323,11 @@ components:
           nullable: true
         senderAddress:
           allOf:
-            - "$ref": "#/components/schemas/Address_Logistics"
+            - "$ref": "#/components/schemas/AddressCost_Logistics"
           nullable: true
         receiverAddress:
           allOf:
-            - "$ref": "#/components/schemas/Address_Logistics"
+            - "$ref": "#/components/schemas/AddressCost_Logistics"
           nullable: true
       additionalProperties: false
     ShipmentGetDto:
@@ -1416,11 +1445,9 @@ components:
       additionalProperties: false
     ShipmentStatus:
       enum:
+        - Pending
         - Paid
         - Requested
-        - Picked
-        - Shipping
-        - Delivered
       type: string
     StoreAddDto:
       type: object
@@ -1464,6 +1491,8 @@ components:
       type: object
       properties:
         addressDetails:
+          maxLength: 100
+          minLength: 1
           type: string
           nullable: true
         zipcode:
@@ -1481,6 +1510,9 @@ components:
         areaId:
           type: integer
           format: int32
+        citySplId:
+          type: string
+          nullable: true
         countryName_en:
           type: string
           nullable: true

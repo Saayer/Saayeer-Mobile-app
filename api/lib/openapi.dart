@@ -19,7 +19,7 @@ export 'package:openapi/src/api/logistics_api.dart';
 export 'package:openapi/src/api/shipments_api.dart';
 export 'package:openapi/src/api/stores_api.dart';
 
-export 'package:openapi/src/model/address_logistics.dart';
+export 'package:openapi/src/model/address_cost_logistics.dart';
 export 'package:openapi/src/model/address_look_up_dto.dart';
 export 'package:openapi/src/model/client_add_dto.dart';
 export 'package:openapi/src/model/client_get_dto.dart';

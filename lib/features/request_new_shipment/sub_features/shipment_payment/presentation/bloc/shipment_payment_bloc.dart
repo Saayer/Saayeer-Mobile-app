@@ -33,7 +33,15 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
           ..transactionId = event.transactionId
           ..amount = event.amount
           ..fee = event.fee
-          ..currency = event.currency)));
+          ..currency = event.currency
+          ..status = event.status
+          ..sourceCompany = event.sourceCompany
+          ..sourceGatewayId = event.sourceGatewayId
+          ..sourceMessage = event.sourceMessage
+          ..sourceName = event.sourceName
+          ..sourceNumber = event.sourceNumber
+          ..sourceType = event.sourceType
+          ..sourceReferenceNumber = event.sourceReferenceNumber)));
 
     final Either<Failure, CreatePaymentResponse?> result = await createPaymentUseCase(state.paymentAddDto!);
 
@@ -47,11 +55,11 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
       final CreatePaymentResponse? rightResult = (result as Right).value;
       log("right CreatePayment $rightResult");
       if (rightResult != null) {
-          ///
-          emit(state.copyWith(
-            stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
-            createPaymentResponse: rightResult,
-          ));
+        ///
+        emit(state.copyWith(
+          stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
+          createPaymentResponse: rightResult,
+        ));
       } else {
         log("", name: "SubmitPersonalInfoEvent error");
         emit(state.copyWith(
