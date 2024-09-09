@@ -1416,9 +1416,11 @@ components:
       additionalProperties: false
     ShipmentStatus:
       enum:
-        - Pending
         - Paid
         - Requested
+        - Picked
+        - Shipping
+        - Delivered
       type: string
     StoreAddDto:
       type: object

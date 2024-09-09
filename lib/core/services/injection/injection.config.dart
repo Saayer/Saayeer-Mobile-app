@@ -261,6 +261,7 @@ extension GetItInjectableX on _i174.GetIt {
     final injectableModule = _$InjectableModule();
     gh.factory<_i317.LoggedInCheckerService>(
         () => _i317.LoggedInCheckerService());
+    gh.factory<_i912.ShipmentDetailsBloc>(() => _i912.ShipmentDetailsBloc());
     gh.factory<_i212.SettingsBloc>(() => _i212.SettingsBloc());
     gh.factory<_i900.WhySaayerBloc>(() => _i900.WhySaayerBloc());
     gh.factory<_i206.ContactUsBloc>(() => _i206.ContactUsBloc());
@@ -276,7 +277,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
     gh.factory<_i110.NotificationsBloc>(() => _i110.NotificationsBloc());
-    gh.factory<_i912.ShipmentDetailsBloc>(() => _i912.ShipmentDetailsBloc());
     gh.singleton<_i552.AppFlavor>(() => _i552.AppFlavor());
     gh.singleton<_i502.SharedPrefService>(() => _i502.SharedPrefService());
     gh.singleton<_i275.LoggedInService>(() => _i275.LoggedInService());
@@ -391,13 +391,13 @@ extension GetItInjectableX on _i174.GetIt {
             personalInfoRepoImpl: gh<_i792.PersonalInfoRepo>()));
     gh.factory<_i639.GetPersonalInfoUseCase>(() => _i639.GetPersonalInfoUseCase(
         personalInfoRepoImpl: gh<_i792.PersonalInfoRepo>()));
+    gh.factory<_i584.AddNewShipmentUseCase>(() => _i584.AddNewShipmentUseCase(
+        shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
     gh.factory<_i447.GetStoreDetailsUseCase>(() => _i447.GetStoreDetailsUseCase(
         shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
     gh.factory<_i968.GetCustomerDetailsUseCase>(() =>
         _i968.GetCustomerDetailsUseCase(
             shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
-    gh.factory<_i584.AddNewShipmentUseCase>(() => _i584.AddNewShipmentUseCase(
-        shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
     gh.factory<_i760.DeleteAccountUseCase>(
         () => _i760.DeleteAccountUseCase(moreRepoImpl: gh<_i386.MoreRepo>()));
     gh.factory<_i68.UserCardRepo>(

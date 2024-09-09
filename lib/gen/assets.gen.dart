@@ -223,15 +223,23 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/paid_shipment.json
   String get paidShipment => 'assets/lottie/paid_shipment.json';
 
-  /// File path: assets/lottie/pending_shipment.json
-  String get pendingShipment => 'assets/lottie/pending_shipment.json';
+  /// File path: assets/lottie/picked_shipment.json
+  String get pickedShipment => 'assets/lottie/picked_shipment.json';
 
   /// File path: assets/lottie/requested_shipment.json
   String get requestedShipment => 'assets/lottie/requested_shipment.json';
 
+  /// File path: assets/lottie/shipping_shipment.json
+  String get shippingShipment => 'assets/lottie/shipping_shipment.json';
+
   /// List of all assets
-  List<String> get values =>
-      [deliveredShipment, paidShipment, pendingShipment, requestedShipment];
+  List<String> get values => [
+        deliveredShipment,
+        paidShipment,
+        pickedShipment,
+        requestedShipment,
+        shippingShipment
+      ];
 }
 
 class $AssetsStringsGen {
