@@ -6,9 +6,9 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/home/core/errors/home_error_handler.dart';
 import 'package:saayer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/home/presentation/widgets/new_shipment_card_item_widget.dart';
-import 'package:saayer/features/shipments/presentation/screens/shipments_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
             if (state.stateHelper.requestState == RequestState.LOADED) {}
             if (state.stateHelper.requestState == RequestState.SUCCESS) {}
             if (state.stateHelper.requestState == RequestState.ERROR) {
-              //HomeErrorHandler(state: state)();
+              HomeErrorHandler(state: state)();
             }
           }
         },
@@ -69,15 +69,15 @@ class HomePage extends StatelessWidget {
                 //   ),
                 // ],
                 //if (state.clientDto != null)
-                  SizedBox(
-                    height: 400,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0),
-                      child: ShipmentsScreen(
-                        isFromHome: true,
-                      ),
-                    ),
-                  ),
+                //   SizedBox(
+                //     height: 400,
+                //     child: Padding(
+                //       padding: EdgeInsets.symmetric(horizontal: 0),
+                //       child: ShipmentsScreen(
+                //         isFromHome: true,
+                //       ),
+                //     ),
+                //   ),
               ],
             ),
           );
