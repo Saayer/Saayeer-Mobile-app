@@ -7,7 +7,6 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/more_sub_features/contact_us/presentation/screens/contact_us_screen.dart';
-import 'package:saayer/features/more_sub_features/help/presentation/screens/help_screen.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/screens/settings_screen.dart';
 import 'package:saayer/features/more_sub_features/static_pages/core/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/static_pages/presentation/screens/static_pages_screen.dart';
@@ -87,12 +86,6 @@ class MorePage extends StatelessWidget {
                     iconName: "total_store_requests",
                     title: "stores",
                     onPressedWidget: StoresListScreen(),
-                  ),
-                  dividerWidget,
-                  const MoreItemWidget(
-                    iconName: "help",
-                    title: "help",
-                    onPressedWidget: HelpScreen(),
                   ),
                   dividerWidget,
                   const MoreItemWidget(
