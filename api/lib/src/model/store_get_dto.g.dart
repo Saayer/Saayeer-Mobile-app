@@ -20,9 +20,13 @@ class _$StoreGetDto extends StoreGetDto {
   @override
   final int? areaId;
   @override
+  final String? citySplId;
+  @override
   final String? countryNameEn;
   @override
   final String? countryNameAr;
+  @override
+  final String? countryCode;
   @override
   final String? governorateNameEn;
   @override
@@ -43,6 +47,8 @@ class _$StoreGetDto extends StoreGetDto {
   final String? financialRecordNumber;
   @override
   final String? freelanceCertificateNumber;
+  @override
+  final String? phoneNo;
 
   factory _$StoreGetDto([void Function(StoreGetDtoBuilder)? updates]) =>
       (new StoreGetDtoBuilder()..update(updates))._build();
@@ -54,8 +60,10 @@ class _$StoreGetDto extends StoreGetDto {
       this.governorateId,
       this.cityId,
       this.areaId,
+      this.citySplId,
       this.countryNameEn,
       this.countryNameAr,
+      this.countryCode,
       this.governorateNameEn,
       this.governorateNameAr,
       this.cityNameEn,
@@ -65,7 +73,8 @@ class _$StoreGetDto extends StoreGetDto {
       this.storeId,
       this.name,
       this.financialRecordNumber,
-      this.freelanceCertificateNumber})
+      this.freelanceCertificateNumber,
+      this.phoneNo})
       : super._();
 
   @override
@@ -85,8 +94,10 @@ class _$StoreGetDto extends StoreGetDto {
         governorateId == other.governorateId &&
         cityId == other.cityId &&
         areaId == other.areaId &&
+        citySplId == other.citySplId &&
         countryNameEn == other.countryNameEn &&
         countryNameAr == other.countryNameAr &&
+        countryCode == other.countryCode &&
         governorateNameEn == other.governorateNameEn &&
         governorateNameAr == other.governorateNameAr &&
         cityNameEn == other.cityNameEn &&
@@ -96,7 +107,8 @@ class _$StoreGetDto extends StoreGetDto {
         storeId == other.storeId &&
         name == other.name &&
         financialRecordNumber == other.financialRecordNumber &&
-        freelanceCertificateNumber == other.freelanceCertificateNumber;
+        freelanceCertificateNumber == other.freelanceCertificateNumber &&
+        phoneNo == other.phoneNo;
   }
 
   @override
@@ -108,8 +120,10 @@ class _$StoreGetDto extends StoreGetDto {
     _$hash = $jc(_$hash, governorateId.hashCode);
     _$hash = $jc(_$hash, cityId.hashCode);
     _$hash = $jc(_$hash, areaId.hashCode);
+    _$hash = $jc(_$hash, citySplId.hashCode);
     _$hash = $jc(_$hash, countryNameEn.hashCode);
     _$hash = $jc(_$hash, countryNameAr.hashCode);
+    _$hash = $jc(_$hash, countryCode.hashCode);
     _$hash = $jc(_$hash, governorateNameEn.hashCode);
     _$hash = $jc(_$hash, governorateNameAr.hashCode);
     _$hash = $jc(_$hash, cityNameEn.hashCode);
@@ -120,6 +134,7 @@ class _$StoreGetDto extends StoreGetDto {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, financialRecordNumber.hashCode);
     _$hash = $jc(_$hash, freelanceCertificateNumber.hashCode);
+    _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -133,8 +148,10 @@ class _$StoreGetDto extends StoreGetDto {
           ..add('governorateId', governorateId)
           ..add('cityId', cityId)
           ..add('areaId', areaId)
+          ..add('citySplId', citySplId)
           ..add('countryNameEn', countryNameEn)
           ..add('countryNameAr', countryNameAr)
+          ..add('countryCode', countryCode)
           ..add('governorateNameEn', governorateNameEn)
           ..add('governorateNameAr', governorateNameAr)
           ..add('cityNameEn', cityNameEn)
@@ -144,7 +161,8 @@ class _$StoreGetDto extends StoreGetDto {
           ..add('storeId', storeId)
           ..add('name', name)
           ..add('financialRecordNumber', financialRecordNumber)
-          ..add('freelanceCertificateNumber', freelanceCertificateNumber))
+          ..add('freelanceCertificateNumber', freelanceCertificateNumber)
+          ..add('phoneNo', phoneNo))
         .toString();
   }
 }
@@ -178,6 +196,10 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
   int? get areaId => _$this._areaId;
   set areaId(int? areaId) => _$this._areaId = areaId;
 
+  String? _citySplId;
+  String? get citySplId => _$this._citySplId;
+  set citySplId(String? citySplId) => _$this._citySplId = citySplId;
+
   String? _countryNameEn;
   String? get countryNameEn => _$this._countryNameEn;
   set countryNameEn(String? countryNameEn) =>
@@ -187,6 +209,10 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
   String? get countryNameAr => _$this._countryNameAr;
   set countryNameAr(String? countryNameAr) =>
       _$this._countryNameAr = countryNameAr;
+
+  String? _countryCode;
+  String? get countryCode => _$this._countryCode;
+  set countryCode(String? countryCode) => _$this._countryCode = countryCode;
 
   String? _governorateNameEn;
   String? get governorateNameEn => _$this._governorateNameEn;
@@ -232,6 +258,10 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
   set freelanceCertificateNumber(String? freelanceCertificateNumber) =>
       _$this._freelanceCertificateNumber = freelanceCertificateNumber;
 
+  String? _phoneNo;
+  String? get phoneNo => _$this._phoneNo;
+  set phoneNo(String? phoneNo) => _$this._phoneNo = phoneNo;
+
   StoreGetDtoBuilder() {
     StoreGetDto._defaults(this);
   }
@@ -245,8 +275,10 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
       _governorateId = $v.governorateId;
       _cityId = $v.cityId;
       _areaId = $v.areaId;
+      _citySplId = $v.citySplId;
       _countryNameEn = $v.countryNameEn;
       _countryNameAr = $v.countryNameAr;
+      _countryCode = $v.countryCode;
       _governorateNameEn = $v.governorateNameEn;
       _governorateNameAr = $v.governorateNameAr;
       _cityNameEn = $v.cityNameEn;
@@ -257,6 +289,7 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
       _name = $v.name;
       _financialRecordNumber = $v.financialRecordNumber;
       _freelanceCertificateNumber = $v.freelanceCertificateNumber;
+      _phoneNo = $v.phoneNo;
       _$v = null;
     }
     return this;
@@ -285,8 +318,10 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
             governorateId: governorateId,
             cityId: cityId,
             areaId: areaId,
+            citySplId: citySplId,
             countryNameEn: countryNameEn,
             countryNameAr: countryNameAr,
+            countryCode: countryCode,
             governorateNameEn: governorateNameEn,
             governorateNameAr: governorateNameAr,
             cityNameEn: cityNameEn,
@@ -296,7 +331,8 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
             storeId: storeId,
             name: name,
             financialRecordNumber: financialRecordNumber,
-            freelanceCertificateNumber: freelanceCertificateNumber);
+            freelanceCertificateNumber: freelanceCertificateNumber,
+            phoneNo: phoneNo);
     replace(_$result);
     return _$result;
   }

@@ -16,8 +16,8 @@ class RequestNewShipmentState extends Equatable {
   final int? receiverStoreId;
   final int? receiverCustomerId;
   final ServiceCost? selectedServiceProvider;
-  final AddressLogistics? senderAddress;
-  final AddressLogistics? receiverAddress;
+  final AddressCostLogistics? senderAddress;
+  final AddressCostLogistics? receiverAddress;
   final int? shipmentId;
 
   const RequestNewShipmentState({
@@ -57,8 +57,8 @@ class RequestNewShipmentState extends Equatable {
     int? receiverStoreId,
     int? receiverCustomerId,
     ServiceCost? selectedServiceProvider,
-    AddressLogistics? senderAddress,
-    AddressLogistics? receiverAddress,
+    AddressCostLogistics? senderAddress,
+    AddressCostLogistics? receiverAddress,
     int? shipmentId,
   }) {
     return RequestNewShipmentState(

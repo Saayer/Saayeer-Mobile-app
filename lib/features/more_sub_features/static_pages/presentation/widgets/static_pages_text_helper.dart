@@ -32,8 +32,10 @@ class StaticPagesTextHelper {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(Localization.isArabic() ? StaticPagesText.refundPolicyAr : StaticPagesText.refundPolicyEn,
-            style: AppTextStyles.staticPagesBody()),
+        Expanded(
+          child: Text(Localization.isArabic() ? StaticPagesText.refundPolicyAr : StaticPagesText.refundPolicyEn,
+              style: AppTextStyles.staticPagesBody()),
+        ),
       ],
     );
   }

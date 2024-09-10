@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **width** | **double** |  | [optional] 
 **contentDesc** | **String** |  | [optional] 
 **contentValue** | **double** |  | [optional] 
-**senderAddress** | [**AddressLogistics**](AddressLogistics.md) |  | [optional] 
-**receiverAddress** | [**AddressLogistics**](AddressLogistics.md) |  | [optional] 
+**senderAddress** | [**AddressCostLogistics**](AddressCostLogistics.md) |  | [optional] 
+**receiverAddress** | [**AddressCostLogistics**](AddressCostLogistics.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

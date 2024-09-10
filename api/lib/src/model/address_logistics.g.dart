@@ -12,6 +12,8 @@ class _$AddressLogistics extends AddressLogistics {
   @override
   final String? countryCode;
   @override
+  final String? stateCode;
+  @override
   final String? countryNameEn;
   @override
   final String? governorateNameEn;
@@ -27,6 +29,7 @@ class _$AddressLogistics extends AddressLogistics {
   _$AddressLogistics._(
       {this.addressDetails,
       this.countryCode,
+      this.stateCode,
       this.countryNameEn,
       this.governorateNameEn,
       this.cityNameEn,
@@ -47,6 +50,7 @@ class _$AddressLogistics extends AddressLogistics {
     return other is AddressLogistics &&
         addressDetails == other.addressDetails &&
         countryCode == other.countryCode &&
+        stateCode == other.stateCode &&
         countryNameEn == other.countryNameEn &&
         governorateNameEn == other.governorateNameEn &&
         cityNameEn == other.cityNameEn &&
@@ -58,6 +62,7 @@ class _$AddressLogistics extends AddressLogistics {
     var _$hash = 0;
     _$hash = $jc(_$hash, addressDetails.hashCode);
     _$hash = $jc(_$hash, countryCode.hashCode);
+    _$hash = $jc(_$hash, stateCode.hashCode);
     _$hash = $jc(_$hash, countryNameEn.hashCode);
     _$hash = $jc(_$hash, governorateNameEn.hashCode);
     _$hash = $jc(_$hash, cityNameEn.hashCode);
@@ -71,6 +76,7 @@ class _$AddressLogistics extends AddressLogistics {
     return (newBuiltValueToStringHelper(r'AddressLogistics')
           ..add('addressDetails', addressDetails)
           ..add('countryCode', countryCode)
+          ..add('stateCode', stateCode)
           ..add('countryNameEn', countryNameEn)
           ..add('governorateNameEn', governorateNameEn)
           ..add('cityNameEn', cityNameEn)
@@ -91,6 +97,10 @@ class AddressLogisticsBuilder
   String? _countryCode;
   String? get countryCode => _$this._countryCode;
   set countryCode(String? countryCode) => _$this._countryCode = countryCode;
+
+  String? _stateCode;
+  String? get stateCode => _$this._stateCode;
+  set stateCode(String? stateCode) => _$this._stateCode = stateCode;
 
   String? _countryNameEn;
   String? get countryNameEn => _$this._countryNameEn;
@@ -119,6 +129,7 @@ class AddressLogisticsBuilder
     if ($v != null) {
       _addressDetails = $v.addressDetails;
       _countryCode = $v.countryCode;
+      _stateCode = $v.stateCode;
       _countryNameEn = $v.countryNameEn;
       _governorateNameEn = $v.governorateNameEn;
       _cityNameEn = $v.cityNameEn;
@@ -147,6 +158,7 @@ class AddressLogisticsBuilder
         new _$AddressLogistics._(
             addressDetails: addressDetails,
             countryCode: countryCode,
+            stateCode: stateCode,
             countryNameEn: countryNameEn,
             governorateNameEn: governorateNameEn,
             cityNameEn: cityNameEn,

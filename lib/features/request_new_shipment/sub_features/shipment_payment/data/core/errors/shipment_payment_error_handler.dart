@@ -21,21 +21,9 @@ class ShipmentPaymentErrorHandler {
 
   void _handleShipmentPaymentErrorStatus(PaymentStatus errorStatus, String message) {
     // ERROR_RequestNewShipment
-    switch (errorStatus) {
-      case PaymentStatus.failed:
-        {
-          SaayerDialogs().oneBtnDialog(title: "error_title", message: message);
-          break;
-        }
-      default:
-        //ERR_00
-        {
-          SaayerDialogs().oneBtnDialog(
-            title: "error_title",
-            message: message,
-          );
-          break;
-        }
-    }
+    SaayerDialogs().oneBtnDialog(
+      title: "error_title",
+      message: message,
+    );
   }
 }

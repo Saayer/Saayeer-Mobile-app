@@ -1,1 +1,1 @@
-enum ShipmentPaymentErrorStatus { ADD_PAYMENT_ID }
+enum ShipmentPaymentErrorStatus { ERROR_CREATE_PAYMENT }

@@ -17,8 +17,10 @@ part 'store_get_dto.g.dart';
 /// * [governorateId] 
 /// * [cityId] 
 /// * [areaId] 
+/// * [citySplId] 
 /// * [countryNameEn] 
 /// * [countryNameAr] 
+/// * [countryCode] 
 /// * [governorateNameEn] 
 /// * [governorateNameAr] 
 /// * [cityNameEn] 
@@ -29,6 +31,7 @@ part 'store_get_dto.g.dart';
 /// * [name] 
 /// * [financialRecordNumber] 
 /// * [freelanceCertificateNumber] 
+/// * [phoneNo] 
 @BuiltValue()
 abstract class StoreGetDto implements Built<StoreGetDto, StoreGetDtoBuilder> {
   @BuiltValueField(wireName: r'addressDetails')
@@ -49,11 +52,17 @@ abstract class StoreGetDto implements Built<StoreGetDto, StoreGetDtoBuilder> {
   @BuiltValueField(wireName: r'areaId')
   int? get areaId;
 
+  @BuiltValueField(wireName: r'citySplId')
+  String? get citySplId;
+
   @BuiltValueField(wireName: r'countryName_en')
   String? get countryNameEn;
 
   @BuiltValueField(wireName: r'countryName_ar')
   String? get countryNameAr;
+
+  @BuiltValueField(wireName: r'countryCode')
+  String? get countryCode;
 
   @BuiltValueField(wireName: r'governorateName_en')
   String? get governorateNameEn;
@@ -84,6 +93,9 @@ abstract class StoreGetDto implements Built<StoreGetDto, StoreGetDtoBuilder> {
 
   @BuiltValueField(wireName: r'freelanceCertificateNumber')
   String? get freelanceCertificateNumber;
+
+  @BuiltValueField(wireName: r'phoneNo')
+  String? get phoneNo;
 
   StoreGetDto._();
 
@@ -150,6 +162,13 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
         specifiedType: const FullType(int),
       );
     }
+    if (object.citySplId != null) {
+      yield r'citySplId';
+      yield serializers.serialize(
+        object.citySplId,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.countryNameEn != null) {
       yield r'countryName_en';
       yield serializers.serialize(
@@ -161,6 +180,13 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
       yield r'countryName_ar';
       yield serializers.serialize(
         object.countryNameAr,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.countryCode != null) {
+      yield r'countryCode';
+      yield serializers.serialize(
+        object.countryCode,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -234,6 +260,13 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
         specifiedType: const FullType.nullable(String),
       );
     }
+    if (object.phoneNo != null) {
+      yield r'phoneNo';
+      yield serializers.serialize(
+        object.phoneNo,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
   }
 
   @override
@@ -301,6 +334,14 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
           ) as int;
           result.areaId = valueDes;
           break;
+        case r'citySplId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.citySplId = valueDes;
+          break;
         case r'countryName_en':
           final valueDes = serializers.deserialize(
             value,
@@ -316,6 +357,14 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.countryNameAr = valueDes;
+          break;
+        case r'countryCode':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.countryCode = valueDes;
           break;
         case r'governorateName_en':
           final valueDes = serializers.deserialize(
@@ -395,6 +444,14 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.freelanceCertificateNumber = valueDes;
+          break;
+        case r'phoneNo':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.phoneNo = valueDes;
           break;
         default:
           unhandled.add(key);

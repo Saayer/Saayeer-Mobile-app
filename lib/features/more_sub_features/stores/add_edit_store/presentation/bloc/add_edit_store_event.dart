@@ -20,16 +20,23 @@ class InitAddEditStore extends AddEditStoreEvent {
 class OnTextChange extends AddEditStoreEvent {
   final TextEditingController? textEditingController;
   final String? str;
+  final PhoneNumber? phoneNumber;
   final StoreInfoFieldsTypes storeInfoFieldsType;
 
   const OnTextChange({
     this.textEditingController,
     this.str,
+    this.phoneNumber,
     required this.storeInfoFieldsType,
   });
 
   @override
-  List<Object?> get props => [textEditingController, str, storeInfoFieldsType];
+  List<Object?> get props => [
+        textEditingController,
+        str,
+        phoneNumber,
+        storeInfoFieldsType,
+      ];
 }
 
 class OnItemSelectedFromDropDown<T> extends AddEditStoreEvent {

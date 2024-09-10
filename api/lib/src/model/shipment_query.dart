@@ -38,7 +38,7 @@ abstract class ShipmentQuery implements Built<ShipmentQuery, ShipmentQueryBuilde
 
   @BuiltValueField(wireName: r'status')
   ShipmentStatus? get status;
-  // enum statusEnum {  Pending,  Paid,  };
+  // enum statusEnum {  Pending,  Paid,  Requested,  };
 
   @BuiltValueField(wireName: r'storeId')
   int? get storeId;
