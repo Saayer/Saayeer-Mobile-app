@@ -81,10 +81,13 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
           onPaymentResult: onPaymentResult,
         ),
         if (Platform.isIOS) const Text("or"),
-        CreditCard(
-          config: _getPaymentConfig(),
-          onPaymentResult: onPaymentResult,
-          locale: localization.Localization.isArabic() ? const Localization.ar() : const Localization.en(),
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: CreditCard(
+            config: _getPaymentConfig(),
+            onPaymentResult: onPaymentResult,
+            locale: localization.Localization.isArabic() ? const Localization.ar() : const Localization.en(),
+          ),
         )
       ],
     );
