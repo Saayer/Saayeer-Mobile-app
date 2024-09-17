@@ -109,10 +109,11 @@ class AppTextStyles {
         height: 1.1,
       );
 
-  static TextStyle paragraph([Color? color]) => GoogleFonts.alexandria(
+  static TextStyle paragraph([Color? color, bool? underline]) => GoogleFonts.alexandria(
         fontSize: 14,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w600,
+        decoration: underline ?? false ? TextDecoration.underline : TextDecoration.none,
         height: 1.5,
       );
 

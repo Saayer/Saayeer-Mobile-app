@@ -1,33 +1,34 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/constants/constants.dart';
+import 'package:saayer/core/services/url_services/lunch_url_service.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
 class ContactUsItemWidget extends StatelessWidget {
-  final String title, description;
+  final String title, description, url;
   final IconData iconData;
+  final bool clickable;
 
   const ContactUsItemWidget(
       {super.key,
       required this.title,
       required this.description,
+      required this.url,
+      required this.clickable,
       required this.iconData});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
-        onTap: () {},
+        onTap: () {
+          LunchUrlService.lunchGenericUrl(url);
+        },
         leading: Icon(
           iconData,
-          size: 30.r,
+          size: 30,
           color: SaayerTheme().getColorsPalette.orangeColor,
         ),
         title: Text(
@@ -40,7 +41,8 @@ class ContactUsItemWidget extends StatelessWidget {
           description.tr(),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.paragraph(),
+          style: AppTextStyles.paragraph(
+              clickable ? SaayerTheme().getColorsPalette.blueColor : null, clickable ? true : false),
         ),
       ),
     );

@@ -1,88 +1,128 @@
-import 'dart:developer';
+import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
+import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/home/core/errors/home_error_handler.dart';
+import 'package:saayer/features/home/core/utils/enums/enums.dart';
 import 'package:saayer/features/home/presentation/bloc/home_bloc.dart';
-import 'package:saayer/features/home/presentation/widgets/new_shipment_card_item_widget.dart';
+import 'package:saayer/features/home/presentation/widgets/generic_data_bar_chart_widget.dart';
+import 'package:saayer/features/home/presentation/widgets/shipments_statistic_item_widget.dart';
+import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GeneralResponsiveScaledBoxWidget(
-      child: BlocConsumer<HomeBloc, HomeState>(
-        buildWhen: (previousState, nextState) =>
-            (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
-        listener: (context, state) {
-          final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
-          LoadingDialog.setIsLoading(context, isLoading);
-          log("isLoading : $isLoading", name: "HomeBloc");
-          log("${LoadingDialog.checkIfLoadingVisible()}", name: "LoadingDialog.checkIsLoading()");
-          if (!isLoading) {
-            if (state.stateHelper.requestState == RequestState.LOADED) {}
-            if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-            if (state.stateHelper.requestState == RequestState.ERROR) {
-              HomeErrorHandler(state: state)();
-            }
+    return BlocConsumer<HomeBloc, HomeState>(
+      buildWhen: (previousState, nextState) =>
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
+      listener: (context, state) {
+        final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
+        LoadingDialog.setIsLoading(context, isLoading);
+        if (!isLoading) {
+          if (state.stateHelper.requestState == RequestState.LOADED) {}
+          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            HomeErrorHandler(state: state)();
           }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
-            body: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // Flexible(
-                //   child: UserCardScreen(
-                //     isParentLoading: isLoading,
-                //   ),
-                // ),
-                SizedBox(height: 10),
-                NewShipmentCardItemWidget(),
-                SizedBox(
-                  height: 16,
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          body: ListView(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              GridView.builder(
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: largerThanTablet(context) ? 3.5 : 1.8,
+                  mainAxisSpacing: (8 * 2),
+                  crossAxisSpacing: (8 * 2),
                 ),
-                // if ((!(viewPageBloc.state.isGuest!)) &&
-                //     state.userProfileEntity == null) ...[
-                //   Padding(
-                //     padding: EdgeInsets.symmetric(horizontal: 16.w),
-                //     child: ShimmerWidget(
-                //       widgetHeight: 500.h,
-                //       child: const SizedBox(),
-                //     ),
-                //   ),
-                // ],
-                // if ((!(viewPageBloc.state.isGuest!)) && state.userProfileEntity != null) ...[
-                //   const Padding(
-                //     padding: EdgeInsets.symmetric(horizontal: 16),
-                //     child: HomeCardsWidget(),
-                //   ),
-                //   const SizedBox(
-                //     height: 5,
-                //   ),
-                // ],
-                //if (state.clientDto != null)
-                //   SizedBox(
-                //     height: 400,
-                //     child: Padding(
-                //       padding: EdgeInsets.symmetric(horizontal: 0),
-                //       child: ShipmentsScreen(
-                //         isFromHome: true,
-                //       ),
-                //     ),
-                //   ),
-              ],
-            ),
-          );
-        },
-      ),
+                itemCount: ShipmentsStatisticsTypes.values.length,
+                itemBuilder: (context, index) {
+                  return ShipmentsStatisticItemWidget(
+                    onTap: index == 0
+                        ? () {
+                            getIt<NavigationService>().navigateTo(const RequestNewShipmentScreen());
+                          }
+                        : null,
+                    animatedIcon: index == 0 ? false : true,
+                    title: ShipmentsStatisticsTypes.values[index].name,
+                    shipmentsNum: index == 0 ? 'request'.tr() : Random().nextInt(200).toString(),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GenericDataBarChartWidget(
+                title: ["shipments_chart_title".tr()].concatenatingListOfStrings,
+                yAxisTitle: "shipments".tr(),
+                total: '500 ${'shipment'.tr()}',
+                xAxisDataTitles: shipmentsXAxisData,
+                showHorizontalLine: true,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GenericDataBarChartWidget(
+                title: ["payments_chart_title".tr()].concatenatingListOfStrings,
+                yAxisTitle: 'sr'.tr(),
+                total: '500 ${'sr'.tr()}',
+                xAxisDataTitles: paymentsXAxisData,
+                showHorizontalLine: true,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+            ],
+          ),
+        );
+      },
     );
+  }
+
+  List<String> get shipmentsXAxisData {
+    final List<String> requiredList = [];
+
+    for (int i = 1; i < 31; i++) {
+      if (i == 1 || i == 5 || i == 10 || i == 15 || i == 20 || i == 25 || i == 30) {
+        requiredList.add('$i');
+      } else {
+        requiredList.add('');
+      }
+    }
+
+    return requiredList;
+  }
+
+  List<String> get paymentsXAxisData {
+    final List<String> requiredList = [];
+
+    for (int i = 1; i < 31; i++) {
+      if (i == 1 || i == 5 || i == 10 || i == 15 || i == 20 || i == 25 || i == 30) {
+        requiredList.add('$i');
+      } else {
+        requiredList.add('');
+      }
+    }
+
+    return requiredList;
   }
 }

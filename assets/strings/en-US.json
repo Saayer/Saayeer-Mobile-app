@@ -120,6 +120,8 @@
   "facebook": "Facebook",
   "instagram": "Instagram",
   "website": "Website",
+  "twitter": "Twitter",
+  "tiktok": "Tiktok",
   "new_shipment_home_card_label": "You can now request a new shipment with Saayer",
   "empty_addresses_book_title": "No Addresses Found!",
   "empty_addresses_book_desc": "Oops! It looks like there are currently no addresses.",
@@ -219,5 +221,8 @@
   "stores_error_msg": "We can't get your Stores. Please try again later.",
   "addresses_error_msg": "We can't get Customer Addresses. Please try again later.",
   "payment_failed": "Payment failed",
-  "create_payment_failed": "The Payment has been successfully, but there's an error with store the info"
+  "create_payment_failed": "The Payment has been successfully, but there's an error with store the info",
+  "payments_chart_title": "Payments within 30 Days",
+  "shipments_chart_title": "Shipments within 30 Days",
+  "request": "Request"
 }

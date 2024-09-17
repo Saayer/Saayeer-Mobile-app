@@ -229,6 +229,9 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/requested_shipment.json
   String get requestedShipment => 'assets/lottie/requested_shipment.json';
 
+  /// File path: assets/lottie/shipments_shipment.json
+  String get shipmentsShipment => 'assets/lottie/shipments_shipment.json';
+
   /// File path: assets/lottie/shipping_shipment.json
   String get shippingShipment => 'assets/lottie/shipping_shipment.json';
 
@@ -238,6 +241,7 @@ class $AssetsLottieGen {
         paidShipment,
         pickedShipment,
         requestedShipment,
+        shipmentsShipment,
         shippingShipment
       ];
 }

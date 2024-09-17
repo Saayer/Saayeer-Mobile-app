@@ -57,7 +57,7 @@
   "home": "الرئيسية",
   "total_shipments": "مجموع الشحنات",
   "shipments": "الشحنات",
-  "shipment": "الشحنة",
+  "shipment": "شحنة",
   "request_shipment": "شحنة جديدة",
   "ebills": "الفواتير الإلكترونية",
   "profile": "الملف الشخصي",
@@ -120,6 +120,8 @@
   "facebook": "فيس بوك",
   "instagram": "انستغرام",
   "website": "الموقع إلكتروني",
+  "twitter": "تويتر",
+  "tiktok": "تيك توك",
   "new_shipment_home_card_label": "بإمكانك الآن طلب شحنة جديدة مع ساير",
   "empty_addresses_book_title": "لا يوجد عناوين!",
   "empty_addresses_book_desc": "عفوًا! يبدو أنه لا يوجد عناوين حاليًا.",
@@ -219,5 +221,8 @@
   "stores_error_msg": "لا يمكننا الحصول على متاجرك. يرجى المحاولة مرة أخرى لاحقًا.",
   "addresses_error_msg": "لا يمكننا الحصول على عناوين العملاء. يرجى المحاولة مرة أخرى لاحقًا.",
   "payment_failed": "فشل الدفع",
-  "create_payment_failed": "تم الدفع بنجاح، ولكن هناك خطأ في تخزين المعلومات"
+  "create_payment_failed": "تم الدفع بنجاح، ولكن هناك خطأ في تخزين المعلومات",
+  "payments_chart_title": "المدفوعات خلال 30 يومًا",
+  "shipments_chart_title": "الشحنات خلال 30 يومًا",
+  "request": "طلب"
 }
