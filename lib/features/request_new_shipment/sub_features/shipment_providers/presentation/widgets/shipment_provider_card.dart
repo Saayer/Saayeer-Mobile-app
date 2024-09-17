@@ -80,14 +80,14 @@ class ShipmentProviderCard extends StatelessWidget {
       children: [
         ResponsiveRowColumnItem(
             child: Text(
-          '${shipmentProviderModel.cost} ${'sar'.tr()}',
+          '${shipmentProviderModel.cost} ${'sr'.tr()}',
           style: AppTextStyles.boldLabel(),
         )),
         ResponsiveRowColumnItem(
-            child: (shipmentProviderModel.estimatedShipmentDays == null ||
-                    shipmentProviderModel.estimatedShipmentDays!.isEmpty)
+            child: (shipmentProviderModel.workDaysMinimum == null)
                 ? const Text('')
-                : Text('${shipmentProviderModel.estimatedShipmentDays} ${'business_days'.tr()}',
+                : Text(
+                    '${shipmentProviderModel.workDaysMinimum} - ${shipmentProviderModel.workDaysMaximum} ${'business_days'.tr()}',
                     style: AppTextStyles.xSmallLabel())),
       ],
     ));
