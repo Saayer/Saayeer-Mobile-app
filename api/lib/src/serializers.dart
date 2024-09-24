@@ -16,17 +16,22 @@ import 'package:openapi/src/model/date.dart';
 
 import 'package:openapi/src/model/address_cost_logistics.dart';
 import 'package:openapi/src/model/address_look_up_dto.dart';
+import 'package:openapi/src/model/amount_per_date_dto.dart';
 import 'package:openapi/src/model/aramex_webhook_request.dart';
 import 'package:openapi/src/model/aramex_webhook_value.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
+import 'package:openapi/src/model/count_per_date_dto.dart';
 import 'package:openapi/src/model/create_payment_response.dart';
 import 'package:openapi/src/model/customer_add_dto.dart';
 import 'package:openapi/src/model/customer_get_dto.dart';
 import 'package:openapi/src/model/customer_query.dart';
 import 'package:openapi/src/model/customer_shipment_get_dto.dart';
+import 'package:openapi/src/model/date_range_dto.dart';
 import 'package:openapi/src/model/error_codes.dart';
 import 'package:openapi/src/model/error_message.dart';
+import 'package:openapi/src/model/experimental_shipment_created_at_request.dart';
+import 'package:openapi/src/model/experimental_shipment_status_add.dart';
 import 'package:openapi/src/model/login_request_dto.dart';
 import 'package:openapi/src/model/login_response_dto.dart';
 import 'package:openapi/src/model/logistics_service_base.dart';
@@ -38,6 +43,7 @@ import 'package:openapi/src/model/shipment_get_dto.dart';
 import 'package:openapi/src/model/shipment_query.dart';
 import 'package:openapi/src/model/shipment_status_enum.dart';
 import 'package:openapi/src/model/shipment_status_get_dto.dart';
+import 'package:openapi/src/model/shipments_count_response.dart';
 import 'package:openapi/src/model/store_add_dto.dart';
 import 'package:openapi/src/model/store_get_dto.dart';
 import 'package:openapi/src/model/store_shipment_get_dto.dart';
@@ -49,17 +55,22 @@ part 'serializers.g.dart';
 @SerializersFor([
   AddressCostLogistics,
   AddressLookUpDto,
+  AmountPerDateDto,
   AramexWebhookRequest,
   AramexWebhookValue,
   ClientAddDto,
   ClientGetDto,
+  CountPerDateDto,
   CreatePaymentResponse,
   CustomerAddDto,
   CustomerGetDto,
   CustomerQuery,
   CustomerShipmentGetDto,
+  DateRangeDto,
   ErrorCodes,
   ErrorMessage,
+  ExperimentalShipmentCreatedAtRequest,
+  ExperimentalShipmentStatusAdd,
   LoginRequestDto,
   LoginResponseDto,
   LogisticsServiceBase,
@@ -71,6 +82,7 @@ part 'serializers.g.dart';
   ShipmentQuery,
   ShipmentStatusEnum,
   ShipmentStatusGetDto,
+  ShipmentsCountResponse,
   StoreAddDto,
   StoreGetDto,
   StoreShipmentGetDto,
@@ -89,6 +101,14 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(LogisticsServiceBase)]),
         () => ListBuilder<LogisticsServiceBase>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(AmountPerDateDto)]),
+        () => ListBuilder<AmountPerDateDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CountPerDateDto)]),
+        () => ListBuilder<CountPerDateDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(AddressLookUpDto)]),
