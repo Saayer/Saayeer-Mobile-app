@@ -3,24 +3,27 @@ part of 'shipment_details_bloc.dart';
 class ShipmentDetailsState extends Equatable {
   final StateHelper stateHelper;
   final ShipmentGetDto? shipmentDto;
-  final ShipmentTrackingEntity? shipmentTrackingEntity;
+  final List<ShipmentStatusGetDto>? shipmentTrackingList;
+  final ShipmentStatusGetDto? errorTrackingItem;
 
-  const ShipmentDetailsState(
-      {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
-      this.shipmentDto,
-      this.shipmentTrackingEntity});
+  const ShipmentDetailsState({
+    this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
+    this.shipmentDto,
+    this.shipmentTrackingList,
+    this.errorTrackingItem,
+  });
 
   ShipmentDetailsState copyWith({
     StateHelper? stateHelper,
     ShipmentGetDto? shipmentDto,
-    ShipmentTrackingEntity? shipmentTrackingEntity,
+    List<ShipmentStatusGetDto>? shipmentTrackingList,
+    ShipmentStatusGetDto? errorTrackingItem,
   }) {
     return ShipmentDetailsState(
       stateHelper: stateHelper ?? this.stateHelper,
-      shipmentDto:
-          shipmentDto ?? this.shipmentDto,
-      shipmentTrackingEntity:
-          shipmentTrackingEntity ?? this.shipmentTrackingEntity,
+      shipmentDto: shipmentDto ?? this.shipmentDto,
+      shipmentTrackingList: shipmentTrackingList ?? this.shipmentTrackingList,
+      errorTrackingItem: errorTrackingItem ?? this.errorTrackingItem,
     );
   }
 
@@ -28,6 +31,7 @@ class ShipmentDetailsState extends Equatable {
   List<Object?> get props => [
         stateHelper,
         shipmentDto,
-        shipmentTrackingEntity,
+        shipmentTrackingList,
+        errorTrackingItem,
       ];
 }

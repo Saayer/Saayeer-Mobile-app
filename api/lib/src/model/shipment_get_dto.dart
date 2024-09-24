@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/shipment_status_enum.dart';
 import 'package:openapi/src/model/store_shipment_get_dto.dart';
-import 'package:openapi/src/model/shipment_status.dart';
 import 'package:openapi/src/model/customer_shipment_get_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -66,8 +66,8 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
   String? get logisticServiceName;
 
   @BuiltValueField(wireName: r'status')
-  ShipmentStatus? get status;
-  // enum statusEnum {  Pending,  Paid,  Requested,  };
+  ShipmentStatusEnum? get status;
+  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  };
 
   @BuiltValueField(wireName: r'senderCustomerId')
   int? get senderCustomerId;
@@ -190,7 +190,7 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
       yield r'status';
       yield serializers.serialize(
         object.status,
-        specifiedType: const FullType.nullable(ShipmentStatus),
+        specifiedType: const FullType.nullable(ShipmentStatusEnum),
       );
     }
     if (object.senderCustomerId != null) {
@@ -349,8 +349,8 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
         case r'status':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(ShipmentStatus),
-          ) as ShipmentStatus?;
+            specifiedType: const FullType.nullable(ShipmentStatusEnum),
+          ) as ShipmentStatusEnum?;
           if (valueDes == null) continue;
           result.status = valueDes;
           break;

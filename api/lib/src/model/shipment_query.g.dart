@@ -16,7 +16,7 @@ class _$ShipmentQuery extends ShipmentQuery {
   @override
   final String? logisticServiceName;
   @override
-  final ShipmentStatus? status;
+  final ShipmentStatusEnum? status;
   @override
   final int? storeId;
   @override
@@ -124,9 +124,9 @@ class ShipmentQueryBuilder
   set logisticServiceName(String? logisticServiceName) =>
       _$this._logisticServiceName = logisticServiceName;
 
-  ShipmentStatus? _status;
-  ShipmentStatus? get status => _$this._status;
-  set status(ShipmentStatus? status) => _$this._status = status;
+  ShipmentStatusEnum? _status;
+  ShipmentStatusEnum? get status => _$this._status;
+  set status(ShipmentStatusEnum? status) => _$this._status = status;
 
   int? _storeId;
   int? get storeId => _$this._storeId;

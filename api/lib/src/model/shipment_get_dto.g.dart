@@ -28,7 +28,7 @@ class _$ShipmentGetDto extends ShipmentGetDto {
   @override
   final String? logisticServiceName;
   @override
-  final ShipmentStatus? status;
+  final ShipmentStatusEnum? status;
   @override
   final int? senderCustomerId;
   @override
@@ -201,9 +201,9 @@ class ShipmentGetDtoBuilder
   set logisticServiceName(String? logisticServiceName) =>
       _$this._logisticServiceName = logisticServiceName;
 
-  ShipmentStatus? _status;
-  ShipmentStatus? get status => _$this._status;
-  set status(ShipmentStatus? status) => _$this._status = status;
+  ShipmentStatusEnum? _status;
+  ShipmentStatusEnum? get status => _$this._status;
+  set status(ShipmentStatusEnum? status) => _$this._status = status;
 
   int? _senderCustomerId;
   int? get senderCustomerId => _$this._senderCustomerId;

@@ -6,6 +6,7 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/features/shipment_details_tracking_info/data/core/errors/shipment_tracking_details_error_handler.dart';
 import 'package:saayer/features/shipment_details_tracking_info/presentation/bloc/shipment_details_bloc.dart';
 import 'package:saayer/features/shipment_details_tracking_info/presentation/widgets/shipment_details_types_tab_bar.dart';
 
@@ -25,7 +26,10 @@ class ShipmentDetailsPage extends StatelessWidget {
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-          if (state.stateHelper.requestState == RequestState.ERROR) {}
+          if (state.stateHelper.requestState == RequestState.ERROR) {
+            ///
+            ShipmentTrackingDetailsErrorHandler(state: state)();
+          }
         }
       },
       builder: (context, state) {

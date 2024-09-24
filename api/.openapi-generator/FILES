@@ -5,6 +5,8 @@ doc/AccountingApi.md
 doc/AddressCostLogistics.md
 doc/AddressLookUpDto.md
 doc/AddressLookupsApi.md
+doc/AramexWebhookRequest.md
+doc/AramexWebhookValue.md
 doc/AuthApi.md
 doc/ClientAddDto.md
 doc/ClientGetDto.md
@@ -27,7 +29,9 @@ doc/ShipmentAddDto.md
 doc/ShipmentCostObj.md
 doc/ShipmentGetDto.md
 doc/ShipmentQuery.md
-doc/ShipmentStatus.md
+doc/ShipmentStatusEnum.md
+doc/ShipmentStatusGetDto.md
+doc/ShipmentTracingApi.md
 doc/ShipmentsApi.md
 doc/StoreAddDto.md
 doc/StoreGetDto.md
@@ -43,6 +47,7 @@ lib/src/api/auth_api.dart
 lib/src/api/clients_api.dart
 lib/src/api/customers_api.dart
 lib/src/api/logistics_api.dart
+lib/src/api/shipment_tracing_api.dart
 lib/src/api/shipments_api.dart
 lib/src/api/stores_api.dart
 lib/src/api_util.dart
@@ -54,6 +59,8 @@ lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
 lib/src/model/address_cost_logistics.dart
 lib/src/model/address_look_up_dto.dart
+lib/src/model/aramex_webhook_request.dart
+lib/src/model/aramex_webhook_value.dart
 lib/src/model/client_add_dto.dart
 lib/src/model/client_get_dto.dart
 lib/src/model/create_payment_response.dart
@@ -73,7 +80,8 @@ lib/src/model/shipment_add_dto.dart
 lib/src/model/shipment_cost_obj.dart
 lib/src/model/shipment_get_dto.dart
 lib/src/model/shipment_query.dart
-lib/src/model/shipment_status.dart
+lib/src/model/shipment_status_enum.dart
+lib/src/model/shipment_status_get_dto.dart
 lib/src/model/store_add_dto.dart
 lib/src/model/store_get_dto.dart
 lib/src/model/store_shipment_get_dto.dart
@@ -81,3 +89,8 @@ lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/aramex_webhook_request_test.dart
+test/aramex_webhook_value_test.dart
+test/shipment_status_enum_test.dart
+test/shipment_status_get_dto_test.dart
+test/shipment_tracing_api_test.dart

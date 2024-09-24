@@ -15,7 +15,9 @@ class ShipmentDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GeneralResponsiveScaledBoxWidget(
       child: BlocProvider(
-        create: (context) => getIt<ShipmentDetailsBloc>()..add(InitShipmentDetails(shipmentDto: shipmentDto)),
+        create: (context) => getIt<ShipmentDetailsBloc>()
+          ..add(InitShipmentDetails(shipmentDto: shipmentDto))
+          ..add(GetShipmentTrackingList(shipmentId: shipmentDto.shipmentId!)),
         child: ShipmentDetailsPage(shipmentEntity: shipmentDto),
       ),
     );

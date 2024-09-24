@@ -52,13 +52,17 @@ class TrackingTimelineItem extends StatelessWidget {
                     BlendMode.color,
                   )
                 : ColorFilter.mode(
-                    SaayerTheme().getColorsPalette.greyColor.withOpacity(0.5),
+                    SaayerTheme().getColorsPalette.greyColor.withOpacity(0.3),
                     BlendMode.modulate,
                   ),
             child: Lottie.asset(
-              height: 50,
-              Constants.getLottiePath("${label}_shipment.json"),
-            ),
+                height: 50,
+                Constants.getLottiePath("${label}_shipment.json"),
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                      Constants.getGifPath("error.gif"),
+                      width: 50,
+                      height: 50,
+                    )),
           ),
         ],
       ),

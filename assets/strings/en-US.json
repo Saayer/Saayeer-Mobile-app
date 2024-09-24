@@ -104,8 +104,8 @@
   "requested_msg": "Your shipment has been successfully requested to our service.",
   "picked": "Picked",
   "picked_msg": "Congratulations! Your shipment has been successfully picked.",
-  "shipping": "Shipping",
-  "shipping_msg": "Your shipment has been shipping, on the way to you, you can track it via this link",
+  "onTheWay": "OnTheWay",
+  "onTheWay_msg": "Your shipment has been shipping, on the way to you, you can track it via this link",
   "delivered": "Delivered",
   "delivered_msg": "Great news! Your shipment has been successfully delivered. Thank you for choosing our service.",
   "paid": "Paid",
@@ -224,5 +224,8 @@
   "create_payment_failed": "The Payment has been successfully, but there's an error with store the info",
   "payments_chart_title": "Payments within 30 Days",
   "shipments_chart_title": "Shipments within 30 Days",
-  "request": "Request"
+  "request": "Request",
+  "status": "Status",
+  "tracking_error_msg": "There is an problem, please ",
+  "shipment_error_whatsapp_msg": "Hello, I have a problem with the shipment number {}"
 }

@@ -14,6 +14,8 @@ part 'service_cost.g.dart';
 /// * [name] 
 /// * [company] 
 /// * [cost] 
+/// * [workDaysMaximum] 
+/// * [workDaysMinimum] 
 /// * [estimatedShipmentDays] 
 /// * [hasError] 
 /// * [errorMessage] 
@@ -27,6 +29,12 @@ abstract class ServiceCost implements Built<ServiceCost, ServiceCostBuilder> {
 
   @BuiltValueField(wireName: r'cost')
   double? get cost;
+
+  @BuiltValueField(wireName: r'workDaysMaximum')
+  int? get workDaysMaximum;
+
+  @BuiltValueField(wireName: r'workDaysMinimum')
+  int? get workDaysMinimum;
 
   @BuiltValueField(wireName: r'estimatedShipmentDays')
   String? get estimatedShipmentDays;
@@ -79,6 +87,20 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
       yield serializers.serialize(
         object.cost,
         specifiedType: const FullType(double),
+      );
+    }
+    if (object.workDaysMaximum != null) {
+      yield r'workDaysMaximum';
+      yield serializers.serialize(
+        object.workDaysMaximum,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.workDaysMinimum != null) {
+      yield r'workDaysMinimum';
+      yield serializers.serialize(
+        object.workDaysMinimum,
+        specifiedType: const FullType(int),
       );
     }
     if (object.estimatedShipmentDays != null) {
@@ -147,6 +169,20 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
             specifiedType: const FullType(double),
           ) as double;
           result.cost = valueDes;
+          break;
+        case r'workDaysMaximum':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.workDaysMaximum = valueDes;
+          break;
+        case r'workDaysMinimum':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.workDaysMinimum = valueDes;
           break;
         case r'estimatedShipmentDays':
           final valueDes = serializers.deserialize(

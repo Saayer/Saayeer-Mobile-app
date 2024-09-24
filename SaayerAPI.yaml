@@ -2,7 +2,7 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-17
+  version: v-deploy
 servers:
   - url: "/saayer-6/dev"
 paths:
@@ -721,6 +721,78 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/ShipmentGetDto"
+  "/api/ShipmentTracing/aramex-webhook":
+    get:
+      tags:
+        - ShipmentTracing
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  "/api/ShipmentTracing/Shipment-Statuses/{id}":
+    get:
+      tags:
+        - ShipmentTracing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
   "/api/Stores":
     get:
       tags:
@@ -896,6 +968,42 @@ components:
           type: string
           nullable: true
         name_ar:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AramexWebhookRequest:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        value:
+          allOf:
+            - "$ref": "#/components/schemas/AramexWebhookValue"
+          nullable: true
+      additionalProperties: false
+    AramexWebhookValue:
+      type: object
+      properties:
+        waybillNumber:
+          type: string
+          nullable: true
+        updateCode:
+          type: string
+          nullable: true
+        updateDateTime:
+          type: string
+          nullable: true
+        updateLocation:
+          type: string
+          nullable: true
+        comments:
+          type: string
+          nullable: true
+        problemCode:
+          type: string
+          nullable: true
+        orderNumber:
           type: string
           nullable: true
       additionalProperties: false
@@ -1178,6 +1286,14 @@ components:
           type: string
           nullable: true
           readOnly: true
+        workDaysMinimum:
+          type: integer
+          format: int32
+          readOnly: true
+        workDaysMaximum:
+          type: integer
+          format: int32
+          readOnly: true
       additionalProperties: false
     PaymentAddDto:
       required:
@@ -1240,6 +1356,12 @@ components:
         cost:
           type: number
           format: double
+        workDaysMaximum:
+          type: integer
+          format: int32
+        workDaysMinimum:
+          type: integer
+          format: int32
         estimatedShipmentDays:
           type: string
           nullable: true
@@ -1367,7 +1489,7 @@ components:
           nullable: true
         status:
           allOf:
-            - "$ref": "#/components/schemas/ShipmentStatus"
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
           nullable: true
         senderCustomerId:
           type: integer
@@ -1421,7 +1543,7 @@ components:
           nullable: true
         status:
           allOf:
-            - "$ref": "#/components/schemas/ShipmentStatus"
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
           nullable: true
         storeId:
           type: integer
@@ -1443,12 +1565,31 @@ components:
           format: int32
           nullable: true
       additionalProperties: false
-    ShipmentStatus:
+    ShipmentStatusEnum:
       enum:
         - Pending
         - Paid
         - Requested
+        - Picked
+        - OnTheWay
+        - Delivered
+        - NeedAction
+        - UnKnown
+        - Canceled
       type: string
+    ShipmentStatusGetDto:
+      type: object
+      properties:
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      additionalProperties: false
     StoreAddDto:
       type: object
       properties:

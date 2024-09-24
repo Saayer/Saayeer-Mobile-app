@@ -53,7 +53,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   DateTime? exportShipmentDateTo;
 
   ///
-  ShipmentStatus? selectedExportShipmentStatus;
+  ShipmentStatusEnum? selectedExportShipmentStatus;
   StoreGetDto? selectedExportStore;
   LogisticsServiceBase? selectedExportServiceProvider;
 
@@ -72,7 +72,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   DateTime? importShipmentDateTo;
 
   ///
-  ShipmentStatus? selectedImportShipmentStatus;
+  ShipmentStatusEnum? selectedImportShipmentStatus;
   StoreGetDto? selectedImportStore;
   LogisticsServiceBase? selectedImportServiceProvider;
 
@@ -85,10 +85,11 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   final _pageSize = 10;
 
   ///
-  List<ShipmentStatus> shipmentStatusList = [
-    ShipmentStatus.pending,
-    ShipmentStatus.paid,
-    ShipmentStatus.requested,
+  List<ShipmentStatusEnum> shipmentStatusList = [
+    ShipmentStatusEnum.requested,
+    ShipmentStatusEnum.picked,
+    ShipmentStatusEnum.onTheWay,
+    ShipmentStatusEnum.delivered,
   ];
 
   FutureOr<void> _initShipments(InitShipments event, Emitter<ShipmentsState> emit) {

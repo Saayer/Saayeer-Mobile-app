@@ -13,6 +13,8 @@ part 'logistics_service_base.g.dart';
 /// Properties:
 /// * [name] 
 /// * [company] 
+/// * [workDaysMinimum] 
+/// * [workDaysMaximum] 
 @BuiltValue()
 abstract class LogisticsServiceBase implements Built<LogisticsServiceBase, LogisticsServiceBaseBuilder> {
   @BuiltValueField(wireName: r'name')
@@ -20,6 +22,12 @@ abstract class LogisticsServiceBase implements Built<LogisticsServiceBase, Logis
 
   @BuiltValueField(wireName: r'company')
   String? get company;
+
+  @BuiltValueField(wireName: r'workDaysMinimum')
+  int? get workDaysMinimum;
+
+  @BuiltValueField(wireName: r'workDaysMaximum')
+  int? get workDaysMaximum;
 
   LogisticsServiceBase._();
 
@@ -56,6 +64,20 @@ class _$LogisticsServiceBaseSerializer implements PrimitiveSerializer<LogisticsS
       yield serializers.serialize(
         object.company,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.workDaysMinimum != null) {
+      yield r'workDaysMinimum';
+      yield serializers.serialize(
+        object.workDaysMinimum,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.workDaysMaximum != null) {
+      yield r'workDaysMaximum';
+      yield serializers.serialize(
+        object.workDaysMaximum,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -96,6 +118,20 @@ class _$LogisticsServiceBaseSerializer implements PrimitiveSerializer<LogisticsS
           ) as String?;
           if (valueDes == null) continue;
           result.company = valueDes;
+          break;
+        case r'workDaysMinimum':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.workDaysMinimum = valueDes;
+          break;
+        case r'workDaysMaximum':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.workDaysMaximum = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -22,3 +22,14 @@ class InitShipmentDetails extends ShipmentDetailsEvent {
   @override
   List<Object> get props => [shipmentDto];
 }
+
+class GetShipmentTrackingList extends ShipmentDetailsEvent {
+  final int shipmentId;
+
+  const GetShipmentTrackingList({
+    required this.shipmentId,
+  });
+
+  @override
+  List<Object?> get props => [shipmentId];
+}
