@@ -192,6 +192,12 @@ import 'package:saayer/features/request_new_shipment/sub_features/shipment_summa
     as _i447;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/bloc/shipment_summary_bloc.dart'
     as _i883;
+import 'package:saayer/features/shipment_details_tracking_info/data/repositories/tracking_list_repo_impl.dart'
+    as _i1028;
+import 'package:saayer/features/shipment_details_tracking_info/domain/repositories/tracking_list_repo.dart'
+    as _i57;
+import 'package:saayer/features/shipment_details_tracking_info/domain/use_cases/tracking_list_usecase.dart'
+    as _i962;
 import 'package:saayer/features/shipment_details_tracking_info/presentation/bloc/shipment_details_bloc.dart'
     as _i912;
 import 'package:saayer/features/shipments/data/repositories/shipments_list_repo_impl.dart'
@@ -261,7 +267,6 @@ extension GetItInjectableX on _i174.GetIt {
     final injectableModule = _$InjectableModule();
     gh.factory<_i317.LoggedInCheckerService>(
         () => _i317.LoggedInCheckerService());
-    gh.factory<_i912.ShipmentDetailsBloc>(() => _i912.ShipmentDetailsBloc());
     gh.factory<_i212.SettingsBloc>(() => _i212.SettingsBloc());
     gh.factory<_i900.WhySaayerBloc>(() => _i900.WhySaayerBloc());
     gh.factory<_i206.ContactUsBloc>(() => _i206.ContactUsBloc());
@@ -285,6 +290,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i711.Openapi>(() => injectableModule.openapi);
     gh.lazySingleton<_i801.OpenAPIConfig>(
         () => _i801.OpenAPIConfig(openapi: gh<_i711.Openapi>()));
+    gh.factory<_i57.TrackingListRepo>(() =>
+        _i1028.TrackingListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.lazySingleton<_i919.NetworkInfo>(() => _i919.NetworkInfoImpl());
     gh.factory<_i791.ShipmentPaymentRepo>(() =>
         _i51.ShipmentPaymentRepoImpl(openApiConfig: gh<_i801.OpenAPIConfig>()));
@@ -293,12 +300,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i377.ShipmentProvidersRepo>(() =>
         _i995.ShipmentProvidersRepoImpl(
             openApiConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i962.TrackingListUseCase>(() => _i962.TrackingListUseCase(
+        trackingListRepo: gh<_i57.TrackingListRepo>()));
     gh.factory<_i103.ShipmentSummaryRepo>(() =>
         _i2.ShipmentSummaryRepoImpl(openApiConfig: gh<_i801.OpenAPIConfig>()));
     gh.lazySingleton<_i970.OpenapiInterceptors>(
         () => _i970.OpenapiInterceptors(client: gh<_i361.Dio>()));
     gh.lazySingleton<_i1059.AppInterceptors>(
         () => _i1059.AppInterceptors(client: gh<_i361.Dio>()));
+    gh.factory<_i912.ShipmentDetailsBloc>(() => _i912.ShipmentDetailsBloc(
+        trackingListUseCase: gh<_i962.TrackingListUseCase>()));
     gh.factory<_i640.AddEditStoreRepo>(() =>
         _i469.StoreInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i389.VerifyOtpRDS>(

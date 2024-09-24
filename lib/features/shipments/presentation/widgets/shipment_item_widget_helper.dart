@@ -17,7 +17,7 @@ class ShipmentItemWidgetHelper {
     required bool isFromHome,
     required ShipmentsListTypes shipmentsListType,
   }) {
-    final Color shipmentStatusColor = getColor(ShipmentStatus.paid);
+    final Color shipmentStatusColor = getColor(shipmentDto.status ?? ShipmentStatusEnum.unKnown);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: (isFromHome ? 5 : 10)),
       child: Container(
@@ -152,7 +152,7 @@ class ShipmentItemWidgetHelper {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 child: Text(
-                  shipmentDto.status.toString(),
+                  shipmentDto.status.toString().tr(),
                   style: AppTextStyles.xSmallLabel(),
                   textAlign: TextAlign.center,
                 ),
@@ -162,25 +162,29 @@ class ShipmentItemWidgetHelper {
     );
   }
 
-  Color getColor(ShipmentStatus shipmentStatus) {
+  Color getColor(ShipmentStatusEnum shipmentStatus) {
     switch (shipmentStatus) {
-      case ShipmentStatus.requested:
+      case ShipmentStatusEnum.requested:
         {
           return !SaayerTheme().isDarkThemeMode
               ? SaayerTheme().getColorsPalette.lightOrangeColor.withOpacity(0.3)
               : SaayerTheme().getColorsPalette.orangeColor.withOpacity(0.8);
         }
-      // case ShipmentStatus.delivered:
-      //   {
-      //     return SaayerTheme().getColorsPalette.lightYellowColor;
-      //   }
-      case ShipmentStatus.paid:
+      case ShipmentStatusEnum.picked:
+        {
+          return SaayerTheme().getColorsPalette.lightYellowColor;
+        }
+      case ShipmentStatusEnum.onTheWay:
+        {
+          return SaayerTheme().getColorsPalette.neutral3;
+        }
+      case ShipmentStatusEnum.delivered:
         {
           return SaayerTheme().getColorsPalette.lightGreenColor;
         }
       default:
         {
-          return SaayerTheme().getColorsPalette.lightGreenColor;
+          return SaayerTheme().getColorsPalette.error0.withOpacity(0.5);
         }
     }
   }

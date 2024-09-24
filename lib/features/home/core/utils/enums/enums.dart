@@ -5,7 +5,7 @@ enum ShipmentsStatisticsTypes{
   SHIPMENTS._(name:'shipments'),
   REQUESTED._(name:'requested'),
   PICKED._(name:'picked'),
-  SHIPPING._(name:'shipping'),
+  SHIPPING._(name:'onTheWay'),
   DELIVERED._(name:'delivered');
 
   final String name;

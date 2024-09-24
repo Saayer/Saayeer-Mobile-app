@@ -14,6 +14,10 @@ class _$ServiceCost extends ServiceCost {
   @override
   final double? cost;
   @override
+  final int? workDaysMaximum;
+  @override
+  final int? workDaysMinimum;
+  @override
   final String? estimatedShipmentDays;
   @override
   final bool? hasError;
@@ -27,6 +31,8 @@ class _$ServiceCost extends ServiceCost {
       {this.name,
       this.company,
       this.cost,
+      this.workDaysMaximum,
+      this.workDaysMinimum,
       this.estimatedShipmentDays,
       this.hasError,
       this.errorMessage})
@@ -46,6 +52,8 @@ class _$ServiceCost extends ServiceCost {
         name == other.name &&
         company == other.company &&
         cost == other.cost &&
+        workDaysMaximum == other.workDaysMaximum &&
+        workDaysMinimum == other.workDaysMinimum &&
         estimatedShipmentDays == other.estimatedShipmentDays &&
         hasError == other.hasError &&
         errorMessage == other.errorMessage;
@@ -57,6 +65,8 @@ class _$ServiceCost extends ServiceCost {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, company.hashCode);
     _$hash = $jc(_$hash, cost.hashCode);
+    _$hash = $jc(_$hash, workDaysMaximum.hashCode);
+    _$hash = $jc(_$hash, workDaysMinimum.hashCode);
     _$hash = $jc(_$hash, estimatedShipmentDays.hashCode);
     _$hash = $jc(_$hash, hasError.hashCode);
     _$hash = $jc(_$hash, errorMessage.hashCode);
@@ -70,6 +80,8 @@ class _$ServiceCost extends ServiceCost {
           ..add('name', name)
           ..add('company', company)
           ..add('cost', cost)
+          ..add('workDaysMaximum', workDaysMaximum)
+          ..add('workDaysMinimum', workDaysMinimum)
           ..add('estimatedShipmentDays', estimatedShipmentDays)
           ..add('hasError', hasError)
           ..add('errorMessage', errorMessage))
@@ -91,6 +103,16 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
   double? _cost;
   double? get cost => _$this._cost;
   set cost(double? cost) => _$this._cost = cost;
+
+  int? _workDaysMaximum;
+  int? get workDaysMaximum => _$this._workDaysMaximum;
+  set workDaysMaximum(int? workDaysMaximum) =>
+      _$this._workDaysMaximum = workDaysMaximum;
+
+  int? _workDaysMinimum;
+  int? get workDaysMinimum => _$this._workDaysMinimum;
+  set workDaysMinimum(int? workDaysMinimum) =>
+      _$this._workDaysMinimum = workDaysMinimum;
 
   String? _estimatedShipmentDays;
   String? get estimatedShipmentDays => _$this._estimatedShipmentDays;
@@ -115,6 +137,8 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
       _name = $v.name;
       _company = $v.company;
       _cost = $v.cost;
+      _workDaysMaximum = $v.workDaysMaximum;
+      _workDaysMinimum = $v.workDaysMinimum;
       _estimatedShipmentDays = $v.estimatedShipmentDays;
       _hasError = $v.hasError;
       _errorMessage = $v.errorMessage;
@@ -143,6 +167,8 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
             name: name,
             company: company,
             cost: cost,
+            workDaysMaximum: workDaysMaximum,
+            workDaysMinimum: workDaysMinimum,
             estimatedShipmentDays: estimatedShipmentDays,
             hasError: hasError,
             errorMessage: errorMessage);

@@ -65,13 +65,10 @@ class _ShipmentDetailsTabBarState extends State<ShipmentDetailsTabBar> with Tick
             child: TabBarView(
               controller: _tabController,
               children: [
+                shipmentDetailsBloc.state.shipmentDto != null ? const ShipmentDetailsWidget() : const SizedBox(),
                 shipmentDetailsBloc.state.shipmentDto != null
-                    ? const ShipmentDetailsWidget()
+                    ? ShipmentTrackingWidget(shipmentId: shipmentDetailsBloc.state.shipmentDto!.shipmentId)
                     : const SizedBox(),
-                shipmentDetailsBloc.state.shipmentTrackingEntity != null
-                    ? const ShipmentTrackingWidget()
-                    : const SizedBox(),
-
               ],
             ),
           ),

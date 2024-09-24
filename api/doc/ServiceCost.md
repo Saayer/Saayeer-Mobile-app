@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **name** | **String** |  | [optional] 
 **company** | **String** |  | [optional] 
 **cost** | **double** |  | [optional] 
+**workDaysMaximum** | **int** |  | [optional] 
+**workDaysMinimum** | **int** |  | [optional] 
 **estimatedShipmentDays** | **String** |  | [optional] 
 **hasError** | **bool** |  | [optional] 
 **errorMessage** | **String** |  | [optional] 

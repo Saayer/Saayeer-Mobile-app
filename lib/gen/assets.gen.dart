@@ -220,6 +220,9 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/delivered_shipment.json
   String get deliveredShipment => 'assets/lottie/delivered_shipment.json';
 
+  /// File path: assets/lottie/onTheWay_shipment.json
+  String get onTheWayShipment => 'assets/lottie/onTheWay_shipment.json';
+
   /// File path: assets/lottie/paid_shipment.json
   String get paidShipment => 'assets/lottie/paid_shipment.json';
 
@@ -232,17 +235,14 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/shipments_shipment.json
   String get shipmentsShipment => 'assets/lottie/shipments_shipment.json';
 
-  /// File path: assets/lottie/shipping_shipment.json
-  String get shippingShipment => 'assets/lottie/shipping_shipment.json';
-
   /// List of all assets
   List<String> get values => [
         deliveredShipment,
+        onTheWayShipment,
         paidShipment,
         pickedShipment,
         requestedShipment,
-        shipmentsShipment,
-        shippingShipment
+        shipmentsShipment
       ];
 }
 

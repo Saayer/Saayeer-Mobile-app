@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **cost** | **double** |  | [optional] 
 **createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
 **logisticServiceName** | **String** |  | [optional] 
-**status** | [**ShipmentStatus**](ShipmentStatus.md) |  | [optional] 
+**status** | [**ShipmentStatusEnum**](ShipmentStatusEnum.md) |  | [optional] 
 **senderCustomerId** | **int** |  | [optional] 
 **receiverCustomerId** | **int** |  | [optional] 
 **senderStoreId** | **int** |  | [optional] 

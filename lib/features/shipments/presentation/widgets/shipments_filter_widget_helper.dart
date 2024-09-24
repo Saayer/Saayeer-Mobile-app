@@ -179,14 +179,14 @@ class ShipmentsFilterWidgetHelper {
   }
 
   _getStatusTextField() {
-    return FilterItemsDropDownTextField<ShipmentStatus>(
+    return FilterItemsDropDownTextField<ShipmentStatusEnum>(
       bloc: shipmentsBloc,
       shipmentsListTypes: shipmentsListTypes,
       hasLabel: false,
       withValidator: false,
       hasMargin: false,
       onSelected: (val) {
-        shipmentsBloc.add(OnItemSelectedFromDropDown<ShipmentStatus>(
+        shipmentsBloc.add(OnItemSelectedFromDropDown<ShipmentStatusEnum>(
           shipmentsFilterTypes: ShipmentsFilterTypes.STATUS,
           item: val,
           shipmentsListTypes: shipmentsListTypes,

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **shippingDateFrom** | [**DateTime**](DateTime.md) |  | [optional] 
 **shippingDateTo** | [**DateTime**](DateTime.md) |  | [optional] 
 **logisticServiceName** | **String** |  | [optional] 
-**status** | [**ShipmentStatus**](ShipmentStatus.md) |  | [optional] 
+**status** | [**ShipmentStatusEnum**](ShipmentStatusEnum.md) |  | [optional] 
 **storeId** | **int** |  | [optional] 
 **isReturn** | **bool** |  | [optional] 
 **customerId** | **int** |  | [optional] 

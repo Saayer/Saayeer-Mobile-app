@@ -16,6 +16,8 @@ import 'package:openapi/src/model/date.dart';
 
 import 'package:openapi/src/model/address_cost_logistics.dart';
 import 'package:openapi/src/model/address_look_up_dto.dart';
+import 'package:openapi/src/model/aramex_webhook_request.dart';
+import 'package:openapi/src/model/aramex_webhook_value.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
 import 'package:openapi/src/model/create_payment_response.dart';
@@ -34,7 +36,8 @@ import 'package:openapi/src/model/shipment_add_dto.dart';
 import 'package:openapi/src/model/shipment_cost_obj.dart';
 import 'package:openapi/src/model/shipment_get_dto.dart';
 import 'package:openapi/src/model/shipment_query.dart';
-import 'package:openapi/src/model/shipment_status.dart';
+import 'package:openapi/src/model/shipment_status_enum.dart';
+import 'package:openapi/src/model/shipment_status_get_dto.dart';
 import 'package:openapi/src/model/store_add_dto.dart';
 import 'package:openapi/src/model/store_get_dto.dart';
 import 'package:openapi/src/model/store_shipment_get_dto.dart';
@@ -46,6 +49,8 @@ part 'serializers.g.dart';
 @SerializersFor([
   AddressCostLogistics,
   AddressLookUpDto,
+  AramexWebhookRequest,
+  AramexWebhookValue,
   ClientAddDto,
   ClientGetDto,
   CreatePaymentResponse,
@@ -64,7 +69,8 @@ part 'serializers.g.dart';
   ShipmentCostObj,
   ShipmentGetDto,
   ShipmentQuery,
-  ShipmentStatus,
+  ShipmentStatusEnum,
+  ShipmentStatusGetDto,
   StoreAddDto,
   StoreGetDto,
   StoreShipmentGetDto,
@@ -72,6 +78,10 @@ part 'serializers.g.dart';
   TokenResponseDto,
 ])
 Serializers serializers = (_$serializers.toBuilder()
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ShipmentStatusGetDto)]),
+        () => ListBuilder<ShipmentStatusGetDto>(),
+      )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ServiceCost)]),
         () => ListBuilder<ServiceCost>(),
