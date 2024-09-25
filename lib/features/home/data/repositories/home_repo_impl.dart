@@ -38,4 +38,65 @@ class HomeRepoImpl implements HomeRepo {
     log("HomeRepoImpl No Internet Connection");
     return Left(Failure(failureMessage: "No Internet Connection"));
   }
+
+  @override
+  Future<Either<Failure, ShipmentsCountResponse>> getShipmentsStatusTotalCount(DateRangeDto dataRangeDto) async {
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        final Response<ShipmentsCountResponse> result = await openAPIConfig.openapi
+            .getClientDashboardApi()
+            .apiClientDashboardShipmentsPerStatusPost(
+                dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+        if (result.data != null) {
+          return Right(result.data!);
+        } else {
+          return Left(Failure(failureMessage: "Request failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "Request failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
+
+  @override
+  Future<Either<Failure, List<AmountPerDateDto>>> getTotalPaidPerDays(DateRangeDto dataRangeDto) async {
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        ///
+        final result = await openAPIConfig.openapi.getClientDashboardApi().apiClientDashboardPaidPerDayPost(
+            dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+        if (result.data != null) {
+          return Right(result.data!.toList());
+        } else {
+          return Left(Failure(failureMessage: "get TotalPaidPerDays failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "Request failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
+
+  @override
+  Future<Either<Failure, List<CountPerDateDto>>> getTotalShipmentPerDays(DateRangeDto dataRangeDto) async {
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        ///
+        final result = await openAPIConfig.openapi.getClientDashboardApi().apiClientDashboardShipmentsPerDayPost(
+            dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+        if (result.data != null) {
+          return Right(result.data!.toList());
+        } else {
+          return Left(Failure(failureMessage: "get TotalShipmentPerDays failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "Request failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
 }

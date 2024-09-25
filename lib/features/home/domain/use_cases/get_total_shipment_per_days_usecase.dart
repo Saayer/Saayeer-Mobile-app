@@ -6,15 +6,15 @@ import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/features/home/domain/repositories/home_repo.dart';
 
 @injectable
-class GetUserProfileUseCase implements BaseUseCase<Future<Either<Failure, ClientGetDto>>, NoParameters> {
+class GetTotalShipmentPerDaysUseCase implements BaseUseCase<Future<Either<Failure, List<CountPerDateDto>>>, DateRangeDto> {
   final HomeRepo homeRepoImpl;
 
-  const GetUserProfileUseCase({
+  const GetTotalShipmentPerDaysUseCase({
     required this.homeRepoImpl,
   });
 
   @override
-  Future<Either<Failure, ClientGetDto>> call(NoParameters parameters) async {
-    return await homeRepoImpl.getUserProfile();
+  Future<Either<Failure, List<CountPerDateDto>>> call(DateRangeDto dataRangeDto) async {
+    return await homeRepoImpl.getTotalShipmentPerDays(dataRangeDto);
   }
 }
