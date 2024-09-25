@@ -45,8 +45,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   ///
   ShipmentsCountResponse? shipmentsCountResponse;
-  List<CountPerDateDto>? totalShipmentsPerDaysList;
-  List<AmountPerDateDto>? totalPaidPerDaysList;
+  CountPerDateResponse? totalShipmentsPerDaysList;
+  AmountPerDateResponse? totalPaidPerDaysList;
 
   Future<FutureOr<void>> _initHome(InitHome event, Emitter<HomeState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
@@ -121,14 +121,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _getTotalShipmentsPerDays(GetTotalShipmentsPerDays event, Emitter<HomeState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, List<CountPerDateDto>> result = await getTotalShipmentPerDaysUseCase(event.dataRangeDto);
+    final Either<Failure, CountPerDateResponse> result = await getTotalShipmentPerDaysUseCase(event.dataRangeDto);
 
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
               requestState: RequestState.ERROR, errorStatus: HomeErrorStatus.ERROR_GET_TOTAL_SHIPMENTS_PER_DAYS)));
     } else {
-      final List<CountPerDateDto>? rightResult = (result as Right).value;
+      final CountPerDateResponse? rightResult = (result as Right).value;
       if (rightResult != null) {
         ///
         totalShipmentsPerDaysList = rightResult;
@@ -149,14 +149,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _getTotalPaidPerDays(GetTotalPaidPerDays event, Emitter<HomeState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, List<AmountPerDateDto>> result = await getTotalPaidPerDaysUseCase(event.dataRangeDto);
+    final Either<Failure, AmountPerDateResponse> result = await getTotalPaidPerDaysUseCase(event.dataRangeDto);
 
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: HomeErrorStatus.ERROR_GET_TOTAL_PAID_PER_DAYS)));
     } else {
-      final List<AmountPerDateDto>? rightResult = (result as Right).value;
+      final AmountPerDateResponse? rightResult = (result as Right).value;
       if (rightResult != null) {
         ///
         totalPaidPerDaysList = rightResult;

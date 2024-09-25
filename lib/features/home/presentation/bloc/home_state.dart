@@ -5,8 +5,8 @@ class HomeState extends Equatable {
   final StateHelper stateHelper;
   final ClientGetDto? clientDto;
   final ShipmentsCountResponse? shipmentsCountResponse;
-  final List<CountPerDateDto>? totalShipmentsPerDaysList;
-  final List<AmountPerDateDto>? totalPaidPerDaysList;
+  final CountPerDateResponse? totalShipmentsPerDaysList;
+  final AmountPerDateResponse? totalPaidPerDaysList;
 
   const HomeState({
     this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
@@ -20,8 +20,8 @@ class HomeState extends Equatable {
     StateHelper? stateHelper,
     ClientGetDto? clientDto,
     ShipmentsCountResponse? shipmentsCountResponse,
-    List<CountPerDateDto>? totalShipmentsPerDaysList,
-    List<AmountPerDateDto>? totalPaidPerDaysList,
+    CountPerDateResponse? totalShipmentsPerDaysList,
+    AmountPerDateResponse? totalPaidPerDaysList,
   }) {
     return HomeState(
       stateHelper: stateHelper ?? this.stateHelper,

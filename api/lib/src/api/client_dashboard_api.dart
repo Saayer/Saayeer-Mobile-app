@@ -8,9 +8,8 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/amount_per_date_dto.dart';
-import 'package:openapi/src/model/count_per_date_dto.dart';
+import 'package:openapi/src/model/amount_per_date_response.dart';
+import 'package:openapi/src/model/count_per_date_response.dart';
 import 'package:openapi/src/model/date_range_dto.dart';
 import 'package:openapi/src/model/shipments_count_response.dart';
 
@@ -35,9 +34,9 @@ class ClientDashboardApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<AmountPerDateDto>] as data
+  /// Returns a [Future] containing a [Response] with a [AmountPerDateResponse] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<AmountPerDateDto>>> apiClientDashboardPaidPerDayPost({ 
+  Future<Response<AmountPerDateResponse>> apiClientDashboardPaidPerDayPost({ 
     required String apiKey,
     DateRangeDto? dateRangeDto,
     CancelToken? cancelToken,
@@ -95,14 +94,14 @@ class ClientDashboardApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<AmountPerDateDto>? _responseData;
+    AmountPerDateResponse? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(AmountPerDateDto)]),
-      ) as BuiltList<AmountPerDateDto>;
+        specifiedType: const FullType(AmountPerDateResponse),
+      ) as AmountPerDateResponse;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -114,7 +113,7 @@ class ClientDashboardApi {
       );
     }
 
-    return Response<BuiltList<AmountPerDateDto>>(
+    return Response<AmountPerDateResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -139,9 +138,9 @@ class ClientDashboardApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<CountPerDateDto>] as data
+  /// Returns a [Future] containing a [Response] with a [CountPerDateResponse] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<CountPerDateDto>>> apiClientDashboardShipmentsPerDayPost({ 
+  Future<Response<CountPerDateResponse>> apiClientDashboardShipmentsPerDayPost({ 
     required String apiKey,
     DateRangeDto? dateRangeDto,
     CancelToken? cancelToken,
@@ -199,14 +198,14 @@ class ClientDashboardApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<CountPerDateDto>? _responseData;
+    CountPerDateResponse? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(CountPerDateDto)]),
-      ) as BuiltList<CountPerDateDto>;
+        specifiedType: const FullType(CountPerDateResponse),
+      ) as CountPerDateResponse;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -218,7 +217,7 @@ class ClientDashboardApi {
       );
     }
 
-    return Response<BuiltList<CountPerDateDto>>(
+    return Response<CountPerDateResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

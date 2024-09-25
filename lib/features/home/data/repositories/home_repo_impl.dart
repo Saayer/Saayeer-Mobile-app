@@ -61,7 +61,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<AmountPerDateDto>>> getTotalPaidPerDays(DateRangeDto dataRangeDto) async {
+  Future<Either<Failure, AmountPerDateResponse>> getTotalPaidPerDays(DateRangeDto dataRangeDto) async {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
@@ -69,7 +69,7 @@ class HomeRepoImpl implements HomeRepo {
         final result = await openAPIConfig.openapi.getClientDashboardApi().apiClientDashboardPaidPerDayPost(
             dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
         if (result.data != null) {
-          return Right(result.data!.toList());
+          return Right(result.data!);
         } else {
           return Left(Failure(failureMessage: "get TotalPaidPerDays failed"));
         }
@@ -81,7 +81,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<CountPerDateDto>>> getTotalShipmentPerDays(DateRangeDto dataRangeDto) async {
+  Future<Either<Failure, CountPerDateResponse>> getTotalShipmentPerDays(DateRangeDto dataRangeDto) async {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
@@ -89,7 +89,7 @@ class HomeRepoImpl implements HomeRepo {
         final result = await openAPIConfig.openapi.getClientDashboardApi().apiClientDashboardShipmentsPerDayPost(
             dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
         if (result.data != null) {
-          return Right(result.data!.toList());
+          return Right(result.data!);
         } else {
           return Left(Failure(failureMessage: "get TotalShipmentPerDays failed"));
         }

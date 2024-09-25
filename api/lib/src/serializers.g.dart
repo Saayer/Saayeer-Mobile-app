@@ -10,11 +10,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AddressCostLogistics.serializer)
       ..add(AddressLookUpDto.serializer)
       ..add(AmountPerDateDto.serializer)
+      ..add(AmountPerDateResponse.serializer)
       ..add(AramexWebhookRequest.serializer)
       ..add(AramexWebhookValue.serializer)
       ..add(ClientAddDto.serializer)
       ..add(ClientGetDto.serializer)
-      ..add(CountPerDateDto.serializer)
+      ..add(CountPerDateItemDto.serializer)
+      ..add(CountPerDateResponse.serializer)
       ..add(CreatePaymentResponse.serializer)
       ..add(CustomerAddDto.serializer)
       ..add(CustomerGetDto.serializer)
@@ -42,6 +44,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(StoreShipmentGetDto.serializer)
       ..add(TokenRequestDto.serializer)
       ..add(TokenResponseDto.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(AmountPerDateDto)]),
+          () => new ListBuilder<AmountPerDateDto>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(CountPerDateItemDto)]),
+          () => new ListBuilder<CountPerDateItemDto>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ErrorMessage)]),
           () => new ListBuilder<ErrorMessage>()))

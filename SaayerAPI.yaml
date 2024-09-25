@@ -2,7 +2,7 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-19-dev
+  version: v-19-4
 servers:
   - url: "/saayer-6/dev"
 paths:
@@ -331,19 +331,13 @@ paths:
           content:
             text/plain:
               schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/CountPerDateDto"
+                "$ref": "#/components/schemas/CountPerDateResponse"
             application/json:
               schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/CountPerDateDto"
+                "$ref": "#/components/schemas/CountPerDateResponse"
             text/json:
               schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/CountPerDateDto"
+                "$ref": "#/components/schemas/CountPerDateResponse"
   "/api/ClientDashboard/paid-perDay":
     post:
       tags:
@@ -374,19 +368,13 @@ paths:
           content:
             text/plain:
               schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/AmountPerDateDto"
+                "$ref": "#/components/schemas/AmountPerDateResponse"
             application/json:
               schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/AmountPerDateDto"
+                "$ref": "#/components/schemas/AmountPerDateResponse"
             text/json:
               schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/AmountPerDateDto"
+                "$ref": "#/components/schemas/AmountPerDateResponse"
   "/api/Clients":
     get:
       tags:
@@ -1179,6 +1167,18 @@ components:
           type: number
           format: double
       additionalProperties: false
+    AmountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: number
+          format: double
+        amounts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/AmountPerDateDto"
+          nullable: true
+      additionalProperties: false
     AramexWebhookRequest:
       type: object
       properties:
@@ -1247,7 +1247,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    CountPerDateDto:
+    CountPerDateItemDto:
       type: object
       properties:
         date:
@@ -1257,6 +1257,18 @@ components:
         count:
           type: integer
           format: int32
+      additionalProperties: false
+    CountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        counts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CountPerDateItemDto"
+          nullable: true
       additionalProperties: false
     CreatePaymentResponse:
       type: object
@@ -1600,6 +1612,9 @@ components:
         status:
           type: string
           nullable: true
+        createdAt:
+          type: string
+          format: date-time
       additionalProperties: false
     ServiceCost:
       type: object

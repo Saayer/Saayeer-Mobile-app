@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **apiClientDashboardPaidPerDayPost**
-> BuiltList<AmountPerDateDto> apiClientDashboardPaidPerDayPost(apiKey, dateRangeDto)
+> AmountPerDateResponse apiClientDashboardPaidPerDayPost(apiKey, dateRangeDto)
 
 
 
@@ -44,7 +44,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;AmountPerDateDto&gt;**](AmountPerDateDto.md)
+[**AmountPerDateResponse**](AmountPerDateResponse.md)
 
 ### Authorization
 
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiClientDashboardShipmentsPerDayPost**
-> BuiltList<CountPerDateDto> apiClientDashboardShipmentsPerDayPost(apiKey, dateRangeDto)
+> CountPerDateResponse apiClientDashboardShipmentsPerDayPost(apiKey, dateRangeDto)
 
 
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;CountPerDateDto&gt;**](CountPerDateDto.md)
+[**CountPerDateResponse**](CountPerDateResponse.md)
 
 ### Authorization
 

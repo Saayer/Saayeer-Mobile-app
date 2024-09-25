@@ -17,11 +17,13 @@ import 'package:openapi/src/model/date.dart';
 import 'package:openapi/src/model/address_cost_logistics.dart';
 import 'package:openapi/src/model/address_look_up_dto.dart';
 import 'package:openapi/src/model/amount_per_date_dto.dart';
+import 'package:openapi/src/model/amount_per_date_response.dart';
 import 'package:openapi/src/model/aramex_webhook_request.dart';
 import 'package:openapi/src/model/aramex_webhook_value.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
-import 'package:openapi/src/model/count_per_date_dto.dart';
+import 'package:openapi/src/model/count_per_date_item_dto.dart';
+import 'package:openapi/src/model/count_per_date_response.dart';
 import 'package:openapi/src/model/create_payment_response.dart';
 import 'package:openapi/src/model/customer_add_dto.dart';
 import 'package:openapi/src/model/customer_get_dto.dart';
@@ -56,11 +58,13 @@ part 'serializers.g.dart';
   AddressCostLogistics,
   AddressLookUpDto,
   AmountPerDateDto,
+  AmountPerDateResponse,
   AramexWebhookRequest,
   AramexWebhookValue,
   ClientAddDto,
   ClientGetDto,
-  CountPerDateDto,
+  CountPerDateItemDto,
+  CountPerDateResponse,
   CreatePaymentResponse,
   CustomerAddDto,
   CustomerGetDto,
@@ -101,14 +105,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(LogisticsServiceBase)]),
         () => ListBuilder<LogisticsServiceBase>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(AmountPerDateDto)]),
-        () => ListBuilder<AmountPerDateDto>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(CountPerDateDto)]),
-        () => ListBuilder<CountPerDateDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(AddressLookUpDto)]),
