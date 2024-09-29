@@ -2,7 +2,7 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-deploy
+  version: v-19-4
 servers:
   - url: "/saayer-6/dev"
 paths:
@@ -264,6 +264,117 @@ paths:
       responses:
         '200':
           description: Success
+  "/api/ClientDashboard/shipments-perStatus":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+  "/api/ClientDashboard/shipments-perDay":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+  "/api/ClientDashboard/paid-perDay":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
   "/api/Clients":
     get:
       tags:
@@ -392,8 +503,8 @@ paths:
               allOf:
                 - "$ref": "#/components/schemas/CustomerAddDto"
       responses:
-        '200':
-          description: Success
+        '201':
+          description: Created
           content:
             text/plain:
               schema:
@@ -494,6 +605,80 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/CustomerGetDto"
+  "/api/Experimental/shipment-createdAt":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  "/api/Experimental/add-shipment-status":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
   "/api/Logistics/service-costs":
     post:
       tags:
@@ -872,8 +1057,8 @@ paths:
               allOf:
                 - "$ref": "#/components/schemas/StoreAddDto"
       responses:
-        '200':
-          description: Success
+        '201':
+          description: Created
           content:
             text/plain:
               schema:
@@ -971,6 +1156,29 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    AmountPerDateDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        amount:
+          type: number
+          format: double
+      additionalProperties: false
+    AmountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: number
+          format: double
+        amounts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/AmountPerDateDto"
+          nullable: true
+      additionalProperties: false
     AramexWebhookRequest:
       type: object
       properties:
@@ -1037,6 +1245,29 @@ components:
           nullable: true
         businessName:
           type: string
+          nullable: true
+      additionalProperties: false
+    CountPerDateItemDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        count:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        counts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CountPerDateItemDto"
           nullable: true
       additionalProperties: false
     CreatePaymentResponse:
@@ -1245,6 +1476,18 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    DateRangeDto:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
     ErrorCodes:
       enum:
         - Save_Payment
@@ -1260,6 +1503,32 @@ components:
         message:
           type: string
           nullable: true
+      additionalProperties: false
+    Experimental_ShipmentCreatedAtRequest:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        shipmentId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Experimental_ShipmentStatusAdd:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
       additionalProperties: false
     LoginRequestDto:
       type: object
@@ -1343,6 +1612,9 @@ components:
         status:
           type: string
           nullable: true
+        createdAt:
+          type: string
+          format: date-time
       additionalProperties: false
     ServiceCost:
       type: object
@@ -1589,6 +1861,25 @@ components:
         createdAt:
           type: string
           format: date-time
+      additionalProperties: false
+    ShipmentsCountResponse:
+      type: object
+      properties:
+        totalShipments:
+          type: integer
+          format: int32
+        requestedShipments:
+          type: integer
+          format: int32
+        pickedShipments:
+          type: integer
+          format: int32
+        onTheWayShipments:
+          type: integer
+          format: int32
+        deliveredShipments:
+          type: integer
+          format: int32
       additionalProperties: false
     StoreAddDto:
       type: object

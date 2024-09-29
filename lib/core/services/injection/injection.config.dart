@@ -89,6 +89,12 @@ import 'package:saayer/features/home/data/repositories/home_repo_impl.dart'
     as _i34;
 import 'package:saayer/features/home/domain/repositories/home_repo.dart'
     as _i483;
+import 'package:saayer/features/home/domain/use_cases/get_shipments_status_total_count_usecase.dart'
+    as _i447;
+import 'package:saayer/features/home/domain/use_cases/get_total_paid_per_days_usecase.dart'
+    as _i1;
+import 'package:saayer/features/home/domain/use_cases/get_total_shipment_per_days_usecase.dart'
+    as _i838;
 import 'package:saayer/features/home/domain/use_cases/get_user_profile_usecase.dart'
     as _i22;
 import 'package:saayer/features/home/presentation/bloc/home_bloc.dart'
@@ -393,6 +399,22 @@ extension GetItInjectableX on _i174.GetIt {
         businessInfoRDSImpl: gh<_i785.BusinessInfoRDS>()));
     gh.factory<_i22.GetUserProfileUseCase>(
         () => _i22.GetUserProfileUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i447.GetShipmentsStatusTotalCountUseCase>(() =>
+        _i447.GetShipmentsStatusTotalCountUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i838.GetTotalShipmentPerDaysUseCase>(() =>
+        _i838.GetTotalShipmentPerDaysUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i1.GetTotalPaidPerDaysUseCase>(() =>
+        _i1.GetTotalPaidPerDaysUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i1066.HomeBloc>(() => _i1066.HomeBloc(
+          getUserProfileUseCase: gh<_i22.GetUserProfileUseCase>(),
+          getShipmentsStatusTotalCountUseCase:
+              gh<_i447.GetShipmentsStatusTotalCountUseCase>(),
+          getTotalShipmentPerDaysUseCase:
+              gh<_i838.GetTotalShipmentPerDaysUseCase>(),
+          getTotalPaidPerDaysUseCase: gh<_i1.GetTotalPaidPerDaysUseCase>(),
+        ));
     gh.factory<_i233.ConfirmLogInUseCase>(() => _i233.ConfirmLogInUseCase(
         verifyOtpRepoImpl: gh<_i689.VerifyOtpRepo>()));
     gh.factory<_i5.SubmitStoreInfoUseCase>(() => _i5.SubmitStoreInfoUseCase(
@@ -460,8 +482,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i580.GetServiceProvidersListUseCase>(() =>
         _i580.GetServiceProvidersListUseCase(
             shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
-    gh.factory<_i1066.HomeBloc>(() => _i1066.HomeBloc(
-        getUserProfileUseCase: gh<_i22.GetUserProfileUseCase>()));
     gh.factory<_i959.StoresListBloc>(() => _i959.StoresListBloc(
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
           deleteStoresUseCase: gh<_i490.DeleteStoresUseCase>(),

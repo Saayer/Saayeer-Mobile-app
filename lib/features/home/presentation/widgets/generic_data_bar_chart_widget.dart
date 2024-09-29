@@ -1,16 +1,16 @@
-import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
-class GenericDataBarChartWidget extends StatelessWidget {
+class GenericDataBarChartWidget<T> extends StatelessWidget {
   final String title;
   final String yAxisTitle;
   final String total;
+  final List<T> dataList;
   final EdgeInsetsGeometry? margin;
   final double plotHeight;
   final List<String> xAxisDataTitles;
@@ -21,6 +21,7 @@ class GenericDataBarChartWidget extends StatelessWidget {
     required this.title,
     required this.yAxisTitle,
     required this.total,
+    required this.dataList,
     this.margin,
     this.plotHeight = 150,
     this.xAxisDataTitles = const [],
@@ -48,8 +49,7 @@ class GenericDataBarChartWidget extends StatelessWidget {
               children: [
                 Text(title,
                     maxLines: 1, style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.primaryColor)),
-                Text(total,
-                    maxLines: 1, style: AppTextStyles.mainFocusedLabel()),
+                Text(total, maxLines: 1, style: AppTextStyles.mainFocusedLabel()),
               ],
             ),
           ),
@@ -58,25 +58,27 @@ class GenericDataBarChartWidget extends StatelessWidget {
           Container(
             height: plotHeight,
             margin: const EdgeInsets.symmetric(vertical: 35).copyWith(left: 8, right: 25),
-            child: BarChart(BarChartData(
-              barTouchData: barTouchData,
-              titlesData: titlesData,
-              borderData: FlBorderData(
-                show: false,
+            child: BarChart(
+              BarChartData(
+                barTouchData: barTouchData,
+                titlesData: titlesData,
+                borderData: FlBorderData(
+                  show: false,
+                ),
+                barGroups: barGroups,
+                gridData: FlGridData(
+                  drawHorizontalLine: showHorizontalLine ?? false,
+                  getDrawingHorizontalLine: (value) {
+                    return FlLine(
+                      color: SaayerTheme().getColorsPalette.greyColor,
+                      strokeWidth: .5,
+                    );
+                  },
+                  drawVerticalLine: false,
+                ),
+                alignment: BarChartAlignment.spaceAround,
               ),
-              barGroups: barGroups,
-              gridData: FlGridData(
-                drawHorizontalLine: showHorizontalLine ?? false,
-                getDrawingHorizontalLine: (value) {
-                  return FlLine(
-                    color: SaayerTheme().getColorsPalette.greyColor,
-                    strokeWidth: .5,
-                  );
-                },
-                drawVerticalLine: false,
-              ),
-              alignment: BarChartAlignment.spaceAround,
-            ),),
+            ),
           )
         ],
       ),
@@ -102,8 +104,10 @@ class GenericDataBarChartWidget extends StatelessWidget {
                 TextSpan(
                   text: '${rod.toY}',
                   style: TextStyle(
-                    color: Colors.white, //widget.touchedBarColor,
-                    fontSize: 16,height: 1.5,
+                    color: Colors.white,
+                    //widget.touchedBarColor,
+                    fontSize: 16,
+                    height: 1.5,
                     backgroundColor: SaayerTheme().getColorsPalette.blackColor.withOpacity(0.5),
                     fontWeight: FontWeight.w500,
                   ),
@@ -121,6 +125,7 @@ class GenericDataBarChartWidget extends StatelessWidget {
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
               showTitles: true,
+
               ///Considering that this axis is for the days,
               /// so that the days are represented correctly
               /// with interval = 1
@@ -192,16 +197,26 @@ class GenericDataBarChartWidget extends StatelessWidget {
 
   List<BarChartGroupData> get barGroups => [
         ...List.generate(
-            30,
+            dataList.length,
             (index) => BarChartGroupData(
-                  x: index,
+                  x: index + 1,
                   barRods: [
                     BarChartRodData(
-                      toY: Random().nextInt(20).toDouble(),
+                      toY: _getData(dataList[index]),
                       color: SaayerTheme().getColorsPalette.primaryColor,
                     )
                   ],
                   //showingTooltipIndicators: [0],
                 )),
       ];
+
+  double _getData(T dataItem) {
+    if (dataItem is CountPerDateItemDto) {
+      return (dataItem.count ?? 0).toDouble();
+    } else if (dataItem is AmountPerDateDto) {
+      return (dataItem.amount ?? 0).toDouble();
+    } else {
+      return 0;
+    }
+  }
 }

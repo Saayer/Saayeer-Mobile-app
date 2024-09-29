@@ -12,26 +12,17 @@ class HomeErrorHandler {
     required this.state,
   });
 
-  final BuildContext context =
-      getIt<NavigationService>().mainNavigatorKey.currentContext!;
+  final BuildContext context = getIt<NavigationService>().mainNavigatorKey.currentContext!;
 
   void call() {
-    _handleHomeErrorStatus(state.stateHelper.errorStatus);
+    _handleHomeErrorStatus(state.shipmentsCountStateHelper.errorStatus);
   }
 
   void _handleHomeErrorStatus(HomeErrorStatus homeErrorStatus) {
     switch (homeErrorStatus) {
-      case HomeErrorStatus.ERROR_HOME:
-        {
-          SaayerDialogs()
-              .oneBtnDialog(title: "error_title", message: 'error_msg');
-          break;
-        }
       case HomeErrorStatus.ERROR_GET_USER_PROFILE:
         {
-          SaayerDialogs().oneBtnDialog(
-              title: "error_title",
-              message: state.stateHelper.errorMessage);
+          SaayerDialogs().oneBtnDialog(title: "error_title", message: state.shipmentsCountStateHelper.errorMessage);
           break;
         }
       default:

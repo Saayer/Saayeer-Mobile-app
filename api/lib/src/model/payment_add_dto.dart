@@ -24,6 +24,7 @@ part 'payment_add_dto.g.dart';
 /// * [sourceReferenceNumber] 
 /// * [sourceType] 
 /// * [status] 
+/// * [createdAt] 
 @BuiltValue()
 abstract class PaymentAddDto implements Built<PaymentAddDto, PaymentAddDtoBuilder> {
   @BuiltValueField(wireName: r'shipmentId')
@@ -64,6 +65,9 @@ abstract class PaymentAddDto implements Built<PaymentAddDto, PaymentAddDtoBuilde
 
   @BuiltValueField(wireName: r'status')
   String? get status;
+
+  @BuiltValueField(wireName: r'createdAt')
+  DateTime? get createdAt;
 
   PaymentAddDto._();
 
@@ -167,6 +171,13 @@ class _$PaymentAddDtoSerializer implements PrimitiveSerializer<PaymentAddDto> {
       yield serializers.serialize(
         object.status,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.createdAt != null) {
+      yield r'createdAt';
+      yield serializers.serialize(
+        object.createdAt,
+        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -290,6 +301,13 @@ class _$PaymentAddDtoSerializer implements PrimitiveSerializer<PaymentAddDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.status = valueDes;
+          break;
+        case r'createdAt':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdAt = valueDes;
           break;
         default:
           unhandled.add(key);

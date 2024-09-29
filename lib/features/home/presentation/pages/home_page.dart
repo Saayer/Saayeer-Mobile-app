@@ -1,41 +1,21 @@
-import 'dart:math';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
-import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/home/core/errors/home_error_handler.dart';
-import 'package:saayer/features/home/core/utils/enums/enums.dart';
 import 'package:saayer/features/home/presentation/bloc/home_bloc.dart';
-import 'package:saayer/features/home/presentation/widgets/generic_data_bar_chart_widget.dart';
-import 'package:saayer/features/home/presentation/widgets/shipments_statistic_item_widget.dart';
-import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
+import 'package:saayer/features/home/presentation/widgets/paid_amounts_chart_section.dart';
+import 'package:saayer/features/home/presentation/widgets/shipments_chart_section.dart';
+import 'package:saayer/features/home/presentation/widgets/shipments_counts_statistic_section.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
     return BlocConsumer<HomeBloc, HomeState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
-      listener: (context, state) {
-        final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
-        LoadingDialog.setIsLoading(context, isLoading);
-        if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.LOADED) {}
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {}
-          if (state.stateHelper.requestState == RequestState.ERROR) {
-            HomeErrorHandler(state: state)();
-          }
-        }
-      },
+          (previousState.shipmentsCountStateHelper.requestState != nextState.shipmentsCountStateHelper.requestState),
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
@@ -44,50 +24,21 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              GridView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: largerThanTablet(context) ? 3.5 : 1.8,
-                  mainAxisSpacing: (8 * 2),
-                  crossAxisSpacing: (8 * 2),
-                ),
-                itemCount: ShipmentsStatisticsTypes.values.length,
-                itemBuilder: (context, index) {
-                  return ShipmentsStatisticItemWidget(
-                    onTap: index == 0
-                        ? () {
-                            getIt<NavigationService>().navigateTo(const RequestNewShipmentScreen());
-                          }
-                        : null,
-                    animatedIcon: index == 0 ? false : true,
-                    title: ShipmentsStatisticsTypes.values[index].name,
-                    shipmentsNum: index == 0 ? 'request'.tr() : Random().nextInt(200).toString(),
-                  );
-                },
-              ),
+
+              ///
+              const ShipmentsCountsStatisticSection(),
               const SizedBox(
                 height: 20,
               ),
-              GenericDataBarChartWidget(
-                title: ["shipments_chart_title".tr()].concatenatingListOfStrings,
-                yAxisTitle: "shipments".tr(),
-                total: '500 ${'shipment'.tr()}',
-                xAxisDataTitles: shipmentsXAxisData,
-                showHorizontalLine: true,
-              ),
+
+              ///
+              ShipmentsChartSection(homeBloc: homeBloc),
               const SizedBox(
                 height: 20,
               ),
-              GenericDataBarChartWidget(
-                title: ["payments_chart_title".tr()].concatenatingListOfStrings,
-                yAxisTitle: 'sr'.tr(),
-                total: '500 ${'sr'.tr()}',
-                xAxisDataTitles: paymentsXAxisData,
-                showHorizontalLine: true,
-              ),
+
+              ///
+              PaidAmountsChartSection(homeBloc: homeBloc),
               const SizedBox(
                 height: 50,
               ),
@@ -96,33 +47,5 @@ class HomePage extends StatelessWidget {
         );
       },
     );
-  }
-
-  List<String> get shipmentsXAxisData {
-    final List<String> requiredList = [];
-
-    for (int i = 1; i < 31; i++) {
-      if (i == 1 || i == 5 || i == 10 || i == 15 || i == 20 || i == 25 || i == 30) {
-        requiredList.add('$i');
-      } else {
-        requiredList.add('');
-      }
-    }
-
-    return requiredList;
-  }
-
-  List<String> get paymentsXAxisData {
-    final List<String> requiredList = [];
-
-    for (int i = 1; i < 31; i++) {
-      if (i == 1 || i == 5 || i == 10 || i == 15 || i == 20 || i == 25 || i == 30) {
-        requiredList.add('$i');
-      } else {
-        requiredList.add('');
-      }
-    }
-
-    return requiredList;
   }
 }
