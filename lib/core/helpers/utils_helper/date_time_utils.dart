@@ -51,12 +51,20 @@ class DateTimeUtil {
   }
 
   ///
-  static DateTime convertUTCDateToLocalFullFormat(String date) {
-    ///
-    var utcDate = DateFormat("MM/dd/yyyy HH:mm:ss a").parse(date, true);
-    var local = utcDate.toLocal();
+  static DateTime? convertUTCDateToLocalFullFormat(String date) {
+    DateTime? localTime;
 
-    return local;
+    ///
+    try {
+      ///
+      var utcDate = DateFormat("yyyy-MM-dd hh:mm").parse(date, true);
+      var local = utcDate.toLocal();
+      localTime = DateTime.parse(DateFormat("yyyy-MM-dd hh:mm").format(local));
+      return localTime;
+    } on Exception catch (e) {
+      log('Error in DateFormat: $e');
+      return localTime;
+    }
   }
 
   ///
@@ -74,5 +82,32 @@ class DateTimeUtil {
       log('Error in DateFormat: $e');
       return date;
     }
+  }
+
+  static int getDaysInMonth(int year, int month) {
+    if (month == DateTime.february) {
+      final bool isLeapYear = (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
+      return isLeapYear ? 29 : 28;
+    }
+    const List<int> daysInMonth = <int>[31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return daysInMonth[month - 1];
+  }
+
+  static DateTime? getFirstDayDateOfCurrentMonthUTC() {
+    return toUtcDateTime(dMyString(DateTime(DateTime.now().year, DateTime.now().month, 1)));
+  }
+
+  static DateTime? getLastDayDateOfCurrentMonthUTC() {
+    return toUtcDateTime(dMyString(DateTime(DateTime.now().year, DateTime.now().month + 1, 0)));
+  }
+}
+
+extension DateTimeExtension on DateTime {
+  bool isSameDay(DateTime date) {
+    // ignore hour,minute,second..
+    final dateFormat = DateFormat("yyyy-MM-dd");
+    final date1 = dateFormat.format(this);
+    final date2 = dateFormat.format(date);
+    return date1 == date2;
   }
 }

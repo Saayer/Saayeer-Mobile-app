@@ -13,10 +13,10 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final HomeBloc bloc = getIt<HomeBloc>();
-        //bloc.add(InitHome());
+        bloc.add(InitHome());
         bloc.add(GetTotalStatusShipmentsCount(dataRangeDto: DateRangeDto()));
-        bloc.add(GetTotalShipmentsPerDays(dataRangeDto: DateRangeDto()));
-        bloc.add(GetTotalPaidPerDays(dataRangeDto: DateRangeDto()));
+        bloc.add(GetTotalShipmentsPerDays(dataRangeDto: bloc.dataRangeDto));
+        bloc.add(GetTotalPaidPerDays(dataRangeDto: bloc.dataRangeDto));
         return bloc;
       },
       child: const HomePage(),
