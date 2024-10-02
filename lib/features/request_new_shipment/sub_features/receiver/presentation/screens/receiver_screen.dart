@@ -259,6 +259,10 @@ class _ReceiverScreenState extends State<ReceiverScreen> {
                     ), onBack: (result) {
                   requestShipmentBloc
                       .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
+                  if (result != null) {
+                    requestShipmentBloc.add(OnReceiverSelectedFromDropDown(
+                        receiverType: SenderReceiverType.customer, item: result as CustomerGetDto?));
+                  }
                 });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,

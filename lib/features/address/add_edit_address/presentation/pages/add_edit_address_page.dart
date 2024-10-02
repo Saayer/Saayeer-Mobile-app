@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:openapi/openapi.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/add_edit_address/core/errors/add_address_error_handler.dart';
@@ -16,14 +17,12 @@ import 'package:saayer/features/address/add_edit_address/presentation/widgets/ad
 
 class AddEditAddressPage extends StatefulWidget {
   final bool isAddShipmentRequest;
-  final void Function(CustomerAddDto)? onBack;
   final AddEditAddressType addEditAddressType;
 
   const AddEditAddressPage({
     super.key,
     required this.isAddShipmentRequest,
     required this.addEditAddressType,
-    this.onBack,
   });
 
   @override
@@ -47,10 +46,9 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
             if (widget.isAddShipmentRequest) {
-              Navigator.pop(context);
+              getIt<NavigationService>().pop(state.submitAddressInfoEntity);
             } else {
               print('isAddShipmentRequest');
-              widget.onBack!(state.addressInfoEntity!);
             }
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
@@ -175,7 +173,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   bool enableAddress(AddEditAddressBloc addAddressBloc) {
     if (addAddressBloc.nameController.text.isNotEmpty &&
         (addAddressBloc.mobile.phoneNumber != null) &&
-        (addAddressBloc.mobile.phoneNumber!.length > 13) &&
+        (addAddressBloc.mobile.phoneNumber!.length > 12) &&
         addAddressBloc.addressController.text.isNotEmpty &&
         (addAddressBloc.selectedCountry != null) &&
         (addAddressBloc.selectedGovernorate != null) &&

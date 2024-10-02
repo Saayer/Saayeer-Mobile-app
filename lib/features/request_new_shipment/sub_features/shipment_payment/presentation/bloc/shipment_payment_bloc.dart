@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/domain/use_cases/create_payment_usecase.dart';
@@ -41,7 +42,8 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
           ..sourceName = event.sourceName
           ..sourceNumber = event.sourceNumber
           ..sourceType = event.sourceType
-          ..sourceReferenceNumber = event.sourceReferenceNumber)));
+          ..sourceReferenceNumber = event.sourceReferenceNumber
+          ..createdAt = DateTimeUtil.toUtcDateTime(DateTimeUtil.dMyString(DateTime.now())))));
 
     final Either<Failure, CreatePaymentResponse?> result = await createPaymentUseCase(state.paymentAddDto!);
 

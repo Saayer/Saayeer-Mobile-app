@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:saayer/core/services/localization/localization.dart' as localization;
@@ -76,11 +75,12 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ApplePay(
-          config: _getPaymentConfig(),
-          onPaymentResult: onPaymentResult,
-        ),
-        if (Platform.isIOS) const Text("or"),
+        if (defaultTargetPlatform == TargetPlatform.iOS)
+          ApplePay(
+            config: _getPaymentConfig(),
+            onPaymentResult: onPaymentResult,
+          ),
+        if (defaultTargetPlatform == TargetPlatform.iOS) const Text("or"),
         Directionality(
           textDirection: TextDirection.ltr,
           child: CreditCard(

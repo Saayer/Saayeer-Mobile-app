@@ -250,6 +250,10 @@ class _SenderScreenState extends State<SenderScreen> {
                     ), onBack: (result) {
                   requestShipmentBloc
                       .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
+                  if (result != null) {
+                    requestShipmentBloc.add(OnSenderSelectedFromDropDown(
+                        senderType: SenderReceiverType.customer, item: result as CustomerGetDto?));
+                  }
                 });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,

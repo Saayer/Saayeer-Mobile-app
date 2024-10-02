@@ -42,6 +42,7 @@ class ShipmentSummaryWidget extends StatelessWidget {
                   .value,
               columnVerticalDirection: VerticalDirection.down,
               columnCrossAxisAlignment: CrossAxisAlignment.start,
+              rowCrossAxisAlignment: CrossAxisAlignment.start,
               columnSpacing: 5,
               rowSpacing: 10,
               children: [

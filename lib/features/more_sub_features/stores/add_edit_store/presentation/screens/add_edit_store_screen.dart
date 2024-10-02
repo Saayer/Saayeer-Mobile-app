@@ -11,9 +11,12 @@ import 'package:saayer/features/more_sub_features/stores/add_edit_store/presenta
 class AddEditStoreScreen extends StatelessWidget {
   final AddEditStoreType addEditStoreType;
   final StoreGetDto storeDto;
-  final void Function(StoreGetDto)? onBack;
 
-  const AddEditStoreScreen({super.key, required this.addEditStoreType, required this.storeDto, this.onBack});
+  const AddEditStoreScreen({
+    super.key,
+    required this.addEditStoreType,
+    required this.storeDto,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,6 @@ class AddEditStoreScreen extends StatelessWidget {
           child: AddEditStorePage(
             addEditStoreType: addEditStoreType,
             storeDto: storeDto,
-            onBack: onBack,
           )),
     );
   }

@@ -19,9 +19,12 @@ import 'package:saayer/features/more_sub_features/stores/add_edit_store/presenta
 class AddEditStorePage extends StatefulWidget {
   final AddEditStoreType addEditStoreType;
   final StoreGetDto storeDto;
-  final void Function(StoreGetDto)? onBack;
 
-  const AddEditStorePage({super.key, required this.addEditStoreType, required this.storeDto, this.onBack});
+  const AddEditStorePage({
+    super.key,
+    required this.addEditStoreType,
+    required this.storeDto,
+  });
 
   @override
   State<AddEditStorePage> createState() => _AddEditStorePageState();
