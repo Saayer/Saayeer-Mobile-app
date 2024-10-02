@@ -115,7 +115,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _getTotalStatusShipmentsCount(GetTotalStatusShipmentsCount event, Emitter<HomeState> emit) async {
-    emit(state.copyWith(shipmentsCountStateHelper: const HomeStateHelper(requestState: HomeRequestState.LOADING_SHIPMENTS_COUNT)));
+    emit(state.copyWith(
+        shipmentsCountStateHelper: const HomeStateHelper(requestState: HomeRequestState.LOADING_SHIPMENTS_COUNT)));
 
     final Either<Failure, ShipmentsCountResponse> result =
         await getShipmentsStatusTotalCountUseCase(event.dataRangeDto);
@@ -145,7 +146,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> _getTotalShipmentsPerDays(GetTotalShipmentsPerDays event, Emitter<HomeState> emit) async {
     emit(state.copyWith(
-        shipmentsChartStateHelper: const HomeStateHelper(requestState: HomeRequestState.LOADING_SHIPMENTS_COUNT_PER_DAY)));
+        shipmentsChartStateHelper:
+            const HomeStateHelper(requestState: HomeRequestState.LOADING_SHIPMENTS_COUNT_PER_DAY)));
 
     final Either<Failure, CountPerDateResponse> result = await getTotalShipmentPerDaysUseCase(event.dataRangeDto);
 
@@ -178,7 +180,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
 
         emit(state.copyWith(
-            shipmentsChartStateHelper: const HomeStateHelper(requestState: HomeRequestState.LOADED_SHIPMENTS_COUNT_PER_DAY),
+            shipmentsChartStateHelper:
+                const HomeStateHelper(requestState: HomeRequestState.LOADED_SHIPMENTS_COUNT_PER_DAY),
             totalShipmentsPerDaysList: rightResult));
       } else {
         emit(state.copyWith(
@@ -191,7 +194,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _getTotalPaidPerDays(GetTotalPaidPerDays event, Emitter<HomeState> emit) async {
-    emit(state.copyWith(paidAmountsChartStateHelper: const HomeStateHelper(requestState: HomeRequestState.LOADING_PAID_COUNT_PER_DAY)));
+    emit(state.copyWith(
+        paidAmountsChartStateHelper: const HomeStateHelper(requestState: HomeRequestState.LOADING_PAID_COUNT_PER_DAY)));
 
     final Either<Failure, AmountPerDateResponse> result = await getTotalPaidPerDaysUseCase(event.dataRangeDto);
 
@@ -217,11 +221,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             }
           }
 
-          emit(state.copyWith(
-              paidAmountsChartStateHelper:
-                  const HomeStateHelper(requestState: HomeRequestState.LOADED_PAID_COUNT_PER_DAY, loadingMessage: ''),
-              totalPaidPerDaysList: rightResult));
+          amountsPerDaysList = AmountPerDateResponse((b) => b
+            ..total = amountPerDateResponse!.total
+            ..amounts = ListBuilder(amountList));
         }
+        emit(state.copyWith(
+            paidAmountsChartStateHelper:
+                const HomeStateHelper(requestState: HomeRequestState.LOADED_PAID_COUNT_PER_DAY, loadingMessage: ''),
+            totalPaidPerDaysList: rightResult));
       } else {
         emit(state.copyWith(
           paidAmountsChartStateHelper: const HomeStateHelper(

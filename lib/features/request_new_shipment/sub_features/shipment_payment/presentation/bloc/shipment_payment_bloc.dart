@@ -43,7 +43,7 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
           ..sourceNumber = event.sourceNumber
           ..sourceType = event.sourceType
           ..sourceReferenceNumber = event.sourceReferenceNumber
-          ..createdAt = DateTimeUtil.toUtcDateTime(DateTime.now().toString()))));
+          ..createdAt = DateTimeUtil.toUtcDateTime(DateTimeUtil.dMyString(DateTime.now())))));
 
     final Either<Failure, CreatePaymentResponse?> result = await createPaymentUseCase(state.paymentAddDto!);
 
