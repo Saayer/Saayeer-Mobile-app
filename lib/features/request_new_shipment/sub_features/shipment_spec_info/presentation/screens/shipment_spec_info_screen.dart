@@ -148,56 +148,68 @@ class _ShipmentSpecInfoScreenState extends State<ShipmentSpecInfoScreen> {
 
   _buildFirstColumnRowField(RequestNewShipmentBloc requestShipmentBloc) {
     return ResponsiveRowColumnItem(
+        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
-      layout: ResponsiveValue(context,
-              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-              defaultValue: ResponsiveRowColumnType.COLUMN)
-          .value,
-      columnVerticalDirection: VerticalDirection.down,
-      columnMainAxisSize: MainAxisSize.min,
-      columnSpacing: 10,
-      rowSpacing: 15,
-      children: [
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[0])),
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[1])),
-      ],
-    ));
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 10,
+          rowSpacing: 15,
+          children: [
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.tight,
+                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[0])),
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.tight,
+                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[1])),
+          ],
+        ));
   }
 
   _buildSecondColumnRowField(RequestNewShipmentBloc requestShipmentBloc) {
     return ResponsiveRowColumnItem(
+        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
-      layout: ResponsiveValue(context,
-              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-              defaultValue: ResponsiveRowColumnType.COLUMN)
-          .value,
-      columnVerticalDirection: VerticalDirection.down,
-      columnMainAxisSize: MainAxisSize.min,
-      columnSpacing: 10,
-      rowSpacing: 15,
-      children: [
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[2])),
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[3])),
-      ],
-    ));
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 10,
+          rowSpacing: 15,
+          children: [
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.tight,
+                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[2])),
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.tight,
+                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[3])),
+          ],
+        ));
   }
 
   _buildThirdColumnRowField(RequestNewShipmentBloc requestShipmentBloc) {
     return ResponsiveRowColumnItem(
+        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
-      layout: ResponsiveValue(context,
-              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-              defaultValue: ResponsiveRowColumnType.COLUMN)
-          .value,
-      columnVerticalDirection: VerticalDirection.down,
-      columnMainAxisSize: MainAxisSize.min,
-      columnSpacing: 10,
-      rowSpacing: 15,
-      children: [
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[4])),
-        ResponsiveRowColumnItem(child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[5])),
-      ],
-    ));
+          layout: ResponsiveValue(context,
+                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+                  defaultValue: ResponsiveRowColumnType.COLUMN)
+              .value,
+          columnVerticalDirection: VerticalDirection.down,
+          columnSpacing: 10,
+          rowSpacing: 15,
+          children: [
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.tight,
+                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[4])),
+            ResponsiveRowColumnItem(
+                rowFit: FlexFit.tight,
+                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[5])),
+          ],
+        ));
   }
 
   _getTextField(RequestNewShipmentBloc requestShipmentBloc, ShipmentSpecInfoFieldsTypes type) {
