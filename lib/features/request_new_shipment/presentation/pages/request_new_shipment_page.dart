@@ -69,7 +69,7 @@ class RequestNewShipmentPage extends StatelessWidget {
                   final bool isCurrent = (state.currentPage == index);
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
-                    width: isCurrent ? screenWidth(context) / 5 : screenWidth(context) / 7,
+                    width: isCurrent ? queryScreenWidth(context) / 5 : queryScreenWidth(context) / 7,
                     child: LinearIndicator(
                       color: isPrevious
                           ? (SaayerTheme().getColorsPalette.superDarkOrangeColor)

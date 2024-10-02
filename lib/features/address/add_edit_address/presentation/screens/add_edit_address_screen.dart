@@ -10,14 +10,12 @@ import 'package:saayer/features/address/add_edit_address/presentation/pages/add_
 
 class AddEditAddressScreen extends StatelessWidget {
   final bool isAddShipmentRequest;
-  final void Function(CustomerAddDto)? onBack;
   final CustomerGetDto customerModel;
   final AddEditAddressType addEditAddressType;
 
   const AddEditAddressScreen(
       {super.key,
       required this.isAddShipmentRequest,
-      this.onBack,
       required this.addEditAddressType,
       required this.customerModel});
 
@@ -40,7 +38,6 @@ class AddEditAddressScreen extends StatelessWidget {
           child: AddEditAddressPage(
             isAddShipmentRequest: isAddShipmentRequest,
             addEditAddressType: addEditAddressType,
-            onBack: onBack,
           )),
     );
   }

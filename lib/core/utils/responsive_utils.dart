@@ -13,4 +13,6 @@ double screenHeight(BuildContext context) => ResponsiveBreakpoints.of(context).s
 
 double screenWidth(BuildContext context) => ResponsiveBreakpoints.of(context).screenWidth;
 
+double queryScreenWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
 double halfScreenWidth(BuildContext context) => ResponsiveBreakpoints.of(context).screenWidth / 2;
