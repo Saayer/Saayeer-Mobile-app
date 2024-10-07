@@ -18,7 +18,7 @@ class MoreCardsWidget extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        childAspectRatio: largerThanTablet(context) ? 3.5 : 3,
+        childAspectRatio: largerThanTablet(context) ? 5 : 3,
         mainAxisSpacing: (8 * 2),
         crossAxisSpacing: (8 * 2),
       ),
