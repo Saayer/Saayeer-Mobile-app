@@ -35,8 +35,10 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
     const MoreNavBarIconEntity()
   ];
 
-  /// use this value in shipments list screen with filter
+  /// use these values in shipments list screen with filter
   ShipmentStatusEnum? initExportShipmentsStatusFilter;
+  DateTime? exportShipmentDateFrom;
+  DateTime? exportShipmentDateTo;
 
   Future<FutureOr<void>> _initViewPage(event, Emitter<ViewPageState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
@@ -74,5 +76,7 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
 
   FutureOr<void> _setShipmentsFiltersValue(SetShipmentsFiltersValue event, Emitter<ViewPageState> emit) {
     initExportShipmentsStatusFilter = event.initExportShipmentStatusFilter;
+    exportShipmentDateFrom = event.exportShipmentDateFrom;
+    exportShipmentDateTo = event.exportShipmentDateTo;
   }
 }

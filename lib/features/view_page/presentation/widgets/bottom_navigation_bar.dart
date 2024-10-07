@@ -55,8 +55,11 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                                 navBarIconType: navBarIconEntity.navBarIconType,
                                 onPressed: () {
                                   if (navBarIconEntity.navBarIconType == NavBarIconTypes.SHIPMENTS) {
-                                    viewPageBloc
-                                        .add(const SetShipmentsFiltersValue(initExportShipmentStatusFilter: null));
+                                    viewPageBloc.add(const SetShipmentsFiltersValue(
+                                      initExportShipmentStatusFilter: null,
+                                      exportShipmentDateFrom: null,
+                                      exportShipmentDateTo: null,
+                                    ));
                                   }
                                   viewPageBloc.add(GoToPage(navBarIconType: navBarIconEntity.navBarIconType));
                                 },

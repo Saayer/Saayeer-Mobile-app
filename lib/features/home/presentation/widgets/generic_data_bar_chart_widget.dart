@@ -15,6 +15,7 @@ class GenericDataBarChartWidget<T> extends StatelessWidget {
   final double plotHeight;
   final List<String> xAxisDataTitles;
   final bool? showHorizontalLine;
+  final GestureTapCallback? onTap;
 
   const GenericDataBarChartWidget({
     super.key,
@@ -26,61 +27,65 @@ class GenericDataBarChartWidget<T> extends StatelessWidget {
     this.plotHeight = 150,
     this.xAxisDataTitles = const [],
     this.showHorizontalLine,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin ?? const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-          color: SaayerTheme().getColorsPalette.whiteColor,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(spreadRadius: 2, blurRadius: 5, color: SaayerTheme().getColorsPalette.blackColor.withOpacity(.07))
-          ]),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        margin: margin ?? const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            color: SaayerTheme().getColorsPalette.whiteColor,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(spreadRadius: 2, blurRadius: 5, color: SaayerTheme().getColorsPalette.blackColor.withOpacity(.07))
+            ]),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
 
-            ///TitleAndSubtitleWidget
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(title,
-                    maxLines: 1, style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.primaryColor)),
-                Text(total, maxLines: 1, style: AppTextStyles.mainFocusedLabel()),
-              ],
-            ),
-          ),
-
-          ///PlotWidget
-          Container(
-            height: plotHeight,
-            margin: const EdgeInsets.symmetric(vertical: 35).copyWith(left: 8, right: 25),
-            child: BarChart(
-              BarChartData(
-                barTouchData: barTouchData,
-                titlesData: titlesData,
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                barGroups: barGroups,
-                gridData: FlGridData(
-                  drawHorizontalLine: showHorizontalLine ?? false,
-                  getDrawingHorizontalLine: (value) {
-                    return FlLine(
-                      color: SaayerTheme().getColorsPalette.greyColor,
-                      strokeWidth: .5,
-                    );
-                  },
-                  drawVerticalLine: false,
-                ),
-                alignment: BarChartAlignment.spaceAround,
+              ///TitleAndSubtitleWidget
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(title,
+                      maxLines: 1, style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.primaryColor)),
+                  Text(total, maxLines: 1, style: AppTextStyles.mainFocusedLabel()),
+                ],
               ),
             ),
-          )
-        ],
+
+            ///PlotWidget
+            Container(
+              height: plotHeight,
+              margin: const EdgeInsets.symmetric(vertical: 35).copyWith(left: 8, right: 25),
+              child: BarChart(
+                BarChartData(
+                  barTouchData: barTouchData,
+                  titlesData: titlesData,
+                  borderData: FlBorderData(
+                    show: false,
+                  ),
+                  barGroups: barGroups,
+                  gridData: FlGridData(
+                    drawHorizontalLine: showHorizontalLine ?? false,
+                    getDrawingHorizontalLine: (value) {
+                      return FlLine(
+                        color: SaayerTheme().getColorsPalette.greyColor,
+                        strokeWidth: .5,
+                      );
+                    },
+                    drawVerticalLine: false,
+                  ),
+                  alignment: BarChartAlignment.spaceAround,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

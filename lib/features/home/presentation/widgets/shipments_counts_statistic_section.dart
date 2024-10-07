@@ -62,8 +62,11 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
                             : () {
                                 final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
                                 viewPageBloc.add(SetShipmentsFiltersValue(
-                                    initExportShipmentStatusFilter:
-                                        _getShipmentStatus(ShipmentsStatisticsTypes.values[index])));
+                                  initExportShipmentStatusFilter:
+                                      _getShipmentStatus(ShipmentsStatisticsTypes.values[index]),
+                                  exportShipmentDateFrom: null,
+                                  exportShipmentDateTo: null,
+                                ));
                                 viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.SHIPMENTS));
                               },
                         animatedIcon: index == 0 ? false : true,

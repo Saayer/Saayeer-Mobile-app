@@ -52,7 +52,11 @@ class NavigationWebDrawer extends StatelessWidget {
                           navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType,
                           onPressed: () {
                             if (viewPageBloc.navBarIconEntityList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
-                              viewPageBloc.add(const SetShipmentsFiltersValue(initExportShipmentStatusFilter: null));
+                              viewPageBloc.add(const SetShipmentsFiltersValue(
+                                initExportShipmentStatusFilter: null,
+                                exportShipmentDateFrom: null,
+                                exportShipmentDateTo: null,
+                              ));
                             }
                             viewPageBloc
                                 .add(GoToPage(navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType));
@@ -61,7 +65,11 @@ class NavigationWebDrawer extends StatelessWidget {
                         ),
                         onTap: () {
                           if (viewPageBloc.navBarIconEntityList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
-                            viewPageBloc.add(const SetShipmentsFiltersValue(initExportShipmentStatusFilter: null));
+                            viewPageBloc.add(const SetShipmentsFiltersValue(
+                              initExportShipmentStatusFilter: null,
+                              exportShipmentDateFrom: null,
+                              exportShipmentDateTo: null,
+                            ));
                           }
                           viewPageBloc
                               .add(GoToPage(navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType));

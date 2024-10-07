@@ -25,11 +25,21 @@ class GoToPage extends ViewPageEvent {
 
 class SetShipmentsFiltersValue extends ViewPageEvent {
   final ShipmentStatusEnum? initExportShipmentStatusFilter;
+  final DateTime? exportShipmentDateFrom;
+  final DateTime? exportShipmentDateTo;
 
-  const SetShipmentsFiltersValue({required this.initExportShipmentStatusFilter});
+  const SetShipmentsFiltersValue({
+    required this.initExportShipmentStatusFilter,
+    required this.exportShipmentDateFrom,
+    required this.exportShipmentDateTo,
+  });
 
   @override
-  List<Object?> get props => [initExportShipmentStatusFilter];
+  List<Object?> get props => [
+        initExportShipmentStatusFilter,
+        exportShipmentDateFrom,
+        exportShipmentDateTo,
+      ];
 }
 
 class Refresh extends ViewPageEvent {

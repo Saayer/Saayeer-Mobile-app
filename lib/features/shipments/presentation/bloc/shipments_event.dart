@@ -8,11 +8,15 @@ class InitShipments extends ShipmentsEvent {
   final bool isFromHome;
   final bool isGuest;
   final ShipmentStatusEnum? initExportShipmentStatusFilter;
+  final DateTime? exportShipmentDateFrom;
+  final DateTime? exportShipmentDateTo;
 
   const InitShipments({
     this.isFromHome = false,
     required this.isGuest,
     required this.initExportShipmentStatusFilter,
+    required this.exportShipmentDateFrom,
+    required this.exportShipmentDateTo,
   });
 
   @override
@@ -20,6 +24,8 @@ class InitShipments extends ShipmentsEvent {
         isFromHome,
         isGuest,
         initExportShipmentStatusFilter,
+        exportShipmentDateFrom,
+        exportShipmentDateTo,
       ];
 }
 

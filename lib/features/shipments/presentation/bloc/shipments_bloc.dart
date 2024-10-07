@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -95,6 +96,10 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   FutureOr<void> _initShipments(InitShipments event, Emitter<ShipmentsState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
     selectedExportShipmentStatus = event.initExportShipmentStatusFilter;
+    exportShipmentDateFrom = event.exportShipmentDateFrom;
+    exportShipmentDateFromController.text = DateTimeUtil.dMyString(exportShipmentDateFrom);
+    exportShipmentDateTo = event.exportShipmentDateTo;
+    exportShipmentDateToController.text = DateTimeUtil.dMyString(exportShipmentDateTo);
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED), isFromHome: event.isFromHome));
   }

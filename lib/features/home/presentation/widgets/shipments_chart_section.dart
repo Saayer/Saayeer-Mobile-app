@@ -2,11 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/loading/loading_widget.dart';
+import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/features/home/core/utils/enums/enums.dart';
 import 'package:saayer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/home/presentation/widgets/error_stack_widget.dart';
 import 'package:saayer/features/home/presentation/widgets/generic_data_bar_chart_widget.dart';
+import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShipmentsChartSection extends StatelessWidget {
@@ -44,6 +47,15 @@ class ShipmentsChartSection extends StatelessWidget {
                 dataList: homeBloc.shipmentsPerDaysList.counts!.toList(),
                 xAxisDataTitles: shipmentsXAxisData,
                 showHorizontalLine: true,
+                onTap: () {
+                  final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
+                  viewPageBloc.add(SetShipmentsFiltersValue(
+                    initExportShipmentStatusFilter: null,
+                    exportShipmentDateFrom: DateTimeUtil.getFirstDayDateOfCurrentMonthUTC(),
+                    exportShipmentDateTo: DateTimeUtil.toUtcDateTime(DateTimeUtil.dMyString(DateTime.now())),
+                  ));
+                  viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.SHIPMENTS));
+                },
               ),
             ),
             (isLoading || homeBloc.countPerDateResponse == null)

@@ -20,6 +20,8 @@ class ShipmentsScreen extends StatelessWidget {
           isFromHome: isFromHome,
           isGuest: viewPageBloc.state.isGuest!,
           initExportShipmentStatusFilter: viewPageBloc.initExportShipmentsStatusFilter,
+          exportShipmentDateFrom: viewPageBloc.exportShipmentDateFrom,
+          exportShipmentDateTo: viewPageBloc.exportShipmentDateTo,
         ))
         ..add(const SelectShipmentType(shipmentsType: ShipmentsListTypes.EXPORT))
         ..add(const GetExportShipments())
