@@ -40,13 +40,13 @@ dependencies:
   flutter_bloc: 8.1.6
   dio: 5.5.0+1
   equatable: 2.0.5
-  flutter_inappwebview: 6.0.0
+  # flutter_inappwebview: 6.0.0
   # not web
   lottie: 3.1.2
   # not web
   cached_network_image: 3.3.1
   fast_cached_network_image: 1.2.9
-  connectivity_plus: 6.0.3
+  connectivity_plus: 6.0.5
   url_launcher: 6.3.0
   webview_flutter_web: 0.2.3+1 #
   device_info_plus: 10.1.0
