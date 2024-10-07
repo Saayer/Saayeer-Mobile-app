@@ -31,10 +31,8 @@ class SaayerBottomNavigationBar extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:
-                    viewPageBloc.navBarIconEntityList.map((navBarIconEntity) {
-                  final int index = viewPageBloc.navBarIconEntityList
-                      .indexOf(navBarIconEntity);
+                children: viewPageBloc.navBarIconEntityList.map((navBarIconEntity) {
+                  final int index = viewPageBloc.navBarIconEntityList.indexOf(navBarIconEntity);
                   final bool isMiddle = (index == 2);
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -46,46 +44,39 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                       Stack(
                         alignment: Alignment.topCenter,
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 80,
                             width: 60,
                           ),
-                          if (navBarIconEntity.navBarIconType !=
-                              NavBarIconTypes.REQUEST_SHIPMENT)
+                          if (navBarIconEntity.navBarIconType != NavBarIconTypes.REQUEST_SHIPMENT)
                             Positioned(
                               top: 0,
                               child: NavBarIconWidget(
                                 navBarIconType: navBarIconEntity.navBarIconType,
                                 onPressed: () {
-                                  viewPageBloc.add(GoToPage(
-                                      navBarIconType:
-                                          navBarIconEntity.navBarIconType));
+                                  if (navBarIconEntity.navBarIconType == NavBarIconTypes.SHIPMENTS) {
+                                    viewPageBloc
+                                        .add(const SetShipmentsFiltersValue(initExportShipmentStatusFilter: null));
+                                  }
+                                  viewPageBloc.add(GoToPage(navBarIconType: navBarIconEntity.navBarIconType));
                                 },
                                 isSelected: navBarIconEntity.isSelected,
                               ),
                             ),
-                          if (navBarIconEntity.navBarIconType !=
-                              NavBarIconTypes.REQUEST_SHIPMENT)
+                          if (navBarIconEntity.navBarIconType != NavBarIconTypes.REQUEST_SHIPMENT)
                             Positioned(
                               top: 35,
                               child: SizedBox(
                                 width: 60,
                                 child: GestureDetector(
                                   onTap: () {
-                                    viewPageBloc.add(GoToPage(
-                                        navBarIconType:
-                                            navBarIconEntity.navBarIconType));
+                                    viewPageBloc.add(GoToPage(navBarIconType: navBarIconEntity.navBarIconType));
                                   },
                                   child: Text(
                                     navBarIconEntity.navBarIconType.name.tr(),
-                                    style: AppTextStyles.xSmallLabel(
-                                        navBarIconEntity.isSelected
-                                            ? SaayerTheme()
-                                                .getColorsPalette
-                                                .primaryColor
-                                            : SaayerTheme()
-                                                .getColorsPalette
-                                                .blackTextColor),
+                                    style: AppTextStyles.xSmallLabel(navBarIconEntity.isSelected
+                                        ? SaayerTheme().getColorsPalette.primaryColor
+                                        : SaayerTheme().getColorsPalette.blackTextColor),
                                     textAlign: TextAlign.center,
                                     softWrap: true,
                                   ),
@@ -104,16 +95,12 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                   width: 60,
                   child: GestureDetector(
                     onTap: () {
-                      viewPageBloc.add(const GoToPage(
-                          navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+                      viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
                     },
                     child: Text(
                       NavBarIconTypes.REQUEST_SHIPMENT.name.tr(),
-                      style: AppTextStyles.xSmallLabel(viewPageBloc
-                              .navBarIconEntityList
-                              .firstWhere((element) =>
-                                  element.navBarIconType ==
-                                  NavBarIconTypes.REQUEST_SHIPMENT)
+                      style: AppTextStyles.xSmallLabel(viewPageBloc.navBarIconEntityList
+                              .firstWhere((element) => element.navBarIconType == NavBarIconTypes.REQUEST_SHIPMENT)
                               .isSelected
                           ? SaayerTheme().getColorsPalette.primaryColor
                           : SaayerTheme().getColorsPalette.blackTextColor),

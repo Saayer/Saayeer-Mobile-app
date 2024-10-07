@@ -16,7 +16,11 @@ class ShipmentsScreen extends StatelessWidget {
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
     return BlocProvider(
       create: (context) => getIt<ShipmentsBloc>()
-        ..add(InitShipments(isFromHome: isFromHome, isGuest: viewPageBloc.state.isGuest!))
+        ..add(InitShipments(
+          isFromHome: isFromHome,
+          isGuest: viewPageBloc.state.isGuest!,
+          initExportShipmentStatusFilter: viewPageBloc.initExportShipmentsStatusFilter,
+        ))
         ..add(const SelectShipmentType(shipmentsType: ShipmentsListTypes.EXPORT))
         ..add(const GetExportShipments())
         ..add(const GetStores())

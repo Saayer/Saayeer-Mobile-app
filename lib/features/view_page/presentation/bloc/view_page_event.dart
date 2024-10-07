@@ -7,6 +7,7 @@ abstract class ViewPageEvent extends Equatable {
 
 class InitViewPage extends ViewPageEvent {
   final NavBarIconTypes navBarIconType;
+
   const InitViewPage({required this.navBarIconType});
 
   @override
@@ -20,6 +21,15 @@ class GoToPage extends ViewPageEvent {
 
   @override
   List<Object?> get props => [navBarIconType];
+}
+
+class SetShipmentsFiltersValue extends ViewPageEvent {
+  final ShipmentStatusEnum? initExportShipmentStatusFilter;
+
+  const SetShipmentsFiltersValue({required this.initExportShipmentStatusFilter});
+
+  @override
+  List<Object?> get props => [initExportShipmentStatusFilter];
 }
 
 class Refresh extends ViewPageEvent {

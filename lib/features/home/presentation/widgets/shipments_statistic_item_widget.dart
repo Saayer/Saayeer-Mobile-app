@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
+import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
@@ -25,7 +26,9 @@ class ShipmentsStatisticItemWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: animatedIcon ? SaayerTheme().getColorsPalette.backgroundColor : SaayerTheme().getColorsPalette.primaryColor,
+          color: animatedIcon
+              ? SaayerTheme().getColorsPalette.backgroundColor
+              : SaayerTheme().getColorsPalette.primaryColor,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -50,13 +53,13 @@ class ShipmentsStatisticItemWidget extends StatelessWidget {
                     children: [
                       animatedIcon
                           ? Lottie.asset(
-                              height: 30,
+                              height: largerThanTablet(context) ? 50 : 35,
                               Constants.getLottiePath("${title}_shipment.json"),
                             )
                           : Image.asset(
                               Constants.getIconPath("ic_logo.png"),
-                              width: 30,
-                              height: 30,
+                              width: largerThanTablet(context) ? 50 : 35,
+                              height: largerThanTablet(context) ? 50 : 35,
                               color: SaayerTheme().getColorsPalette.whiteColor,
                             ),
                       const SizedBox(
@@ -70,12 +73,15 @@ class ShipmentsStatisticItemWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  if (!animatedIcon)
-                    Icon(Icons.arrow_forward_ios, size: 15, color: SaayerTheme().getColorsPalette.whiteColor)
+                  Icon(Icons.arrow_forward_ios,
+                      size: 15,
+                      color: animatedIcon
+                          ? SaayerTheme().getColorsPalette.blackColor
+                          : SaayerTheme().getColorsPalette.whiteColor)
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

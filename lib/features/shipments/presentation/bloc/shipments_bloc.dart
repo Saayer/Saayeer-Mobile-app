@@ -94,7 +94,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
 
   FutureOr<void> _initShipments(InitShipments event, Emitter<ShipmentsState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-
+    selectedExportShipmentStatus = event.initExportShipmentStatusFilter;
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED), isFromHome: event.isFromHome));
   }

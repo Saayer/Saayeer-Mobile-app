@@ -12,6 +12,8 @@ import 'package:saayer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/home/presentation/widgets/new_shipment_card_item_widget.dart';
 import 'package:saayer/features/home/presentation/widgets/shipments_statistic_item_widget.dart';
 import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
+import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
+import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
 class ShipmentsCountsStatisticSection extends StatelessWidget {
   const ShipmentsCountsStatisticSection({super.key});
@@ -46,18 +48,24 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: largerThanTablet(context) ? 3.5 : 1.8,
+                      childAspectRatio: largerThanTablet(context) ? 3.1 : 1.8,
                       mainAxisSpacing: (8 * 2),
                       crossAxisSpacing: (8 * 2),
                     ),
                     itemCount: ShipmentsStatisticsTypes.values.length,
                     itemBuilder: (context, index) {
                       return ShipmentsStatisticItemWidget(
-                        onTap: index == 0
+                        onTap: ShipmentsStatisticsTypes.values[index] == ShipmentsStatisticsTypes.NEW_SHIPMENT
                             ? () {
                                 getIt<NavigationService>().navigateTo(const RequestNewShipmentScreen());
                               }
-                            : null,
+                            : () {
+                                final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
+                                viewPageBloc.add(SetShipmentsFiltersValue(
+                                    initExportShipmentStatusFilter:
+                                        _getShipmentStatus(ShipmentsStatisticsTypes.values[index])));
+                                viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.SHIPMENTS));
+                              },
                         animatedIcon: index == 0 ? false : true,
                         title: ShipmentsStatisticsTypes.values[index].name,
                         shipmentsNum: _getTotalShipmentsCount(
@@ -95,6 +103,35 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
       case ShipmentsStatisticsTypes.DELIVERED:
         {
           return shipmentsCountResponse!.deliveredShipments.toString();
+        }
+    }
+  }
+
+  ShipmentStatusEnum? _getShipmentStatus(ShipmentsStatisticsTypes status) {
+    switch (status) {
+      case ShipmentsStatisticsTypes.NEW_SHIPMENT:
+        {
+          return null;
+        }
+      case ShipmentsStatisticsTypes.REQUESTED:
+        {
+          return ShipmentStatusEnum.requested;
+        }
+      case ShipmentsStatisticsTypes.PICKED:
+        {
+          return ShipmentStatusEnum.picked;
+        }
+      case ShipmentsStatisticsTypes.SHIPPING:
+        {
+          return ShipmentStatusEnum.onTheWay;
+        }
+      case ShipmentsStatisticsTypes.DELIVERED:
+        {
+          return ShipmentStatusEnum.delivered;
+        }
+      default:
+        {
+          return null;
         }
     }
   }

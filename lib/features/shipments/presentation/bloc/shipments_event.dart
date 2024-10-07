@@ -7,11 +7,20 @@ abstract class ShipmentsEvent extends Equatable {
 class InitShipments extends ShipmentsEvent {
   final bool isFromHome;
   final bool isGuest;
+  final ShipmentStatusEnum? initExportShipmentStatusFilter;
 
-  const InitShipments({this.isFromHome = false, required this.isGuest});
+  const InitShipments({
+    this.isFromHome = false,
+    required this.isGuest,
+    required this.initExportShipmentStatusFilter,
+  });
 
   @override
-  List<Object?> get props => [isFromHome, isGuest];
+  List<Object?> get props => [
+        isFromHome,
+        isGuest,
+        initExportShipmentStatusFilter,
+      ];
 }
 
 class GetExportShipments extends ShipmentsEvent {
