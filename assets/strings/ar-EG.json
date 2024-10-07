@@ -227,5 +227,6 @@
   "request": "طلب",
   "status": "حالة الشحنة",
   "tracking_error_msg": "هناك مشكلة من فضلك ",
-  "shipment_error_whatsapp_msg": "السلام عليكم, يوجد مشكلة مع الشحنة رقم {}"
+  "shipment_error_whatsapp_msg": "السلام عليكم, يوجد مشكلة مع الشحنة رقم {}",
+  "chart_empty_msg": "لم تطلب شحنتك لهذا الشهر. اطلب شحنتك الأولى"
 }

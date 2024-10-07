@@ -1,10 +1,14 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
 class ErrorStackWidget extends StatelessWidget {
-  const ErrorStackWidget({super.key});
+  final String message;
+
+  const ErrorStackWidget({
+    super.key,
+    required this.message,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class ErrorStackWidget extends StatelessWidget {
           width: 8,
         ),
         Text(
-          'error_msg'.tr(),
+          message,
           style: AppTextStyles.smallParagraph(),
         ),
       ],

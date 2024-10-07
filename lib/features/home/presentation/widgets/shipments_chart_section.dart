@@ -39,7 +39,12 @@ class ShipmentsChartSection extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Opacity(
-              opacity: (isLoading || hasError || homeBloc.countPerDateResponse == null) ? 0.5 : 1,
+              opacity: (isLoading ||
+                      hasError ||
+                      homeBloc.countPerDateResponse == null ||
+                      homeBloc.countPerDateResponse!.counts!.isEmpty)
+                  ? 0.5
+                  : 1,
               child: GenericDataBarChartWidget(
                 title: ["shipments_chart_title".tr()].concatenatingListOfStrings,
                 yAxisTitle: "shipments".tr(),
@@ -61,8 +66,14 @@ class ShipmentsChartSection extends StatelessWidget {
             (isLoading || homeBloc.countPerDateResponse == null)
                 ? const SaayerLoader()
                 : hasError
-                    ? const ErrorStackWidget()
-                    : Container()
+                    ? ErrorStackWidget(
+                        message: 'error_msg'.tr(),
+                      )
+                    : homeBloc.countPerDateResponse!.counts!.isEmpty
+                        ? ErrorStackWidget(
+                            message: 'chart_empty_msg'.tr(),
+                          )
+                        : Container()
           ],
         );
       },
