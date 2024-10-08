@@ -227,5 +227,6 @@
   "request": "Request",
   "status": "Status",
   "tracking_error_msg": "There is an problem, please ",
-  "shipment_error_whatsapp_msg": "Hello, I have a problem with the shipment number {}"
+  "shipment_error_whatsapp_msg": "Hello, I have a problem with the shipment number {}",
+  "chart_empty_msg": "You did not request your shipment for this month. request your first shipment"
 }

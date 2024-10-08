@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/presentation/widgets/nav_bar_icon_widget.dart';
 
@@ -33,40 +34,47 @@ class NavigationWebDrawer extends StatelessWidget {
                   width: 100,
                   height: 40,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                              Constants.getIconPath("ic_logo_text.png")))),
+                      image: DecorationImage(image: AssetImage(Constants.getIconPath("ic_logo_text.png")))),
                 ),
               ),
-              ...List.generate(viewPageBloc.navBarIconEntityList.length, (index)=> ListTile(
-                title: Text(
-                  viewPageBloc.navBarIconEntityList[index].navBarIconType.name.tr(),
-                  style: AppTextStyles.smallParagraph(
-                      viewPageBloc.navBarIconEntityList[index].isSelected
-                          ? SaayerTheme()
-                          .getColorsPalette
-                          .primaryColor
-                          : SaayerTheme()
-                          .getColorsPalette
-                          .blackTextColor),
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                ),
-                leading: NavBarIconWidget(
-                  navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType,
-                  onPressed: () {
-                    viewPageBloc.add(GoToPage(
-                        navBarIconType:
-                        viewPageBloc.navBarIconEntityList[index].navBarIconType));
-                  },
-                  isSelected: viewPageBloc.navBarIconEntityList[index].isSelected,
-                ),
-                onTap: () {
-                  viewPageBloc.add(GoToPage(
-                      navBarIconType:
-                      viewPageBloc.navBarIconEntityList[index].navBarIconType));
-                },
-              )),
+              ...List.generate(
+                  viewPageBloc.navBarIconEntityList.length,
+                  (index) => ListTile(
+                        title: Text(
+                          viewPageBloc.navBarIconEntityList[index].navBarIconType.name.tr(),
+                          style: AppTextStyles.smallParagraph(viewPageBloc.navBarIconEntityList[index].isSelected
+                              ? SaayerTheme().getColorsPalette.primaryColor
+                              : SaayerTheme().getColorsPalette.blackTextColor),
+                          textAlign: TextAlign.center,
+                          softWrap: true,
+                        ),
+                        leading: NavBarIconWidget(
+                          navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType,
+                          onPressed: () {
+                            if (viewPageBloc.navBarIconEntityList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
+                              viewPageBloc.add(const SetShipmentsFiltersValue(
+                                initExportShipmentStatusFilter: null,
+                                exportShipmentDateFrom: null,
+                                exportShipmentDateTo: null,
+                              ));
+                            }
+                            viewPageBloc
+                                .add(GoToPage(navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType));
+                          },
+                          isSelected: viewPageBloc.navBarIconEntityList[index].isSelected,
+                        ),
+                        onTap: () {
+                          if (viewPageBloc.navBarIconEntityList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
+                            viewPageBloc.add(const SetShipmentsFiltersValue(
+                              initExportShipmentStatusFilter: null,
+                              exportShipmentDateFrom: null,
+                              exportShipmentDateTo: null,
+                            ));
+                          }
+                          viewPageBloc
+                              .add(GoToPage(navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType));
+                        },
+                      )),
             ],
           ),
         );

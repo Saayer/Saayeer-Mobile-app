@@ -17,8 +17,8 @@ class PaidAmountsChartSection extends StatelessWidget {
     bool isLoading = false;
     bool hasError = false;
     return BlocConsumer<HomeBloc, HomeState>(
-      buildWhen: (previousState, nextState) =>
-          (previousState.paidAmountsChartStateHelper.requestState != nextState.paidAmountsChartStateHelper.requestState),
+      buildWhen: (previousState, nextState) => (previousState.paidAmountsChartStateHelper.requestState !=
+          nextState.paidAmountsChartStateHelper.requestState),
       listener: (context, state) {
         isLoading = (state.paidAmountsChartStateHelper.requestState == HomeRequestState.LOADING_PAID_COUNT_PER_DAY);
         if (!isLoading) {
@@ -34,7 +34,12 @@ class PaidAmountsChartSection extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Opacity(
-              opacity: (isLoading || hasError || homeBloc.amountPerDateResponse == null) ? 0.5 : 1,
+              opacity: (isLoading ||
+                      hasError ||
+                      homeBloc.amountPerDateResponse == null ||
+                      homeBloc.amountPerDateResponse!.amounts!.isEmpty)
+                  ? 0.5
+                  : 1,
               child: GenericDataBarChartWidget(
                 title: "payments_chart_title".tr(),
                 yAxisTitle: 'sr'.tr(),
@@ -47,8 +52,14 @@ class PaidAmountsChartSection extends StatelessWidget {
             (isLoading || homeBloc.amountPerDateResponse == null)
                 ? const SaayerLoader()
                 : hasError
-                    ? const ErrorStackWidget()
-                    : Container()
+                    ? ErrorStackWidget(
+                        message: 'error_msg'.tr(),
+                      )
+                    : homeBloc.amountPerDateResponse!.amounts!.isEmpty
+                        ? ErrorStackWidget(
+                            message: 'chart_empty_msg'.tr(),
+                          )
+                        : Container()
           ],
         );
       },
