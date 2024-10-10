@@ -6,7 +6,6 @@ enum AddAddressFieldsTypes {
   COUNTRY._(name: "country"),
   GOVERNORATE._(name: "governorate"),
   CITY._(name: "city"),
-  AREA._(name: "area"),
   ADDRESS._(name: "address"),
   ZIPCODE._(name: "zipCode");
 

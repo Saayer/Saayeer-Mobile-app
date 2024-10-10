@@ -134,7 +134,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
                   height: 10,
                 ),
 
-                /// country & governorate & city & area
+                /// country & governorate & city & address
                 ResponsiveRowColumn(
                   layout: ResponsiveValue(context,
                           conditionalValues: [
@@ -149,7 +149,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
                     /// country & governorate
                     _buildThirdColumnRowField(addAddressBloc),
 
-                    /// city & area
+                    /// city & address
                     _buildFourthColumnRowField(addAddressBloc),
                   ],
                 ),
@@ -157,7 +157,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
                   height: 10,
                 ),
 
-                /// address & zipCode
+                /// zipCode
                 _buildFifthColumnRowField(addAddressBloc),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
@@ -177,8 +177,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
         addAddressBloc.addressController.text.isNotEmpty &&
         (addAddressBloc.selectedCountry != null) &&
         (addAddressBloc.selectedGovernorate != null) &&
-        (addAddressBloc.selectedCity != null) &&
-        (addAddressBloc.selectedArea != null)) {
+        (addAddressBloc.selectedCity != null)) {
       return true;
     }
     return false;
@@ -293,10 +292,6 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
         ResponsiveRowColumnItem(
           rowFit: FlexFit.tight,
           child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[8]),
-        ),
-        ResponsiveRowColumnItem(
-          rowFit: FlexFit.tight,
-          child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[9]),
         ),
       ],
     );

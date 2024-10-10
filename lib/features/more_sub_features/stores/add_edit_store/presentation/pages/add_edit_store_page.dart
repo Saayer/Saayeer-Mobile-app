@@ -105,8 +105,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
         storeInfoBloc.addressController.text.isNotEmpty &&
         (storeInfoBloc.selectedCountry != null) &&
         (storeInfoBloc.selectedGovernorate != null) &&
-        (storeInfoBloc.selectedCity != null) &&
-        (storeInfoBloc.selectedArea != null)) {
+        (storeInfoBloc.selectedCity != null)) {
       return true;
     }
     return false;
@@ -147,7 +146,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
                 ),
                 const SizedBox(height: 10),
 
-                /// City & area & addressDetails & zipCode
+                /// City & addressDetails & zipCode & financialRecordNo
                 ResponsiveRowColumn(
                   layout: ResponsiveValue(context,
                           conditionalValues: [
@@ -159,10 +158,10 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
                   columnSpacing: 10,
                   rowSpacing: 15,
                   children: [
-                    /// City & area
+                    /// City & addressDetails
                     _buildThirdColumnRowField(addEditStoreBloc),
 
-                    /// addressDetails & zipCode
+                    /// zipCode & financialRecordNo
                     _buildFourthColumnRowField(addEditStoreBloc),
                   ],
                 ),
@@ -170,7 +169,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
                   height: 10,
                 ),
 
-                /// financialRecordNo & freelance certificate number
+                /// freelance certificate number
                 _buildFifthColumnRowField(addEditStoreBloc),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
@@ -294,10 +293,6 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
             ResponsiveRowColumnItem(
               rowFit: FlexFit.loose,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[8]),
-            ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[9]),
             ),
           ],
         ));

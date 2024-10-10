@@ -76,10 +76,6 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
         {
           return "city".tr();
         }
-      case AddAddressFieldsTypes.AREA:
-        {
-          return "area".tr();
-        }
       default:
         {
           return '';
@@ -102,10 +98,6 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
           {
             return bloc.citiesList;
           }
-        case AddAddressFieldsTypes.AREA:
-          {
-            return bloc.areasList;
-          }
         default:
           {
             return [];
@@ -125,10 +117,6 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
           {
             return bloc.citiesList;
           }
-        case AddAddressFieldsTypes.AREA:
-          {
-            return bloc.areasList;
-          }
         default:
           {
             return [];
@@ -147,10 +135,6 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
         case AddAddressFieldsTypes.CITY:
           {
             return bloc.citiesList;
-          }
-        case AddAddressFieldsTypes.AREA:
-          {
-            return bloc.areasList;
           }
         default:
           {

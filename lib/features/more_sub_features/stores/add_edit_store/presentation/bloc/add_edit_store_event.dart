@@ -85,13 +85,6 @@ class GetGovernorates extends AddEditStoreEvent {
   List<Object> get props => [];
 }
 
-class GetAreas extends AddEditStoreEvent {
-  const GetAreas();
-
-  @override
-  List<Object> get props => [];
-}
-
 class SetValuesInEditType extends AddEditStoreEvent {
   final StoreGetDto storeDto;
 

@@ -213,13 +213,6 @@ class AddressDetailsPage extends StatelessWidget {
                   value: StringsUtil.getLanguageName(
                       arName: addressInfoEntity.cityNameAr ?? '', enName: addressInfoEntity.cityNameEn ?? '')),
             ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _buildAddressDetailsItem(
-                  title: AddAddressFieldsTypes.AREA.name,
-                  value: StringsUtil.getLanguageName(
-                      arName: addressInfoEntity.areaNameAr ?? '', enName: addressInfoEntity.areaNameEn ?? '')),
-            ),
           ],
         ));
   }

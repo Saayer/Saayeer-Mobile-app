@@ -41,16 +41,10 @@ import 'package:saayer/core/services/local_storage/shared_pref_service.dart'
     as _i502;
 import 'package:saayer/core/services/navigation/navigation_service.dart'
     as _i355;
-import 'package:saayer/features/address/add_edit_address/data/data_sources/remote/add_address_info_RDS.dart'
-    as _i1066;
-import 'package:saayer/features/address/add_edit_address/data/data_sources/remote/add_address_info_RDS_impl.dart'
-    as _i16;
 import 'package:saayer/features/address/add_edit_address/data/repositories/add_edit_address_info_repo_impl.dart'
     as _i31;
 import 'package:saayer/features/address/add_edit_address/domain/repositories/add_edit_address_info_repo.dart'
     as _i79;
-import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_areas_usecase.dart'
-    as _i65;
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_cities_usecase.dart'
     as _i590;
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_countries_usecase.dart'
@@ -338,14 +332,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i400.LogInRDS>(
         () => _i211.LogInRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i1066.AddAddressInfoRDS>(
-        () => _i16.AddAddressInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i785.BusinessInfoRDS>(
         () => _i882.BusinessInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i913.HomeRDS>(
         () => _i731.HomeRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i65.GetAreasUseCase>(() => _i65.GetAreasUseCase(
-        addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
     gh.factory<_i465.SubmitAddressInfoUseCase>(() =>
         _i465.SubmitAddressInfoUseCase(
             addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
@@ -363,20 +353,6 @@ extension GetItInjectableX on _i174.GetIt {
         _i779.ShipmentsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i451.AddressesBookRDS>(
         () => _i699.AddressesBookRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i191.AddressWidgetsBloc>(() => _i191.AddressWidgetsBloc(
-          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
-          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
-          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
-          getAreasUseCase: gh<_i65.GetAreasUseCase>(),
-        ));
-    gh.factory<_i854.AddEditAddressBloc>(() => _i854.AddEditAddressBloc(
-          submitAddressInfoUseCase: gh<_i465.SubmitAddressInfoUseCase>(),
-          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
-          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
-          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
-          updateAddressUseCase: gh<_i469.UpdateAddressUseCase>(),
-          getAreasUseCase: gh<_i65.GetAreasUseCase>(),
-        ));
     gh.factory<_i735.LogInRepo>(() => _i681.LogInRepoImpl(
           logInRDSImpl: gh<_i400.LogInRDS>(),
           openAPIConfig: gh<_i801.OpenAPIConfig>(),
@@ -407,6 +383,11 @@ extension GetItInjectableX on _i174.GetIt {
             homeRepoImpl: gh<_i483.HomeRepo>()));
     gh.factory<_i1.GetTotalPaidPerDaysUseCase>(() =>
         _i1.GetTotalPaidPerDaysUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i191.AddressWidgetsBloc>(() => _i191.AddressWidgetsBloc(
+          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
+          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
+        ));
     gh.factory<_i1066.HomeBloc>(() => _i1066.HomeBloc(
           getUserProfileUseCase: gh<_i22.GetUserProfileUseCase>(),
           getShipmentsStatusTotalCountUseCase:
@@ -435,6 +416,13 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i760.DeleteAccountUseCase(moreRepoImpl: gh<_i386.MoreRepo>()));
     gh.factory<_i68.UserCardRepo>(
         () => _i671.UserCardRepoImpl(userCardRDSImpl: gh<_i609.UserCardRDS>()));
+    gh.factory<_i854.AddEditAddressBloc>(() => _i854.AddEditAddressBloc(
+          submitAddressInfoUseCase: gh<_i465.SubmitAddressInfoUseCase>(),
+          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
+          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
+          updateAddressUseCase: gh<_i469.UpdateAddressUseCase>(),
+        ));
     gh.factory<_i736.UserCardUseCase>(
         () => _i736.UserCardUseCase(userCardRepoImpl: gh<_i68.UserCardRepo>()));
     gh.factory<_i883.ShipmentSummaryBloc>(() => _i883.ShipmentSummaryBloc(
@@ -482,6 +470,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i580.GetServiceProvidersListUseCase>(() =>
         _i580.GetServiceProvidersListUseCase(
             shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i462.AddEditStoreBloc>(() => _i462.AddEditStoreBloc(
+          submitStoreInfoUseCase: gh<_i5.SubmitStoreInfoUseCase>(),
+          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
+          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
+          editStoreUseCase: gh<_i987.EditStoreUseCase>(),
+        ));
     gh.factory<_i959.StoresListBloc>(() => _i959.StoresListBloc(
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
           deleteStoresUseCase: gh<_i490.DeleteStoresUseCase>(),
@@ -495,14 +490,6 @@ extension GetItInjectableX on _i174.GetIt {
           getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
           editAddressesUseCase: gh<_i1058.EditAddressesUseCase>(),
           deleteAddressesUseCase: gh<_i1014.DeleteAddressesUseCase>(),
-        ));
-    gh.factory<_i462.AddEditStoreBloc>(() => _i462.AddEditStoreBloc(
-          submitStoreInfoUseCase: gh<_i5.SubmitStoreInfoUseCase>(),
-          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
-          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
-          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
-          getAreasUseCase: gh<_i65.GetAreasUseCase>(),
-          editStoreUseCase: gh<_i987.EditStoreUseCase>(),
         ));
     gh.factory<_i927.RequestNewShipmentBloc>(() => _i927.RequestNewShipmentBloc(
           getCustomersAddressesUseCase: gh<_i436.GetAddressesUseCase>(),

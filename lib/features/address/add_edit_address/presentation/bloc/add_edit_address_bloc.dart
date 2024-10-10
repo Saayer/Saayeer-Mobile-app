@@ -10,7 +10,6 @@ import 'package:injectable/injectable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
-import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_areas_usecase.dart';
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_cities_usecase.dart';
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_countries_usecase.dart';
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_governorate_usecase.dart';
@@ -35,17 +34,15 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
   final GetCountriesUseCase getCountriesUseCase;
   final GetGovernoratesUseCase getGovernoratesUseCase;
   final GetCitiesUseCase getCitiesUseCase;
-  final GetAreasUseCase getAreasUseCase;
   final UpdateAddressUseCase updateAddressUseCase;
 
-  AddEditAddressBloc(
-      {required this.submitAddressInfoUseCase,
-      required this.getCountriesUseCase,
-      required this.getGovernoratesUseCase,
-      required this.getCitiesUseCase,
-      required this.updateAddressUseCase,
-      required this.getAreasUseCase})
-      : super(const AddEditAddressState()) {
+  AddEditAddressBloc({
+    required this.submitAddressInfoUseCase,
+    required this.getCountriesUseCase,
+    required this.getGovernoratesUseCase,
+    required this.getCitiesUseCase,
+    required this.updateAddressUseCase,
+  }) : super(const AddEditAddressState()) {
     initAddressHelper = InitAddressHelper(state: state);
     on<InitAddAddress>(_initAddAddress);
     on<OnTextChange>(_onTextChange);
@@ -55,7 +52,6 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
     on<GetCountries>(_getCountries);
     on<GetGovernorates>(_getGovernorates);
     on<GetCities>(_getCities);
-    on<GetAreas>(_getAreas);
     on<SetUpdateValues>(_setUpdateValues);
     on<OnUpdateAddress>(_onUpdateAddress);
   }
@@ -68,7 +64,6 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
   PhoneNumber mobile = PhoneNumber(isoCode: 'SA', dialCode: '+966');
   PhoneNumber alternativeMobile = PhoneNumber(isoCode: 'SA', dialCode: '+966');
   final TextEditingController addressController = TextEditingController();
-  final TextEditingController areaController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
   final TextEditingController governorateController = TextEditingController();
@@ -76,12 +71,10 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
   AddressLookUpDto? selectedCountry;
   AddressLookUpDto? selectedGovernorate;
   AddressLookUpDto? selectedCity;
-  AddressLookUpDto? selectedArea;
   final Map<AddAddressFieldsTypes, bool> addAddressFieldsValidMap = {};
   final List<AddressLookUpDto> countriesList = [];
   final List<AddressLookUpDto> governoratesList = [];
   List<AddressLookUpDto> citiesList = [];
-  final List<AddressLookUpDto> areasList = [];
 
   Future<FutureOr<void>> _initAddAddress(InitAddAddress event, Emitter<AddEditAddressState> emit) async {
     emit(
@@ -122,24 +115,16 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
       emit(state.copyWith(countryId: event.item.id));
       selectedGovernorate = null;
       selectedCity = null;
-      selectedArea = null;
       governoratesList.clear();
       citiesList.clear();
-      areasList.clear();
     } else if (event.addAddressFieldsType == AddAddressFieldsTypes.GOVERNORATE) {
       selectedGovernorate = event.item;
       emit(state.copyWith(governorateId: event.item.id));
       selectedCity = null;
-      selectedArea = null;
       citiesList.clear();
-      areasList.clear();
     } else if (event.addAddressFieldsType == AddAddressFieldsTypes.CITY) {
       selectedCity = event.item;
       emit(state.copyWith(cityId: event.item.id));
-      selectedArea = null;
-      areasList.clear();
-    } else if (event.addAddressFieldsType == AddAddressFieldsTypes.AREA) {
-      selectedArea = event.item;
     }
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -166,7 +151,7 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
           ..countryId = selectedCountry!.id
           ..cityId = selectedCity!.id
           ..governorateId = selectedGovernorate!.id
-          ..areaId = selectedArea!.id
+          ..areaId = 1
           ..addressDetails = addressController.text
           ..zipcode = zipCodeController.text)));
     await _uploadAddressData(emit);
@@ -346,52 +331,6 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
     }
   }
 
-  FutureOr<void> _getAreas(GetAreas event, Emitter<AddEditAddressState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    final int? cityId;
-    if (state.addEditAddressType == AddEditAddressType.addAddress) {
-      cityId = state.cityId;
-    } else {
-      cityId = selectedCity?.id;
-    }
-    final Either<Failure, List<AddressLookUpDto>> result = await getAreasUseCase(cityId);
-
-    if (result.isLeft()) {
-      final Failure leftResult = (result as Left).value;
-      log("left Areas $leftResult");
-      emit(state.copyWith(
-          stateHelper: state.stateHelper
-              .copyWith(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_AREAS)));
-    } else {
-      final List<AddressLookUpDto>? rightResult = (result as Right).value;
-      log("right Areas $rightResult");
-      if (rightResult != null) {
-        if (rightResult.isNotEmpty) {
-          final bool isEnglish = Localization.isEnglish();
-          areasList.addAll(rightResult);
-          areasList.sort((a, b) => (isEnglish ? a.nameEn : a.nameAr)!
-              .toLowerCase()
-              .compareTo((isEnglish ? b.nameEn : b.nameAr)!.toLowerCase()));
-          log("${rightResult.length}", name: "Areas");
-          emit(state.copyWith(
-            stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
-          ));
-        } else {
-          emit(state.copyWith(
-            stateHelper:
-                const StateHelper(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_AREAS),
-          ));
-        }
-      } else {
-        log("", name: "getAreas error");
-        emit(state.copyWith(
-          stateHelper:
-              const StateHelper(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_AREAS),
-        ));
-      }
-    }
-  }
-
   Future<FutureOr<void>> _setUpdateValues(SetUpdateValues event, Emitter<AddEditAddressState> emit) async {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING),
@@ -418,13 +357,8 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
       ..id = event.customerModel.cityId
       ..nameEn = event.customerModel.cityNameEn
       ..nameAr = event.customerModel.cityNameAr);
-    selectedArea = AddressLookUpDto((b) => b
-      ..id = event.customerModel.areaId
-      ..nameEn = event.customerModel.areaNameEn
-      ..nameAr = event.customerModel.areaNameAr);
 
     add(const GetCities());
-    add(const GetAreas());
   }
 
   Future<FutureOr<void>> _onUpdateAddress(OnUpdateAddress event, Emitter<AddEditAddressState> emit) async {
@@ -445,7 +379,7 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
           ..countryId = selectedCountry!.id
           ..cityId = selectedCity!.id
           ..governorateId = selectedGovernorate!.id
-          ..areaId = selectedArea!.id
+          ..areaId = 1
           ..addressDetails = addressController.text
           ..zipcode = zipCodeController.text)));
 
