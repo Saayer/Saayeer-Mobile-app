@@ -79,13 +79,6 @@ class GetGovernorates extends AddEditAddressEvent {
   List<Object> get props => [];
 }
 
-class GetAreas extends AddEditAddressEvent {
-  const GetAreas();
-
-  @override
-  List<Object> get props => [];
-}
-
 class SetUpdateValues extends AddEditAddressEvent {
   final CustomerGetDto customerModel;
 

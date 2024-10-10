@@ -226,12 +226,6 @@ class OnInfoPressedHelper {
                 userCardEntity.storeInfoEntity?.cityNameEn ?? "";
             break;
           }
-        case StoreInfoFieldsTypes.AREA:
-          {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.areaNameEn ?? "";
-            break;
-          }
         case StoreInfoFieldsTypes.ADDRESS:
           {
             map[storeInfoFieldsType.name] =

@@ -116,31 +116,6 @@ class AddEditAddressInfoRepoImpl implements AddEditAddressInfoRepo {
   }
 
   @override
-  Future<Either<Failure, List<AddressLookUpDto>>> getAreas(int? cityId) async {
-    log("AddressWidgetsRepoImpl");
-    final bool isConnected = await getIt<NetworkInfo>().isConnected;
-    if (isConnected) {
-      try {
-        ///
-        final result = await openAPIConfig.openapi
-            .getAddressLookupsApi()
-            .apiAddressLookupsAreasCityIdGet(cityId: cityId ?? 0, apiKey: NetworkKeys.init().networkKeys.apiKey);
-        log("AddressWidgetsRepoImpl Right $result");
-        if (result.data != null) {
-          return Right(result.data!.toList());
-        } else {
-          return Left(Failure(failureMessage: "Get City failed"));
-        }
-      } catch (e) {
-        log("AddressWidgetsRepoImpl Failure ${e.toString()}");
-        return Left(Failure(failureMessage: "Get City failed"));
-      }
-    }
-    log("AddressInfoRepoImpl No Internet Connection");
-    return Left(Failure(failureMessage: "No Internet Connection"));
-  }
-
-  @override
   Future<Either<Failure, void>> updateAddressInfo(CustomerAddDto customerAddDto) async {
     log("updateAddressInfo");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;

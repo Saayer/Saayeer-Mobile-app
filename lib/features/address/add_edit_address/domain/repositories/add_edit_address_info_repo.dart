@@ -11,7 +11,5 @@ abstract class AddEditAddressInfoRepo {
 
   Future<Either<Failure, List<AddressLookUpDto>>> getGovernorates(int? countryId);
 
-  Future<Either<Failure, List<AddressLookUpDto>>> getAreas(int? cityId);
-
   Future<Either<Failure, void>> updateAddressInfo(CustomerAddDto customerAddDto);
 }
