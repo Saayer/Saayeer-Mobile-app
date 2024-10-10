@@ -48,7 +48,7 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: largerThanTablet(context) ? 3.1 : 1.8,
+                      childAspectRatio: largerThanTablet(context) ? 3 : 1.8,
                       mainAxisSpacing: (8 * 2),
                       crossAxisSpacing: (8 * 2),
                     ),

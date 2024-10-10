@@ -53,13 +53,13 @@ class ShipmentsStatisticItemWidget extends StatelessWidget {
                     children: [
                       animatedIcon
                           ? Lottie.asset(
-                              height: largerThanTablet(context) ? 50 : 35,
+                              height: largerThanTablet(context) ? 40 : 35,
                               Constants.getLottiePath("${title}_shipment.json"),
                             )
                           : Image.asset(
                               Constants.getIconPath("ic_logo.png"),
-                              width: largerThanTablet(context) ? 50 : 35,
-                              height: largerThanTablet(context) ? 50 : 35,
+                              width: largerThanTablet(context) ? 40 : 35,
+                              height: largerThanTablet(context) ? 40 : 35,
                               color: SaayerTheme().getColorsPalette.whiteColor,
                             ),
                       const SizedBox(
