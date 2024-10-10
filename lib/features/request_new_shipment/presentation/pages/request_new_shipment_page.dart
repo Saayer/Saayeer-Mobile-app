@@ -1,7 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
@@ -38,14 +36,6 @@ class RequestNewShipmentPage extends StatelessWidget {
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           resizeToAvoidBottomInset: false,
-          appBar: BaseAppBar(
-            showBackLeading: true,
-            onTapLeading: () {
-              ///
-              requestShipmentBloc.add(GoToPreviousPage());
-            },
-            title: 'request_shipment'.tr(),
-          ),
           body: _buildRequestShipmentBody(context, state, pages),
         );
       },
@@ -69,7 +59,7 @@ class RequestNewShipmentPage extends StatelessWidget {
                   final bool isCurrent = (state.currentPage == index);
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
-                    width: isCurrent ? queryScreenWidth(context) / 5 : queryScreenWidth(context) / 7,
+                    width: _getIndicatorWidth(isCurrent,context),
                     child: LinearIndicator(
                       color: isPrevious
                           ? (SaayerTheme().getColorsPalette.superDarkOrangeColor)
@@ -85,5 +75,16 @@ class RequestNewShipmentPage extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  double _getIndicatorWidth(bool isCurrent, BuildContext context) {
+    if(equalToTablet(context)){
+      return isCurrent ? queryScreenWidth(context) / 6 : queryScreenWidth(context) / 8;
+    }else if(largerThanTablet(context)){
+      return isCurrent ? queryScreenWidth(context) / 7 : queryScreenWidth(context) / 9;
+    }else {
+      return isCurrent ? queryScreenWidth(context) / 5 : queryScreenWidth(context) / 7;
+    }
+
   }
 }
