@@ -23,7 +23,7 @@ class AddressWidgetsBloc extends Bloc<AddressWidgetsEvent, AddressWidgetsState> 
       {required this.getCitiesUseCase, required this.getCountriesUseCase, required this.getGovernoratesUseCase})
       : super(const AddressWidgetsState()) {}
 
-  final List<AddressLookUpDto> cityEntityList = [];
+  final List<CityGetDto> cityEntityList = [];
   final List<AddressLookUpDto> countriesList = [];
   final List<AddressLookUpDto> governoratesList = [];
 }

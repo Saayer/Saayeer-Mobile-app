@@ -72,12 +72,12 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
   final ScrollController scrollController = ScrollController();
 
   ///
-  late DateTime? shipmentDateFrom;
-  late DateTime? shipmentDateTo;
+  DateTime? shipmentDateFrom;
+  DateTime? shipmentDateTo;
   String mobile = "";
   AddressLookUpDto? selectedCountry;
   AddressLookUpDto? selectedGovernorate;
-  AddressLookUpDto? selectedCity;
+  CityGetDto? selectedCity;
 
   ///pagination util
   final _pageSize = 10;
@@ -86,8 +86,7 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
   List<CustomerGetDto> addressesList = [];
   final List<AddressLookUpDto> countriesList = [];
   final List<AddressLookUpDto> governoratesList = [];
-  final List<AddressLookUpDto> citiesList = [];
-  final List<AddressLookUpDto> areasList = [];
+  final List<CityGetDto> citiesList = [];
   final Map<AddAddressFieldsTypes, bool> addAddressFieldsValidMap = {};
 
   Future<FutureOr<void>> _getAddresses(GetAddresses event, Emitter<AddressesBookState> emit) async {
@@ -101,6 +100,8 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
           ..governorateId = selectedGovernorate?.id
           ..totalShipmentsMin = totalShipmentsMin.text.isEmpty ? null : int.parse(totalShipmentsMin.text)
           ..totalShipmentsMax = totalShipmentsMax.text.isEmpty ? null : int.parse(totalShipmentsMax.text)
+          ..shipmentDateFrom = shipmentDateFrom
+          ..shipmentDateTo = shipmentDateTo
           ..skip = addressesList.length
           ..take = _pageSize)));
 
@@ -228,7 +229,7 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
   Future<FutureOr<void>> _getCities(GetCities event, Emitter<AddressesBookState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, List<AddressLookUpDto>> result = await getCitiesUseCase(state.governorateId);
+    final Either<Failure, List<CityGetDto>> result = await getCitiesUseCase(state.governorateId);
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -237,7 +238,7 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: AddressWidgetsErrorStatus.ERROR_GET_CITIES)));
     } else {
-      final List<AddressLookUpDto>? rightResult = (result as Right).value;
+      final List<CityGetDto>? rightResult = (result as Right).value;
       log("right getCities $rightResult");
       if (rightResult != null) {
         if (rightResult.isNotEmpty) {
@@ -296,17 +297,14 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
       selectedCity = null;
       governoratesList.clear();
       citiesList.clear();
-      areasList.clear();
     } else if (event.addAddressFieldsType == AddAddressFieldsTypes.GOVERNORATE) {
       selectedGovernorate = event.item;
       emit(state.copyWith(governorateId: event.item.id));
       selectedCity = null;
       citiesList.clear();
-      areasList.clear();
     } else if (event.addAddressFieldsType == AddAddressFieldsTypes.CITY) {
       selectedCity = event.item;
       emit(state.copyWith(cityId: event.item.id));
-      areasList.clear();
     }
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -353,7 +351,9 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
 
   @override
   Future<void> close() {
-    scrollController..removeListener(()=>_onScrollPagination)..dispose();
+    scrollController
+      ..removeListener(() => _onScrollPagination)
+      ..dispose();
     return super.close();
   }
 

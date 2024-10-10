@@ -18,6 +18,10 @@ class _$CustomerQuery extends CustomerQuery {
   @override
   final int? cityId;
   @override
+  final DateTime? shipmentDateFrom;
+  @override
+  final DateTime? shipmentDateTo;
+  @override
   final int? totalShipmentsMin;
   @override
   final int? totalShipmentsMax;
@@ -35,6 +39,8 @@ class _$CustomerQuery extends CustomerQuery {
       this.countryId,
       this.governorateId,
       this.cityId,
+      this.shipmentDateFrom,
+      this.shipmentDateTo,
       this.totalShipmentsMin,
       this.totalShipmentsMax,
       this.skip,
@@ -57,6 +63,8 @@ class _$CustomerQuery extends CustomerQuery {
         countryId == other.countryId &&
         governorateId == other.governorateId &&
         cityId == other.cityId &&
+        shipmentDateFrom == other.shipmentDateFrom &&
+        shipmentDateTo == other.shipmentDateTo &&
         totalShipmentsMin == other.totalShipmentsMin &&
         totalShipmentsMax == other.totalShipmentsMax &&
         skip == other.skip &&
@@ -71,6 +79,8 @@ class _$CustomerQuery extends CustomerQuery {
     _$hash = $jc(_$hash, countryId.hashCode);
     _$hash = $jc(_$hash, governorateId.hashCode);
     _$hash = $jc(_$hash, cityId.hashCode);
+    _$hash = $jc(_$hash, shipmentDateFrom.hashCode);
+    _$hash = $jc(_$hash, shipmentDateTo.hashCode);
     _$hash = $jc(_$hash, totalShipmentsMin.hashCode);
     _$hash = $jc(_$hash, totalShipmentsMax.hashCode);
     _$hash = $jc(_$hash, skip.hashCode);
@@ -87,6 +97,8 @@ class _$CustomerQuery extends CustomerQuery {
           ..add('countryId', countryId)
           ..add('governorateId', governorateId)
           ..add('cityId', cityId)
+          ..add('shipmentDateFrom', shipmentDateFrom)
+          ..add('shipmentDateTo', shipmentDateTo)
           ..add('totalShipmentsMin', totalShipmentsMin)
           ..add('totalShipmentsMax', totalShipmentsMax)
           ..add('skip', skip)
@@ -120,6 +132,16 @@ class CustomerQueryBuilder
   int? get cityId => _$this._cityId;
   set cityId(int? cityId) => _$this._cityId = cityId;
 
+  DateTime? _shipmentDateFrom;
+  DateTime? get shipmentDateFrom => _$this._shipmentDateFrom;
+  set shipmentDateFrom(DateTime? shipmentDateFrom) =>
+      _$this._shipmentDateFrom = shipmentDateFrom;
+
+  DateTime? _shipmentDateTo;
+  DateTime? get shipmentDateTo => _$this._shipmentDateTo;
+  set shipmentDateTo(DateTime? shipmentDateTo) =>
+      _$this._shipmentDateTo = shipmentDateTo;
+
   int? _totalShipmentsMin;
   int? get totalShipmentsMin => _$this._totalShipmentsMin;
   set totalShipmentsMin(int? totalShipmentsMin) =>
@@ -150,6 +172,8 @@ class CustomerQueryBuilder
       _countryId = $v.countryId;
       _governorateId = $v.governorateId;
       _cityId = $v.cityId;
+      _shipmentDateFrom = $v.shipmentDateFrom;
+      _shipmentDateTo = $v.shipmentDateTo;
       _totalShipmentsMin = $v.totalShipmentsMin;
       _totalShipmentsMax = $v.totalShipmentsMax;
       _skip = $v.skip;
@@ -181,6 +205,8 @@ class CustomerQueryBuilder
             countryId: countryId,
             governorateId: governorateId,
             cityId: cityId,
+            shipmentDateFrom: shipmentDateFrom,
+            shipmentDateTo: shipmentDateTo,
             totalShipmentsMin: totalShipmentsMin,
             totalShipmentsMax: totalShipmentsMax,
             skip: skip,

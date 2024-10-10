@@ -160,7 +160,7 @@ class StoreInfoTextFieldHelper {
       bloc: addEditStoreBloc,
       isFieldRequired: true,
       onSelected: (val) {
-        addEditStoreBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+        addEditStoreBloc.add(OnItemSelectedFromDropDown<CityGetDto>(
           storeInfoFieldsType: storeInfoFieldsType,
           item: val,
         ));

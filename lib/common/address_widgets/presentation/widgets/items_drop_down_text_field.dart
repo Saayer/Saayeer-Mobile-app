@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:openapi/openapi.dart';
 import 'package:saayer/common/text_fields/drop_down_text_field.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
@@ -11,8 +10,8 @@ import 'package:saayer/features/address/addresses_book/presentation/bloc/address
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/bloc/add_edit_store_bloc.dart';
 
 class ItemsDropDownTextField<T> extends StatelessWidget {
-  final void Function(AddressLookUpDto) onSelected;
-  final AddressLookUpDto? selectedItem;
+  final void Function(dynamic) onSelected;
+  final dynamic selectedItem;
   final AddAddressFieldsTypes addAddressFieldsType;
   final T bloc;
   final bool? withValidator;
@@ -33,7 +32,7 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropDownTextField<AddressLookUpDto>(
+    return DropDownTextField(
       label: getFieldLabel(),
       hasLabel: hasLabel,
       isFieldRequired: isFieldRequired,
@@ -44,7 +43,7 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
       withValidator: withValidator,
       items: getList(bloc).isNotEmpty
           ? List.generate(getList(bloc).length, (index) {
-              final AddressLookUpDto item = getList(bloc)[index];
+              final dynamic item = getList(bloc)[index];
               return item;
             })
           : [],
@@ -83,7 +82,7 @@ class ItemsDropDownTextField<T> extends StatelessWidget {
     }
   }
 
-  List<AddressLookUpDto> getList(T bloc) {
+  List<dynamic> getList(T bloc) {
     if (bloc is AddEditAddressBloc) {
       switch (addAddressFieldsType) {
         case AddAddressFieldsTypes.COUNTRY:

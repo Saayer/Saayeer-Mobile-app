@@ -70,11 +70,11 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
   final TextEditingController zipCodeController = TextEditingController();
   AddressLookUpDto? selectedCountry;
   AddressLookUpDto? selectedGovernorate;
-  AddressLookUpDto? selectedCity;
+  CityGetDto? selectedCity;
   final Map<AddAddressFieldsTypes, bool> addAddressFieldsValidMap = {};
   final List<AddressLookUpDto> countriesList = [];
   final List<AddressLookUpDto> governoratesList = [];
-  List<AddressLookUpDto> citiesList = [];
+  List<CityGetDto> citiesList = [];
 
   Future<FutureOr<void>> _initAddAddress(InitAddAddress event, Emitter<AddEditAddressState> emit) async {
     emit(
@@ -292,7 +292,7 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
     } else {
       governorateId = selectedGovernorate?.id;
     }
-    final Either<Failure, List<AddressLookUpDto>> result = await getCitiesUseCase(governorateId);
+    final Either<Failure, List<CityGetDto>> result = await getCitiesUseCase(governorateId);
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -301,7 +301,7 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_CITIES)));
     } else {
-      final List<AddressLookUpDto>? rightResult = (result as Right).value;
+      final List<CityGetDto>? rightResult = (result as Right).value;
       log("right getCities $rightResult");
       if (rightResult != null) {
         if (rightResult.isNotEmpty) {
@@ -310,7 +310,6 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
           citiesList.sort((a, b) => (isEnglish ? a.nameEn : a.nameAr)!
               .toLowerCase()
               .compareTo((isEnglish ? b.nameEn : b.nameAr)!.toLowerCase()));
-          //cityEntityList = List.from(cityEntityList.reversed);
           log("${rightResult.length}", name: "getCities");
           emit(state.copyWith(
             stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
@@ -353,7 +352,7 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
       ..id = event.customerModel.governorateId
       ..nameEn = event.customerModel.governorateNameEn
       ..nameAr = event.customerModel.governorateNameAr);
-    selectedCity = AddressLookUpDto((b) => b
+    selectedCity = CityGetDto((b) => b
       ..id = event.customerModel.cityId
       ..nameEn = event.customerModel.cityNameEn
       ..nameAr = event.customerModel.cityNameAr);

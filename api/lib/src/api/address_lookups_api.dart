@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/address_look_up_dto.dart';
+import 'package:openapi/src/model/city_get_dto.dart';
 
 class AddressLookupsApi {
 
@@ -117,9 +118,9 @@ class AddressLookupsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<AddressLookUpDto>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<CityGetDto>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<AddressLookUpDto>>> apiAddressLookupsCitiesGovernorateIdGet({ 
+  Future<Response<BuiltList<CityGetDto>>> apiAddressLookupsCitiesGovernorateIdGet({ 
     required int governorateId,
     required String apiKey,
     CancelToken? cancelToken,
@@ -157,14 +158,14 @@ class AddressLookupsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<AddressLookUpDto>? _responseData;
+    BuiltList<CityGetDto>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(AddressLookUpDto)]),
-      ) as BuiltList<AddressLookUpDto>;
+        specifiedType: const FullType(BuiltList, [FullType(CityGetDto)]),
+      ) as BuiltList<CityGetDto>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -176,7 +177,7 @@ class AddressLookupsApi {
       );
     }
 
-    return Response<BuiltList<AddressLookUpDto>>(
+    return Response<BuiltList<CityGetDto>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
