@@ -49,6 +49,7 @@ class ViewPagePage extends StatelessWidget {
         final NavBarIconEntity selectedNavBarIconEntity =
             viewPageBloc.navBarIconEntityList.firstWhere((element) => element.isSelected);
         final bool isHome = (selectedNavBarIconEntity.navBarIconType == NavBarIconTypes.HOME);
+        final bool isRequestShipment = (selectedNavBarIconEntity.navBarIconType == NavBarIconTypes.REQUEST_SHIPMENT);
         return GeneralResponsiveScaledBoxWidget(
           child: Scaffold(
               backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
@@ -63,6 +64,7 @@ class ViewPagePage extends StatelessWidget {
                           .tr()
                       : null,
                   showBackLeading: false,
+                  showAppBar: isRequestShipment ? false : true,
                   height: 50,
                   actions: [
                     if (isHome)
