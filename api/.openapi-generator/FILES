@@ -10,6 +10,7 @@ doc/AmountPerDateResponse.md
 doc/AramexWebhookRequest.md
 doc/AramexWebhookValue.md
 doc/AuthApi.md
+doc/CityGetDto.md
 doc/ClientAddDto.md
 doc/ClientDashboardApi.md
 doc/ClientGetDto.md
@@ -75,6 +76,7 @@ lib/src/model/amount_per_date_dto.dart
 lib/src/model/amount_per_date_response.dart
 lib/src/model/aramex_webhook_request.dart
 lib/src/model/aramex_webhook_value.dart
+lib/src/model/city_get_dto.dart
 lib/src/model/client_add_dto.dart
 lib/src/model/client_get_dto.dart
 lib/src/model/count_per_date_item_dto.dart
@@ -109,6 +111,4 @@ lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/amount_per_date_response_test.dart
-test/count_per_date_item_dto_test.dart
-test/count_per_date_response_test.dart
+test/city_get_dto_test.dart

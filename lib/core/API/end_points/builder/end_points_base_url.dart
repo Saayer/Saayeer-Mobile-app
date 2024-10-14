@@ -14,12 +14,12 @@ class EndPointsBaseUrl {
       case FlavorType.DEV:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "https://app.saayer.com:9002/saayer-20/dev");
+              baseUrl: "https://app.saayer.com:9002/saayer-22/dev");
         }
       case FlavorType.STAGING:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "https://app.saayer.com:9002/saayer-20/stag");
+              baseUrl: "https://app.saayer.com:9002/saayer-22/stag");
         }
       case FlavorType.PROD:
         {

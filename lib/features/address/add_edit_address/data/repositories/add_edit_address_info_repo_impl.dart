@@ -92,7 +92,7 @@ class AddEditAddressInfoRepoImpl implements AddEditAddressInfoRepo {
   }
 
   @override
-  Future<Either<Failure, List<AddressLookUpDto>>> getCities(int? governorateId) async {
+  Future<Either<Failure, List<CityGetDto>>> getCities(int? governorateId) async {
     log("AddressWidgetsRepoImpl");
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {

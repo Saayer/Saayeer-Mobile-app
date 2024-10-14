@@ -20,6 +20,7 @@ import 'package:openapi/src/model/amount_per_date_dto.dart';
 import 'package:openapi/src/model/amount_per_date_response.dart';
 import 'package:openapi/src/model/aramex_webhook_request.dart';
 import 'package:openapi/src/model/aramex_webhook_value.dart';
+import 'package:openapi/src/model/city_get_dto.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
 import 'package:openapi/src/model/count_per_date_item_dto.dart';
@@ -61,6 +62,7 @@ part 'serializers.g.dart';
   AmountPerDateResponse,
   AramexWebhookRequest,
   AramexWebhookValue,
+  CityGetDto,
   ClientAddDto,
   ClientGetDto,
   CountPerDateItemDto,
@@ -97,6 +99,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ShipmentStatusGetDto)]),
         () => ListBuilder<ShipmentStatusGetDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CityGetDto)]),
+        () => ListBuilder<CityGetDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ServiceCost)]),

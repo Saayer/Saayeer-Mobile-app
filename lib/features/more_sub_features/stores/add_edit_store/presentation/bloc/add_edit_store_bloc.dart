@@ -69,10 +69,10 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
   final TextEditingController freelanceCertificateNoController = TextEditingController();
   AddressLookUpDto? selectedCountry;
   AddressLookUpDto? selectedGovernorate;
-  AddressLookUpDto? selectedCity;
+  CityGetDto? selectedCity;
   final List<AddressLookUpDto> countriesList = [];
   final List<AddressLookUpDto> governoratesList = [];
-  List<AddressLookUpDto> citiesList = [];
+  List<CityGetDto> citiesList = [];
   Map<StoreInfoFieldsTypes, bool> storeInfoFieldsValidMap = {};
 
   Future<FutureOr<void>> _initAddEditStore(InitAddEditStore event, Emitter<AddEditStoreState> emit) async {
@@ -282,7 +282,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
     } else {
       governorateId = selectedGovernorate?.id;
     }
-    final Either<Failure, List<AddressLookUpDto>> result = await getCitiesUseCase(governorateId);
+    final Either<Failure, List<CityGetDto>> result = await getCitiesUseCase(governorateId);
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -291,7 +291,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_CITIES)));
     } else {
-      final List<AddressLookUpDto>? rightResult = (result as Right).value;
+      final List<CityGetDto>? rightResult = (result as Right).value;
       log("right getCities $rightResult");
       if (rightResult != null) {
         if (rightResult.isNotEmpty) {
@@ -340,7 +340,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
       ..id = event.storeDto.governorateId
       ..nameEn = event.storeDto.governorateNameEn
       ..nameAr = event.storeDto.governorateNameAr);
-    selectedCity = AddressLookUpDto((b) => b
+    selectedCity = CityGetDto((b) => b
       ..id = event.storeDto.cityId
       ..nameEn = event.storeDto.cityNameEn
       ..nameAr = event.storeDto.cityNameAr);

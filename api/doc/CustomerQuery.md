@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **countryId** | **int** |  | [optional] 
 **governorateId** | **int** |  | [optional] 
 **cityId** | **int** |  | [optional] 
+**shipmentDateFrom** | [**DateTime**](DateTime.md) |  | [optional] 
+**shipmentDateTo** | [**DateTime**](DateTime.md) |  | [optional] 
 **totalShipmentsMin** | **int** |  | [optional] 
 **totalShipmentsMax** | **int** |  | [optional] 
 **skip** | **int** |  | [optional] 

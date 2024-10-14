@@ -227,7 +227,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
           withValidator: false,
           hasMargin: false,
           onSelected: (val) {
-            widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+            widget.addressesBookBloc.add(OnItemSelectedFromDropDown<CityGetDto>(
               addAddressFieldsType: AddAddressFieldsTypes.CITY,
               item: val,
             ));
@@ -250,6 +250,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
           onTap: () async {
             DateTime? res = await showDate();
             widget.addressesBookBloc.shipmentDateFromController.text = DateTimeUtil.dMyString(res);
+            widget.addressesBookBloc.shipmentDateFrom = DateTimeUtil.toUtcDateTime(DateTimeUtil.dMyString(res));
           },
           onChanged: (val) {},
           validator: null,
@@ -264,6 +265,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
           onTap: () async {
             DateTime? res = await showDate();
             widget.addressesBookBloc.shipmentDateToController.text = DateTimeUtil.dMyString(res);
+            widget.addressesBookBloc.shipmentDateTo = DateTimeUtil.toUtcDateTime(DateTimeUtil.dMyString(res));
           },
           onChanged: (val) {},
           validator: null,
@@ -338,7 +340,6 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
     widget.addressesBookBloc.selectedCity = null;
     widget.addressesBookBloc.governoratesList.clear();
     widget.addressesBookBloc.citiesList.clear();
-    widget.addressesBookBloc.areasList.clear();
     setState(() {});
   }
 

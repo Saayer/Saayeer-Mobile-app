@@ -168,7 +168,7 @@ class AddressTextFieldHelper {
       bloc: addAddressBloc,
       isFieldRequired: true,
       onSelected: (val) {
-        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+        addAddressBloc.add(OnItemSelectedFromDropDown<CityGetDto>(
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
