@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
@@ -36,6 +38,14 @@ class RequestNewShipmentPage extends StatelessWidget {
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           resizeToAvoidBottomInset: false,
+          appBar: BaseAppBar(
+            showBackLeading: true,
+            onTapLeading: () {
+              ///
+              requestShipmentBloc.add(GoToPreviousPage());
+            },
+            title: 'request_shipment'.tr(),
+          ),
           body: _buildRequestShipmentBody(context, state, pages),
         );
       },
