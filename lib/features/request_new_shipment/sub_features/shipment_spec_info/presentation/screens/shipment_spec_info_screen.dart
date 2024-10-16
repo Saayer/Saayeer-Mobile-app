@@ -191,25 +191,23 @@ class _ShipmentSpecInfoScreenState extends State<ShipmentSpecInfoScreen> {
   }
 
   _buildThirdColumnRowField(RequestNewShipmentBloc requestShipmentBloc) {
-    return ResponsiveRowColumnItem(
-        rowFit: equalToMobile(context) ? null : FlexFit.tight,
-        child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-                rowFit: equalToMobile(context) ? null : FlexFit.tight,
-                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[4])),
-            ResponsiveRowColumnItem(
-                rowFit: equalToMobile(context) ? null : FlexFit.tight,
-                child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[5])),
-          ],
-        ));
+    return ResponsiveRowColumn(
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+            rowFit: equalToMobile(context) ? null : FlexFit.tight,
+            child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[4])),
+        ResponsiveRowColumnItem(
+            rowFit: equalToMobile(context) ? null : FlexFit.tight,
+            child: _getTextField(requestShipmentBloc, ShipmentSpecInfoFieldsTypes.values[5])),
+      ],
+    );
   }
 
   _getTextField(RequestNewShipmentBloc requestShipmentBloc, ShipmentSpecInfoFieldsTypes type) {
