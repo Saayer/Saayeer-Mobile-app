@@ -10,7 +10,6 @@ import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
@@ -109,7 +108,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: state.currentPage - 1));
     } else {
-      getIt<NavigationService>().pop();
+      //getIt<NavigationService>().pop();
       emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.SUCCESS),
       ));
