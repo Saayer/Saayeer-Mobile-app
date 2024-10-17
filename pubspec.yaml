@@ -42,7 +42,7 @@ dependencies:
   equatable: 2.0.5
   # flutter_inappwebview: 6.0.0
   # not web
-  lottie: 3.1.2
+  lottie: 3.1.3
   # not web
   cached_network_image: 3.3.1
   fast_cached_network_image: 1.2.9
