@@ -38,20 +38,26 @@ class ShipmentProviderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _getLeadingWidget(),
-                (shipmentProviderModel.hasError ?? false)
-                    ? Text('not_available'.tr(),
-                        style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
-                    :
+                (shipmentProviderModel.isImplemented ?? true)
+                    ? (shipmentProviderModel.hasError ?? false)
+                        ? Text('not_available'.tr(),
+                            style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
+                        :
 
-                    /// Cost & Business days
-                    _buildRowColumnWidget(context)
+                        /// Cost & Business days
+                        _buildRowColumnWidget(context)
+                    : Text('soon'.tr(), style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
               ],
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-            value: (shipmentProviderModel.hasError ?? false) ? ServiceCost() : shipmentProviderModel,
+            value: ((shipmentProviderModel.hasError ?? false) || !(shipmentProviderModel.isImplemented ?? true))
+                ? ServiceCost()
+                : shipmentProviderModel,
             groupValue: groupValue,
             activeColor: SaayerTheme().getColorsPalette.primaryColor,
-            onChanged: (shipmentProviderModel.hasError ?? false) ? null : onChanged,
+            onChanged: ((shipmentProviderModel.hasError ?? false) || !(shipmentProviderModel.isImplemented ?? true))
+                ? null
+                : onChanged,
           )),
     );
   }

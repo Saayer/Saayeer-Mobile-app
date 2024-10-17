@@ -12,6 +12,8 @@ class _$LogisticsServiceBase extends LogisticsServiceBase {
   @override
   final String? company;
   @override
+  final bool? isImplemented;
+  @override
   final int? workDaysMinimum;
   @override
   final int? workDaysMaximum;
@@ -21,7 +23,11 @@ class _$LogisticsServiceBase extends LogisticsServiceBase {
       (new LogisticsServiceBaseBuilder()..update(updates))._build();
 
   _$LogisticsServiceBase._(
-      {this.name, this.company, this.workDaysMinimum, this.workDaysMaximum})
+      {this.name,
+      this.company,
+      this.isImplemented,
+      this.workDaysMinimum,
+      this.workDaysMaximum})
       : super._();
 
   @override
@@ -39,6 +45,7 @@ class _$LogisticsServiceBase extends LogisticsServiceBase {
     return other is LogisticsServiceBase &&
         name == other.name &&
         company == other.company &&
+        isImplemented == other.isImplemented &&
         workDaysMinimum == other.workDaysMinimum &&
         workDaysMaximum == other.workDaysMaximum;
   }
@@ -48,6 +55,7 @@ class _$LogisticsServiceBase extends LogisticsServiceBase {
     var _$hash = 0;
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, company.hashCode);
+    _$hash = $jc(_$hash, isImplemented.hashCode);
     _$hash = $jc(_$hash, workDaysMinimum.hashCode);
     _$hash = $jc(_$hash, workDaysMaximum.hashCode);
     _$hash = $jf(_$hash);
@@ -59,6 +67,7 @@ class _$LogisticsServiceBase extends LogisticsServiceBase {
     return (newBuiltValueToStringHelper(r'LogisticsServiceBase')
           ..add('name', name)
           ..add('company', company)
+          ..add('isImplemented', isImplemented)
           ..add('workDaysMinimum', workDaysMinimum)
           ..add('workDaysMaximum', workDaysMaximum))
         .toString();
@@ -76,6 +85,11 @@ class LogisticsServiceBaseBuilder
   String? _company;
   String? get company => _$this._company;
   set company(String? company) => _$this._company = company;
+
+  bool? _isImplemented;
+  bool? get isImplemented => _$this._isImplemented;
+  set isImplemented(bool? isImplemented) =>
+      _$this._isImplemented = isImplemented;
 
   int? _workDaysMinimum;
   int? get workDaysMinimum => _$this._workDaysMinimum;
@@ -96,6 +110,7 @@ class LogisticsServiceBaseBuilder
     if ($v != null) {
       _name = $v.name;
       _company = $v.company;
+      _isImplemented = $v.isImplemented;
       _workDaysMinimum = $v.workDaysMinimum;
       _workDaysMaximum = $v.workDaysMaximum;
       _$v = null;
@@ -122,6 +137,7 @@ class LogisticsServiceBaseBuilder
         new _$LogisticsServiceBase._(
             name: name,
             company: company,
+            isImplemented: isImplemented,
             workDaysMinimum: workDaysMinimum,
             workDaysMaximum: workDaysMaximum);
     replace(_$result);

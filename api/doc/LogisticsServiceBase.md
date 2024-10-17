@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | [optional] 
 **company** | **String** |  | [optional] 
+**isImplemented** | **bool** |  | [optional] 
 **workDaysMinimum** | **int** |  | [optional] 
 **workDaysMaximum** | **int** |  | [optional] 
 

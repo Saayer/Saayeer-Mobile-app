@@ -19,6 +19,7 @@ part 'service_cost.g.dart';
 /// * [estimatedShipmentDays] 
 /// * [hasError] 
 /// * [errorMessage] 
+/// * [isImplemented] 
 @BuiltValue()
 abstract class ServiceCost implements Built<ServiceCost, ServiceCostBuilder> {
   @BuiltValueField(wireName: r'name')
@@ -44,6 +45,9 @@ abstract class ServiceCost implements Built<ServiceCost, ServiceCostBuilder> {
 
   @BuiltValueField(wireName: r'errorMessage')
   String? get errorMessage;
+
+  @BuiltValueField(wireName: r'isImplemented')
+  bool? get isImplemented;
 
   ServiceCost._();
 
@@ -122,6 +126,13 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
       yield serializers.serialize(
         object.errorMessage,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.isImplemented != null) {
+      yield r'isImplemented';
+      yield serializers.serialize(
+        object.isImplemented,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -206,6 +217,13 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
           ) as String?;
           if (valueDes == null) continue;
           result.errorMessage = valueDes;
+          break;
+        case r'isImplemented':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isImplemented = valueDes;
           break;
         default:
           unhandled.add(key);
