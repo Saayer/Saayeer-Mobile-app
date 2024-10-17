@@ -39,7 +39,7 @@ class VerifyOtpPage extends StatelessWidget {
               if (state.isVerified) {
                 SaayerToast().showSuccessToast(msg: "welcome".tr());
                 await getIt<SharedPrefService>().setIsLoggedIn(true);
-                getIt<NavigationService>().navigateTo(const ViewPageScreen());
+                getIt<NavigationService>().navigateAndFinish(const ViewPageScreen());
               } else {
                 SaayerToast().showSuccessToast(msg: 'invalid_otp_error_description'.tr());
               }
