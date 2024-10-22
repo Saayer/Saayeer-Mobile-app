@@ -184,7 +184,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
 
   _buildFirstColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.loose,
+        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
           layout: ResponsiveValue(context,
                   conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
@@ -195,11 +195,11 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
           rowSpacing: 15,
           children: [
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[0]),
             ),
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[1]),
             ),
           ],
@@ -208,7 +208,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
 
   _buildSecondColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.loose,
+        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
           layout: ResponsiveValue(context,
                   conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
@@ -219,11 +219,11 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
           rowSpacing: 15,
           children: [
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[2]),
             ),
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[3]),
             ),
           ],
@@ -232,7 +232,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
 
   _buildThirdColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.loose,
+        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
           layout: ResponsiveValue(context,
                   conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
@@ -243,11 +243,11 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
           rowSpacing: 15,
           children: [
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[4]),
             ),
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[5]),
             ),
           ],
@@ -256,7 +256,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
 
   _buildFourthColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumnItem(
-        rowFit: FlexFit.loose,
+        rowFit: FlexFit.tight,
         child: ResponsiveRowColumn(
           layout: ResponsiveValue(context,
                   conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
@@ -267,11 +267,11 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
           rowSpacing: 15,
           children: [
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[6]),
             ),
             ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
+              rowFit: FlexFit.tight,
               child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[7]),
             ),
           ],
@@ -279,22 +279,20 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
   }
 
   _buildFifthColumnRowField(AddEditStoreBloc addEditStoreBloc) {
-    return ResponsiveRowColumnItem(
-        rowFit: FlexFit.loose,
-        child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.loose,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[8]),
-            ),
-          ],
-        ));
+    return ResponsiveRowColumn(
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          rowFit: FlexFit.tight,
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[8]),
+        ),
+      ],
+    );
   }
 }

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **estimatedShipmentDays** | **String** |  | [optional] 
 **hasError** | **bool** |  | [optional] 
 **errorMessage** | **String** |  | [optional] 
+**isImplemented** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

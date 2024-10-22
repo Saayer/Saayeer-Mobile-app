@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-deploy
+  version: v-23-dev
 servers:
-  - url: "/saayer-22/dev"
+  - url: "/saayer-23/dev"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -1580,6 +1580,9 @@ components:
           type: string
           nullable: true
           readOnly: true
+        isImplemented:
+          type: boolean
+          readOnly: true
         workDaysMinimum:
           type: integer
           format: int32
@@ -1667,6 +1670,8 @@ components:
         errorMessage:
           type: string
           nullable: true
+        isImplemented:
+          type: boolean
       additionalProperties: false
     ShipmentAddDto:
       type: object
