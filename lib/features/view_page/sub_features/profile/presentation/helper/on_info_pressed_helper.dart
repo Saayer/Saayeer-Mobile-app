@@ -5,28 +5,24 @@ import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/secure_storage_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/profile_sub_features/info/core/utils/enums/enums.dart';
 import 'package:saayer/features/profile_sub_features/info/domain/entities/info_entity.dart';
-import 'package:saayer/features/profile_sub_features/info/presentation/screens/info_screen.dart';
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
-import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/personal_info/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/utils/enums/enums.dart';
 
 class OnInfoPressedHelper {
-  final BuildContext context =
-      getIt<NavigationService>().mainNavigatorKey.currentContext!;
+  final BuildContext context = getIt<NavigationService>().mainNavigatorKey.currentContext!;
 
   onInfoPressed(String infoTypeStr) async {
     final InfoTypes infoType = _getInfoTypes(infoTypeStr);
-    final UserCardEntity? userCardEntity =
-        await SecureStorageService().getUserCardInfo();
+    final UserCardEntity? userCardEntity = await SecureStorageService().getUserCardInfo();
     final bool isInfoCompleted = _getIsInfoCompleted(userCardEntity, infoType);
-    final int numberOfDoneUserCardInfo =
-        _getNumberOfDoneUserCardInfo(userCardEntity, infoType);
+    final int numberOfDoneUserCardInfo = _getNumberOfDoneUserCardInfo(userCardEntity, infoType);
     if (!isInfoCompleted) {
       showModalBottomSheet(
         context: getIt<NavigationService>().mainNavigatorKey.currentContext!,
@@ -37,20 +33,19 @@ class OnInfoPressedHelper {
         },
       );
     } else {
-      final Map<String, dynamic> fields =
-          _getInfoFields(userCardEntity!, infoType);
-      getIt<NavigationService>().navigateTo(InfoScreen(
-        infoEntity: InfoEntity(
+      final Map<String, dynamic> fields = _getInfoFields(userCardEntity!, infoType);
+      getIt<NavigationService>().navigateToNamed(
+        Routes.infoNamedPage,
+        arguments: InfoEntity(
           infoType: infoType,
           fields: fields,
         ),
-      ));
+      );
     }
   }
 
   InfoTypes _getInfoTypes(String infoTypeStr) {
-    return InfoTypes.values
-        .firstWhere((element) => (element.name.compareTo(infoTypeStr) == 0));
+    return InfoTypes.values.firstWhere((element) => (element.name.compareTo(infoTypeStr) == 0));
   }
 
   bool _getIsInfoCompleted(UserCardEntity? userCardEntity, InfoTypes infoType) {
@@ -70,8 +65,7 @@ class OnInfoPressedHelper {
     }
   }
 
-  int _getNumberOfDoneUserCardInfo(
-      UserCardEntity? userCardEntity, InfoTypes infoType) {
+  int _getNumberOfDoneUserCardInfo(UserCardEntity? userCardEntity, InfoTypes infoType) {
     int numberOfDoneUserCardInfo = 0;
     final List<bool> userCardInfoList = [
       (userCardEntity?.hasPersonalInformation ?? false),
@@ -86,8 +80,7 @@ class OnInfoPressedHelper {
     return numberOfDoneUserCardInfo;
   }
 
-  Map<String, dynamic> _getInfoFields(
-      UserCardEntity userCardEntity, InfoTypes infoType) {
+  Map<String, dynamic> _getInfoFields(UserCardEntity userCardEntity, InfoTypes infoType) {
     switch (infoType) {
       case InfoTypes.PERSONAL_INFO:
         {
@@ -106,31 +99,26 @@ class OnInfoPressedHelper {
 
   Map<String, String> _getPersonalInfoMap(UserCardEntity userCardEntity) {
     final Map<String, String> map = {};
-    for (PersonalInfoFieldsTypes personalInfoFieldsType
-        in PersonalInfoFieldsTypes.values) {
+    for (PersonalInfoFieldsTypes personalInfoFieldsType in PersonalInfoFieldsTypes.values) {
       switch (personalInfoFieldsType) {
         case PersonalInfoFieldsTypes.NAME:
           {
-            map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.fullName ?? "";
+            map[personalInfoFieldsType.name] = userCardEntity.personalInfoEntity?.fullName ?? "";
             break;
           }
         case PersonalInfoFieldsTypes.PHONE:
           {
-            map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.phoneNo ?? "";
+            map[personalInfoFieldsType.name] = userCardEntity.personalInfoEntity?.phoneNo ?? "";
             break;
           }
         case PersonalInfoFieldsTypes.EMAIL:
           {
-            map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.email ?? "";
+            map[personalInfoFieldsType.name] = userCardEntity.personalInfoEntity?.email ?? "";
             break;
           }
         case PersonalInfoFieldsTypes.BUSINESSNAME:
           {
-            map[personalInfoFieldsType.name] =
-                userCardEntity.personalInfoEntity?.businessName ?? "";
+            map[personalInfoFieldsType.name] = userCardEntity.personalInfoEntity?.businessName ?? "";
             break;
           }
       }
@@ -140,50 +128,41 @@ class OnInfoPressedHelper {
 
   Map<String, String> _getBusinessInfoMap(UserCardEntity userCardEntity) {
     final Map<String, String> map = {};
-    for (BusinessInfoFieldsTypes businessInfoFieldsType
-        in BusinessInfoFieldsTypes.values) {
+    for (BusinessInfoFieldsTypes businessInfoFieldsType in BusinessInfoFieldsTypes.values) {
       switch (businessInfoFieldsType) {
         case BusinessInfoFieldsTypes.COMPANY_NAME:
           {
-            map[businessInfoFieldsType.name] =
-                userCardEntity.businessInfoEntity?.companyName ?? "";
+            map[businessInfoFieldsType.name] = userCardEntity.businessInfoEntity?.companyName ?? "";
             break;
           }
         case BusinessInfoFieldsTypes.EMAIL:
           {
-            map[businessInfoFieldsType.name] =
-                userCardEntity.businessInfoEntity?.email ?? "";
+            map[businessInfoFieldsType.name] = userCardEntity.businessInfoEntity?.email ?? "";
             break;
           }
         case BusinessInfoFieldsTypes.MOBILE_NUMBER:
           {
-            map[businessInfoFieldsType.name] =
-                userCardEntity.businessInfoEntity?.mobileNumber ?? "";
+            map[businessInfoFieldsType.name] = userCardEntity.businessInfoEntity?.mobileNumber ?? "";
             break;
           }
         case BusinessInfoFieldsTypes.COMMERCIAL_REGISTERATION_NO:
           {
-            map[businessInfoFieldsType.name] =
-                userCardEntity.businessInfoEntity?.commercialRegistrationNo ??
-                    "";
+            map[businessInfoFieldsType.name] = userCardEntity.businessInfoEntity?.commercialRegistrationNo ?? "";
             break;
           }
         case BusinessInfoFieldsTypes.SHORT_ADDRESS:
           {
-            map[businessInfoFieldsType.name] =
-                userCardEntity.businessInfoEntity?.shortAddress ?? "";
+            map[businessInfoFieldsType.name] = userCardEntity.businessInfoEntity?.shortAddress ?? "";
             break;
           }
         case BusinessInfoFieldsTypes.DISTRICT:
           {
-            map[businessInfoFieldsType.name] =
-                userCardEntity.businessInfoEntity?.district ?? "";
+            map[businessInfoFieldsType.name] = userCardEntity.businessInfoEntity?.district ?? "";
             break;
           }
         case BusinessInfoFieldsTypes.GOVERNORATE:
           {
-            map[businessInfoFieldsType.name] =
-                userCardEntity.businessInfoEntity?.governorate ?? "";
+            map[businessInfoFieldsType.name] = userCardEntity.businessInfoEntity?.governorate ?? "";
             break;
           }
       }
@@ -193,61 +172,51 @@ class OnInfoPressedHelper {
 
   Map<String, String> _getStoreInfoMap(UserCardEntity userCardEntity) {
     final Map<String, String> map = {};
-    for (StoreInfoFieldsTypes storeInfoFieldsType
-        in StoreInfoFieldsTypes.values) {
+    for (StoreInfoFieldsTypes storeInfoFieldsType in StoreInfoFieldsTypes.values) {
       switch (storeInfoFieldsType) {
         case StoreInfoFieldsTypes.NAME:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.name ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.name ?? "";
             break;
           }
         case StoreInfoFieldsTypes.PHONE:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.phoneNo ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.phoneNo ?? "";
             break;
           }
         case StoreInfoFieldsTypes.COUNTRY:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.countryNameEn ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.countryNameEn ?? "";
             break;
           }
         case StoreInfoFieldsTypes.GOVERNORATE:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.governorateNameEn ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.governorateNameEn ?? "";
             break;
           }
         case StoreInfoFieldsTypes.CITY:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.cityNameEn ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.cityNameEn ?? "";
             break;
           }
         case StoreInfoFieldsTypes.ADDRESS:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.addressDetails ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.addressDetails ?? "";
             break;
           }
         case StoreInfoFieldsTypes.ZIPCODE:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.zipcode ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.zipcode ?? "";
             break;
           }
         case StoreInfoFieldsTypes.FINANCIAL_RECORD_NUMBER:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.financialRecordNumber ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.financialRecordNumber ?? "";
             break;
           }
         case StoreInfoFieldsTypes.FREELANCE_CERTIFICATE_NUMBER:
           {
-            map[storeInfoFieldsType.name] =
-                userCardEntity.storeInfoEntity?.freelanceCertificateNumber ?? "";
+            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.freelanceCertificateNumber ?? "";
             break;
           }
       }
@@ -299,9 +268,10 @@ class OnInfoPressedHelper {
                 borderRadius: 16.r,
                 onPressed: () {
                   getIt<NavigationService>().pop();
-                  getIt<NavigationService>().navigateTo(UserInfoViewPageScreen(
-                    initialPage: numberOfDoneUserCardInfo,
-                  ));
+                  getIt<NavigationService>().navigateToNamed(
+                    Routes.userInfoViewNamedPage,
+                    arguments: numberOfDoneUserCardInfo,
+                  );
                 },
                 btnWidth: width / 1.2,
                 btnHeight: 50.h,

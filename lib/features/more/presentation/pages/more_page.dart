@@ -4,15 +4,10 @@ import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/more_sub_features/contact_us/presentation/screens/contact_us_screen.dart';
-import 'package:saayer/features/more_sub_features/settings/presentation/screens/settings_screen.dart';
 import 'package:saayer/features/more_sub_features/static_pages/core/enums/enums.dart';
-import 'package:saayer/features/more_sub_features/static_pages/presentation/screens/static_pages_screen.dart';
-import 'package:saayer/features/more_sub_features/stores/stores_list/presentation/screens/stores_list_screen.dart';
-import 'package:saayer/features/more_sub_features/why_saayer/presentation/screens/why_saayer_screen.dart';
-import 'package:saayer/features/splash/presentation/screens/splash_screen.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/more/presentation/bloc/more_bloc.dart';
 import 'package:saayer/features/more/presentation/widgets/more_cards_widget.dart';
@@ -36,7 +31,7 @@ class MorePage extends StatelessWidget {
           if (state.isRefreshed) {}
           if (state.stateHelper.requestState == RequestState.LOADED) {
             if (state.isLoggedOut) {
-              getIt<NavigationService>().navigateAndFinish(const SplashScreen());
+              getIt<NavigationService>().navigateAndFinishNamed(Routes.splashNamedPage);
             }
           }
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
@@ -79,43 +74,46 @@ class MorePage extends StatelessWidget {
                   const MoreItemWidget(
                     iconName: "settings",
                     title: "settings",
-                    onPressedWidget: SettingsScreen(),
+                    onPressedRouteName: Routes.settingsNamedPage,
                   ),
                   dividerWidget,
                   const MoreItemWidget(
                     iconName: "total_store_requests",
                     title: "stores",
-                    onPressedWidget: StoresListScreen(),
+                    onPressedRouteName: Routes.storesListNamedPage,
                   ),
                   dividerWidget,
                   const MoreItemWidget(
                     iconName: "contact_us",
                     title: "contact_us",
-                    onPressedWidget: ContactUsScreen(),
+                    onPressedRouteName: Routes.contactUsNamedPage,
                   ),
                   dividerWidget,
                   const MoreItemWidget(
                     iconName: "logo",
                     title: "why_saayer",
                     size: 23,
-                    onPressedWidget: WhySaayerScreen(),
+                    onPressedRouteName: Routes.whySaayerNamedPage,
                   ),
                   const MoreItemWidget(
                     iconName: "replacement_refund_policy",
                     title: "replacement_refund_policy",
-                    onPressedWidget: StaticPagesScreen(staticPagesTypes: StaticPagesTypes.REPLACEMENTREFUNDPOLICY),
+                    onPressedRouteName: Routes.staticPagesNamedPage,
+                    routeArgument: StaticPagesTypes.REPLACEMENTREFUNDPOLICY,
                   ),
                   dividerWidget,
                   const MoreItemWidget(
                     iconName: "privacy_policy",
                     title: "privacy_policy",
-                    onPressedWidget: StaticPagesScreen(staticPagesTypes: StaticPagesTypes.PRIVACYPOLICY),
+                    onPressedRouteName: Routes.staticPagesNamedPage,
+                    routeArgument: StaticPagesTypes.PRIVACYPOLICY,
                   ),
                   dividerWidget,
                   const MoreItemWidget(
                     iconName: "terms_conditions",
                     title: "terms_conditions",
-                    onPressedWidget: StaticPagesScreen(staticPagesTypes: StaticPagesTypes.TERMSCONDITIONS),
+                    onPressedRouteName: Routes.staticPagesNamedPage,
+                    routeArgument: StaticPagesTypes.TERMSCONDITIONS,
                   ),
                   dividerWidget,
                   const SizedBox(

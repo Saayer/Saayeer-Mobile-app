@@ -5,8 +5,8 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/common/empty/empty_status_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 
 class EmptyAddressesBook extends StatelessWidget {
@@ -31,12 +31,11 @@ class EmptyAddressesBook extends StatelessWidget {
           iconName: "addresses_book",
           hasButton: false,
           onBtnPressed: () {
-            getIt<NavigationService>().navigateTo(
-                AddEditAddressScreen(
-                  isAddShipmentRequest: true,
-                  addEditAddressType: AddEditAddressType.addAddress,
-                  customerModel: CustomerGetDto(),
-                ), onBack: (_) {
+            getIt<NavigationService>().navigateToNamed(Routes.addEditAddressNamedPage, arguments: {
+              'isAddShipmentRequest': true,
+              'addEditAddressType': AddEditAddressType.addAddress,
+              'customerModel': CustomerGetDto(),
+            }, onBack: (_) {
               addressesBookBloc.add(const GetAddresses());
             });
           },

@@ -11,13 +11,13 @@ import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/addresses_book/domain/use_cases/get_addresses_usecase.dart';
 import 'package:saayer/features/more_sub_features/stores/stores_list/domain/usecases/get_stores_usecase.dart';
 import 'package:saayer/features/request_new_shipment/data/core/utils/enums.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 part 'request_new_shipment_event.dart';
 
@@ -110,7 +110,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: state.currentPage - 1));
     } else {
-      getIt<NavigationService>().navigateAndFinish(const ViewPageScreen());
+      getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage);
       emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.SUCCESS),
       ));

@@ -5,6 +5,7 @@ import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:saayer/core/API/http_overrides.dart';
 import 'package:saayer/core/app_config/app_flavor.dart';
 import 'package:saayer/core/app_config/app_flavor_entity.dart';
@@ -26,6 +27,8 @@ class AppConfig {
   AppConfig({required this.appName, required this.flavorType});
 
   void initializeApp() async {
+    // to support web strategy in web platform
+    usePathUrlStrategy();
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
     //disable logger

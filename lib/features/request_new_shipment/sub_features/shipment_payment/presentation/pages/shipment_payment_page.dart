@@ -6,6 +6,7 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -13,7 +14,6 @@ import 'package:saayer/features/request_new_shipment/presentation/bloc/request_n
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/errors/shipment_payment_error_handler.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/bloc/shipment_payment_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/widgets/moyasar_payment_method_widget.dart';
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/widgets/payment_success_widget.dart';
 
 class ShipmentPaymentPage extends StatelessWidget {
   const ShipmentPaymentPage({super.key});
@@ -33,7 +33,7 @@ class ShipmentPaymentPage extends StatelessWidget {
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
             ///
-            getIt<NavigationService>().navigateAndReplacement(const PaymentSuccessWidget());
+            getIt<NavigationService>().navigateAndReplacementNamed(Routes.paymentSuccessNamedPage);
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {
             ///

@@ -6,12 +6,14 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
+import 'package:saayer/features/more_sub_features/static_pages/core/enums/enums.dart';
 
 class MoreItemWidget extends StatelessWidget {
   final String title;
   final String iconName;
-  final Widget? onPressedWidget;
+  final String? onPressedRouteName;
   final bool isPngIcon;
+  final StaticPagesTypes? routeArgument;
 
   final double size;
 
@@ -19,7 +21,8 @@ class MoreItemWidget extends StatelessWidget {
       {super.key,
       required this.title,
       required this.iconName,
-      this.onPressedWidget,
+      this.onPressedRouteName,
+      this.routeArgument,
       this.isPngIcon = false,
       this.size = 20});
 
@@ -30,25 +33,22 @@ class MoreItemWidget extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 10),
       horizontalTitleGap: 10,
       onTap: () {
-        if (onPressedWidget != null) {
-          getIt<NavigationService>().navigateTo(onPressedWidget!);
+        if (onPressedRouteName != null) {
+          getIt<NavigationService>().navigateToNamed(onPressedRouteName!, arguments: routeArgument);
         }
       },
       title: Text(
         title.tr(),
         style: AppTextStyles.liteLabel(),
       ),
-      trailing: Icon(Icons.arrow_forward_ios,
-          size: 15, color: SaayerTheme().getColorsPalette.greyColor),
+      trailing: Icon(Icons.arrow_forward_ios, size: 15, color: SaayerTheme().getColorsPalette.greyColor),
     );
   }
 
   Widget _getLeadingImage() {
     if (isPngIcon) {
       return Image.asset(Constants.getIconPath("ic_$iconName.png"),
-          width: size,
-          height: size,
-          color: SaayerTheme().getColorsPalette.orangeColor);
+          width: size, height: size, color: SaayerTheme().getColorsPalette.orangeColor);
     }
     return GenericSvgWidget(
       path: Constants.getIconPath("ic_$iconName.svg"),

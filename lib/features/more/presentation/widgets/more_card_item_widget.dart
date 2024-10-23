@@ -9,16 +9,16 @@ import 'package:saayer/core/utils/theme/typography.dart';
 
 class MoreCardItemWidget extends StatelessWidget {
   final String title, iconName;
-  final Widget? onPressedWidget;
+  final String? onPressedRouteName;
 
-  const MoreCardItemWidget({super.key, required this.title, required this.iconName, this.onPressedWidget});
+  const MoreCardItemWidget({super.key, required this.title, required this.iconName, this.onPressedRouteName});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (onPressedWidget != null) {
-          getIt<NavigationService>().navigateTo(onPressedWidget!);
+        if (onPressedRouteName != null) {
+          getIt<NavigationService>().navigateToNamed(onPressedRouteName!);
         }
       },
       child: Container(

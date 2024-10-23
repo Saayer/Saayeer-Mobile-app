@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:saayer/common/loading/loading_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/navigation/app_routes.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/enums.dart';
@@ -58,16 +60,15 @@ class SaayerApp extends StatelessWidget {
                     navigatorKey: getIt<NavigationService>().mainNavigatorKey,
                     debugShowCheckedModeBanner: false,
                     title: Constants.appName,
-                    routes: const {},
+                    onGenerateRoute: AppRoutes().generateRoute,
                     theme: theme,
                     darkTheme: darkTheme,
                     localizationsDelegates: context.localizationDelegates,
                     supportedLocales: context.supportedLocales,
                     locale: context.locale,
+                    initialRoute: Routes.splashNamedPage,
                     home: Builder(builder: (context) {
                       return const SplashScreen();
-                      //return const ViewPageScreen();
-                      //return const UserInfoViewPageScreen();
                     }),
                   ),
                 );

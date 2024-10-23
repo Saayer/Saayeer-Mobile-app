@@ -95,7 +95,8 @@ dependencies:
   percent_indicator: 4.2.3
   timeline_tile: 2.0.0
   fl_chart: 0.69.0
-
+  flutter_web_plugins:
+    sdk: flutter
   #openapi
   openapi:
     path: ./api

@@ -7,12 +7,11 @@ import 'package:saayer/core/services/current_user/logged_in_checker_service.dart
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_animation_enums.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/features/intro/presentation/screens/intro_screen.dart';
 import 'package:saayer/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -30,8 +29,8 @@ class SplashPage extends StatelessWidget {
                   getIt<LoggedInCheckerService>().isLoggedIn();
               log("$isLoggedIn", name: "isLoggedIn");
               //if (isLoggedIn) getIt<LoggedInCheckerService>().initLoggedUser();
-              getIt<NavigationService>().navigateAndFinish(
-                  isLoggedIn ? const ViewPageScreen() : const IntroScreen(),
+              getIt<NavigationService>().navigateAndFinishNamed(
+                  isLoggedIn ? Routes.viewPageNamedPage : Routes.introNamedPage,
                   navigationAnimationType: NavigationAnimationTypes.SCALE);
             });
           }

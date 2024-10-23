@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/bottom_sheet/log_in_bottom_sheet_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
 class NewShipmentCardItemWidget extends StatelessWidget {
@@ -19,7 +19,7 @@ class NewShipmentCardItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (!(viewPageBloc.state.isGuest!)) {
-          getIt<NavigationService>().navigateTo(const RequestNewShipmentScreen());
+          getIt<NavigationService>().navigateToNamed(Routes.requestNewShipmentNamedPage);
         } else {
           getLogInBottomSheetWidget();
         }

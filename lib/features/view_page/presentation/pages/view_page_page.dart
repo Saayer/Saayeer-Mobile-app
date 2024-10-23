@@ -6,11 +6,11 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/addresses_book/presentation/screens/addresses_book_screen.dart';
-import 'package:saayer/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/domain/entities/nav_bar_icon_entity.dart';
@@ -72,7 +72,7 @@ class ViewPagePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: GestureDetector(
                           onTap: () {
-                            getIt<NavigationService>().navigateTo(const NotificationsScreen());
+                            getIt<NavigationService>().navigateToNamed(Routes.notificationsNamedPage);
                           },
                           child: Icon(
                             Icons.notifications,
@@ -86,8 +86,10 @@ class ViewPagePage extends StatelessWidget {
               bottomNavigationBar: largerThanMobile(context) ? null : const SaayerBottomNavigationBar(),
               body: Row(
                 children: [
-                  if(largerThanMobile(context))
-                    SideMenuNavigationWeb(selectedNavBarIcon: selectedNavBarIconEntity,),
+                  if (largerThanMobile(context))
+                    SideMenuNavigationWeb(
+                      selectedNavBarIcon: selectedNavBarIconEntity,
+                    ),
                   Expanded(child: _getBody(selectedNavBarIconEntity)),
                 ],
               )),
