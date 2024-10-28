@@ -381,7 +381,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     ///
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING), shipmentId: event.shipmentId));
-
+    ///save shipmentId
+    getIt<SharedPrefService>().setShipmentId(event.shipmentId);
     /// go to Shipment payment screen
     add(GoToNextPageEvent());
 

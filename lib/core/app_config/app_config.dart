@@ -29,6 +29,8 @@ class AppConfig {
   void initializeApp() async {
     // to support web strategy in web platform
     usePathUrlStrategy();
+
+    ///
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
     //disable logger

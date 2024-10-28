@@ -26,7 +26,7 @@ class ShipmentProvidersErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
               title: "error_title",
-              message: 'stores_error_msg');
+              message: 'providers_error_msg');
           break;
         }
       default:

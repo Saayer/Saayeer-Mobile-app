@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/address/address_details/presentation/screens/address_details_screen.dart';
@@ -18,25 +21,42 @@ import 'package:saayer/features/profile_sub_features/info/domain/entities/info_e
 import 'package:saayer/features/profile_sub_features/info/presentation/screens/info_screen.dart';
 import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/widgets/payment_success_widget.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/widgets/payment_web_callback_response_widget.dart';
 import 'package:saayer/features/shipment_details_tracking_info/presentation/screens/shipment_details_screen.dart';
 import 'package:saayer/features/splash/presentation/screens/splash_screen.dart';
 import 'package:saayer/features/user_info_view_page/presentation/screens/user_info_view_page_screen.dart';
 import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
+import "package:universal_html/html.dart" as html;
 
 class AppRoutes {
   /// onGenerateRoute
   Route<dynamic> generateRoute(RouteSettings settings) {
-    /// this used with web platform when payment callback url start with [Routes.paymentSuccessNamedPage]
-    /// to get params from callback URL to complete payment process
-    if (settings.name!.contains(Routes.paymentSuccessNamedPage)) {
-      return MaterialPageRoute(builder: (context) => const PaymentSuccessWidget());
+    // check if user logged in
+    if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+      /// this used with web platform when payment callback url start with [Routes.paymentSuccessNamedPage]
+      /// to get params from callback URL to complete payment process
+      if (settings.name!.contains(Routes.paymentWebCallbackResponseNamedPage)) {
+        var data = Uri.parse(settings.name.toString());
+        var message = data.queryParameters['message'];
+        var status = data.queryParameters['status'];
+        if (kIsWeb) {
+          html.window.history.pushState(null, '', Routes.splashNamedPage);
+        }
+        return MaterialPageRoute(
+            builder: (context) => PaymentWebCallbackResponseWidget(
+                  status: status ?? '',
+                  message: message ?? '',
+                ));
+      }
     }
     var routingData = settings.arguments;
-    switch (settings.name) {
+    switch (kIsWeb ? Uri.parse(settings.name!).path : settings.name) {
       case Routes.splashNamedPage:
-        return MaterialPageRoute(builder: (context) => const SplashScreen());
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
+        );
       case Routes.loginNamedPage:
         return MaterialPageRoute(builder: (context) => const LogInScreen());
       case Routes.verifyOtpNamedPage:
@@ -47,62 +67,172 @@ class AppRoutes {
       case Routes.introNamedPage:
         return MaterialPageRoute(builder: (context) => const IntroScreen());
       case Routes.viewPageNamedPage:
-        return MaterialPageRoute(
-            builder: (context) => ViewPageScreen(
-                  navBarIconType: (routingData as NavBarIconTypes?) ?? NavBarIconTypes.HOME,
-                ));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(
+              builder: (context) => ViewPageScreen(
+                    navBarIconType: (routingData as NavBarIconTypes?) ?? NavBarIconTypes.HOME,
+                  ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.addEditAddressNamedPage:
-        return MaterialPageRoute(
-            builder: (context) => AddEditAddressScreen(
-                  isAddShipmentRequest: (routingData as Map)['isAddShipmentRequest'],
-                  addEditAddressType: routingData['addEditAddressType'],
-                  customerModel: routingData['customerModel'],
-                ));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(
+              builder: (context) => AddEditAddressScreen(
+                    isAddShipmentRequest: (routingData as Map)['isAddShipmentRequest'],
+                    addEditAddressType: routingData['addEditAddressType'],
+                    customerModel: routingData['customerModel'],
+                  ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.addressDetailsNamedPage:
-        return MaterialPageRoute(
-            builder: (context) => AddressDetailsScreen(
-                  addressInfoEntity: (routingData as Map)['addressInfoEntity'] as CustomerGetDto,
-                  onDelete: routingData['onDelete'] as Function(),
-                ));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(
+              builder: (context) => AddressDetailsScreen(
+                    addressInfoEntity: (routingData as Map)['addressInfoEntity'] as CustomerGetDto,
+                    onDelete: routingData['onDelete'] as Function(),
+                  ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.requestNewShipmentNamedPage:
-        return MaterialPageRoute(builder: (context) => const RequestNewShipmentScreen());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const RequestNewShipmentScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.personalInfoNamedPage:
-        return MaterialPageRoute(builder: (context) => const PersonalInfoScreen());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const PersonalInfoScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.addEditStoreNamedPage:
-        return MaterialPageRoute(
-            builder: (context) => AddEditStoreScreen(
-                  addEditStoreType: (routingData as Map)['addEditStoreType'],
-                  storeDto: routingData['storeDto'],
-                ));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(
+              builder: (context) => AddEditStoreScreen(
+                    addEditStoreType: (routingData as Map)['addEditStoreType'],
+                    storeDto: routingData['storeDto'],
+                  ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
       case Routes.shipmentDetailsNamedPage:
-        return MaterialPageRoute(
-            builder: (context) => ShipmentDetailsScreen(
-                  shipmentDto: routingData as ShipmentGetDto,
-                ));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(
+              builder: (context) => ShipmentDetailsScreen(
+                    shipmentDto: routingData as ShipmentGetDto,
+                  ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.userInfoViewNamedPage:
-        return MaterialPageRoute(
-            builder: (context) => UserInfoViewPageScreen(
-                  initialPage: routingData as int,
-                ));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(
+              builder: (context) => UserInfoViewPageScreen(
+                    initialPage: routingData as int,
+                  ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.notificationsNamedPage:
-        return MaterialPageRoute(builder: (context) => const NotificationsScreen());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const NotificationsScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.infoNamedPage:
-        return MaterialPageRoute(builder: (context) => InfoScreen(infoEntity: routingData as InfoEntity));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => InfoScreen(infoEntity: routingData as InfoEntity));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.paymentSuccessNamedPage:
-        return MaterialPageRoute(builder: (context) => const PaymentSuccessWidget());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const PaymentSuccessWidget());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.settingsNamedPage:
-        return MaterialPageRoute(builder: (context) => const SettingsScreen());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const SettingsScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.storesListNamedPage:
-        return MaterialPageRoute(builder: (context) => const StoresListScreen());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const StoresListScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.contactUsNamedPage:
-        return MaterialPageRoute(builder: (context) => const ContactUsScreen());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const ContactUsScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.whySaayerNamedPage:
-        return MaterialPageRoute(builder: (context) => const WhySaayerScreen());
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const WhySaayerScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
       case Routes.staticPagesNamedPage:
-        return MaterialPageRoute(
-            builder: (context) => StaticPagesScreen(
-                  staticPagesTypes: routingData as StaticPagesTypes,
-                ));
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(
+              builder: (context) => StaticPagesScreen(
+                    staticPagesTypes: routingData as StaticPagesTypes,
+                  ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
 
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
