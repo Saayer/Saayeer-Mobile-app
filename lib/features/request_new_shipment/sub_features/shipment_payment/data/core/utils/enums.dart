@@ -1,1 +1,15 @@
-enum ShipmentPaymentErrorStatus { ERROR_CREATE_PAYMENT }
+enum ShipmentPaymentErrorStatus {
+  ERROR_CREATE_PAYMENT,
+  ERROR_CREATE_WEB_PAYMENT,
+}
+
+enum PaymentRequestState {
+  PAYMENTLOADING,
+  PAYMENTLOADED,
+  PAYMENTERROR,
+  PAYMENTSUCCESS,
+  WEBLOADING,
+  WEBLOADED,
+  WEBERROR,
+  WEBSUCCESS,
+}

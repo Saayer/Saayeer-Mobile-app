@@ -53,7 +53,7 @@ class GenericDataBarChartWidget<T> extends StatelessWidget {
                 children: [
                   Text(title,
                       maxLines: 1, style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.primaryColor)),
-                  Text(total, maxLines: 1, style: AppTextStyles.mainFocusedLabel()),
+                  Flexible(child: Text(total, maxLines: 2, style: AppTextStyles.mainFocusedLabel())),
                 ],
               ),
             ),

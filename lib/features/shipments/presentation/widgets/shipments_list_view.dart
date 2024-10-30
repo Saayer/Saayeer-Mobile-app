@@ -4,11 +4,11 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/common/shimmer/shimmer_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
 import 'package:saayer/features/shipments/presentation/widgets/empty_shipments.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipments_filters_widget.dart';
-import 'package:saayer/features/shipment_details_tracking_info/presentation/screens/shipment_details_screen.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipment_item_widget_helper.dart';
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart';
 
@@ -54,9 +54,9 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
               const SizedBox(
                 height: 10,
               ),
-              if (! widget.shipmentsBloc.state.isFromHome)
+              if (!widget.shipmentsBloc.state.isFromHome)
                 ShipmentsFiltersWidget(
-                  shipmentsBloc:  widget.shipmentsBloc,
+                  shipmentsBloc: widget.shipmentsBloc,
                   shipmentsListType: widget.shipmentsListType,
                 ),
               const SizedBox(
@@ -96,7 +96,10 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        getIt<NavigationService>().navigateTo(ShipmentDetailsScreen(shipmentDto: shipmentEntity));
+                        getIt<NavigationService>().navigateToNamed(
+                          Routes.shipmentDetailsNamedPage,
+                          arguments: shipmentEntity,
+                        );
                       },
                       child: shipmentWidget),
                   if (isLast)

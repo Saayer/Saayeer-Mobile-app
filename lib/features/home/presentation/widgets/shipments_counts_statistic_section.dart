@@ -5,13 +5,13 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/common/shimmer/shimmer_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/features/home/core/errors/home_error_handler.dart';
 import 'package:saayer/features/home/core/utils/enums/enums.dart';
 import 'package:saayer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/home/presentation/widgets/new_shipment_card_item_widget.dart';
 import 'package:saayer/features/home/presentation/widgets/shipments_statistic_item_widget.dart';
-import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 
@@ -57,7 +57,7 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
                       return ShipmentsStatisticItemWidget(
                         onTap: ShipmentsStatisticsTypes.values[index] == ShipmentsStatisticsTypes.NEW_SHIPMENT
                             ? () {
-                                getIt<NavigationService>().navigateTo(const RequestNewShipmentScreen());
+                                getIt<NavigationService>().navigateToNamed(Routes.requestNewShipmentNamedPage);
                               }
                             : () {
                                 final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);

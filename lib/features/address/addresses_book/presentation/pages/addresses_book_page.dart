@@ -7,11 +7,10 @@ import 'package:saayer/common/dialogs/saayer_dialogs.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
-import 'package:saayer/features/address/address_details/presentation/screens/address_details_screen.dart';
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart';
 import 'package:saayer/features/address/addresses_book/presentation/widgets/address_item_widget.dart';
 import 'package:saayer/features/address/addresses_book/presentation/widgets/addresses_filters_widget.dart';
@@ -27,7 +26,6 @@ class AddressesBookPage extends StatefulWidget {
 class _AddressesBookPageState extends State<AddressesBookPage> {
   @override
   Widget build(BuildContext context) {
-
     final AddressesBookBloc addressesBookBloc = BlocProvider.of<AddressesBookBloc>(context);
     return BlocConsumer<AddressesBookBloc, AddressesBookState>(
       buildWhen: (previousState, nextState) =>
@@ -74,12 +72,11 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
                     isEnabled: true,
                     borderRadius: 16,
                     onPressed: () {
-                      getIt<NavigationService>().navigateTo(
-                          AddEditAddressScreen(
-                            isAddShipmentRequest: true,
-                            addEditAddressType: AddEditAddressType.addAddress,
-                            customerModel: CustomerGetDto(),
-                          ), onBack: (_) {
+                      getIt<NavigationService>().navigateToNamed(Routes.addEditAddressNamedPage, arguments: {
+                        'isAddShipmentRequest': true,
+                        'addEditAddressType': AddEditAddressType.addAddress,
+                        'customerModel': CustomerGetDto(),
+                      }, onBack: (_) {
                         addressesBookBloc.add(const ResetList());
                         addressesBookBloc.add(const GetAddresses());
                       });
@@ -109,9 +106,9 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
             child: AddressItemWidget(
               addressInfoEntity: addresses[index],
               onTap: () {
-                getIt<NavigationService>().navigateTo(AddressDetailsScreen(
-                  addressInfoEntity: addresses[index],
-                  onDelete: () {
+                getIt<NavigationService>().navigateToNamed(Routes.addressDetailsNamedPage, arguments: {
+                  'addressInfoEntity': addresses[index],
+                  'onDelete': () {
                     SaayerDialogs().twoBtnsDialog(
                         title: "warning",
                         message: 'are_you_sure_delete_address',
@@ -119,16 +116,15 @@ class _AddressesBookPageState extends State<AddressesBookPage> {
                           getIt<NavigationService>().pop();
                           addressesBookBloc.add(OnAddressDelete(deleteAddress: addresses[index]));
                         });
-                  },
-                ));
+                  }
+                });
               },
               onEdit: () {
-                getIt<NavigationService>().navigateTo(
-                    AddEditAddressScreen(
-                      isAddShipmentRequest: true,
-                      addEditAddressType: AddEditAddressType.editAddress,
-                      customerModel: addresses[index],
-                    ), onBack: (_) {
+                getIt<NavigationService>().navigateToNamed(Routes.addEditAddressNamedPage, arguments: {
+                  'isAddShipmentRequest': true,
+                  'addEditAddressType': AddEditAddressType.editAddress,
+                  'customerModel': addresses[index],
+                }, onBack: (_) {
                   addressesBookBloc.add(const ResetList());
                   addressesBookBloc.add(const GetAddresses());
                 });

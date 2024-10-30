@@ -737,7 +737,7 @@ packages:
     source: hosted
     version: "1.0.0"
   flutter_web_plugins:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -1056,10 +1056,11 @@ packages:
   moyasar:
     dependency: "direct main"
     description:
-      name: moyasar
-      sha256: ba600482cbee34d544350a8f1857cefbb10aec9c0ca3c78c091b323b25165223
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "310f1ceec1b5ab69bc4272b06d42095075edd6be"
+      url: "https://github.com/aelbadawynbs/moyasar-flutter.git"
+    source: git
     version: "2.0.13"
   nested:
     dependency: transitive
@@ -1637,10 +1638,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "21b704ce5fa560ea9f3b525b43601c678728ba46725bab9b01187b4831377ed3"
+      sha256: "9d06212b1362abc2f0f0d78e6f09f726608c74e3b9462e8368bb03314aa8d603"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.0"
+    version: "6.3.1"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1797,10 +1798,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: "6e64fcb1c19d92024da8f33503aaeeda35825d77142c01d0ea2aa32edc79fdc8"
+      sha256: ed021f27ae621bc97a6019fb601ab16331a3db4bf8afa305e9f6689bdb3edced
       url: "https://pub.dev"
     source: hosted
-    version: "3.16.7"
+    version: "3.16.8"
   webview_flutter_platform_interface:
     dependency: transitive
     description:

@@ -1,14 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
+import "package:universal_html/html.dart" as html;
 
 class PaymentSuccessWidget extends StatelessWidget {
   const PaymentSuccessWidget({super.key});
@@ -43,7 +44,10 @@ class PaymentSuccessWidget extends StatelessWidget {
             borderRadius: 16,
             onPressed: () {
               ///
-              getIt<NavigationService>().navigateAndReplacement(const RequestNewShipmentScreen());
+              getIt<NavigationService>().navigateAndReplacementNamed(Routes.requestNewShipmentNamedPage);
+              if(kIsWeb){
+                html.window.history.pushState(null, 'Home', '/');
+              }
             },
           ),
           const SizedBox(
@@ -55,7 +59,10 @@ class PaymentSuccessWidget extends StatelessWidget {
             borderRadius: 16,
             onPressed: () {
               ///
-              getIt<NavigationService>().navigateAndFinish(const ViewPageScreen());
+              getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage);
+              if(kIsWeb){
+                html.window.history.pushState(null, 'Home', '/');
+              }
             },
           ),
         ],

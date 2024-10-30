@@ -2,18 +2,18 @@ part of 'shipment_payment_bloc.dart';
 
 @immutable
 class ShipmentPaymentState extends Equatable {
-  final StateHelper stateHelper;
+  final PaymentStateHelper stateHelper;
   final PaymentAddDto? paymentAddDto;
   final CreatePaymentResponse? createPaymentResponse;
 
   const ShipmentPaymentState({
-    this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
+    this.stateHelper = const PaymentStateHelper(requestState: PaymentRequestState.PAYMENTLOADING),
     this.paymentAddDto,
     this.createPaymentResponse,
   });
 
   ShipmentPaymentState copyWith({
-    StateHelper? stateHelper,
+    PaymentStateHelper? stateHelper,
     PaymentAddDto? paymentAddDto,
     CreatePaymentResponse? createPaymentResponse,
   }) {
