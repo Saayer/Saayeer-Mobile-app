@@ -29,9 +29,17 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
     on<CheckOtpEvent>(_checkOtpEvent);
   }
 
+  ///
+  String? phoneNumber;
+  String? otpCode;
+
   FutureOr<void> _initVerifyOtpEvent(InitVerifyOtpEvent event, Emitter<VerifyOtpState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
+    ///
+    phoneNumber = event.tokenRequestDto.phoneNumber;
+
+    ///
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED), tokenRequestDto: event.tokenRequestDto));
   }
@@ -39,12 +47,12 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
   Future<FutureOr<void>> _resendOtpEvent(ResendOtpEvent event, Emitter<VerifyOtpState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, LoginResponseDto?> result = await logInUseCase(LogInParameters(
-        loginRequestDto: LoginRequestDto((b) => b..phoneNo = state.tokenRequestDto?.phoneNumber ?? "")
-        // LogInEntity(
-        //     phoneNumber: PhoneNumber(
-        //         phoneNumber: state.verifyOtpEntity?.phoneNumber ?? ""))
-        ));
+    final Either<Failure, LoginResponseDto?> result = await logInUseCase(
+        LogInParameters(loginRequestDto: LoginRequestDto((b) => b..phoneNo = state.tokenRequestDto?.phoneNumber ?? "")
+            // LogInEntity(
+            //     phoneNumber: PhoneNumber(
+            //         phoneNumber: state.verifyOtpEntity?.phoneNumber ?? ""))
+            ));
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -56,13 +64,11 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
       final LoginResponseDto? rightResult = (result as Right).value;
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
-          emit(state.copyWith(
-              stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
-              tokenRequestDto: state.tokenRequestDto?.rebuild((model) => model.verificationCode = '3f\$*;sSkV'), //'3f\$*;sSkV',
-              //state.verifyOtpEntity!.copyWith(otp: rightResult.otp),
-              isOtpResent: true,
-              resetExpiryDate: true));
-
+        emit(state.copyWith(
+            stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
+            //tokenRequestDto: state.tokenRequestDto?.rebuild((model) => model.verificationCode = '3f\$*;sSkV'),
+            isOtpResent: true,
+            resetExpiryDate: true));
       } else {
         log("", name: "SubmitLogInEvent error");
         emit(state.copyWith(
@@ -74,10 +80,15 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
   }
 
   Future<FutureOr<void>> _checkOtpEvent(CheckOtpEvent event, Emitter<VerifyOtpState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING),
+        tokenRequestDto: TokenRequestDto((b) => b
+          ..phoneNumber = phoneNumber
+          ..verificationCode = event.otp)));
+
     //state.tokenRequestDto = AuthenticateRequestVerify((b) => b
-      //..otp = '3f\$*;sSkV'
-      //..mobileNumber = state.tokenRequestDto?.mobileNumber ?? '');
+    //..otp = '3f\$*;sSkV'
+    //..mobileNumber = state.tokenRequestDto?.mobileNumber ?? '');
     //state.verifyOtpEntity!.copyWith(otp: event.otp);
     // final bool isVerifiedOtp =
     //     (event.otp.compareTo(state.verifyOtpEntity!.otp) == 0);
@@ -106,9 +117,9 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
         if (rightResult.token != null) {
-            emit(state.copyWith(
-                stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
-                isVerified: true));
+          emit(state.copyWith(
+              stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
+              isVerified: true));
         } else {
           emit(state.copyWith(
             stateHelper: const StateHelper(
