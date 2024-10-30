@@ -92,6 +92,7 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
               requestState: PaymentRequestState.WEBERROR,
+              errorMessage: 'create_payment_failed',
               errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT)));
     } else {
       final CreatePaymentResponse? rightResult = (result as Right).value;
@@ -107,6 +108,7 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
         emit(state.copyWith(
           stateHelper: const PaymentStateHelper(
               requestState: PaymentRequestState.WEBERROR,
+              errorMessage: 'create_payment_failed',
               errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT),
         ));
       }
@@ -150,8 +152,9 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
         break;
       case PaymentStatus.failed:
         emit(state.copyWith(
-          stateHelper: const PaymentStateHelper(
+          stateHelper: PaymentStateHelper(
               requestState: PaymentRequestState.WEBERROR,
+              errorMessage: (event.paymentResponse!.source as CardPaymentResponseSource).message ?? 'payment_failed',
               errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT),
         ));
         break;
