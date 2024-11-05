@@ -57,23 +57,35 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
       log("left CreatePayment $leftResult");
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
-              requestState: PaymentRequestState.PAYMENTERROR,
-              errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_PAYMENT)));
+        requestState: PaymentRequestState.PAYMENTERROR,
+        errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_PAYMENT,
+        errorMessage: 'create_payment_failed',
+      )));
     } else {
       final CreatePaymentResponse? rightResult = (result as Right).value;
       log("right CreatePayment $rightResult");
       if (rightResult != null) {
         ///
-        emit(state.copyWith(
-          stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.PAYMENTSUCCESS, loadingMessage: ""),
-          createPaymentResponse: rightResult,
-        ));
+        if (rightResult.hasError ?? false) {
+          emit(state.copyWith(
+              stateHelper: state.stateHelper.copyWith(
+                  requestState: PaymentRequestState.PAYMENTERROR,
+                  errorMessage: rightResult.errorMessages?.first.message ?? 'create_payment_failed',
+                  errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_PAYMENT)));
+        } else {
+          emit(state.copyWith(
+            stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.PAYMENTSUCCESS, loadingMessage: ""),
+            createPaymentResponse: rightResult,
+          ));
+        }
       } else {
         log("", name: "SubmitPersonalInfoEvent error");
         emit(state.copyWith(
           stateHelper: const PaymentStateHelper(
-              requestState: PaymentRequestState.PAYMENTERROR,
-              errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_PAYMENT),
+            requestState: PaymentRequestState.PAYMENTERROR,
+            errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_PAYMENT,
+            errorMessage: 'create_payment_failed',
+          ),
         ));
       }
     }
@@ -99,10 +111,18 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
       log("right CreatePayment $rightResult");
       if (rightResult != null) {
         ///
-        emit(state.copyWith(
-          stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.WEBSUCCESS, loadingMessage: ""),
-          createPaymentResponse: rightResult,
-        ));
+        if (rightResult.hasError ?? false) {
+          emit(state.copyWith(
+              stateHelper: state.stateHelper.copyWith(
+                  requestState: PaymentRequestState.WEBERROR,
+                  errorMessage: rightResult.errorMessages?.first.message ?? 'create_payment_failed',
+                  errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT)));
+        } else {
+          emit(state.copyWith(
+            stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.WEBSUCCESS, loadingMessage: ""),
+            createPaymentResponse: rightResult,
+          ));
+        }
       } else {
         log("", name: "SubmitPersonalInfoEvent error");
         emit(state.copyWith(

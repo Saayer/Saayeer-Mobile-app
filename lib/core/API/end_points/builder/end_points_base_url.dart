@@ -5,7 +5,7 @@ import 'package:saayer/core/utils/enums.dart';
 class EndPointsBaseUrl {
   final String baseUrl;
 
-  ///for web platform to set redirect url to moyasar gateway
+  ///for web platform to set redirect url from moyasar gateway
   final String baseRedirectUrl;
 
   const EndPointsBaseUrl._internal({
@@ -18,19 +18,19 @@ class EndPointsBaseUrl {
       case FlavorType.DEV:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "https://app.saayer.com:9004/saayer-23/dev",
-              baseRedirectUrl: "https://app.saayer.com:9004/saayer-23/web");
+              baseUrl: "https://app.saayer.com:9004/saayer-25/app",
+              baseRedirectUrl: "https://app.saayer.com:9004/saayer-25/web");
         }
       case FlavorType.STAGING:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "https://app.saayer.com:9002/saayer-23/app",
-              baseRedirectUrl: 'https://app.saayer.com:9002/saayer-23/web');
+              baseUrl: "https://app.saayer.com:9002/saayer-25/app",
+              baseRedirectUrl: 'https://app.saayer.com:9002/saayer-25/web');
         }
       case FlavorType.PROD:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "https://app.saayer.com/v1", baseRedirectUrl: 'https://app.saayer.com/v1');
+              baseUrl: "https://app.saayer.com/v25/app", baseRedirectUrl: 'https://app.saayer.com/v25/web');
         }
     }
   }

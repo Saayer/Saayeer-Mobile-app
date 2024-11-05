@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/token_reponse_status.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,6 +15,8 @@ part 'token_response_dto.g.dart';
 /// * [role] 
 /// * [token] 
 /// * [expiration] 
+/// * [reponseStatus] 
+/// * [errorMessage] 
 @BuiltValue()
 abstract class TokenResponseDto implements Built<TokenResponseDto, TokenResponseDtoBuilder> {
   @BuiltValueField(wireName: r'role')
@@ -24,6 +27,13 @@ abstract class TokenResponseDto implements Built<TokenResponseDto, TokenResponse
 
   @BuiltValueField(wireName: r'expiration')
   DateTime? get expiration;
+
+  @BuiltValueField(wireName: r'reponseStatus')
+  TokenReponseStatus? get reponseStatus;
+  // enum reponseStatusEnum {  Success,  Invalid_OTP_Code,  PhoneNumber_Not_Registered,  };
+
+  @BuiltValueField(wireName: r'errorMessage')
+  String? get errorMessage;
 
   TokenResponseDto._();
 
@@ -67,6 +77,20 @@ class _$TokenResponseDtoSerializer implements PrimitiveSerializer<TokenResponseD
       yield serializers.serialize(
         object.expiration,
         specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.reponseStatus != null) {
+      yield r'reponseStatus';
+      yield serializers.serialize(
+        object.reponseStatus,
+        specifiedType: const FullType(TokenReponseStatus),
+      );
+    }
+    if (object.errorMessage != null) {
+      yield r'errorMessage';
+      yield serializers.serialize(
+        object.errorMessage,
+        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -114,6 +138,21 @@ class _$TokenResponseDtoSerializer implements PrimitiveSerializer<TokenResponseD
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.expiration = valueDes;
+          break;
+        case r'reponseStatus':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(TokenReponseStatus),
+          ) as TokenReponseStatus;
+          result.reponseStatus = valueDes;
+          break;
+        case r'errorMessage':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.errorMessage = valueDes;
           break;
         default:
           unhandled.add(key);

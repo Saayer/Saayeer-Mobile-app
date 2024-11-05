@@ -100,7 +100,7 @@ class _StoresListPageState extends State<StoresListPage> {
       borderRadius: 16,
       onPressed: () {
         getIt<NavigationService>().navigateToNamed(Routes.addEditStoreNamedPage,
-            arguments: {'addEditStoreType': AddEditStoreType.editStore, 'storeDto': StoreGetDto()}, onBack: (_) {
+            arguments: {'addEditStoreType': AddEditStoreType.addStore, 'storeDto': StoreGetDto()}, onBack: (_) {
           storesListBloc.add(const ResetList());
           storesListBloc.add(const GetStores());
         });

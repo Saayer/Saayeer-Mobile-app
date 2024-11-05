@@ -2,9 +2,9 @@
 README.md
 analysis_options.yaml
 doc/AccountingApi.md
-doc/AddressCostLogistics.md
 doc/AddressLookUpDto.md
 doc/AddressLookupsApi.md
+doc/AddressableAddDto.md
 doc/AmountPerDateDto.md
 doc/AmountPerDateResponse.md
 doc/AramexWebhookRequest.md
@@ -36,7 +36,7 @@ doc/LogisticsServiceBase.md
 doc/PaymentAddDto.md
 doc/ServiceCost.md
 doc/ShipmentAddDto.md
-doc/ShipmentCostObj.md
+doc/ShipmentCostDto.md
 doc/ShipmentGetDto.md
 doc/ShipmentQuery.md
 doc/ShipmentStatusEnum.md
@@ -48,6 +48,7 @@ doc/StoreAddDto.md
 doc/StoreGetDto.md
 doc/StoreShipmentGetDto.md
 doc/StoresApi.md
+doc/TokenReponseStatus.md
 doc/TokenRequestDto.md
 doc/TokenResponseDto.md
 lib/openapi.dart
@@ -70,8 +71,8 @@ lib/src/auth/basic_auth.dart
 lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
-lib/src/model/address_cost_logistics.dart
 lib/src/model/address_look_up_dto.dart
+lib/src/model/addressable_add_dto.dart
 lib/src/model/amount_per_date_dto.dart
 lib/src/model/amount_per_date_response.dart
 lib/src/model/aramex_webhook_request.dart
@@ -98,7 +99,7 @@ lib/src/model/logistics_service_base.dart
 lib/src/model/payment_add_dto.dart
 lib/src/model/service_cost.dart
 lib/src/model/shipment_add_dto.dart
-lib/src/model/shipment_cost_obj.dart
+lib/src/model/shipment_cost_dto.dart
 lib/src/model/shipment_get_dto.dart
 lib/src/model/shipment_query.dart
 lib/src/model/shipment_status_enum.dart
@@ -107,7 +108,9 @@ lib/src/model/shipments_count_response.dart
 lib/src/model/store_add_dto.dart
 lib/src/model/store_get_dto.dart
 lib/src/model/store_shipment_get_dto.dart
+lib/src/model/token_reponse_status.dart
 lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/token_reponse_status_test.dart

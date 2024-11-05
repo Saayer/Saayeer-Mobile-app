@@ -41,7 +41,7 @@ class GetReceiverCustomerDetailsById extends ShipmentSummaryEvent {
 }
 
 class AddNewShipment extends ShipmentSummaryEvent {
-  final ShipmentCostObj? shipmentAddDto;
+  final ShipmentCostDto? shipmentAddDto;
   final ServiceCost? selectedServiceProvider;
   final int? senderStoreId;
   final int? senderCustomerId;

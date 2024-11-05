@@ -14,8 +14,8 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
-import 'package:openapi/src/model/address_cost_logistics.dart';
 import 'package:openapi/src/model/address_look_up_dto.dart';
+import 'package:openapi/src/model/addressable_add_dto.dart';
 import 'package:openapi/src/model/amount_per_date_dto.dart';
 import 'package:openapi/src/model/amount_per_date_response.dart';
 import 'package:openapi/src/model/aramex_webhook_request.dart';
@@ -41,7 +41,7 @@ import 'package:openapi/src/model/logistics_service_base.dart';
 import 'package:openapi/src/model/payment_add_dto.dart';
 import 'package:openapi/src/model/service_cost.dart';
 import 'package:openapi/src/model/shipment_add_dto.dart';
-import 'package:openapi/src/model/shipment_cost_obj.dart';
+import 'package:openapi/src/model/shipment_cost_dto.dart';
 import 'package:openapi/src/model/shipment_get_dto.dart';
 import 'package:openapi/src/model/shipment_query.dart';
 import 'package:openapi/src/model/shipment_status_enum.dart';
@@ -50,14 +50,15 @@ import 'package:openapi/src/model/shipments_count_response.dart';
 import 'package:openapi/src/model/store_add_dto.dart';
 import 'package:openapi/src/model/store_get_dto.dart';
 import 'package:openapi/src/model/store_shipment_get_dto.dart';
+import 'package:openapi/src/model/token_reponse_status.dart';
 import 'package:openapi/src/model/token_request_dto.dart';
 import 'package:openapi/src/model/token_response_dto.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor([
-  AddressCostLogistics,
   AddressLookUpDto,
+  AddressableAddDto,
   AmountPerDateDto,
   AmountPerDateResponse,
   AramexWebhookRequest,
@@ -83,7 +84,7 @@ part 'serializers.g.dart';
   PaymentAddDto,
   ServiceCost,
   ShipmentAddDto,
-  ShipmentCostObj,
+  ShipmentCostDto,
   ShipmentGetDto,
   ShipmentQuery,
   ShipmentStatusEnum,
@@ -92,6 +93,7 @@ part 'serializers.g.dart';
   StoreAddDto,
   StoreGetDto,
   StoreShipmentGetDto,
+  TokenReponseStatus,
   TokenRequestDto,
   TokenResponseDto,
 ])

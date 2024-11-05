@@ -13,12 +13,22 @@ class _$TokenResponseDto extends TokenResponseDto {
   final String? token;
   @override
   final DateTime? expiration;
+  @override
+  final TokenReponseStatus? reponseStatus;
+  @override
+  final String? errorMessage;
 
   factory _$TokenResponseDto(
           [void Function(TokenResponseDtoBuilder)? updates]) =>
       (new TokenResponseDtoBuilder()..update(updates))._build();
 
-  _$TokenResponseDto._({this.role, this.token, this.expiration}) : super._();
+  _$TokenResponseDto._(
+      {this.role,
+      this.token,
+      this.expiration,
+      this.reponseStatus,
+      this.errorMessage})
+      : super._();
 
   @override
   TokenResponseDto rebuild(void Function(TokenResponseDtoBuilder) updates) =>
@@ -34,7 +44,9 @@ class _$TokenResponseDto extends TokenResponseDto {
     return other is TokenResponseDto &&
         role == other.role &&
         token == other.token &&
-        expiration == other.expiration;
+        expiration == other.expiration &&
+        reponseStatus == other.reponseStatus &&
+        errorMessage == other.errorMessage;
   }
 
   @override
@@ -43,6 +55,8 @@ class _$TokenResponseDto extends TokenResponseDto {
     _$hash = $jc(_$hash, role.hashCode);
     _$hash = $jc(_$hash, token.hashCode);
     _$hash = $jc(_$hash, expiration.hashCode);
+    _$hash = $jc(_$hash, reponseStatus.hashCode);
+    _$hash = $jc(_$hash, errorMessage.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,7 +66,9 @@ class _$TokenResponseDto extends TokenResponseDto {
     return (newBuiltValueToStringHelper(r'TokenResponseDto')
           ..add('role', role)
           ..add('token', token)
-          ..add('expiration', expiration))
+          ..add('expiration', expiration)
+          ..add('reponseStatus', reponseStatus)
+          ..add('errorMessage', errorMessage))
         .toString();
   }
 }
@@ -73,6 +89,15 @@ class TokenResponseDtoBuilder
   DateTime? get expiration => _$this._expiration;
   set expiration(DateTime? expiration) => _$this._expiration = expiration;
 
+  TokenReponseStatus? _reponseStatus;
+  TokenReponseStatus? get reponseStatus => _$this._reponseStatus;
+  set reponseStatus(TokenReponseStatus? reponseStatus) =>
+      _$this._reponseStatus = reponseStatus;
+
+  String? _errorMessage;
+  String? get errorMessage => _$this._errorMessage;
+  set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
+
   TokenResponseDtoBuilder() {
     TokenResponseDto._defaults(this);
   }
@@ -83,6 +108,8 @@ class TokenResponseDtoBuilder
       _role = $v.role;
       _token = $v.token;
       _expiration = $v.expiration;
+      _reponseStatus = $v.reponseStatus;
+      _errorMessage = $v.errorMessage;
       _$v = null;
     }
     return this;
@@ -105,7 +132,11 @@ class TokenResponseDtoBuilder
   _$TokenResponseDto _build() {
     final _$result = _$v ??
         new _$TokenResponseDto._(
-            role: role, token: token, expiration: expiration);
+            role: role,
+            token: token,
+            expiration: expiration,
+            reponseStatus: reponseStatus,
+            errorMessage: errorMessage);
     replace(_$result);
     return _$result;
   }

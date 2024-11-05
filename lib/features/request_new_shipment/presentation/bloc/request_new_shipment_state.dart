@@ -5,7 +5,7 @@ class RequestNewShipmentState extends Equatable {
   final AutovalidateMode autoValidateMode;
   final int currentPage;
   final AddressInfoEntity? addressInfoEntity;
-  final ShipmentCostObj? shipmentDtoBody;
+  final ShipmentCostDto? shipmentDtoBody;
   final List<CustomerGetDto>? customersAddresses;
   final CustomerQuery? senderCustomerQuery;
   final CustomerQuery? receiverCustomerQuery;
@@ -16,8 +16,8 @@ class RequestNewShipmentState extends Equatable {
   final int? receiverStoreId;
   final int? receiverCustomerId;
   final ServiceCost? selectedServiceProvider;
-  final AddressCostLogistics? senderAddress;
-  final AddressCostLogistics? receiverAddress;
+  final AddressableAddDto? senderAddress;
+  final AddressableAddDto? receiverAddress;
   final int? shipmentId;
 
   const RequestNewShipmentState({
@@ -46,7 +46,7 @@ class RequestNewShipmentState extends Equatable {
     AutovalidateMode? autoValidateMode,
     int? currentPage,
     AddressInfoEntity? addressInfoEntity,
-    ShipmentCostObj? shipmentDtoBody,
+    ShipmentCostDto? shipmentDtoBody,
     List<CustomerGetDto>? customersAddresses,
     CustomerQuery? senderCustomerQuery,
     CustomerQuery? receiverCustomerQuery,
@@ -57,8 +57,8 @@ class RequestNewShipmentState extends Equatable {
     int? receiverStoreId,
     int? receiverCustomerId,
     ServiceCost? selectedServiceProvider,
-    AddressCostLogistics? senderAddress,
-    AddressCostLogistics? receiverAddress,
+    AddressableAddDto? senderAddress,
+    AddressableAddDto? receiverAddress,
     int? shipmentId,
   }) {
     return RequestNewShipmentState(

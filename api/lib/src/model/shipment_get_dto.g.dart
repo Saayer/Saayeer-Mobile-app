@@ -30,6 +30,10 @@ class _$ShipmentGetDto extends ShipmentGetDto {
   @override
   final ShipmentStatusEnum? status;
   @override
+  final String? labelURL;
+  @override
+  final String? traceId;
+  @override
   final int? senderCustomerId;
   @override
   final int? receiverCustomerId;
@@ -61,6 +65,8 @@ class _$ShipmentGetDto extends ShipmentGetDto {
       this.createdAt,
       this.logisticServiceName,
       this.status,
+      this.labelURL,
+      this.traceId,
       this.senderCustomerId,
       this.receiverCustomerId,
       this.senderStoreId,
@@ -94,6 +100,8 @@ class _$ShipmentGetDto extends ShipmentGetDto {
         createdAt == other.createdAt &&
         logisticServiceName == other.logisticServiceName &&
         status == other.status &&
+        labelURL == other.labelURL &&
+        traceId == other.traceId &&
         senderCustomerId == other.senderCustomerId &&
         receiverCustomerId == other.receiverCustomerId &&
         senderStoreId == other.senderStoreId &&
@@ -118,6 +126,8 @@ class _$ShipmentGetDto extends ShipmentGetDto {
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, logisticServiceName.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, labelURL.hashCode);
+    _$hash = $jc(_$hash, traceId.hashCode);
     _$hash = $jc(_$hash, senderCustomerId.hashCode);
     _$hash = $jc(_$hash, receiverCustomerId.hashCode);
     _$hash = $jc(_$hash, senderStoreId.hashCode);
@@ -144,6 +154,8 @@ class _$ShipmentGetDto extends ShipmentGetDto {
           ..add('createdAt', createdAt)
           ..add('logisticServiceName', logisticServiceName)
           ..add('status', status)
+          ..add('labelURL', labelURL)
+          ..add('traceId', traceId)
           ..add('senderCustomerId', senderCustomerId)
           ..add('receiverCustomerId', receiverCustomerId)
           ..add('senderStoreId', senderStoreId)
@@ -204,6 +216,14 @@ class ShipmentGetDtoBuilder
   ShipmentStatusEnum? _status;
   ShipmentStatusEnum? get status => _$this._status;
   set status(ShipmentStatusEnum? status) => _$this._status = status;
+
+  String? _labelURL;
+  String? get labelURL => _$this._labelURL;
+  set labelURL(String? labelURL) => _$this._labelURL = labelURL;
+
+  String? _traceId;
+  String? get traceId => _$this._traceId;
+  set traceId(String? traceId) => _$this._traceId = traceId;
 
   int? _senderCustomerId;
   int? get senderCustomerId => _$this._senderCustomerId;
@@ -267,6 +287,8 @@ class ShipmentGetDtoBuilder
       _createdAt = $v.createdAt;
       _logisticServiceName = $v.logisticServiceName;
       _status = $v.status;
+      _labelURL = $v.labelURL;
+      _traceId = $v.traceId;
       _senderCustomerId = $v.senderCustomerId;
       _receiverCustomerId = $v.receiverCustomerId;
       _senderStoreId = $v.senderStoreId;
@@ -310,6 +332,8 @@ class ShipmentGetDtoBuilder
               createdAt: createdAt,
               logisticServiceName: logisticServiceName,
               status: status,
+              labelURL: labelURL,
+              traceId: traceId,
               senderCustomerId: senderCustomerId,
               receiverCustomerId: receiverCustomerId,
               senderStoreId: senderStoreId,

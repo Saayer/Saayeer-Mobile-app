@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
@@ -41,9 +42,6 @@ class AppRoutes {
         var data = Uri.parse(settings.name.toString());
         var message = data.queryParameters['message'];
         var status = data.queryParameters['status'];
-        if (kIsWeb) {
-          html.window.history.pushState(null, '', Routes.splashNamedPage);
-        }
         return MaterialPageRoute(
             builder: (context) => PaymentWebCallbackResponseWidget(
                   status: status ?? '',
@@ -179,7 +177,11 @@ class AppRoutes {
 
       case Routes.paymentSuccessNamedPage:
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
-          return MaterialPageRoute(builder: (context) => const PaymentSuccessWidget());
+          return MaterialPageRoute(
+              builder: (context) => PaymentSuccessWidget(
+                    labelUrl: (routingData as Map)['labelUrl'],
+                    shipmentId: routingData['shipmentId'],
+                  ));
         } else {
           return MaterialPageRoute(
             builder: (context) => const SplashScreen(),

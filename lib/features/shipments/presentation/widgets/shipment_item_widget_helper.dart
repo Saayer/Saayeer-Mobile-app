@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/cached_network_image_widget.dart';
 import 'package:saayer/common/text/rich_text_widget.dart';
@@ -16,6 +17,7 @@ class ShipmentItemWidgetHelper {
     required ShipmentGetDto shipmentDto,
     required bool isFromHome,
     required ShipmentsListTypes shipmentsListType,
+    required VoidCallback onTapDownloadShipment,
   }) {
     final Color shipmentStatusColor = getColor(shipmentDto.status ?? ShipmentStatusEnum.unKnown);
     return Padding(
@@ -54,9 +56,9 @@ class ShipmentItemWidgetHelper {
                   ],
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              IconButton(
+                  onPressed: onTapDownloadShipment,
+                  icon: Icon(LineIcons.fileDownload, size: 20, color: SaayerTheme().getColorsPalette.greyColor)),
               Icon(Icons.arrow_forward_ios, size: 15, color: SaayerTheme().getColorsPalette.greyColor),
             ],
           ),

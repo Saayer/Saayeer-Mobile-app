@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
 **logisticServiceName** | **String** |  | [optional] 
 **status** | [**ShipmentStatusEnum**](ShipmentStatusEnum.md) |  | [optional] 
+**labelURL** | **String** |  | [optional] 
+**traceId** | **String** |  | [optional] 
 **senderCustomerId** | **int** |  | [optional] 
 **receiverCustomerId** | **int** |  | [optional] 
 **senderStoreId** | **int** |  | [optional] 

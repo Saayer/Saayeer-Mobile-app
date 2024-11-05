@@ -24,6 +24,8 @@
   "empty_fields_error": "Please, fill out all the fields in a valid format",
   "empty_field_error": "{} is empty",
   "invalid_field_error": "Enter a valid {}",
+  "invalid_saudi_format_phone": "The phone must start with 5",
+  "invalid_phone_length": "The phone must be 9 digits",
   "email": "Email",
   "password": "Password",
   "phone_num": "Phone Number",
@@ -232,5 +234,7 @@
   "aramex_note_msg": "Kindly be informed that Aramex team will only come to pick up when you have 5 shipments at least waiting to be picked up, or you can take the shipments yourself anytime to the nearest office",
   "spl_note_msg": "Kindly be informed that sender/receiver must go the nearest SPL office to deliver/pick up shipments",
   "soon": "Soon",
-  "providers_error_msg": "We can't get service providers. Please try again later."
+  "providers_error_msg": "We can't get service providers. Please try again later.",
+  "shipment_download": "Shipment download",
+  "label_not_available_msg": "The file is not available right now!"
 }

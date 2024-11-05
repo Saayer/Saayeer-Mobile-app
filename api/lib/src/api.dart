@@ -22,7 +22,7 @@ import 'package:openapi/src/api/shipments_api.dart';
 import 'package:openapi/src/api/stores_api.dart';
 
 class Openapi {
-  static const String basePath = r'http://localhost/saayer-23/dev';
+  static const String basePath = r'http://localhost/saayer-25/app';
 
   final Dio dio;
   final Serializers serializers;
