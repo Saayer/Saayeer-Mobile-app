@@ -53,10 +53,6 @@ class AddressTextFieldHelper {
         {
           return _getCityTextField();
         }
-      case AddAddressFieldsTypes.AREA:
-        {
-          return _getAreaTextField();
-        }
       case AddAddressFieldsTypes.ADDRESS:
         {
           return _getAddressTextField(addressKey);
@@ -104,10 +100,6 @@ class AddressTextFieldHelper {
       case AddAddressFieldsTypes.ALTERNATIVE_MOBILE:
         {
           return addAddressBloc.alternativeMobileController;
-        }
-      case AddAddressFieldsTypes.AREA:
-        {
-          return addAddressBloc.areaController;
         }
       case AddAddressFieldsTypes.CITY:
         {
@@ -176,13 +168,10 @@ class AddressTextFieldHelper {
       bloc: addAddressBloc,
       isFieldRequired: true,
       onSelected: (val) {
-        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+        addAddressBloc.add(OnItemSelectedFromDropDown<CityGetDto>(
           addAddressFieldsType: addAddressFieldsType,
           item: val,
         ));
-
-        ///
-        addAddressBloc.add(const GetAreas());
       },
       addAddressFieldsType: addAddressFieldsType,
       selectedItem: addAddressBloc.selectedCity,
@@ -222,21 +211,6 @@ class AddressTextFieldHelper {
       },
       addAddressFieldsType: addAddressFieldsType,
       selectedItem: addAddressBloc.selectedGovernorate,
-    );
-  }
-
-  Widget _getAreaTextField() {
-    return ItemsDropDownTextField(
-      bloc: addAddressBloc,
-      isFieldRequired: true,
-      onSelected: (val) {
-        addAddressBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
-          addAddressFieldsType: addAddressFieldsType,
-          item: val,
-        ));
-      },
-      addAddressFieldsType: addAddressFieldsType,
-      selectedItem: addAddressBloc.selectedArea,
     );
   }
 

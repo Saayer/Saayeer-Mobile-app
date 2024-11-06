@@ -6,21 +6,21 @@ import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/addresses_book/presentation/screens/addresses_book_screen.dart';
-import 'package:saayer/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/domain/entities/nav_bar_icon_entity.dart';
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart';
 import 'package:saayer/features/view_page/presentation/widgets/bottom_navigation_bar.dart';
-import 'package:saayer/features/view_page/presentation/widgets/drawer_navigation_web.dart';
 import 'package:saayer/features/view_page/presentation/widgets/floating_action_button.dart';
 import 'package:saayer/features/home/presentation/screens/home_screen.dart';
 import 'package:saayer/features/more/presentation/screens/more_screen.dart';
 import 'package:saayer/features/shipments/presentation/screens/shipments_screen.dart';
+import 'package:saayer/features/view_page/presentation/widgets/side_menu_navigation_web.dart';
 
 class ViewPagePage extends StatelessWidget {
   const ViewPagePage({super.key});
@@ -49,12 +49,12 @@ class ViewPagePage extends StatelessWidget {
         final NavBarIconEntity selectedNavBarIconEntity =
             viewPageBloc.navBarIconEntityList.firstWhere((element) => element.isSelected);
         final bool isHome = (selectedNavBarIconEntity.navBarIconType == NavBarIconTypes.HOME);
+        final bool isRequestShipment = (selectedNavBarIconEntity.navBarIconType == NavBarIconTypes.REQUEST_SHIPMENT);
         return GeneralResponsiveScaledBoxWidget(
           child: Scaffold(
               backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
               floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
               resizeToAvoidBottomInset: false,
-              drawer: const NavigationWebDrawer(),
               appBar: BaseAppBar(
                   title: !isHome
                       ? viewPageBloc.navBarIconEntityList
@@ -64,18 +64,7 @@ class ViewPagePage extends StatelessWidget {
                           .tr()
                       : null,
                   showBackLeading: false,
-                  leadingWidget: largerThanTablet(context)
-                      ? Builder(
-                          builder: (context) {
-                            return IconButton(
-                              icon: const Icon(Icons.menu),
-                              onPressed: () {
-                                Scaffold.of(context).openDrawer();
-                              },
-                            );
-                          },
-                        )
-                      : Container(),
+                  showAppBar: isRequestShipment ? false : true,
                   height: 50,
                   actions: [
                     if (isHome)
@@ -83,15 +72,8 @@ class ViewPagePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: GestureDetector(
                           onTap: () {
-                            getIt<NavigationService>().navigateTo(const NotificationsScreen());
+                            getIt<NavigationService>().navigateToNamed(Routes.notificationsNamedPage);
                           },
-                          // child: SvgPicture.asset(
-                          //   Constants.getIconPath("ic_notification2.svg"),
-                          //   height: 30.h,
-                          //   width: 30.w,
-                          //   fit: BoxFit.cover,
-                          //   color: SaayerTheme().getColorsPalette.blackTextColor,
-                          // ),
                           child: Icon(
                             Icons.notifications,
                             color: SaayerTheme().getColorsPalette.blackTextColor,
@@ -100,9 +82,17 @@ class ViewPagePage extends StatelessWidget {
                         ),
                       ),
                   ]),
-              floatingActionButton: largerThanTablet(context) ? null : const SaayerFloatingActionButton(),
-              bottomNavigationBar: largerThanTablet(context) ? null : const SaayerBottomNavigationBar(),
-              body: _getBody(selectedNavBarIconEntity)),
+              floatingActionButton: largerThanMobile(context) ? null : const SaayerFloatingActionButton(),
+              bottomNavigationBar: largerThanMobile(context) ? null : const SaayerBottomNavigationBar(),
+              body: Row(
+                children: [
+                  if (largerThanMobile(context))
+                    SideMenuNavigationWeb(
+                      selectedNavBarIcon: selectedNavBarIconEntity,
+                    ),
+                  Expanded(child: _getBody(selectedNavBarIconEntity)),
+                ],
+              )),
         );
       },
     );

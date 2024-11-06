@@ -34,7 +34,7 @@ class ShipmentProvidersBloc extends Bloc<ShipmentProvidersEvent, ShipmentProvide
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     final Either<Failure, List<ServiceCost>> result =
-        await getShipmentProvidersUseCase(event.shipmentSpecsEntity ?? ShipmentCostObj());
+        await getShipmentProvidersUseCase(event.shipmentSpecsEntity ?? ShipmentCostDto());
 
     if (result.isLeft()) {
       emit(state.copyWith(

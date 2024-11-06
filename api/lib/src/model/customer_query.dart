@@ -16,6 +16,8 @@ part 'customer_query.g.dart';
 /// * [countryId] 
 /// * [governorateId] 
 /// * [cityId] 
+/// * [shipmentDateFrom] 
+/// * [shipmentDateTo] 
 /// * [totalShipmentsMin] 
 /// * [totalShipmentsMax] 
 /// * [skip] 
@@ -36,6 +38,12 @@ abstract class CustomerQuery implements Built<CustomerQuery, CustomerQueryBuilde
 
   @BuiltValueField(wireName: r'cityId')
   int? get cityId;
+
+  @BuiltValueField(wireName: r'shipmentDateFrom')
+  DateTime? get shipmentDateFrom;
+
+  @BuiltValueField(wireName: r'shipmentDateTo')
+  DateTime? get shipmentDateTo;
 
   @BuiltValueField(wireName: r'totalShipmentsMin')
   int? get totalShipmentsMin;
@@ -105,6 +113,20 @@ class _$CustomerQuerySerializer implements PrimitiveSerializer<CustomerQuery> {
       yield serializers.serialize(
         object.cityId,
         specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.shipmentDateFrom != null) {
+      yield r'shipmentDateFrom';
+      yield serializers.serialize(
+        object.shipmentDateFrom,
+        specifiedType: const FullType.nullable(DateTime),
+      );
+    }
+    if (object.shipmentDateTo != null) {
+      yield r'shipmentDateTo';
+      yield serializers.serialize(
+        object.shipmentDateTo,
+        specifiedType: const FullType.nullable(DateTime),
       );
     }
     if (object.totalShipmentsMin != null) {
@@ -197,6 +219,22 @@ class _$CustomerQuerySerializer implements PrimitiveSerializer<CustomerQuery> {
           ) as int?;
           if (valueDes == null) continue;
           result.cityId = valueDes;
+          break;
+        case r'shipmentDateFrom':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(DateTime),
+          ) as DateTime?;
+          if (valueDes == null) continue;
+          result.shipmentDateFrom = valueDes;
+          break;
+        case r'shipmentDateTo':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(DateTime),
+          ) as DateTime?;
+          if (valueDes == null) continue;
+          result.shipmentDateTo = valueDes;
           break;
         case r'totalShipmentsMin':
           final valueDes = serializers.deserialize(

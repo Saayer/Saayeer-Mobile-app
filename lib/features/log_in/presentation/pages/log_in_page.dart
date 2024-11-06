@@ -11,6 +11,7 @@ import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.da
 import 'package:saayer/common/text_fields/phone_text_field.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -19,8 +20,6 @@ import 'package:saayer/features/log_in/core/utils/enums/enums.dart';
 import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'dart:ui' as ui;
-
-import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
@@ -39,12 +38,10 @@ class LogInPage extends StatelessWidget {
           LoadingDialog.setIsLoading(context, isLoading);
           if (!isLoading) {
             if (state.stateHelper.requestState == RequestState.SUCCESS) {
-              SaayerToast().showSuccessToast(msg:"code_sent".tr());
-              getIt<NavigationService>().navigateTo(VerifyOtpScreen(
-                  tokenRequestDto: TokenRequestDto((b) => b
-                    ..phoneNumber = state.loginRequestDto?.phoneNo ?? ""
-                    ..verificationCode = state.responseLogInEntity?.verificationCodeTemp ?? ""),
-                  ));
+              SaayerToast().showSuccessToast(msg: "code_sent".tr());
+              getIt<NavigationService>().navigateToNamed(Routes.verifyOtpNamedPage,
+                  arguments: TokenRequestDto((b) => b
+                    ..phoneNumber = state.loginRequestDto?.phoneNo ?? ""));
             }
             if (state.stateHelper.requestState == RequestState.ERROR) {
               //showToast(msg: state.stateHelper.errorMessage ?? "");

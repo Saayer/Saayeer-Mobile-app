@@ -5,8 +5,12 @@ import 'package:saayer/core/utils/enums.dart';
 class EndPointsBaseUrl {
   final String baseUrl;
 
+  ///for web platform to set redirect url from moyasar gateway
+  final String baseRedirectUrl;
+
   const EndPointsBaseUrl._internal({
     required this.baseUrl,
+    required this.baseRedirectUrl,
   });
 
   factory EndPointsBaseUrl.init() {
@@ -14,17 +18,19 @@ class EndPointsBaseUrl {
       case FlavorType.DEV:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "http://34.140.10.214/saayer-6/dev");
+              baseUrl: "https://app.saayer.com:9004/saayer-25/app",
+              baseRedirectUrl: "https://app.saayer.com:9004/saayer-25/web");
         }
       case FlavorType.STAGING:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "http://34.140.10.214/saayer-6/stag");
+              baseUrl: "https://app.saayer.com:9002/saayer-25/app",
+              baseRedirectUrl: 'https://app.saayer.com:9002/saayer-25/web');
         }
       case FlavorType.PROD:
         {
           return const EndPointsBaseUrl._internal(
-              baseUrl: "http://34.140.10.214/saayer-6/dev");
+              baseUrl: "https://app.saayer.com/v25/app", baseRedirectUrl: 'https://app.saayer.com/v25/web');
         }
     }
   }

@@ -6,9 +6,7 @@ import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/features/home/domain/repositories/home_repo.dart';
 
 @injectable
-class GetUserProfileUseCase
-    implements
-        BaseUseCase<Future<Either<Failure, ClientGetDto>>, NoParameters> {
+class GetUserProfileUseCase implements BaseUseCase<Future<Either<Failure, ClientGetDto>>, NoParameters> {
   final HomeRepo homeRepoImpl;
 
   const GetUserProfileUseCase({
@@ -16,8 +14,7 @@ class GetUserProfileUseCase
   });
 
   @override
-  Future<Either<Failure, ClientGetDto>> call(
-      NoParameters parameters) async {
+  Future<Either<Failure, ClientGetDto>> call(NoParameters parameters) async {
     return await homeRepoImpl.getUserProfile();
   }
 }

@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saayer/common/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:saayer/common/label_txt.dart';
@@ -104,18 +101,20 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: SearchTextField(
-                      inputController: searchTextController,
-                      onChanged: (val) {
-                        log(val, name: "SearchTextField");
+                      inputController: searchTextController..addListener((){
                         setState(() {
-                          searchTextController.text = val;
+                          //searchTextController.text = val;
                           TextSelection previousSelection = searchTextController.selection;
                           searchTextController.selection = previousSelection;
                           filteredItems.clear();
                           filteredItems.addAll(widget.items.where((element) =>
-                              widget.onSearch != null ? widget.onSearch!(element, searchTextController.text) : true));
+                          widget.onSearch != null ? widget.onSearch!(element, searchTextController.text) : true));
                         });
-                      },
+                      }),
+                      // onChanged: (val) {
+                      //   log(val, name: "SearchTextField");
+                      //
+                      // },
                     ),
                   ),
                   Expanded(child: _getListView),

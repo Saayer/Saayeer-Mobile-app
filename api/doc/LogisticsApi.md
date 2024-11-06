@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-6/dev*
+All URIs are relative to *http://localhost/saayer-25/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **apiLogisticsServiceCostsPost**
-> BuiltList<ServiceCost> apiLogisticsServiceCostsPost(apiKey, shipmentCostObj)
+> BuiltList<ServiceCost> apiLogisticsServiceCostsPost(apiKey, shipmentCostDto)
 
 
 
@@ -24,10 +24,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getLogisticsApi();
 final String apiKey = apiKey_example; // String | 
-final ShipmentCostObj shipmentCostObj = ; // ShipmentCostObj | 
+final ShipmentCostDto shipmentCostDto = ; // ShipmentCostDto | 
 
 try {
-    final response = api.apiLogisticsServiceCostsPost(apiKey, shipmentCostObj);
+    final response = api.apiLogisticsServiceCostsPost(apiKey, shipmentCostDto);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling LogisticsApi->apiLogisticsServiceCostsPost: $e\n');
@@ -39,7 +39,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **apiKey** | **String**|  | 
- **shipmentCostObj** | [**ShipmentCostObj**](ShipmentCostObj.md)|  | [optional] 
+ **shipmentCostDto** | [**ShipmentCostDto**](ShipmentCostDto.md)|  | [optional] 
 
 ### Return type
 

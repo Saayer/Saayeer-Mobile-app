@@ -212,3 +212,18 @@ extension ListsExtraFunctionalities on List {
     return requiredList.join("");
   }
 }
+
+class GlobalProcedures{
+  static T? safeGetElementFromList<T>(List<T> elements, int index) {
+    T? element;
+    try {
+      final isValidIndex = elements.asMap().containsKey(index);
+      if (isValidIndex) {
+        element = elements.elementAt(index);
+      }
+    } on Exception catch (e) {
+      log("Get element from list: ${e.toString()}");
+    }
+    return element;
+  }
+}

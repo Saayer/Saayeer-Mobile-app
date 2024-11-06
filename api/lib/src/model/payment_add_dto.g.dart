@@ -33,6 +33,8 @@ class _$PaymentAddDto extends PaymentAddDto {
   final String? sourceType;
   @override
   final String? status;
+  @override
+  final DateTime? createdAt;
 
   factory _$PaymentAddDto([void Function(PaymentAddDtoBuilder)? updates]) =>
       (new PaymentAddDtoBuilder()..update(updates))._build();
@@ -50,7 +52,8 @@ class _$PaymentAddDto extends PaymentAddDto {
       this.sourceNumber,
       this.sourceReferenceNumber,
       this.sourceType,
-      this.status})
+      this.status,
+      this.createdAt})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         shipmentId, r'PaymentAddDto', 'shipmentId');
@@ -85,7 +88,8 @@ class _$PaymentAddDto extends PaymentAddDto {
         sourceNumber == other.sourceNumber &&
         sourceReferenceNumber == other.sourceReferenceNumber &&
         sourceType == other.sourceType &&
-        status == other.status;
+        status == other.status &&
+        createdAt == other.createdAt;
   }
 
   @override
@@ -104,6 +108,7 @@ class _$PaymentAddDto extends PaymentAddDto {
     _$hash = $jc(_$hash, sourceReferenceNumber.hashCode);
     _$hash = $jc(_$hash, sourceType.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -123,7 +128,8 @@ class _$PaymentAddDto extends PaymentAddDto {
           ..add('sourceNumber', sourceNumber)
           ..add('sourceReferenceNumber', sourceReferenceNumber)
           ..add('sourceType', sourceType)
-          ..add('status', status))
+          ..add('status', status)
+          ..add('createdAt', createdAt))
         .toString();
   }
 }
@@ -189,6 +195,10 @@ class PaymentAddDtoBuilder
   String? get status => _$this._status;
   set status(String? status) => _$this._status = status;
 
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
+
   PaymentAddDtoBuilder() {
     PaymentAddDto._defaults(this);
   }
@@ -209,6 +219,7 @@ class PaymentAddDtoBuilder
       _sourceReferenceNumber = $v.sourceReferenceNumber;
       _sourceType = $v.sourceType;
       _status = $v.status;
+      _createdAt = $v.createdAt;
       _$v = null;
     }
     return this;
@@ -248,7 +259,8 @@ class PaymentAddDtoBuilder
             sourceNumber: sourceNumber,
             sourceReferenceNumber: sourceReferenceNumber,
             sourceType: sourceType,
-            status: status);
+            status: status,
+            createdAt: createdAt);
     replace(_$result);
     return _$result;
   }

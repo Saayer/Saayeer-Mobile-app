@@ -14,9 +14,12 @@ part 'service_cost.g.dart';
 /// * [name] 
 /// * [company] 
 /// * [cost] 
+/// * [workDaysMaximum] 
+/// * [workDaysMinimum] 
 /// * [estimatedShipmentDays] 
 /// * [hasError] 
 /// * [errorMessage] 
+/// * [isImplemented] 
 @BuiltValue()
 abstract class ServiceCost implements Built<ServiceCost, ServiceCostBuilder> {
   @BuiltValueField(wireName: r'name')
@@ -28,6 +31,12 @@ abstract class ServiceCost implements Built<ServiceCost, ServiceCostBuilder> {
   @BuiltValueField(wireName: r'cost')
   double? get cost;
 
+  @BuiltValueField(wireName: r'workDaysMaximum')
+  int? get workDaysMaximum;
+
+  @BuiltValueField(wireName: r'workDaysMinimum')
+  int? get workDaysMinimum;
+
   @BuiltValueField(wireName: r'estimatedShipmentDays')
   String? get estimatedShipmentDays;
 
@@ -36,6 +45,9 @@ abstract class ServiceCost implements Built<ServiceCost, ServiceCostBuilder> {
 
   @BuiltValueField(wireName: r'errorMessage')
   String? get errorMessage;
+
+  @BuiltValueField(wireName: r'isImplemented')
+  bool? get isImplemented;
 
   ServiceCost._();
 
@@ -81,6 +93,20 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
         specifiedType: const FullType(double),
       );
     }
+    if (object.workDaysMaximum != null) {
+      yield r'workDaysMaximum';
+      yield serializers.serialize(
+        object.workDaysMaximum,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.workDaysMinimum != null) {
+      yield r'workDaysMinimum';
+      yield serializers.serialize(
+        object.workDaysMinimum,
+        specifiedType: const FullType(int),
+      );
+    }
     if (object.estimatedShipmentDays != null) {
       yield r'estimatedShipmentDays';
       yield serializers.serialize(
@@ -100,6 +126,13 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
       yield serializers.serialize(
         object.errorMessage,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.isImplemented != null) {
+      yield r'isImplemented';
+      yield serializers.serialize(
+        object.isImplemented,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -148,6 +181,20 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
           ) as double;
           result.cost = valueDes;
           break;
+        case r'workDaysMaximum':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.workDaysMaximum = valueDes;
+          break;
+        case r'workDaysMinimum':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.workDaysMinimum = valueDes;
+          break;
         case r'estimatedShipmentDays':
           final valueDes = serializers.deserialize(
             value,
@@ -170,6 +217,13 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
           ) as String?;
           if (valueDes == null) continue;
           result.errorMessage = valueDes;
+          break;
+        case r'isImplemented':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isImplemented = valueDes;
           break;
         default:
           unhandled.add(key);

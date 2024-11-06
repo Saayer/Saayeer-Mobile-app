@@ -33,6 +33,7 @@ class _ShipmentsFiltersWidgetState extends State<ShipmentsFiltersWidget> {
       key: formKey,
       child: GenericExpansionTileWidget(
           title: 'search'.tr(),
+          selectedFilterCount: _getCountOfSelectedFilter(),
           iconPath: Constants.getIconPath('ic_filter.svg'),
           iconColor: SaayerTheme().getColorsPalette.primaryColor,
           children: [
@@ -106,7 +107,6 @@ class _ShipmentsFiltersWidgetState extends State<ShipmentsFiltersWidget> {
                     },
                     btnWidth: 90,
                     btnHeight: 50),
-
               ],
             ),
             const SizedBox(
@@ -212,5 +212,55 @@ class _ShipmentsFiltersWidgetState extends State<ShipmentsFiltersWidget> {
       widget.shipmentsBloc.selectedImportServiceProvider = null;
     }
     setState(() {});
+  }
+
+  String? _getCountOfSelectedFilter() {
+    int count = 0;
+    if (widget.shipmentsListType == ShipmentsListTypes.EXPORT) {
+      if (widget.shipmentsBloc.exportSearchController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.exportShipmentDateFromController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.exportShipmentDateToController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.exportShipmentStatusController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.selectedExportShipmentStatus != null) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.selectedExportStore != null) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.selectedExportServiceProvider != null) {
+        count = count + 1;
+      }
+    } else {
+      if (widget.shipmentsBloc.importSearchController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.importShipmentDateFromController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.importShipmentDateToController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.importShipmentStatusController.text.isNotEmpty) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.selectedImportShipmentStatus != null) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.selectedImportStore != null) {
+        count = count + 1;
+      }
+      if (widget.shipmentsBloc.selectedImportServiceProvider != null) {
+        count = count + 1;
+      }
+    }
+    return count == 0 ? '' : count.toString();
   }
 }

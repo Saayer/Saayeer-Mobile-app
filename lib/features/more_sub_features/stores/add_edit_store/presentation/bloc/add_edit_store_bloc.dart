@@ -18,7 +18,6 @@ import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_areas_usecase.dart';
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_cities_usecase.dart';
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_countries_usecase.dart';
 import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_governorate_usecase.dart';
@@ -36,7 +35,6 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
   final GetCountriesUseCase getCountriesUseCase;
   final GetGovernoratesUseCase getGovernoratesUseCase;
   final GetCitiesUseCase getCitiesUseCase;
-  final GetAreasUseCase getAreasUseCase;
   final EditStoreUseCase editStoreUseCase;
 
   AddEditStoreBloc({
@@ -44,7 +42,6 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
     required this.getCountriesUseCase,
     required this.getGovernoratesUseCase,
     required this.getCitiesUseCase,
-    required this.getAreasUseCase,
     required this.editStoreUseCase,
   }) : super(const AddEditStoreState()) {
     on<InitAddEditStore>(_initAddEditStore);
@@ -55,7 +52,6 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
     on<GetCountries>(_getCountries);
     on<GetGovernorates>(_getGovernorates);
     on<GetCities>(_getCities);
-    on<GetAreas>(_getAreas);
     on<SetValuesInEditType>(_setValuesInEditType);
     on<OnUpdateStore>(_onUpdateStore);
   }
@@ -67,19 +63,16 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
   final TextEditingController countryController = TextEditingController();
   final TextEditingController governorateController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
-  final TextEditingController areaController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController zipCodeController = TextEditingController();
   final TextEditingController financialRecordNoController = TextEditingController();
   final TextEditingController freelanceCertificateNoController = TextEditingController();
   AddressLookUpDto? selectedCountry;
   AddressLookUpDto? selectedGovernorate;
-  AddressLookUpDto? selectedCity;
-  AddressLookUpDto? selectedArea;
+  CityGetDto? selectedCity;
   final List<AddressLookUpDto> countriesList = [];
   final List<AddressLookUpDto> governoratesList = [];
-  List<AddressLookUpDto> citiesList = [];
-  final List<AddressLookUpDto> areasList = [];
+  List<CityGetDto> citiesList = [];
   Map<StoreInfoFieldsTypes, bool> storeInfoFieldsValidMap = {};
 
   Future<FutureOr<void>> _initAddEditStore(InitAddEditStore event, Emitter<AddEditStoreState> emit) async {
@@ -109,7 +102,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
           ..countryId = selectedCountry!.id
           ..governorateId = selectedGovernorate!.id
           ..cityId = selectedCity!.id
-          ..areaId = selectedArea!.id
+          ..areaId = 1
           ..addressDetails = addressController.text
           ..zipcode = zipCodeController.text
           ..financialRecordNumber = financialRecordNoController.text
@@ -171,24 +164,16 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
       emit(state.copyWith(countryId: event.item.id));
       selectedGovernorate = null;
       selectedCity = null;
-      selectedArea = null;
       governoratesList.clear();
       citiesList.clear();
-      areasList.clear();
     } else if (event.storeInfoFieldsType == StoreInfoFieldsTypes.GOVERNORATE) {
       selectedGovernorate = event.item;
       emit(state.copyWith(governorateId: event.item.id));
       selectedCity = null;
-      selectedArea = null;
       citiesList.clear();
-      areasList.clear();
     } else if (event.storeInfoFieldsType == StoreInfoFieldsTypes.CITY) {
       selectedCity = event.item;
       emit(state.copyWith(cityId: event.item.id));
-      selectedArea = null;
-      areasList.clear();
-    } else if (event.storeInfoFieldsType == StoreInfoFieldsTypes.AREA) {
-      selectedArea = event.item;
     }
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -297,7 +282,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
     } else {
       governorateId = selectedGovernorate?.id;
     }
-    final Either<Failure, List<AddressLookUpDto>> result = await getCitiesUseCase(governorateId);
+    final Either<Failure, List<CityGetDto>> result = await getCitiesUseCase(governorateId);
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -306,7 +291,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_CITIES)));
     } else {
-      final List<AddressLookUpDto>? rightResult = (result as Right).value;
+      final List<CityGetDto>? rightResult = (result as Right).value;
       log("right getCities $rightResult");
       if (rightResult != null) {
         if (rightResult.isNotEmpty) {
@@ -336,52 +321,6 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
     }
   }
 
-  FutureOr<void> _getAreas(GetAreas event, Emitter<AddEditStoreState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    final int? cityId;
-    if (state.addEditStoreType == AddEditStoreType.addStore) {
-      cityId = state.cityId;
-    } else {
-      cityId = selectedCity?.id;
-    }
-    final Either<Failure, List<AddressLookUpDto>> result = await getAreasUseCase(cityId);
-
-    if (result.isLeft()) {
-      final Failure leftResult = (result as Left).value;
-      log("left Areas $leftResult");
-      emit(state.copyWith(
-          stateHelper: state.stateHelper
-              .copyWith(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_AREAS)));
-    } else {
-      final List<AddressLookUpDto>? rightResult = (result as Right).value;
-      log("right Areas $rightResult");
-      if (rightResult != null) {
-        if (rightResult.isNotEmpty) {
-          final bool isEnglish = Localization.isEnglish();
-          areasList.addAll(rightResult);
-          areasList.sort((a, b) => (isEnglish ? a.nameEn : a.nameAr)!
-              .toLowerCase()
-              .compareTo((isEnglish ? b.nameEn : b.nameAr)!.toLowerCase()));
-          log("${rightResult.length}", name: "Areas");
-          emit(state.copyWith(
-            stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
-          ));
-        } else {
-          emit(state.copyWith(
-            stateHelper:
-                const StateHelper(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_AREAS),
-          ));
-        }
-      } else {
-        log("", name: "getAreas error");
-        emit(state.copyWith(
-          stateHelper:
-              const StateHelper(requestState: RequestState.ERROR, errorStatus: AddAddressErrorStatus.ERROR_GET_AREAS),
-        ));
-      }
-    }
-  }
-
   FutureOr<void> _setValuesInEditType(SetValuesInEditType event, Emitter<AddEditStoreState> emit) {
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING), storeId: event.storeDto.storeId));
@@ -401,17 +340,12 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
       ..id = event.storeDto.governorateId
       ..nameEn = event.storeDto.governorateNameEn
       ..nameAr = event.storeDto.governorateNameAr);
-    selectedCity = AddressLookUpDto((b) => b
+    selectedCity = CityGetDto((b) => b
       ..id = event.storeDto.cityId
       ..nameEn = event.storeDto.cityNameEn
       ..nameAr = event.storeDto.cityNameAr);
-    selectedArea = AddressLookUpDto((b) => b
-      ..id = event.storeDto.areaId
-      ..nameEn = event.storeDto.areaNameEn
-      ..nameAr = event.storeDto.areaNameAr);
 
     add(const GetCities());
-    add(const GetAreas());
   }
 
   FutureOr<void> _onUpdateStore(OnUpdateStore event, Emitter<AddEditStoreState> emit) async {
@@ -428,7 +362,7 @@ class AddEditStoreBloc extends Bloc<AddEditStoreEvent, AddEditStoreState> {
           ..countryId = selectedCountry!.id
           ..cityId = selectedCity!.id
           ..governorateId = selectedGovernorate!.id
-          ..areaId = selectedArea!.id
+          ..areaId = 1
           ..addressDetails = addressController.text
           ..zipcode = zipCodeController.text
           ..financialRecordNumber = financialRecordNoController.text

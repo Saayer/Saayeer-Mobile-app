@@ -5,9 +5,10 @@ class ViewPageState extends Equatable {
   final StateHelper stateHelper;
   final bool? isGuest;
 
-  const ViewPageState(
-      {this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
-      this.isGuest});
+  const ViewPageState({
+    this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
+    this.isGuest,
+  });
 
   ViewPageState copyWith({
     StateHelper? stateHelper,
@@ -20,5 +21,8 @@ class ViewPageState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [stateHelper, isGuest];
+  List<Object?> get props => [
+        stateHelper,
+        isGuest,
+      ];
 }

@@ -7,7 +7,7 @@ import 'package:saayer/features/address/add_edit_address/domain/repositories/add
 @injectable
 class GetCitiesUseCase
     implements
-        BaseUseCase<Future<Either<Failure, List<AddressLookUpDto>>>, int?> {
+        BaseUseCase<Future<Either<Failure, List<CityGetDto>>>, int?> {
   final AddEditAddressInfoRepo addAddressInfoRepoImpl;
 
   const GetCitiesUseCase({
@@ -15,7 +15,7 @@ class GetCitiesUseCase
   });
 
   @override
-  Future<Either<Failure, List<AddressLookUpDto>>> call(
+  Future<Either<Failure, List<CityGetDto>>> call(
       int? governorateId) async {
     return await addAddressInfoRepoImpl.getCities(governorateId);
   }

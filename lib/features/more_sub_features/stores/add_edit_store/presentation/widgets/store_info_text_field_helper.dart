@@ -48,10 +48,6 @@ class StoreInfoTextFieldHelper {
         {
           return _getCityTextField();
         }
-      case StoreInfoFieldsTypes.AREA:
-        {
-          return _getAreaTextField();
-        }
       case StoreInfoFieldsTypes.ADDRESS:
         {
           return _getAddressTextField(addressKey);
@@ -92,10 +88,6 @@ class StoreInfoTextFieldHelper {
       case StoreInfoFieldsTypes.CITY:
         {
           return addEditStoreBloc.cityController;
-        }
-      case StoreInfoFieldsTypes.AREA:
-        {
-          return addEditStoreBloc.areaController;
         }
       case StoreInfoFieldsTypes.ADDRESS:
         {
@@ -168,31 +160,13 @@ class StoreInfoTextFieldHelper {
       bloc: addEditStoreBloc,
       isFieldRequired: true,
       onSelected: (val) {
-        addEditStoreBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+        addEditStoreBloc.add(OnItemSelectedFromDropDown<CityGetDto>(
           storeInfoFieldsType: storeInfoFieldsType,
           item: val,
         ));
-
-        ///
-        addEditStoreBloc.add(const GetAreas());
       },
       addAddressFieldsType: AddAddressFieldsTypes.CITY,
       selectedItem: addEditStoreBloc.selectedCity,
-    );
-  }
-
-  Widget _getAreaTextField() {
-    return ItemsDropDownTextField(
-      bloc: addEditStoreBloc,
-      isFieldRequired: true,
-      onSelected: (val) {
-        addEditStoreBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
-          storeInfoFieldsType: storeInfoFieldsType,
-          item: val,
-        ));
-      },
-      addAddressFieldsType: AddAddressFieldsTypes.AREA,
-      selectedItem: addEditStoreBloc.selectedArea,
     );
   }
 

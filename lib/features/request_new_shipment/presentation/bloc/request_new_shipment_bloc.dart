@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
@@ -11,6 +11,7 @@ import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
@@ -109,7 +110,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: state.currentPage - 1));
     } else {
-      getIt<NavigationService>().pop();
+      getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage);
       emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.SUCCESS),
       ));
@@ -264,7 +265,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     emit(
       state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING),
-        shipmentDtoBody: ShipmentCostObj((b) => b
+        shipmentDtoBody: ShipmentCostDto((b) => b
           ..length = lengthController.text.isEmpty ? 0 : double.parse(lengthController.text)
           ..height = heightController.text.isEmpty ? 0 : double.parse(heightController.text)
           ..weight = weightController.text.isEmpty ? null : double.parse(weightController.text)
@@ -318,25 +319,25 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderStoreId: selectedSenderStoreAddress!.storeId,
           senderCustomerId: null,
-          senderAddress: AddressCostLogistics((a) => a
+          senderAddress: AddressableAddDto((a) => a
             ..addressDetails = selectedSenderStoreAddress?.addressDetails
-            ..governorateNameEn = selectedSenderStoreAddress?.governorateNameEn
-            ..cityNameEn = selectedSenderStoreAddress?.cityNameEn
-            ..countryNameEn = selectedSenderStoreAddress?.countryNameEn
-            ..countryCode = selectedSenderStoreAddress?.countryCode
-            ..areaNameEn = selectedSenderStoreAddress?.areaNameEn)));
+            ..governorateId = selectedSenderStoreAddress?.governorateId
+            ..cityId = selectedSenderStoreAddress?.cityId
+            ..countryId = selectedSenderStoreAddress?.countryId
+            ..zipcode = selectedSenderStoreAddress?.zipcode
+            ..areaId = selectedSenderStoreAddress?.areaId)));
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderStoreId: null,
           senderCustomerId: selectedSenderCustomerAddress!.customerId,
-          senderAddress: AddressCostLogistics((a) => a
+          senderAddress: AddressableAddDto((a) => a
             ..addressDetails = selectedSenderCustomerAddress?.addressDetails
-            ..governorateNameEn = selectedSenderCustomerAddress?.governorateNameEn
-            ..cityNameEn = selectedSenderCustomerAddress?.cityNameEn
-            ..countryNameEn = selectedSenderCustomerAddress?.countryNameEn
-            ..countryCode = selectedSenderCustomerAddress?.countryCode
-            ..areaNameEn = selectedSenderCustomerAddress?.areaNameEn)));
+            ..governorateId = selectedSenderCustomerAddress?.governorateId
+            ..cityId = selectedSenderCustomerAddress?.cityId
+            ..countryId = selectedSenderCustomerAddress?.countryId
+            ..zipcode = selectedSenderCustomerAddress?.zipcode
+            ..areaId = selectedSenderCustomerAddress?.areaId)));
       receiverType = SenderReceiverType.store;
       selectedReceiverCustomerAddress = null;
     }
@@ -351,25 +352,25 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverStoreId: selectedReceiverStoreAddress!.storeId,
           receiverCustomerId: null,
-          receiverAddress: AddressCostLogistics((a) => a
+          receiverAddress: AddressableAddDto((a) => a
             ..addressDetails = selectedReceiverStoreAddress?.addressDetails
-            ..governorateNameEn = selectedReceiverStoreAddress?.governorateNameEn
-            ..cityNameEn = selectedReceiverStoreAddress?.cityNameEn
-            ..countryNameEn = selectedReceiverStoreAddress?.countryNameEn
-            ..countryCode = selectedReceiverStoreAddress?.countryCode
-            ..areaNameEn = selectedReceiverStoreAddress?.areaNameEn)));
+            ..governorateId = selectedReceiverStoreAddress?.governorateId
+            ..cityId = selectedReceiverStoreAddress?.cityId
+            ..countryId = selectedReceiverStoreAddress?.countryId
+            ..zipcode = selectedReceiverStoreAddress?.zipcode
+            ..areaId = selectedReceiverStoreAddress?.areaId)));
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverStoreId: null,
           receiverCustomerId: selectedReceiverCustomerAddress!.customerId,
-          receiverAddress: AddressCostLogistics((a) => a
+          receiverAddress: AddressableAddDto((a) => a
             ..addressDetails = selectedReceiverCustomerAddress?.addressDetails
-            ..governorateNameEn = selectedReceiverCustomerAddress?.governorateNameEn
-            ..cityNameEn = selectedReceiverCustomerAddress?.cityNameEn
-            ..countryNameEn = selectedReceiverCustomerAddress?.countryNameEn
-            ..countryCode = selectedReceiverCustomerAddress?.countryCode
-            ..areaNameEn = selectedReceiverCustomerAddress?.areaNameEn)));
+            ..governorateId = selectedReceiverCustomerAddress?.governorateId
+            ..cityId = selectedReceiverCustomerAddress?.cityId
+            ..countryId = selectedReceiverCustomerAddress?.countryId
+            ..zipcode = selectedReceiverCustomerAddress?.zipcode
+            ..areaId = selectedReceiverCustomerAddress?.areaId)));
     }
 
     add(GoToNextPageEvent());
@@ -380,7 +381,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     ///
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING), shipmentId: event.shipmentId));
-
+    ///save shipmentId
+    getIt<SharedPrefService>().setShipmentId(event.shipmentId);
     /// go to Shipment payment screen
     add(GoToNextPageEvent());
 

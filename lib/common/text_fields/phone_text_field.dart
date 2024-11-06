@@ -31,13 +31,19 @@ class PhoneTextField extends StatelessWidget {
       },
       validator: (withValidator ?? true)
           ? (String? value) {
-              if (value?.isEmpty ?? true) {
-                return 'empty_field_error'.tr().replaceFirst("{}", "phone_num".tr());
+              if (value != null) {
+                if (value.isEmpty) {
+                  return 'empty_field_error'.tr().replaceFirst("{}", "phone_num".tr());
+                }
+                else if (!value.startsWith('5')) {
+                  return 'invalid_saudi_format_phone'.tr();
+                } else if (value.replaceAll(' ', '').length != 9) {
+                  return 'invalid_phone_length'.tr();
+                }
+                return null;
+              } else {
+                return null;
               }
-              if (value!.length < 10) {
-                return 'invalid_field_error'.tr().replaceFirst("{}", "phone_num".tr());
-              }
-              return null;
             }
           : null,
       onInputValidated: (bool value) {

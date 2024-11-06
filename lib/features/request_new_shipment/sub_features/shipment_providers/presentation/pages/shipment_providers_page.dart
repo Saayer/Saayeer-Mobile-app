@@ -93,6 +93,11 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
             shipmentProvidersBloc.state.shipmentProvidersResponse == null
                 ? Container()
                 : _buildServiceProvidersListWidget(shipmentProvidersBloc),
+            const SizedBox(height: 10),
+            _buildServiceProviderNote(shipmentProvidersBloc),
+            SizedBox(
+              height: MediaQuery.of(context).viewInsets.bottom + 100,
+            ),
           ],
         ),
       ),
@@ -119,5 +124,18 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
                 },
               );
             });
+  }
+
+  _buildServiceProviderNote(ShipmentProvidersBloc shipmentProvidersBloc) {
+    if (shipmentProvidersBloc.selectedServiceProvider == null) {
+      return Container();
+    } else {
+      if (shipmentProvidersBloc.selectedServiceProvider!.company != null) {
+        return Text('${shipmentProvidersBloc.selectedServiceProvider!.company!.toLowerCase()}_note_msg'.tr(),
+            style: AppTextStyles.paragraph(SaayerTheme().getColorsPalette.greyColor));
+      } else {
+        return Container();
+      }
+    }
   }
 }

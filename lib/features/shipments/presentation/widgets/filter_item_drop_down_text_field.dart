@@ -59,7 +59,7 @@ class FilterItemsDropDownTextField<T> extends StatelessWidget {
             ? (val as StoreGetDto).name!.contains(searchStr)
             : shipmentsFilterTypes == ShipmentsFilterTypes.SERVICE_PROVIDER
                 ? (val as LogisticsServiceBase).name!.contains(searchStr)
-                : (val as ShipmentStatus).name.contains(searchStr);
+                : (val as ShipmentStatusEnum).name.contains(searchStr);
       },
     );
   }
@@ -121,7 +121,7 @@ class FilterItemsDropDownTextField<T> extends StatelessWidget {
           }
         case ShipmentsFilterTypes.STATUS:
           {
-            return (selectedItem as ShipmentStatus).name;
+            return (selectedItem as ShipmentStatusEnum).name;
           }
         default:
           {
@@ -145,7 +145,7 @@ class FilterItemsDropDownTextField<T> extends StatelessWidget {
         }
       case ShipmentsFilterTypes.STATUS:
         {
-          return (val as ShipmentStatus).name;
+          return (val as ShipmentStatusEnum).name.tr();
         }
       default:
         {

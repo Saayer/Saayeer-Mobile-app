@@ -8,10 +8,10 @@ import 'package:saayer/common/dialogs/saayer_dialogs.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/utils/enums/enums.dart';
-import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/screens/add_edit_store_screen.dart';
 import 'package:saayer/features/more_sub_features/stores/stores_list/presentation/bloc/stores_list_bloc.dart';
 import 'package:saayer/features/more_sub_features/stores/stores_list/presentation/widgets/empty_stores_list.dart';
 import 'package:saayer/features/more_sub_features/stores/stores_list/presentation/widgets/store_item_widget.dart';
@@ -71,10 +71,10 @@ class _StoresListPageState extends State<StoresListPage> {
             child: StoreItemWidget(
               storeDto: storesListBloc.storesList[index],
               onEdit: () {
-                getIt<NavigationService>().navigateTo(
-                    AddEditStoreScreen(
-                        addEditStoreType: AddEditStoreType.editStore,
-                        storeDto: storesListBloc.state.storesList?[index] ?? StoreGetDto()), onBack: (_) {
+                getIt<NavigationService>().navigateToNamed(Routes.addEditStoreNamedPage, arguments: {
+                  'addEditStoreType': AddEditStoreType.editStore,
+                  'storeDto': storesListBloc.state.storesList?[index] ?? StoreGetDto()
+                }, onBack: (_) {
                   storesListBloc.add(const ResetList());
                   storesListBloc.add(const GetStores());
                 });
@@ -99,8 +99,8 @@ class _StoresListPageState extends State<StoresListPage> {
       isEnabled: true,
       borderRadius: 16,
       onPressed: () {
-        getIt<NavigationService>().navigateTo(
-            AddEditStoreScreen(addEditStoreType: AddEditStoreType.addStore, storeDto: StoreGetDto()), onBack: (_) {
+        getIt<NavigationService>().navigateToNamed(Routes.addEditStoreNamedPage,
+            arguments: {'addEditStoreType': AddEditStoreType.addStore, 'storeDto': StoreGetDto()}, onBack: (_) {
           storesListBloc.add(const ResetList());
           storesListBloc.add(const GetStores());
         });

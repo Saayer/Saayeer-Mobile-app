@@ -29,9 +29,17 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
     on<CheckOtpEvent>(_checkOtpEvent);
   }
 
+  ///
+  String? phoneNumber;
+  String? otpCode;
+
   FutureOr<void> _initVerifyOtpEvent(InitVerifyOtpEvent event, Emitter<VerifyOtpState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
+    ///
+    phoneNumber = event.tokenRequestDto.phoneNumber;
+
+    ///
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED), tokenRequestDto: event.tokenRequestDto));
   }
@@ -40,11 +48,7 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     final Either<Failure, LoginResponseDto?> result = await logInUseCase(LogInParameters(
-        loginRequestDto: LoginRequestDto((b) => b..phoneNo = state.tokenRequestDto?.phoneNumber ?? "")
-        // LogInEntity(
-        //     phoneNumber: PhoneNumber(
-        //         phoneNumber: state.verifyOtpEntity?.phoneNumber ?? ""))
-        ));
+        loginRequestDto: LoginRequestDto((b) => b..phoneNo = state.tokenRequestDto?.phoneNumber ?? "")));
 
     if (result.isLeft()) {
       final Failure leftResult = (result as Left).value;
@@ -56,13 +60,18 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
       final LoginResponseDto? rightResult = (result as Right).value;
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
+        if (rightResult.hasError ?? false) {
+          emit(state.copyWith(
+              stateHelper: StateHelper(
+                  requestState: RequestState.ERROR,
+                  errorStatus: VerifyOtpErrorStatus.ERROR_RESEND_CODE,
+                  errorMessage: rightResult.errorMessage ?? 'error_msg')));
+        } else {
           emit(state.copyWith(
               stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
-              tokenRequestDto: state.tokenRequestDto?.rebuild((model) => model.verificationCode = '3f\$*;sSkV'), //'3f\$*;sSkV',
-              //state.verifyOtpEntity!.copyWith(otp: rightResult.otp),
               isOtpResent: true,
               resetExpiryDate: true));
-
+        }
       } else {
         log("", name: "SubmitLogInEvent error");
         emit(state.copyWith(
@@ -74,22 +83,14 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
   }
 
   Future<FutureOr<void>> _checkOtpEvent(CheckOtpEvent event, Emitter<VerifyOtpState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    //state.tokenRequestDto = AuthenticateRequestVerify((b) => b
-      //..otp = '3f\$*;sSkV'
-      //..mobileNumber = state.tokenRequestDto?.mobileNumber ?? '');
-    //state.verifyOtpEntity!.copyWith(otp: event.otp);
-    // final bool isVerifiedOtp =
-    //     (event.otp.compareTo(state.verifyOtpEntity!.otp) == 0);
-    // log("$isVerifiedOtp", name: "isVerifiedOtp");
-    // if (isVerifiedOtp) {
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING),
+        tokenRequestDto: TokenRequestDto((b) => b
+          ..phoneNumber = phoneNumber
+          ..verificationCode = event.otp)));
+
+    ///
     await _confirmLogin(emit);
-    // } else {
-    //   emit(state.copyWith(
-    //       stateHelper: state.stateHelper.copyWith(
-    //           requestState: RequestState.ERROR,
-    //           errorStatus: VerifyOtpErrorStatus.ERROR_VERIFY_OTP)));
-    // }
   }
 
   _confirmLogin(Emitter<VerifyOtpState> emit) async {
@@ -100,26 +101,44 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
       log("left submitLogInData $leftResult");
       emit(state.copyWith(
           stateHelper: state.stateHelper
-              .copyWith(requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_CONFIRM_LOGIN)));
+              .copyWith(requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_VERIFY_OTP)));
     } else {
       final TokenResponseDto? rightResult = (result as Right).value;
       log("right submitLogInData $rightResult");
       if (rightResult != null) {
-        if (rightResult.token != null) {
+        if (rightResult.reponseStatus == TokenReponseStatus.invalidOTPCode) {
+          emit(state.copyWith(
+            stateHelper: StateHelper(
+              requestState: RequestState.ERROR,
+              errorStatus: VerifyOtpErrorStatus.ERROR_VERIFY_OTP,
+              errorMessage: rightResult.errorMessage ?? 'invalid_otp_error_description',
+            ),
+          ));
+        } else if (rightResult.reponseStatus == TokenReponseStatus.phoneNumberNotRegistered) {
+          emit(state.copyWith(
+            stateHelper: StateHelper(
+              requestState: RequestState.ERROR,
+              errorStatus: VerifyOtpErrorStatus.ERROR_VERIFY_OTP,
+              errorMessage: rightResult.errorMessage ?? 'invalid_otp_error_description',
+            ),
+          ));
+        } else if (rightResult.reponseStatus == TokenReponseStatus.success) {
+          if (rightResult.token != null) {
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
                 isVerified: true));
-        } else {
-          emit(state.copyWith(
-            stateHelper: const StateHelper(
-                requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_CONFIRM_LOGIN),
-          ));
-        }
+          } else {
+            emit(state.copyWith(
+              stateHelper: const StateHelper(
+                  requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_VERIFY_OTP),
+            ));
+          }
+        } else {}
       } else {
         log("", name: "SubmitLogInEvent error");
         emit(state.copyWith(
-          stateHelper: const StateHelper(
-              requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_CONFIRM_LOGIN),
+          stateHelper:
+              const StateHelper(requestState: RequestState.ERROR, errorStatus: VerifyOtpErrorStatus.ERROR_VERIFY_OTP),
         ));
       }
     }

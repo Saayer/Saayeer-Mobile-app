@@ -8,6 +8,7 @@ import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.da
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -17,7 +18,6 @@ import 'package:saayer/features/verify_otp/core/errors/verify_otp_error_handler.
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart';
 import 'dart:ui' as ui;
 import 'package:saayer/features/verify_otp/presentation/widgets/down_bill_timer_counter_widget.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class VerifyOtpPage extends StatelessWidget {
   const VerifyOtpPage({super.key});
@@ -39,7 +39,7 @@ class VerifyOtpPage extends StatelessWidget {
               if (state.isVerified) {
                 SaayerToast().showSuccessToast(msg: "welcome".tr());
                 await getIt<SharedPrefService>().setIsLoggedIn(true);
-                getIt<NavigationService>().navigateTo(const ViewPageScreen());
+                getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage);
               } else {
                 SaayerToast().showSuccessToast(msg: 'invalid_otp_error_description'.tr());
               }

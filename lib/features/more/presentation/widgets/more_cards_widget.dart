@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
-import 'package:saayer/features/more_sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:saayer/features/more/presentation/widgets/more_card_item_widget.dart';
 
 class MoreCardsWidget extends StatelessWidget {
@@ -8,8 +8,8 @@ class MoreCardsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, Widget> moreCardsStrMap = {
-      "profile": const PersonalInfoScreen(),
+    final Map<String, String> moreCardsStrMap = {
+      "profile": Routes.personalInfoNamedPage,
       //"reports": const ReportsScreen(),
     };
     return GridView.builder(
@@ -18,19 +18,19 @@ class MoreCardsWidget extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        childAspectRatio: largerThanTablet(context) ? 3.5 : 3,
+        childAspectRatio: largerThanTablet(context) ? 5 : 3,
         mainAxisSpacing: (8 * 2),
         crossAxisSpacing: (8 * 2),
       ),
       itemCount: moreCardsStrMap.entries.toList().length,
       itemBuilder: (context, index) {
         final String moreCardStr = moreCardsStrMap.keys.toList()[index];
-        final Widget moreCardOnPressedWidget =
+        final String moreCardOnPressedRouteName =
             moreCardsStrMap.values.toList()[index];
         return MoreCardItemWidget(
           title: moreCardStr,
           iconName: moreCardStr,
-          onPressedWidget: moreCardOnPressedWidget,
+          onPressedRouteName: moreCardOnPressedRouteName,
         );
       },
     );

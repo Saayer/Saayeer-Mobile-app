@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/log_in/presentation/screens/log_in_screen.dart';
 import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart';
 import 'package:saayer/features/user_card/presentation/widgets/circle_painter.dart';
 import 'dart:ui' as ui;
@@ -69,7 +69,7 @@ class UserCardHelper {
                   borderRadius: 16,
                   onPressed: () {
                     getIt<NavigationService>()
-                        .navigateAndFinish(const LogInScreen());
+                        .navigateAndFinishNamed(Routes.loginNamedPage);
                   },
                   btnWidth: width / 1,
                   btnHeight: 50,

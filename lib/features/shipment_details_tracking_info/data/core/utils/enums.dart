@@ -1,5 +1,4 @@
 enum TrackingStatusTypes {
-  PAID._(name: 'paid'),
   REQUESTED._(name: 'requested'),
   PICKED._(name: 'picked'),
   SHIPPING._(name: 'shipping'),

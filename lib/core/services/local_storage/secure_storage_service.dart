@@ -5,7 +5,7 @@ import 'package:saayer/core/entities/logged_in_user_entity.dart';
 import 'package:saayer/core/services/encryption/encryption.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/features/intro/presentation/screens/intro_screen.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/features/user_card/domain/entities/user_card_entity.dart';
 
 
@@ -50,7 +50,7 @@ class SecureStorageService {
     } catch (e) {
       log("$e", name: "getLoggedInUser error");
       //await getIt<LoggedInCheckerService>().logOut();
-      getIt<NavigationService>().navigateAndFinish(const IntroScreen());
+      getIt<NavigationService>().navigateAndFinishNamed(Routes.introNamedPage);
     }
     return null;
   }

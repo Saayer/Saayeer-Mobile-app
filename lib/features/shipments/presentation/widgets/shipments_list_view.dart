@@ -1,16 +1,24 @@
+import 'dart:async';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:fl_downloader/fl_downloader.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/shimmer/shimmer_widget.dart';
+import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
 import 'package:saayer/features/shipments/presentation/widgets/empty_shipments.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipments_filters_widget.dart';
-import 'package:saayer/features/shipment_details_tracking_info/presentation/screens/shipment_details_screen.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipment_item_widget_helper.dart';
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart';
+import "package:universal_html/html.dart" as html;
 
 class ShipmentsListView extends StatefulWidget {
   final List<ShipmentGetDto>? shipmentsList;
@@ -31,10 +39,48 @@ class ShipmentsListView extends StatefulWidget {
 }
 
 class _ShipmentsListViewState extends State<ShipmentsListView> {
+  late StreamSubscription progressStream;
+
   @override
   initState() {
     widget.scrollController.addListener(() => widget.shipmentsBloc.add(const OnScrollPagination()));
+    FlDownloader.initialize();
+    progressStream = FlDownloader.progressStream.listen((event) {
+      if (event.status == DownloadStatus.successful) {
+        debugPrint('event.progress: ${event.progress}');
+        // This is a way of auto-opening downloaded file right after a download is completed
+        FlDownloader.openFile(filePath: event.filePath);
+        LoadingDialog.setIsLoading(context, false);
+      } else if (event.status == DownloadStatus.running) {
+        LoadingDialog.setIsLoading(context, true);
+        debugPrint('event.progress: ${event.progress}');
+      } else if (event.status == DownloadStatus.failed) {
+        debugPrint('event: $event');
+      } else if (event.status == DownloadStatus.paused) {
+        debugPrint('Download paused');
+
+        // Here I am attaching the download progress to the download task again
+        // after an paused status because the download task can be paused by
+        // the system when the connection is lost or is waiting for a wifi
+        // connection see https://developer.android.com/reference/android/app/DownloadManager#PAUSED_QUEUED_FOR_WIFI
+        // for the possible reasons of a download task to be auto-paused by the
+        // system (this applies to Windows too as the plugin sets the same suspension
+        // policies for Windows downloads).
+        Future.delayed(
+          const Duration(milliseconds: 250),
+          () => FlDownloader.attachDownloadProgress(event.downloadId),
+        );
+      } else if (event.status == DownloadStatus.pending) {
+        debugPrint('Download pending');
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    progressStream.cancel();
+    super.dispose();
   }
 
   @override
@@ -54,9 +100,9 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
               const SizedBox(
                 height: 10,
               ),
-              if (! widget.shipmentsBloc.state.isFromHome)
+              if (!widget.shipmentsBloc.state.isFromHome)
                 ShipmentsFiltersWidget(
-                  shipmentsBloc:  widget.shipmentsBloc,
+                  shipmentsBloc: widget.shipmentsBloc,
                   shipmentsListType: widget.shipmentsListType,
                 ),
               const SizedBox(
@@ -88,15 +134,26 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
               final bool isLast = (index == widget.shipmentsList!.length - 1);
               Widget shipmentWidget;
               shipmentWidget = ShipmentItemWidgetHelper().getShipmentWidget(
-                shipmentDto: shipmentEntity,
-                isFromHome: isFromHome,
-                shipmentsListType: widget.shipmentsListType,
-              );
+                  shipmentDto: shipmentEntity,
+                  isFromHome: isFromHome,
+                  shipmentsListType: widget.shipmentsListType,
+                  onTapDownloadShipment: () {
+                    ///
+                    if ((shipmentEntity.labelURL ?? '').isEmpty){
+                      SaayerToast().showSuccessToast(msg: "label_not_available_msg".tr());
+                    }else{
+                      downloadPdfFile(shipmentEntity.labelURL ?? '', shipmentEntity.shipmentId);
+                    }
+
+                  });
               return Column(
                 children: [
                   GestureDetector(
                       onTap: () {
-                        getIt<NavigationService>().navigateTo(ShipmentDetailsScreen(shipmentDto: shipmentEntity));
+                        getIt<NavigationService>().navigateToNamed(
+                          Routes.shipmentDetailsNamedPage,
+                          arguments: shipmentEntity,
+                        );
                       },
                       child: shipmentWidget),
                   if (isLast)
@@ -108,5 +165,23 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
             }),
       ),
     );
+  }
+
+  void downloadPdfFile(String url, int? shipmentId) async {
+    if (kIsWeb) {
+      html.AnchorElement anchorElement = html.AnchorElement(href: url);
+      anchorElement.download = url;
+      anchorElement.click();
+    } else {
+      final permission = await FlDownloader.requestPermission();
+      if (permission == StoragePermissionStatus.granted) {
+        await FlDownloader.download(
+          url,
+          fileName: 'Saayer-Shipment-$shipmentId.pdf',
+        );
+      } else {
+        debugPrint('Permission denied =(');
+      }
+    }
   }
 }

@@ -92,6 +92,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_my_bills.svg
   String get icMyBills => 'assets/icons/ic_my_bills.svg';
 
+  /// File path: assets/icons/ic_new_shipment.svg
+  String get icNewShipment => 'assets/icons/ic_new_shipment.svg';
+
   /// File path: assets/icons/ic_notification.svg
   String get icNotification => 'assets/icons/ic_notification.svg';
 
@@ -158,6 +161,7 @@ class $AssetsIconsGen {
         icMore,
         icMyBalance,
         icMyBills,
+        icNewShipment,
         icNotification,
         icNotification2,
         icPrivacyPolicy,
@@ -220,6 +224,9 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/delivered_shipment.json
   String get deliveredShipment => 'assets/lottie/delivered_shipment.json';
 
+  /// File path: assets/lottie/onTheWay_shipment.json
+  String get onTheWayShipment => 'assets/lottie/onTheWay_shipment.json';
+
   /// File path: assets/lottie/paid_shipment.json
   String get paidShipment => 'assets/lottie/paid_shipment.json';
 
@@ -229,16 +236,17 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/requested_shipment.json
   String get requestedShipment => 'assets/lottie/requested_shipment.json';
 
-  /// File path: assets/lottie/shipping_shipment.json
-  String get shippingShipment => 'assets/lottie/shipping_shipment.json';
+  /// File path: assets/lottie/shipments_shipment.json
+  String get shipmentsShipment => 'assets/lottie/shipments_shipment.json';
 
   /// List of all assets
   List<String> get values => [
         deliveredShipment,
+        onTheWayShipment,
         paidShipment,
         pickedShipment,
         requestedShipment,
-        shippingShipment
+        shipmentsShipment
       ];
 }
 

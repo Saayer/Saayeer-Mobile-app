@@ -6,14 +6,13 @@ import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
-import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/utils/enums/enums.dart';
-import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/screens/add_edit_store_screen.dart';
 import 'package:saayer/features/request_new_shipment/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
 import 'package:saayer/features/request_new_shipment/presentation/widgets/sender_receiver_item_details_widget.dart';
@@ -200,9 +199,10 @@ class _ReceiverScreenState extends State<ReceiverScreen> {
                   maximumSize: Size(screenWidth(context) / 3, 50),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
               onPressed: () {
-                getIt<NavigationService>().navigateTo(
-                    AddEditStoreScreen(addEditStoreType: AddEditStoreType.addStore, storeDto: StoreGetDto()),
-                    onBack: (result) {
+                getIt<NavigationService>().navigateToNamed(Routes.addEditStoreNamedPage, arguments: {
+                  'addEditStoreType': AddEditStoreType.addStore,
+                  'storeDto': StoreGetDto(),
+                }, onBack: (result) {
                   requestShipmentBloc.add(const GetStoresAddresses());
                 });
               },
@@ -251,14 +251,17 @@ class _ReceiverScreenState extends State<ReceiverScreen> {
                   maximumSize: Size(screenWidth(context) / 3, 50),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
               onPressed: () {
-                getIt<NavigationService>().navigateTo(
-                    AddEditAddressScreen(
-                      addEditAddressType: AddEditAddressType.addAddress,
-                      customerModel: CustomerGetDto(),
-                      isAddShipmentRequest: true,
-                    ), onBack: (result) {
+                getIt<NavigationService>().navigateToNamed(Routes.addEditAddressNamedPage, arguments: {
+                  'addEditAddressType': AddEditAddressType.addAddress,
+                  'customerModel': CustomerGetDto(),
+                  'isAddShipmentRequest': true,
+                }, onBack: (result) {
                   requestShipmentBloc
                       .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
+                  if (result != null) {
+                    requestShipmentBloc.add(OnReceiverSelectedFromDropDown(
+                        receiverType: SenderReceiverType.customer, item: result as CustomerGetDto?));
+                  }
                 });
               },
               color: SaayerTheme().getColorsPalette.whiteColor,

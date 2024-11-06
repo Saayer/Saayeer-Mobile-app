@@ -38,20 +38,26 @@ class ShipmentProviderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _getLeadingWidget(),
-                (shipmentProviderModel.hasError ?? false)
-                    ? Text('not_available'.tr(),
-                        style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
-                    :
+                (shipmentProviderModel.isImplemented ?? true)
+                    ? (shipmentProviderModel.hasError ?? false)
+                        ? Text('not_available'.tr(),
+                            style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
+                        :
 
-                    /// Cost & Business days
-                    _buildRowColumnWidget(context)
+                        /// Cost & Business days
+                        _buildRowColumnWidget(context)
+                    : Text('soon'.tr(), style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
               ],
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-            value: (shipmentProviderModel.hasError ?? false) ? ServiceCost() : shipmentProviderModel,
+            value: ((shipmentProviderModel.hasError ?? false) || !(shipmentProviderModel.isImplemented ?? true))
+                ? ServiceCost()
+                : shipmentProviderModel,
             groupValue: groupValue,
             activeColor: SaayerTheme().getColorsPalette.primaryColor,
-            onChanged: (shipmentProviderModel.hasError ?? false) ? null : onChanged,
+            onChanged: ((shipmentProviderModel.hasError ?? false) || !(shipmentProviderModel.isImplemented ?? true))
+                ? null
+                : onChanged,
           )),
     );
   }
@@ -80,14 +86,14 @@ class ShipmentProviderCard extends StatelessWidget {
       children: [
         ResponsiveRowColumnItem(
             child: Text(
-          '${shipmentProviderModel.cost} ${'sar'.tr()}',
+          '${shipmentProviderModel.cost} ${'sr'.tr()}',
           style: AppTextStyles.boldLabel(),
         )),
         ResponsiveRowColumnItem(
-            child: (shipmentProviderModel.estimatedShipmentDays == null ||
-                    shipmentProviderModel.estimatedShipmentDays!.isEmpty)
+            child: (shipmentProviderModel.workDaysMinimum == null)
                 ? const Text('')
-                : Text('${shipmentProviderModel.estimatedShipmentDays} ${'business_days'.tr()}',
+                : Text(
+                    '${shipmentProviderModel.workDaysMinimum} - ${shipmentProviderModel.workDaysMaximum} ${'business_days'.tr()}',
                     style: AppTextStyles.xSmallLabel())),
       ],
     ));

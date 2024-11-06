@@ -14,11 +14,17 @@ class _$ServiceCost extends ServiceCost {
   @override
   final double? cost;
   @override
+  final int? workDaysMaximum;
+  @override
+  final int? workDaysMinimum;
+  @override
   final String? estimatedShipmentDays;
   @override
   final bool? hasError;
   @override
   final String? errorMessage;
+  @override
+  final bool? isImplemented;
 
   factory _$ServiceCost([void Function(ServiceCostBuilder)? updates]) =>
       (new ServiceCostBuilder()..update(updates))._build();
@@ -27,9 +33,12 @@ class _$ServiceCost extends ServiceCost {
       {this.name,
       this.company,
       this.cost,
+      this.workDaysMaximum,
+      this.workDaysMinimum,
       this.estimatedShipmentDays,
       this.hasError,
-      this.errorMessage})
+      this.errorMessage,
+      this.isImplemented})
       : super._();
 
   @override
@@ -46,9 +55,12 @@ class _$ServiceCost extends ServiceCost {
         name == other.name &&
         company == other.company &&
         cost == other.cost &&
+        workDaysMaximum == other.workDaysMaximum &&
+        workDaysMinimum == other.workDaysMinimum &&
         estimatedShipmentDays == other.estimatedShipmentDays &&
         hasError == other.hasError &&
-        errorMessage == other.errorMessage;
+        errorMessage == other.errorMessage &&
+        isImplemented == other.isImplemented;
   }
 
   @override
@@ -57,9 +69,12 @@ class _$ServiceCost extends ServiceCost {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, company.hashCode);
     _$hash = $jc(_$hash, cost.hashCode);
+    _$hash = $jc(_$hash, workDaysMaximum.hashCode);
+    _$hash = $jc(_$hash, workDaysMinimum.hashCode);
     _$hash = $jc(_$hash, estimatedShipmentDays.hashCode);
     _$hash = $jc(_$hash, hasError.hashCode);
     _$hash = $jc(_$hash, errorMessage.hashCode);
+    _$hash = $jc(_$hash, isImplemented.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -70,9 +85,12 @@ class _$ServiceCost extends ServiceCost {
           ..add('name', name)
           ..add('company', company)
           ..add('cost', cost)
+          ..add('workDaysMaximum', workDaysMaximum)
+          ..add('workDaysMinimum', workDaysMinimum)
           ..add('estimatedShipmentDays', estimatedShipmentDays)
           ..add('hasError', hasError)
-          ..add('errorMessage', errorMessage))
+          ..add('errorMessage', errorMessage)
+          ..add('isImplemented', isImplemented))
         .toString();
   }
 }
@@ -92,6 +110,16 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
   double? get cost => _$this._cost;
   set cost(double? cost) => _$this._cost = cost;
 
+  int? _workDaysMaximum;
+  int? get workDaysMaximum => _$this._workDaysMaximum;
+  set workDaysMaximum(int? workDaysMaximum) =>
+      _$this._workDaysMaximum = workDaysMaximum;
+
+  int? _workDaysMinimum;
+  int? get workDaysMinimum => _$this._workDaysMinimum;
+  set workDaysMinimum(int? workDaysMinimum) =>
+      _$this._workDaysMinimum = workDaysMinimum;
+
   String? _estimatedShipmentDays;
   String? get estimatedShipmentDays => _$this._estimatedShipmentDays;
   set estimatedShipmentDays(String? estimatedShipmentDays) =>
@@ -105,6 +133,11 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
   String? get errorMessage => _$this._errorMessage;
   set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
 
+  bool? _isImplemented;
+  bool? get isImplemented => _$this._isImplemented;
+  set isImplemented(bool? isImplemented) =>
+      _$this._isImplemented = isImplemented;
+
   ServiceCostBuilder() {
     ServiceCost._defaults(this);
   }
@@ -115,9 +148,12 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
       _name = $v.name;
       _company = $v.company;
       _cost = $v.cost;
+      _workDaysMaximum = $v.workDaysMaximum;
+      _workDaysMinimum = $v.workDaysMinimum;
       _estimatedShipmentDays = $v.estimatedShipmentDays;
       _hasError = $v.hasError;
       _errorMessage = $v.errorMessage;
+      _isImplemented = $v.isImplemented;
       _$v = null;
     }
     return this;
@@ -143,9 +179,12 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
             name: name,
             company: company,
             cost: cost,
+            workDaysMaximum: workDaysMaximum,
+            workDaysMinimum: workDaysMinimum,
             estimatedShipmentDays: estimatedShipmentDays,
             hasError: hasError,
-            errorMessage: errorMessage);
+            errorMessage: errorMessage,
+            isImplemented: isImplemented);
     replace(_$result);
     return _$result;
   }

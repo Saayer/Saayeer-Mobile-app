@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-17
+  version: v-25-dev
 servers:
-  - url: "/saayer-6/dev"
+  - url: "/saayer-25/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -131,17 +131,17 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/AddressLookUpDto"
+                  "$ref": "#/components/schemas/CityGetDto"
             application/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/AddressLookUpDto"
+                  "$ref": "#/components/schemas/CityGetDto"
             text/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/AddressLookUpDto"
+                  "$ref": "#/components/schemas/CityGetDto"
   "/api/AddressLookups/Areas/{cityId}":
     get:
       tags:
@@ -264,6 +264,117 @@ paths:
       responses:
         '200':
           description: Success
+  "/api/ClientDashboard/shipments-perStatus":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+  "/api/ClientDashboard/shipments-perDay":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+  "/api/ClientDashboard/paid-perDay":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
   "/api/Clients":
     get:
       tags:
@@ -392,8 +503,8 @@ paths:
               allOf:
                 - "$ref": "#/components/schemas/CustomerAddDto"
       responses:
-        '200':
-          description: Success
+        '201':
+          description: Created
           content:
             text/plain:
               schema:
@@ -494,6 +605,80 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/CustomerGetDto"
+  "/api/Experimental/shipment-createdAt":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  "/api/Experimental/add-shipment-status":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
   "/api/Logistics/service-costs":
     post:
       tags:
@@ -509,15 +694,15 @@ paths:
           application/json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostObj"
+                - "$ref": "#/components/schemas/ShipmentCostDto"
           text/json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostObj"
+                - "$ref": "#/components/schemas/ShipmentCostDto"
           application/*+json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostObj"
+                - "$ref": "#/components/schemas/ShipmentCostDto"
       responses:
         '200':
           description: Success
@@ -721,6 +906,78 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/ShipmentGetDto"
+  "/api/ShipmentTracing/aramex-webhook":
+    get:
+      tags:
+        - ShipmentTracing
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  "/api/ShipmentTracing/Shipment-Statuses/{id}":
+    get:
+      tags:
+        - ShipmentTracing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
   "/api/Stores":
     get:
       tags:
@@ -800,8 +1057,8 @@ paths:
               allOf:
                 - "$ref": "#/components/schemas/StoreAddDto"
       responses:
-        '200':
-          description: Success
+        '201':
+          description: Created
           content:
             text/plain:
               schema:
@@ -861,31 +1118,6 @@ paths:
           description: Success
 components:
   schemas:
-    AddressCost_Logistics:
-      type: object
-      properties:
-        addressDetails:
-          type: string
-          nullable: true
-        countryCode:
-          type: string
-          nullable: true
-        stateCode:
-          type: string
-          nullable: true
-        countryName_en:
-          type: string
-          nullable: true
-        governorateName_en:
-          type: string
-          nullable: true
-        cityName_en:
-          type: string
-          nullable: true
-        areaName_en:
-          type: string
-          nullable: true
-      additionalProperties: false
     AddressLookUpDto:
       type: object
       properties:
@@ -898,6 +1130,104 @@ components:
         name_ar:
           type: string
           nullable: true
+      additionalProperties: false
+    AddressableAddDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AmountPerDateDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        amount:
+          type: number
+          format: double
+      additionalProperties: false
+    AmountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: number
+          format: double
+        amounts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/AmountPerDateDto"
+          nullable: true
+      additionalProperties: false
+    AramexWebhookRequest:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        value:
+          allOf:
+            - "$ref": "#/components/schemas/AramexWebhookValue"
+          nullable: true
+      additionalProperties: false
+    AramexWebhookValue:
+      type: object
+      properties:
+        waybillNumber:
+          type: string
+          nullable: true
+        updateCode:
+          type: string
+          nullable: true
+        updateDateTime:
+          type: string
+          nullable: true
+        updateLocation:
+          type: string
+          nullable: true
+        comments:
+          type: string
+          nullable: true
+        problemCode:
+          type: string
+          nullable: true
+        orderNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CityGetDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name_en:
+          type: string
+          nullable: true
+        name_ar:
+          type: string
+          nullable: true
+        aramexPickupAvailable:
+          type: boolean
+        aramexDeliveryAvailable:
+          type: boolean
       additionalProperties: false
     ClientAddDto:
       type: object
@@ -931,6 +1261,29 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    CountPerDateItemDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        count:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        counts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CountPerDateItemDto"
+          nullable: true
+      additionalProperties: false
     CreatePaymentResponse:
       type: object
       properties:
@@ -940,6 +1293,10 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/ErrorMessage"
+          nullable: true
+        shipment:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentGetDto"
           nullable: true
       additionalProperties: false
     CustomerAddDto:
@@ -1024,6 +1381,9 @@ components:
         cityName_en:
           type: string
           nullable: true
+        cityAramexName:
+          type: string
+          nullable: true
         cityName_ar:
           type: string
           nullable: true
@@ -1086,6 +1446,14 @@ components:
           type: integer
           format: int32
           nullable: true
+        shipmentDateFrom:
+          type: string
+          format: date-time
+          nullable: true
+        shipmentDateTo:
+          type: string
+          format: date-time
+          nullable: true
         totalShipmentsMin:
           type: integer
           format: int32
@@ -1137,6 +1505,18 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    DateRangeDto:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
     ErrorCodes:
       enum:
         - Save_Payment
@@ -1153,6 +1533,32 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    Experimental_ShipmentCreatedAtRequest:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        shipmentId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Experimental_ShipmentStatusAdd:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      additionalProperties: false
     LoginRequestDto:
       type: object
       properties:
@@ -1163,7 +1569,12 @@ components:
     LoginResponseDto:
       type: object
       properties:
-        verificationCode_temp:
+        hasError:
+          type: boolean
+        errorMessage:
+          type: string
+          nullable: true
+        statusCode:
           type: string
           nullable: true
       additionalProperties: false
@@ -1177,6 +1588,17 @@ components:
         company:
           type: string
           nullable: true
+          readOnly: true
+        isImplemented:
+          type: boolean
+          readOnly: true
+        workDaysMinimum:
+          type: integer
+          format: int32
+          readOnly: true
+        workDaysMaximum:
+          type: integer
+          format: int32
           readOnly: true
       additionalProperties: false
     PaymentAddDto:
@@ -1227,6 +1649,9 @@ components:
         status:
           type: string
           nullable: true
+        createdAt:
+          type: string
+          format: date-time
       additionalProperties: false
     ServiceCost:
       type: object
@@ -1240,6 +1665,12 @@ components:
         cost:
           type: number
           format: double
+        workDaysMaximum:
+          type: integer
+          format: int32
+        workDaysMinimum:
+          type: integer
+          format: int32
         estimatedShipmentDays:
           type: string
           nullable: true
@@ -1248,6 +1679,8 @@ components:
         errorMessage:
           type: string
           nullable: true
+        isImplemented:
+          type: boolean
       additionalProperties: false
     ShipmentAddDto:
       type: object
@@ -1299,7 +1732,7 @@ components:
           format: int64
           nullable: true
       additionalProperties: false
-    ShipmentCostObj:
+    ShipmentCostDto:
       type: object
       properties:
         length:
@@ -1321,13 +1754,13 @@ components:
           type: number
           format: double
           nullable: true
-        senderAddress:
+        sender_Address:
           allOf:
-            - "$ref": "#/components/schemas/AddressCost_Logistics"
+            - "$ref": "#/components/schemas/AddressableAddDto"
           nullable: true
-        receiverAddress:
+        receiver_Address:
           allOf:
-            - "$ref": "#/components/schemas/AddressCost_Logistics"
+            - "$ref": "#/components/schemas/AddressableAddDto"
           nullable: true
       additionalProperties: false
     ShipmentGetDto:
@@ -1367,7 +1800,13 @@ components:
           nullable: true
         status:
           allOf:
-            - "$ref": "#/components/schemas/ShipmentStatus"
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+          nullable: true
+        labelURL:
+          type: string
+          nullable: true
+        traceId:
+          type: string
           nullable: true
         senderCustomerId:
           type: integer
@@ -1421,7 +1860,7 @@ components:
           nullable: true
         status:
           allOf:
-            - "$ref": "#/components/schemas/ShipmentStatus"
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
           nullable: true
         storeId:
           type: integer
@@ -1443,12 +1882,50 @@ components:
           format: int32
           nullable: true
       additionalProperties: false
-    ShipmentStatus:
+    ShipmentStatusEnum:
       enum:
         - Pending
         - Paid
         - Requested
+        - Picked
+        - OnTheWay
+        - Delivered
+        - NeedAction
+        - UnKnown
+        - Canceled
       type: string
+    ShipmentStatusGetDto:
+      type: object
+      properties:
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ShipmentsCountResponse:
+      type: object
+      properties:
+        totalShipments:
+          type: integer
+          format: int32
+        requestedShipments:
+          type: integer
+          format: int32
+        pickedShipments:
+          type: integer
+          format: int32
+        onTheWayShipments:
+          type: integer
+          format: int32
+        deliveredShipments:
+          type: integer
+          format: int32
+      additionalProperties: false
     StoreAddDto:
       type: object
       properties:
@@ -1531,6 +2008,9 @@ components:
         cityName_en:
           type: string
           nullable: true
+        cityAramexName:
+          type: string
+          nullable: true
         cityName_ar:
           type: string
           nullable: true
@@ -1590,6 +2070,12 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    TokenReponseStatus:
+      enum:
+        - Success
+        - Invalid_OTP_Code
+        - PhoneNumber_Not_Registered
+      type: string
     TokenRequestDto:
       type: object
       properties:
@@ -1612,6 +2098,12 @@ components:
         expiration:
           type: string
           format: date-time
+        reponseStatus:
+          allOf:
+            - "$ref": "#/components/schemas/TokenReponseStatus"
+        errorMessage:
+          type: string
+          nullable: true
       additionalProperties: false
   securitySchemes:
     bearer:

@@ -1,27 +1,24 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/helpers/snackbar_helper/snackbar_helper.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/shipment_details_tracking_info/domain/entities/shipment_tracking_entity.dart';
 
 class TrackingInfo extends StatelessWidget {
-  final ShipmentTrackingEntity shipmentTrackingEntity;
-
-  const TrackingInfo({super.key, required this.shipmentTrackingEntity});
+  const TrackingInfo({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         color: SaayerTheme().getColorsPalette.backgroundColor,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
@@ -44,30 +41,28 @@ class TrackingInfo extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.boldLiteLabel(),
               ),
-              SizedBox(
-                height: 5.h,
+              const SizedBox(
+                height: 5,
               ),
               Row(
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      await Clipboard.setData(ClipboardData(
-                              text: shipmentTrackingEntity.trackingId))
-                          .whenComplete(() {
+                      await Clipboard.setData(const ClipboardData(text: '15606sedfs65f1')).whenComplete(() {
                         SnackbarHelper.show(msg: "tracking_id_copied_msg");
                       });
                     },
                     child: Icon(
                       Icons.copy,
-                      size: 20.r,
+                      size: 20,
                       color: SaayerTheme().getColorsPalette.darkGreyColor,
                     ),
                   ),
-                  SizedBox(
-                    width: 5.w,
+                  const SizedBox(
+                    width: 5,
                   ),
                   Text(
-                    shipmentTrackingEntity.trackingId ?? "",
+                    "dfgdfg5151df15d10dfg",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.smallParagraph(),
@@ -78,11 +73,9 @@ class TrackingInfo extends StatelessWidget {
           ),
           Column(
             children: [
-              SvgPicture.asset(
-                Constants.getIconPath("ic_shipment.svg"),
-                fit: BoxFit.contain,
-                height: 50.h,
-                width: 50.w,
+              GenericSvgWidget(
+                path: Constants.getIconPath("ic_shipment.svg"),
+                size: 50,
                 color: SaayerTheme().getColorsPalette.blackTextColor,
               ),
             ],

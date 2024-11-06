@@ -52,3 +52,38 @@ class CreatePayment extends ShipmentPaymentEvent {
         status,
       ];
 }
+
+class CreateWebPayment extends ShipmentPaymentEvent {
+  final PaymentAddDto? paymentAddDto;
+
+  const CreateWebPayment({
+    required this.paymentAddDto,
+  });
+
+  @override
+  List<Object?> get props => [
+        paymentAddDto,
+      ];
+}
+
+class HandleWebCallbackResponse extends ShipmentPaymentEvent {
+  final PaymentResponse? paymentResponse;
+  final String? status;
+  final String? message;
+  final int shipmentId;
+
+  const HandleWebCallbackResponse({
+    required this.paymentResponse,
+    required this.status,
+    required this.message,
+    required this.shipmentId,
+  });
+
+  @override
+  List<Object?> get props => [
+        paymentResponse,
+        status,
+        message,
+        shipmentId,
+      ];
+}

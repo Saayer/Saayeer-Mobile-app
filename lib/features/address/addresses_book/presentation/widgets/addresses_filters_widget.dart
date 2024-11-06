@@ -41,6 +41,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
       key: formKey,
       child: GenericExpansionTileWidget(
           title: 'search'.tr(),
+          selectedFilterCount: _getCountOfSelectedFilter(),
           iconPath: Constants.getIconPath('ic_filter.svg'),
           iconColor: SaayerTheme().getColorsPalette.primaryColor,
           children: [
@@ -226,7 +227,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
           withValidator: false,
           hasMargin: false,
           onSelected: (val) {
-            widget.addressesBookBloc.add(OnItemSelectedFromDropDown<AddressLookUpDto>(
+            widget.addressesBookBloc.add(OnItemSelectedFromDropDown<CityGetDto>(
               addAddressFieldsType: AddAddressFieldsTypes.CITY,
               item: val,
             ));
@@ -249,6 +250,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
           onTap: () async {
             DateTime? res = await showDate();
             widget.addressesBookBloc.shipmentDateFromController.text = DateTimeUtil.dMyString(res);
+            widget.addressesBookBloc.shipmentDateFrom = DateTimeUtil.toUtcDateTime(DateTimeUtil.dMyString(res));
           },
           onChanged: (val) {},
           validator: null,
@@ -263,6 +265,7 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
           onTap: () async {
             DateTime? res = await showDate();
             widget.addressesBookBloc.shipmentDateToController.text = DateTimeUtil.dMyString(res);
+            widget.addressesBookBloc.shipmentDateTo = DateTimeUtil.toUtcDateTime(DateTimeUtil.dMyString(res));
           },
           onChanged: (val) {},
           validator: null,
@@ -337,7 +340,38 @@ class _AddressesFiltersWidgetState extends State<AddressesFiltersWidget> {
     widget.addressesBookBloc.selectedCity = null;
     widget.addressesBookBloc.governoratesList.clear();
     widget.addressesBookBloc.citiesList.clear();
-    widget.addressesBookBloc.areasList.clear();
     setState(() {});
+  }
+
+  String? _getCountOfSelectedFilter() {
+    int count = 0;
+    if (widget.addressesBookBloc.searchController.text.isNotEmpty) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.shipmentDateFromController.text.isNotEmpty) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.shipmentDateToController.text.isNotEmpty) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.totalShipmentsMin.text.isNotEmpty) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.totalShipmentsMax.text.isNotEmpty) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.mobile.isNotEmpty) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.selectedCountry != null) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.selectedGovernorate != null) {
+      count = count + 1;
+    }
+    if (widget.addressesBookBloc.selectedCity != null) {
+      count = count + 1;
+    }
+    return count == 0 ? '' : count.toString();
   }
 }

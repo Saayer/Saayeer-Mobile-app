@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/shipment_status_enum.dart';
 import 'package:openapi/src/model/store_shipment_get_dto.dart';
-import 'package:openapi/src/model/shipment_status.dart';
 import 'package:openapi/src/model/customer_shipment_get_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -25,6 +25,8 @@ part 'shipment_get_dto.g.dart';
 /// * [createdAt] 
 /// * [logisticServiceName] 
 /// * [status] 
+/// * [labelURL] 
+/// * [traceId] 
 /// * [senderCustomerId] 
 /// * [receiverCustomerId] 
 /// * [senderStoreId] 
@@ -66,8 +68,14 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
   String? get logisticServiceName;
 
   @BuiltValueField(wireName: r'status')
-  ShipmentStatus? get status;
-  // enum statusEnum {  Pending,  Paid,  Requested,  };
+  ShipmentStatusEnum? get status;
+  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  };
+
+  @BuiltValueField(wireName: r'labelURL')
+  String? get labelURL;
+
+  @BuiltValueField(wireName: r'traceId')
+  String? get traceId;
 
   @BuiltValueField(wireName: r'senderCustomerId')
   int? get senderCustomerId;
@@ -190,7 +198,21 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
       yield r'status';
       yield serializers.serialize(
         object.status,
-        specifiedType: const FullType.nullable(ShipmentStatus),
+        specifiedType: const FullType.nullable(ShipmentStatusEnum),
+      );
+    }
+    if (object.labelURL != null) {
+      yield r'labelURL';
+      yield serializers.serialize(
+        object.labelURL,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.traceId != null) {
+      yield r'traceId';
+      yield serializers.serialize(
+        object.traceId,
+        specifiedType: const FullType.nullable(String),
       );
     }
     if (object.senderCustomerId != null) {
@@ -349,10 +371,26 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
         case r'status':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(ShipmentStatus),
-          ) as ShipmentStatus?;
+            specifiedType: const FullType.nullable(ShipmentStatusEnum),
+          ) as ShipmentStatusEnum?;
           if (valueDes == null) continue;
           result.status = valueDes;
+          break;
+        case r'labelURL':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.labelURL = valueDes;
+          break;
+        case r'traceId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.traceId = valueDes;
           break;
         case r'senderCustomerId':
           final valueDes = serializers.deserialize(

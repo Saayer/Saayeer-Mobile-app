@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:injectable/injectable.dart';
+import 'package:moyasar/moyasar.dart';
+import 'package:moyasar/src/models/payment_type.dart';
 import 'package:saayer/core/services/encryption/encryption.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -18,6 +22,8 @@ class SharedPrefService {
   final String _keyIsLoggedIn = 'IsLoggedIn';
   final String _keyLastStoreAdded = 'LastStoreAdded';
   final String _keyClientPhone = 'ClientPhone';
+  final String _keyShipmentId = 'ShipmentId';
+  final String _keyPaymentResponse = 'PaymentResponse';
 
   /// saving data to sharedpreference
   Future setAccessToken(String accessToken) async {
@@ -34,6 +40,15 @@ class SharedPrefService {
 
   Future setClientPhone(String phoneNo) async {
     await _preferences.setString(_keyClientPhone, phoneNo);
+  }
+
+  Future setShipmentId(int shipmentId) async {
+    await _preferences.setInt(_keyShipmentId, shipmentId);
+  }
+
+  Future setPaymentResponse(PaymentResponse paymentResponse) async {
+    var jsondata = paymentResponse.toJson();
+    await _preferences.setString(_keyPaymentResponse, jsonEncode(jsondata));
   }
 
   /// fetching data from sharedpreference
@@ -70,6 +85,30 @@ class SharedPrefService {
     if (_preferences.containsKey(_keyClientPhone)) {
       final String? phoneNumber = _preferences.get(_keyClientPhone) as String?;
       return phoneNumber;
+    } else {
+      return null;
+    }
+  }
+
+  int? getShipmentId() {
+    if (_preferences.containsKey(_keyShipmentId)) {
+      final int? shipmentId = _preferences.get(_keyShipmentId) as int?;
+      return shipmentId;
+    } else {
+      return null;
+    }
+  }
+
+  PaymentResponse? getPaymentResponse() {
+    if (_preferences.containsKey(_keyPaymentResponse)) {
+      final String? jsondata = _preferences.get(_keyPaymentResponse) as String?;
+      if (jsondata != null) {
+        Map<String, dynamic> map = json.decode(jsondata);
+        final payment = PaymentResponse.fromJson(map, PaymentType.creditcard);
+        return payment;
+      } else {
+        return null;
+      }
     } else {
       return null;
     }

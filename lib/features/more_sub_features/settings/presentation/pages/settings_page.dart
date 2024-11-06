@@ -7,13 +7,13 @@ import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/widgets/dark_mode_widget.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/widgets/language_widget.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
-import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -80,8 +80,6 @@ class SettingsPage extends StatelessWidget {
   }
 
   void _onBack() {
-    getIt<NavigationService>().navigateAndFinish(const ViewPageScreen(
-      navBarIconType: NavBarIconTypes.MORE,
-    ));
+    getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage, arguments: NavBarIconTypes.MORE);
   }
 }

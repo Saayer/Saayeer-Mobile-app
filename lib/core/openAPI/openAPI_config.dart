@@ -27,7 +27,7 @@ class OpenAPIConfig {
         },
 
         ///ConnectionTimeOut in ms
-        connectTimeout: const Duration(milliseconds: 20000));
+        connectTimeout: const Duration(milliseconds: 40000));
     addAppInterceptors();
   }
 

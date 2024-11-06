@@ -69,7 +69,7 @@ class RequestNewShipmentPage extends StatelessWidget {
                   final bool isCurrent = (state.currentPage == index);
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
-                    width: isCurrent ? screenWidth(context) / 5 : screenWidth(context) / 7,
+                    width: _getIndicatorWidth(isCurrent,context),
                     child: LinearIndicator(
                       color: isPrevious
                           ? (SaayerTheme().getColorsPalette.superDarkOrangeColor)
@@ -85,5 +85,16 @@ class RequestNewShipmentPage extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  double _getIndicatorWidth(bool isCurrent, BuildContext context) {
+    if(equalToTablet(context)){
+      return isCurrent ? queryScreenWidth(context) / 6 : queryScreenWidth(context) / 8;
+    }else if(largerThanTablet(context)){
+      return isCurrent ? queryScreenWidth(context) / 7 : queryScreenWidth(context) / 9;
+    }else {
+      return isCurrent ? queryScreenWidth(context) / 5 : queryScreenWidth(context) / 7;
+    }
+
   }
 }
