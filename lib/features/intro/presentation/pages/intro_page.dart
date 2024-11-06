@@ -18,29 +18,41 @@ class IntroPage extends StatelessWidget {
     final List<SingleIntroScreen> pages = _getIntroScreenElementWidgetList();
 
     return BlocConsumer<IntroBloc, IntroState>(
-      buildWhen: (previousState, nextState) =>
-          (previousState.requestState != nextState.requestState),
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      buildWhen: (previousState, nextState) => (previousState.requestState != nextState.requestState),
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
             backgroundColor: Colors.white,
             body: AnimatedIntroduction(
               slides: pages,
-              //textColor: SaayerTheme().getColorsPalette.backgroundColor,
               footerBgColor: SaayerTheme().getColorsPalette.primaryColor,
               indicatorType: IndicatorType.circle,
-              skipText: "skip".tr(),
-              nextText: "next".tr(),
-              doneText: "login_now".tr(),
+              skipWidget: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "skip".tr(),
+                  style: AppTextStyles.mainLabel(SaayerTheme().getColorsPalette.backgroundColor),
+                ),
+              ),
+              nextWidget: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "next".tr(),
+                  style: AppTextStyles.mainLabel(SaayerTheme().getColorsPalette.backgroundColor),
+                ),
+              ),
+              doneWidget: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "login_now".tr(),
+                  style: AppTextStyles.mainLabel(SaayerTheme().getColorsPalette.backgroundColor),
+                ),
+              ),
               onSkip: () {
-                getIt<NavigationService>()
-                    .navigateAndFinishNamed(Routes.loginNamedPage);
+                getIt<NavigationService>().navigateAndFinishNamed(Routes.loginNamedPage);
               },
               onDone: () {
-                getIt<NavigationService>()
-                    .navigateAndFinishNamed(Routes.loginNamedPage);
+                getIt<NavigationService>().navigateAndFinishNamed(Routes.loginNamedPage);
               },
             ));
       },
