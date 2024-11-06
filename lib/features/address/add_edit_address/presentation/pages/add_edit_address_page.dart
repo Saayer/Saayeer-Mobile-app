@@ -173,7 +173,6 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   bool enableAddress(AddEditAddressBloc addAddressBloc) {
     if (addAddressBloc.nameController.text.isNotEmpty &&
         (addAddressBloc.mobile.phoneNumber != null) &&
-        (addAddressBloc.mobile.phoneNumber!.length > 12) &&
         addAddressBloc.addressController.text.isNotEmpty &&
         (addAddressBloc.selectedCountry != null) &&
         (addAddressBloc.selectedGovernorate != null) &&

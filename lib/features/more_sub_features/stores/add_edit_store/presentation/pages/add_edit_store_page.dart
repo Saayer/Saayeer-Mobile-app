@@ -101,7 +101,6 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
   bool enableAddress(AddEditStoreBloc storeInfoBloc) {
     if (storeInfoBloc.nameController.text.isNotEmpty &&
         (storeInfoBloc.mobile.phoneNumber != null) &&
-        (storeInfoBloc.mobile.phoneNumber!.length > 13) &&
         storeInfoBloc.addressController.text.isNotEmpty &&
         (storeInfoBloc.selectedCountry != null) &&
         (storeInfoBloc.selectedGovernorate != null) &&

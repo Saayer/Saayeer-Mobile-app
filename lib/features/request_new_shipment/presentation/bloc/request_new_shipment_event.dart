@@ -116,3 +116,14 @@ class SetShipmentId extends RequestNewShipmentEvent {
         shipmentId,
       ];
 }
+
+class ResetCustomerList extends RequestNewShipmentEvent {
+  final RequestShipmentTypes requestShipmentType;
+
+  const ResetCustomerList({required this.requestShipmentType});
+
+  @override
+  List<Object> get props => [
+        requestShipmentType,
+      ];
+}
