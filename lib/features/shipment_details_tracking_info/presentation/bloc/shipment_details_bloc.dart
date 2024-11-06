@@ -25,7 +25,6 @@ class ShipmentDetailsBloc extends Bloc<ShipmentDetailsEvent, ShipmentDetailsStat
   }) : super(const ShipmentDetailsState()) {
     on<InitShipmentDetails>(_initShipmentDetails);
     on<GetShipmentTrackingList>(_getShipmentTrackingList);
-    on<DownloadShipment>(_downloadShipment);
   }
 
   final TextEditingController promoCodeController = TextEditingController();
@@ -95,25 +94,5 @@ class ShipmentDetailsBloc extends Bloc<ShipmentDetailsEvent, ShipmentDetailsStat
         }
       }
     });
-  }
-
-  FutureOr<void> _downloadShipment(DownloadShipment event, Emitter<ShipmentDetailsState> emit) async {
-    emit(state.copyWith(
-      stateHelper: const StateHelper(requestState: RequestState.LOADING),
-    ));
-
-    ///
-    //PdfUrlService().pdfUrlServiceInit(event.labelUrl, event.shipmentId);
-
-    ///
-    emit(state.copyWith(
-      stateHelper: const StateHelper(requestState: RequestState.SUCCESS),
-    ));
-  }
-
-  @override
-  Future<void> close() {
-    //PdfUrlService().dispose();
-    return super.close();
   }
 }
