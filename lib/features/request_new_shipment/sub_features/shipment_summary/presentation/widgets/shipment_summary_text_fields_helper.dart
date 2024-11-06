@@ -133,14 +133,6 @@ class ShipmentSummaryTextFieldsHelper {
               ),
               const SizedBox(height: 4),
               RichTextWidget(
-                keyStr: 'area',
-                keyTextStyle: keyTextStyle,
-                valueStr:
-                    StringsUtil.getLanguageName(arName: storeDto.areaNameAr ?? '', enName: storeDto.areaNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
                 keyStr: 'address',
                 keyTextStyle: keyTextStyle,
                 valueStr: storeDto.addressDetails ?? '',
@@ -224,14 +216,6 @@ class ShipmentSummaryTextFieldsHelper {
                 keyTextStyle: keyTextStyle,
                 valueStr: StringsUtil.getLanguageName(
                     arName: customerDto.cityNameAr ?? '', enName: customerDto.cityNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
-                keyStr: 'area',
-                keyTextStyle: keyTextStyle,
-                valueStr: StringsUtil.getLanguageName(
-                    arName: customerDto.areaNameAr ?? '', enName: customerDto.areaNameEn ?? ''),
                 valueTextStyle: valueTextStyle,
               ),
               const SizedBox(height: 4),
@@ -330,7 +314,9 @@ class ShipmentSummaryTextFieldsHelper {
         RichTextWidget(
           keyStr: 'business_days',
           keyTextStyle: keyTextStyle,
-          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.estimatedShipmentDays}',
+          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.workDaysMinimum} '
+              '- ${requestShipmentBloc.state.selectedServiceProvider?.workDaysMaximum} '
+              '${'business_days'.tr()}',
           valueTextStyle: valueTextStyle,
         ),
         const SizedBox(height: 4),

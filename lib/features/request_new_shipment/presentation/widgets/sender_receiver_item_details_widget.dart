@@ -156,9 +156,6 @@ class SenderItemDetailsWidget extends StatelessWidget {
             text: ' - ${StringsUtil.getLanguageName(arName: item.cityNameAr ?? '', enName: item.cityNameEn ?? '')}',
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
-            text: ' - ${StringsUtil.getLanguageName(arName: item.areaNameAr ?? '', enName: item.areaNameEn ?? '')}',
-            style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
-        TextSpan(
             text: ' - ${item.addressDetails}',
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
@@ -175,9 +172,6 @@ class SenderItemDetailsWidget extends StatelessWidget {
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
             text: ' - ${StringsUtil.getLanguageName(arName: item.cityNameAr ?? '', enName: item.cityNameEn ?? '')}',
-            style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
-        TextSpan(
-            text: ' - ${StringsUtil.getLanguageName(arName: item.areaNameAr ?? '', enName: item.areaNameEn ?? '')}',
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
             text: ' - ${item.addressDetails}',
