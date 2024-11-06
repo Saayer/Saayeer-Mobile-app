@@ -121,14 +121,14 @@ class SenderItemDetailsWidget extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                '${'phone_num2'.tr()}: ${customerItem.phoneNo}',
+                '${'phone_num2'.tr()}: ${customerItem.phoneNo2 ?? ''}',
                 style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                '${'email'.tr()}: ${customerItem.phoneNo}',
+                '${'email'.tr()}: ${customerItem.email}',
                 style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
               ),
               const SizedBox(

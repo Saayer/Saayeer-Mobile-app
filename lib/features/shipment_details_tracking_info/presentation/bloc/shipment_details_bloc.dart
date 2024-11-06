@@ -8,7 +8,6 @@ import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
-import 'package:saayer/core/services/url_services/pdf_url_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/shipment_details_tracking_info/data/core/utils/enums.dart';
 import 'package:saayer/features/shipment_details_tracking_info/domain/use_cases/tracking_list_usecase.dart';
