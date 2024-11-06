@@ -177,7 +177,7 @@ class _DropDownTextFieldState<T> extends State<DropDownTextField<T>> {
           // if (!isShowItem) {
           //   return SizedBox();
           // }
-          return GestureDetector(
+          return InkWell(
             onTap: () {
               widget.onSelected(item);
               Navigator.pop(context);
