@@ -56,14 +56,6 @@ class StoreInfoTextFieldHelper {
         {
           return _getZipCodeTextField(zipCodeKey);
         }
-      case StoreInfoFieldsTypes.FINANCIAL_RECORD_NUMBER:
-        {
-          return _getFinancialRecordNoTextField(financialNoKey);
-        }
-      case StoreInfoFieldsTypes.FREELANCE_CERTIFICATE_NUMBER:
-        {
-          return _getFreelanceCertificateNoTextField(freelanceNoKey);
-        }
     }
   }
 
@@ -96,14 +88,6 @@ class StoreInfoTextFieldHelper {
       case StoreInfoFieldsTypes.ZIPCODE:
         {
           return addEditStoreBloc.zipCodeController;
-        }
-      case StoreInfoFieldsTypes.FINANCIAL_RECORD_NUMBER:
-        {
-          return addEditStoreBloc.financialRecordNoController;
-        }
-      case StoreInfoFieldsTypes.FREELANCE_CERTIFICATE_NUMBER:
-        {
-          return addEditStoreBloc.freelanceCertificateNoController;
         }
     }
   }
@@ -198,38 +182,6 @@ class StoreInfoTextFieldHelper {
       onChanged: (val) {},
       onTap: () {
         ensureVisibleOnTextArea(textFieldKey: zipCodeKey);
-      },
-    );
-  }
-
-  Widget _getFinancialRecordNoTextField(GlobalKey<State<StatefulWidget>> financialNoKey) {
-    return InputTextField(
-      key: financialNoKey,
-      label: storeInfoFieldsType.name,
-      isFieldRequired: false,
-      withValidator: false,
-      inputController: _getInputController(),
-      maxLength: null,
-      keyboardType: TextInputType.number,
-      onChanged: (val) {},
-      onTap: () {
-        ensureVisibleOnTextArea(textFieldKey: financialNoKey);
-      },
-    );
-  }
-
-  Widget _getFreelanceCertificateNoTextField(GlobalKey<State<StatefulWidget>> freelanceNoKey) {
-    return InputTextField(
-      key: freelanceNoKey,
-      label: storeInfoFieldsType.name,
-      isFieldRequired: false,
-      withValidator: false,
-      inputController: _getInputController(),
-      maxLength: null,
-      keyboardType: TextInputType.number,
-      onChanged: (val) {},
-      onTap: () {
-        ensureVisibleOnTextArea(textFieldKey: freelanceNoKey);
       },
     );
   }

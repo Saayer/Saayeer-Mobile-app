@@ -236,5 +236,6 @@
   "soon": "Soon",
   "providers_error_msg": "We can't get service providers. Please try again later.",
   "shipment_download": "Shipment download",
-  "label_not_available_msg": "The file is not available right now!"
+  "label_not_available_msg": "The file is not available right now!",
+  "store_name": "Store name"
 }

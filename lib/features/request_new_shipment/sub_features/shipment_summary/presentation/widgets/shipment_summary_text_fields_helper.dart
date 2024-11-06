@@ -187,7 +187,9 @@ class ShipmentSummaryTextFieldsHelper {
                 valueStr: customerDto.phoneNo ?? '',
                 valueTextStyle: valueTextStyle,
               ),
+              if (customerDto.email != null && customerDto.email!.isNotEmpty)
               const SizedBox(height: 4),
+              if (customerDto.email != null && customerDto.email!.isNotEmpty)
               RichTextWidget(
                 keyStr: 'email',
                 keyTextStyle: keyTextStyle,
@@ -200,14 +202,6 @@ class ShipmentSummaryTextFieldsHelper {
                 keyTextStyle: keyTextStyle,
                 valueStr: StringsUtil.getLanguageName(
                     arName: customerDto.countryNameAr ?? '', enName: customerDto.countryNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
-                keyStr: 'governorate',
-                keyTextStyle: keyTextStyle,
-                valueStr: StringsUtil.getLanguageName(
-                    arName: customerDto.governorateNameAr ?? '', enName: customerDto.governorateNameEn ?? ''),
                 valueTextStyle: valueTextStyle,
               ),
               const SizedBox(height: 4),

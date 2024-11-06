@@ -61,20 +61,6 @@ class SenderItemDetailsWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${'freelance_certificate_number'.tr()}: ${storeItem.freelanceCertificateNumber}',
-                style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                '${'financial_record_number'.tr()}: ${storeItem.financialRecordNumber}',
-                style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
               _buildFullAddressDetails<StoreGetDto>(storeItem),
             ],
           ),

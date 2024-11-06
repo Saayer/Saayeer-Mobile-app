@@ -236,5 +236,6 @@
   "soon": "قريباً",
   "providers_error_msg": "لا يمكننا الحصول على مقدمي الخدمة. يرجى المحاولة مرة أخرى لاحقًا.",
   "shipment_download": "تحميل بوليصة الشحن",
-  "label_not_available_msg": "الملف غير متاح حاليا!"
+  "label_not_available_msg": "الملف غير متاح حاليا!",
+  "store_name": "اسم المتجر"
 }
