@@ -11,7 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/logistics_service_base.dart';
 import 'package:openapi/src/model/service_cost.dart';
-import 'package:openapi/src/model/shipment_cost_obj.dart';
+import 'package:openapi/src/model/shipment_cost_dto.dart';
 
 class LogisticsApi {
 
@@ -26,7 +26,7 @@ class LogisticsApi {
   ///
   /// Parameters:
   /// * [apiKey] 
-  /// * [shipmentCostObj] 
+  /// * [shipmentCostDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,7 +38,7 @@ class LogisticsApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<ServiceCost>>> apiLogisticsServiceCostsPost({ 
     required String apiKey,
-    ShipmentCostObj? shipmentCostObj,
+    ShipmentCostDto? shipmentCostDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -70,8 +70,8 @@ class LogisticsApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(ShipmentCostObj);
-      _bodyData = shipmentCostObj == null ? null : _serializers.serialize(shipmentCostObj, specifiedType: _type);
+      const _type = FullType(ShipmentCostDto);
+      _bodyData = shipmentCostDto == null ? null : _serializers.serialize(shipmentCostDto, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(

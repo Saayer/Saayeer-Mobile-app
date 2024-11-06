@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-23-dev
+  version: v-25-dev
 servers:
-  - url: "/saayer-23/dev"
+  - url: "/saayer-25/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -694,15 +694,15 @@ paths:
           application/json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostObj"
+                - "$ref": "#/components/schemas/ShipmentCostDto"
           text/json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostObj"
+                - "$ref": "#/components/schemas/ShipmentCostDto"
           application/*+json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostObj"
+                - "$ref": "#/components/schemas/ShipmentCostDto"
       responses:
         '200':
           description: Success
@@ -1118,31 +1118,6 @@ paths:
           description: Success
 components:
   schemas:
-    AddressCost_Logistics:
-      type: object
-      properties:
-        addressDetails:
-          type: string
-          nullable: true
-        countryCode:
-          type: string
-          nullable: true
-        stateCode:
-          type: string
-          nullable: true
-        countryName_en:
-          type: string
-          nullable: true
-        governorateName_en:
-          type: string
-          nullable: true
-        cityName_en:
-          type: string
-          nullable: true
-        areaName_en:
-          type: string
-          nullable: true
-      additionalProperties: false
     AddressLookUpDto:
       type: object
       properties:
@@ -1155,6 +1130,28 @@ components:
         name_ar:
           type: string
           nullable: true
+      additionalProperties: false
+    AddressableAddDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
       additionalProperties: false
     AmountPerDateDto:
       type: object
@@ -1297,6 +1294,10 @@ components:
           items:
             "$ref": "#/components/schemas/ErrorMessage"
           nullable: true
+        shipment:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentGetDto"
+          nullable: true
       additionalProperties: false
     CustomerAddDto:
       type: object
@@ -1378,6 +1379,9 @@ components:
           type: string
           nullable: true
         cityName_en:
+          type: string
+          nullable: true
+        cityAramexName:
           type: string
           nullable: true
         cityName_ar:
@@ -1565,7 +1569,12 @@ components:
     LoginResponseDto:
       type: object
       properties:
-        verificationCode_temp:
+        hasError:
+          type: boolean
+        errorMessage:
+          type: string
+          nullable: true
+        statusCode:
           type: string
           nullable: true
       additionalProperties: false
@@ -1723,7 +1732,7 @@ components:
           format: int64
           nullable: true
       additionalProperties: false
-    ShipmentCostObj:
+    ShipmentCostDto:
       type: object
       properties:
         length:
@@ -1745,13 +1754,13 @@ components:
           type: number
           format: double
           nullable: true
-        senderAddress:
+        sender_Address:
           allOf:
-            - "$ref": "#/components/schemas/AddressCost_Logistics"
+            - "$ref": "#/components/schemas/AddressableAddDto"
           nullable: true
-        receiverAddress:
+        receiver_Address:
           allOf:
-            - "$ref": "#/components/schemas/AddressCost_Logistics"
+            - "$ref": "#/components/schemas/AddressableAddDto"
           nullable: true
       additionalProperties: false
     ShipmentGetDto:
@@ -1792,6 +1801,12 @@ components:
         status:
           allOf:
             - "$ref": "#/components/schemas/ShipmentStatusEnum"
+          nullable: true
+        labelURL:
+          type: string
+          nullable: true
+        traceId:
+          type: string
           nullable: true
         senderCustomerId:
           type: integer
@@ -1993,6 +2008,9 @@ components:
         cityName_en:
           type: string
           nullable: true
+        cityAramexName:
+          type: string
+          nullable: true
         cityName_ar:
           type: string
           nullable: true
@@ -2052,6 +2070,12 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    TokenReponseStatus:
+      enum:
+        - Success
+        - Invalid_OTP_Code
+        - PhoneNumber_Not_Registered
+      type: string
     TokenRequestDto:
       type: object
       properties:
@@ -2074,6 +2098,12 @@ components:
         expiration:
           type: string
           format: date-time
+        reponseStatus:
+          allOf:
+            - "$ref": "#/components/schemas/TokenReponseStatus"
+        errorMessage:
+          type: string
+          nullable: true
       additionalProperties: false
   securitySchemes:
     bearer:

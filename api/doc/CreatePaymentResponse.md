@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **hasError** | **bool** |  | [optional] 
 **errorMessages** | [**BuiltList&lt;ErrorMessage&gt;**](ErrorMessage.md) |  | [optional] 
+**shipment** | [**ShipmentGetDto**](ShipmentGetDto.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -48,7 +48,13 @@ class PaymentWebCallbackResponseWidget extends StatelessWidget {
           if (!isLoading) {
             if (state.stateHelper.requestState == PaymentRequestState.WEBSUCCESS) {
               ///
-              getIt<NavigationService>().navigateAndReplacementNamed(Routes.paymentSuccessNamedPage);
+              getIt<NavigationService>().navigateAndReplacementNamed(
+                Routes.paymentSuccessNamedPage,
+                arguments: {
+                  'labelUrl': state.createPaymentResponse?.shipment?.labelURL ?? '',
+                  'shipmentId': state.createPaymentResponse?.shipment?.shipmentId ?? 0
+                },
+              );
             }
             if (state.stateHelper.requestState == PaymentRequestState.WEBERROR) {
               ///

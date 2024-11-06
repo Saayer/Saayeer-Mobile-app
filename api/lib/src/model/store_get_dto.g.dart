@@ -34,6 +34,8 @@ class _$StoreGetDto extends StoreGetDto {
   @override
   final String? cityNameEn;
   @override
+  final String? cityAramexName;
+  @override
   final String? cityNameAr;
   @override
   final String? areaNameEn;
@@ -67,6 +69,7 @@ class _$StoreGetDto extends StoreGetDto {
       this.governorateNameEn,
       this.governorateNameAr,
       this.cityNameEn,
+      this.cityAramexName,
       this.cityNameAr,
       this.areaNameEn,
       this.areaNameAr,
@@ -101,6 +104,7 @@ class _$StoreGetDto extends StoreGetDto {
         governorateNameEn == other.governorateNameEn &&
         governorateNameAr == other.governorateNameAr &&
         cityNameEn == other.cityNameEn &&
+        cityAramexName == other.cityAramexName &&
         cityNameAr == other.cityNameAr &&
         areaNameEn == other.areaNameEn &&
         areaNameAr == other.areaNameAr &&
@@ -127,6 +131,7 @@ class _$StoreGetDto extends StoreGetDto {
     _$hash = $jc(_$hash, governorateNameEn.hashCode);
     _$hash = $jc(_$hash, governorateNameAr.hashCode);
     _$hash = $jc(_$hash, cityNameEn.hashCode);
+    _$hash = $jc(_$hash, cityAramexName.hashCode);
     _$hash = $jc(_$hash, cityNameAr.hashCode);
     _$hash = $jc(_$hash, areaNameEn.hashCode);
     _$hash = $jc(_$hash, areaNameAr.hashCode);
@@ -155,6 +160,7 @@ class _$StoreGetDto extends StoreGetDto {
           ..add('governorateNameEn', governorateNameEn)
           ..add('governorateNameAr', governorateNameAr)
           ..add('cityNameEn', cityNameEn)
+          ..add('cityAramexName', cityAramexName)
           ..add('cityNameAr', cityNameAr)
           ..add('areaNameEn', areaNameEn)
           ..add('areaNameAr', areaNameAr)
@@ -228,6 +234,11 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
   String? get cityNameEn => _$this._cityNameEn;
   set cityNameEn(String? cityNameEn) => _$this._cityNameEn = cityNameEn;
 
+  String? _cityAramexName;
+  String? get cityAramexName => _$this._cityAramexName;
+  set cityAramexName(String? cityAramexName) =>
+      _$this._cityAramexName = cityAramexName;
+
   String? _cityNameAr;
   String? get cityNameAr => _$this._cityNameAr;
   set cityNameAr(String? cityNameAr) => _$this._cityNameAr = cityNameAr;
@@ -282,6 +293,7 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
       _governorateNameEn = $v.governorateNameEn;
       _governorateNameAr = $v.governorateNameAr;
       _cityNameEn = $v.cityNameEn;
+      _cityAramexName = $v.cityAramexName;
       _cityNameAr = $v.cityNameAr;
       _areaNameEn = $v.areaNameEn;
       _areaNameAr = $v.areaNameAr;
@@ -325,6 +337,7 @@ class StoreGetDtoBuilder implements Builder<StoreGetDto, StoreGetDtoBuilder> {
             governorateNameEn: governorateNameEn,
             governorateNameAr: governorateNameAr,
             cityNameEn: cityNameEn,
+            cityAramexName: cityAramexName,
             cityNameAr: cityNameAr,
             areaNameEn: areaNameEn,
             areaNameAr: areaNameAr,

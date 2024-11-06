@@ -33,11 +33,17 @@ class ShipmentPaymentPage extends StatelessWidget {
         if (!isLoading) {
           if (state.stateHelper.requestState == PaymentRequestState.PAYMENTSUCCESS) {
             ///
-            getIt<NavigationService>().navigateAndReplacementNamed(Routes.paymentSuccessNamedPage);
+            getIt<NavigationService>().navigateAndReplacementNamed(
+              Routes.paymentSuccessNamedPage,
+              arguments: {
+                'labelUrl': state.createPaymentResponse?.shipment?.labelURL ?? '',
+                'shipmentId': state.createPaymentResponse?.shipment?.shipmentId ?? 0
+              },
+            );
           }
           if (state.stateHelper.requestState == PaymentRequestState.PAYMENTERROR) {
             ///
-            ShipmentPaymentErrorHandler(status: PaymentStatus.failed, message: 'create_payment_failed')();
+            ShipmentPaymentErrorHandler(status: PaymentStatus.failed, message: state.stateHelper.errorMessage)();
           }
         }
       },

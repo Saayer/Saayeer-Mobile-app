@@ -24,6 +24,7 @@ part 'store_get_dto.g.dart';
 /// * [governorateNameEn] 
 /// * [governorateNameAr] 
 /// * [cityNameEn] 
+/// * [cityAramexName] 
 /// * [cityNameAr] 
 /// * [areaNameEn] 
 /// * [areaNameAr] 
@@ -72,6 +73,9 @@ abstract class StoreGetDto implements Built<StoreGetDto, StoreGetDtoBuilder> {
 
   @BuiltValueField(wireName: r'cityName_en')
   String? get cityNameEn;
+
+  @BuiltValueField(wireName: r'cityAramexName')
+  String? get cityAramexName;
 
   @BuiltValueField(wireName: r'cityName_ar')
   String? get cityNameAr;
@@ -208,6 +212,13 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
       yield r'cityName_en';
       yield serializers.serialize(
         object.cityNameEn,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.cityAramexName != null) {
+      yield r'cityAramexName';
+      yield serializers.serialize(
+        object.cityAramexName,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -389,6 +400,14 @@ class _$StoreGetDtoSerializer implements PrimitiveSerializer<StoreGetDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.cityNameEn = valueDes;
+          break;
+        case r'cityAramexName':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.cityAramexName = valueDes;
           break;
         case r'cityName_ar':
           final valueDes = serializers.deserialize(

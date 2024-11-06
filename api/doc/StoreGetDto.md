@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **governorateNameEn** | **String** |  | [optional] 
 **governorateNameAr** | **String** |  | [optional] 
 **cityNameEn** | **String** |  | [optional] 
+**cityAramexName** | **String** |  | [optional] 
 **cityNameAr** | **String** |  | [optional] 
 **areaNameEn** | **String** |  | [optional] 
 **areaNameAr** | **String** |  | [optional] 

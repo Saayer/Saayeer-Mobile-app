@@ -11,11 +11,19 @@ part 'login_response_dto.g.dart';
 /// LoginResponseDto
 ///
 /// Properties:
-/// * [verificationCodeTemp] 
+/// * [hasError] 
+/// * [errorMessage] 
+/// * [statusCode] 
 @BuiltValue()
 abstract class LoginResponseDto implements Built<LoginResponseDto, LoginResponseDtoBuilder> {
-  @BuiltValueField(wireName: r'verificationCode_temp')
-  String? get verificationCodeTemp;
+  @BuiltValueField(wireName: r'hasError')
+  bool? get hasError;
+
+  @BuiltValueField(wireName: r'errorMessage')
+  String? get errorMessage;
+
+  @BuiltValueField(wireName: r'statusCode')
+  String? get statusCode;
 
   LoginResponseDto._();
 
@@ -40,10 +48,24 @@ class _$LoginResponseDtoSerializer implements PrimitiveSerializer<LoginResponseD
     LoginResponseDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.verificationCodeTemp != null) {
-      yield r'verificationCode_temp';
+    if (object.hasError != null) {
+      yield r'hasError';
       yield serializers.serialize(
-        object.verificationCodeTemp,
+        object.hasError,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.errorMessage != null) {
+      yield r'errorMessage';
+      yield serializers.serialize(
+        object.errorMessage,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.statusCode != null) {
+      yield r'statusCode';
+      yield serializers.serialize(
+        object.statusCode,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -70,13 +92,28 @@ class _$LoginResponseDtoSerializer implements PrimitiveSerializer<LoginResponseD
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'verificationCode_temp':
+        case r'hasError':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.hasError = valueDes;
+          break;
+        case r'errorMessage':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.verificationCodeTemp = valueDes;
+          result.errorMessage = valueDes;
+          break;
+        case r'statusCode':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.statusCode = valueDes;
           break;
         default:
           unhandled.add(key);

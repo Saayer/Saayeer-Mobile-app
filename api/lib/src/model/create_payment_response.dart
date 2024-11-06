@@ -5,6 +5,7 @@
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/error_message.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/shipment_get_dto.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -15,6 +16,7 @@ part 'create_payment_response.g.dart';
 /// Properties:
 /// * [hasError] 
 /// * [errorMessages] 
+/// * [shipment] 
 @BuiltValue()
 abstract class CreatePaymentResponse implements Built<CreatePaymentResponse, CreatePaymentResponseBuilder> {
   @BuiltValueField(wireName: r'hasError')
@@ -22,6 +24,9 @@ abstract class CreatePaymentResponse implements Built<CreatePaymentResponse, Cre
 
   @BuiltValueField(wireName: r'errorMessages')
   BuiltList<ErrorMessage>? get errorMessages;
+
+  @BuiltValueField(wireName: r'shipment')
+  ShipmentGetDto? get shipment;
 
   CreatePaymentResponse._();
 
@@ -58,6 +63,13 @@ class _$CreatePaymentResponseSerializer implements PrimitiveSerializer<CreatePay
       yield serializers.serialize(
         object.errorMessages,
         specifiedType: const FullType.nullable(BuiltList, [FullType(ErrorMessage)]),
+      );
+    }
+    if (object.shipment != null) {
+      yield r'shipment';
+      yield serializers.serialize(
+        object.shipment,
+        specifiedType: const FullType.nullable(ShipmentGetDto),
       );
     }
   }
@@ -97,6 +109,14 @@ class _$CreatePaymentResponseSerializer implements PrimitiveSerializer<CreatePay
           ) as BuiltList<ErrorMessage>?;
           if (valueDes == null) continue;
           result.errorMessages.replace(valueDes);
+          break;
+        case r'shipment':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(ShipmentGetDto),
+          ) as ShipmentGetDto?;
+          if (valueDes == null) continue;
+          result.shipment.replace(valueDes);
           break;
         default:
           unhandled.add(key);

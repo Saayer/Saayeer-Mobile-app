@@ -41,8 +41,7 @@ class LogInPage extends StatelessWidget {
               SaayerToast().showSuccessToast(msg: "code_sent".tr());
               getIt<NavigationService>().navigateToNamed(Routes.verifyOtpNamedPage,
                   arguments: TokenRequestDto((b) => b
-                    ..phoneNumber = state.loginRequestDto?.phoneNo ?? ""
-                    ..verificationCode = state.responseLogInEntity?.verificationCodeTemp ?? ""));
+                    ..phoneNumber = state.loginRequestDto?.phoneNo ?? ""));
             }
             if (state.stateHelper.requestState == RequestState.ERROR) {
               //showToast(msg: state.stateHelper.errorMessage ?? "");
