@@ -105,6 +105,7 @@ class PersonalInfoTextFieldHelper {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: PhoneTextField(
               phoneNumController: _getInputController(personalInfoBloc, personalInfoFieldsType),
+              isEnabled: false,
               onInputChanged: (PhoneNumber phoneNumber) {
                 log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
                     name: "onInputChanged --->");
