@@ -320,9 +320,12 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   }
 
   _buildErrorMessageTextForSelectedCity(String msg) {
-    return Text(
-      msg,
-      style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.error0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Text(
+        msg,
+        style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.error0),
+      ),
     );
   }
 }
