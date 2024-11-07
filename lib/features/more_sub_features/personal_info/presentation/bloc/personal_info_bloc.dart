@@ -49,9 +49,6 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
     if (isPhone) {
       mobile = event.phoneNumber!;
     }
-    event.textEditingController!.text = event.str ?? "";
-    TextSelection previousSelection = event.textEditingController!.selection;
-    event.textEditingController!.selection = previousSelection;
     personalInfoFieldsValidMap[event.personalInfoFieldsType] = (event.str?.isNotEmpty ?? false);
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
@@ -65,7 +62,7 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         clientEditRequest: ClientAddDto((b) => b
           ..fullName = nameController.text
-          ..phoneNo = phoneController.text
+          ..phoneNo = mobile.phoneNumber
           ..email = emailController.text
           ..businessName = businessNameController.text)));
     await _submitPersonalInfo(SubmitPersonalInfo(), emit);

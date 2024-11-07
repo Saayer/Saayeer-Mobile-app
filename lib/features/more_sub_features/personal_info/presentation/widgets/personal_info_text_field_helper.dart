@@ -34,19 +34,6 @@ class PersonalInfoTextFieldHelper {
         {
           return _buildBusinessTextField();
         }
-      default:
-        {
-          return InputTextField(
-            label: personalInfoFieldsType.name.toLowerCase(),
-            inputController: _getInputController(personalInfoBloc, personalInfoFieldsType),
-            onChanged: (val) {
-              personalInfoBloc.add(OnTextChange(
-                  str: val,
-                  personalInfoFieldsType: personalInfoFieldsType,
-                  textEditingController: _getInputController(personalInfoBloc, personalInfoFieldsType)));
-            },
-          );
-        }
     }
   }
 
