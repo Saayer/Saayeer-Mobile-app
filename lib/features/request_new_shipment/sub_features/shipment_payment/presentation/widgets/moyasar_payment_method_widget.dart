@@ -94,12 +94,12 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (defaultTargetPlatform == TargetPlatform.iOS)
-          ApplePay(
-            config: _getPaymentConfig(),
-            onPaymentResult: onPaymentResult,
-          ),
-        if (defaultTargetPlatform == TargetPlatform.iOS) const Text("or"),
+        // if (defaultTargetPlatform == TargetPlatform.iOS)
+        //   ApplePay(
+        //     config: _getPaymentConfig(),
+        //     onPaymentResult: onPaymentResult,
+        //   ),
+        // if (defaultTargetPlatform == TargetPlatform.iOS) const Text("or"),
         Directionality(
           textDirection: TextDirection.ltr,
           child: CreditCard(

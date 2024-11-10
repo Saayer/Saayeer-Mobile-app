@@ -31,11 +31,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_auth: ^4.17.9
-  firebase_core: ^2.27.1
-  firebase_storage: ^11.6.10
-  firebase_messaging: ^14.7.20
-  firebase_dynamic_links: ^5.4.18
   bloc: 8.1.4
   flutter_bloc: 8.1.6
   dio: 5.5.0+1
@@ -49,8 +44,8 @@ dependencies:
   connectivity_plus: 6.0.5
   url_launcher: 6.3.1
   webview_flutter_web: 0.2.3+1 #
-  device_info_plus: 10.1.0
-  package_info_plus: 8.0.0
+  #device_info_plus: 10.1.0
+  #package_info_plus: 8.0.0
   easy_localization: 3.0.7
   loader_overlay: 4.0.1
   get_it: 7.7.0
