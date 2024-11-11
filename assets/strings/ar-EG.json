@@ -239,5 +239,7 @@
   "label_not_available_msg": "الملف غير متاح حاليا!",
   "store_name": "اسم المتجر",
   "send_from_store": "إرسال من متجر",
-  "send_from_customer": "إرجاع من عميل"
+  "send_from_customer": "إرجاع من عميل",
+  "shipping_partners": "شركاء الشحن",
+  "shipping_partners_available": "متوفر"
 }

@@ -239,5 +239,7 @@
   "label_not_available_msg": "The file is not available right now!",
   "store_name": "Store name",
   "send_from_store": "Send from store",
-  "send_from_customer": "Return from customer"
+  "send_from_customer": "Return from customer",
+  "shipping_partners": "Shipping Partners",
+  "shipping_partners_available": "Available"
 }
