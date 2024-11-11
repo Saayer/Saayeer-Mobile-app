@@ -239,7 +239,5 @@
   "label_not_available_msg": "الملف غير متاح حاليا!",
   "store_name": "اسم المتجر",
   "send_from_store": "إرسال من متجر",
-  "send_from_customer": "إرجاع من عميل",
-  "city_not_available_pickup_aramex_msg": "هذه المدينة غير متاحة للاستلام من أرامكس",
-  "city_not_available_delivery_aramex_msg": "هذه المدينة غير متاحة للتسليم من خلال أرامكس"
+  "send_from_customer": "إرجاع من عميل"
 }

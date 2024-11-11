@@ -11,7 +11,6 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
-import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/errors/store_info_error_handler.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/bloc/add_edit_store_bloc.dart';
@@ -153,23 +152,6 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
 
                 /// zipCode
                 _buildFourthColumnRowField(addEditStoreBloc),
-                const SizedBox(
-                  height: 10,
-                ),
-
-                ///selected city not available for pickup from aramex
-                if (addEditStoreBloc.selectedCity != null &&
-                    !(addEditStoreBloc.selectedCity?.aramexPickupAvailable ?? false))
-                  _buildErrorMessageTextForSelectedCity('city_not_available_pickup_aramex_msg'.tr()),
-
-                const SizedBox(
-                  height: 10,
-                ),
-
-                ///selected city not available for delivery from aramex
-                if (addEditStoreBloc.selectedCity != null &&
-                    !(addEditStoreBloc.selectedCity?.aramexDeliveryAvailable ?? false))
-                  _buildErrorMessageTextForSelectedCity('city_not_available_delivery_aramex_msg'.tr()),
 
                 const SizedBox(
                   height: 10,
@@ -270,16 +252,6 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
           child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[6]),
         ),
       ],
-    );
-  }
-
-  _buildErrorMessageTextForSelectedCity(String msg) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Text(
-        msg,
-        style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.error0),
-      ),
     );
   }
 }

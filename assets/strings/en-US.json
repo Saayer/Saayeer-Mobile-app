@@ -239,7 +239,5 @@
   "label_not_available_msg": "The file is not available right now!",
   "store_name": "Store name",
   "send_from_store": "Send from store",
-  "send_from_customer": "Return from customer",
-  "city_not_available_pickup_aramex_msg": "This city is not available for pickup from Aramex",
-  "city_not_available_delivery_aramex_msg": "This city is not available for delivery from Aramex"
+  "send_from_customer": "Return from customer"
 }
