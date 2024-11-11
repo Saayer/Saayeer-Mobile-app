@@ -137,6 +137,7 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
                   shipmentDto: shipmentEntity,
                   isFromHome: isFromHome,
                   shipmentsListType: widget.shipmentsListType,
+                  hasLabelUrl: ((shipmentEntity.labelURL ?? '').isNotEmpty),
                   onTapDownloadShipment: () {
                     ///
                     if ((shipmentEntity.labelURL ?? '').isEmpty){

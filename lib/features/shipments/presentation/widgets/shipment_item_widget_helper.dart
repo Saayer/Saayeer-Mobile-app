@@ -17,6 +17,7 @@ class ShipmentItemWidgetHelper {
     required ShipmentGetDto shipmentDto,
     required bool isFromHome,
     required ShipmentsListTypes shipmentsListType,
+    required bool hasLabelUrl,
     required VoidCallback onTapDownloadShipment,
   }) {
     final Color shipmentStatusColor = getColor(shipmentDto.status ?? ShipmentStatusEnum.unKnown);
@@ -56,9 +57,10 @@ class ShipmentItemWidgetHelper {
                   ],
                 ),
               ),
-              IconButton(
-                  onPressed: onTapDownloadShipment,
-                  icon: Icon(LineIcons.fileDownload, size: 20, color: SaayerTheme().getColorsPalette.greyColor)),
+              if (hasLabelUrl)
+                IconButton(
+                    onPressed: onTapDownloadShipment,
+                    icon: Icon(LineIcons.fileDownload, size: 20, color: SaayerTheme().getColorsPalette.greyColor)),
               Icon(Icons.arrow_forward_ios, size: 15, color: SaayerTheme().getColorsPalette.greyColor),
             ],
           ),

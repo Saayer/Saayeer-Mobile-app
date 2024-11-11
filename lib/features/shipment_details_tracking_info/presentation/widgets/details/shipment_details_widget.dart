@@ -112,7 +112,8 @@ class _ShipmentDetailsWidgetState extends State<ShipmentDetailsWidget> {
                   shipmentDto: state.shipmentDto!,
                 ),
                 const SizedBox(height: 16),
-                _buildShipmentDownloadButton(width, context, state.shipmentDto),
+                if ((state.shipmentDto?.labelURL ?? '').isNotEmpty)
+                  _buildShipmentDownloadButton(width, context, state.shipmentDto),
 
                 const SizedBox(height: 50),
               ],

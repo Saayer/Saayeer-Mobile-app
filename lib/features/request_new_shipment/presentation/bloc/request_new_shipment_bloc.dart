@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
-import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -47,6 +46,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     on<OnSetSenderAddress>(_onSetSenderAddress);
     on<OnSetReceiverAddress>(_onSetReceiverAddress);
     on<SetShipmentId>(_setShipmentId);
+    on<ResetCustomerList>(_resetCustomerList);
   }
 
   ///
@@ -155,15 +155,22 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
                 hasNextPage: true));
           }
           if (event.requestShipmentTypes == RequestShipmentTypes.sender) {
-            for (var item in rightResult) {
-              senderCustomersList.putIfAbsent(item);
+            senderCustomersList = rightResult;
+            if (selectedSenderCustomerAddress != null) {
+              var customerId = selectedSenderCustomerAddress!.customerId;
+              selectedSenderCustomerAddress =
+                  senderCustomersList.firstWhere((address) => address.customerId == customerId);
             }
+
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
                 customersAddresses: senderCustomersList));
           } else {
-            for (var item in rightResult) {
-              receiverCustomersList.putIfAbsent(item);
+            receiverCustomersList = rightResult;
+            if (selectedReceiverCustomerAddress != null) {
+              var customerId = selectedReceiverCustomerAddress!.customerId;
+              selectedReceiverCustomerAddress =
+                  receiverCustomersList.firstWhere((address) => address.customerId == customerId);
             }
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
@@ -193,18 +200,30 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
         if (rightResult != null) {
           emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: "")));
 
-          for (var item in rightResult) {
-            senderStoresList.putIfAbsent(item);
-            receiverStoresList.putIfAbsent(item);
-          }
-          selectedReceiverStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
+          ///
+          senderStoresList = rightResult;
+          receiverStoresList = rightResult;
 
-          /// to show autoSelected last store added
-          var storeId = getIt<SharedPrefService>().getLastStoreAddedId();
-          if (storeId != null) {
+          ///
+          if (selectedReceiverStoreAddress != null) {
+            var storeId = selectedReceiverStoreAddress!.storeId;
+            selectedReceiverStoreAddress = receiverStoresList.firstWhere((store) => store.storeId == storeId);
+          } else {
+            selectedReceiverStoreAddress = receiverStoresList.isNotEmpty ? receiverStoresList.first : null;
+          }
+
+          ///
+          if (selectedSenderStoreAddress != null) {
+            var storeId = selectedSenderStoreAddress!.storeId;
             selectedSenderStoreAddress = senderStoresList.firstWhere((store) => store.storeId == storeId);
           } else {
-            selectedSenderStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
+            /// to show autoSelected last store added
+            var storeId = getIt<SharedPrefService>().getLastStoreAddedId();
+            if (storeId != null) {
+              selectedSenderStoreAddress = senderStoresList.firstWhere((store) => store.storeId == storeId);
+            } else {
+              selectedSenderStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
+            }
           }
 
           ///
@@ -326,6 +345,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
             ..countryId = selectedSenderStoreAddress?.countryId
             ..zipcode = selectedSenderStoreAddress?.zipcode
             ..areaId = selectedSenderStoreAddress?.areaId)));
+      receiverType = SenderReceiverType.customer;
+      selectedReceiverStoreAddress = null;
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
@@ -343,7 +364,15 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     }
 
     add(GoToNextPageEvent());
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+    if (senderType == SenderReceiverType.store) {
+      if (receiverCustomersList.isEmpty) {
+        add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
+      } else {
+        emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+      }
+    } else {
+      emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+    }
   }
 
   FutureOr<void> _onSetReceiverAddress(OnSetReceiverAddress event, Emitter<RequestNewShipmentState> emit) {
@@ -381,12 +410,22 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     ///
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING), shipmentId: event.shipmentId));
+
     ///save shipmentId
     getIt<SharedPrefService>().setShipmentId(event.shipmentId);
+
     /// go to Shipment payment screen
     add(GoToNextPageEvent());
 
     ///
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+  }
+
+  FutureOr<void> _resetCustomerList(ResetCustomerList event, Emitter<RequestNewShipmentState> emit) {
+    if (event.requestShipmentType == RequestShipmentTypes.sender) {
+      senderCustomersList = [];
+    } else {
+      receiverCustomersList = [];
+    }
   }
 }

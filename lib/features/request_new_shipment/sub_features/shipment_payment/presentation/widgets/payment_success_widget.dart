@@ -90,7 +90,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          _buildShipmentDownloadButton(),
+          if ((widget.labelUrl.isNotEmpty)) _buildShipmentDownloadButton(),
           const SizedBox(
             height: 10,
           ),
@@ -105,8 +105,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
               ///
               getIt<NavigationService>().navigateAndReplacementNamed(Routes.requestNewShipmentNamedPage);
               if (kIsWeb) {
-                html.window.history
-                    .pushState(null, '', EndPointsBaseUrl.init().baseRedirectUrl);
+                html.window.history.pushState(null, '', EndPointsBaseUrl.init().baseRedirectUrl);
               }
             },
           ),

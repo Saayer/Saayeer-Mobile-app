@@ -34,19 +34,6 @@ class PersonalInfoTextFieldHelper {
         {
           return _buildBusinessTextField();
         }
-      default:
-        {
-          return InputTextField(
-            label: personalInfoFieldsType.name.toLowerCase(),
-            inputController: _getInputController(personalInfoBloc, personalInfoFieldsType),
-            onChanged: (val) {
-              personalInfoBloc.add(OnTextChange(
-                  str: val,
-                  personalInfoFieldsType: personalInfoFieldsType,
-                  textEditingController: _getInputController(personalInfoBloc, personalInfoFieldsType)));
-            },
-          );
-        }
     }
   }
 
@@ -118,6 +105,7 @@ class PersonalInfoTextFieldHelper {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: PhoneTextField(
               phoneNumController: _getInputController(personalInfoBloc, personalInfoFieldsType),
+              isEnabled: false,
               onInputChanged: (PhoneNumber phoneNumber) {
                 log("dialCode: ${phoneNumber.dialCode} - isoCode: ${phoneNumber.isoCode} - phoneNumber: ${phoneNumber.phoneNumber}",
                     name: "onInputChanged --->");

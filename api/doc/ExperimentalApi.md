@@ -5,11 +5,13 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-25/app*
+All URIs are relative to *http://localhost/saayer-26/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiExperimentalAddShipmentStatusGet**](ExperimentalApi.md#apiexperimentaladdshipmentstatusget) | **GET** /api/Experimental/add-shipment-status | 
+[**apiExperimentalErrorGet**](ExperimentalApi.md#apiexperimentalerrorget) | **GET** /api/Experimental/error | 
+[**apiExperimentalLogGet**](ExperimentalApi.md#apiexperimentallogget) | **GET** /api/Experimental/log | 
 [**apiExperimentalShipmentCreatedAtGet**](ExperimentalApi.md#apiexperimentalshipmentcreatedatget) | **GET** /api/Experimental/shipment-createdAt | 
 
 
@@ -53,6 +55,86 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiExperimentalErrorGet**
+> apiExperimentalErrorGet(apiKey)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getExperimentalApi();
+final String apiKey = apiKey_example; // String | 
+
+try {
+    api.apiExperimentalErrorGet(apiKey);
+} catch on DioException (e) {
+    print('Exception when calling ExperimentalApi->apiExperimentalErrorGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiExperimentalLogGet**
+> apiExperimentalLogGet(apiKey)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getExperimentalApi();
+final String apiKey = apiKey_example; // String | 
+
+try {
+    api.apiExperimentalLogGet(apiKey);
+} catch on DioException (e) {
+    print('Exception when calling ExperimentalApi->apiExperimentalLogGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -94,12 +94,12 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (defaultTargetPlatform == TargetPlatform.iOS)
-          ApplePay(
-            config: _getPaymentConfig(),
-            onPaymentResult: onPaymentResult,
-          ),
-        if (defaultTargetPlatform == TargetPlatform.iOS) const Text("or"),
+        // if (defaultTargetPlatform == TargetPlatform.iOS)
+        //   ApplePay(
+        //     config: _getPaymentConfig(),
+        //     onPaymentResult: onPaymentResult,
+        //   ),
+        // if (defaultTargetPlatform == TargetPlatform.iOS) const Text("or"),
         Directionality(
           textDirection: TextDirection.ltr,
           child: CreditCard(
@@ -123,7 +123,7 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
           ? '${EndPointsBaseUrl.init().baseRedirectUrl}${Routes.paymentWebCallbackResponseNamedPage}'
           : "https://example.com/thanks",
       metadata: _getMetadata(),
-      creditCard: CreditCardConfig(saveCard: true, manual: false),
+      creditCard: CreditCardConfig(saveCard: false, manual: false),
       applePay: ApplePayConfig(merchantId: 'YOUR_MERCHANT_ID', label: 'YOUR_STORE_NAME', manual: false),
     );
   }

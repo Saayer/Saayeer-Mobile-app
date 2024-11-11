@@ -12,16 +12,26 @@ class PhoneTextField extends StatelessWidget {
   final TextEditingController phoneNumController;
   final void Function(PhoneNumber)? onInputChanged;
   final bool? withValidator;
+  final bool? isEnabled;
   final PhoneNumber? initialValue;
 
-  const PhoneTextField(
-      {super.key, required this.phoneNumController, this.onInputChanged, this.withValidator, this.initialValue});
+  const PhoneTextField({
+    super.key,
+    required this.phoneNumController,
+    this.onInputChanged,
+    this.withValidator,
+    this.initialValue,
+
+    /// for read only make it false
+    this.isEnabled,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InternationalPhoneNumberInput(
       locale: Localization.getLocale().languageCode,
       countries: const ['SA'],
+      isEnabled: isEnabled ?? true,
       onInputChanged: (PhoneNumber number) {
         // log("dialCode: ${number.dialCode} - isoCode: ${number.isoCode} - phoneNumber: ${number.phoneNumber}",
         //     name: "onInputChanged --->");
@@ -34,8 +44,7 @@ class PhoneTextField extends StatelessWidget {
               if (value != null) {
                 if (value.isEmpty) {
                   return 'empty_field_error'.tr().replaceFirst("{}", "phone_num".tr());
-                }
-                else if (!value.startsWith('5')) {
+                } else if (!value.startsWith('5')) {
                   return 'invalid_saudi_format_phone'.tr();
                 } else if (value.replaceAll(' ', '').length != 9) {
                   return 'invalid_phone_length'.tr();

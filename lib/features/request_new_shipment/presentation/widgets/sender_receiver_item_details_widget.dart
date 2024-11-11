@@ -8,20 +8,27 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/data/core/utils/enums.dart';
 
-class SenderItemDetailsWidget extends StatelessWidget {
-  final SenderReceiverType? senderType;
+class SenderReceiverItemDetailsWidget extends StatelessWidget {
+  final SenderReceiverType? senderReceiverType;
   final CustomerGetDto? customerItem;
   final StoreGetDto? storeItem;
   final RequestShipmentTypes requestShipmentTypes;
+  final VoidCallback onEdit;
 
-  const SenderItemDetailsWidget(
-      {super.key, this.senderType, this.customerItem, this.storeItem, required this.requestShipmentTypes});
+  const SenderReceiverItemDetailsWidget({
+    super.key,
+    this.senderReceiverType,
+    this.customerItem,
+    this.storeItem,
+    required this.requestShipmentTypes,
+    required this.onEdit,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (senderType == SenderReceiverType.store && storeItem != null) {
+    if (senderReceiverType == SenderReceiverType.store && storeItem != null) {
       return _buildStoreAddressDetails(storeItem!);
-    } else if (senderType == SenderReceiverType.customer && customerItem != null) {
+    } else if (senderReceiverType == SenderReceiverType.customer && customerItem != null) {
       return _buildCustomerAddressDetails(customerItem!);
     } else {
       return const SizedBox();
@@ -46,12 +53,17 @@ class SenderItemDetailsWidget extends StatelessWidget {
       child: ListTile(
         leading: GenericSvgWidget(
           path: Constants.getIconPath(
-              requestShipmentTypes == RequestShipmentTypes.sender
-                  ? "ic_sender.svg"
-                  : "ic_receiver.svg"),
+              requestShipmentTypes == RequestShipmentTypes.sender ? "ic_sender.svg" : "ic_receiver.svg"),
           color: SaayerTheme().getColorsPalette.orangeColor,
           size: 30,
         ),
+        trailing: InkWell(
+            onTap: onEdit,
+            child: Icon(
+              Icons.edit,
+              size: 25,
+              color: SaayerTheme().getColorsPalette.greenColor,
+            )),
         title: Text(
           storeItem.name ?? '',
           style: AppTextStyles.boldLabel(),
@@ -61,20 +73,6 @@ class SenderItemDetailsWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${'freelance_certificate_number'.tr()}: ${storeItem.freelanceCertificateNumber}',
-                style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                '${'financial_record_number'.tr()}: ${storeItem.financialRecordNumber}',
-                style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
               _buildFullAddressDetails<StoreGetDto>(storeItem),
             ],
           ),
@@ -104,6 +102,13 @@ class SenderItemDetailsWidget extends StatelessWidget {
           color: SaayerTheme().getColorsPalette.orangeColor,
           size: 30,
         ),
+        trailing: InkWell(
+            onTap: onEdit,
+            child: Icon(
+              Icons.edit,
+              size: 25,
+              color: SaayerTheme().getColorsPalette.greenColor,
+            )),
         title: Text(
           customerItem.fullName ?? '',
           style: AppTextStyles.boldLabel(),
@@ -121,14 +126,14 @@ class SenderItemDetailsWidget extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                '${'phone_num2'.tr()}: ${customerItem.phoneNo}',
+                '${'phone_num2'.tr()}: ${customerItem.phoneNo2 ?? ''}',
                 style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                '${'email'.tr()}: ${customerItem.phoneNo}',
+                '${'email'.tr()}: ${customerItem.email}',
                 style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor),
               ),
               const SizedBox(
@@ -149,18 +154,12 @@ class SenderItemDetailsWidget extends StatelessWidget {
             text: StringsUtil.getLanguageName(arName: item.countryNameAr ?? '', enName: item.countryNameEn ?? ''),
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
-            text:
-                ' - ${StringsUtil.getLanguageName(arName: item.governorateNameAr ?? '', enName: item.governorateNameEn ?? '')}',
-            style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
-        TextSpan(
             text: ' - ${StringsUtil.getLanguageName(arName: item.cityNameAr ?? '', enName: item.cityNameEn ?? '')}',
-            style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
-        TextSpan(
-            text: ' - ${StringsUtil.getLanguageName(arName: item.areaNameAr ?? '', enName: item.areaNameEn ?? '')}',
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
             text: ' - ${item.addressDetails}',
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
+        if(item.zipcode!.isNotEmpty)
         TextSpan(
             text: ' - ${item.zipcode}', style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
       ]));
@@ -170,18 +169,12 @@ class SenderItemDetailsWidget extends StatelessWidget {
             text: StringsUtil.getLanguageName(arName: item.countryNameAr ?? '', enName: item.countryNameEn ?? ''),
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
-            text:
-                ' - ${StringsUtil.getLanguageName(arName: item.governorateNameAr ?? '', enName: item.governorateNameEn ?? '')}',
-            style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
-        TextSpan(
             text: ' - ${StringsUtil.getLanguageName(arName: item.cityNameAr ?? '', enName: item.cityNameEn ?? '')}',
-            style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
-        TextSpan(
-            text: ' - ${StringsUtil.getLanguageName(arName: item.areaNameAr ?? '', enName: item.areaNameEn ?? '')}',
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
         TextSpan(
             text: ' - ${item.addressDetails}',
             style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
+        if(item.zipcode!.isNotEmpty)
         TextSpan(
             text: ' - ${item.zipcode}', style: AppTextStyles.smallParagraph(SaayerTheme().getColorsPalette.greyColor)),
       ]));

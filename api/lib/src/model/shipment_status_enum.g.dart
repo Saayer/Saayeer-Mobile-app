@@ -16,6 +16,7 @@ const ShipmentStatusEnum _$needAction =
     const ShipmentStatusEnum._('needAction');
 const ShipmentStatusEnum _$unKnown = const ShipmentStatusEnum._('unKnown');
 const ShipmentStatusEnum _$canceled = const ShipmentStatusEnum._('canceled');
+const ShipmentStatusEnum _$hasError = const ShipmentStatusEnum._('hasError');
 
 ShipmentStatusEnum _$valueOf(String name) {
   switch (name) {
@@ -37,6 +38,8 @@ ShipmentStatusEnum _$valueOf(String name) {
       return _$unKnown;
     case 'canceled':
       return _$canceled;
+    case 'hasError':
+      return _$hasError;
     default:
       throw new ArgumentError(name);
   }
@@ -53,6 +56,7 @@ final BuiltSet<ShipmentStatusEnum> _$values =
   _$needAction,
   _$unKnown,
   _$canceled,
+  _$hasError,
 ]);
 
 class _$ShipmentStatusEnumMeta {
@@ -66,6 +70,7 @@ class _$ShipmentStatusEnumMeta {
   ShipmentStatusEnum get needAction => _$needAction;
   ShipmentStatusEnum get unKnown => _$unKnown;
   ShipmentStatusEnum get canceled => _$canceled;
+  ShipmentStatusEnum get hasError => _$hasError;
   ShipmentStatusEnum valueOf(String name) => _$valueOf(name);
   BuiltSet<ShipmentStatusEnum> get values => _$values;
 }
@@ -91,6 +96,7 @@ class _$ShipmentStatusEnumSerializer
     'needAction': 'NeedAction',
     'unKnown': 'UnKnown',
     'canceled': 'Canceled',
+    'hasError': 'HasError',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'Pending': 'pending',
@@ -102,6 +108,7 @@ class _$ShipmentStatusEnumSerializer
     'NeedAction': 'needAction',
     'UnKnown': 'unKnown',
     'Canceled': 'canceled',
+    'HasError': 'hasError',
   };
 
   @override

@@ -11,6 +11,7 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
+import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/errors/store_info_error_handler.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/core/utils/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/bloc/add_edit_store_bloc.dart';
@@ -101,7 +102,6 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
   bool enableAddress(AddEditStoreBloc storeInfoBloc) {
     if (storeInfoBloc.nameController.text.isNotEmpty &&
         (storeInfoBloc.mobile.phoneNumber != null) &&
-        (storeInfoBloc.mobile.phoneNumber!.length > 13) &&
         storeInfoBloc.addressController.text.isNotEmpty &&
         (storeInfoBloc.selectedCountry != null) &&
         (storeInfoBloc.selectedGovernorate != null) &&
@@ -146,31 +146,34 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
                 ),
                 const SizedBox(height: 10),
 
-                /// City & addressDetails & zipCode & financialRecordNo
-                ResponsiveRowColumn(
-                  layout: ResponsiveValue(context,
-                          conditionalValues: [
-                            const Condition.largerThan(breakpoint: 900, value: ResponsiveRowColumnType.ROW)
-                          ],
-                          defaultValue: ResponsiveRowColumnType.COLUMN)
-                      .value,
-                  columnVerticalDirection: VerticalDirection.down,
-                  columnSpacing: 10,
-                  rowSpacing: 15,
-                  children: [
-                    /// City & addressDetails
-                    _buildThirdColumnRowField(addEditStoreBloc),
+                /// City & addressDetails
+                _buildThirdColumnRowField(addEditStoreBloc),
 
-                    /// zipCode & financialRecordNo
-                    _buildFourthColumnRowField(addEditStoreBloc),
-                  ],
-                ),
+                const SizedBox(height: 10),
+
+                /// zipCode
+                _buildFourthColumnRowField(addEditStoreBloc),
                 const SizedBox(
                   height: 10,
                 ),
 
-                /// freelance certificate number
-                _buildFifthColumnRowField(addEditStoreBloc),
+                ///selected city not available for pickup from aramex
+                if (addEditStoreBloc.selectedCity != null &&
+                    !(addEditStoreBloc.selectedCity?.aramexPickupAvailable ?? false))
+                  _buildErrorMessageTextForSelectedCity('city_not_available_pickup_aramex_msg'.tr()),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                ///selected city not available for delivery from aramex
+                if (addEditStoreBloc.selectedCity != null &&
+                    !(addEditStoreBloc.selectedCity?.aramexDeliveryAvailable ?? false))
+                  _buildErrorMessageTextForSelectedCity('city_not_available_delivery_aramex_msg'.tr()),
+
+                const SizedBox(
+                  height: 10,
+                ),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
@@ -231,54 +234,6 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
   }
 
   _buildThirdColumnRowField(AddEditStoreBloc addEditStoreBloc) {
-    return ResponsiveRowColumnItem(
-        rowFit: FlexFit.tight,
-        child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[4]),
-            ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[5]),
-            ),
-          ],
-        ));
-  }
-
-  _buildFourthColumnRowField(AddEditStoreBloc addEditStoreBloc) {
-    return ResponsiveRowColumnItem(
-        rowFit: FlexFit.tight,
-        child: ResponsiveRowColumn(
-          layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
-              .value,
-          columnVerticalDirection: VerticalDirection.down,
-          columnSpacing: 10,
-          rowSpacing: 15,
-          children: [
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[6]),
-            ),
-            ResponsiveRowColumnItem(
-              rowFit: FlexFit.tight,
-              child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[7]),
-            ),
-          ],
-        ));
-  }
-
-  _buildFifthColumnRowField(AddEditStoreBloc addEditStoreBloc) {
     return ResponsiveRowColumn(
       layout: ResponsiveValue(context,
               conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
@@ -290,9 +245,41 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
       children: [
         ResponsiveRowColumnItem(
           rowFit: FlexFit.tight,
-          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[8]),
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[4]),
+        ),
+        ResponsiveRowColumnItem(
+          rowFit: FlexFit.tight,
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[5]),
         ),
       ],
+    );
+  }
+
+  _buildFourthColumnRowField(AddEditStoreBloc addEditStoreBloc) {
+    return ResponsiveRowColumn(
+      layout: ResponsiveValue(context,
+              conditionalValues: [const Condition.largerThan(breakpoint: 600, value: ResponsiveRowColumnType.ROW)],
+              defaultValue: ResponsiveRowColumnType.COLUMN)
+          .value,
+      columnVerticalDirection: VerticalDirection.down,
+      columnSpacing: 10,
+      rowSpacing: 15,
+      children: [
+        ResponsiveRowColumnItem(
+          rowFit: FlexFit.tight,
+          child: _getTextField(addEditStoreBloc, StoreInfoFieldsTypes.values[6]),
+        ),
+      ],
+    );
+  }
+
+  _buildErrorMessageTextForSelectedCity(String msg) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Text(
+        msg,
+        style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.error0),
+      ),
     );
   }
 }

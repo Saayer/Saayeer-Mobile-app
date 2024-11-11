@@ -10,6 +10,7 @@ import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
+import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/address/add_edit_address/core/errors/add_address_error_handler.dart';
 import 'package:saayer/features/address/add_edit_address/core/utils/enums/enums.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart';
@@ -33,6 +34,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   ///
   GlobalKey zipCodeKey = GlobalKey<State<StatefulWidget>>();
   GlobalKey addressKey = GlobalKey<State<StatefulWidget>>();
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -73,7 +75,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
 
   Widget _getTextField(AddEditAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     return AddressTextFieldHelper(addAddressBloc: addAddressBloc, addAddressFieldsType: addAddressFieldsType)
-        .getTextField(zipCodeKey:zipCodeKey, addressKey:addressKey);
+        .getTextField(zipCodeKey: zipCodeKey, addressKey: addressKey);
   }
 
   _buildConfirmButton(AddEditAddressBloc addAddressBloc, double width) {
@@ -159,6 +161,27 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
 
                 /// zipCode
                 _buildFifthColumnRowField(addAddressBloc),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                ///selected city not available for pickup from aramex
+                if (addAddressBloc.selectedCity != null &&
+                    !(addAddressBloc.selectedCity?.aramexPickupAvailable ?? false))
+                  _buildErrorMessageTextForSelectedCity('city_not_available_pickup_aramex_msg'.tr()),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                ///selected city not available for delivery from aramex
+                if (addAddressBloc.selectedCity != null &&
+                    !(addAddressBloc.selectedCity?.aramexDeliveryAvailable ?? false))
+                  _buildErrorMessageTextForSelectedCity('city_not_available_delivery_aramex_msg'.tr()),
+
+                const SizedBox(
+                  height: 10,
+                ),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
@@ -173,7 +196,6 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   bool enableAddress(AddEditAddressBloc addAddressBloc) {
     if (addAddressBloc.nameController.text.isNotEmpty &&
         (addAddressBloc.mobile.phoneNumber != null) &&
-        (addAddressBloc.mobile.phoneNumber!.length > 12) &&
         addAddressBloc.addressController.text.isNotEmpty &&
         (addAddressBloc.selectedCountry != null) &&
         (addAddressBloc.selectedGovernorate != null) &&
@@ -294,6 +316,16 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
           child: _getTextField(addAddressBloc, AddAddressFieldsTypes.values[8]),
         ),
       ],
+    );
+  }
+
+  _buildErrorMessageTextForSelectedCity(String msg) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Text(
+        msg,
+        style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.error0),
+      ),
     );
   }
 }

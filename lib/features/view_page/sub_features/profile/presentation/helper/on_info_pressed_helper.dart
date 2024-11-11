@@ -209,16 +209,6 @@ class OnInfoPressedHelper {
             map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.zipcode ?? "";
             break;
           }
-        case StoreInfoFieldsTypes.FINANCIAL_RECORD_NUMBER:
-          {
-            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.financialRecordNumber ?? "";
-            break;
-          }
-        case StoreInfoFieldsTypes.FREELANCE_CERTIFICATE_NUMBER:
-          {
-            map[storeInfoFieldsType.name] = userCardEntity.storeInfoEntity?.freelanceCertificateNumber ?? "";
-            break;
-          }
       }
     }
     return map;

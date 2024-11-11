@@ -33,19 +33,3 @@ class GetShipmentTrackingList extends ShipmentDetailsEvent {
   @override
   List<Object?> get props => [shipmentId];
 }
-
-class DownloadShipment extends ShipmentDetailsEvent {
-  final int shipmentId;
-  final String labelUrl;
-
-  const DownloadShipment({
-    required this.shipmentId,
-    required this.labelUrl,
-  });
-
-  @override
-  List<Object?> get props => [
-        shipmentId,
-        labelUrl,
-      ];
-}

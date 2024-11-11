@@ -19,7 +19,7 @@ part 'shipment_status_get_dto.g.dart';
 abstract class ShipmentStatusGetDto implements Built<ShipmentStatusGetDto, ShipmentStatusGetDtoBuilder> {
   @BuiltValueField(wireName: r'status')
   ShipmentStatusEnum? get status;
-  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  };
+  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  HasError,  };
 
   @BuiltValueField(wireName: r'description')
   String? get description;
