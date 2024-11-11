@@ -117,14 +117,6 @@ class ShipmentSummaryTextFieldsHelper {
               ),
               const SizedBox(height: 4),
               RichTextWidget(
-                keyStr: 'governorate',
-                keyTextStyle: keyTextStyle,
-                valueStr: StringsUtil.getLanguageName(
-                    arName: storeDto.governorateNameAr ?? '', enName: storeDto.governorateNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
                 keyStr: 'city',
                 keyTextStyle: keyTextStyle,
                 valueStr:
