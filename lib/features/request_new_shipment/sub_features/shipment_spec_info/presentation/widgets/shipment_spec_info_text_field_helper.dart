@@ -14,6 +14,10 @@ class ShipmentSpecInfoTextFieldHelper {
     required GlobalKey<State<StatefulWidget>> contentValueKey,
   }) {
     switch (shipmentDetailsFieldsTypes) {
+      case ShipmentSpecInfoFieldsTypes.WEIGHT:
+        {
+          return _getWeightTextField();
+        }
       case ShipmentSpecInfoFieldsTypes.LENGTH:
         {
           return _getLengthTextField();
@@ -25,10 +29,6 @@ class ShipmentSpecInfoTextFieldHelper {
       case ShipmentSpecInfoFieldsTypes.HEIGHT:
         {
           return _getHeightTextField();
-        }
-      case ShipmentSpecInfoFieldsTypes.WEIGHT:
-        {
-          return _getWeightTextField();
         }
       case ShipmentSpecInfoFieldsTypes.CONTENT_DESCRIPTION:
         {

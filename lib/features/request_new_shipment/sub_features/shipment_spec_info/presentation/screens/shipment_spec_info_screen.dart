@@ -111,7 +111,7 @@ class _ShipmentSpecInfoScreenState extends State<ShipmentSpecInfoScreen> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
-              /// Length & Width & Height & Weight
+              /// Weight & Length & Width & Height
               ResponsiveRowColumn(
                 layout: ResponsiveValue(context,
                         conditionalValues: [
@@ -123,10 +123,10 @@ class _ShipmentSpecInfoScreenState extends State<ShipmentSpecInfoScreen> {
                 columnSpacing: 10,
                 rowSpacing: 15,
                 children: [
-                  /// Length & Width
+                  /// Weight & Length
                   _buildFirstColumnRowField(requestShipmentBloc),
 
-                  /// Height & Weight
+                  /// Width & Height
                   _buildSecondColumnRowField(requestShipmentBloc),
                 ],
               ),
