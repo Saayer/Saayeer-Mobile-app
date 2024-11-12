@@ -179,15 +179,14 @@ class ShipmentSummaryTextFieldsHelper {
                 valueStr: customerDto.phoneNo ?? '',
                 valueTextStyle: valueTextStyle,
               ),
+              if (customerDto.email != null && customerDto.email!.isNotEmpty) const SizedBox(height: 4),
               if (customerDto.email != null && customerDto.email!.isNotEmpty)
-              const SizedBox(height: 4),
-              if (customerDto.email != null && customerDto.email!.isNotEmpty)
-              RichTextWidget(
-                keyStr: 'email',
-                keyTextStyle: keyTextStyle,
-                valueStr: customerDto.email ?? '',
-                valueTextStyle: valueTextStyle,
-              ),
+                RichTextWidget(
+                  keyStr: 'email',
+                  keyTextStyle: keyTextStyle,
+                  valueStr: customerDto.email ?? '',
+                  valueTextStyle: valueTextStyle,
+                ),
               const SizedBox(height: 4),
               RichTextWidget(
                 keyStr: 'country',
@@ -228,6 +227,13 @@ class ShipmentSummaryTextFieldsHelper {
               ),
               const SizedBox(height: 5),
               RichTextWidget(
+                keyStr: 'weight_kg',
+                keyTextStyle: keyTextStyle,
+                valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.weight}',
+                valueTextStyle: valueTextStyle,
+              ),
+              const SizedBox(height: 4),
+              RichTextWidget(
                 keyStr: 'length_cm',
                 keyTextStyle: keyTextStyle,
                 valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.length}',
@@ -238,13 +244,6 @@ class ShipmentSummaryTextFieldsHelper {
                 keyStr: 'width_cm',
                 keyTextStyle: keyTextStyle,
                 valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.width}',
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
-                keyStr: 'weight_kg',
-                keyTextStyle: keyTextStyle,
-                valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.weight}',
                 valueTextStyle: valueTextStyle,
               ),
               const SizedBox(height: 4),

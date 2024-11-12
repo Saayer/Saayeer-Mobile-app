@@ -241,5 +241,6 @@
   "send_from_store": "Send from store",
   "send_from_customer": "Return from customer",
   "shipping_partners": "Shipping Partners",
-  "shipping_partners_available": "Available"
+  "shipping_partners_available": "Available",
+  "accept_terms_condition_msg": "By using the Saayeer app, you agree to the "
 }

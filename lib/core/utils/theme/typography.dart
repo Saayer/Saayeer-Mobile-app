@@ -123,11 +123,11 @@ class AppTextStyles {
         fontWeight: FontWeight.w700,
       );
 
-  static TextStyle mainFocusedLabel([Color? color]) => GoogleFonts.alexandria(
+  static TextStyle mainFocusedLabel([Color? color, double? height]) => GoogleFonts.alexandria(
         fontSize: 16,
         color: color ?? SaayerTheme().getColorsPalette.blackTextColor,
         fontWeight: FontWeight.w600,
-        height: 1.1,
+        height: height ?? 1.1,
       );
 
   static TextStyle buttonLabel([Color? color]) => GoogleFonts.alexandria(
