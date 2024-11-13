@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:openapi/openapi.dart';
@@ -136,6 +136,7 @@ class ShipmentItemWidgetHelper {
           Text.rich(
             softWrap: true,
             maxLines: 3,
+            textDirection: TextDirection.ltr,
             TextSpan(
               children: [
                 TextSpan(text: (shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel()),

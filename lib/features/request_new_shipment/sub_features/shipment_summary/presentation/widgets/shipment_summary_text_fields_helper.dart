@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/cupertino.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/text/rich_text_widget.dart';
@@ -290,6 +290,7 @@ class ShipmentSummaryTextFieldsHelper {
         ),
         const SizedBox(height: 4),
         RichTextWidget(
+          textDirection: TextDirection.ltr,
           keyStr: 'cost',
           keyTextStyle: keyTextStyle,
           valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.cost} ${'sar'.tr()}',

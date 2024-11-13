@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -85,9 +85,12 @@ class ShipmentProviderCard extends StatelessWidget {
       rowSpacing: 15,
       children: [
         ResponsiveRowColumnItem(
-            child: Text(
-          '${shipmentProviderModel.cost} ${'sr'.tr()}',
-          style: AppTextStyles.boldLabel(),
+            child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Text(
+            '${shipmentProviderModel.cost} ${'sr'.tr()}',
+            style: AppTextStyles.boldLabel(),
+          ),
         )),
         ResponsiveRowColumnItem(
             child: (shipmentProviderModel.workDaysMinimum == null)
