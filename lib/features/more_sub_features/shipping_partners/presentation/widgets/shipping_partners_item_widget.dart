@@ -20,6 +20,7 @@ class ShippingPartnersItemWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5),
           decoration: BoxDecoration(
             color: SaayerTheme().getColorsPalette.backgroundColor,
             borderRadius: BorderRadius.circular(16),

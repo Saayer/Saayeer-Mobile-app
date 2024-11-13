@@ -40,6 +40,7 @@ class PersonalInfoPage extends StatelessWidget {
         canPop: true,
         child: Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+          resizeToAvoidBottomInset: false,
           appBar: const BaseAppBar(
             title: 'personal_info',
             showBackLeading: true,
@@ -102,9 +103,20 @@ class PersonalInfoPage extends StatelessWidget {
                     /// FullName & Phone
                     _buildFirstColumnRowField(personalInfoBloc, context),
 
-                    /// Email & BusinessName
+                    /// Email & Email
                     _buildSecondColumnRowField(personalInfoBloc, context),
                   ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                /// BusinessName
+                ResponsiveRowColumnItem(
+                  child: PersonalInfoTextFieldHelper(
+                          personalInfoBloc: personalInfoBloc,
+                          personalInfoFieldsType: PersonalInfoFieldsTypes.BUSINESSNAME)
+                      .getTextField(),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
@@ -166,7 +178,7 @@ class PersonalInfoPage extends StatelessWidget {
             ResponsiveRowColumnItem(
               rowFit: FlexFit.tight,
               child: PersonalInfoTextFieldHelper(
-                      personalInfoBloc: personalInfoBloc, personalInfoFieldsType: PersonalInfoFieldsTypes.BUSINESSNAME)
+                      personalInfoBloc: personalInfoBloc, personalInfoFieldsType: PersonalInfoFieldsTypes.ADDRESS)
                   .getTextField(),
             ),
           ],
@@ -175,7 +187,9 @@ class PersonalInfoPage extends StatelessWidget {
 
   enableAddress(PersonalInfoBloc personalInfoBloc) {
     if (personalInfoBloc.nameController.text.isNotEmpty &&
-        (personalInfoBloc.mobile.phoneNumber != null)) {
+        (personalInfoBloc.mobile.phoneNumber != null) &&
+        personalInfoBloc.emailController.text.isNotEmpty &&
+        personalInfoBloc.addressController.text.isNotEmpty) {
       return true;
     }
     return false;

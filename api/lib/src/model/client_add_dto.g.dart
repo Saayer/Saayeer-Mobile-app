@@ -15,11 +15,18 @@ class _$ClientAddDto extends ClientAddDto {
   final String? email;
   @override
   final String? businessName;
+  @override
+  final String? address;
 
   factory _$ClientAddDto([void Function(ClientAddDtoBuilder)? updates]) =>
       (new ClientAddDtoBuilder()..update(updates))._build();
 
-  _$ClientAddDto._({this.fullName, this.phoneNo, this.email, this.businessName})
+  _$ClientAddDto._(
+      {this.fullName,
+      this.phoneNo,
+      this.email,
+      this.businessName,
+      this.address})
       : super._();
 
   @override
@@ -36,7 +43,8 @@ class _$ClientAddDto extends ClientAddDto {
         fullName == other.fullName &&
         phoneNo == other.phoneNo &&
         email == other.email &&
-        businessName == other.businessName;
+        businessName == other.businessName &&
+        address == other.address;
   }
 
   @override
@@ -46,6 +54,7 @@ class _$ClientAddDto extends ClientAddDto {
     _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, businessName.hashCode);
+    _$hash = $jc(_$hash, address.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,7 +65,8 @@ class _$ClientAddDto extends ClientAddDto {
           ..add('fullName', fullName)
           ..add('phoneNo', phoneNo)
           ..add('email', email)
-          ..add('businessName', businessName))
+          ..add('businessName', businessName)
+          ..add('address', address))
         .toString();
   }
 }
@@ -81,6 +91,10 @@ class ClientAddDtoBuilder
   String? get businessName => _$this._businessName;
   set businessName(String? businessName) => _$this._businessName = businessName;
 
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
+
   ClientAddDtoBuilder() {
     ClientAddDto._defaults(this);
   }
@@ -92,6 +106,7 @@ class ClientAddDtoBuilder
       _phoneNo = $v.phoneNo;
       _email = $v.email;
       _businessName = $v.businessName;
+      _address = $v.address;
       _$v = null;
     }
     return this;
@@ -117,7 +132,8 @@ class ClientAddDtoBuilder
             fullName: fullName,
             phoneNo: phoneNo,
             email: email,
-            businessName: businessName);
+            businessName: businessName,
+            address: address);
     replace(_$result);
     return _$result;
   }

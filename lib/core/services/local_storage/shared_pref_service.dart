@@ -4,6 +4,9 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:moyasar/src/models/payment_type.dart';
+import 'package:openapi/openapi.dart';
+import 'package:built_value/serializer.dart';
+import 'package:saayer/core/openAPI/openAPI_config.dart';
 import 'package:saayer/core/services/encryption/encryption.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -18,12 +21,14 @@ class SharedPrefService {
     _preferences = await SharedPreferences.getInstance();
   }
 
+  ///
   final String _keyAccessToken = 'AccessToken';
   final String _keyIsLoggedIn = 'IsLoggedIn';
   final String _keyLastStoreAdded = 'LastStoreAdded';
   final String _keyClientPhone = 'ClientPhone';
   final String _keyShipmentId = 'ShipmentId';
   final String _keyPaymentResponse = 'PaymentResponse';
+  final String _keyUserData = 'UserData';
 
   /// saving data to sharedpreference
   Future setAccessToken(String accessToken) async {
@@ -49,6 +54,12 @@ class SharedPrefService {
   Future setPaymentResponse(PaymentResponse paymentResponse) async {
     var jsondata = paymentResponse.toJson();
     await _preferences.setString(_keyPaymentResponse, jsonEncode(jsondata));
+  }
+
+  Future setUserData(ClientGetDto userData) async {
+    var jsondata =
+    getIt<OpenAPIConfig>().openapi.serializers.serialize(userData, specifiedType: const FullType(ClientGetDto));
+    await _preferences.setString(_keyUserData, jsonEncode(jsondata));
   }
 
   /// fetching data from sharedpreference
@@ -106,6 +117,21 @@ class SharedPrefService {
         Map<String, dynamic> map = json.decode(jsondata);
         final payment = PaymentResponse.fromJson(map, PaymentType.creditcard);
         return payment;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  ClientGetDto? getUserData() {
+    if (_preferences.containsKey(_keyUserData)) {
+      final String? jsondata = _preferences.get(_keyUserData) as String?;
+      if (jsondata != null) {
+        Map<String, dynamic> map = json.decode(jsondata);
+        final userData = getIt<OpenAPIConfig>().openapi.serializers.deserialize(map, specifiedType: const FullType(ClientGetDto)) as ClientGetDto;
+        return userData;
       } else {
         return null;
       }

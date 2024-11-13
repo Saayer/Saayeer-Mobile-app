@@ -242,5 +242,6 @@
   "send_from_customer": "Return from customer",
   "shipping_partners": "Shipping Partners",
   "shipping_partners_available": "Available",
-  "accept_terms_condition_msg": "By using the Saayeer app, you agree to the "
+  "accept_terms_condition_msg": "By using the Saayeer app, you agree to the ",
+  "complete_personal_info_msg": "Please complete your personal information before request a shipment"
 }

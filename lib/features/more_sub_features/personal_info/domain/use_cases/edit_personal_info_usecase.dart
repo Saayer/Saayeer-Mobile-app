@@ -6,7 +6,7 @@ import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/features/more_sub_features/personal_info/domain/repositories/personal_info_repo.dart';
 
 @injectable
-class EditPersonalInfoUseCase implements BaseUseCase<Future<Either<Failure, void>>, ClientAddDto> {
+class EditPersonalInfoUseCase implements BaseUseCase<Future<Either<Failure, ClientGetDto?>>, ClientAddDto> {
   final PersonalInfoRepo personalInfoRepoImpl;
 
   const EditPersonalInfoUseCase({
@@ -14,7 +14,7 @@ class EditPersonalInfoUseCase implements BaseUseCase<Future<Either<Failure, void
   });
 
   @override
-  Future<Either<Failure, void>> call(ClientAddDto clientAddDto) async {
+  Future<Either<Failure, ClientGetDto?>> call(ClientAddDto clientAddDto) async {
     return await personalInfoRepoImpl.editPersonalInfo(clientAddDto);
   }
 }

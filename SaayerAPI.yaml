@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-26-dev
+  version: v-27-dev
 servers:
-  - url: "/saayer-26/app"
+  - url: "/saayer-27/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -424,6 +424,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
   "/api/Customers":
     get:
       tags:
@@ -1270,6 +1280,9 @@ components:
         businessName:
           type: string
           nullable: true
+        address:
+          type: string
+          nullable: true
       additionalProperties: false
     ClientGetDto:
       type: object
@@ -1284,6 +1297,9 @@ components:
           type: string
           nullable: true
         businessName:
+          type: string
+          nullable: true
+        address:
           type: string
           nullable: true
       additionalProperties: false

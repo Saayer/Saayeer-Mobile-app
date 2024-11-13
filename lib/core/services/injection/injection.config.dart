@@ -256,8 +256,6 @@ import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dar
     as _i613;
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart'
     as _i870;
-import 'package:saayer/features/view_page/sub_features/profile/presentation/bloc/profile_bloc.dart'
-    as _i199;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -283,7 +281,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1037.UserInfoViewPageBloc());
     gh.factory<_i79.InfoBloc>(() => _i79.InfoBloc());
     gh.factory<_i386.BillsBloc>(() => _i386.BillsBloc());
-    gh.factory<_i199.ProfileBloc>(() => _i199.ProfileBloc());
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
     gh.factory<_i110.NotificationsBloc>(() => _i110.NotificationsBloc());

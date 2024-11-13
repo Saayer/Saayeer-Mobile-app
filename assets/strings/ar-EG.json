@@ -242,5 +242,6 @@
   "send_from_customer": "إرجاع من عميل",
   "shipping_partners": "شركاء الشحن",
   "shipping_partners_available": "متوفر",
-  "accept_terms_condition_msg": "باستخدامك لتطبيق ساير، أنت توافق على "
+  "accept_terms_condition_msg": "باستخدامك لتطبيق ساير، أنت توافق على ",
+  "complete_personal_info_msg": "يرجى إكمال بياناتك الشخصية قبل طلب الشحنة"
 }

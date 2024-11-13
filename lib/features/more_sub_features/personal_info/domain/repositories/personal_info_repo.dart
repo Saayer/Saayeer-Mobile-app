@@ -5,5 +5,5 @@ import 'package:dartz/dartz.dart';
 abstract class PersonalInfoRepo {
   Future<Either<Failure, ClientGetDto?>> getPersonalInfo();
 
-  Future<Either<Failure, void>> editPersonalInfo(ClientAddDto clientDto);
+  Future<Either<Failure, ClientGetDto?>> editPersonalInfo(ClientAddDto clientDto);
 }

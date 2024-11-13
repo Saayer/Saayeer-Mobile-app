@@ -1,17 +1,20 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/addresses_book/domain/use_cases/get_addresses_usecase.dart';
@@ -31,7 +34,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     required this.getCustomersAddressesUseCase,
     required this.getStoresUseCase,
   }) : super(const RequestNewShipmentState()) {
-    on<InitRequestShipmentViewPageEvent>(_initRequestShipmentViewPageEvent);
+    on<PersonalInfoCompleteChecker>(_personalInfoCompleteChecker);
     on<GoToNextPageEvent>(_goToNextPageEvent);
     on<GoToPreviousPage>(_goToPreviousPage);
     on<ToggleAutoValidate>(_toggleAutoValidate);
@@ -82,12 +85,24 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
   CustomerGetDto? selectedReceiverCustomerAddress;
   StoreGetDto? selectedReceiverStoreAddress;
 
-  FutureOr<void> _initRequestShipmentViewPageEvent(
-      InitRequestShipmentViewPageEvent event, Emitter<RequestNewShipmentState> emit) {
+  FutureOr<void> _personalInfoCompleteChecker(
+      PersonalInfoCompleteChecker event, Emitter<RequestNewShipmentState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    emit(state.copyWith(
-        stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: event.currentPage));
+    /// check if user info not complete to navigate to [Routes.personalInfoNamedPage] to complete it first
+    final userDto = getIt<SharedPrefService>().getUserData();
+    if (userDto != null) {
+      if ((userDto.email ?? '').isEmpty ||
+          userDto.fullName == null ||
+          userDto.fullName == Constants.defaultUserName ||
+          (userDto.address ?? '').isEmpty) {
+        getIt<NavigationService>().pop();
+        getIt<NavigationService>().navigateToNamed(Routes.personalInfoNamedPage);
+        SaayerToast().showSuccessToast(msg: "complete_personal_info_msg".tr());
+      }
+    }
+
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
   }
 
   FutureOr<void> _goToNextPageEvent(GoToNextPageEvent event, Emitter<RequestNewShipmentState> emit) async {

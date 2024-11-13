@@ -4,15 +4,12 @@ abstract class RequestNewShipmentEvent extends Equatable {
   const RequestNewShipmentEvent();
 }
 
-class InitRequestShipmentViewPageEvent extends RequestNewShipmentEvent {
-  final int currentPage;
+class PersonalInfoCompleteChecker extends RequestNewShipmentEvent {
 
-  const InitRequestShipmentViewPageEvent({
-    required this.currentPage,
-  });
+  const PersonalInfoCompleteChecker();
 
   @override
-  List<Object> get props => [currentPage];
+  List<Object> get props => [];
 }
 
 class GoToNextPageEvent extends RequestNewShipmentEvent {
