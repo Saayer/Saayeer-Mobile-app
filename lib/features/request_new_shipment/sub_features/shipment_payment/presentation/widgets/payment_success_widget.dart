@@ -105,7 +105,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
               ///
               getIt<NavigationService>().navigateAndReplacementNamed(Routes.requestNewShipmentNamedPage);
               if (kIsWeb) {
-                html.window.history.pushState(null, '', EndPointsBaseUrl.init().baseRedirectUrl);
+                html.window.history.pushState(null, '', EndPointsBaseUrl.init().hrefForWeb);
               }
             },
           ),
@@ -120,7 +120,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
               ///
               getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage);
               if (kIsWeb) {
-                html.window.history.pushState(null, '', EndPointsBaseUrl.init().baseRedirectUrl);
+                html.window.history.pushState(null, '', EndPointsBaseUrl.init().hrefForWeb);
               }
             },
           ),

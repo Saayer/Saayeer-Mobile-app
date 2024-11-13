@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **contentDesc** | **String** |  | [optional] 
 **contentValue** | **double** |  | [optional] 
 **cost** | **double** |  | [optional] 
-**createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
+**createdAt** | **String** |  | [optional] 
 **logisticServiceName** | **String** |  | [optional] 
 **status** | [**ShipmentStatusEnum**](ShipmentStatusEnum.md) |  | [optional] 
 **labelURL** | **String** |  | [optional] 

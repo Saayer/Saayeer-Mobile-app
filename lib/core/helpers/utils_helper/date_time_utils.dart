@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class DateTimeUtil {
@@ -28,7 +28,8 @@ class DateTimeUtil {
     DateTime? result;
     if (val?.isNotEmpty ?? false) {
       try {
-        var dateKeyFormat = DateFormat(readFormat == null || readFormat.isEmpty ? 'dd/MM/yyyy' : readFormat, "en-US");
+        var dateKeyFormat =
+            DateFormat(readFormat == null || readFormat.isEmpty ? 'dd/MM/yyyy hh:mm' : readFormat, "en-US");
         result = dateKeyFormat.parseUTC(val!);
       } catch (e) {
         return null;
@@ -42,7 +43,7 @@ class DateTimeUtil {
     String result = "";
     if (val != null) {
       try {
-        var dateKeyFormat = DateFormat('dd/MM/yyyy', "en_US");
+        var dateKeyFormat = DateFormat('dd/MM/yyyy hh:mm', "en_US");
         result = dateKeyFormat.format(val);
       } catch (e) {}
     }
@@ -69,15 +70,22 @@ class DateTimeUtil {
 
   ///
   static String? convertUTCDateToLocalWithoutSec(String date) {
-    String? localTime;
-
     ///
     try {
       ///
-      var utcDate = DateFormat("yyyy-MM-dd hh:mm").parse(date, true);
-      var local = utcDate.toLocal();
-      localTime = DateFormat("yyyy-MM-dd hh:mm").format(local);
-      return localTime;
+      String utcString = date;
+      if (!date.endsWith('Z') && date.isNotEmpty) {
+        utcString = '${date}Z';
+      }
+      // Parse the UTC DateTime string
+      DateTime utcDateTime = DateTime.parse(utcString);
+      // Convert UTC DateTime to local DateTime
+      DateTime localDateTime = utcDateTime.toLocal();
+      // Format the local DateTime to the desired format
+      DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
+      String formattedDateTime = formatter.format(localDateTime);
+
+      return formattedDateTime;
     } on Exception catch (e) {
       log('Error in DateFormat: $e');
       return date;

@@ -107,7 +107,7 @@ class ShipmentItemWidgetHelper {
           const SizedBox(height: 4),
           RichTextWidget(
             keyStr: 'shipment_date',
-            valueStr: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt.toString()) ?? '',
+            valueStr: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '',
           ),
           const SizedBox(height: 4),
           RichTextWidget(

@@ -12,7 +12,7 @@ class _$ShipmentStatusGetDto extends ShipmentStatusGetDto {
   @override
   final String? description;
   @override
-  final DateTime? createdAt;
+  final String? createdAt;
 
   factory _$ShipmentStatusGetDto(
           [void Function(ShipmentStatusGetDtoBuilder)? updates]) =>
@@ -71,9 +71,9 @@ class ShipmentStatusGetDtoBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  DateTime? _createdAt;
-  DateTime? get createdAt => _$this._createdAt;
-  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
 
   ShipmentStatusGetDtoBuilder() {
     ShipmentStatusGetDto._defaults(this);

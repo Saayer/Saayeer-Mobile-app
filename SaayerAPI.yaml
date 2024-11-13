@@ -1836,7 +1836,6 @@ components:
           nullable: true
         createdAt:
           type: string
-          format: date-time
         logisticServiceName:
           type: string
           nullable: true
@@ -1948,7 +1947,6 @@ components:
           nullable: true
         createdAt:
           type: string
-          format: date-time
       additionalProperties: false
     ShipmentsCountResponse:
       type: object

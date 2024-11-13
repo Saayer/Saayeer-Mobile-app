@@ -120,7 +120,7 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
       amount: int.parse((amount * 100).toString().split('.').first),
       description: orderDesc,
       callbackUrl: kIsWeb
-          ? '${EndPointsBaseUrl.init().baseRedirectUrl}${Routes.paymentWebCallbackResponseNamedPage}'
+          ? '${EndPointsBaseUrl.init().baseRedirectUrl}${EndPointsBaseUrl.init().hrefForWeb}${Routes.paymentWebCallbackResponseNamedPage}'
           : "https://example.com/thanks",
       metadata: _getMetadata(),
       creditCard: CreditCardConfig(saveCard: false, manual: false),
