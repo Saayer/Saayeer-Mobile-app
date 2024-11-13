@@ -133,17 +133,13 @@ class ShipmentItemWidgetHelper {
           const SizedBox(
             height: 5,
           ),
-          Text.rich(
-            softWrap: true,
-            maxLines: 3,
-            textDirection: TextDirection.ltr,
-            TextSpan(
-              children: [
-                TextSpan(text: (shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel()),
-                TextSpan(
-                    text: "  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
-              ],
-            ),
+          Row(
+            children: [
+              Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Text((shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel())),
+              Text("  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
+            ],
           ),
           const SizedBox(
             height: 10,

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
@@ -84,11 +84,14 @@ class BillInfo extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.boldLabel(),
                 ),
-                Text(
-                  "${shipmentDto.cost ?? ""} ${"sr".tr()}",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.darkGreyColor),
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Text(
+                    "${shipmentDto.cost ?? ""} ${"sr".tr()}",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.darkGreyColor),
+                  ),
                 ),
               ],
             ),

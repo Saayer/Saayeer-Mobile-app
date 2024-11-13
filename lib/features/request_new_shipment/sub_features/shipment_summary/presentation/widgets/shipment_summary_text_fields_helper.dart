@@ -289,12 +289,14 @@ class ShipmentSummaryTextFieldsHelper {
           valueTextStyle: valueTextStyle,
         ),
         const SizedBox(height: 4),
-        RichTextWidget(
-          textDirection: TextDirection.ltr,
-          keyStr: 'cost',
-          keyTextStyle: keyTextStyle,
-          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.cost} ${'sar'.tr()}',
-          valueTextStyle: valueTextStyle,
+        Row(
+          children: [
+            Text("${'cost'.tr()} : ", style: keyTextStyle),
+            Directionality(
+                textDirection: TextDirection.ltr,
+                child: Text('${requestShipmentBloc.state.selectedServiceProvider?.cost} ${'sar'.tr()}',
+                    style: valueTextStyle)),
+          ],
         ),
         const SizedBox(height: 4),
         RichTextWidget(
