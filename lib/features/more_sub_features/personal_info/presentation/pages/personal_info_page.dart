@@ -103,7 +103,7 @@ class PersonalInfoPage extends StatelessWidget {
                     /// FullName & Phone
                     _buildFirstColumnRowField(personalInfoBloc, context),
 
-                    /// Email & Email
+                    /// Email & Address
                     _buildSecondColumnRowField(personalInfoBloc, context),
                   ],
                 ),

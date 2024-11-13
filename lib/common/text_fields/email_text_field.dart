@@ -35,7 +35,7 @@ class EmailTextField extends StatelessWidget {
           child: BaseTextField(
             controller: emailController,
             hintText: "email".tr(),
-            validator: (withValidator ?? true)
+            validator: (withValidator ?? false)
                 ? (value) {
                     if (value?.isEmpty ?? true) {
                       return 'empty_field_error'.tr().replaceFirst("{}", "email".tr());

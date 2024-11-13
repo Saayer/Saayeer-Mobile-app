@@ -68,9 +68,6 @@ class ShipmentSummaryWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            const Divider(
-              color: Colors.grey,
-            ),
             _buildAcceptTermsConditionsMsg(),
             const SizedBox(
               height: 100,
