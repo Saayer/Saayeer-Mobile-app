@@ -78,7 +78,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
           final bool isFormValid = (personalInfoBloc.formKey.currentState!.validate());
           personalInfoBloc.add(ToggleAutoValidate());
           isFormValid
-              ? personalInfoBloc.add(const EditClientData())
+              ? acceptedTerms
+                  ? personalInfoBloc.add(const EditClientData())
+                  : SaayerToast().showErrorToast(msg: "please_accept_terms_condition".tr())
               : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
         },
       ),
