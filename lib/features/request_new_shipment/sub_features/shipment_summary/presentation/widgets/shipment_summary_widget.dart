@@ -1,16 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
-import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/core/utils/theme/typography.dart';
-import 'package:saayer/features/more_sub_features/static_pages/core/enums/enums.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/bloc/shipment_summary_bloc.dart';
@@ -67,8 +59,6 @@ class ShipmentSummaryWidget extends StatelessWidget {
                     child: _buildSecondFiltersRow(requestShipmentBloc, shipmentSummaryBloc))
               ],
             ),
-            const SizedBox(height: 10),
-            _buildAcceptTermsConditionsMsg(),
             const SizedBox(
               height: 100,
             )
@@ -122,27 +112,6 @@ class ShipmentSummaryWidget extends StatelessWidget {
                 shipmentCheckoutFieldsTypes: ShipmentCheckoutFieldsTypes.SERVICE_PROVIDER)
             .getTextsWidget(),
       ],
-    );
-  }
-
-  _buildAcceptTermsConditionsMsg() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-      decoration: BoxDecoration(
-          color: SaayerTheme().getColorsPalette.error0.withOpacity(0.5), borderRadius: BorderRadius.circular(10)),
-      child: RichText(
-          text: TextSpan(children: [
-        TextSpan(text: 'accept_terms_condition_msg'.tr(), style: AppTextStyles.mainFocusedLabel(null, 1.5)),
-        TextSpan(
-            text: 'terms_conditions'.tr(),
-            style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.blueColor,1.5),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                ///
-                getIt<NavigationService>()
-                    .navigateToNamed(Routes.staticPagesNamedPage, arguments: StaticPagesTypes.TERMSCONDITIONS);
-              })
-      ])),
     );
   }
 }
