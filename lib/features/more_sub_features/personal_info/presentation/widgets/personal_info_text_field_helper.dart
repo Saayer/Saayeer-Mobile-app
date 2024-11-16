@@ -130,7 +130,7 @@ class PersonalInfoTextFieldHelper {
       isFieldRequired: false,
       label: personalInfoFieldsType.name,
       inputController: _getInputController(personalInfoBloc, personalInfoFieldsType),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       onChanged: (val) {},
     );
   }
