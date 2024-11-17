@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:openapi/openapi.dart';
@@ -107,7 +107,7 @@ class ShipmentItemWidgetHelper {
           const SizedBox(height: 4),
           RichTextWidget(
             keyStr: 'shipment_date',
-            valueStr: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt.toString()) ?? '',
+            valueStr: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '',
           ),
           const SizedBox(height: 4),
           RichTextWidget(
@@ -133,16 +133,13 @@ class ShipmentItemWidgetHelper {
           const SizedBox(
             height: 5,
           ),
-          Text.rich(
-            softWrap: true,
-            maxLines: 3,
-            TextSpan(
-              children: [
-                TextSpan(text: (shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel()),
-                TextSpan(
-                    text: "  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
-              ],
-            ),
+          Row(
+            children: [
+              Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Text((shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel())),
+              Text("  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
+            ],
           ),
           const SizedBox(
             height: 10,

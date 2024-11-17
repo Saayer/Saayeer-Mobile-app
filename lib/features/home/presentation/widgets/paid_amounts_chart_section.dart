@@ -43,7 +43,7 @@ class PaidAmountsChartSection extends StatelessWidget {
               child: GenericDataBarChartWidget(
                 title: "payments_chart_title".tr(),
                 yAxisTitle: 'sr'.tr(),
-                total: '${homeBloc.amountsPerDaysList.total} ${'sr'.tr()}',
+                total: '${(homeBloc.amountsPerDaysList.total ?? 0).toStringAsFixed(2)} ${'sr'.tr()}',
                 dataList: homeBloc.amountsPerDaysList.amounts!.toList(),
                 xAxisDataTitles: paymentsXAxisData,
                 showHorizontalLine: true,

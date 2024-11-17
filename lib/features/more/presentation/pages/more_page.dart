@@ -54,11 +54,6 @@ class MorePage extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  // UserCardScreen(
-                  //   isParentLoading: isLoading,
-                  //   horizontalPadding: 10,
-                  //   verticalPadding: 5,
-                  // ),
                   if (!(viewPageBloc.state.isGuest!)) ...[
                     const SizedBox(
                       height: 10,
@@ -95,6 +90,14 @@ class MorePage extends StatelessWidget {
                     size: 23,
                     onPressedRouteName: Routes.whySaayerNamedPage,
                   ),
+                  dividerWidget,
+                  const MoreItemWidget(
+                    iconName: "total_shipments",
+                    title: "shipping_partners",
+                    size: 23,
+                    onPressedRouteName: Routes.shippingPartnersNamedPage,
+                  ),
+                  dividerWidget,
                   const MoreItemWidget(
                     iconName: "replacement_refund_policy",
                     title: "replacement_refund_policy",

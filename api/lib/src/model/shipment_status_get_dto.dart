@@ -25,7 +25,7 @@ abstract class ShipmentStatusGetDto implements Built<ShipmentStatusGetDto, Shipm
   String? get description;
 
   @BuiltValueField(wireName: r'createdAt')
-  DateTime? get createdAt;
+  String? get createdAt;
 
   ShipmentStatusGetDto._();
 
@@ -68,7 +68,7 @@ class _$ShipmentStatusGetDtoSerializer implements PrimitiveSerializer<ShipmentSt
       yield r'createdAt';
       yield serializers.serialize(
         object.createdAt,
-        specifiedType: const FullType(DateTime),
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -112,8 +112,8 @@ class _$ShipmentStatusGetDtoSerializer implements PrimitiveSerializer<ShipmentSt
         case r'createdAt':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+            specifiedType: const FullType(String),
+          ) as String;
           result.createdAt = valueDes;
           break;
         default:

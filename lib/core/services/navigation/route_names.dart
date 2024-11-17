@@ -21,5 +21,6 @@ class Routes{
   static const whySaayerNamedPage = '/why-saayer';
   static const staticPagesNamedPage = '/static-pages';
   static const paymentWebCallbackResponseNamedPage = '/payment-callback';
+  static const shippingPartnersNamedPage = '/shipping-partners';
 
 }

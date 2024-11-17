@@ -74,7 +74,9 @@ class PhoneTextField extends StatelessWidget {
       textFieldController: phoneNumController,
       formatInput: true,
       keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-      inputDecoration: InputTextFieldDecoration()(hintText: "xxx xxx xxxx"),
+      inputDecoration: InputTextFieldDecoration()(
+          hintText: "xxx xxx xxxx",
+          fillColor: (isEnabled ?? true) ? null : SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2)),
       inputBorder: OutlineInputBorder(
         borderSide: BorderSide(color: SaayerTheme().getColorsPalette.greyColor, width: 1),
         borderRadius: const BorderRadius.all(Radius.circular(10)),

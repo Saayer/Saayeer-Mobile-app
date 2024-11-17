@@ -15,6 +15,7 @@ part 'client_add_dto.g.dart';
 /// * [phoneNo] 
 /// * [email] 
 /// * [businessName] 
+/// * [address] 
 @BuiltValue()
 abstract class ClientAddDto implements Built<ClientAddDto, ClientAddDtoBuilder> {
   @BuiltValueField(wireName: r'fullName')
@@ -28,6 +29,9 @@ abstract class ClientAddDto implements Built<ClientAddDto, ClientAddDtoBuilder> 
 
   @BuiltValueField(wireName: r'businessName')
   String? get businessName;
+
+  @BuiltValueField(wireName: r'address')
+  String? get address;
 
   ClientAddDto._();
 
@@ -77,6 +81,13 @@ class _$ClientAddDtoSerializer implements PrimitiveSerializer<ClientAddDto> {
       yield r'businessName';
       yield serializers.serialize(
         object.businessName,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.address != null) {
+      yield r'address';
+      yield serializers.serialize(
+        object.address,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -134,6 +145,14 @@ class _$ClientAddDtoSerializer implements PrimitiveSerializer<ClientAddDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.businessName = valueDes;
+          break;
+        case r'address':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.address = valueDes;
           break;
         default:
           unhandled.add(key);

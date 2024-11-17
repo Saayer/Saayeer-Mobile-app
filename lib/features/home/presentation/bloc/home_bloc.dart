@@ -94,6 +94,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final ClientGetDto? rightResult = (result as Right).value;
       log("right getUserProfile $rightResult");
       if (rightResult != null) {
+        /// save user dto
+        getIt<SharedPrefService>().setUserData(rightResult);
+
         ///
         emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED), clientDto: rightResult));
         if (rightResult.phoneNo != null) {

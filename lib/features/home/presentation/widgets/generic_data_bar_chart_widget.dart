@@ -40,7 +40,8 @@ class GenericDataBarChartWidget<T> extends StatelessWidget {
             color: SaayerTheme().getColorsPalette.whiteColor,
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
-              BoxShadow(spreadRadius: 2, blurRadius: 5, color: SaayerTheme().getColorsPalette.blackColor.withOpacity(.07))
+              BoxShadow(
+                  spreadRadius: 2, blurRadius: 5, color: SaayerTheme().getColorsPalette.blackColor.withOpacity(.07))
             ]),
         child: Column(
           children: [
@@ -53,7 +54,10 @@ class GenericDataBarChartWidget<T> extends StatelessWidget {
                 children: [
                   Text(title,
                       maxLines: 1, style: AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.primaryColor)),
-                  Flexible(child: Text(total, maxLines: 2, style: AppTextStyles.mainFocusedLabel())),
+                  Flexible(
+                      child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Text(total, maxLines: 2, style: AppTextStyles.mainFocusedLabel()))),
                 ],
               ),
             ),

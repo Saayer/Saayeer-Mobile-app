@@ -12,6 +12,8 @@ import 'package:openapi/openapi.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
+import 'package:saayer/core/services/injection/injection.dart';
+import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/more_sub_features/personal_info/core/utils/enums/enums.dart';
@@ -39,9 +41,9 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
   final TextEditingController businessNameController = TextEditingController();
   PhoneNumber mobile = PhoneNumber(isoCode: 'SA', dialCode: '+966');
-  Map<PersonalInfoFieldsTypes, bool> personalInfoFieldsValidMap = {};
 
   FutureOr<void> _onTextChange(OnTextChange event, Emitter<PersonalInfoState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
@@ -49,7 +51,6 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
     if (isPhone) {
       mobile = event.phoneNumber!;
     }
-    personalInfoFieldsValidMap[event.personalInfoFieldsType] = (event.str?.isNotEmpty ?? false);
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
     ));
@@ -62,8 +63,9 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
         stateHelper: const StateHelper(requestState: RequestState.LOADED),
         clientEditRequest: ClientAddDto((b) => b
           ..fullName = nameController.text
-          ..phoneNo = mobile.phoneNumber
+          ..phoneNo = "+966${mobile.phoneNumber!.replaceAll('+966', '')}"
           ..email = emailController.text
+          ..address = addressController.text
           ..businessName = businessNameController.text)));
     await _submitPersonalInfo(SubmitPersonalInfo(), emit);
   }
@@ -71,15 +73,22 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
   Future<FutureOr<void>> _submitPersonalInfo(SubmitPersonalInfo event, Emitter<PersonalInfoState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    final Either<Failure, void> result = await submitPersonalInfoUseCase(state.clientEditRequest!);
+    final Either<Failure, ClientGetDto?> result = await submitPersonalInfoUseCase(state.clientEditRequest!);
 
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper
               .copyWith(requestState: RequestState.ERROR, errorStatus: PersonalInfoErrorStatus.ERROR_PERSONAL_INFO)));
     } else {
+      final ClientGetDto? rightResult = (result as Right).value;
+
       ///
       SaayerToast().showSuccessToast(msg: "profile_updated_successfully".tr());
+
+      /// save user dto
+      if (rightResult != null) {
+        getIt<SharedPrefService>().setUserData(rightResult);
+      }
 
       ///
       emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: "")));
@@ -101,6 +110,9 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
           stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
           clientGetDto: rightResult,
         ));
+
+        /// save user dto
+        getIt<SharedPrefService>().setUserData(rightResult);
 
         ///
         _setValues();
@@ -128,6 +140,7 @@ class PersonalInfoBloc extends Bloc<PersonalInfoEvent, PersonalInfoState> {
     nameController.text = state.clientGetDto!.fullName ?? '';
     emailController.text = state.clientGetDto!.email ?? '';
     businessNameController.text = state.clientGetDto!.businessName ?? '';
+    addressController.text = state.clientGetDto!.address ?? '';
     phoneController.text = (state.clientGetDto!.phoneNo ?? '').replaceAll('+966', '');
     mobile = PhoneNumber(
         isoCode: 'SA', dialCode: '+966', phoneNumber: (state.clientGetDto!.phoneNo ?? '').replaceAll('+966', ''));

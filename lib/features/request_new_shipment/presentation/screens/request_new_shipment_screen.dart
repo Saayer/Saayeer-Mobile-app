@@ -12,6 +12,7 @@ class RequestNewShipmentScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final bloc = getIt<RequestNewShipmentBloc>();
+        bloc.add(const PersonalInfoCompleteChecker());
         bloc.add(const GetStoresAddresses());
         return bloc;
       },

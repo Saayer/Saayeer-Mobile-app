@@ -130,8 +130,14 @@ import 'package:saayer/features/more_sub_features/reports/presentation/bloc/repo
     as _i374;
 import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart'
     as _i212;
-import 'package:saayer/features/more_sub_features/shipping_rates/presentation/bloc/shipping_rates_bloc.dart'
-    as _i360;
+import 'package:saayer/features/more_sub_features/shipping_partners/data/repositories/shipping_partners_list_repo_impl.dart'
+    as _i348;
+import 'package:saayer/features/more_sub_features/shipping_partners/domain/repositories/shipping_partners_list_repo.dart'
+    as _i874;
+import 'package:saayer/features/more_sub_features/shipping_partners/domain/usecases/get_shipping_partners_usecase.dart'
+    as _i800;
+import 'package:saayer/features/more_sub_features/shipping_partners/presentation/bloc/shipping_partners_bloc.dart'
+    as _i234;
 import 'package:saayer/features/more_sub_features/static_pages/presentation/bloc/static_pages_bloc.dart'
     as _i352;
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/data/repositories/add_edit_store_repo_impl.dart'
@@ -250,8 +256,6 @@ import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dar
     as _i613;
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart'
     as _i870;
-import 'package:saayer/features/view_page/sub_features/profile/presentation/bloc/profile_bloc.dart'
-    as _i199;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -271,14 +275,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i900.WhySaayerBloc>(() => _i900.WhySaayerBloc());
     gh.factory<_i206.ContactUsBloc>(() => _i206.ContactUsBloc());
     gh.factory<_i352.StaticPagesBloc>(() => _i352.StaticPagesBloc());
-    gh.factory<_i360.ShippingRatesBloc>(() => _i360.ShippingRatesBloc());
     gh.factory<_i609.HelpBloc>(() => _i609.HelpBloc());
     gh.factory<_i374.ReportsBloc>(() => _i374.ReportsBloc());
     gh.factory<_i1037.UserInfoViewPageBloc>(
         () => _i1037.UserInfoViewPageBloc());
     gh.factory<_i79.InfoBloc>(() => _i79.InfoBloc());
     gh.factory<_i386.BillsBloc>(() => _i386.BillsBloc());
-    gh.factory<_i199.ProfileBloc>(() => _i199.ProfileBloc());
     gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
     gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
     gh.factory<_i110.NotificationsBloc>(() => _i110.NotificationsBloc());
@@ -347,6 +349,9 @@ extension GetItInjectableX on _i174.GetIt {
         addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
     gh.factory<_i590.GetCitiesUseCase>(() => _i590.GetCitiesUseCase(
         addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
+    gh.factory<_i874.ShippingPartnersListRepo>(() =>
+        _i348.ShippingPartnersListRepoImpl(
+            openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i792.PersonalInfoRepo>(() =>
         _i508.PersonalInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i282.ShipmentsListRepo>(() =>
@@ -437,6 +442,9 @@ extension GetItInjectableX on _i174.GetIt {
             addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
     gh.factory<_i436.GetAddressesUseCase>(() => _i436.GetAddressesUseCase(
         addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
+    gh.factory<_i800.GetShippingPartnersUseCase>(() =>
+        _i800.GetShippingPartnersUseCase(
+            shippingPartnersListRepo: gh<_i874.ShippingPartnersListRepo>()));
     gh.factory<_i833.GetStoresUseCase>(() =>
         _i833.GetStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
     gh.factory<_i490.DeleteStoresUseCase>(() =>
@@ -495,6 +503,8 @@ extension GetItInjectableX on _i174.GetIt {
           getCustomersAddressesUseCase: gh<_i436.GetAddressesUseCase>(),
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
         ));
+    gh.factory<_i234.ShippingPartnersBloc>(() => _i234.ShippingPartnersBloc(
+        getShippingPartnersUseCase: gh<_i800.GetShippingPartnersUseCase>()));
     gh.factory<_i414.ShipmentsBloc>(() => _i414.ShipmentsBloc(
           getShipmentsListUseCase: gh<_i437.GetShipmentsListUseCase>(),
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),

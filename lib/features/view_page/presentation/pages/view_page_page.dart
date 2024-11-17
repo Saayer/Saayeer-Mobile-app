@@ -4,9 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
-import 'package:saayer/core/services/injection/injection.dart';
-import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -56,32 +53,17 @@ class ViewPagePage extends StatelessWidget {
               floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
               resizeToAvoidBottomInset: false,
               appBar: BaseAppBar(
-                  title: !isHome
-                      ? viewPageBloc.navBarIconEntityList
-                          .firstWhere((element) => element.isSelected)
-                          .navBarIconType
-                          .name
-                          .tr()
-                      : null,
-                  showBackLeading: false,
-                  showAppBar: isRequestShipment ? false : true,
-                  height: 50,
-                  actions: [
-                    if (isHome)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: GestureDetector(
-                          onTap: () {
-                            getIt<NavigationService>().navigateToNamed(Routes.notificationsNamedPage);
-                          },
-                          child: Icon(
-                            Icons.notifications,
-                            color: SaayerTheme().getColorsPalette.blackTextColor,
-                            size: 35,
-                          ),
-                        ),
-                      ),
-                  ]),
+                title: !isHome
+                    ? viewPageBloc.navBarIconEntityList
+                        .firstWhere((element) => element.isSelected)
+                        .navBarIconType
+                        .name
+                        .tr()
+                    : null,
+                showBackLeading: false,
+                showAppBar: isRequestShipment ? false : true,
+                height: 50,
+              ),
               floatingActionButton: largerThanMobile(context) ? null : const SaayerFloatingActionButton(),
               bottomNavigationBar: largerThanMobile(context) ? null : const SaayerBottomNavigationBar(),
               body: Row(

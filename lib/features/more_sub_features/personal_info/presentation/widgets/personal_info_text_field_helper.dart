@@ -30,6 +30,10 @@ class PersonalInfoTextFieldHelper {
         {
           return _getMobileTextField();
         }
+      case PersonalInfoFieldsTypes.ADDRESS:
+        {
+          return _getAddressTextField();
+        }
       case PersonalInfoFieldsTypes.BUSINESSNAME:
         {
           return _buildBusinessTextField();
@@ -52,6 +56,10 @@ class PersonalInfoTextFieldHelper {
         {
           return personalInfoBloc.emailController;
         }
+      case PersonalInfoFieldsTypes.ADDRESS:
+        {
+          return personalInfoBloc.addressController;
+        }
       case PersonalInfoFieldsTypes.BUSINESSNAME:
         {
           return personalInfoBloc.businessNameController;
@@ -59,16 +67,10 @@ class PersonalInfoTextFieldHelper {
     }
   }
 
-  static bool enablePersonalInfo(PersonalInfoBloc personalInfoBloc) {
-    log("${personalInfoBloc.personalInfoFieldsValidMap}", name: "enablePersonalInfo --->");
-    if (personalInfoBloc.personalInfoFieldsValidMap.values.length == PersonalInfoFieldsTypes.values.length) {
-      return personalInfoBloc.personalInfoFieldsValidMap.values.every((element) => element == true);
-    }
-    return false;
-  }
-
   Widget _buildEmailTextField() {
     return EmailTextField(
+      isFieldRequired: true,
+      withValidator: true,
       emailController: _getInputController(personalInfoBloc, personalInfoFieldsType),
       onChanged: (val) {},
     );
@@ -128,7 +130,19 @@ class PersonalInfoTextFieldHelper {
       isFieldRequired: false,
       label: personalInfoFieldsType.name,
       inputController: _getInputController(personalInfoBloc, personalInfoFieldsType),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
+      onChanged: (val) {},
+    );
+  }
+
+  Widget _getAddressTextField() {
+    return InputTextField(
+      label: personalInfoFieldsType.name,
+      isFieldRequired: true,
+      withValidator: true,
+      inputController: _getInputController(personalInfoBloc, personalInfoFieldsType),
+      maxLength: 250,
+      keyboardType: TextInputType.text,
       onChanged: (val) {},
     );
   }

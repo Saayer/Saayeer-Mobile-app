@@ -240,6 +240,9 @@
   "store_name": "Store name",
   "send_from_store": "Send from store",
   "send_from_customer": "Return from customer",
-  "city_not_available_pickup_aramex_msg": "This city is not available for pickup from Aramex",
-  "city_not_available_delivery_aramex_msg": "This city is not available for delivery from Aramex"
+  "shipping_partners": "Shipping Partners",
+  "shipping_partners_available": "Available",
+  "accept_terms_condition_msg": "By using the Saayeer app, you agree to the ",
+  "complete_personal_info_msg": "Please complete your personal information before request a shipment",
+  "please_accept_terms_condition": "Please accept the terms and conditions"
 }
