@@ -372,7 +372,9 @@ class AddEditAddressBloc extends Bloc<AddEditAddressEvent, AddEditAddressState> 
           ..phoneNo = (mobile.phoneNumber == null || mobile.phoneNumber == '+966')
               ? null
               : "+966${mobile.phoneNumber!.replaceAll('+966', '')}"
-          ..phoneNo2 = (alternativeMobile.phoneNumber == null || alternativeMobile.phoneNumber == '+966')
+          ..phoneNo2 = (alternativeMobile.phoneNumber == null ||
+                  alternativeMobile.phoneNumber == '+966' ||
+                  alternativeMobile.phoneNumber!.isEmpty)
               ? null
               : "+966${alternativeMobile.phoneNumber!.replaceAll('+966', '')}"
           ..countryId = selectedCountry!.id

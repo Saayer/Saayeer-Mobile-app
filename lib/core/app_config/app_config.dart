@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -18,7 +17,6 @@ import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/saayer_app.dart';
 import 'package:flutter/services.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:saayer/core/app_config/firebase_options.dart';
 
 class AppConfig {
   final String appName;
@@ -36,9 +34,6 @@ class AppConfig {
     //disable logger
     EasyLocalization.logger.enableBuildModes = [];
     configureInjection();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
     initAppFlavorEntity();
 
     /// init sharedPreferences
@@ -57,7 +52,6 @@ class AppConfig {
 
     await ScreenUtil.ensureScreenSize();
     final AdaptiveThemeMode? savedThemeMode = await AdaptiveTheme.getThemeMode();
-    //await getIt<FirebaseDeepLink>().onDynamicLink();
     runApp(EasyLocalization(
       supportedLocales: Localization.getLocaleList(),
       path: Constants.stringsPath,

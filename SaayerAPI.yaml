@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-25-dev
+  version: v-27-dev
 servers:
-  - url: "/saayer-25/app"
+  - url: "/saayer-27/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -424,6 +424,16 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
   "/api/Customers":
     get:
       tags:
@@ -679,6 +689,32 @@ paths:
             text/json:
               schema:
                 type: string
+  "/api/Experimental/log":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/Experimental/error":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
   "/api/Logistics/service-costs":
     post:
       tags:
@@ -1244,6 +1280,9 @@ components:
         businessName:
           type: string
           nullable: true
+        address:
+          type: string
+          nullable: true
       additionalProperties: false
     ClientGetDto:
       type: object
@@ -1258,6 +1297,9 @@ components:
           type: string
           nullable: true
         businessName:
+          type: string
+          nullable: true
+        address:
           type: string
           nullable: true
       additionalProperties: false
@@ -1794,7 +1836,6 @@ components:
           nullable: true
         createdAt:
           type: string
-          format: date-time
         logisticServiceName:
           type: string
           nullable: true
@@ -1893,6 +1934,7 @@ components:
         - NeedAction
         - UnKnown
         - Canceled
+        - HasError
       type: string
     ShipmentStatusGetDto:
       type: object
@@ -1905,7 +1947,6 @@ components:
           nullable: true
         createdAt:
           type: string
-          format: date-time
       additionalProperties: false
     ShipmentsCountResponse:
       type: object

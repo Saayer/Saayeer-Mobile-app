@@ -39,7 +39,7 @@ class ShipmentInfo extends StatelessWidget {
       ),
       InfoRow(
         iconData: Icons.date_range,
-        text: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt!.toString()) ?? '',
+        text: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '',
       ),
     ];
     final Color shipmentStatusColor = ShipmentItemWidgetHelper().getColor(shipmentDto.status!);

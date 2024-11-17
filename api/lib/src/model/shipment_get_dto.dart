@@ -62,14 +62,14 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
   double? get cost;
 
   @BuiltValueField(wireName: r'createdAt')
-  DateTime? get createdAt;
+  String? get createdAt;
 
   @BuiltValueField(wireName: r'logisticServiceName')
   String? get logisticServiceName;
 
   @BuiltValueField(wireName: r'status')
   ShipmentStatusEnum? get status;
-  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  };
+  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  HasError,  };
 
   @BuiltValueField(wireName: r'labelURL')
   String? get labelURL;
@@ -184,7 +184,7 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
       yield r'createdAt';
       yield serializers.serialize(
         object.createdAt,
-        specifiedType: const FullType(DateTime),
+        specifiedType: const FullType(String),
       );
     }
     if (object.logisticServiceName != null) {
@@ -356,8 +356,8 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
         case r'createdAt':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+            specifiedType: const FullType(String),
+          ) as String;
           result.createdAt = valueDes;
           break;
         case r'logisticServiceName':

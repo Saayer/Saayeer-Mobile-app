@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
-import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
@@ -12,6 +11,7 @@ import 'package:saayer/features/log_in/presentation/screens/log_in_screen.dart';
 import 'package:saayer/features/more_sub_features/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:saayer/features/more_sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/screens/settings_screen.dart';
+import 'package:saayer/features/more_sub_features/shipping_partners/presentation/screens/shipping_partners_screen.dart';
 import 'package:saayer/features/more_sub_features/static_pages/core/enums/enums.dart';
 import 'package:saayer/features/more_sub_features/static_pages/presentation/screens/static_pages_screen.dart';
 import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/screens/add_edit_store_screen.dart';
@@ -29,7 +29,6 @@ import 'package:saayer/features/user_info_view_page/presentation/screens/user_in
 import 'package:saayer/features/verify_otp/presentation/screens/verify_otp_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/presentation/screens/view_page_screen.dart';
-import "package:universal_html/html.dart" as html;
 
 class AppRoutes {
   /// onGenerateRoute
@@ -230,6 +229,15 @@ class AppRoutes {
               builder: (context) => StaticPagesScreen(
                     staticPagesTypes: routingData as StaticPagesTypes,
                   ));
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
+      case Routes.shippingPartnersNamedPage:
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const ShippingPartnersScreen());
         } else {
           return MaterialPageRoute(
             builder: (context) => const SplashScreen(),

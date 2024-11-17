@@ -19,13 +19,13 @@ part 'shipment_status_get_dto.g.dart';
 abstract class ShipmentStatusGetDto implements Built<ShipmentStatusGetDto, ShipmentStatusGetDtoBuilder> {
   @BuiltValueField(wireName: r'status')
   ShipmentStatusEnum? get status;
-  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  };
+  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  HasError,  };
 
   @BuiltValueField(wireName: r'description')
   String? get description;
 
   @BuiltValueField(wireName: r'createdAt')
-  DateTime? get createdAt;
+  String? get createdAt;
 
   ShipmentStatusGetDto._();
 
@@ -68,7 +68,7 @@ class _$ShipmentStatusGetDtoSerializer implements PrimitiveSerializer<ShipmentSt
       yield r'createdAt';
       yield serializers.serialize(
         object.createdAt,
-        specifiedType: const FullType(DateTime),
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -112,8 +112,8 @@ class _$ShipmentStatusGetDtoSerializer implements PrimitiveSerializer<ShipmentSt
         case r'createdAt':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+            specifiedType: const FullType(String),
+          ) as String;
           result.createdAt = valueDes;
           break;
         default:

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:openapi/openapi.dart';
@@ -17,6 +17,7 @@ class ShipmentItemWidgetHelper {
     required ShipmentGetDto shipmentDto,
     required bool isFromHome,
     required ShipmentsListTypes shipmentsListType,
+    required bool hasLabelUrl,
     required VoidCallback onTapDownloadShipment,
   }) {
     final Color shipmentStatusColor = getColor(shipmentDto.status ?? ShipmentStatusEnum.unKnown);
@@ -56,9 +57,10 @@ class ShipmentItemWidgetHelper {
                   ],
                 ),
               ),
-              IconButton(
-                  onPressed: onTapDownloadShipment,
-                  icon: Icon(LineIcons.fileDownload, size: 20, color: SaayerTheme().getColorsPalette.greyColor)),
+              if (hasLabelUrl)
+                IconButton(
+                    onPressed: onTapDownloadShipment,
+                    icon: Icon(LineIcons.fileDownload, size: 20, color: SaayerTheme().getColorsPalette.greyColor)),
               Icon(Icons.arrow_forward_ios, size: 15, color: SaayerTheme().getColorsPalette.greyColor),
             ],
           ),
@@ -105,7 +107,7 @@ class ShipmentItemWidgetHelper {
           const SizedBox(height: 4),
           RichTextWidget(
             keyStr: 'shipment_date',
-            valueStr: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt.toString()) ?? '',
+            valueStr: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '',
           ),
           const SizedBox(height: 4),
           RichTextWidget(
@@ -131,16 +133,13 @@ class ShipmentItemWidgetHelper {
           const SizedBox(
             height: 5,
           ),
-          Text.rich(
-            softWrap: true,
-            maxLines: 3,
-            TextSpan(
-              children: [
-                TextSpan(text: (shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel()),
-                TextSpan(
-                    text: "  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
-              ],
-            ),
+          Row(
+            children: [
+              Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Text((shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel())),
+              Text("  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
+            ],
           ),
           const SizedBox(
             height: 10,

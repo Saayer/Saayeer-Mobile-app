@@ -33,7 +33,7 @@ class ShipmentTrackingWidget extends StatelessWidget {
                       label: state.shipmentTrackingList![index].status!.name,
                       isComplete: state.shipmentTrackingList![index].createdAt == null ? false : true,
                       createdDate: DateTimeUtil.convertUTCDateToLocalWithoutSec(
-                              (state.shipmentTrackingList![index].createdAt ?? '').toString()) ??
+                              (state.shipmentTrackingList![index].createdAt ?? '')) ??
                           '',
                     )
                   : state.errorTrackingItem == null

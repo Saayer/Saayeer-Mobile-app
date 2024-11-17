@@ -33,6 +33,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   ///
   GlobalKey zipCodeKey = GlobalKey<State<StatefulWidget>>();
   GlobalKey addressKey = GlobalKey<State<StatefulWidget>>();
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -73,7 +74,7 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
 
   Widget _getTextField(AddEditAddressBloc addAddressBloc, AddAddressFieldsTypes addAddressFieldsType) {
     return AddressTextFieldHelper(addAddressBloc: addAddressBloc, addAddressFieldsType: addAddressFieldsType)
-        .getTextField(zipCodeKey:zipCodeKey, addressKey:addressKey);
+        .getTextField(zipCodeKey: zipCodeKey, addressKey: addressKey);
   }
 
   _buildConfirmButton(AddEditAddressBloc addAddressBloc, double width) {
@@ -159,6 +160,10 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
 
                 /// zipCode
                 _buildFifthColumnRowField(addAddressBloc),
+
+                const SizedBox(
+                  height: 10,
+                ),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
@@ -173,7 +178,6 @@ class _AddEditAddressPageState extends State<AddEditAddressPage> {
   bool enableAddress(AddEditAddressBloc addAddressBloc) {
     if (addAddressBloc.nameController.text.isNotEmpty &&
         (addAddressBloc.mobile.phoneNumber != null) &&
-        (addAddressBloc.mobile.phoneNumber!.length > 12) &&
         addAddressBloc.addressController.text.isNotEmpty &&
         (addAddressBloc.selectedCountry != null) &&
         (addAddressBloc.selectedGovernorate != null) &&

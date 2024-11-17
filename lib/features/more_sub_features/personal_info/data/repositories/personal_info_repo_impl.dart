@@ -17,7 +17,7 @@ class PersonalInfoRepoImpl implements PersonalInfoRepo {
   });
 
   @override
-  Future<Either<Failure, void>> editPersonalInfo(
+  Future<Either<Failure, ClientGetDto?>> editPersonalInfo(
       ClientAddDto clientDto) async {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {

@@ -1,18 +1,20 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/common/toast/toast_widget.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
-import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/usecase/base_usecase.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/address/add_edit_address/domain/entities/address_info_entity.dart';
 import 'package:saayer/features/address/addresses_book/domain/use_cases/get_addresses_usecase.dart';
@@ -32,7 +34,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     required this.getCustomersAddressesUseCase,
     required this.getStoresUseCase,
   }) : super(const RequestNewShipmentState()) {
-    on<InitRequestShipmentViewPageEvent>(_initRequestShipmentViewPageEvent);
+    on<PersonalInfoCompleteChecker>(_personalInfoCompleteChecker);
     on<GoToNextPageEvent>(_goToNextPageEvent);
     on<GoToPreviousPage>(_goToPreviousPage);
     on<ToggleAutoValidate>(_toggleAutoValidate);
@@ -47,6 +49,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     on<OnSetSenderAddress>(_onSetSenderAddress);
     on<OnSetReceiverAddress>(_onSetReceiverAddress);
     on<SetShipmentId>(_setShipmentId);
+    on<ResetCustomerList>(_resetCustomerList);
   }
 
   ///
@@ -82,12 +85,24 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
   CustomerGetDto? selectedReceiverCustomerAddress;
   StoreGetDto? selectedReceiverStoreAddress;
 
-  FutureOr<void> _initRequestShipmentViewPageEvent(
-      InitRequestShipmentViewPageEvent event, Emitter<RequestNewShipmentState> emit) {
+  FutureOr<void> _personalInfoCompleteChecker(
+      PersonalInfoCompleteChecker event, Emitter<RequestNewShipmentState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
-    emit(state.copyWith(
-        stateHelper: const StateHelper(requestState: RequestState.LOADED), currentPage: event.currentPage));
+    /// check if user info not complete to navigate to [Routes.personalInfoNamedPage] to complete it first
+    final userDto = getIt<SharedPrefService>().getUserData();
+    if (userDto != null) {
+      if ((userDto.email ?? '').isEmpty ||
+          userDto.fullName == null ||
+          userDto.fullName == Constants.defaultUserName ||
+          (userDto.address ?? '').isEmpty) {
+        getIt<NavigationService>().pop();
+        getIt<NavigationService>().navigateToNamed(Routes.personalInfoNamedPage);
+        SaayerToast().showSuccessToast(msg: "complete_personal_info_msg".tr());
+      }
+    }
+
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
   }
 
   FutureOr<void> _goToNextPageEvent(GoToNextPageEvent event, Emitter<RequestNewShipmentState> emit) async {
@@ -155,15 +170,22 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
                 hasNextPage: true));
           }
           if (event.requestShipmentTypes == RequestShipmentTypes.sender) {
-            for (var item in rightResult) {
-              senderCustomersList.putIfAbsent(item);
+            senderCustomersList = rightResult;
+            if (selectedSenderCustomerAddress != null) {
+              var customerId = selectedSenderCustomerAddress!.customerId;
+              selectedSenderCustomerAddress =
+                  senderCustomersList.firstWhere((address) => address.customerId == customerId);
             }
+
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
                 customersAddresses: senderCustomersList));
           } else {
-            for (var item in rightResult) {
-              receiverCustomersList.putIfAbsent(item);
+            receiverCustomersList = rightResult;
+            if (selectedReceiverCustomerAddress != null) {
+              var customerId = selectedReceiverCustomerAddress!.customerId;
+              selectedReceiverCustomerAddress =
+                  receiverCustomersList.firstWhere((address) => address.customerId == customerId);
             }
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
@@ -193,18 +215,30 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
         if (rightResult != null) {
           emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: "")));
 
-          for (var item in rightResult) {
-            senderStoresList.putIfAbsent(item);
-            receiverStoresList.putIfAbsent(item);
-          }
-          selectedReceiverStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
+          ///
+          senderStoresList = rightResult;
+          receiverStoresList = rightResult;
 
-          /// to show autoSelected last store added
-          var storeId = getIt<SharedPrefService>().getLastStoreAddedId();
-          if (storeId != null) {
+          ///
+          if (selectedReceiverStoreAddress != null) {
+            var storeId = selectedReceiverStoreAddress!.storeId;
+            selectedReceiverStoreAddress = receiverStoresList.firstWhere((store) => store.storeId == storeId);
+          } else {
+            selectedReceiverStoreAddress = receiverStoresList.isNotEmpty ? receiverStoresList.first : null;
+          }
+
+          ///
+          if (selectedSenderStoreAddress != null) {
+            var storeId = selectedSenderStoreAddress!.storeId;
             selectedSenderStoreAddress = senderStoresList.firstWhere((store) => store.storeId == storeId);
           } else {
-            selectedSenderStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
+            /// to show autoSelected last store added
+            var storeId = getIt<SharedPrefService>().getLastStoreAddedId();
+            if (storeId != null) {
+              selectedSenderStoreAddress = senderStoresList.firstWhere((store) => store.storeId == storeId);
+            } else {
+              selectedSenderStoreAddress = senderStoresList.isNotEmpty ? senderStoresList.first : null;
+            }
           }
 
           ///
@@ -326,6 +360,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
             ..countryId = selectedSenderStoreAddress?.countryId
             ..zipcode = selectedSenderStoreAddress?.zipcode
             ..areaId = selectedSenderStoreAddress?.areaId)));
+      receiverType = SenderReceiverType.customer;
+      selectedReceiverStoreAddress = null;
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
@@ -343,7 +379,15 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     }
 
     add(GoToNextPageEvent());
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+    if (senderType == SenderReceiverType.store) {
+      if (receiverCustomersList.isEmpty) {
+        add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
+      } else {
+        emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+      }
+    } else {
+      emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+    }
   }
 
   FutureOr<void> _onSetReceiverAddress(OnSetReceiverAddress event, Emitter<RequestNewShipmentState> emit) {
@@ -381,12 +425,22 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     ///
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING), shipmentId: event.shipmentId));
+
     ///save shipmentId
     getIt<SharedPrefService>().setShipmentId(event.shipmentId);
+
     /// go to Shipment payment screen
     add(GoToNextPageEvent());
 
     ///
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
+  }
+
+  FutureOr<void> _resetCustomerList(ResetCustomerList event, Emitter<RequestNewShipmentState> emit) {
+    if (event.requestShipmentType == RequestShipmentTypes.sender) {
+      senderCustomersList = [];
+    } else {
+      receiverCustomersList = [];
+    }
   }
 }

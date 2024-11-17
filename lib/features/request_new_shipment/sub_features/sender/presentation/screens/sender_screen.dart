@@ -95,7 +95,7 @@ class _SenderScreenState extends State<SenderScreen> {
                 ///
                 Expanded(
                   child: RadioListTile<SenderReceiverType>(
-                    title: Text('store'.tr(), style: AppTextStyles.liteLabel()),
+                    title: Text('send_from_store'.tr(), style: AppTextStyles.liteLabel()),
                     value: SenderReceiverType.store,
                     groupValue: requestShipmentBloc.senderType,
                     activeColor: SaayerTheme().getColorsPalette.primaryColor,
@@ -110,7 +110,7 @@ class _SenderScreenState extends State<SenderScreen> {
                 ///
                 Expanded(
                   child: RadioListTile<SenderReceiverType>(
-                    title: Text('customer'.tr(), style: AppTextStyles.liteLabel()),
+                    title: Text('send_from_customer'.tr(), style: AppTextStyles.liteLabel()),
                     value: SenderReceiverType.customer,
                     groupValue: requestShipmentBloc.senderType,
                     activeColor: SaayerTheme().getColorsPalette.primaryColor,
@@ -146,9 +146,33 @@ class _SenderScreenState extends State<SenderScreen> {
             const SizedBox(height: 15),
 
             ///
-            SenderItemDetailsWidget(
+            SenderReceiverItemDetailsWidget(
+              onEdit: () {
+                if (requestShipmentBloc.senderType == SenderReceiverType.store) {
+                  getIt<NavigationService>().navigateToNamed(Routes.addEditStoreNamedPage, arguments: {
+                    'addEditStoreType': AddEditStoreType.editStore,
+                    'storeDto': requestShipmentBloc.selectedSenderStoreAddress,
+                  }, onBack: (result) {
+                    requestShipmentBloc.add(const GetStoresAddresses());
+                  });
+                } else if (requestShipmentBloc.senderType == SenderReceiverType.customer) {
+                  getIt<NavigationService>().navigateToNamed(Routes.addEditAddressNamedPage, arguments: {
+                    'addEditAddressType': AddEditAddressType.editAddress,
+                    'customerModel': requestShipmentBloc.selectedSenderCustomerAddress,
+                    'isAddShipmentRequest': true,
+                  }, onBack: (result) {
+                    requestShipmentBloc.add(const ResetCustomerList(requestShipmentType: RequestShipmentTypes.sender));
+                    requestShipmentBloc
+                        .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
+                    if (result != null) {
+                      requestShipmentBloc.add(OnSenderSelectedFromDropDown(
+                          senderType: SenderReceiverType.customer, item: result as CustomerGetDto?));
+                    }
+                  });
+                }
+              },
               requestShipmentTypes: RequestShipmentTypes.sender,
-              senderType: requestShipmentBloc.senderType,
+              senderReceiverType: requestShipmentBloc.senderType,
               customerItem: requestShipmentBloc.selectedSenderCustomerAddress,
               storeItem: requestShipmentBloc.selectedSenderStoreAddress,
             ),

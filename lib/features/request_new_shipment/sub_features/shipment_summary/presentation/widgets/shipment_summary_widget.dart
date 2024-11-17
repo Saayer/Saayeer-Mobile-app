@@ -17,7 +17,7 @@ class ShipmentSummaryWidget extends StatelessWidget {
     final ShipmentSummaryBloc shipmentSummaryBloc = BlocProvider.of<ShipmentSummaryBloc>(context);
     return BlocConsumer<ShipmentSummaryBloc, ShipmentSummaryState>(
       buildWhen: (previousState, nextState) =>
-      (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) async {
         final bool isLoading = (shipmentSummaryBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
@@ -37,8 +37,8 @@ class ShipmentSummaryWidget extends StatelessWidget {
           children: [
             ResponsiveRowColumn(
               layout: ResponsiveValue(context,
-                  conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
-                  defaultValue: ResponsiveRowColumnType.COLUMN)
+                      conditionalValues: [const Condition.equals(name: DESKTOP, value: ResponsiveRowColumnType.ROW)],
+                      defaultValue: ResponsiveRowColumnType.COLUMN)
                   .value,
               columnVerticalDirection: VerticalDirection.down,
               columnCrossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,6 @@ class ShipmentSummaryWidget extends StatelessWidget {
         );
       },
     );
-
   }
 
   _buildFirstFiltersRow(RequestNewShipmentBloc requestShipmentBloc, ShipmentSummaryBloc shipmentCheckoutBloc) {

@@ -23,7 +23,7 @@ abstract class ExperimentalShipmentStatusAdd implements Built<ExperimentalShipme
 
   @BuiltValueField(wireName: r'status')
   ShipmentStatusEnum? get status;
-  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  };
+  // enum statusEnum {  Pending,  Paid,  Requested,  Picked,  OnTheWay,  Delivered,  NeedAction,  UnKnown,  Canceled,  HasError,  };
 
   @BuiltValueField(wireName: r'description')
   String? get description;

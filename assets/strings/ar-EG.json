@@ -178,7 +178,7 @@
   "are_you_sure_delete_address": "هل أنت متأكد أنك تريد حذف هذا العنوان؟",
   "search_hint": "البحث حسب الاسم أو العنوان",
   "privacy_policy": "سياسة الخصوصية",
-  "terms_conditions": "شروط وأحكام",
+  "terms_conditions": "الشروط والأحكام",
   "stores": "المتاجر",
   "business_name": "الاسم التجاري",
   "replacement_refund_policy": "سياسة الإستبدال و الإسترجاع",
@@ -236,5 +236,13 @@
   "soon": "قريباً",
   "providers_error_msg": "لا يمكننا الحصول على مقدمي الخدمة. يرجى المحاولة مرة أخرى لاحقًا.",
   "shipment_download": "تحميل بوليصة الشحن",
-  "label_not_available_msg": "الملف غير متاح حاليا!"
+  "label_not_available_msg": "الملف غير متاح حاليا!",
+  "store_name": "اسم المتجر",
+  "send_from_store": "إرسال من متجر",
+  "send_from_customer": "إرجاع من عميل",
+  "shipping_partners": "شركاء الشحن",
+  "shipping_partners_available": "متوفر",
+  "accept_terms_condition_msg": "باستخدامك لتطبيق ساير، أنت توافق على ",
+  "complete_personal_info_msg": "يرجى إكمال بياناتك الشخصية قبل طلب الشحنة",
+  "please_accept_terms_condition": "الرجاء قبول الشروط والأحكام"
 }

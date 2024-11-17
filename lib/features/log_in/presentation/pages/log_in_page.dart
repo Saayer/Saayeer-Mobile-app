@@ -53,6 +53,7 @@ class LogInPage extends StatelessWidget {
           canPop: false,
           child: Scaffold(
             backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
+            resizeToAvoidBottomInset: false,
             appBar: const BaseAppBar(
               showBackLeading: false,
             ),

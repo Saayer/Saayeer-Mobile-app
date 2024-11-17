@@ -14,6 +14,7 @@ class Constants {
   static const String saayerTiktokUrl = "https://www.tiktok.com/@.saayer";
   static const String saayerWebsiteUrl = "https://saayer.com/";
   static const String saayerTwitterUrl = "https://x.com/_saayer";
+  static const String defaultUserName = "Saayer Client";
 
   static final String formattedNowDate =
       DateFormat('dd/MM/yyyy').format(DateTime.now());

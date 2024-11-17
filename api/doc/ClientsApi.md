@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-25/app*
+All URIs are relative to *http://localhost/saayer-27/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiClientsPut**
-> apiClientsPut(apiKey, clientAddDto)
+> ClientGetDto apiClientsPut(apiKey, clientAddDto)
 
 
 
@@ -68,7 +68,8 @@ final String apiKey = apiKey_example; // String |
 final ClientAddDto clientAddDto = ; // ClientAddDto | 
 
 try {
-    api.apiClientsPut(apiKey, clientAddDto);
+    final response = api.apiClientsPut(apiKey, clientAddDto);
+    print(response);
 } catch on DioException (e) {
     print('Exception when calling ClientsApi->apiClientsPut: $e\n');
 }
@@ -83,7 +84,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**ClientGetDto**](ClientGetDto.md)
 
 ### Authorization
 
@@ -92,7 +93,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
+import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
@@ -108,7 +109,7 @@ class PaymentWebCallbackResponseWidget extends StatelessWidget {
               ///
               getIt<NavigationService>().navigateAndReplacementNamed(Routes.requestNewShipmentNamedPage);
               if (kIsWeb) {
-                html.window.history.pushState(null, 'Home', '/');
+                html.window.history.pushState(null, '', EndPointsBaseUrl.init().hrefForWeb);
               }
             },
           ),
@@ -123,7 +124,7 @@ class PaymentWebCallbackResponseWidget extends StatelessWidget {
               ///
               getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage);
               if (kIsWeb) {
-                html.window.history.pushState(null, 'Home', '/');
+                html.window.history.pushState(null, '', EndPointsBaseUrl.init().hrefForWeb);
               }
             },
           ),

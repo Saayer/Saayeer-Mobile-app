@@ -12,7 +12,7 @@ import 'package:saayer/features/request_new_shipment/sub_features/shipment_payme
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/utils/constants/moyasar_constants.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/bloc/shipment_payment_bloc.dart';
 import 'package:moyasar/src/models/payment_type.dart';
-import "package:universal_html/html.dart" as html;
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MoyasarPaymentMethodWidget extends StatelessWidget {
   final double amount;
@@ -87,19 +87,19 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
   }
 
   Future<void> _openTransactionUrl(String url) async {
-    html.window.open(url, '_self');
+    launchUrlString(url,webOnlyWindowName: '_self');
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (defaultTargetPlatform == TargetPlatform.iOS)
-          ApplePay(
-            config: _getPaymentConfig(),
-            onPaymentResult: onPaymentResult,
-          ),
-        if (defaultTargetPlatform == TargetPlatform.iOS) const Text("or"),
+        // if (defaultTargetPlatform == TargetPlatform.iOS)
+        //   ApplePay(
+        //     config: _getPaymentConfig(),
+        //     onPaymentResult: onPaymentResult,
+        //   ),
+        // if (defaultTargetPlatform == TargetPlatform.iOS) const Text("or"),
         Directionality(
           textDirection: TextDirection.ltr,
           child: CreditCard(
@@ -120,10 +120,10 @@ class MoyasarPaymentMethodWidget extends StatelessWidget {
       amount: int.parse((amount * 100).toString().split('.').first),
       description: orderDesc,
       callbackUrl: kIsWeb
-          ? '${EndPointsBaseUrl.init().baseRedirectUrl}${Routes.paymentWebCallbackResponseNamedPage}'
+          ? '${EndPointsBaseUrl.init().baseRedirectUrl}${EndPointsBaseUrl.init().hrefForWeb}${Routes.paymentWebCallbackResponseNamedPage}'
           : "https://example.com/thanks",
       metadata: _getMetadata(),
-      creditCard: CreditCardConfig(saveCard: true, manual: false),
+      creditCard: CreditCardConfig(saveCard: false, manual: false),
       applePay: ApplePayConfig(merchantId: 'YOUR_MERCHANT_ID', label: 'YOUR_STORE_NAME', manual: false),
     );
   }

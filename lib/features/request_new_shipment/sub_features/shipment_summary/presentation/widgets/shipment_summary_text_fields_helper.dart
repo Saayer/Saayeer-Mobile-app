@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/cupertino.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/text/rich_text_widget.dart';
@@ -117,26 +117,10 @@ class ShipmentSummaryTextFieldsHelper {
               ),
               const SizedBox(height: 4),
               RichTextWidget(
-                keyStr: 'governorate',
-                keyTextStyle: keyTextStyle,
-                valueStr: StringsUtil.getLanguageName(
-                    arName: storeDto.governorateNameAr ?? '', enName: storeDto.governorateNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
                 keyStr: 'city',
                 keyTextStyle: keyTextStyle,
                 valueStr:
                     StringsUtil.getLanguageName(arName: storeDto.cityNameAr ?? '', enName: storeDto.cityNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
-                keyStr: 'area',
-                keyTextStyle: keyTextStyle,
-                valueStr:
-                    StringsUtil.getLanguageName(arName: storeDto.areaNameAr ?? '', enName: storeDto.areaNameEn ?? ''),
                 valueTextStyle: valueTextStyle,
               ),
               const SizedBox(height: 4),
@@ -195,13 +179,14 @@ class ShipmentSummaryTextFieldsHelper {
                 valueStr: customerDto.phoneNo ?? '',
                 valueTextStyle: valueTextStyle,
               ),
-              const SizedBox(height: 4),
-              RichTextWidget(
-                keyStr: 'email',
-                keyTextStyle: keyTextStyle,
-                valueStr: customerDto.email ?? '',
-                valueTextStyle: valueTextStyle,
-              ),
+              if (customerDto.email != null && customerDto.email!.isNotEmpty) const SizedBox(height: 4),
+              if (customerDto.email != null && customerDto.email!.isNotEmpty)
+                RichTextWidget(
+                  keyStr: 'email',
+                  keyTextStyle: keyTextStyle,
+                  valueStr: customerDto.email ?? '',
+                  valueTextStyle: valueTextStyle,
+                ),
               const SizedBox(height: 4),
               RichTextWidget(
                 keyStr: 'country',
@@ -212,26 +197,10 @@ class ShipmentSummaryTextFieldsHelper {
               ),
               const SizedBox(height: 4),
               RichTextWidget(
-                keyStr: 'governorate',
-                keyTextStyle: keyTextStyle,
-                valueStr: StringsUtil.getLanguageName(
-                    arName: customerDto.governorateNameAr ?? '', enName: customerDto.governorateNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
                 keyStr: 'city',
                 keyTextStyle: keyTextStyle,
                 valueStr: StringsUtil.getLanguageName(
                     arName: customerDto.cityNameAr ?? '', enName: customerDto.cityNameEn ?? ''),
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
-                keyStr: 'area',
-                keyTextStyle: keyTextStyle,
-                valueStr: StringsUtil.getLanguageName(
-                    arName: customerDto.areaNameAr ?? '', enName: customerDto.areaNameEn ?? ''),
                 valueTextStyle: valueTextStyle,
               ),
               const SizedBox(height: 4),
@@ -258,6 +227,13 @@ class ShipmentSummaryTextFieldsHelper {
               ),
               const SizedBox(height: 5),
               RichTextWidget(
+                keyStr: 'weight_kg',
+                keyTextStyle: keyTextStyle,
+                valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.weight}',
+                valueTextStyle: valueTextStyle,
+              ),
+              const SizedBox(height: 4),
+              RichTextWidget(
                 keyStr: 'length_cm',
                 keyTextStyle: keyTextStyle,
                 valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.length}',
@@ -268,13 +244,6 @@ class ShipmentSummaryTextFieldsHelper {
                 keyStr: 'width_cm',
                 keyTextStyle: keyTextStyle,
                 valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.width}',
-                valueTextStyle: valueTextStyle,
-              ),
-              const SizedBox(height: 4),
-              RichTextWidget(
-                keyStr: 'weight_kg',
-                keyTextStyle: keyTextStyle,
-                valueStr: '${requestShipmentBloc.state.shipmentDtoBody?.weight}',
                 valueTextStyle: valueTextStyle,
               ),
               const SizedBox(height: 4),
@@ -320,17 +289,22 @@ class ShipmentSummaryTextFieldsHelper {
           valueTextStyle: valueTextStyle,
         ),
         const SizedBox(height: 4),
-        RichTextWidget(
-          keyStr: 'cost',
-          keyTextStyle: keyTextStyle,
-          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.cost} ${'sar'.tr()}',
-          valueTextStyle: valueTextStyle,
+        Row(
+          children: [
+            Text("${'cost'.tr()} : ", style: keyTextStyle),
+            Directionality(
+                textDirection: TextDirection.ltr,
+                child: Text('${requestShipmentBloc.state.selectedServiceProvider?.cost} ${'sar'.tr()}',
+                    style: valueTextStyle)),
+          ],
         ),
         const SizedBox(height: 4),
         RichTextWidget(
           keyStr: 'business_days',
           keyTextStyle: keyTextStyle,
-          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.estimatedShipmentDays}',
+          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.workDaysMinimum} '
+              '- ${requestShipmentBloc.state.selectedServiceProvider?.workDaysMaximum} '
+              '${'business_days'.tr()}',
           valueTextStyle: valueTextStyle,
         ),
         const SizedBox(height: 4),
