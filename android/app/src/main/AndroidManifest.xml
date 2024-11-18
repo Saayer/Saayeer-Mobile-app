@@ -3,7 +3,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="saayer">
+        android:label="Saayer">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD9wtqCKbRnEmvcj3EoZDxzWiGFT9TdXrg" />
