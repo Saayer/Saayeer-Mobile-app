@@ -22,25 +22,25 @@ class EndPointsBaseUrl {
       case FlavorType.DEV:
         {
           return const EndPointsBaseUrl._internal(
-            baseUrl: "https://app.saayer.com:9004/saayer-27/app",
-            baseRedirectUrl: "https://app.saayer.com:9004/saayer-27/web",
-            hrefForWeb: '/saayer-27/web',
+            baseUrl: "https://app.saayer.com:9004/saayer-29/app",
+            baseRedirectUrl: "https://app.saayer.com:9004/saayer-29/web",
+            hrefForWeb: '/saayer-29/web',
           );
         }
       case FlavorType.STAGING:
         {
           return const EndPointsBaseUrl._internal(
-            baseUrl: "https://app.saayer.com:9002/saayer-28/app",
-            baseRedirectUrl: 'https://app.saayer.com:9002/saayer-28/web',
-            hrefForWeb: '/saayer-28/web',
+            baseUrl: "https://app.saayer.com:9002/saayer-29/app",
+            baseRedirectUrl: 'https://app.saayer.com:9002/saayer-29/web',
+            hrefForWeb: '/saayer-29/web',
           );
         }
       case FlavorType.PROD:
         {
           return const EndPointsBaseUrl._internal(
-            baseUrl: "https://app.saayer.com/v28/app",
-            baseRedirectUrl: 'https://app.saayer.com/v28/web',
-            hrefForWeb: '/v28/web',
+            baseUrl: "https://app.saayer.com/v29/app",
+            baseRedirectUrl: 'https://app.saayer.com/v29/web',
+            hrefForWeb: '/v29/web',
           );
         }
     }

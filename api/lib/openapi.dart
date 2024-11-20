@@ -34,6 +34,7 @@ export 'package:openapi/src/model/client_get_dto.dart';
 export 'package:openapi/src/model/count_per_date_item_dto.dart';
 export 'package:openapi/src/model/count_per_date_response.dart';
 export 'package:openapi/src/model/create_payment_response.dart';
+export 'package:openapi/src/model/create_shipment_status.dart';
 export 'package:openapi/src/model/customer_add_dto.dart';
 export 'package:openapi/src/model/customer_get_dto.dart';
 export 'package:openapi/src/model/customer_query.dart';
