@@ -1,7 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:saayer/common/loading/loading_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
@@ -23,56 +22,49 @@ class SaayerApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
-    return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) {
-          final double width = MediaQuery.of(context).size.width;
-          final double height = MediaQuery.of(context).size.height;
-          return AdaptiveTheme(
-              light: SaayerTheme().lightThemeData,
-              dark: SaayerTheme().darkThemeData,
-              initial: savedThemeMode ?? SaayerTheme.defaultThemeMode,
-              builder: (theme, darkTheme) {
-                return GlobalLoaderOverlay(
-                  useDefaultLoading: false,
-                  overlayHeight: height,
-                  overlayWidth: width,
-                  overlayWidgetBuilder: (_) {
-                    return const SaayerLoader();
-                  },
-                  overlayColor: SaayerTheme()
-                      .getColorsPalette
-                      .blackColor
-                      .withOpacity(0.8),
-                  child: MaterialApp(
-                    builder: (context, child) => ResponsiveBreakpoints.builder(
-                      child: child!,
-                      breakpoints: [
-                        const Breakpoint(start: 0, end: 480, name: MOBILE),
-                        const Breakpoint(start: 481, end: 900, name: TABLET),
-                        const Breakpoint(start: 901, end: 1920, name: DESKTOP),
-                        const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-                      ],
-                    ),
-                    navigatorKey: getIt<NavigationService>().mainNavigatorKey,
-                    debugShowCheckedModeBanner: false,
-                    title: Constants.appName,
-                    onGenerateRoute: AppRoutes().generateRoute,
-                    theme: theme,
-                    darkTheme: darkTheme,
-                    localizationsDelegates: context.localizationDelegates,
-                    supportedLocales: context.supportedLocales,
-                    locale: context.locale,
-                    initialRoute: Routes.splashNamedPage,
-                    home: Builder(builder: (context) {
-                      return const SplashScreen();
-                    }),
-                  ),
-                );
-              });
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    return AdaptiveTheme(
+        light: SaayerTheme().lightThemeData,
+        dark: SaayerTheme().darkThemeData,
+        initial: savedThemeMode ?? SaayerTheme.defaultThemeMode,
+        builder: (theme, darkTheme) {
+          return GlobalLoaderOverlay(
+            useDefaultLoading: false,
+            overlayHeight: height,
+            overlayWidth: width,
+            overlayWidgetBuilder: (_) {
+              return const SaayerLoader();
+            },
+            overlayColor: SaayerTheme()
+                .getColorsPalette
+                .blackColor
+                .withOpacity(0.8),
+            child: MaterialApp(
+              builder: (context, child) => ResponsiveBreakpoints.builder(
+                child: child!,
+                breakpoints: [
+                  const Breakpoint(start: 0, end: 480, name: MOBILE),
+                  const Breakpoint(start: 481, end: 900, name: TABLET),
+                  const Breakpoint(start: 901, end: 1920, name: DESKTOP),
+                  const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+                ],
+              ),
+              navigatorKey: getIt<NavigationService>().mainNavigatorKey,
+              debugShowCheckedModeBanner: false,
+              title: Constants.appName,
+              onGenerateRoute: AppRoutes().generateRoute,
+              theme: theme,
+              darkTheme: darkTheme,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              initialRoute: Routes.splashNamedPage,
+              home: Builder(builder: (context) {
+                return const SplashScreen();
+              }),
+            ),
+          );
         });
   }
 }
