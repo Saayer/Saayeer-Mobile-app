@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/email_text_field.dart';
@@ -42,13 +41,13 @@ class BusinessInfoTextFieldHelper {
                   LabelTxt(txt: businessInfoFieldsType.name.tr()),
                 ],
               ),
-              SizedBox(
-                height: 8.h,
+              const SizedBox(
+                height: 8,
               ),
               Directionality(
                 textDirection: ui.TextDirection.ltr,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: PhoneTextField(
                     phoneNumController: _getInputController(
                         businessInfoBloc, businessInfoFieldsType),

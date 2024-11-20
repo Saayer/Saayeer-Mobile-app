@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:saayer/core/API/http_overrides.dart';
 import 'package:saayer/core/app_config/app_flavor.dart';
@@ -50,7 +49,6 @@ class AppConfig {
       DeviceOrientation.portraitUp,
     ]);
 
-    await ScreenUtil.ensureScreenSize();
     final AdaptiveThemeMode? savedThemeMode = await AdaptiveTheme.getThemeMode();
     runApp(EasyLocalization(
       supportedLocales: Localization.getLocaleList(),

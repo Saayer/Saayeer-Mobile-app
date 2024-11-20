@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/helpers/utils_helper/validation_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/common/label_txt.dart';
@@ -30,7 +29,7 @@ class PasswordTextField extends StatelessWidget {
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 8.h, right: 16.w, left: 16.w),
+          margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
           child: BaseTextField(
             controller: passwordController,
             hintText: "password".tr(),
@@ -53,12 +52,12 @@ class PasswordTextField extends StatelessWidget {
               child: obscureText
                   ? Icon(
                       Icons.visibility_off,
-                      size: 20.r,
+                      size: 20,
                       color: SaayerTheme().getColorsPalette.blackTextColor,
                     )
                   : Icon(
                       Icons.visibility,
-                      size: 20.r,
+                      size: 20,
                       color: SaayerTheme().getColorsPalette.blackTextColor,
                     ),
             ),

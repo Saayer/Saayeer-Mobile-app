@@ -111,7 +111,7 @@ class GenericDataBarChartWidget<T> extends StatelessWidget {
               const TextStyle(fontSize: 0),
               children: <TextSpan>[
                 TextSpan(
-                  text: '${rod.toY}',
+                  text: rod.toY.toStringAsFixed(2),
                   style: TextStyle(
                     color: Colors.white,
                     //widget.touchedBarColor,

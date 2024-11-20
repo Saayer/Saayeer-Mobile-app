@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -19,10 +18,10 @@ class HomeCardItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        height: 84.h,
+        height: 84,
         decoration: BoxDecoration(
           color: SaayerTheme().getColorsPalette.backgroundColor,
-          borderRadius: BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.2),
@@ -33,7 +32,7 @@ class HomeCardItemWidget extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.all(12.r),
+          padding: const EdgeInsets.all(12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,16 +51,16 @@ class HomeCardItemWidget extends StatelessWidget {
                         style: AppTextStyles.smallBoldLabel(),
                       ),
                     ),
-                    SizedBox(
-                      width: 5.w,
+                    const SizedBox(
+                      width: 5,
                     ),
                     Container(
                       decoration: BoxDecoration(
                         color: color.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(8.r),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                         child: GenericSvgWidget(
                           path: Constants.getIconPath("ic_$iconName.svg"),
                           size: 20,
@@ -72,8 +71,8 @@ class HomeCardItemWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 8.h,
+              const SizedBox(
+                height: 8,
               ),
               Expanded(
                 child: Row(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
@@ -20,27 +19,18 @@ class UserInfoViewPagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final UserInfoViewPageBloc userInfoViewPageBloc =
-        BlocProvider.of<UserInfoViewPageBloc>(context);
-    final List<Widget> pages = [
-      const PersonalInfoScreen(),
-      const BusinessInfoScreen(),
-      const StoresListScreen()
-    ];
+    final UserInfoViewPageBloc userInfoViewPageBloc = BlocProvider.of<UserInfoViewPageBloc>(context);
+    final List<Widget> pages = [const PersonalInfoScreen(), const BusinessInfoScreen(), const StoresListScreen()];
 
     return BlocConsumer<UserInfoViewPageBloc, UserInfoViewPageState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) async {
-        final bool isLoading =
-            (userInfoViewPageBloc.state.stateHelper.requestState ==
-                RequestState.LOADING);
+        final bool isLoading = (userInfoViewPageBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {
-            getIt<NavigationService>()
-                .navigateAndFinishNamed(Routes.viewPageNamedPage);
+            getIt<NavigationService>().navigateAndFinishNamed(Routes.viewPageNamedPage);
           }
           if (state.stateHelper.requestState == RequestState.ERROR) {}
         }
@@ -61,8 +51,8 @@ class UserInfoViewPagePage extends StatelessWidget {
                   color: SaayerTheme().getColorsPalette.backgroundColor,
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 20.h,
+                      const SizedBox(
+                        height: 20,
                       ),
                       Row(
                         children: List.generate(3, (index) {
@@ -72,24 +62,17 @@ class UserInfoViewPagePage extends StatelessWidget {
                               width: width / 3,
                               child: LinearIndicator(
                                 color: isPrevious
-                                    ? (SaayerTheme()
-                                        .getColorsPalette
-                                        .superDarkOrangeColor)
+                                    ? (SaayerTheme().getColorsPalette.superDarkOrangeColor)
                                     : isCurrent
-                                        ? (SaayerTheme()
-                                            .getColorsPalette
-                                            .primaryColor)
-                                        : (SaayerTheme()
-                                            .getColorsPalette
-                                            .greyColor),
+                                        ? (SaayerTheme().getColorsPalette.primaryColor)
+                                        : (SaayerTheme().getColorsPalette.greyColor),
                               ));
                         }),
                       ),
-                      SizedBox(
-                        height: 10.h,
+                      const SizedBox(
+                        height: 10,
                       ),
-                      Flexible(
-                          fit: FlexFit.tight, child: pages[state.currentPage])
+                      Flexible(fit: FlexFit.tight, child: pages[state.currentPage])
                     ],
                   )),
             ),
