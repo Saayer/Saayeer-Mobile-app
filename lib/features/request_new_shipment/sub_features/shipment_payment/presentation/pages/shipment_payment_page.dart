@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moyasar/moyasar.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
@@ -35,10 +36,7 @@ class ShipmentPaymentPage extends StatelessWidget {
             ///
             getIt<NavigationService>().navigateAndReplacementNamed(
               Routes.paymentSuccessNamedPage,
-              arguments: {
-                'labelUrl': state.createPaymentResponse?.shipment?.labelURL ?? '',
-                'shipmentId': state.createPaymentResponse?.shipment?.shipmentId ?? 0
-              },
+              arguments: state.createPaymentResponse ?? CreatePaymentResponse(),
             );
           }
           if (state.stateHelper.requestState == PaymentRequestState.PAYMENTERROR) {

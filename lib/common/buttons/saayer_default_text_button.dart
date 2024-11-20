@@ -13,6 +13,7 @@ class SaayerDefaultTextButton extends StatelessWidget {
   final Color? borderColor;
   final bool isEnabled;
   final TextStyle? textStyle;
+  final Widget? child;
 
   const SaayerDefaultTextButton(
       {super.key,
@@ -26,7 +27,8 @@ class SaayerDefaultTextButton extends StatelessWidget {
       this.btnHeight,
       this.borderRadius,
       required this.isEnabled,
-      this.textStyle});
+      this.textStyle,
+      this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +48,13 @@ class SaayerDefaultTextButton extends StatelessWidget {
     return TextButton(
         style: buttonStyle,
         onPressed: onPressed,
-        child: Text(
-          text.tr(),
-          softWrap: true,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: textStyle ?? AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.whiteColor),
-        ));
+        child: child ??
+            Text(
+              text.tr(),
+              softWrap: true,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: textStyle ?? AppTextStyles.mainFocusedLabel(SaayerTheme().getColorsPalette.whiteColor),
+            ));
   }
 }

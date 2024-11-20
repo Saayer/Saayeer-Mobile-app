@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-27-dev
+  version: v-29-dev
 servers:
-  - url: "/saayer-27/app"
+  - url: "/saayer-29/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -1340,7 +1340,16 @@ components:
           allOf:
             - "$ref": "#/components/schemas/ShipmentGetDto"
           nullable: true
+        createShipmentStatuses:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CreateShipmentStatus"
+          nullable: true
       additionalProperties: false
+    CreateShipmentStatus:
+      enum:
+        - Pickup_Not_Created
+      type: string
     CustomerAddDto:
       type: object
       properties:

@@ -19,6 +19,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CountPerDateItemDto.serializer)
       ..add(CountPerDateResponse.serializer)
       ..add(CreatePaymentResponse.serializer)
+      ..add(CreateShipmentStatus.serializer)
       ..add(CustomerAddDto.serializer)
       ..add(CustomerGetDto.serializer)
       ..add(CustomerQuery.serializer)
@@ -55,7 +56,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<CountPerDateItemDto>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ErrorMessage)]),
-          () => new ListBuilder<ErrorMessage>()))
+          () => new ListBuilder<ErrorMessage>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(CreateShipmentStatus)]),
+          () => new ListBuilder<CreateShipmentStatus>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

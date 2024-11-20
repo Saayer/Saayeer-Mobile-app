@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moyasar/moyasar.dart';
+import 'package:openapi/openapi.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
@@ -51,10 +52,7 @@ class PaymentWebCallbackResponseWidget extends StatelessWidget {
               ///
               getIt<NavigationService>().navigateAndReplacementNamed(
                 Routes.paymentSuccessNamedPage,
-                arguments: {
-                  'labelUrl': state.createPaymentResponse?.shipment?.labelURL ?? '',
-                  'shipmentId': state.createPaymentResponse?.shipment?.shipmentId ?? 0
-                },
+                arguments: state.createPaymentResponse ?? CreatePaymentResponse(),
               );
             }
             if (state.stateHelper.requestState == PaymentRequestState.WEBERROR) {

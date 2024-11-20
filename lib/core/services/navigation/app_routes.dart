@@ -178,8 +178,7 @@ class AppRoutes {
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
           return MaterialPageRoute(
               builder: (context) => PaymentSuccessWidget(
-                    labelUrl: (routingData as Map)['labelUrl'],
-                    shipmentId: routingData['shipmentId'],
+                    createPaymentResponse: (routingData as CreatePaymentResponse),
                   ));
         } else {
           return MaterialPageRoute(

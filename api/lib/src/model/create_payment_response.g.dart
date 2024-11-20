@@ -13,12 +13,18 @@ class _$CreatePaymentResponse extends CreatePaymentResponse {
   final BuiltList<ErrorMessage>? errorMessages;
   @override
   final ShipmentGetDto? shipment;
+  @override
+  final BuiltList<CreateShipmentStatus>? createShipmentStatuses;
 
   factory _$CreatePaymentResponse(
           [void Function(CreatePaymentResponseBuilder)? updates]) =>
       (new CreatePaymentResponseBuilder()..update(updates))._build();
 
-  _$CreatePaymentResponse._({this.hasError, this.errorMessages, this.shipment})
+  _$CreatePaymentResponse._(
+      {this.hasError,
+      this.errorMessages,
+      this.shipment,
+      this.createShipmentStatuses})
       : super._();
 
   @override
@@ -36,7 +42,8 @@ class _$CreatePaymentResponse extends CreatePaymentResponse {
     return other is CreatePaymentResponse &&
         hasError == other.hasError &&
         errorMessages == other.errorMessages &&
-        shipment == other.shipment;
+        shipment == other.shipment &&
+        createShipmentStatuses == other.createShipmentStatuses;
   }
 
   @override
@@ -45,6 +52,7 @@ class _$CreatePaymentResponse extends CreatePaymentResponse {
     _$hash = $jc(_$hash, hasError.hashCode);
     _$hash = $jc(_$hash, errorMessages.hashCode);
     _$hash = $jc(_$hash, shipment.hashCode);
+    _$hash = $jc(_$hash, createShipmentStatuses.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,7 +62,8 @@ class _$CreatePaymentResponse extends CreatePaymentResponse {
     return (newBuiltValueToStringHelper(r'CreatePaymentResponse')
           ..add('hasError', hasError)
           ..add('errorMessages', errorMessages)
-          ..add('shipment', shipment))
+          ..add('shipment', shipment)
+          ..add('createShipmentStatuses', createShipmentStatuses))
         .toString();
   }
 }
@@ -78,6 +87,14 @@ class CreatePaymentResponseBuilder
       _$this._shipment ??= new ShipmentGetDtoBuilder();
   set shipment(ShipmentGetDtoBuilder? shipment) => _$this._shipment = shipment;
 
+  ListBuilder<CreateShipmentStatus>? _createShipmentStatuses;
+  ListBuilder<CreateShipmentStatus> get createShipmentStatuses =>
+      _$this._createShipmentStatuses ??=
+          new ListBuilder<CreateShipmentStatus>();
+  set createShipmentStatuses(
+          ListBuilder<CreateShipmentStatus>? createShipmentStatuses) =>
+      _$this._createShipmentStatuses = createShipmentStatuses;
+
   CreatePaymentResponseBuilder() {
     CreatePaymentResponse._defaults(this);
   }
@@ -88,6 +105,7 @@ class CreatePaymentResponseBuilder
       _hasError = $v.hasError;
       _errorMessages = $v.errorMessages?.toBuilder();
       _shipment = $v.shipment?.toBuilder();
+      _createShipmentStatuses = $v.createShipmentStatuses?.toBuilder();
       _$v = null;
     }
     return this;
@@ -114,7 +132,8 @@ class CreatePaymentResponseBuilder
           new _$CreatePaymentResponse._(
               hasError: hasError,
               errorMessages: _errorMessages?.build(),
-              shipment: _shipment?.build());
+              shipment: _shipment?.build(),
+              createShipmentStatuses: _createShipmentStatuses?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -122,6 +141,8 @@ class CreatePaymentResponseBuilder
         _errorMessages?.build();
         _$failedField = 'shipment';
         _shipment?.build();
+        _$failedField = 'createShipmentStatuses';
+        _createShipmentStatuses?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'CreatePaymentResponse', _$failedField, e.toString());

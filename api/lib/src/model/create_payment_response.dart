@@ -6,6 +6,7 @@
 import 'package:openapi/src/model/error_message.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/shipment_get_dto.dart';
+import 'package:openapi/src/model/create_shipment_status.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -17,6 +18,7 @@ part 'create_payment_response.g.dart';
 /// * [hasError] 
 /// * [errorMessages] 
 /// * [shipment] 
+/// * [createShipmentStatuses] 
 @BuiltValue()
 abstract class CreatePaymentResponse implements Built<CreatePaymentResponse, CreatePaymentResponseBuilder> {
   @BuiltValueField(wireName: r'hasError')
@@ -27,6 +29,9 @@ abstract class CreatePaymentResponse implements Built<CreatePaymentResponse, Cre
 
   @BuiltValueField(wireName: r'shipment')
   ShipmentGetDto? get shipment;
+
+  @BuiltValueField(wireName: r'createShipmentStatuses')
+  BuiltList<CreateShipmentStatus>? get createShipmentStatuses;
 
   CreatePaymentResponse._();
 
@@ -70,6 +75,13 @@ class _$CreatePaymentResponseSerializer implements PrimitiveSerializer<CreatePay
       yield serializers.serialize(
         object.shipment,
         specifiedType: const FullType.nullable(ShipmentGetDto),
+      );
+    }
+    if (object.createShipmentStatuses != null) {
+      yield r'createShipmentStatuses';
+      yield serializers.serialize(
+        object.createShipmentStatuses,
+        specifiedType: const FullType.nullable(BuiltList, [FullType(CreateShipmentStatus)]),
       );
     }
   }
@@ -117,6 +129,14 @@ class _$CreatePaymentResponseSerializer implements PrimitiveSerializer<CreatePay
           ) as ShipmentGetDto?;
           if (valueDes == null) continue;
           result.shipment.replace(valueDes);
+          break;
+        case r'createShipmentStatuses':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(BuiltList, [FullType(CreateShipmentStatus)]),
+          ) as BuiltList<CreateShipmentStatus>?;
+          if (valueDes == null) continue;
+          result.createShipmentStatuses.replace(valueDes);
           break;
         default:
           unhandled.add(key);
