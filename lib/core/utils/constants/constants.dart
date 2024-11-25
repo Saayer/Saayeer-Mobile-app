@@ -16,6 +16,7 @@ class Constants {
   static const String saayerWebsiteUrl = "https://saayer.com/";
   static const String saayerTwitterUrl = "https://x.com/_saayer";
   static const String defaultUserName = "Saayer Client";
+  static const String superAdmin = "Super_Admin";
 
   static final String formattedNowDate =
       DateFormat('dd/MM/yyyy').format(DateTime.now());

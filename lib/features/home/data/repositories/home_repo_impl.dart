@@ -99,4 +99,69 @@ class HomeRepoImpl implements HomeRepo {
     }
     return Left(Failure(failureMessage: "No Internet Connection"));
   }
+
+  @override
+  Future<Either<Failure, ShipmentsCountResponseLAdmin>> getAdminShipmentsStatusTotalCount(DateRangeDto dataRangeDto) async {
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        final Response<ShipmentsCountResponseLAdmin> result = await openAPIConfig.openapi
+            .getLogisticsAdminDashboardApi()
+            .apiLogisticsAdminDashboardShipmentsPerStatusPost(
+                dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+        if (result.data != null) {
+          return Right(result.data!);
+        } else {
+          return Left(Failure(failureMessage: "Request failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "Request failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
+
+  @override
+  Future<Either<Failure, AmountPerDateResponse>> getAdminTotalPaidPerDays(DateRangeDto dataRangeDto) async {
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        ///
+        final result = await openAPIConfig.openapi
+            .getLogisticsAdminDashboardApi()
+            .apiLogisticsAdminDashboardPaidPerDayPost(
+                dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+        if (result.data != null) {
+          return Right(result.data!);
+        } else {
+          return Left(Failure(failureMessage: "get AdminTotalPaidPerDays failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "Request failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
+
+  @override
+  Future<Either<Failure, CountPerDateResponse>> getAdminTotalShipmentPerDays(DateRangeDto dataRangeDto) async {
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        ///
+        final result = await openAPIConfig.openapi
+            .getLogisticsAdminDashboardApi()
+            .apiLogisticsAdminDashboardShipmentsPerDayPost(
+                dateRangeDto: dataRangeDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+        if (result.data != null) {
+          return Right(result.data!);
+        } else {
+          return Left(Failure(failureMessage: "get AdminTotalShipmentPerDays failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "Request failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
 }

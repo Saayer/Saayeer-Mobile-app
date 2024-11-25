@@ -248,5 +248,6 @@
   "pickup_shipment_msg": "Please handover the shipment to the nearest {} office because the pick up service is not available for the selected address",
   "save": "Save",
   "am": "AM",
-  "pm": "PM"
+  "pm": "PM",
+  "clients": "Clients"
 }
