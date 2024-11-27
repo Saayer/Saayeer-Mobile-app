@@ -26,6 +26,7 @@ import 'package:openapi/src/model/client_get_dto.dart';
 import 'package:openapi/src/model/count_per_date_item_dto.dart';
 import 'package:openapi/src/model/count_per_date_response.dart';
 import 'package:openapi/src/model/create_payment_response.dart';
+import 'package:openapi/src/model/create_shipment_status.dart';
 import 'package:openapi/src/model/customer_add_dto.dart';
 import 'package:openapi/src/model/customer_get_dto.dart';
 import 'package:openapi/src/model/customer_query.dart';
@@ -69,6 +70,7 @@ part 'serializers.g.dart';
   CountPerDateItemDto,
   CountPerDateResponse,
   CreatePaymentResponse,
+  CreateShipmentStatus,
   CustomerAddDto,
   CustomerGetDto,
   CustomerQuery,

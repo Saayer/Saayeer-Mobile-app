@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart' as localization;
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/text/rich_text_widget.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';

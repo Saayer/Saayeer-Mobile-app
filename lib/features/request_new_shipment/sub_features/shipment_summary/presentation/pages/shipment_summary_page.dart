@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/request_new_shipment/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/data/core/errors/shipment_summary_error_handler.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/bloc/shipment_summary_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/widgets/shipment_summary_widget.dart';
 
@@ -24,15 +24,15 @@ class ShipmentSummaryPage extends StatelessWidget {
       buildWhen: (previousState, nextState) =>
           (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) async {
-        final bool isLoading = (bloc.state.stateHelper.requestState == RequestState.LOADING);
+        final bool isLoading = (bloc.state.stateHelper.requestState == ShipmentSummaryRequestState.LOADING_ADD_SHIPMENT);
         LoadingDialog.setIsLoading(context, isLoading);
 
         if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {
+          if (state.stateHelper.requestState == ShipmentSummaryRequestState.SUCCESS_ADD_SHIPMENT) {
             /// set shipment id then go to shipment payment screen
             requestShipmentBloc.add(SetShipmentId(shipmentId: bloc.state.shipmentGetDto?.shipmentId ?? 0));
           }
-          if (state.stateHelper.requestState == RequestState.ERROR) {
+          if (state.stateHelper.requestState == ShipmentSummaryRequestState.ERROR_ADD_SHIPMENT) {
             ///
             ShipmentSummaryErrorHandler(state: state)();
           }

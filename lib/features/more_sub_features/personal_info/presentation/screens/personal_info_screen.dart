@@ -6,7 +6,12 @@ import 'package:saayer/features/more_sub_features/personal_info/presentation/blo
 import 'package:saayer/features/more_sub_features/personal_info/presentation/pages/personal_info_page.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
-  const PersonalInfoScreen({super.key});
+  final bool navigatedFromRequestShipment;
+
+  const PersonalInfoScreen({
+    super.key,
+    required this.navigatedFromRequestShipment,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class PersonalInfoScreen extends StatelessWidget {
             bloc.add(const GetClientInfo());
             return bloc;
           },
-          child: const PersonalInfoPage()),
+          child: PersonalInfoPage(navigatedFromRequestShipment: navigatedFromRequestShipment,)),
     );
   }
 }

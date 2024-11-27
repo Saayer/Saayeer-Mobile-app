@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CirclePainter extends CustomPainter {
   final double startFraction, endFraction;
@@ -15,7 +14,7 @@ class CirclePainter extends CustomPainter {
     circlePaint = Paint()
       ..color = strokeColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 5.w
+      ..strokeWidth = 5
       ..strokeCap = StrokeCap.round;
   }
 

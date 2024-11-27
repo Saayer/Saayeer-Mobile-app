@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:saayer/common/loading/loading_dialog.dart';
-import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/bloc/shipment_summary_bloc.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/widgets/receiver_section_widget.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/widgets/sender_section_widget.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/widgets/shipment_summary_text_fields_helper.dart';
 
 class ShipmentSummaryWidget extends StatelessWidget {
@@ -18,18 +18,7 @@ class ShipmentSummaryWidget extends StatelessWidget {
     return BlocConsumer<ShipmentSummaryBloc, ShipmentSummaryState>(
       buildWhen: (previousState, nextState) =>
           (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
-      listener: (context, state) async {
-        final bool isLoading = (shipmentSummaryBloc.state.stateHelper.requestState == RequestState.LOADING);
-        LoadingDialog.setIsLoading(context, isLoading);
-
-        if (!isLoading) {
-          if (state.stateHelper.requestState == RequestState.SUCCESS) {
-            ///
-            requestShipmentBloc.add(GoToNextPageEvent());
-          }
-          if (state.stateHelper.requestState == RequestState.ERROR) {}
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,24 +58,19 @@ class ShipmentSummaryWidget extends StatelessWidget {
   }
 
   _buildFirstFiltersRow(RequestNewShipmentBloc requestShipmentBloc, ShipmentSummaryBloc shipmentCheckoutBloc) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        ShipmentSummaryTextFieldsHelper(
-                requestShipmentBloc: requestShipmentBloc,
-                shipmentCheckoutBloc: shipmentCheckoutBloc,
-                shipmentCheckoutFieldsTypes: ShipmentCheckoutFieldsTypes.SENDER)
-            .getTextsWidget(),
-        const Divider(
+        ///
+        SenderSectionWidget(),
+        Divider(
           color: Colors.grey,
         ),
-        ShipmentSummaryTextFieldsHelper(
-                requestShipmentBloc: requestShipmentBloc,
-                shipmentCheckoutBloc: shipmentCheckoutBloc,
-                shipmentCheckoutFieldsTypes: ShipmentCheckoutFieldsTypes.RECEIVER)
-            .getTextsWidget(),
-        const Divider(
+
+        ///
+        ReceiverSectionWidget(),
+        Divider(
           color: Colors.grey,
         ),
       ],

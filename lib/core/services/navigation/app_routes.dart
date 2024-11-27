@@ -113,7 +113,10 @@ class AppRoutes {
 
       case Routes.personalInfoNamedPage:
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
-          return MaterialPageRoute(builder: (context) => const PersonalInfoScreen());
+          return MaterialPageRoute(
+              builder: (context) => PersonalInfoScreen(
+                    navigatedFromRequestShipment: routingData as bool,
+                  ));
         } else {
           return MaterialPageRoute(
             builder: (context) => const SplashScreen(),
@@ -178,8 +181,7 @@ class AppRoutes {
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
           return MaterialPageRoute(
               builder: (context) => PaymentSuccessWidget(
-                    labelUrl: (routingData as Map)['labelUrl'],
-                    shipmentId: routingData['shipmentId'],
+                    createPaymentResponse: (routingData as CreatePaymentResponse),
                   ));
         } else {
           return MaterialPageRoute(

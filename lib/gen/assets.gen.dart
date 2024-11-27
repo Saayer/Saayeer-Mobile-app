@@ -218,36 +218,27 @@ class $AssetsImagesGen {
       ];
 }
 
-class $AssetsLottieGen {
-  const $AssetsLottieGen();
+class $AssetsShipmentStatusIconsGen {
+  const $AssetsShipmentStatusIconsGen();
 
-  /// File path: assets/lottie/delivered_shipment.json
-  String get deliveredShipment => 'assets/lottie/delivered_shipment.json';
+  /// File path: assets/shipment_status_icons/delivered.svg
+  String get delivered => 'assets/shipment_status_icons/delivered.svg';
 
-  /// File path: assets/lottie/onTheWay_shipment.json
-  String get onTheWayShipment => 'assets/lottie/onTheWay_shipment.json';
+  /// File path: assets/shipment_status_icons/onTheWay.svg
+  String get onTheWay => 'assets/shipment_status_icons/onTheWay.svg';
 
-  /// File path: assets/lottie/paid_shipment.json
-  String get paidShipment => 'assets/lottie/paid_shipment.json';
+  /// File path: assets/shipment_status_icons/picked.svg
+  String get picked => 'assets/shipment_status_icons/picked.svg';
 
-  /// File path: assets/lottie/picked_shipment.json
-  String get pickedShipment => 'assets/lottie/picked_shipment.json';
+  /// File path: assets/shipment_status_icons/requested.svg
+  String get requested => 'assets/shipment_status_icons/requested.svg';
 
-  /// File path: assets/lottie/requested_shipment.json
-  String get requestedShipment => 'assets/lottie/requested_shipment.json';
-
-  /// File path: assets/lottie/shipments_shipment.json
-  String get shipmentsShipment => 'assets/lottie/shipments_shipment.json';
+  /// File path: assets/shipment_status_icons/shipments.svg
+  String get shipments => 'assets/shipment_status_icons/shipments.svg';
 
   /// List of all assets
-  List<String> get values => [
-        deliveredShipment,
-        onTheWayShipment,
-        paidShipment,
-        pickedShipment,
-        requestedShipment,
-        shipmentsShipment
-      ];
+  List<String> get values =>
+      [delivered, onTheWay, picked, requested, shipments];
 }
 
 class $AssetsStringsGen {
@@ -269,7 +260,8 @@ class Assets {
   static const $AssetsGifsGen gifs = $AssetsGifsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const $AssetsLottieGen lottie = $AssetsLottieGen();
+  static const $AssetsShipmentStatusIconsGen shipmentStatusIcons =
+      $AssetsShipmentStatusIconsGen();
   static const $AssetsStringsGen strings = $AssetsStringsGen();
 }
 

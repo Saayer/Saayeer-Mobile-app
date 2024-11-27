@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -15,26 +14,23 @@ class LanguageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     final SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
     return BlocConsumer<SettingsBloc, SettingsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 "language".tr(),
                 style: AppTextStyles.hintButtonLabel(),
               ),
             ),
-            SizedBox(
-              height: 10.h,
+            const SizedBox(
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -44,11 +40,11 @@ class LanguageWidget extends StatelessWidget {
                       ? Localization.isEnglish()
                       : Localization.isArabic());
                   return Padding(
-                    padding: EdgeInsets.all(8.r),
+                    padding: const EdgeInsets.all(8),
                     child: SaayerDefaultTextButton(
                       text: e,
                       isEnabled: isEnabled,
-                      borderRadius: 12.r,
+                      borderRadius: 12,
                       onPressed: () {
                         final Locale locale = ((e == "english")
                             ? Localization.usEnglish
@@ -57,7 +53,7 @@ class LanguageWidget extends StatelessWidget {
                         settingsBloc.add(RefreshEvent());
                       },
                       btnWidth: width / 3.5,
-                      btnHeight: 30.h,
+                      btnHeight: 30,
                       textStyle: AppTextStyles.smallParagraph(
                           SaayerTheme().getColorsPalette.whiteColor),
                     ),
