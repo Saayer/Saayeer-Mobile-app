@@ -21,7 +21,12 @@ import 'package:saayer/features/more_sub_features/personal_info/presentation/wid
 import 'package:saayer/features/more_sub_features/static_pages/core/enums/enums.dart';
 
 class PersonalInfoPage extends StatefulWidget {
-  const PersonalInfoPage({super.key});
+  final bool navigatedFromRequestShipment;
+
+  const PersonalInfoPage({
+    super.key,
+    required this.navigatedFromRequestShipment,
+  });
 
   @override
   State<PersonalInfoPage> createState() => _PersonalInfoPageState();
@@ -71,7 +76,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: SaayerDefaultTextButton(
-        text: "next",
+        text: "save",
         isEnabled: enableAddress(personalInfoBloc),
         borderRadius: 16,
         onPressed: () {
@@ -136,7 +141,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                       .getTextField(),
                 ),
                 const SizedBox(height: 10),
-                _buildAcceptTermsConditionsMsg(),
+                if (widget.navigatedFromRequestShipment) _buildAcceptTermsConditionsMsg(),
                 SizedBox(
                   height: MediaQuery.of(context).viewInsets.bottom + 100,
                 ),
