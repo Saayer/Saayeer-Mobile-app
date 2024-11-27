@@ -97,7 +97,9 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           userDto.fullName == Constants.defaultUserName ||
           (userDto.address ?? '').isEmpty) {
         getIt<NavigationService>().pop();
-        getIt<NavigationService>().navigateToNamed(Routes.personalInfoNamedPage);
+
+        /// sent true as arguments if navigatedFromRequestShipment else false
+        getIt<NavigationService>().navigateToNamed(Routes.personalInfoNamedPage, arguments: true);
         SaayerToast().showSuccessToast(msg: "complete_personal_info_msg".tr());
       }
     }

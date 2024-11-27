@@ -5,7 +5,6 @@ import 'package:fl_downloader/fl_downloader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:lottie/lottie.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
@@ -15,6 +14,7 @@ import 'package:saayer/core/API/end_points/builder/end_points_base_url.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
+import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import "package:universal_html/html.dart" as html;
@@ -139,7 +139,10 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
               'payment_successfully'.tr(),
               style: AppTextStyles.mainFocusedLabel(),
             ),
-            Lottie.asset('assets/lottie/paid_shipment.json'),
+            Image.asset(
+              Constants.getGifPath("success.gif"),
+              fit: BoxFit.contain,
+            ),
             if (widget.createPaymentResponse.createShipmentStatuses != null)
               if (widget.createPaymentResponse.createShipmentStatuses!.contains(CreateShipmentStatus.pickupNotCreated))
                 Text(

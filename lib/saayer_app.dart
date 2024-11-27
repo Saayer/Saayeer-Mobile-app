@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:saayer/common/loading/loading_widget.dart';
 import 'package:saayer/common/session_timeout_listener.dart';
@@ -55,6 +56,12 @@ class SaayerApp extends StatelessWidget {
               },
               overlayColor: SaayerTheme().getColorsPalette.blackColor.withOpacity(0.8),
               child: MaterialApp(
+                shortcuts: (kIsWeb)
+                    ? null
+                    : {
+                        /// to work space bar in text field for IOS web browser
+                        LogicalKeySet(LogicalKeyboardKey.space): const ActivateIntent(),
+                      },
                 builder: (context, child) => ResponsiveBreakpoints.builder(
                   child: child!,
                   breakpoints: [

@@ -113,7 +113,10 @@ class AppRoutes {
 
       case Routes.personalInfoNamedPage:
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
-          return MaterialPageRoute(builder: (context) => const PersonalInfoScreen());
+          return MaterialPageRoute(
+              builder: (context) => PersonalInfoScreen(
+                    navigatedFromRequestShipment: routingData as bool,
+                  ));
         } else {
           return MaterialPageRoute(
             builder: (context) => const SplashScreen(),

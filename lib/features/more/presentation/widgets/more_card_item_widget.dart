@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
+import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -18,7 +19,12 @@ class MoreCardItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (onPressedRouteName != null) {
-          getIt<NavigationService>().navigateToNamed(onPressedRouteName!);
+          if (onPressedRouteName == Routes.personalInfoNamedPage) {
+            /// sent true as arguments if navigatedFromRequestShipment else false
+            getIt<NavigationService>().navigateToNamed(onPressedRouteName!, arguments: false);
+          } else {
+            getIt<NavigationService>().navigateToNamed(onPressedRouteName!);
+          }
         }
       },
       child: Container(

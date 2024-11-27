@@ -6,10 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/core/error/failure.dart';
-import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
-import 'package:saayer/core/utils/enums.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/data/core/state_helper/state_helper.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/domain/use_cases/add_new_shipment_usecase.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/domain/use_cases/get_customer_details_usecase.dart';
@@ -37,27 +36,33 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
     on<AddNewShipment>(_addNewShipment);
   }
 
+  ///
+
   FutureOr<void> _getSenderStoreDetailsById(GetSenderStoreDetailsById event, Emitter<ShipmentSummaryState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    emit(state.copyWith(
+        stateHelper: const ShipmentSummaryStateHelper(requestState: ShipmentSummaryRequestState.LOADING_SENDER)));
 
     final Either<Failure, StoreGetDto> result = await getStoreDetailsUseCase(event.storeId ?? 0);
 
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
-        requestState: RequestState.ERROR,
+        requestState: ShipmentSummaryRequestState.ERROR_SENDER,
         errorStatus: ShipmentSummaryErrorStatus.GET_STORES_ERROR,
       )));
     } else {
       final StoreGetDto? rightResult = (result as Right).value;
       if (rightResult != null) {
         emit(state.copyWith(
+          stateHelper: const ShipmentSummaryStateHelper(
+            requestState: ShipmentSummaryRequestState.LOADED_SENDER,
+          ),
           senderStoreDto: rightResult,
         ));
       } else {
         emit(state.copyWith(
-          stateHelper: const StateHelper(
-            requestState: RequestState.ERROR,
+          stateHelper: const ShipmentSummaryStateHelper(
+            requestState: ShipmentSummaryRequestState.ERROR_SENDER,
             errorStatus: ShipmentSummaryErrorStatus.GET_STORES_ERROR,
           ),
         ));
@@ -67,26 +72,30 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
 
   FutureOr<void> _getSenderCustomerDetailsById(
       GetSenderCustomerDetailsById event, Emitter<ShipmentSummaryState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    emit(state.copyWith(
+        stateHelper: const ShipmentSummaryStateHelper(requestState: ShipmentSummaryRequestState.LOADING_SENDER)));
 
     final Either<Failure, CustomerGetDto> result = await getCustomerDetailsUseCase(event.customerId ?? 0);
 
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
-        requestState: RequestState.ERROR,
+        requestState: ShipmentSummaryRequestState.ERROR_SENDER,
         errorStatus: ShipmentSummaryErrorStatus.GET_CUSTOMERS_ERROR,
       )));
     } else {
       final CustomerGetDto? rightResult = (result as Right).value;
       if (rightResult != null) {
         emit(state.copyWith(
+          stateHelper: const ShipmentSummaryStateHelper(
+            requestState: ShipmentSummaryRequestState.LOADED_SENDER,
+          ),
           senderCustomerDto: rightResult,
         ));
       } else {
         emit(state.copyWith(
-          stateHelper: const StateHelper(
-            requestState: RequestState.ERROR,
+          stateHelper: const ShipmentSummaryStateHelper(
+            requestState: ShipmentSummaryRequestState.ERROR_SENDER,
             errorStatus: ShipmentSummaryErrorStatus.GET_CUSTOMERS_ERROR,
           ),
         ));
@@ -96,27 +105,29 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
 
   Future<FutureOr<void>> _getReceiverStoreDetailsById(
       GetReceiverStoreDetailsById event, Emitter<ShipmentSummaryState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    emit(state.copyWith(
+        stateHelper: const ShipmentSummaryStateHelper(requestState: ShipmentSummaryRequestState.LOADING_RECEIVER)));
 
     final Either<Failure, StoreGetDto> result = await getStoreDetailsUseCase(event.storeId ?? 0);
 
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
-        requestState: RequestState.ERROR,
+        requestState: ShipmentSummaryRequestState.ERROR_RECEIVER,
         errorStatus: ShipmentSummaryErrorStatus.GET_STORES_ERROR,
       )));
     } else {
       final StoreGetDto? rightResult = (result as Right).value;
       if (rightResult != null) {
         emit(state.copyWith(
-          stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
+          stateHelper: const ShipmentSummaryStateHelper(
+              requestState: ShipmentSummaryRequestState.LOADED_RECEIVER, loadingMessage: ""),
           receiverStoreDto: rightResult,
         ));
       } else {
         emit(state.copyWith(
-          stateHelper: const StateHelper(
-            requestState: RequestState.ERROR,
+          stateHelper: const ShipmentSummaryStateHelper(
+            requestState: ShipmentSummaryRequestState.ERROR_RECEIVER,
             errorStatus: ShipmentSummaryErrorStatus.GET_STORES_ERROR,
           ),
         ));
@@ -126,27 +137,29 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
 
   FutureOr<void> _getReceiverCustomerDetailsById(
       GetReceiverCustomerDetailsById event, Emitter<ShipmentSummaryState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    emit(state.copyWith(
+        stateHelper: const ShipmentSummaryStateHelper(requestState: ShipmentSummaryRequestState.LOADING_RECEIVER)));
 
     final Either<Failure, CustomerGetDto> result = await getCustomerDetailsUseCase(event.customerId ?? 0);
 
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
-        requestState: RequestState.ERROR,
+        requestState: ShipmentSummaryRequestState.ERROR_RECEIVER,
         errorStatus: ShipmentSummaryErrorStatus.GET_CUSTOMERS_ERROR,
       )));
     } else {
       final CustomerGetDto? rightResult = (result as Right).value;
       if (rightResult != null) {
         emit(state.copyWith(
-          stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
+          stateHelper: const ShipmentSummaryStateHelper(
+              requestState: ShipmentSummaryRequestState.LOADED_RECEIVER, loadingMessage: ""),
           receiverCustomerDto: rightResult,
         ));
       } else {
         emit(state.copyWith(
-          stateHelper: const StateHelper(
-            requestState: RequestState.ERROR,
+          stateHelper: const ShipmentSummaryStateHelper(
+            requestState: ShipmentSummaryRequestState.ERROR_RECEIVER,
             errorStatus: ShipmentSummaryErrorStatus.GET_CUSTOMERS_ERROR,
           ),
         ));
@@ -155,7 +168,8 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
   }
 
   FutureOr<void> _addNewShipment(AddNewShipment event, Emitter<ShipmentSummaryState> emit) async {
-    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    emit(state.copyWith(
+        stateHelper: const ShipmentSummaryStateHelper(requestState: ShipmentSummaryRequestState.LOADING_ADD_SHIPMENT)));
     final ShipmentAddDto shipmentDto = ShipmentAddDto((b) => b
       ..length = event.shipmentAddDto?.length
       ..height = event.shipmentAddDto?.height
@@ -175,7 +189,7 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
     if (result.isLeft()) {
       emit(state.copyWith(
           stateHelper: state.stateHelper.copyWith(
-        requestState: RequestState.ERROR,
+        requestState: ShipmentSummaryRequestState.ERROR_ADD_SHIPMENT,
         errorStatus: ShipmentSummaryErrorStatus.ADD_SHIPMENT_ERROR,
       )));
     } else {
@@ -187,13 +201,14 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
         }
 
         emit(state.copyWith(
-          stateHelper: const StateHelper(requestState: RequestState.SUCCESS, loadingMessage: ""),
+          stateHelper: const ShipmentSummaryStateHelper(
+              requestState: ShipmentSummaryRequestState.SUCCESS_ADD_SHIPMENT, loadingMessage: ""),
           shipmentGetDto: rightResult,
         ));
       } else {
         emit(state.copyWith(
-          stateHelper: const StateHelper(
-            requestState: RequestState.ERROR,
+          stateHelper: const ShipmentSummaryStateHelper(
+            requestState: ShipmentSummaryRequestState.ERROR_ADD_SHIPMENT,
             errorStatus: ShipmentSummaryErrorStatus.ADD_SHIPMENT_ERROR,
           ),
         ));

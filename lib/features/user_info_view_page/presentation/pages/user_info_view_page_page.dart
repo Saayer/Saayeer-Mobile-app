@@ -20,7 +20,13 @@ class UserInfoViewPagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final UserInfoViewPageBloc userInfoViewPageBloc = BlocProvider.of<UserInfoViewPageBloc>(context);
-    final List<Widget> pages = [const PersonalInfoScreen(), const BusinessInfoScreen(), const StoresListScreen()];
+    final List<Widget> pages = [
+      const PersonalInfoScreen(
+        navigatedFromRequestShipment: false,
+      ),
+      const BusinessInfoScreen(),
+      const StoresListScreen()
+    ];
 
     return BlocConsumer<UserInfoViewPageBloc, UserInfoViewPageState>(
       buildWhen: (previousState, nextState) =>
