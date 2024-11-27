@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -45,24 +45,10 @@ class TrackingTimelineItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ColorFiltered(
-            colorFilter: isComplete
-                ? const ColorFilter.mode(
-                    Colors.transparent,
-                    BlendMode.color,
-                  )
-                : ColorFilter.mode(
-                    SaayerTheme().getColorsPalette.greyColor.withOpacity(0.3),
-                    BlendMode.modulate,
-                  ),
-            child: Lottie.asset(
-                height: 50,
-                Constants.getLottiePath("${label}_shipment.json"),
-                errorBuilder: (context, error, stackTrace) => Image.asset(
-                      Constants.getGifPath("error.gif"),
-                      width: 50,
-                      height: 50,
-                    )),
+          GenericSvgWidget(
+          path: Constants.getShipmentStatusIconPath("$label.svg"),
+          size: 50,
+          color: isComplete ? SaayerTheme().getColorsPalette.orangeColor : SaayerTheme().getColorsPalette.blackColor.withOpacity(0.2),
           ),
         ],
       ),

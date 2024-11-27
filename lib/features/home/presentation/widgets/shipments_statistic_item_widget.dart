@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -52,10 +52,11 @@ class ShipmentsStatisticItemWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       animatedIcon
-                          ? Lottie.asset(
-                              height: largerThanTablet(context) ? 40 : 35,
-                              Constants.getLottiePath("${title}_shipment.json"),
-                            )
+                          ? GenericSvgWidget(
+                        path: Constants.getShipmentStatusIconPath("$title.svg"),
+                        size: largerThanTablet(context) ? 40 : 35,
+                        color: SaayerTheme().getColorsPalette.orangeColor,
+                      )
                           : Image.asset(
                               Constants.getIconPath("ic_logo.png"),
                               width: largerThanTablet(context) ? 40 : 35,

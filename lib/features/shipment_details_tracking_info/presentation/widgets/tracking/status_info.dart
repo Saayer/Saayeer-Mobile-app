@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
+import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/shipments/presentation/widgets/shipment_item_widget_helper.dart';
 
@@ -44,7 +45,11 @@ class StatusInfo extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Lottie.asset(height: 150, Constants.getLottiePath("${statusName}_shipment.json"))
+              GenericSvgWidget(
+                path: Constants.getShipmentStatusIconPath("$statusName.svg"),
+                size: 10,
+                color: SaayerTheme().getColorsPalette.orangeColor,
+              )
             ],
           ),
         ));
