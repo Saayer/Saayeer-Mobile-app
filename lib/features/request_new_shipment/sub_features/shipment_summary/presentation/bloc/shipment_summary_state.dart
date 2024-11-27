@@ -1,7 +1,7 @@
 part of 'shipment_summary_bloc.dart';
 
 class ShipmentSummaryState extends Equatable {
-  final StateHelper stateHelper;
+  final ShipmentSummaryStateHelper stateHelper;
   final StoreGetDto? senderStoreDto;
   final CustomerGetDto? senderCustomerDto;
   final StoreGetDto? receiverStoreDto;
@@ -9,7 +9,7 @@ class ShipmentSummaryState extends Equatable {
   final ShipmentGetDto? shipmentGetDto;
 
   const ShipmentSummaryState({
-    this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
+    this.stateHelper = const ShipmentSummaryStateHelper(requestState: ShipmentSummaryRequestState.LOADING_SENDER),
     this.senderStoreDto,
     this.senderCustomerDto,
     this.receiverStoreDto,
@@ -18,7 +18,7 @@ class ShipmentSummaryState extends Equatable {
   });
 
   ShipmentSummaryState copyWith({
-    StateHelper? stateHelper,
+    ShipmentSummaryStateHelper? stateHelper,
     StoreGetDto? senderStoreDto,
     CustomerGetDto? senderCustomerDto,
     StoreGetDto? receiverStoreDto,
