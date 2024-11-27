@@ -8,344 +8,511 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:dio/dio.dart' as _i9;
-import 'package:get_it/get_it.dart' as _i1;
-import 'package:injectable/injectable.dart' as _i2;
+import 'package:dio/dio.dart' as _i361;
+import 'package:get_it/get_it.dart' as _i174;
+import 'package:injectable/injectable.dart' as _i526;
+import 'package:openapi/openapi.dart' as _i711;
 import 'package:saayer/common/address_widgets/data/data_sources/remote/address_widgets_RDS.dart'
-    as _i76;
+    as _i369;
 import 'package:saayer/common/address_widgets/data/data_sources/remote/address_widgets_RDS_impl.dart'
-    as _i77;
+    as _i254;
 import 'package:saayer/common/address_widgets/data/repositories/address_widgets_repo_impl.dart'
-    as _i79;
+    as _i572;
 import 'package:saayer/common/address_widgets/domain/repositories/address_widgets_repo.dart'
-    as _i78;
-import 'package:saayer/common/address_widgets/domain/use_cases/get_cities_usecase.dart'
-    as _i87;
+    as _i1030;
 import 'package:saayer/common/address_widgets/presentation/bloc/address_widgets_bloc.dart'
-    as _i99;
-import 'package:saayer/core/API/api_client.dart' as _i32;
-import 'package:saayer/core/API/api_consumer.dart' as _i31;
-import 'package:saayer/core/API/interceptors/api_interceptors.dart' as _i33;
-import 'package:saayer/core/API/refresh_token.dart' as _i51;
-import 'package:saayer/core/app_config/app_flavor.dart' as _i5;
-import 'package:saayer/core/network/network_info.dart' as _i17;
+    as _i191;
+import 'package:saayer/core/API/api_client.dart' as _i9;
+import 'package:saayer/core/API/api_consumer.dart' as _i151;
+import 'package:saayer/core/API/interceptors/api_interceptors.dart' as _i1059;
+import 'package:saayer/core/API/interceptors/openapi_interceptors.dart'
+    as _i970;
+import 'package:saayer/core/API/refresh_token.dart' as _i927;
+import 'package:saayer/core/app_config/app_flavor.dart' as _i552;
+import 'package:saayer/core/network/network_info.dart' as _i919;
+import 'package:saayer/core/openAPI/openAPI_config.dart' as _i801;
 import 'package:saayer/core/services/current_user/logged_in_checker_service.dart'
-    as _i13;
+    as _i317;
 import 'package:saayer/core/services/current_user/logged_in_service.dart'
-    as _i14;
+    as _i275;
 import 'package:saayer/core/services/injection/injectable_modules.dart'
-    as _i101;
+    as _i847;
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart'
-    as _i23;
+    as _i502;
 import 'package:saayer/core/services/navigation/navigation_service.dart'
-    as _i16;
-import 'package:saayer/features/address/add_address/data/data_sources/remote/add_address_info_RDS.dart'
-    as _i72;
-import 'package:saayer/features/address/add_address/data/data_sources/remote/add_address_info_RDS_impl.dart'
-    as _i73;
-import 'package:saayer/features/address/add_address/data/repositories/add_address_info_repo_impl.dart'
-    as _i75;
-import 'package:saayer/features/address/add_address/domain/repositories/add_address_info_repo.dart'
-    as _i74;
-import 'package:saayer/features/address/add_address/domain/use_cases/submit_address_info_usecase.dart'
-    as _i95;
-import 'package:saayer/features/address/add_address/presentation/bloc/add_address_bloc.dart'
-    as _i98;
+    as _i355;
+import 'package:saayer/features/address/add_edit_address/data/repositories/add_edit_address_info_repo_impl.dart'
+    as _i31;
+import 'package:saayer/features/address/add_edit_address/domain/repositories/add_edit_address_info_repo.dart'
+    as _i79;
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_cities_usecase.dart'
+    as _i590;
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_countries_usecase.dart'
+    as _i753;
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/get_governorate_usecase.dart'
+    as _i263;
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/submit_address_info_usecase.dart'
+    as _i465;
+import 'package:saayer/features/address/add_edit_address/domain/use_cases/update_address_usecase.dart'
+    as _i469;
+import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_edit_address_bloc.dart'
+    as _i854;
 import 'package:saayer/features/address/address_details/presentation/bloc/address_details_bloc.dart'
-    as _i3;
-import 'package:saayer/features/log_in/data/data_sources/remote/log_in_RDS.dart'
+    as _i925;
+import 'package:saayer/features/address/addresses_book/data/data_sources/remote/addresses_book_RDS.dart'
+    as _i451;
+import 'package:saayer/features/address/addresses_book/data/data_sources/remote/addresses_book_RDS_impl.dart'
+    as _i699;
+import 'package:saayer/features/address/addresses_book/data/repositories/addresses_book_repo_impl.dart'
+    as _i1022;
+import 'package:saayer/features/address/addresses_book/domain/repositories/addresses_book_repo.dart'
     as _i42;
-import 'package:saayer/features/log_in/data/data_sources/remote/log_in_RDS_impl.dart'
-    as _i43;
-import 'package:saayer/features/log_in/data/repositories/log_in_repo_impl.dart'
-    as _i45;
-import 'package:saayer/features/log_in/domain/repositories/log_in_repo.dart'
-    as _i44;
-import 'package:saayer/features/log_in/domain/use_cases/log_in_usecase.dart'
-    as _i46;
-import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart'
-    as _i91;
-import 'package:saayer/features/more_sub_features/addresses_book/data/data_sources/remote/addresses_book_RDS.dart'
-    as _i80;
-import 'package:saayer/features/more_sub_features/addresses_book/data/data_sources/remote/addresses_book_RDS_impl.dart'
-    as _i81;
-import 'package:saayer/features/more_sub_features/addresses_book/data/repositories/addresses_book_repo_impl.dart'
-    as _i83;
-import 'package:saayer/features/more_sub_features/addresses_book/domain/repositories/addresses_book_repo.dart'
-    as _i82;
-import 'package:saayer/features/more_sub_features/addresses_book/domain/use_cases/get_addresses_usecase.dart'
-    as _i86;
-import 'package:saayer/features/more_sub_features/addresses_book/presentation/bloc/addresses_book_bloc.dart'
-    as _i100;
-import 'package:saayer/features/more_sub_features/contact_us/presentation/bloc/contact_us_bloc.dart'
-    as _i8;
-import 'package:saayer/features/more_sub_features/help/presentation/bloc/help_bloc.dart'
-    as _i10;
-import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart'
+import 'package:saayer/features/address/addresses_book/domain/use_cases/delete_address_usecase.dart'
+    as _i1014;
+import 'package:saayer/features/address/addresses_book/domain/use_cases/edit_address_usecase.dart'
+    as _i1058;
+import 'package:saayer/features/address/addresses_book/domain/use_cases/get_addresses_usecase.dart'
+    as _i436;
+import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart'
+    as _i613;
+import 'package:saayer/features/home/data/data_sources/remote/home_RDS.dart'
+    as _i913;
+import 'package:saayer/features/home/data/data_sources/remote/home_RDS_impl.dart'
+    as _i731;
+import 'package:saayer/features/home/data/repositories/home_repo_impl.dart'
+    as _i34;
+import 'package:saayer/features/home/domain/repositories/home_repo.dart'
+    as _i483;
+import 'package:saayer/features/home/domain/use_cases/get_shipments_status_total_count_usecase.dart'
+    as _i447;
+import 'package:saayer/features/home/domain/use_cases/get_total_paid_per_days_usecase.dart'
+    as _i1;
+import 'package:saayer/features/home/domain/use_cases/get_total_shipment_per_days_usecase.dart'
+    as _i838;
+import 'package:saayer/features/home/domain/use_cases/get_user_profile_usecase.dart'
     as _i22;
-import 'package:saayer/features/more_sub_features/shipping_rates/presentation/bloc/shipping_rates_bloc.dart'
-    as _i27;
+import 'package:saayer/features/home/presentation/bloc/home_bloc.dart'
+    as _i1066;
+import 'package:saayer/features/log_in/data/data_sources/remote/log_in_RDS.dart'
+    as _i400;
+import 'package:saayer/features/log_in/data/data_sources/remote/log_in_RDS_impl.dart'
+    as _i211;
+import 'package:saayer/features/log_in/data/repositories/log_in_repo_impl.dart'
+    as _i681;
+import 'package:saayer/features/log_in/domain/repositories/log_in_repo.dart'
+    as _i735;
+import 'package:saayer/features/log_in/domain/use_cases/log_in_usecase.dart'
+    as _i356;
+import 'package:saayer/features/log_in/presentation/bloc/log_in_bloc.dart'
+    as _i22;
+import 'package:saayer/features/more/data/repositories/more_repo_impl.dart'
+    as _i152;
+import 'package:saayer/features/more/domain/repositories/more_repo.dart'
+    as _i386;
+import 'package:saayer/features/more/domain/use_cases/delete_account_usecase.dart'
+    as _i760;
+import 'package:saayer/features/more/presentation/bloc/more_bloc.dart' as _i105;
+import 'package:saayer/features/more_sub_features/contact_us/presentation/bloc/contact_us_bloc.dart'
+    as _i206;
+import 'package:saayer/features/more_sub_features/help/presentation/bloc/help_bloc.dart'
+    as _i609;
+import 'package:saayer/features/more_sub_features/personal_info/data/repositories/personal_info_repo_impl.dart'
+    as _i508;
+import 'package:saayer/features/more_sub_features/personal_info/domain/repositories/personal_info_repo.dart'
+    as _i792;
+import 'package:saayer/features/more_sub_features/personal_info/domain/use_cases/edit_personal_info_usecase.dart'
+    as _i477;
+import 'package:saayer/features/more_sub_features/personal_info/domain/use_cases/get_personal_info_usecase.dart'
+    as _i639;
+import 'package:saayer/features/more_sub_features/personal_info/presentation/bloc/personal_info_bloc.dart'
+    as _i23;
+import 'package:saayer/features/more_sub_features/reports/presentation/bloc/reports_bloc.dart'
+    as _i374;
+import 'package:saayer/features/more_sub_features/settings/presentation/bloc/settings_bloc.dart'
+    as _i212;
+import 'package:saayer/features/more_sub_features/shipping_partners/data/repositories/shipping_partners_list_repo_impl.dart'
+    as _i348;
+import 'package:saayer/features/more_sub_features/shipping_partners/domain/repositories/shipping_partners_list_repo.dart'
+    as _i874;
+import 'package:saayer/features/more_sub_features/shipping_partners/domain/usecases/get_shipping_partners_usecase.dart'
+    as _i800;
+import 'package:saayer/features/more_sub_features/shipping_partners/presentation/bloc/shipping_partners_bloc.dart'
+    as _i234;
+import 'package:saayer/features/more_sub_features/static_pages/presentation/bloc/static_pages_bloc.dart'
+    as _i352;
+import 'package:saayer/features/more_sub_features/stores/add_edit_store/data/repositories/add_edit_store_repo_impl.dart'
+    as _i469;
+import 'package:saayer/features/more_sub_features/stores/add_edit_store/domain/repositories/add_edit_store_repo.dart'
+    as _i640;
+import 'package:saayer/features/more_sub_features/stores/add_edit_store/domain/use_cases/edit_store_usecase.dart'
+    as _i987;
+import 'package:saayer/features/more_sub_features/stores/add_edit_store/domain/use_cases/submit_store_info_usecase.dart'
+    as _i5;
+import 'package:saayer/features/more_sub_features/stores/add_edit_store/presentation/bloc/add_edit_store_bloc.dart'
+    as _i462;
+import 'package:saayer/features/more_sub_features/stores/stores_list/data/repositories/stores_list_repo_impl.dart'
+    as _i451;
+import 'package:saayer/features/more_sub_features/stores/stores_list/domain/repositories/stores_list_repo.dart'
+    as _i782;
+import 'package:saayer/features/more_sub_features/stores/stores_list/domain/usecases/delete_store_usecase.dart'
+    as _i490;
+import 'package:saayer/features/more_sub_features/stores/stores_list/domain/usecases/get_stores_usecase.dart'
+    as _i833;
+import 'package:saayer/features/more_sub_features/stores/stores_list/presentation/bloc/stores_list_bloc.dart'
+    as _i959;
 import 'package:saayer/features/more_sub_features/why_saayer/presentation/bloc/why_saayer_bloc.dart'
-    as _i30;
+    as _i900;
 import 'package:saayer/features/notifications/presentation/bloc/notifications_bloc.dart'
-    as _i18;
+    as _i110;
 import 'package:saayer/features/profile_sub_features/bills/presentation/bloc/bills_bloc.dart'
-    as _i6;
+    as _i386;
 import 'package:saayer/features/profile_sub_features/info/presentation/bloc/info_bloc.dart'
-    as _i11;
-import 'package:saayer/features/profile_sub_features/reports/presentation/bloc/reports_bloc.dart'
-    as _i20;
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/data_sources/shipment_providers_rds_impl.dart'
-    as _i53;
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/data_sources/shipment_prroviders_rds.dart'
-    as _i52;
+    as _i79;
+import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart'
+    as _i927;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/repositories/shipment_payment_repo_impl.dart'
+    as _i51;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/domain/repositories/shipment_payment_repo.dart'
+    as _i791;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/domain/use_cases/create_payment_usecase.dart'
+    as _i694;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/presentation/bloc/shipment_payment_bloc.dart'
+    as _i299;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/data/repositories/shipment_providers_repo_impl.dart'
-    as _i55;
+    as _i995;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/repositories/shipment_providers_repo.dart'
-    as _i54;
+    as _i377;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/domain/use_cases/get_shipment_providers_usecase.dart'
-    as _i88;
+    as _i897;
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_providers/presentation/blocs/shipment_providers_bloc.dart'
-    as _i93;
-import 'package:saayer/features/request_new_shipment/sub_features/shipment_specs/presentation/bloc/shipment_specs_bloc.dart'
-    as _i25;
-import 'package:saayer/features/shipments_sub_features/shipment_details/presentation/bloc/shipment_details_bloc.dart'
-    as _i24;
+    as _i135;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/data/repositories/shipment_summary_repo_impl.dart'
+    as _i2;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/domain/repositories/shipment_summary_repo.dart'
+    as _i103;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/domain/use_cases/add_new_shipment_usecase.dart'
+    as _i584;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/domain/use_cases/get_customer_details_usecase.dart'
+    as _i968;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/domain/use_cases/get_store_details_usecase.dart'
+    as _i447;
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_summary/presentation/bloc/shipment_summary_bloc.dart'
+    as _i883;
+import 'package:saayer/features/shipment_details_tracking_info/data/repositories/tracking_list_repo_impl.dart'
+    as _i1028;
+import 'package:saayer/features/shipment_details_tracking_info/domain/repositories/tracking_list_repo.dart'
+    as _i57;
+import 'package:saayer/features/shipment_details_tracking_info/domain/use_cases/tracking_list_usecase.dart'
+    as _i962;
+import 'package:saayer/features/shipment_details_tracking_info/presentation/bloc/shipment_details_bloc.dart'
+    as _i912;
+import 'package:saayer/features/shipments/data/repositories/shipments_list_repo_impl.dart'
+    as _i779;
+import 'package:saayer/features/shipments/domain/repositories/shipments_list_repo.dart'
+    as _i282;
+import 'package:saayer/features/shipments/domain/use_cases/get_service_providers_list_usecase.dart'
+    as _i580;
+import 'package:saayer/features/shipments/domain/use_cases/get_shipments_List_usecase.dart'
+    as _i437;
+import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart'
+    as _i414;
 import 'package:saayer/features/user_card/data/data_sources/remote/user_card_RDS.dart'
-    as _i63;
+    as _i609;
 import 'package:saayer/features/user_card/data/data_sources/remote/user_card_RDS_impl.dart'
     as _i64;
 import 'package:saayer/features/user_card/data/repositories/user_card_repo_impl.dart'
-    as _i66;
+    as _i671;
 import 'package:saayer/features/user_card/domain/repositories/user_card_repo.dart'
-    as _i65;
-import 'package:saayer/features/user_card/domain/use_cases/user_card_usecase.dart'
-    as _i67;
-import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart'
-    as _i96;
-import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart'
-    as _i28;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/data_sources/remote/business_info_RDS.dart'
-    as _i34;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/data_sources/remote/business_info_RDS_impl.dart'
-    as _i35;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/repositories/business_info_repo_impl.dart'
-    as _i37;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/repositories/business_info_repo.dart'
-    as _i36;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/use_cases/submit_business_info_usecase.dart'
-    as _i60;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/bloc/business_info_bloc.dart'
-    as _i84;
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/data/data_sources/remote/personal_info_RDS.dart'
-    as _i47;
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/data/data_sources/remote/personal_info_RDS_impl.dart'
-    as _i48;
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/data/repositories/personal_info_repo_impl.dart'
-    as _i50;
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/domain/repositories/personal_info_repo.dart'
-    as _i49;
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/domain/use_cases/submit_personal_info_usecase.dart'
-    as _i61;
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/presentation/bloc/personal_info_bloc.dart'
-    as _i92;
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/data/data_sources/remote/store_info_RDS.dart'
-    as _i56;
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/data/data_sources/remote/store_info_RDS_impl.dart'
-    as _i57;
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/data/repositories/store_info_repo_impl.dart'
-    as _i59;
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/domain/repositories/store_info_repo.dart'
-    as _i58;
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/domain/use_cases/submit_store_info_usecase.dart'
-    as _i62;
-import 'package:saayer/features/user_info_view_page/sub_features/store_info/presentation/bloc/store_info_bloc.dart'
-    as _i94;
-import 'package:saayer/features/verify_otp/data/data_sources/verify_otp_RDS.dart'
     as _i68;
+import 'package:saayer/features/user_card/domain/use_cases/user_card_usecase.dart'
+    as _i736;
+import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart'
+    as _i260;
+import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart'
+    as _i1037;
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/data_sources/remote/business_info_RDS.dart'
+    as _i785;
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/data_sources/remote/business_info_RDS_impl.dart'
+    as _i882;
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/repositories/business_info_repo_impl.dart'
+    as _i655;
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/repositories/business_info_repo.dart'
+    as _i192;
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/use_cases/submit_business_info_usecase.dart'
+    as _i396;
+import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/bloc/business_info_bloc.dart'
+    as _i684;
+import 'package:saayer/features/verify_otp/data/data_sources/verify_otp_RDS.dart'
+    as _i389;
 import 'package:saayer/features/verify_otp/data/data_sources/verify_otp_RDS_impl.dart'
-    as _i69;
+    as _i23;
 import 'package:saayer/features/verify_otp/data/repositories/verify_otp_repo_impl.dart'
-    as _i71;
+    as _i408;
 import 'package:saayer/features/verify_otp/domain/repositories/verify_otp_repo.dart'
-    as _i70;
+    as _i689;
 import 'package:saayer/features/verify_otp/domain/use_cases/confirm_log_in_usecase.dart'
-    as _i85;
+    as _i233;
 import 'package:saayer/features/verify_otp/presentation/bloc/verify_otp_bloc.dart'
-    as _i97;
+    as _i613;
 import 'package:saayer/features/view_page/presentation/bloc/view_page_bloc.dart'
-    as _i29;
-import 'package:saayer/features/view_page/sub_features/home/data/data_sources/remote/home_RDS.dart'
-    as _i38;
-import 'package:saayer/features/view_page/sub_features/home/data/data_sources/remote/home_RDS_impl.dart'
-    as _i39;
-import 'package:saayer/features/view_page/sub_features/home/data/repositories/home_repo_impl.dart'
-    as _i41;
-import 'package:saayer/features/view_page/sub_features/home/domain/repositories/home_repo.dart'
-    as _i40;
-import 'package:saayer/features/view_page/sub_features/home/domain/use_cases/get_user_profile_usecase.dart'
-    as _i89;
-import 'package:saayer/features/view_page/sub_features/home/presentation/bloc/home_bloc.dart'
-    as _i90;
-import 'package:saayer/features/view_page/sub_features/more/presentation/bloc/more_bloc.dart'
-    as _i15;
-import 'package:saayer/features/view_page/sub_features/profile/presentation/bloc/profile_bloc.dart'
-    as _i19;
-import 'package:saayer/features/view_page/sub_features/request_shipment/presentation/bloc/request_shipment_bloc.dart'
-    as _i21;
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/address_shipment/presentation/bloc/address_shipment_bloc.dart'
-    as _i4;
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipment_information/presentation/bloc/information_shipment_bloc.dart'
-    as _i12;
-import 'package:saayer/features/view_page/sub_features/request_shipment/sub_features/shipments_cariers_selection/presentation/bloc/carriers_shipment_bloc.dart'
-    as _i7;
-import 'package:saayer/features/view_page/sub_features/shipments/presentation/bloc/shipments_bloc.dart'
-    as _i26;
+    as _i870;
 
-extension GetItInjectableX on _i1.GetIt {
+extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i1.GetIt init({
+  _i174.GetIt init({
     String? environment,
-    _i2.EnvironmentFilter? environmentFilter,
+    _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i2.GetItHelper(
+    final gh = _i526.GetItHelper(
       this,
       environment,
       environmentFilter,
     );
     final injectableModule = _$InjectableModule();
-    gh.factory<_i3.AddressDetailsBloc>(() => _i3.AddressDetailsBloc());
-    gh.factory<_i4.AddressShipmentBloc>(() => _i4.AddressShipmentBloc());
-    gh.singleton<_i5.AppFlavor>(_i5.AppFlavor());
-    gh.factory<_i6.BillsBloc>(() => _i6.BillsBloc());
-    gh.factory<_i7.CarriersShipmentBloc>(() => _i7.CarriersShipmentBloc());
-    gh.factory<_i8.ContactUsBloc>(() => _i8.ContactUsBloc());
-    gh.singleton<_i9.Dio>(injectableModule.dio);
-    gh.factory<_i10.HelpBloc>(() => _i10.HelpBloc());
-    gh.factory<_i11.InfoBloc>(() => _i11.InfoBloc());
-    gh.factory<_i12.InformationShipmentBloc>(
-        () => _i12.InformationShipmentBloc());
-    gh.factory<_i13.LoggedInCheckerService>(
-        () => _i13.LoggedInCheckerService());
-    gh.singleton<_i14.LoggedInService>(_i14.LoggedInService());
-    gh.factory<_i15.MoreBloc>(() => _i15.MoreBloc());
-    gh.singleton<_i16.NavigationService>(_i16.NavigationService());
-    gh.lazySingleton<_i17.NetworkInfo>(() => _i17.NetworkInfoImpl());
-    gh.factory<_i18.NotificationsBloc>(() => _i18.NotificationsBloc());
-    gh.factory<_i19.ProfileBloc>(() => _i19.ProfileBloc());
-    gh.factory<_i20.ReportsBloc>(() => _i20.ReportsBloc());
-    gh.factory<_i21.RequestShipmentBloc>(() => _i21.RequestShipmentBloc());
-    gh.factory<_i22.SettingsBloc>(() => _i22.SettingsBloc());
-    gh.singleton<_i23.SharedPrefService>(_i23.SharedPrefService());
-    gh.factory<_i24.ShipmentDetailsBloc>(() => _i24.ShipmentDetailsBloc());
-    gh.factory<_i25.ShipmentSpecsBloc>(() => _i25.ShipmentSpecsBloc());
-    gh.factory<_i26.ShipmentsBloc>(() => _i26.ShipmentsBloc());
-    gh.factory<_i27.ShippingRatesBloc>(() => _i27.ShippingRatesBloc());
-    gh.factory<_i28.UserInfoViewPageBloc>(() => _i28.UserInfoViewPageBloc());
-    gh.factory<_i29.ViewPageBloc>(() => _i29.ViewPageBloc());
-    gh.factory<_i30.WhySaayerBloc>(() => _i30.WhySaayerBloc());
-    gh.lazySingleton<_i31.ApiConsumer>(
-        () => _i32.DioConsumer(client: gh<_i9.Dio>()));
-    gh.lazySingleton<_i33.AppInterceptors>(
-        () => _i33.AppInterceptors(client: gh<_i9.Dio>()));
-    gh.factory<_i34.BusinessInfoRDS>(
-        () => _i35.BusinessInfoRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i36.BusinessInfoRepo>(() => _i37.BusinessInfoRepoImpl(
-        businessInfoRDSImpl: gh<_i34.BusinessInfoRDS>()));
-    gh.factory<_i38.HomeRDS>(
-        () => _i39.HomeRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i40.HomeRepo>(
-        () => _i41.HomeRepoImpl(homeRDSImpl: gh<_i38.HomeRDS>()));
-    gh.factory<_i42.LogInRDS>(
-        () => _i43.LogInRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i44.LogInRepo>(
-        () => _i45.LogInRepoImpl(logInRDSImpl: gh<_i42.LogInRDS>()));
-    gh.factory<_i46.LogInUseCase>(
-        () => _i46.LogInUseCase(logInRepoImpl: gh<_i44.LogInRepo>()));
-    gh.factory<_i47.PersonalInfoRDS>(
-        () => _i48.PersonalInfoRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i49.PersonalInfoRepo>(() => _i50.PersonalInfoRepoImpl(
-        personalInfoRDSImpl: gh<_i47.PersonalInfoRDS>()));
-    gh.factory<_i51.RefreshToken>(
-        () => _i51.RefreshToken(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i52.ShipmentProvidersRDS>(() =>
-        _i53.ShipmentProvidersRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i54.ShipmentProvidersRepo>(() => _i55.ShipmentProvidersRepoImpl(
-        shipmentProvidersRDS: gh<_i52.ShipmentProvidersRDS>()));
-    gh.factory<_i56.StoreInfoRDS>(
-        () => _i57.StoreInfoRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i58.StoreInfoRepo>(() =>
-        _i59.StoreInfoRepoImpl(storeInfoRDSImpl: gh<_i56.StoreInfoRDS>()));
-    gh.factory<_i60.SubmitBusinessInfoUseCase>(() =>
-        _i60.SubmitBusinessInfoUseCase(
-            businessInfoRepoImpl: gh<_i36.BusinessInfoRepo>()));
-    gh.factory<_i61.SubmitPersonalInfoUseCase>(() =>
-        _i61.SubmitPersonalInfoUseCase(
-            personalInfoRepoImpl: gh<_i49.PersonalInfoRepo>()));
-    gh.factory<_i62.SubmitStoreInfoUseCase>(() => _i62.SubmitStoreInfoUseCase(
-        storeInfoRepoImpl: gh<_i58.StoreInfoRepo>()));
-    gh.factory<_i63.UserCardRDS>(
-        () => _i64.UserCardRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i65.UserCardRepo>(
-        () => _i66.UserCardRepoImpl(userCardRDSImpl: gh<_i63.UserCardRDS>()));
-    gh.factory<_i67.UserCardUseCase>(
-        () => _i67.UserCardUseCase(userCardRepoImpl: gh<_i65.UserCardRepo>()));
-    gh.factory<_i68.VerifyOtpRDS>(
-        () => _i69.VerifyOtpRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i70.VerifyOtpRepo>(() =>
-        _i71.VerifyOtpRepoImpl(verifyOtpRDSImpl: gh<_i68.VerifyOtpRDS>()));
-    gh.factory<_i72.AddAddressInfoRDS>(
-        () => _i73.AddAddressInfoRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i74.AddAddressInfoRepo>(() => _i75.AddAddressInfoRepoImpl(
-        addAddressInfoRDSImpl: gh<_i72.AddAddressInfoRDS>()));
-    gh.factory<_i76.AddressWidgetsRDS>(
-        () => _i77.AddressWidgetsRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i78.AddressWidgetsRepo>(() => _i79.AddressWidgetsRepoImpl(
-        addressWidgetsRDSImpl: gh<_i76.AddressWidgetsRDS>()));
-    gh.factory<_i80.AddressesBookRDS>(
-        () => _i81.AddressesBookRDSImpl(apiConsumer: gh<_i31.ApiConsumer>()));
-    gh.factory<_i82.AddressesBookRepo>(() => _i83.AddressesBookRepoImpl(
-        addressesBookRDSImpl: gh<_i80.AddressesBookRDS>()));
-    gh.factory<_i84.BusinessInfoBloc>(() => _i84.BusinessInfoBloc(
-        submitBusinessInfoUseCase: gh<_i60.SubmitBusinessInfoUseCase>()));
-    gh.factory<_i85.ConfirmLogInUseCase>(() =>
-        _i85.ConfirmLogInUseCase(verifyOtpRepoImpl: gh<_i70.VerifyOtpRepo>()));
-    gh.factory<_i86.GetAddressesUseCase>(() => _i86.GetAddressesUseCase(
-        addressesBookRepoImpl: gh<_i82.AddressesBookRepo>()));
-    gh.factory<_i87.GetCitiesUseCase>(() => _i87.GetCitiesUseCase(
-        addressWidgetsRepoImpl: gh<_i78.AddressWidgetsRepo>()));
-    gh.factory<_i88.GetShipmentProvidersUseCase>(() =>
-        _i88.GetShipmentProvidersUseCase(
-            shipmentProvidersRepo: gh<_i54.ShipmentProvidersRepo>()));
-    gh.factory<_i89.GetUserProfileUseCase>(
-        () => _i89.GetUserProfileUseCase(homeRepoImpl: gh<_i40.HomeRepo>()));
-    gh.factory<_i90.HomeBloc>(() =>
-        _i90.HomeBloc(getUserProfileUseCase: gh<_i89.GetUserProfileUseCase>()));
-    gh.factory<_i91.LogInBloc>(
-        () => _i91.LogInBloc(logInUseCase: gh<_i46.LogInUseCase>()));
-    gh.factory<_i92.PersonalInfoBloc>(() => _i92.PersonalInfoBloc(
-        submitPersonalInfoUseCase: gh<_i61.SubmitPersonalInfoUseCase>()));
-    gh.factory<_i93.ShipmentProvidersBloc>(() => _i93.ShipmentProvidersBloc(
-        getShipmentProvidersUseCase: gh<_i88.GetShipmentProvidersUseCase>()));
-    gh.factory<_i94.StoreInfoBloc>(() => _i94.StoreInfoBloc(
-        submitStoreInfoUseCase: gh<_i62.SubmitStoreInfoUseCase>()));
-    gh.factory<_i95.SubmitAddressInfoUseCase>(() =>
-        _i95.SubmitAddressInfoUseCase(
-            addAddressInfoRepoImpl: gh<_i74.AddAddressInfoRepo>()));
-    gh.factory<_i96.UserCardBloc>(
-        () => _i96.UserCardBloc(userCardUseCase: gh<_i67.UserCardUseCase>()));
-    gh.factory<_i97.VerifyOtpBloc>(() => _i97.VerifyOtpBloc(
-          logInUseCase: gh<_i46.LogInUseCase>(),
-          confirmLogInUseCase: gh<_i85.ConfirmLogInUseCase>(),
+    gh.factory<_i317.LoggedInCheckerService>(
+        () => _i317.LoggedInCheckerService());
+    gh.factory<_i212.SettingsBloc>(() => _i212.SettingsBloc());
+    gh.factory<_i900.WhySaayerBloc>(() => _i900.WhySaayerBloc());
+    gh.factory<_i206.ContactUsBloc>(() => _i206.ContactUsBloc());
+    gh.factory<_i352.StaticPagesBloc>(() => _i352.StaticPagesBloc());
+    gh.factory<_i609.HelpBloc>(() => _i609.HelpBloc());
+    gh.factory<_i374.ReportsBloc>(() => _i374.ReportsBloc());
+    gh.factory<_i1037.UserInfoViewPageBloc>(
+        () => _i1037.UserInfoViewPageBloc());
+    gh.factory<_i79.InfoBloc>(() => _i79.InfoBloc());
+    gh.factory<_i386.BillsBloc>(() => _i386.BillsBloc());
+    gh.factory<_i870.ViewPageBloc>(() => _i870.ViewPageBloc());
+    gh.factory<_i925.AddressDetailsBloc>(() => _i925.AddressDetailsBloc());
+    gh.factory<_i110.NotificationsBloc>(() => _i110.NotificationsBloc());
+    gh.singleton<_i552.AppFlavor>(() => _i552.AppFlavor());
+    gh.singleton<_i502.SharedPrefService>(() => _i502.SharedPrefService());
+    gh.singleton<_i275.LoggedInService>(() => _i275.LoggedInService());
+    gh.singleton<_i355.NavigationService>(() => _i355.NavigationService());
+    gh.singleton<_i361.Dio>(() => injectableModule.dio);
+    gh.singleton<_i711.Openapi>(() => injectableModule.openapi);
+    gh.lazySingleton<_i801.OpenAPIConfig>(
+        () => _i801.OpenAPIConfig(openapi: gh<_i711.Openapi>()));
+    gh.factory<_i57.TrackingListRepo>(() =>
+        _i1028.TrackingListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.lazySingleton<_i919.NetworkInfo>(() => _i919.NetworkInfoImpl());
+    gh.factory<_i791.ShipmentPaymentRepo>(() =>
+        _i51.ShipmentPaymentRepoImpl(openApiConfig: gh<_i801.OpenAPIConfig>()));
+    gh.lazySingleton<_i151.ApiConsumer>(
+        () => _i9.DioConsumer(client: gh<_i361.Dio>()));
+    gh.factory<_i377.ShipmentProvidersRepo>(() =>
+        _i995.ShipmentProvidersRepoImpl(
+            openApiConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i962.TrackingListUseCase>(() => _i962.TrackingListUseCase(
+        trackingListRepo: gh<_i57.TrackingListRepo>()));
+    gh.factory<_i103.ShipmentSummaryRepo>(() =>
+        _i2.ShipmentSummaryRepoImpl(openApiConfig: gh<_i801.OpenAPIConfig>()));
+    gh.lazySingleton<_i970.OpenapiInterceptors>(
+        () => _i970.OpenapiInterceptors(client: gh<_i361.Dio>()));
+    gh.lazySingleton<_i1059.AppInterceptors>(
+        () => _i1059.AppInterceptors(client: gh<_i361.Dio>()));
+    gh.factory<_i912.ShipmentDetailsBloc>(() => _i912.ShipmentDetailsBloc(
+        trackingListUseCase: gh<_i962.TrackingListUseCase>()));
+    gh.factory<_i640.AddEditStoreRepo>(() =>
+        _i469.StoreInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i389.VerifyOtpRDS>(
+        () => _i23.VerifyOtpRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i897.GetShipmentProvidersUseCase>(() =>
+        _i897.GetShipmentProvidersUseCase(
+            shipmentProvidersRepo: gh<_i377.ShipmentProvidersRepo>()));
+    gh.factory<_i386.MoreRepo>(
+        () => _i152.MoreRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i694.CreatePaymentUseCase>(() => _i694.CreatePaymentUseCase(
+        shipmentPaymentRepo: gh<_i791.ShipmentPaymentRepo>()));
+    gh.factory<_i927.RefreshToken>(
+        () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i79.AddEditAddressInfoRepo>(() =>
+        _i31.AddEditAddressInfoRepoImpl(
+            openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i689.VerifyOtpRepo>(() => _i408.VerifyOtpRepoImpl(
+          verifyOtpRDSImpl: gh<_i389.VerifyOtpRDS>(),
+          openAPIConfig: gh<_i801.OpenAPIConfig>(),
         ));
-    gh.factory<_i98.AddAddressBloc>(() => _i98.AddAddressBloc(
-        submitAddressInfoUseCase: gh<_i95.SubmitAddressInfoUseCase>()));
-    gh.factory<_i99.AddressWidgetsBloc>(() =>
-        _i99.AddressWidgetsBloc(getCitiesUseCase: gh<_i87.GetCitiesUseCase>()));
-    gh.factory<_i100.AddressesBookBloc>(() => _i100.AddressesBookBloc(
-        getAddressesUseCase: gh<_i86.GetAddressesUseCase>()));
+    gh.factory<_i400.LogInRDS>(
+        () => _i211.LogInRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i785.BusinessInfoRDS>(
+        () => _i882.BusinessInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i913.HomeRDS>(
+        () => _i731.HomeRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i465.SubmitAddressInfoUseCase>(() =>
+        _i465.SubmitAddressInfoUseCase(
+            addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
+    gh.factory<_i469.UpdateAddressUseCase>(() => _i469.UpdateAddressUseCase(
+        addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
+    gh.factory<_i263.GetGovernoratesUseCase>(() => _i263.GetGovernoratesUseCase(
+        addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
+    gh.factory<_i753.GetCountriesUseCase>(() => _i753.GetCountriesUseCase(
+        addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
+    gh.factory<_i590.GetCitiesUseCase>(() => _i590.GetCitiesUseCase(
+        addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
+    gh.factory<_i874.ShippingPartnersListRepo>(() =>
+        _i348.ShippingPartnersListRepoImpl(
+            openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i792.PersonalInfoRepo>(() =>
+        _i508.PersonalInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i282.ShipmentsListRepo>(() =>
+        _i779.ShipmentsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i451.AddressesBookRDS>(
+        () => _i699.AddressesBookRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i735.LogInRepo>(() => _i681.LogInRepoImpl(
+          logInRDSImpl: gh<_i400.LogInRDS>(),
+          openAPIConfig: gh<_i801.OpenAPIConfig>(),
+        ));
+    gh.factory<_i356.LogInUseCase>(
+        () => _i356.LogInUseCase(logInRepoImpl: gh<_i735.LogInRepo>()));
+    gh.factory<_i42.AddressesBookRepo>(() =>
+        _i1022.AddressesBookRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i987.EditStoreUseCase>(() =>
+        _i987.EditStoreUseCase(addEditStoreRepo: gh<_i640.AddEditStoreRepo>()));
+    gh.factory<_i483.HomeRepo>(
+        () => _i34.HomeRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i782.StoresListRepo>(() =>
+        _i451.StoresListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i369.AddressWidgetsRDS>(() =>
+        _i254.AddressWidgetsRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i609.UserCardRDS>(
+        () => _i64.UserCardRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i192.BusinessInfoRepo>(() => _i655.BusinessInfoRepoImpl(
+        businessInfoRDSImpl: gh<_i785.BusinessInfoRDS>()));
+    gh.factory<_i22.GetUserProfileUseCase>(
+        () => _i22.GetUserProfileUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i447.GetShipmentsStatusTotalCountUseCase>(() =>
+        _i447.GetShipmentsStatusTotalCountUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i838.GetTotalShipmentPerDaysUseCase>(() =>
+        _i838.GetTotalShipmentPerDaysUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i1.GetTotalPaidPerDaysUseCase>(() =>
+        _i1.GetTotalPaidPerDaysUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i191.AddressWidgetsBloc>(() => _i191.AddressWidgetsBloc(
+          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
+          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
+        ));
+    gh.factory<_i1066.HomeBloc>(() => _i1066.HomeBloc(
+          getUserProfileUseCase: gh<_i22.GetUserProfileUseCase>(),
+          getShipmentsStatusTotalCountUseCase:
+              gh<_i447.GetShipmentsStatusTotalCountUseCase>(),
+          getTotalShipmentPerDaysUseCase:
+              gh<_i838.GetTotalShipmentPerDaysUseCase>(),
+          getTotalPaidPerDaysUseCase: gh<_i1.GetTotalPaidPerDaysUseCase>(),
+        ));
+    gh.factory<_i233.ConfirmLogInUseCase>(() => _i233.ConfirmLogInUseCase(
+        verifyOtpRepoImpl: gh<_i689.VerifyOtpRepo>()));
+    gh.factory<_i5.SubmitStoreInfoUseCase>(() => _i5.SubmitStoreInfoUseCase(
+        storeInfoRepoImpl: gh<_i640.AddEditStoreRepo>()));
+    gh.factory<_i477.EditPersonalInfoUseCase>(() =>
+        _i477.EditPersonalInfoUseCase(
+            personalInfoRepoImpl: gh<_i792.PersonalInfoRepo>()));
+    gh.factory<_i639.GetPersonalInfoUseCase>(() => _i639.GetPersonalInfoUseCase(
+        personalInfoRepoImpl: gh<_i792.PersonalInfoRepo>()));
+    gh.factory<_i584.AddNewShipmentUseCase>(() => _i584.AddNewShipmentUseCase(
+        shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
+    gh.factory<_i447.GetStoreDetailsUseCase>(() => _i447.GetStoreDetailsUseCase(
+        shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
+    gh.factory<_i968.GetCustomerDetailsUseCase>(() =>
+        _i968.GetCustomerDetailsUseCase(
+            shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
+    gh.factory<_i760.DeleteAccountUseCase>(
+        () => _i760.DeleteAccountUseCase(moreRepoImpl: gh<_i386.MoreRepo>()));
+    gh.factory<_i68.UserCardRepo>(
+        () => _i671.UserCardRepoImpl(userCardRDSImpl: gh<_i609.UserCardRDS>()));
+    gh.factory<_i854.AddEditAddressBloc>(() => _i854.AddEditAddressBloc(
+          submitAddressInfoUseCase: gh<_i465.SubmitAddressInfoUseCase>(),
+          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
+          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
+          updateAddressUseCase: gh<_i469.UpdateAddressUseCase>(),
+        ));
+    gh.factory<_i736.UserCardUseCase>(
+        () => _i736.UserCardUseCase(userCardRepoImpl: gh<_i68.UserCardRepo>()));
+    gh.factory<_i883.ShipmentSummaryBloc>(() => _i883.ShipmentSummaryBloc(
+          getStoreDetailsUseCase: gh<_i447.GetStoreDetailsUseCase>(),
+          getCustomerDetailsUseCase: gh<_i968.GetCustomerDetailsUseCase>(),
+          addNewShipmentUseCase: gh<_i584.AddNewShipmentUseCase>(),
+        ));
+    gh.factory<_i1058.EditAddressesUseCase>(() => _i1058.EditAddressesUseCase(
+        addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
+    gh.factory<_i1014.DeleteAddressesUseCase>(() =>
+        _i1014.DeleteAddressesUseCase(
+            addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
+    gh.factory<_i436.GetAddressesUseCase>(() => _i436.GetAddressesUseCase(
+        addressesBookRepoImpl: gh<_i42.AddressesBookRepo>()));
+    gh.factory<_i800.GetShippingPartnersUseCase>(() =>
+        _i800.GetShippingPartnersUseCase(
+            shippingPartnersListRepo: gh<_i874.ShippingPartnersListRepo>()));
+    gh.factory<_i833.GetStoresUseCase>(() =>
+        _i833.GetStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
+    gh.factory<_i490.DeleteStoresUseCase>(() =>
+        _i490.DeleteStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
+    gh.factory<_i299.ShipmentPaymentBloc>(() => _i299.ShipmentPaymentBloc(
+        createPaymentUseCase: gh<_i694.CreatePaymentUseCase>()));
+    gh.factory<_i260.UserCardBloc>(
+        () => _i260.UserCardBloc(userCardUseCase: gh<_i736.UserCardUseCase>()));
+    gh.factory<_i22.LogInBloc>(
+        () => _i22.LogInBloc(logInUseCase: gh<_i356.LogInUseCase>()));
+    gh.factory<_i105.MoreBloc>(() =>
+        _i105.MoreBloc(deleteAccountUseCase: gh<_i760.DeleteAccountUseCase>()));
+    gh.factory<_i613.VerifyOtpBloc>(() => _i613.VerifyOtpBloc(
+          logInUseCase: gh<_i356.LogInUseCase>(),
+          confirmLogInUseCase: gh<_i233.ConfirmLogInUseCase>(),
+        ));
+    gh.factory<_i1030.AddressWidgetsRepo>(() => _i572.AddressWidgetsRepoImpl(
+        addressWidgetsRDSImpl: gh<_i369.AddressWidgetsRDS>()));
+    gh.factory<_i135.ShipmentProvidersBloc>(() => _i135.ShipmentProvidersBloc(
+        getShipmentProvidersUseCase: gh<_i897.GetShipmentProvidersUseCase>()));
+    gh.factory<_i23.PersonalInfoBloc>(() => _i23.PersonalInfoBloc(
+          submitPersonalInfoUseCase: gh<_i477.EditPersonalInfoUseCase>(),
+          getPersonalInfoUseCase: gh<_i639.GetPersonalInfoUseCase>(),
+        ));
+    gh.factory<_i396.SubmitBusinessInfoUseCase>(() =>
+        _i396.SubmitBusinessInfoUseCase(
+            businessInfoRepoImpl: gh<_i192.BusinessInfoRepo>()));
+    gh.factory<_i437.GetShipmentsListUseCase>(() =>
+        _i437.GetShipmentsListUseCase(
+            shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i580.GetServiceProvidersListUseCase>(() =>
+        _i580.GetServiceProvidersListUseCase(
+            shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i462.AddEditStoreBloc>(() => _i462.AddEditStoreBloc(
+          submitStoreInfoUseCase: gh<_i5.SubmitStoreInfoUseCase>(),
+          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
+          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
+          editStoreUseCase: gh<_i987.EditStoreUseCase>(),
+        ));
+    gh.factory<_i959.StoresListBloc>(() => _i959.StoresListBloc(
+          getStoresUseCase: gh<_i833.GetStoresUseCase>(),
+          deleteStoresUseCase: gh<_i490.DeleteStoresUseCase>(),
+        ));
+    gh.factory<_i684.BusinessInfoBloc>(() => _i684.BusinessInfoBloc(
+        submitBusinessInfoUseCase: gh<_i396.SubmitBusinessInfoUseCase>()));
+    gh.factory<_i613.AddressesBookBloc>(() => _i613.AddressesBookBloc(
+          getAddressesUseCase: gh<_i436.GetAddressesUseCase>(),
+          getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
+          getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
+          getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
+          editAddressesUseCase: gh<_i1058.EditAddressesUseCase>(),
+          deleteAddressesUseCase: gh<_i1014.DeleteAddressesUseCase>(),
+        ));
+    gh.factory<_i927.RequestNewShipmentBloc>(() => _i927.RequestNewShipmentBloc(
+          getCustomersAddressesUseCase: gh<_i436.GetAddressesUseCase>(),
+          getStoresUseCase: gh<_i833.GetStoresUseCase>(),
+        ));
+    gh.factory<_i234.ShippingPartnersBloc>(() => _i234.ShippingPartnersBloc(
+        getShippingPartnersUseCase: gh<_i800.GetShippingPartnersUseCase>()));
+    gh.factory<_i414.ShipmentsBloc>(() => _i414.ShipmentsBloc(
+          getShipmentsListUseCase: gh<_i437.GetShipmentsListUseCase>(),
+          getStoresUseCase: gh<_i833.GetStoresUseCase>(),
+          getServiceProvidersListUseCase:
+              gh<_i580.GetServiceProvidersListUseCase>(),
+        ));
     return this;
   }
 }
 
-class _$InjectableModule extends _i101.InjectableModule {}
+class _$InjectableModule extends _i847.InjectableModule {}

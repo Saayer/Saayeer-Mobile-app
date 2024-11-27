@@ -4,26 +4,26 @@ part of 'log_in_bloc.dart';
 class LogInState extends Equatable {
   final StateHelper stateHelper;
   final AutovalidateMode autoValidateMode;
-  final LogInEntity? logInEntity;
-  final SubmitLogInEntity? submitLogInEntity;
+  final LoginRequestDto? loginRequestDto;
+  final LoginResponseDto? responseLogInEntity;
 
   const LogInState(
       {this.stateHelper = const StateHelper(requestState: RequestState.LOADED),
       this.autoValidateMode = AutovalidateMode.disabled,
-      this.logInEntity,
-      this.submitLogInEntity});
+      this.loginRequestDto,
+      this.responseLogInEntity});
 
   LogInState copyWith({
     StateHelper? stateHelper,
     AutovalidateMode? autoValidateMode,
-    LogInEntity? logInEntity,
-    SubmitLogInEntity? submitLogInEntity,
+    LoginRequestDto? loginRequestDto,
+    LoginResponseDto? submitLogInEntity,
   }) {
     return LogInState(
       stateHelper: stateHelper ?? this.stateHelper,
       autoValidateMode: autoValidateMode ?? this.autoValidateMode,
-      logInEntity: logInEntity ?? this.logInEntity,
-      submitLogInEntity: submitLogInEntity ?? this.submitLogInEntity,
+      loginRequestDto: loginRequestDto ?? this.loginRequestDto,
+      responseLogInEntity: submitLogInEntity ?? this.responseLogInEntity,
     );
   }
 
@@ -31,7 +31,7 @@ class LogInState extends Equatable {
   List<Object?> get props => [
         stateHelper,
         autoValidateMode,
-        logInEntity,
-        submitLogInEntity,
+        loginRequestDto,
+        responseLogInEntity,
       ];
 }

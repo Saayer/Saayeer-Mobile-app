@@ -1,0 +1,2165 @@
+---
+openapi: 3.0.1
+info:
+  title: Saayer API
+  version: v-29-dev
+servers:
+  - url: "/saayer-29/app"
+paths:
+  "/api/Accounting/create-payment":
+    post:
+      tags:
+        - Accounting
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/PaymentAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/PaymentAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/PaymentAddDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CreatePaymentResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CreatePaymentResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CreatePaymentResponse"
+  "/api/AddressLookups/Countries":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/AddressLookups/Governorates/{countryId}":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: countryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/AddressLookups/Cities/{governorateId}":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: governorateId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CityGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CityGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CityGetDto"
+  "/api/AddressLookups/Areas/{cityId}":
+    get:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: cityId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/Auth/signup-client":
+    post:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/LoginRequestDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/LoginRequestDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/LoginRequestDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/LoginResponseDto"
+  "/api/Auth/token":
+    post:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/TokenRequestDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/TokenRequestDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/TokenRequestDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/TokenResponseDto"
+  "/api/Auth":
+    delete:
+      tags:
+        - Auth
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/ClientDashboard/shipments-perStatus":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse"
+  "/api/ClientDashboard/shipments-perDay":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+  "/api/ClientDashboard/paid-perDay":
+    post:
+      tags:
+        - ClientDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+  "/api/Clients":
+    get:
+      tags:
+        - Clients
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+    put:
+      tags:
+        - Clients
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ClientAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ClientAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ClientAddDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ClientGetDto"
+  "/api/Customers":
+    get:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+    put:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerAddDto"
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerAddDto"
+      responses:
+        '201':
+          description: Created
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+  "/api/Customers/{id}":
+    get:
+      tags:
+        - Customers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CustomerGetDto"
+    delete:
+      tags:
+        - Customers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/Customers/GetCustomersBy":
+    post:
+      tags:
+        - Customers
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerQuery"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerQuery"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/CustomerQuery"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CustomerGetDto"
+  "/api/Experimental/shipment-createdAt":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentCreatedAtRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  "/api/Experimental/add-shipment-status":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/Experimental_ShipmentStatusAdd"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  "/api/Experimental/log":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/Experimental/error":
+    get:
+      tags:
+        - Experimental
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/Logistics/service-costs":
+    post:
+      tags:
+        - Logistics
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentCostDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentCostDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentCostDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ServiceCost"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ServiceCost"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ServiceCost"
+  "/api/Logistics/services":
+    get:
+      tags:
+        - Logistics
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/LogisticsServiceBase"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/LogisticsServiceBase"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/LogisticsServiceBase"
+  "/api/Shipments":
+    get:
+      tags:
+        - Shipments
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+    post:
+      tags:
+        - Shipments
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentAddDto"
+      responses:
+        '201':
+          description: Created
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+  "/api/Shipments/{id}":
+    get:
+      tags:
+        - Shipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentGetDto"
+    delete:
+      tags:
+        - Shipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  "/api/Shipments/getby":
+    post:
+      tags:
+        - Shipments
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentQuery"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentQuery"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentQuery"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto"
+  "/api/ShipmentTracing/aramex-webhook":
+    get:
+      tags:
+        - ShipmentTracing
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/AramexWebhookRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+  "/api/ShipmentTracing/Shipment-Statuses/{id}":
+    get:
+      tags:
+        - ShipmentTracing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentStatusGetDto"
+  "/api/Stores":
+    get:
+      tags:
+        - Stores
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/StoreGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/StoreGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/StoreGetDto"
+    put:
+      tags:
+        - Stores
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/StoreAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/StoreAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/StoreAddDto"
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Stores
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/StoreAddDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/StoreAddDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/StoreAddDto"
+      responses:
+        '201':
+          description: Created
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+  "/api/Stores/{id}":
+    get:
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/StoreGetDto"
+    delete:
+      tags:
+        - Stores
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    AddressLookUpDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name_en:
+          type: string
+          nullable: true
+        name_ar:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AddressableAddDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AmountPerDateDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        amount:
+          type: number
+          format: double
+      additionalProperties: false
+    AmountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: number
+          format: double
+        amounts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/AmountPerDateDto"
+          nullable: true
+      additionalProperties: false
+    AramexWebhookRequest:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        value:
+          allOf:
+            - "$ref": "#/components/schemas/AramexWebhookValue"
+          nullable: true
+      additionalProperties: false
+    AramexWebhookValue:
+      type: object
+      properties:
+        waybillNumber:
+          type: string
+          nullable: true
+        updateCode:
+          type: string
+          nullable: true
+        updateDateTime:
+          type: string
+          nullable: true
+        updateLocation:
+          type: string
+          nullable: true
+        comments:
+          type: string
+          nullable: true
+        problemCode:
+          type: string
+          nullable: true
+        orderNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CityGetDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name_en:
+          type: string
+          nullable: true
+        name_ar:
+          type: string
+          nullable: true
+        aramexPickupAvailable:
+          type: boolean
+        aramexDeliveryAvailable:
+          type: boolean
+      additionalProperties: false
+    ClientAddDto:
+      type: object
+      properties:
+        fullName:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        businessName:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ClientGetDto:
+      type: object
+      properties:
+        fullName:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        businessName:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CountPerDateItemDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          nullable: true
+        count:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CountPerDateResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        counts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CountPerDateItemDto"
+          nullable: true
+      additionalProperties: false
+    CreatePaymentResponse:
+      type: object
+      properties:
+        hasError:
+          type: boolean
+        errorMessages:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ErrorMessage"
+          nullable: true
+        shipment:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentGetDto"
+          nullable: true
+        createShipmentStatuses:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CreateShipmentStatus"
+          nullable: true
+      additionalProperties: false
+    CreateShipmentStatus:
+      enum:
+        - Pickup_Not_Created
+      type: string
+    CustomerAddDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        customerId:
+          type: integer
+          format: int64
+          nullable: true
+        fullName:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        phoneNo2:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CustomerGetDto:
+      type: object
+      properties:
+        addressDetails:
+          maxLength: 100
+          minLength: 1
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        citySplId:
+          type: string
+          nullable: true
+        countryName_en:
+          type: string
+          nullable: true
+        countryName_ar:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        governorateName_en:
+          type: string
+          nullable: true
+        governorateName_ar:
+          type: string
+          nullable: true
+        cityName_en:
+          type: string
+          nullable: true
+        cityAramexName:
+          type: string
+          nullable: true
+        cityName_ar:
+          type: string
+          nullable: true
+        areaName_en:
+          type: string
+          nullable: true
+        areaName_ar:
+          type: string
+          nullable: true
+        customerId:
+          type: integer
+          format: int64
+        fullName:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        phoneNo2:
+          type: string
+          nullable: true
+        totalShipments:
+          type: integer
+          format: int64
+          nullable: true
+        lastShipmentDate:
+          type: string
+          format: date-time
+          nullable: true
+        totalPaid:
+          type: number
+          format: double
+          nullable: true
+        totalGain:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    CustomerQuery:
+      type: object
+      properties:
+        general:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+          nullable: true
+        governorateId:
+          type: integer
+          format: int32
+          nullable: true
+        cityId:
+          type: integer
+          format: int32
+          nullable: true
+        shipmentDateFrom:
+          type: string
+          format: date-time
+          nullable: true
+        shipmentDateTo:
+          type: string
+          format: date-time
+          nullable: true
+        totalShipmentsMin:
+          type: integer
+          format: int32
+          nullable: true
+        totalShipmentsMax:
+          type: integer
+          format: int32
+          nullable: true
+        skip:
+          type: integer
+          format: int32
+          nullable: true
+        take:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    Customer_ShipmentGetDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        countryName_en:
+          type: string
+          nullable: true
+        countryName_ar:
+          type: string
+          nullable: true
+        governorateName_en:
+          type: string
+          nullable: true
+        governorateName_ar:
+          type: string
+          nullable: true
+        cityName_en:
+          type: string
+          nullable: true
+        cityName_ar:
+          type: string
+          nullable: true
+        areaName_en:
+          type: string
+          nullable: true
+        areaName_ar:
+          type: string
+          nullable: true
+        fullName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DateRangeDto:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    ErrorCodes:
+      enum:
+        - Save_Payment
+        - Update_Shipment_Status
+        - Logistics_API
+      type: string
+    ErrorMessage:
+      type: object
+      properties:
+        code:
+          allOf:
+            - "$ref": "#/components/schemas/ErrorCodes"
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Experimental_ShipmentCreatedAtRequest:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        shipmentId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Experimental_ShipmentStatusAdd:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    LoginRequestDto:
+      type: object
+      properties:
+        phoneNo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LoginResponseDto:
+      type: object
+      properties:
+        hasError:
+          type: boolean
+        errorMessage:
+          type: string
+          nullable: true
+        statusCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LogisticsServiceBase:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        company:
+          type: string
+          nullable: true
+          readOnly: true
+        isImplemented:
+          type: boolean
+          readOnly: true
+        workDaysMinimum:
+          type: integer
+          format: int32
+          readOnly: true
+        workDaysMaximum:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    PaymentAddDto:
+      required:
+        - amount
+        - currency
+        - fee
+        - shipmentId
+        - transactionId
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        currency:
+          minLength: 1
+          type: string
+        fee:
+          type: number
+          format: double
+        transactionId:
+          minLength: 1
+          type: string
+        sourceCompany:
+          type: string
+          nullable: true
+        sourceGateway_id:
+          type: string
+          nullable: true
+        sourceMessage:
+          type: string
+          nullable: true
+        sourceName:
+          type: string
+          nullable: true
+        sourceNumber:
+          type: string
+          nullable: true
+        sourceReference_Number:
+          type: string
+          nullable: true
+        sourceType:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ServiceCost:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        company:
+          type: string
+          nullable: true
+        cost:
+          type: number
+          format: double
+        workDaysMaximum:
+          type: integer
+          format: int32
+        workDaysMinimum:
+          type: integer
+          format: int32
+        estimatedShipmentDays:
+          type: string
+          nullable: true
+        hasError:
+          type: boolean
+        errorMessage:
+          type: string
+          nullable: true
+        isImplemented:
+          type: boolean
+      additionalProperties: false
+    ShipmentAddDto:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+          nullable: true
+        length:
+          type: number
+          format: float
+        height:
+          type: number
+          format: float
+        width:
+          type: number
+          format: float
+        weight:
+          type: number
+          format: float
+        contentDesc:
+          type: string
+          nullable: true
+        contentValue:
+          type: number
+          format: double
+          nullable: true
+        cost:
+          type: number
+          format: double
+          nullable: true
+        logisticServiceName:
+          type: string
+          nullable: true
+        senderCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        senderStoreId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverStoreId:
+          type: integer
+          format: int64
+          nullable: true
+      additionalProperties: false
+    ShipmentCostDto:
+      type: object
+      properties:
+        length:
+          type: number
+          format: float
+        height:
+          type: number
+          format: float
+        weight:
+          type: number
+          format: float
+        width:
+          type: number
+          format: float
+        contentDesc:
+          type: string
+          nullable: true
+        contentValue:
+          type: number
+          format: double
+          nullable: true
+        sender_Address:
+          allOf:
+            - "$ref": "#/components/schemas/AddressableAddDto"
+          nullable: true
+        receiver_Address:
+          allOf:
+            - "$ref": "#/components/schemas/AddressableAddDto"
+          nullable: true
+      additionalProperties: false
+    ShipmentGetDto:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        length:
+          type: number
+          format: float
+        height:
+          type: number
+          format: float
+        width:
+          type: number
+          format: float
+        weight:
+          type: number
+          format: float
+        contentDesc:
+          type: string
+          nullable: true
+        contentValue:
+          type: number
+          format: double
+          nullable: true
+        cost:
+          type: number
+          format: double
+          nullable: true
+        createdAt:
+          type: string
+        logisticServiceName:
+          type: string
+          nullable: true
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+          nullable: true
+        labelURL:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+        senderCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        senderStoreId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverStoreId:
+          type: integer
+          format: int64
+          nullable: true
+        senderCustomer:
+          allOf:
+            - "$ref": "#/components/schemas/Customer_ShipmentGetDto"
+          nullable: true
+        receiverCustomer:
+          allOf:
+            - "$ref": "#/components/schemas/Customer_ShipmentGetDto"
+          nullable: true
+        senderStore:
+          allOf:
+            - "$ref": "#/components/schemas/Store_ShipmentGetDto"
+          nullable: true
+        receiverStore:
+          allOf:
+            - "$ref": "#/components/schemas/Store_ShipmentGetDto"
+          nullable: true
+      additionalProperties: false
+    ShipmentQuery:
+      type: object
+      properties:
+        general:
+          type: string
+          nullable: true
+        shippingDateFrom:
+          type: string
+          format: date-time
+          nullable: true
+        shippingDateTo:
+          type: string
+          format: date-time
+          nullable: true
+        logisticServiceName:
+          type: string
+          nullable: true
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+          nullable: true
+        storeId:
+          type: integer
+          format: int64
+          nullable: true
+        isReturn:
+          type: boolean
+          nullable: true
+        customerId:
+          type: integer
+          format: int64
+          nullable: true
+        skip:
+          type: integer
+          format: int32
+          nullable: true
+        take:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    ShipmentStatusEnum:
+      enum:
+        - Pending
+        - Paid
+        - Requested
+        - Picked
+        - OnTheWay
+        - Delivered
+        - NeedAction
+        - UnKnown
+        - Canceled
+        - HasError
+      type: string
+    ShipmentStatusGetDto:
+      type: object
+      properties:
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+        description:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+      additionalProperties: false
+    ShipmentsCountResponse:
+      type: object
+      properties:
+        totalShipments:
+          type: integer
+          format: int32
+        requestedShipments:
+          type: integer
+          format: int32
+        pickedShipments:
+          type: integer
+          format: int32
+        onTheWayShipments:
+          type: integer
+          format: int32
+        deliveredShipments:
+          type: integer
+          format: int32
+      additionalProperties: false
+    StoreAddDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        storeId:
+          type: integer
+          format: int64
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        financialRecordNumber:
+          type: string
+          nullable: true
+        freelanceCertificateNumber:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    StoreGetDto:
+      type: object
+      properties:
+        addressDetails:
+          maxLength: 100
+          minLength: 1
+          type: string
+          nullable: true
+        zipcode:
+          type: string
+          nullable: true
+        countryId:
+          type: integer
+          format: int32
+        governorateId:
+          type: integer
+          format: int32
+        cityId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+        citySplId:
+          type: string
+          nullable: true
+        countryName_en:
+          type: string
+          nullable: true
+        countryName_ar:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        governorateName_en:
+          type: string
+          nullable: true
+        governorateName_ar:
+          type: string
+          nullable: true
+        cityName_en:
+          type: string
+          nullable: true
+        cityAramexName:
+          type: string
+          nullable: true
+        cityName_ar:
+          type: string
+          nullable: true
+        areaName_en:
+          type: string
+          nullable: true
+        areaName_ar:
+          type: string
+          nullable: true
+        storeId:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        financialRecordNumber:
+          type: string
+          nullable: true
+        freelanceCertificateNumber:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Store_ShipmentGetDto:
+      type: object
+      properties:
+        addressDetails:
+          type: string
+          nullable: true
+        countryName_en:
+          type: string
+          nullable: true
+        countryName_ar:
+          type: string
+          nullable: true
+        governorateName_en:
+          type: string
+          nullable: true
+        governorateName_ar:
+          type: string
+          nullable: true
+        cityName_en:
+          type: string
+          nullable: true
+        cityName_ar:
+          type: string
+          nullable: true
+        areaName_en:
+          type: string
+          nullable: true
+        areaName_ar:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TokenReponseStatus:
+      enum:
+        - Success
+        - Invalid_OTP_Code
+        - PhoneNumber_Not_Registered
+      type: string
+    TokenRequestDto:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          nullable: true
+        verificationCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TokenResponseDto:
+      type: object
+      properties:
+        role:
+          type: string
+          nullable: true
+        token:
+          type: string
+          nullable: true
+        expiration:
+          type: string
+          format: date-time
+        reponseStatus:
+          allOf:
+            - "$ref": "#/components/schemas/TokenReponseStatus"
+        errorMessage:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    bearer:
+      type: http
+      description: Put **_ONLY_** your JWT Bearer token on textbox below!
+      scheme: Bearer
+      bearerFormat: JWT
+security:
+  - bearer: []

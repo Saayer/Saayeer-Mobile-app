@@ -38,15 +38,15 @@ class UserCardBloc extends Bloc<UserCardEvent, UserCardState> {
     final bool isGuest = (currentUserType == CurrentUserTypes.GUEST);
     if (!isGuest) {
       emit(state.copyWith(isGuest: false));
-      final UserCardEntity? userCardEntity =
-          await SecureStorageService().getUserCardInfo();
-      if (userCardEntity != null) {
+      //final UserCardEntity? userCardEntity =
+          //await SecureStorageService().getUserCardInfo();
+      //if (userCardEntity != null) {
         emit(state.copyWith(
-            stateHelper: const StateHelper(requestState: RequestState.LOADED),
-            userCardEntity: userCardEntity));
-      } else {
-        await _getProfileStatus(emit);
-      }
+            stateHelper: const StateHelper(requestState: RequestState.SUCCESS),
+            userCardEntity: null));
+      //} else {
+        //await _getProfileStatus(emit);
+      //}
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADED),

@@ -1,1 +1,0 @@
-enum HomeErrorStatus { ERROR_GET_USER_PROFILE, ERROR_HOME }

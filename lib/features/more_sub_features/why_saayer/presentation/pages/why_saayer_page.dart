@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
@@ -16,17 +14,12 @@ class WhySaayerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-
     final WhySaayerBloc whySaayerBloc = BlocProvider.of<WhySaayerBloc>(context);
     return BlocConsumer<WhySaayerBloc, WhySaayerState>(
       buildWhen: (previousState, nextState) =>
-          (previousState.stateHelper.requestState !=
-              nextState.stateHelper.requestState),
+          (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
       listener: (context, state) {
-        final bool isLoading = (whySaayerBloc.state.stateHelper.requestState ==
-            RequestState.LOADING);
+        final bool isLoading = (whySaayerBloc.state.stateHelper.requestState == RequestState.LOADING);
         LoadingDialog.setIsLoading(context, isLoading);
         if (!isLoading) {
           if (state.stateHelper.requestState == RequestState.SUCCESS) {}
@@ -34,13 +27,6 @@ class WhySaayerPage extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final Widget dividerWidget = Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          child: Divider(
-            thickness: 0.5,
-            color: SaayerTheme().getColorsPalette.greyColor,
-          ),
-        );
         return Scaffold(
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           appBar: BaseAppBar(
@@ -48,7 +34,7 @@ class WhySaayerPage extends StatelessWidget {
             showBackLeading: true,
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +50,7 @@ class WhySaayerPage extends StatelessWidget {
 
   List<Widget> _getItemsWidgetList() {
     final Widget dividerWidget = Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Divider(
         thickness: 0.5,
         color: SaayerTheme().getColorsPalette.greyColor,
@@ -81,11 +67,11 @@ class WhySaayerPage extends StatelessWidget {
                 children: [
                   Image.asset(
                     Constants.getIconPath("ic_logo.png"),
-                    width: 30.w,
-                    height: 30.h,
+                    width: 30,
+                    height: 30,
                   ),
-                  SizedBox(
-                    width: 5.w,
+                  const SizedBox(
+                    width: 5,
                   ),
                   Text(
                     'introScreenTitle_$currentIndex'.tr(),
@@ -95,8 +81,7 @@ class WhySaayerPage extends StatelessWidget {
               ),
               subtitle: Text(
                 'introScreenDescription_$currentIndex'.tr(),
-                style: AppTextStyles.label(
-                    SaayerTheme().getColorsPalette.darkGreyColor),
+                style: AppTextStyles.label(SaayerTheme().getColorsPalette.darkGreyColor),
               )),
           if (!isLast) dividerWidget
         ],

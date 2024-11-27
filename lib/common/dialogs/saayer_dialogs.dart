@@ -1,14 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:panara_dialogs/panara_dialogs.dart';
-import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/common/dialogs/base_dialog.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
-import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
-import 'package:saayer/core/utils/theme/typography.dart';
 
 class SaayerDialogs {
   final BuildContext context =

@@ -43,11 +43,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_bill.svg
   String get icBill => 'assets/icons/ic_bill.svg';
 
+  /// File path: assets/icons/ic_clear_filter.svg
+  String get icClearFilter => 'assets/icons/ic_clear_filter.svg';
+
   /// File path: assets/icons/ic_contact_us.svg
   String get icContactUs => 'assets/icons/ic_contact_us.svg';
 
   /// File path: assets/icons/ic_ebills.svg
   String get icEbills => 'assets/icons/ic_ebills.svg';
+
+  /// File path: assets/icons/ic_filter.svg
+  String get icFilter => 'assets/icons/ic_filter.svg';
 
   /// File path: assets/icons/ic_help.svg
   String get icHelp => 'assets/icons/ic_help.svg';
@@ -86,14 +92,33 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_my_bills.svg
   String get icMyBills => 'assets/icons/ic_my_bills.svg';
 
+  /// File path: assets/icons/ic_new_shipment.svg
+  String get icNewShipment => 'assets/icons/ic_new_shipment.svg';
+
   /// File path: assets/icons/ic_notification.svg
   String get icNotification => 'assets/icons/ic_notification.svg';
 
   /// File path: assets/icons/ic_notification2.svg
   String get icNotification2 => 'assets/icons/ic_notification2.svg';
 
+  /// File path: assets/icons/ic_privacy_policy.svg
+  String get icPrivacyPolicy => 'assets/icons/ic_privacy_policy.svg';
+
   /// File path: assets/icons/ic_profile.svg
   String get icProfile => 'assets/icons/ic_profile.svg';
+
+  /// File path: assets/icons/ic_receiver.svg
+  String get icReceiver => 'assets/icons/ic_receiver.svg';
+
+  /// File path: assets/icons/ic_replacement_refund_policy.svg
+  String get icReplacementRefundPolicy =>
+      'assets/icons/ic_replacement_refund_policy.svg';
+
+  /// File path: assets/icons/ic_reports.svg
+  String get icReports => 'assets/icons/ic_reports.svg';
+
+  /// File path: assets/icons/ic_sender.svg
+  String get icSender => 'assets/icons/ic_sender.svg';
 
   /// File path: assets/icons/ic_settings.svg
   String get icSettings => 'assets/icons/ic_settings.svg';
@@ -107,6 +132,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_shipping_rates.svg
   String get icShippingRates => 'assets/icons/ic_shipping_rates.svg';
 
+  /// File path: assets/icons/ic_terms_conditions.svg
+  String get icTermsConditions => 'assets/icons/ic_terms_conditions.svg';
+
   /// File path: assets/icons/ic_total_shipments.svg
   String get icTotalShipments => 'assets/icons/ic_total_shipments.svg';
 
@@ -118,8 +146,10 @@ class $AssetsIconsGen {
         icAddressesBookPng,
         icAddressesBookSvg,
         icBill,
+        icClearFilter,
         icContactUs,
         icEbills,
+        icFilter,
         icHelp,
         icHi,
         icHome,
@@ -131,13 +161,20 @@ class $AssetsIconsGen {
         icMore,
         icMyBalance,
         icMyBills,
+        icNewShipment,
         icNotification,
         icNotification2,
+        icPrivacyPolicy,
         icProfile,
+        icReceiver,
+        icReplacementRefundPolicy,
+        icReports,
+        icSender,
         icSettings,
         icShipment,
         icShipments,
         icShippingRates,
+        icTermsConditions,
         icTotalShipments,
         icTotalStoreRequests
       ];
@@ -181,21 +218,27 @@ class $AssetsImagesGen {
       ];
 }
 
-class $AssetsLottieGen {
-  const $AssetsLottieGen();
+class $AssetsShipmentStatusIconsGen {
+  const $AssetsShipmentStatusIconsGen();
 
-  /// File path: assets/lottie/delivered_shipment.json
-  String get deliveredShipment => 'assets/lottie/delivered_shipment.json';
+  /// File path: assets/shipment_status_icons/delivered.svg
+  String get delivered => 'assets/shipment_status_icons/delivered.svg';
 
-  /// File path: assets/lottie/paid_shipment.json
-  String get paidShipment => 'assets/lottie/paid_shipment.json';
+  /// File path: assets/shipment_status_icons/onTheWay.svg
+  String get onTheWay => 'assets/shipment_status_icons/onTheWay.svg';
 
-  /// File path: assets/lottie/received_shipment.json
-  String get receivedShipment => 'assets/lottie/received_shipment.json';
+  /// File path: assets/shipment_status_icons/picked.svg
+  String get picked => 'assets/shipment_status_icons/picked.svg';
+
+  /// File path: assets/shipment_status_icons/requested.svg
+  String get requested => 'assets/shipment_status_icons/requested.svg';
+
+  /// File path: assets/shipment_status_icons/shipments.svg
+  String get shipments => 'assets/shipment_status_icons/shipments.svg';
 
   /// List of all assets
   List<String> get values =>
-      [deliveredShipment, paidShipment, receivedShipment];
+      [delivered, onTheWay, picked, requested, shipments];
 }
 
 class $AssetsStringsGen {
@@ -217,14 +260,22 @@ class Assets {
   static const $AssetsGifsGen gifs = $AssetsGifsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const $AssetsLottieGen lottie = $AssetsLottieGen();
+  static const $AssetsShipmentStatusIconsGen shipmentStatusIcons =
+      $AssetsShipmentStatusIconsGen();
   static const $AssetsStringsGen strings = $AssetsStringsGen();
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,
@@ -244,7 +295,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,

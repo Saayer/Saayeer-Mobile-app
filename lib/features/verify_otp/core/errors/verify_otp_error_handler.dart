@@ -12,31 +12,30 @@ class VerifyOtpErrorHandler {
     required this.state,
   });
 
-  final BuildContext context =
-      getIt<NavigationService>().mainNavigatorKey.currentContext!;
+  final BuildContext context = getIt<NavigationService>().mainNavigatorKey.currentContext!;
 
   void call() {
-    _handleVerifyOtpErrorStatus(state.stateHelper.errorStatus);
+    _handleVerifyOtpErrorStatus(state.stateHelper.errorStatus, state.stateHelper.errorMessage);
   }
 
-  void _handleVerifyOtpErrorStatus(VerifyOtpErrorStatus verifyOtpErrorStatus) {
+  void _handleVerifyOtpErrorStatus(VerifyOtpErrorStatus verifyOtpErrorStatus, String errorMessage) {
     // ERROR_VERIFY_OTP
     // ERROR_RESEND_CODE
     // ERROR_CONFIRM_LOGIN
     switch (verifyOtpErrorStatus) {
       case VerifyOtpErrorStatus.ERROR_VERIFY_OTP:
         {
-          SaayerDialogs().oneBtnDialog(
-              title: "invalid_otp_error_title",
-              message: 'invalid_otp_error_description');
+          SaayerDialogs().oneBtnDialog(title: "invalid_otp_error_title", message: errorMessage);
           break;
         }
       case VerifyOtpErrorStatus.ERROR_RESEND_CODE:
+        {
+          SaayerDialogs().oneBtnDialog(title: "error_title", message: errorMessage);
+          break;
+        }
       case VerifyOtpErrorStatus.ERROR_CONFIRM_LOGIN:
         {
-          SaayerDialogs().oneBtnDialog(
-              title: "error_title",
-              message: state.submitVerifyOtpEntity?.message ?? 'error_msg');
+          SaayerDialogs().oneBtnDialog(title: "error_title", message: 'error_msg');
           break;
         }
       default:
@@ -44,7 +43,7 @@ class VerifyOtpErrorHandler {
         {
           SaayerDialogs().oneBtnDialog(
             title: "error_title",
-            message: state.submitVerifyOtpEntity?.message ?? 'error_msg',
+            message: 'error_msg',
           );
           break;
         }

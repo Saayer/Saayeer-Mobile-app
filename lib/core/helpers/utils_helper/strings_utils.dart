@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:saayer/core/services/localization/localization.dart';
 
 class StringsUtil {
   static String numToString(String num) {
@@ -105,4 +108,122 @@ class StringsUtil {
 
   static String formatCurrencyToDouble(String val) =>
       formatCurrency(double.parse(val)).split(" ")[0].replaceAll(",", ".");
+
+  static String getLanguageName({required String arName, required String enName}) {
+    if(Localization.isArabic()){
+      return arName;
+    }else {
+      return enName;
+    }
+  }
+}
+
+extension ListsExtraFunctionalities on List {
+  void putIfAbsent<T>(T item) {
+    try {
+      ///Fill the final list
+      final _finalList = this as List<T>;
+
+      ///Check if list item is already exist
+      final _existenceIndex = _finalList.indexOf(item);
+      if (_existenceIndex > -1) {
+        ///Update existed item in the linked list
+        _finalList[_existenceIndex] = item;
+      } else {
+        ///Add this item to the list
+        _finalList.add(item);
+      }
+
+      ///
+
+      return;
+    } on Exception catch (e) {
+      log(e.toString(),name: "General usage ext");
+      return;
+    }
+  }
+
+  void putIfAbsentAndRemoveIfExist<T>(T item) {
+    try {
+      ///Fill the final list
+      final _finalList = this as List<T>;
+
+      ///Check if list item is already exist
+      final _existenceIndex = _finalList.indexOf(item);
+      if (_existenceIndex > -1) {
+        ///Remove existed item in the linked list
+        _finalList.removeAt(_existenceIndex);
+      } else {
+        ///Add this item to the list
+        _finalList.add(item);
+      }
+
+      ///
+
+      return;
+    } on Exception catch (e) {
+      log(e.toString(),name: "General usage ext");
+      return;
+    }
+  }
+
+  void putIfAbsentAndRemoveIfExistConditioned<T>(T item,
+      {required bool Function(T item) condition}) {
+    try {
+      ///Fill the final list
+      final _finalList = this as List<T>;
+
+      ///Check if list item is already exist
+      final _existenceIndex = _finalList.indexWhere(condition);
+      if (_existenceIndex > -1) {
+        ///Remove existed item in the linked list
+        _finalList.removeAt(_existenceIndex);
+      } else {
+        ///Add this item to the list
+        _finalList.add(item);
+      }
+
+      ///
+
+      return;
+    } on Exception catch (e) {
+      log(e.toString(),name: "General usage ext");
+      return;
+    }
+  }
+
+  String get concatenatingListOfStrings {
+    final originList = this;
+    final requiredList = <String>[""];
+    if (originList is List<String> && originList.isNotEmpty) {
+      requiredList.addAll(originList);
+    }
+
+    return requiredList.join(" ");
+  }
+
+  String get concatenatingListOfStringsWithoutSpace {
+    final originList = this;
+    final requiredList = <String>[""];
+    if (originList is List<String> && originList.isNotEmpty) {
+      requiredList.addAll(originList);
+    }
+
+    return requiredList.join("");
+  }
+}
+
+class GlobalProcedures{
+  static T? safeGetElementFromList<T>(List<T> elements, int index) {
+    T? element;
+    try {
+      final isValidIndex = elements.asMap().containsKey(index);
+      if (isValidIndex) {
+        element = elements.elementAt(index);
+      }
+    } on Exception catch (e) {
+      log("Get element from list: ${e.toString()}");
+    }
+    return element;
+  }
 }

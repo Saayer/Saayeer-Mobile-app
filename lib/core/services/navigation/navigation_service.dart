@@ -1,43 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/services/navigation/navigation_animation_enums.dart';
-import 'package:saayer/core/services/navigation/navigation_animation_service.dart';
 
 @Singleton()
 class NavigationService {
-  final GlobalKey<NavigatorState> mainNavigatorKey =
-      GlobalKey(debugLabel: "Main Navigator");
+  final GlobalKey<NavigatorState> mainNavigatorKey = GlobalKey(debugLabel: "Main Navigator");
 
-  void navigateTo(Widget enterPage,
+  void navigateToNamed(String routeName,
           {void Function(dynamic)? onBack,
-          NavigationAnimationTypes navigationAnimationType =
-              NavigationAnimationTypes.NONE}) =>
-      Navigator.push(
+          NavigationAnimationTypes navigationAnimationType = NavigationAnimationTypes.NONE,
+          Object? arguments}) =>
+      Navigator.pushNamed(
         mainNavigatorKey.currentContext!,
-        NavigationAnimationService()(enterPage, navigationAnimationType),
+        routeName,
+        arguments: arguments,
       ).then((value) {
         if (onBack != null) {
           onBack(value);
         }
       });
 
-  void navigateAndReplacement(Widget enterPage,
-          {NavigationAnimationTypes navigationAnimationType =
-              NavigationAnimationTypes.NONE}) =>
-      Navigator.pushReplacement(
+  void navigateAndReplacementNamed(String routeName,
+          {NavigationAnimationTypes navigationAnimationType = NavigationAnimationTypes.NONE, Object? arguments}) =>
+      Navigator.pushReplacementNamed(
         mainNavigatorKey.currentContext!,
-        NavigationAnimationService()(enterPage, navigationAnimationType),
+        routeName,
+        arguments: arguments,
       );
 
-  void navigateAndFinish(Widget enterPage,
-          {NavigationAnimationTypes navigationAnimationType =
-              NavigationAnimationTypes.NONE}) =>
-      Navigator.pushAndRemoveUntil(
-          mainNavigatorKey.currentContext!,
-          NavigationAnimationService()(enterPage, navigationAnimationType),
-          (Route<dynamic> route) => false);
+  void navigateAndFinishNamed(String routeName,
+          {NavigationAnimationTypes navigationAnimationType = NavigationAnimationTypes.NONE, Object? arguments}) =>
+      Navigator.pushNamedAndRemoveUntil(
+          mainNavigatorKey.currentContext!, routeName, arguments: arguments, (Route<dynamic> route) => false);
 
-
-  void pop([dynamic result]) =>
-      Navigator.pop(mainNavigatorKey.currentContext!, result);
+  void pop([dynamic result]) => Navigator.pop(mainNavigatorKey.currentContext!, result);
 }

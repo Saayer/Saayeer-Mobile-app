@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saayer/core/helpers/utils_helper/validation_utils.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
 
@@ -11,9 +9,12 @@ class InputTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final TextInputType keyboardType;
   final bool showOnlyTextField;
+  final bool? isFieldRequired;
   final Color? fillColor, enabledBorderColor, focusedBorderColor;
-
+  final int? maxLength;
   final double? borderRadius;
+  final bool? withValidator;
+  final Function()? onTap;
 
   const InputTextField(
       {super.key,
@@ -25,6 +26,10 @@ class InputTextField extends StatelessWidget {
       this.fillColor,
       this.enabledBorderColor,
       this.focusedBorderColor,
+      this.isFieldRequired,
+      this.maxLength,
+      this.withValidator,
+      this.onTap,
       this.borderRadius});
 
   @override
@@ -36,19 +41,18 @@ class InputTextField extends StatelessWidget {
       enabledBorderColor: enabledBorderColor,
       focusedBorderColor: focusedBorderColor,
       borderRadius: borderRadius,
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'empty_field_error'.tr().replaceFirst("{}", "input".tr());
-        }
-        // if (ValidationUtils.isValidinput(value ?? "")) {
-        //   return 'invalid_field_error'
-        //       .tr()
-        //       .replaceFirst("{}", label.tr());
-        // }
-        return null;
-      },
+      maxLength: maxLength,
+      validator: (withValidator ?? true)
+          ? (value) {
+              if (value?.isEmpty ?? true) {
+                return 'empty_field_error'.tr().replaceFirst("{}", label.tr());
+              }
+              return null;
+            }
+          : null,
       keyboardType: keyboardType,
       onChanged: onChanged,
+      onTap: onTap,
     );
     if (showOnlyTextField) {
       return baseTextField;
@@ -60,11 +64,11 @@ class InputTextField extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            LabelTxt(txt: label.tr()),
+            LabelTxt(txt: (isFieldRequired ?? false) ? '${label.tr()} *' : label.tr()),
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 8.h, right: 16.w, left: 16.w),
+          margin: const EdgeInsets.only(top: 5, right: 10, left: 10),
           child: baseTextField,
         ),
       ],

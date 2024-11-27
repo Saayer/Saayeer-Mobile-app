@@ -1,10 +1,7 @@
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
-import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -15,8 +12,6 @@ import 'package:saayer/features/user_info_view_page/sub_features/business_info/c
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/core/utils/enums/enums.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/bloc/business_info_bloc.dart';
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/presentation/widgets/business_info_text_field_helper.dart';
-import 'package:saayer/features/user_info_view_page/sub_features/personal_info/core/utils/enums/enums.dart';
-import 'dart:ui' as ui;
 
 class BusinessInfoPage extends StatelessWidget {
   const BusinessInfoPage({super.key});
@@ -24,19 +19,14 @@ class BusinessInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    final UserInfoViewPageBloc userInfoViewPageBloc =
-        BlocProvider.of<UserInfoViewPageBloc>(context);
-    final BusinessInfoBloc businessInfoBloc =
-        BlocProvider.of<BusinessInfoBloc>(context);
+    final UserInfoViewPageBloc userInfoViewPageBloc = BlocProvider.of<UserInfoViewPageBloc>(context);
+    final BusinessInfoBloc businessInfoBloc = BlocProvider.of<BusinessInfoBloc>(context);
 
     return BlocConsumer<BusinessInfoBloc, BusinessInfoState>(
         buildWhen: (previousState, nextState) =>
-            (previousState.stateHelper.requestState !=
-                nextState.stateHelper.requestState),
+            (previousState.stateHelper.requestState != nextState.stateHelper.requestState),
         listener: (context, state) async {
-          final bool isLoading =
-              (state.stateHelper.requestState == RequestState.LOADING);
+          final bool isLoading = (state.stateHelper.requestState == RequestState.LOADING);
           LoadingDialog.setIsLoading(context, isLoading);
           if (!isLoading) {
             if (state.stateHelper.requestState == RequestState.SUCCESS) {
@@ -57,23 +47,19 @@ class BusinessInfoPage extends StatelessWidget {
                 width: width,
                 color: SaayerTheme().getColorsPalette.backgroundColor,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
+                  padding: const EdgeInsets.only(bottom: 50, left: 16, right: 16, top: 20),
                   child: SaayerDefaultTextButton(
                     text: "next",
-                    isEnabled: BusinessInfoTextFieldHelper.enableBusinessInfo(
-                        businessInfoBloc),
-                    borderRadius: 16.r,
+                    isEnabled: BusinessInfoTextFieldHelper.enableBusinessInfo(businessInfoBloc),
+                    borderRadius: 16,
                     onPressed: () {
-                      final bool isFormValid =
-                          (businessInfoBloc.formKey.currentState!.validate());
+                      final bool isFormValid = (businessInfoBloc.formKey.currentState!.validate());
                       isFormValid
                           ? businessInfoBloc.add(SubmitBusinessInfoData())
-                          : SaayerToast()
-                              .showErrorToast(msg: "empty_fields_error".tr());
+                          : SaayerToast().showErrorToast(msg: "empty_fields_error".tr());
                     },
                     btnWidth: width / 1.2,
-                    btnHeight: 50.h,
+                    btnHeight: 50,
                   ),
                 ),
               ),
@@ -92,11 +78,11 @@ class BusinessInfoPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            SizedBox(
-                              height: 20.h,
+                            const SizedBox(
+                              height: 20,
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -108,19 +94,17 @@ class BusinessInfoPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: 10.h,
+                            const SizedBox(
+                              height: 10,
                             ),
                             ...(BusinessInfoFieldsTypes.values
                                 .map((e) => Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 0.w, vertical: 10.h),
-                                      child: BusinessInfoTextFieldHelper()
-                                          .getTextField(businessInfoBloc, e),
+                                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                                      child: BusinessInfoTextFieldHelper().getTextField(businessInfoBloc, e),
                                     ))
                                 .toList()),
-                            SizedBox(
-                              height: 150.h,
+                            const SizedBox(
+                              height: 150,
                             ),
                           ],
                         ),

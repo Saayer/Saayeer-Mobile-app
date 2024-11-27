@@ -5,7 +5,7 @@ class UserProfileEndPoints {
   static String get getProfile {
     return EndPointBuilder.build(
             resourcePath: "GetProfile",
-            collection: const EndPointsAccountCollection())
+            collection: const EndPointsProfileCollection())
         .fullUrl;
   }
 }

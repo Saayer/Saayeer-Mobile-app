@@ -1,7 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
@@ -41,30 +38,30 @@ class EmptyStatusWidget extends StatelessWidget {
     return Center(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 16.h,
+                height: 16,
               ),
               Stack(
                 alignment: Alignment.center,
                 children: [
                   CircleAvatar(
-                    radius: (size + 5).r,
+                    radius: (size + 5),
                     backgroundColor:
                         SaayerTheme().getColorsPalette.blackTextColor,
                     child: CircleAvatar(
-                      radius: size.r,
+                      radius: size,
                       backgroundColor:
                           SaayerTheme().getColorsPalette.backgroundColor,
                       child: iconWidget ??
                           SvgPicture.asset(
                             Constants.getIconPath("ic_$iconName.svg"),
-                            width: size.w,
-                            height: size.h,
+                            width: size,
+                            height: size,
                             color:
                                 SaayerTheme().getColorsPalette.blackTextColor,
                           ),
@@ -73,9 +70,9 @@ class EmptyStatusWidget extends StatelessWidget {
                   Transform.rotate(
                     angle: 180,
                     child: SizedBox(
-                      width: width / (dividerWidth),
+                      width: 200,
                       child: Divider(
-                        thickness: 5.w,
+                        thickness: 5,
                         color: SaayerTheme().getColorsPalette.blackTextColor,
                       ),
                     ),
@@ -83,7 +80,7 @@ class EmptyStatusWidget extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 30.h,
+                height: 30,
               ),
               Text(
                 title,
@@ -91,7 +88,7 @@ class EmptyStatusWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 20.h,
+                height: 20,
               ),
               Text(
                 desc,
@@ -100,31 +97,31 @@ class EmptyStatusWidget extends StatelessWidget {
               ),
               if (hasButton) ...[
                 SizedBox(
-                  height: 10.h,
+                  height: 10,
                 ),
                 Container(
                   width: width / btnWidth,
                   color: SaayerTheme().getColorsPalette.backgroundColor,
                   child: Padding(
                     padding: EdgeInsets.only(
-                        bottom: 50.h, left: 16.w, right: 16.w, top: 20.h),
+                        bottom: 50, left: 16, right: 16, top: 20),
                     child: SaayerDefaultTextButton(
                       text: btnLabel,
                       isEnabled: true,
-                      borderRadius: 16.r,
+                      borderRadius: 16,
                       onPressed: () {
                         if (onBtnPressed != null) {
                           onBtnPressed!();
                         }
                       },
                       btnWidth: width / 1.2,
-                      btnHeight: 50.h,
+                      btnHeight: 50,
                     ),
                   ),
                 ),
               ],
               SizedBox(
-                height: 50.h,
+                height: 50,
               ),
             ],
           ),

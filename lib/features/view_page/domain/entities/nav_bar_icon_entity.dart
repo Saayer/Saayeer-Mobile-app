@@ -6,22 +6,26 @@ class NavBarIconEntity extends Equatable {
   final IconData iconData;
   final bool isSelected;
   final NavBarIconTypes navBarIconType;
+  final int index;
 
   const NavBarIconEntity({
     required this.iconData,
     required this.isSelected,
     required this.navBarIconType,
+    required this.index,
   });
 
   NavBarIconEntity copyWith({
     IconData? iconData,
     bool? isSelected,
     NavBarIconTypes? navBarIconType,
+    int? index,
   }) {
     return NavBarIconEntity(
       iconData: iconData ?? this.iconData,
       isSelected: isSelected ?? this.isSelected,
       navBarIconType: navBarIconType ?? this.navBarIconType,
+      index: index ?? this.index,
     );
   }
 
@@ -30,36 +34,46 @@ class NavBarIconEntity extends Equatable {
 }
 
 class HomeNavBarIconEntity extends NavBarIconEntity {
-  const HomeNavBarIconEntity(
-      {super.iconData = Icons.home_filled,
-      super.isSelected = false,
-      super.navBarIconType = NavBarIconTypes.HOME});
+  const HomeNavBarIconEntity({
+    super.iconData = Icons.home_filled,
+    super.isSelected = false,
+    super.navBarIconType = NavBarIconTypes.HOME,
+    super.index = 0,
+  });
 }
 
 class ShipmentsNavBarIconEntity extends NavBarIconEntity {
-  const ShipmentsNavBarIconEntity(
-      {super.iconData = Icons.local_shipping,
-      super.isSelected = false,
-      super.navBarIconType = NavBarIconTypes.SHIPMENTS});
+  const ShipmentsNavBarIconEntity({
+    super.iconData = Icons.local_shipping,
+    super.isSelected = false,
+    super.navBarIconType = NavBarIconTypes.SHIPMENTS,
+    super.index = 1,
+  });
 }
 
 class RequestShipmentNavBarIconEntity extends NavBarIconEntity {
-  const RequestShipmentNavBarIconEntity(
-      {super.iconData = Icons.add,
-        super.isSelected = false,
-        super.navBarIconType = NavBarIconTypes.REQUEST_SHIPMENT});
+  const RequestShipmentNavBarIconEntity({
+    super.iconData = Icons.add,
+    super.isSelected = false,
+    super.navBarIconType = NavBarIconTypes.REQUEST_SHIPMENT,
+    super.index = 2,
+  });
 }
 
 class ProfileNavBarIconEntity extends NavBarIconEntity {
-  const ProfileNavBarIconEntity(
-      {super.iconData = Icons.file_copy_outlined,
-      super.isSelected = false,
-      super.navBarIconType = NavBarIconTypes.PROFILE});
+  const ProfileNavBarIconEntity({
+    super.iconData = Icons.location_on,
+    super.isSelected = false,
+    super.navBarIconType = NavBarIconTypes.ADDRESESS,
+    super.index = 3,
+  });
 }
 
 class MoreNavBarIconEntity extends NavBarIconEntity {
-  const MoreNavBarIconEntity(
-      {super.iconData = Icons.more_horiz,
-      super.isSelected = false,
-      super.navBarIconType = NavBarIconTypes.MORE});
+  const MoreNavBarIconEntity({
+    super.iconData = Icons.more_horiz,
+    super.isSelected = false,
+    super.navBarIconType = NavBarIconTypes.MORE,
+    super.index = 4,
+  });
 }

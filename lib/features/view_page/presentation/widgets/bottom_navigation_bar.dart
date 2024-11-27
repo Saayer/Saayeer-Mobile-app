@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
@@ -20,7 +19,7 @@ class SaayerBottomNavigationBar extends StatelessWidget {
       },
       builder: (context, state) {
         return BottomAppBar(
-          height: 80.h,
+          height: 80,
           elevation: 2,
           //alignment: Alignment.topCenter,
           color: SaayerTheme().getColorsPalette.backgroundColor,
@@ -32,61 +31,55 @@ class SaayerBottomNavigationBar extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:
-                    viewPageBloc.navBarIconEntityList.map((navBarIconEntity) {
-                  final int index = viewPageBloc.navBarIconEntityList
-                      .indexOf(navBarIconEntity);
+                children: viewPageBloc.navBarIconEntityList.map((navBarIconEntity) {
+                  final int index = viewPageBloc.navBarIconEntityList.indexOf(navBarIconEntity);
                   final bool isMiddle = (index == 2);
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: isMiddle ? 20.w : 0,
+                        width: isMiddle ? 20 : 0,
                       ),
                       Stack(
                         alignment: Alignment.topCenter,
                         children: [
-                          SizedBox(
-                            height: 80.h,
-                            width: 60.w,
+                          const SizedBox(
+                            height: 80,
+                            width: 60,
                           ),
-                          if (navBarIconEntity.navBarIconType !=
-                              NavBarIconTypes.REQUEST_SHIPMENT)
+                          if (navBarIconEntity.navBarIconType != NavBarIconTypes.REQUEST_SHIPMENT)
                             Positioned(
-                              top: 0.h,
+                              top: 0,
                               child: NavBarIconWidget(
                                 navBarIconType: navBarIconEntity.navBarIconType,
                                 onPressed: () {
-                                  viewPageBloc.add(GoToPage(
-                                      navBarIconType:
-                                          navBarIconEntity.navBarIconType));
+                                  if (navBarIconEntity.navBarIconType == NavBarIconTypes.SHIPMENTS) {
+                                    viewPageBloc.add(const SetShipmentsFiltersValue(
+                                      initExportShipmentStatusFilter: null,
+                                      exportShipmentDateFrom: null,
+                                      exportShipmentDateTo: null,
+                                    ));
+                                  }
+                                  viewPageBloc.add(GoToPage(navBarIconType: navBarIconEntity.navBarIconType));
                                 },
                                 isSelected: navBarIconEntity.isSelected,
                               ),
                             ),
-                          if (navBarIconEntity.navBarIconType !=
-                              NavBarIconTypes.REQUEST_SHIPMENT)
+                          if (navBarIconEntity.navBarIconType != NavBarIconTypes.REQUEST_SHIPMENT)
                             Positioned(
-                              top: 35.h,
+                              top: 35,
                               child: SizedBox(
-                                width: 60.w,
+                                width: 60,
                                 child: GestureDetector(
                                   onTap: () {
-                                    viewPageBloc.add(GoToPage(
-                                        navBarIconType:
-                                            navBarIconEntity.navBarIconType));
+                                    viewPageBloc.add(GoToPage(navBarIconType: navBarIconEntity.navBarIconType));
                                   },
                                   child: Text(
                                     navBarIconEntity.navBarIconType.name.tr(),
-                                    style: AppTextStyles.xSmallLabel(
-                                        navBarIconEntity.isSelected
-                                            ? SaayerTheme()
-                                                .getColorsPalette
-                                                .primaryColor
-                                            : SaayerTheme()
-                                                .getColorsPalette
-                                                .blackTextColor),
+                                    style: AppTextStyles.xSmallLabel(navBarIconEntity.isSelected
+                                        ? SaayerTheme().getColorsPalette.primaryColor
+                                        : SaayerTheme().getColorsPalette.blackTextColor),
                                     textAlign: TextAlign.center,
                                     softWrap: true,
                                   ),
@@ -100,21 +93,17 @@ class SaayerBottomNavigationBar extends StatelessWidget {
                 }).toList(),
               ),
               Positioned(
-                top: 35.h,
+                top: 35,
                 child: SizedBox(
-                  width: 60.w,
+                  width: 60,
                   child: GestureDetector(
                     onTap: () {
-                      viewPageBloc.add(const GoToPage(
-                          navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+                      viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
                     },
                     child: Text(
                       NavBarIconTypes.REQUEST_SHIPMENT.name.tr(),
-                      style: AppTextStyles.xSmallLabel(viewPageBloc
-                              .navBarIconEntityList
-                              .firstWhere((element) =>
-                                  element.navBarIconType ==
-                                  NavBarIconTypes.REQUEST_SHIPMENT)
+                      style: AppTextStyles.xSmallLabel(viewPageBloc.navBarIconEntityList
+                              .firstWhere((element) => element.navBarIconType == NavBarIconTypes.REQUEST_SHIPMENT)
                               .isSelected
                           ? SaayerTheme().getColorsPalette.primaryColor
                           : SaayerTheme().getColorsPalette.blackTextColor),
