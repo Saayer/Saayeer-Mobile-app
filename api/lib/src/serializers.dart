@@ -23,6 +23,7 @@ import 'package:openapi/src/model/aramex_webhook_value.dart';
 import 'package:openapi/src/model/city_get_dto.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
+import 'package:openapi/src/model/clients_query.dart';
 import 'package:openapi/src/model/count_per_date_item_dto.dart';
 import 'package:openapi/src/model/count_per_date_response.dart';
 import 'package:openapi/src/model/create_payment_response.dart';
@@ -44,10 +45,13 @@ import 'package:openapi/src/model/service_cost.dart';
 import 'package:openapi/src/model/shipment_add_dto.dart';
 import 'package:openapi/src/model/shipment_cost_dto.dart';
 import 'package:openapi/src/model/shipment_get_dto.dart';
+import 'package:openapi/src/model/shipment_get_dto_extended.dart';
 import 'package:openapi/src/model/shipment_query.dart';
+import 'package:openapi/src/model/shipment_query_l_admin.dart';
 import 'package:openapi/src/model/shipment_status_enum.dart';
 import 'package:openapi/src/model/shipment_status_get_dto.dart';
 import 'package:openapi/src/model/shipments_count_response.dart';
+import 'package:openapi/src/model/shipments_count_response_l_admin.dart';
 import 'package:openapi/src/model/store_add_dto.dart';
 import 'package:openapi/src/model/store_get_dto.dart';
 import 'package:openapi/src/model/store_shipment_get_dto.dart';
@@ -67,6 +71,7 @@ part 'serializers.g.dart';
   CityGetDto,
   ClientAddDto,
   ClientGetDto,
+  ClientsQuery,
   CountPerDateItemDto,
   CountPerDateResponse,
   CreatePaymentResponse,
@@ -88,10 +93,13 @@ part 'serializers.g.dart';
   ShipmentAddDto,
   ShipmentCostDto,
   ShipmentGetDto,
+  ShipmentGetDtoExtended,
   ShipmentQuery,
+  ShipmentQueryLAdmin,
   ShipmentStatusEnum,
   ShipmentStatusGetDto,
   ShipmentsCountResponse,
+  ShipmentsCountResponseLAdmin,
   StoreAddDto,
   StoreGetDto,
   StoreShipmentGetDto,
@@ -117,8 +125,16 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<LogisticsServiceBase>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ClientGetDto)]),
+        () => ListBuilder<ClientGetDto>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(AddressLookUpDto)]),
         () => ListBuilder<AddressLookUpDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(String)]),
+        () => ListBuilder<String>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ShipmentGetDto)]),
@@ -131,6 +147,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(CustomerGetDto)]),
         () => ListBuilder<CustomerGetDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ShipmentGetDtoExtended)]),
+        () => ListBuilder<ShipmentGetDtoExtended>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

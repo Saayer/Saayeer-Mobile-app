@@ -5,16 +5,16 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-29/app*
+All URIs are relative to *http://localhost/saayer-31/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiShipmentTracingAramexWebhookGet**](ShipmentTracingApi.md#apishipmenttracingaramexwebhookget) | **GET** /api/ShipmentTracing/aramex-webhook | 
+[**apiShipmentTracingAramexWebhookPost**](ShipmentTracingApi.md#apishipmenttracingaramexwebhookpost) | **POST** /api/ShipmentTracing/aramex-webhook | 
 [**apiShipmentTracingShipmentStatusesIdGet**](ShipmentTracingApi.md#apishipmenttracingshipmentstatusesidget) | **GET** /api/ShipmentTracing/Shipment-Statuses/{id} | 
 
 
-# **apiShipmentTracingAramexWebhookGet**
-> String apiShipmentTracingAramexWebhookGet(apiKey, aramexWebhookRequest)
+# **apiShipmentTracingAramexWebhookPost**
+> String apiShipmentTracingAramexWebhookPost(apiKey, aramexWebhookRequest)
 
 
 
@@ -27,10 +27,10 @@ final String apiKey = apiKey_example; // String |
 final AramexWebhookRequest aramexWebhookRequest = ; // AramexWebhookRequest | 
 
 try {
-    final response = api.apiShipmentTracingAramexWebhookGet(apiKey, aramexWebhookRequest);
+    final response = api.apiShipmentTracingAramexWebhookPost(apiKey, aramexWebhookRequest);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ShipmentTracingApi->apiShipmentTracingAramexWebhookGet: $e\n');
+    print('Exception when calling ShipmentTracingApi->apiShipmentTracingAramexWebhookPost: $e\n');
 }
 ```
 

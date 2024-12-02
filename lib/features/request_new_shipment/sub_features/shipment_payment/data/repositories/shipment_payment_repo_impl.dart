@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/src/model/create_payment_response.dart';
 import 'package:openapi/src/model/payment_add_dto.dart';
+import 'package:openapi/src/model/shipment_get_dto.dart';
 import 'package:saayer/core/API/network_keys/network_keys.dart';
 import 'package:saayer/core/error/failure.dart';
 import 'package:saayer/core/network/network_info.dart';
@@ -33,6 +34,26 @@ class ShipmentPaymentRepoImpl implements ShipmentPaymentRepo {
         }
       } catch (e) {
         return Left(Failure(failureMessage: "createPayment failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
+
+  @override
+  Future<Either<Failure, ShipmentGetDto>> getShipmentById(int shipmentId) async{
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        final Response<ShipmentGetDto> result = await openApiConfig.openapi
+            .getShipmentsApi()
+            .apiShipmentsIdGet(id: shipmentId, apiKey: NetworkKeys.init().networkKeys.apiKey);
+        if (result.data != null) {
+          return Right(result.data!);
+        } else {
+          return Left(Failure(failureMessage: "getShipmentById failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "getShipmentById failed"));
       }
     }
     return Left(Failure(failureMessage: "No Internet Connection"));

@@ -9,23 +9,27 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/client_add_dto.dart';
-import 'package:openapi/src/model/client_get_dto.dart';
-import 'package:openapi/src/model/clients_query.dart';
+import 'package:openapi/src/model/amount_per_date_response.dart';
+import 'package:openapi/src/model/count_per_date_response.dart';
+import 'package:openapi/src/model/date_range_dto.dart';
+import 'package:openapi/src/model/shipment_get_dto_extended.dart';
+import 'package:openapi/src/model/shipment_query_l_admin.dart';
+import 'package:openapi/src/model/shipments_count_response_l_admin.dart';
 
-class ClientsApi {
+class LogisticsAdminDashboardApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const ClientsApi(this._dio, this._serializers);
+  const LogisticsAdminDashboardApi(this._dio, this._serializers);
 
-  /// apiClientsGet
+  /// apiLogisticsAdminDashboardPaidPerDayPost
   /// 
   ///
   /// Parameters:
   /// * [apiKey] 
+  /// * [dateRangeDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -33,10 +37,11 @@ class ClientsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [ClientGetDto] as data
+  /// Returns a [Future] containing a [Response] with a [AmountPerDateResponse] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<ClientGetDto>> apiClientsGet({ 
+  Future<Response<AmountPerDateResponse>> apiLogisticsAdminDashboardPaidPerDayPost({ 
     required String apiKey,
+    DateRangeDto? dateRangeDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -44,91 +49,7 @@ class ClientsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/Clients';
-    final _options = Options(
-      method: r'GET',
-      headers: <String, dynamic>{
-        r'Api-Key': apiKey,
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'http',
-            'scheme': 'Bearer',
-            'name': 'bearer',
-          },
-        ],
-        ...?extra,
-      },
-      validateStatus: validateStatus,
-    );
-
-    final _response = await _dio.request<Object>(
-      _path,
-      options: _options,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    ClientGetDto? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(ClientGetDto),
-      ) as ClientGetDto;
-
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<ClientGetDto>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
-  /// apiClientsGetbyPost
-  /// 
-  ///
-  /// Parameters:
-  /// * [apiKey] 
-  /// * [clientsQuery] 
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<ClientGetDto>] as data
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<ClientGetDto>>> apiClientsGetbyPost({ 
-    required String apiKey,
-    ClientsQuery? clientsQuery,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/api/Clients/getby';
+    final _path = r'/api/LogisticsAdminDashboard/paid-perDay';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -152,8 +73,8 @@ class ClientsApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(ClientsQuery);
-      _bodyData = clientsQuery == null ? null : _serializers.serialize(clientsQuery, specifiedType: _type);
+      const _type = FullType(DateRangeDto);
+      _bodyData = dateRangeDto == null ? null : _serializers.serialize(dateRangeDto, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(
@@ -176,14 +97,14 @@ class ClientsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<ClientGetDto>? _responseData;
+    AmountPerDateResponse? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(ClientGetDto)]),
-      ) as BuiltList<ClientGetDto>;
+        specifiedType: const FullType(AmountPerDateResponse),
+      ) as AmountPerDateResponse;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -195,7 +116,7 @@ class ClientsApi {
       );
     }
 
-    return Response<BuiltList<ClientGetDto>>(
+    return Response<AmountPerDateResponse>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -207,11 +128,12 @@ class ClientsApi {
     );
   }
 
-  /// apiClientsNamesGet
+  /// apiLogisticsAdminDashboardShipmentsPerDayPost
   /// 
   ///
   /// Parameters:
   /// * [apiKey] 
+  /// * [dateRangeDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -219,10 +141,11 @@ class ClientsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<String>] as data
+  /// Returns a [Future] containing a [Response] with a [CountPerDateResponse] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<String>>> apiClientsNamesGet({ 
+  Future<Response<CountPerDateResponse>> apiLogisticsAdminDashboardShipmentsPerDayPost({ 
     required String apiKey,
+    DateRangeDto? dateRangeDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -230,93 +153,9 @@ class ClientsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/Clients/names';
+    final _path = r'/api/LogisticsAdminDashboard/shipments-perDay';
     final _options = Options(
-      method: r'GET',
-      headers: <String, dynamic>{
-        r'Api-Key': apiKey,
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'http',
-            'scheme': 'Bearer',
-            'name': 'bearer',
-          },
-        ],
-        ...?extra,
-      },
-      validateStatus: validateStatus,
-    );
-
-    final _response = await _dio.request<Object>(
-      _path,
-      options: _options,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    BuiltList<String>? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(String)]),
-      ) as BuiltList<String>;
-
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<BuiltList<String>>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
-  /// apiClientsPut
-  /// 
-  ///
-  /// Parameters:
-  /// * [apiKey] 
-  /// * [clientAddDto] 
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [ClientGetDto] as data
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<ClientGetDto>> apiClientsPut({ 
-    required String apiKey,
-    ClientAddDto? clientAddDto,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/api/Clients';
-    final _options = Options(
-      method: r'PUT',
+      method: r'POST',
       headers: <String, dynamic>{
         r'Api-Key': apiKey,
         ...?headers,
@@ -338,8 +177,8 @@ class ClientsApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(ClientAddDto);
-      _bodyData = clientAddDto == null ? null : _serializers.serialize(clientAddDto, specifiedType: _type);
+      const _type = FullType(DateRangeDto);
+      _bodyData = dateRangeDto == null ? null : _serializers.serialize(dateRangeDto, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(
@@ -362,14 +201,14 @@ class ClientsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    ClientGetDto? _responseData;
+    CountPerDateResponse? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(ClientGetDto),
-      ) as ClientGetDto;
+        specifiedType: const FullType(CountPerDateResponse),
+      ) as CountPerDateResponse;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -381,7 +220,215 @@ class ClientsApi {
       );
     }
 
-    return Response<ClientGetDto>(
+    return Response<CountPerDateResponse>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// apiLogisticsAdminDashboardShipmentsPerStatusPost
+  /// 
+  ///
+  /// Parameters:
+  /// * [apiKey] 
+  /// * [dateRangeDto] 
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [ShipmentsCountResponseLAdmin] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<ShipmentsCountResponseLAdmin>> apiLogisticsAdminDashboardShipmentsPerStatusPost({ 
+    required String apiKey,
+    DateRangeDto? dateRangeDto,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/LogisticsAdminDashboard/shipments-perStatus';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        r'Api-Key': apiKey,
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'Bearer',
+            'name': 'bearer',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(DateRangeDto);
+      _bodyData = dateRangeDto == null ? null : _serializers.serialize(dateRangeDto, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    ShipmentsCountResponseLAdmin? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(ShipmentsCountResponseLAdmin),
+      ) as ShipmentsCountResponseLAdmin;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<ShipmentsCountResponseLAdmin>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// apiLogisticsAdminDashboardShipmentsPost
+  /// 
+  ///
+  /// Parameters:
+  /// * [apiKey] 
+  /// * [shipmentQueryLAdmin] 
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [BuiltList<ShipmentGetDtoExtended>] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<BuiltList<ShipmentGetDtoExtended>>> apiLogisticsAdminDashboardShipmentsPost({ 
+    required String apiKey,
+    ShipmentQueryLAdmin? shipmentQueryLAdmin,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/LogisticsAdminDashboard/shipments';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        r'Api-Key': apiKey,
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'Bearer',
+            'name': 'bearer',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(ShipmentQueryLAdmin);
+      _bodyData = shipmentQueryLAdmin == null ? null : _serializers.serialize(shipmentQueryLAdmin, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    BuiltList<ShipmentGetDtoExtended>? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(ShipmentGetDtoExtended)]),
+      ) as BuiltList<ShipmentGetDtoExtended>;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<BuiltList<ShipmentGetDtoExtended>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

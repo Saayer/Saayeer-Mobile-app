@@ -17,12 +17,13 @@ import 'package:openapi/src/api/clients_api.dart';
 import 'package:openapi/src/api/customers_api.dart';
 import 'package:openapi/src/api/experimental_api.dart';
 import 'package:openapi/src/api/logistics_api.dart';
+import 'package:openapi/src/api/logistics_admin_dashboard_api.dart';
 import 'package:openapi/src/api/shipment_tracing_api.dart';
 import 'package:openapi/src/api/shipments_api.dart';
 import 'package:openapi/src/api/stores_api.dart';
 
 class Openapi {
-  static const String basePath = r'http://localhost/saayer-29/app';
+  static const String basePath = r'http://localhost/saayer-31/app';
 
   final Dio dio;
   final Serializers serializers;
@@ -121,6 +122,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   LogisticsApi getLogisticsApi() {
     return LogisticsApi(dio, serializers);
+  }
+
+  /// Get LogisticsAdminDashboardApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  LogisticsAdminDashboardApi getLogisticsAdminDashboardApi() {
+    return LogisticsAdminDashboardApi(dio, serializers);
   }
 
   /// Get ShipmentTracingApi instance, base route and serializer can be overridden by a given but be careful,
