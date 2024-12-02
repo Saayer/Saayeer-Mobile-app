@@ -92,6 +92,7 @@ dependencies:
   timeline_tile: 2.0.0
   fl_chart: 0.69.0
   fl_downloader: 2.0.2
+  after_layout: 1.2.0
   flutter_web_plugins:
     sdk: flutter
   #openapi

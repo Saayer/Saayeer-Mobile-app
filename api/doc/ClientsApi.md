@@ -5,11 +5,13 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-29/app*
+All URIs are relative to *http://localhost/saayer-31/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiClientsGet**](ClientsApi.md#apiclientsget) | **GET** /api/Clients | 
+[**apiClientsGetbyPost**](ClientsApi.md#apiclientsgetbypost) | **POST** /api/Clients/getby | 
+[**apiClientsNamesGet**](ClientsApi.md#apiclientsnamesget) | **GET** /api/Clients/names | 
 [**apiClientsPut**](ClientsApi.md#apiclientsput) | **PUT** /api/Clients | 
 
 
@@ -42,6 +44,90 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ClientGetDto**](ClientGetDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiClientsGetbyPost**
+> BuiltList<ClientGetDto> apiClientsGetbyPost(apiKey, clientsQuery)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getClientsApi();
+final String apiKey = apiKey_example; // String | 
+final ClientsQuery clientsQuery = ; // ClientsQuery | 
+
+try {
+    final response = api.apiClientsGetbyPost(apiKey, clientsQuery);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling ClientsApi->apiClientsGetbyPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+ **clientsQuery** | [**ClientsQuery**](ClientsQuery.md)|  | [optional] 
+
+### Return type
+
+[**BuiltList&lt;ClientGetDto&gt;**](ClientGetDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiClientsNamesGet**
+> BuiltList<String> apiClientsNamesGet(apiKey)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getClientsApi();
+final String apiKey = apiKey_example; // String | 
+
+try {
+    final response = api.apiClientsNamesGet(apiKey);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling ClientsApi->apiClientsNamesGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+
+### Return type
+
+**BuiltList&lt;String&gt;**
 
 ### Authorization
 

@@ -14,6 +14,7 @@ import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/features/request_new_shipment/data/core/utils/state_helper/state_helper.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/domain/use_cases/create_payment_usecase.dart';
+import 'package:saayer/features/request_new_shipment/sub_features/shipment_payment/domain/use_cases/get_shipment_usecase.dart';
 
 part 'shipment_payment_event.dart';
 
@@ -22,13 +23,16 @@ part 'shipment_payment_state.dart';
 @Injectable()
 class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentState> {
   final CreatePaymentUseCase createPaymentUseCase;
+  final GetShipmentUseCase getShipmentUseCase;
 
   ShipmentPaymentBloc({
     required this.createPaymentUseCase,
+    required this.getShipmentUseCase,
   }) : super(const ShipmentPaymentState()) {
     on<CreatePayment>(_createPayment);
     on<CreateWebPayment>(_createWebPayment);
     on<HandleWebCallbackResponse>(_handleWebCallbackResponse);
+    on<GetShipmentById>(_getShipmentById);
   }
 
   FutureOr<void> _createPayment(CreatePayment event, Emitter<ShipmentPaymentState> emit) async {
@@ -112,11 +116,24 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
       if (rightResult != null) {
         ///
         if (rightResult.hasError ?? false) {
-          emit(state.copyWith(
-              stateHelper: state.stateHelper.copyWith(
-                  requestState: PaymentRequestState.WEBERROR,
-                  errorMessage: rightResult.errorMessages?.first.message ?? 'create_payment_failed',
-                  errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT)));
+          if (rightResult.errorMessages?.first.code == ErrorCodes.paymentAlreadyExist &&
+              rightResult.shipment?.labelURL == null) {
+            /// work around for duplicated [createPayment] call twice .. it's happen in Safari browser
+            /// todo: need another solution
+            add(GetShipmentById(shipmentId: rightResult.shipment?.shipmentId ?? 0));
+          } else if (rightResult.errorMessages?.first.code == ErrorCodes.paymentAlreadyExist &&
+              rightResult.shipment?.labelURL != null) {
+            emit(state.copyWith(
+              stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.WEBSUCCESS, loadingMessage: ""),
+              createPaymentResponse: rightResult,
+            ));
+          } else {
+            emit(state.copyWith(
+                stateHelper: state.stateHelper.copyWith(
+                    requestState: PaymentRequestState.WEBERROR,
+                    errorMessage: rightResult.errorMessages?.first.message ?? 'create_payment_failed',
+                    errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT)));
+          }
         } else {
           emit(state.copyWith(
             stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.WEBSUCCESS, loadingMessage: ""),
@@ -187,5 +204,51 @@ class ShipmentPaymentBloc extends Bloc<ShipmentPaymentEvent, ShipmentPaymentStat
         break;
       default:
     }
+  }
+
+  FutureOr<void> _getShipmentById(GetShipmentById event, Emitter<ShipmentPaymentState> emit) async {
+    emit(state.copyWith(
+      stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.WEBLOADING),
+    ));
+
+    await Future.delayed(
+      const Duration(seconds: 15),
+      () async {
+        final Either<Failure, ShipmentGetDto?> result = await getShipmentUseCase(event.shipmentId);
+        if (result.isLeft()) {
+          final Failure leftResult = (result as Left).value;
+          log("left CreatePayment $leftResult");
+          emit(state.copyWith(
+              stateHelper: state.stateHelper.copyWith(
+                  requestState: PaymentRequestState.WEBERROR,
+                  errorMessage: 'create_payment_failed',
+                  errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT)));
+        } else {
+          final ShipmentGetDto? rightResult = (result as Right).value;
+          log("right CreatePayment $rightResult");
+          if (rightResult != null) {
+            ///
+            if (rightResult.labelURL == null) {
+              add(GetShipmentById(shipmentId: rightResult.shipmentId ?? 0));
+            } else {
+              emit(state.copyWith(
+                stateHelper: const PaymentStateHelper(requestState: PaymentRequestState.WEBSUCCESS, loadingMessage: ""),
+                createPaymentResponse: CreatePaymentResponse((b) => b
+                  ..shipment.labelURL = rightResult.labelURL
+                  ..shipment.shipmentId = rightResult.shipmentId),
+              ));
+            }
+          } else {
+            log("", name: "SubmitPersonalInfoEvent error");
+            emit(state.copyWith(
+              stateHelper: const PaymentStateHelper(
+                  requestState: PaymentRequestState.WEBERROR,
+                  errorMessage: 'create_payment_failed',
+                  errorStatus: ShipmentPaymentErrorStatus.ERROR_CREATE_WEB_PAYMENT),
+            ));
+          }
+        }
+      },
+    );
   }
 }
