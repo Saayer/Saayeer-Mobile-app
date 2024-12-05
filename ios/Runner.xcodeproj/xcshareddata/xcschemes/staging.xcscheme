@@ -52,7 +52,7 @@
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release-production"
+      buildConfiguration = "Profile-staging"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -69,10 +69,10 @@
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug-production">
+      buildConfiguration = "Release-staging">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release-production"
+      buildConfiguration = "Profile-production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
