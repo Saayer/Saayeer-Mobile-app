@@ -87,3 +87,16 @@ class HandleWebCallbackResponse extends ShipmentPaymentEvent {
         shipmentId,
       ];
 }
+
+class GetShipmentById extends ShipmentPaymentEvent {
+  final int shipmentId;
+
+  const GetShipmentById({
+    required this.shipmentId,
+  });
+
+  @override
+  List<Object?> get props => [
+        shipmentId,
+      ];
+}

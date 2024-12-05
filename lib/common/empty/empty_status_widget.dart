@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saayer/common/buttons/saayer_default_text_button.dart';
+import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -33,17 +33,16 @@ class EmptyStatusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     return Center(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Stack(
@@ -51,19 +50,15 @@ class EmptyStatusWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: (size + 5),
-                    backgroundColor:
-                        SaayerTheme().getColorsPalette.blackTextColor,
+                    backgroundColor: SaayerTheme().getColorsPalette.blackTextColor,
                     child: CircleAvatar(
                       radius: size,
-                      backgroundColor:
-                          SaayerTheme().getColorsPalette.backgroundColor,
+                      backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
                       child: iconWidget ??
-                          SvgPicture.asset(
-                            Constants.getIconPath("ic_$iconName.svg"),
-                            width: size,
-                            height: size,
-                            color:
-                                SaayerTheme().getColorsPalette.blackTextColor,
+                          GenericSvgWidget(
+                            path: Constants.getIconPath("ic_$iconName.svg"),
+                            size: size,
+                            color: SaayerTheme().getColorsPalette.blackTextColor,
                           ),
                     ),
                   ),
@@ -103,8 +98,7 @@ class EmptyStatusWidget extends StatelessWidget {
                   width: width / btnWidth,
                   color: SaayerTheme().getColorsPalette.backgroundColor,
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 50, left: 16, right: 16, top: 20),
+                    padding: EdgeInsets.only(bottom: 50, left: 16, right: 16, top: 20),
                     child: SaayerDefaultTextButton(
                       text: btnLabel,
                       isEnabled: true,

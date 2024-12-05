@@ -8,22 +8,21 @@ class GenericSvgWidget extends StatelessWidget {
   final String? baseUrl;
   final VoidCallback? onTap;
   final String? semanticLabel;
-  final Color? color;
+  final Color color;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final double? size;
 
   const GenericSvgWidget(
-      {Key? key,
+      {super.key,
       required this.path,
       this.baseUrl,
       this.onTap,
       this.semanticLabel,
-      this.color,
+      required this.color,
       this.padding,
       this.margin,
-      this.size})
-      : super(key: key);
+      this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -55,44 +54,44 @@ class GenericSvgWidget extends StatelessWidget {
 
 class SvgAssetWidget extends StatelessWidget {
   const SvgAssetWidget({
-    Key? key,
+    super.key,
     required this.path,
     required this.semanticLabel,
     required this.color,
-  }) : super(key: key);
+  });
 
   final String path;
   final String? semanticLabel;
-  final Color? color;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       path,
       semanticsLabel: semanticLabel,
-      color: color,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     );
   }
 }
 
 class SvgNetworkWidget extends StatelessWidget {
   const SvgNetworkWidget({
-    Key? key,
+    super.key,
     required this.path,
     required this.semanticLabel,
     required this.color,
-  }) : super(key: key);
+  });
 
   final String path;
   final String? semanticLabel;
-  final Color? color;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return SvgPicture.network(
       path,
       semanticsLabel: semanticLabel,
-      color: color,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     );
   }
 }

@@ -17,6 +17,12 @@ class _$ClientGetDto extends ClientGetDto {
   final String? businessName;
   @override
   final String? address;
+  @override
+  final int? totalShipments;
+  @override
+  final double? totalPaid;
+  @override
+  final int? numberOfStores;
 
   factory _$ClientGetDto([void Function(ClientGetDtoBuilder)? updates]) =>
       (new ClientGetDtoBuilder()..update(updates))._build();
@@ -26,7 +32,10 @@ class _$ClientGetDto extends ClientGetDto {
       this.phoneNo,
       this.email,
       this.businessName,
-      this.address})
+      this.address,
+      this.totalShipments,
+      this.totalPaid,
+      this.numberOfStores})
       : super._();
 
   @override
@@ -44,7 +53,10 @@ class _$ClientGetDto extends ClientGetDto {
         phoneNo == other.phoneNo &&
         email == other.email &&
         businessName == other.businessName &&
-        address == other.address;
+        address == other.address &&
+        totalShipments == other.totalShipments &&
+        totalPaid == other.totalPaid &&
+        numberOfStores == other.numberOfStores;
   }
 
   @override
@@ -55,6 +67,9 @@ class _$ClientGetDto extends ClientGetDto {
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, businessName.hashCode);
     _$hash = $jc(_$hash, address.hashCode);
+    _$hash = $jc(_$hash, totalShipments.hashCode);
+    _$hash = $jc(_$hash, totalPaid.hashCode);
+    _$hash = $jc(_$hash, numberOfStores.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -66,7 +81,10 @@ class _$ClientGetDto extends ClientGetDto {
           ..add('phoneNo', phoneNo)
           ..add('email', email)
           ..add('businessName', businessName)
-          ..add('address', address))
+          ..add('address', address)
+          ..add('totalShipments', totalShipments)
+          ..add('totalPaid', totalPaid)
+          ..add('numberOfStores', numberOfStores))
         .toString();
   }
 }
@@ -95,6 +113,20 @@ class ClientGetDtoBuilder
   String? get address => _$this._address;
   set address(String? address) => _$this._address = address;
 
+  int? _totalShipments;
+  int? get totalShipments => _$this._totalShipments;
+  set totalShipments(int? totalShipments) =>
+      _$this._totalShipments = totalShipments;
+
+  double? _totalPaid;
+  double? get totalPaid => _$this._totalPaid;
+  set totalPaid(double? totalPaid) => _$this._totalPaid = totalPaid;
+
+  int? _numberOfStores;
+  int? get numberOfStores => _$this._numberOfStores;
+  set numberOfStores(int? numberOfStores) =>
+      _$this._numberOfStores = numberOfStores;
+
   ClientGetDtoBuilder() {
     ClientGetDto._defaults(this);
   }
@@ -107,6 +139,9 @@ class ClientGetDtoBuilder
       _email = $v.email;
       _businessName = $v.businessName;
       _address = $v.address;
+      _totalShipments = $v.totalShipments;
+      _totalPaid = $v.totalPaid;
+      _numberOfStores = $v.numberOfStores;
       _$v = null;
     }
     return this;
@@ -133,7 +168,10 @@ class ClientGetDtoBuilder
             phoneNo: phoneNo,
             email: email,
             businessName: businessName,
-            address: address);
+            address: address,
+            totalShipments: totalShipments,
+            totalPaid: totalPaid,
+            numberOfStores: numberOfStores);
     replace(_$result);
     return _$result;
   }

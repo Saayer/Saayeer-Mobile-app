@@ -18,7 +18,7 @@ part 'error_message.g.dart';
 abstract class ErrorMessage implements Built<ErrorMessage, ErrorMessageBuilder> {
   @BuiltValueField(wireName: r'code')
   ErrorCodes? get code;
-  // enum codeEnum {  Save_Payment,  Update_Shipment_Status,  Logistics_API,  };
+  // enum codeEnum {  Save_Payment,  Update_Shipment_Status,  Logistics_API,  Payment_Already_Exist,  };
 
   @BuiltValueField(wireName: r'message')
   String? get message;

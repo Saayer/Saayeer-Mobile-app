@@ -9,7 +9,7 @@ class GenericExpansionTileWidget extends StatefulWidget {
   final List<Widget> children;
   final EdgeInsetsGeometry? childrenPadding;
   final double? iconSize;
-  final Color? iconColor;
+  final Color iconColor;
   final String? selectedFilterCount;
 
   const GenericExpansionTileWidget({
@@ -18,7 +18,7 @@ class GenericExpansionTileWidget extends StatefulWidget {
     required this.children,
     required this.iconPath,
     this.childrenPadding,
-    this.iconColor,
+    required this.iconColor,
     this.selectedFilterCount,
     this.iconSize,
   });

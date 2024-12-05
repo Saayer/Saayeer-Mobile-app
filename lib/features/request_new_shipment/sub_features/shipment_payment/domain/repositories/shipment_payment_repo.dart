@@ -4,4 +4,6 @@ import 'package:saayer/core/error/failure.dart';
 
 abstract class ShipmentPaymentRepo {
   Future<Either<Failure, CreatePaymentResponse>> createPayment(PaymentAddDto paymentDto);
+
+  Future<Either<Failure, ShipmentGetDto>> getShipmentById(int shipmentId);
 }

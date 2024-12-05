@@ -15,6 +15,7 @@ doc/ClientAddDto.md
 doc/ClientDashboardApi.md
 doc/ClientGetDto.md
 doc/ClientsApi.md
+doc/ClientsQuery.md
 doc/CountPerDateItemDto.md
 doc/CountPerDateResponse.md
 doc/CreatePaymentResponse.md
@@ -32,6 +33,7 @@ doc/ExperimentalShipmentCreatedAtRequest.md
 doc/ExperimentalShipmentStatusAdd.md
 doc/LoginRequestDto.md
 doc/LoginResponseDto.md
+doc/LogisticsAdminDashboardApi.md
 doc/LogisticsApi.md
 doc/LogisticsServiceBase.md
 doc/PaymentAddDto.md
@@ -39,12 +41,15 @@ doc/ServiceCost.md
 doc/ShipmentAddDto.md
 doc/ShipmentCostDto.md
 doc/ShipmentGetDto.md
+doc/ShipmentGetDtoExtended.md
 doc/ShipmentQuery.md
+doc/ShipmentQueryLAdmin.md
 doc/ShipmentStatusEnum.md
 doc/ShipmentStatusGetDto.md
 doc/ShipmentTracingApi.md
 doc/ShipmentsApi.md
 doc/ShipmentsCountResponse.md
+doc/ShipmentsCountResponseLAdmin.md
 doc/StoreAddDto.md
 doc/StoreGetDto.md
 doc/StoreShipmentGetDto.md
@@ -61,6 +66,7 @@ lib/src/api/client_dashboard_api.dart
 lib/src/api/clients_api.dart
 lib/src/api/customers_api.dart
 lib/src/api/experimental_api.dart
+lib/src/api/logistics_admin_dashboard_api.dart
 lib/src/api/logistics_api.dart
 lib/src/api/shipment_tracing_api.dart
 lib/src/api/shipments_api.dart
@@ -81,6 +87,7 @@ lib/src/model/aramex_webhook_value.dart
 lib/src/model/city_get_dto.dart
 lib/src/model/client_add_dto.dart
 lib/src/model/client_get_dto.dart
+lib/src/model/clients_query.dart
 lib/src/model/count_per_date_item_dto.dart
 lib/src/model/count_per_date_response.dart
 lib/src/model/create_payment_response.dart
@@ -103,10 +110,13 @@ lib/src/model/service_cost.dart
 lib/src/model/shipment_add_dto.dart
 lib/src/model/shipment_cost_dto.dart
 lib/src/model/shipment_get_dto.dart
+lib/src/model/shipment_get_dto_extended.dart
 lib/src/model/shipment_query.dart
+lib/src/model/shipment_query_l_admin.dart
 lib/src/model/shipment_status_enum.dart
 lib/src/model/shipment_status_get_dto.dart
 lib/src/model/shipments_count_response.dart
+lib/src/model/shipments_count_response_l_admin.dart
 lib/src/model/store_add_dto.dart
 lib/src/model/store_get_dto.dart
 lib/src/model/store_shipment_get_dto.dart
@@ -115,4 +125,8 @@ lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/create_shipment_status_test.dart
+test/clients_query_test.dart
+test/logistics_admin_dashboard_api_test.dart
+test/shipment_get_dto_extended_test.dart
+test/shipment_query_l_admin_test.dart
+test/shipments_count_response_l_admin_test.dart

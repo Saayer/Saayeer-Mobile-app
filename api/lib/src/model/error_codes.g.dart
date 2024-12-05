@@ -10,6 +10,8 @@ const ErrorCodes _$savePayment = const ErrorCodes._('savePayment');
 const ErrorCodes _$updateShipmentStatus =
     const ErrorCodes._('updateShipmentStatus');
 const ErrorCodes _$logisticsAPI = const ErrorCodes._('logisticsAPI');
+const ErrorCodes _$paymentAlreadyExist =
+    const ErrorCodes._('paymentAlreadyExist');
 
 ErrorCodes _$valueOf(String name) {
   switch (name) {
@@ -19,6 +21,8 @@ ErrorCodes _$valueOf(String name) {
       return _$updateShipmentStatus;
     case 'logisticsAPI':
       return _$logisticsAPI;
+    case 'paymentAlreadyExist':
+      return _$paymentAlreadyExist;
     default:
       throw new ArgumentError(name);
   }
@@ -29,6 +33,7 @@ final BuiltSet<ErrorCodes> _$values =
   _$savePayment,
   _$updateShipmentStatus,
   _$logisticsAPI,
+  _$paymentAlreadyExist,
 ]);
 
 class _$ErrorCodesMeta {
@@ -36,6 +41,7 @@ class _$ErrorCodesMeta {
   ErrorCodes get savePayment => _$savePayment;
   ErrorCodes get updateShipmentStatus => _$updateShipmentStatus;
   ErrorCodes get logisticsAPI => _$logisticsAPI;
+  ErrorCodes get paymentAlreadyExist => _$paymentAlreadyExist;
   ErrorCodes valueOf(String name) => _$valueOf(name);
   BuiltSet<ErrorCodes> get values => _$values;
 }
@@ -52,11 +58,13 @@ class _$ErrorCodesSerializer implements PrimitiveSerializer<ErrorCodes> {
     'savePayment': 'Save_Payment',
     'updateShipmentStatus': 'Update_Shipment_Status',
     'logisticsAPI': 'Logistics_API',
+    'paymentAlreadyExist': 'Payment_Already_Exist',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'Save_Payment': 'savePayment',
     'Update_Shipment_Status': 'updateShipmentStatus',
     'Logistics_API': 'logisticsAPI',
+    'Payment_Already_Exist': 'paymentAlreadyExist',
   };
 
   @override

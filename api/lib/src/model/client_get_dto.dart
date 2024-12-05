@@ -16,6 +16,9 @@ part 'client_get_dto.g.dart';
 /// * [email] 
 /// * [businessName] 
 /// * [address] 
+/// * [totalShipments] 
+/// * [totalPaid] 
+/// * [numberOfStores] 
 @BuiltValue()
 abstract class ClientGetDto implements Built<ClientGetDto, ClientGetDtoBuilder> {
   @BuiltValueField(wireName: r'fullName')
@@ -32,6 +35,15 @@ abstract class ClientGetDto implements Built<ClientGetDto, ClientGetDtoBuilder> 
 
   @BuiltValueField(wireName: r'address')
   String? get address;
+
+  @BuiltValueField(wireName: r'totalShipments')
+  int? get totalShipments;
+
+  @BuiltValueField(wireName: r'totalPaid')
+  double? get totalPaid;
+
+  @BuiltValueField(wireName: r'numberOfStores')
+  int? get numberOfStores;
 
   ClientGetDto._();
 
@@ -89,6 +101,27 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
       yield serializers.serialize(
         object.address,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.totalShipments != null) {
+      yield r'totalShipments';
+      yield serializers.serialize(
+        object.totalShipments,
+        specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.totalPaid != null) {
+      yield r'totalPaid';
+      yield serializers.serialize(
+        object.totalPaid,
+        specifiedType: const FullType.nullable(double),
+      );
+    }
+    if (object.numberOfStores != null) {
+      yield r'numberOfStores';
+      yield serializers.serialize(
+        object.numberOfStores,
+        specifiedType: const FullType.nullable(int),
       );
     }
   }
@@ -153,6 +186,30 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.address = valueDes;
+          break;
+        case r'totalShipments':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.totalShipments = valueDes;
+          break;
+        case r'totalPaid':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(double),
+          ) as double?;
+          if (valueDes == null) continue;
+          result.totalPaid = valueDes;
+          break;
+        case r'numberOfStores':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.numberOfStores = valueDes;
           break;
         default:
           unhandled.add(key);
