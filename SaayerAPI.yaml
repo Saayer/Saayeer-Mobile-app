@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-29-dev
+  version: v-30-dev
 servers:
-  - url: "/saayer-29/app"
+  - url: "/saayer-31/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -434,6 +434,78 @@ paths:
             text/json:
               schema:
                 "$ref": "#/components/schemas/ClientGetDto"
+  "/api/Clients/names":
+    get:
+      tags:
+        - Clients
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: string
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  "/api/Clients/getby":
+    post:
+      tags:
+        - Clients
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ClientsQuery"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ClientsQuery"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ClientsQuery"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ClientGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ClientGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ClientGetDto"
   "/api/Customers":
     get:
       tags:
@@ -787,6 +859,160 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/LogisticsServiceBase"
+  "/api/LogisticsAdminDashboard/shipments-perStatus":
+    post:
+      tags:
+        - LogisticsAdminDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse_LAdmin"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse_LAdmin"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ShipmentsCountResponse_LAdmin"
+  "/api/LogisticsAdminDashboard/shipments-perDay":
+    post:
+      tags:
+        - LogisticsAdminDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CountPerDateResponse"
+  "/api/LogisticsAdminDashboard/paid-perDay":
+    post:
+      tags:
+        - LogisticsAdminDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/DateRangeDto"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/AmountPerDateResponse"
+  "/api/LogisticsAdminDashboard/shipments":
+    post:
+      tags:
+        - LogisticsAdminDashboard
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentQuery_LAdmin"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentQuery_LAdmin"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/ShipmentQuery_LAdmin"
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto_Extended"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto_Extended"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ShipmentGetDto_Extended"
   "/api/Shipments":
     get:
       tags:
@@ -943,7 +1169,7 @@ paths:
                 items:
                   "$ref": "#/components/schemas/ShipmentGetDto"
   "/api/ShipmentTracing/aramex-webhook":
-    get:
+    post:
       tags:
         - ShipmentTracing
       parameters:
@@ -1302,6 +1528,36 @@ components:
         address:
           type: string
           nullable: true
+        totalShipments:
+          type: integer
+          format: int32
+          nullable: true
+        totalPaid:
+          type: number
+          format: double
+          nullable: true
+        numberOfStores:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    ClientsQuery:
+      type: object
+      properties:
+        general:
+          type: string
+          nullable: true
+        phoneNo:
+          type: string
+          nullable: true
+        totalShipments_min:
+          type: integer
+          format: int32
+          nullable: true
+        totalShipments_max:
+          type: integer
+          format: int32
+          nullable: true
       additionalProperties: false
     CountPerDateItemDto:
       type: object
@@ -1573,6 +1829,7 @@ components:
         - Save_Payment
         - Update_Shipment_Status
         - Logistics_API
+        - Payment_Already_Exist
       type: string
     ErrorMessage:
       type: object
@@ -1891,6 +2148,88 @@ components:
             - "$ref": "#/components/schemas/Store_ShipmentGetDto"
           nullable: true
       additionalProperties: false
+    ShipmentGetDto_Extended:
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          format: int64
+        length:
+          type: number
+          format: float
+        height:
+          type: number
+          format: float
+        width:
+          type: number
+          format: float
+        weight:
+          type: number
+          format: float
+        contentDesc:
+          type: string
+          nullable: true
+        contentValue:
+          type: number
+          format: double
+          nullable: true
+        cost:
+          type: number
+          format: double
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        logisticServiceName:
+          type: string
+          nullable: true
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+          nullable: true
+        labelURL:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+        senderCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverCustomerId:
+          type: integer
+          format: int64
+          nullable: true
+        senderStoreId:
+          type: integer
+          format: int64
+          nullable: true
+        receiverStoreId:
+          type: integer
+          format: int64
+          nullable: true
+        senderCustomer:
+          allOf:
+            - "$ref": "#/components/schemas/Customer_ShipmentGetDto"
+          nullable: true
+        receiverCustomer:
+          allOf:
+            - "$ref": "#/components/schemas/Customer_ShipmentGetDto"
+          nullable: true
+        senderStore:
+          allOf:
+            - "$ref": "#/components/schemas/Store_ShipmentGetDto"
+          nullable: true
+        receiverStore:
+          allOf:
+            - "$ref": "#/components/schemas/Store_ShipmentGetDto"
+          nullable: true
+        client:
+          allOf:
+            - "$ref": "#/components/schemas/ClientGetDto"
+          nullable: true
+      additionalProperties: false
     ShipmentQuery:
       type: object
       properties:
@@ -1920,6 +2259,43 @@ components:
           type: boolean
           nullable: true
         customerId:
+          type: integer
+          format: int64
+          nullable: true
+        skip:
+          type: integer
+          format: int32
+          nullable: true
+        take:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    ShipmentQuery_LAdmin:
+      type: object
+      properties:
+        general:
+          type: string
+          nullable: true
+        shippingDateFrom:
+          type: string
+          format: date-time
+          nullable: true
+        shippingDateTo:
+          type: string
+          format: date-time
+          nullable: true
+        logisticServiceName:
+          type: string
+          nullable: true
+        status:
+          allOf:
+            - "$ref": "#/components/schemas/ShipmentStatusEnum"
+          nullable: true
+        isReturn:
+          type: boolean
+          nullable: true
+        clientId:
           type: integer
           format: int64
           nullable: true
@@ -1973,6 +2349,28 @@ components:
           type: integer
           format: int32
         deliveredShipments:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ShipmentsCountResponse_LAdmin:
+      type: object
+      properties:
+        totalShipments:
+          type: integer
+          format: int32
+        requestedShipments:
+          type: integer
+          format: int32
+        pickedShipments:
+          type: integer
+          format: int32
+        onTheWayShipments:
+          type: integer
+          format: int32
+        deliveredShipments:
+          type: integer
+          format: int32
+        clientsCount:
           type: integer
           format: int32
       additionalProperties: false

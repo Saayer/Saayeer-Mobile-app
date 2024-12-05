@@ -21,7 +21,7 @@ class ShipmentTracingApi {
 
   const ShipmentTracingApi(this._dio, this._serializers);
 
-  /// apiShipmentTracingAramexWebhookGet
+  /// apiShipmentTracingAramexWebhookPost
   /// 
   ///
   /// Parameters:
@@ -36,7 +36,7 @@ class ShipmentTracingApi {
   ///
   /// Returns a [Future] containing a [Response] with a [String] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<String>> apiShipmentTracingAramexWebhookGet({ 
+  Future<Response<String>> apiShipmentTracingAramexWebhookPost({ 
     required String apiKey,
     AramexWebhookRequest? aramexWebhookRequest,
     CancelToken? cancelToken,
@@ -48,7 +48,7 @@ class ShipmentTracingApi {
   }) async {
     final _path = r'/api/ShipmentTracing/aramex-webhook';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         r'Api-Key': apiKey,
         ...?headers,

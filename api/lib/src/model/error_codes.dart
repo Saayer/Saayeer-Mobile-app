@@ -17,6 +17,8 @@ class ErrorCodes extends EnumClass {
   static const ErrorCodes updateShipmentStatus = _$updateShipmentStatus;
   @BuiltValueEnumConst(wireName: r'Logistics_API')
   static const ErrorCodes logisticsAPI = _$logisticsAPI;
+  @BuiltValueEnumConst(wireName: r'Payment_Already_Exist')
+  static const ErrorCodes paymentAlreadyExist = _$paymentAlreadyExist;
 
   static Serializer<ErrorCodes> get serializer => _$errorCodesSerializer;
 
