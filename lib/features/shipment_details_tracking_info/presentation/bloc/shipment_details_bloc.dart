@@ -64,7 +64,13 @@ class ShipmentDetailsBloc extends Bloc<ShipmentDetailsEvent, ShipmentDetailsStat
           emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: "")));
 
           if (rightResult.isNotEmpty) {
-            for (var item in rightResult) {
+            var allStatusListSortedByDate = rightResult;
+            allStatusListSortedByDate.sort((a, b) {
+              var aDate = a.createdAt;
+              var bDate = b.createdAt;
+              return aDate!.compareTo(bDate!);
+            });
+            for (var item in allStatusListSortedByDate) {
               trackingList.putIfAbsent(item);
 
               /// update the main tracking list
@@ -73,12 +79,15 @@ class ShipmentDetailsBloc extends Bloc<ShipmentDetailsEvent, ShipmentDetailsStat
                   mainTrackingList[i] = item;
                 }
               }
+            }
 
-              /// add any error tracking item not equal to main tracking list [requested-picked-onTheWay-delivered]
-              if (!mainTrackingList.any((element) => element.status == item.status) &&
-                  item.status != ShipmentStatusEnum.paid) {
-                errorTrackingItem = item;
-              }
+            /// add last error tracking item not equal to main tracking list [paid-requested-picked-onTheWay-delivered]
+            if (allStatusListSortedByDate.last.status != ShipmentStatusEnum.paid &&
+                allStatusListSortedByDate.last.status != ShipmentStatusEnum.requested &&
+                allStatusListSortedByDate.last.status != ShipmentStatusEnum.picked &&
+                allStatusListSortedByDate.last.status != ShipmentStatusEnum.onTheWay &&
+                allStatusListSortedByDate.last.status != ShipmentStatusEnum.delivered) {
+              errorTrackingItem = allStatusListSortedByDate.last;
             }
           }
 

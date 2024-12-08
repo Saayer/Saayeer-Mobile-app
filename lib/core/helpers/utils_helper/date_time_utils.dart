@@ -82,7 +82,7 @@ class DateTimeUtil {
       // Convert UTC DateTime to local DateTime
       DateTime localDateTime = utcDateTime.toLocal();
       // Format the local DateTime to the desired format
-      DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
+      DateFormat formatter = DateFormat('yyyy/MM/dd hh:mm a',"en_US");
       String formattedDateTime = formatter.format(localDateTime);
 
       return formattedDateTime;
