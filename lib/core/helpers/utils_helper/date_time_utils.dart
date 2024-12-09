@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:saayer/core/services/localization/localization.dart';
 
 class DateTimeUtil {
   ///
@@ -82,10 +83,20 @@ class DateTimeUtil {
       // Convert UTC DateTime to local DateTime
       DateTime localDateTime = utcDateTime.toLocal();
       // Format the local DateTime to the desired format
-      DateFormat formatter = DateFormat('yyyy/MM/dd hh:mm a',"en_US");
+      DateFormat formatter = DateFormat('a hh:mm yyyy/MM/dd', 'en-US');
       String formattedDateTime = formatter.format(localDateTime);
+      // Replace AM/PM with Arabic equivalents depends on app language
+      formattedDateTime = formattedDateTime.replaceAll('AM', 'am'.tr()).replaceAll('PM', 'pm'.tr());
 
-      return formattedDateTime;
+      // Ensure that it starts with am or pm
+      List<String> parts = formattedDateTime.split(' ');
+      String amPm = parts[0]; // Extract am or pm
+      String time = parts[1]; // Extract time
+      String dateYear = parts[2]; // Extract date
+
+      // Final result starting with am or pm
+      String finalOutput = Localization.isEnglish() ? '$amPm $dateYear $time' : '$amPm $time $dateYear';
+      return finalOutput;
     } on Exception catch (e) {
       log('Error in DateFormat: $e');
       return date;

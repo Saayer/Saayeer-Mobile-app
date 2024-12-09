@@ -30,17 +30,17 @@ class EndPointsBaseUrl {
       case FlavorType.STAGING:
         {
           return const EndPointsBaseUrl._internal(
-            baseUrl: "https://app.saayer.com:9002/saayer-29/app",
+            baseUrl: "https://app.saayer.com:9002/saayer-33/app",
             baseRedirectUrl: 'https://app.saayer.com:9002',
-            hrefForWeb: '/saayer-29/web',
+            hrefForWeb: '/saayer-33/web',
           );
         }
       case FlavorType.PROD:
         {
           return const EndPointsBaseUrl._internal(
-            baseUrl: "https://app.saayer.com/v31/app",
+            baseUrl: "https://app.saayer.com/v33/app",
             baseRedirectUrl: 'https://app.saayer.com',
-            hrefForWeb: '/v31/web',
+            hrefForWeb: '/v33/web',
           );
         }
     }
