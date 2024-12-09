@@ -81,11 +81,13 @@ class ShipmentDetailsBloc extends Bloc<ShipmentDetailsEvent, ShipmentDetailsStat
               }
             }
 
-            /// add last error tracking item not equal to main tracking list [paid-requested-picked-onTheWay-delivered]
+            /// add last error tracking item not equal to main tracking list
+            /// [paid-requested-picked-onTheWay-delivered] and ignored status
             if (allStatusListSortedByDate.last.status != ShipmentStatusEnum.paid &&
                 allStatusListSortedByDate.last.status != ShipmentStatusEnum.requested &&
                 allStatusListSortedByDate.last.status != ShipmentStatusEnum.picked &&
                 allStatusListSortedByDate.last.status != ShipmentStatusEnum.onTheWay &&
+                allStatusListSortedByDate.last.status != ShipmentStatusEnum.ignored &&
                 allStatusListSortedByDate.last.status != ShipmentStatusEnum.delivered) {
               errorTrackingItem = allStatusListSortedByDate.last;
             }

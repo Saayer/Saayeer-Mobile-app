@@ -14,6 +14,7 @@ doc/CityGetDto.md
 doc/ClientAddDto.md
 doc/ClientDashboardApi.md
 doc/ClientGetDto.md
+doc/ClientNamesRespnse.md
 doc/ClientsApi.md
 doc/ClientsQuery.md
 doc/CountPerDateItemDto.md
@@ -87,6 +88,7 @@ lib/src/model/aramex_webhook_value.dart
 lib/src/model/city_get_dto.dart
 lib/src/model/client_add_dto.dart
 lib/src/model/client_get_dto.dart
+lib/src/model/client_names_respnse.dart
 lib/src/model/clients_query.dart
 lib/src/model/count_per_date_item_dto.dart
 lib/src/model/count_per_date_response.dart
@@ -125,8 +127,4 @@ lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/clients_query_test.dart
-test/logistics_admin_dashboard_api_test.dart
-test/shipment_get_dto_extended_test.dart
-test/shipment_query_l_admin_test.dart
-test/shipments_count_response_l_admin_test.dart
+test/client_names_respnse_test.dart

@@ -15,6 +15,10 @@ class _$ClientsQuery extends ClientsQuery {
   final int? totalShipmentsMin;
   @override
   final int? totalShipmentsMax;
+  @override
+  final int? skip;
+  @override
+  final int? take;
 
   factory _$ClientsQuery([void Function(ClientsQueryBuilder)? updates]) =>
       (new ClientsQueryBuilder()..update(updates))._build();
@@ -23,7 +27,9 @@ class _$ClientsQuery extends ClientsQuery {
       {this.general,
       this.phoneNo,
       this.totalShipmentsMin,
-      this.totalShipmentsMax})
+      this.totalShipmentsMax,
+      this.skip,
+      this.take})
       : super._();
 
   @override
@@ -40,7 +46,9 @@ class _$ClientsQuery extends ClientsQuery {
         general == other.general &&
         phoneNo == other.phoneNo &&
         totalShipmentsMin == other.totalShipmentsMin &&
-        totalShipmentsMax == other.totalShipmentsMax;
+        totalShipmentsMax == other.totalShipmentsMax &&
+        skip == other.skip &&
+        take == other.take;
   }
 
   @override
@@ -50,6 +58,8 @@ class _$ClientsQuery extends ClientsQuery {
     _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jc(_$hash, totalShipmentsMin.hashCode);
     _$hash = $jc(_$hash, totalShipmentsMax.hashCode);
+    _$hash = $jc(_$hash, skip.hashCode);
+    _$hash = $jc(_$hash, take.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,7 +70,9 @@ class _$ClientsQuery extends ClientsQuery {
           ..add('general', general)
           ..add('phoneNo', phoneNo)
           ..add('totalShipmentsMin', totalShipmentsMin)
-          ..add('totalShipmentsMax', totalShipmentsMax))
+          ..add('totalShipmentsMax', totalShipmentsMax)
+          ..add('skip', skip)
+          ..add('take', take))
         .toString();
   }
 }
@@ -87,6 +99,14 @@ class ClientsQueryBuilder
   set totalShipmentsMax(int? totalShipmentsMax) =>
       _$this._totalShipmentsMax = totalShipmentsMax;
 
+  int? _skip;
+  int? get skip => _$this._skip;
+  set skip(int? skip) => _$this._skip = skip;
+
+  int? _take;
+  int? get take => _$this._take;
+  set take(int? take) => _$this._take = take;
+
   ClientsQueryBuilder() {
     ClientsQuery._defaults(this);
   }
@@ -98,6 +118,8 @@ class ClientsQueryBuilder
       _phoneNo = $v.phoneNo;
       _totalShipmentsMin = $v.totalShipmentsMin;
       _totalShipmentsMax = $v.totalShipmentsMax;
+      _skip = $v.skip;
+      _take = $v.take;
       _$v = null;
     }
     return this;
@@ -123,7 +145,9 @@ class ClientsQueryBuilder
             general: general,
             phoneNo: phoneNo,
             totalShipmentsMin: totalShipmentsMin,
-            totalShipmentsMax: totalShipmentsMax);
+            totalShipmentsMax: totalShipmentsMax,
+            skip: skip,
+            take: take);
     replace(_$result);
     return _$result;
   }
