@@ -56,7 +56,7 @@ class SaayerApp extends StatelessWidget {
               },
               overlayColor: SaayerTheme().getColorsPalette.blackColor.withOpacity(0.8),
               child: MaterialApp(
-                shortcuts: (kIsWeb)
+                shortcuts: (!kIsWeb)
                     ? null
                     : {
                         /// to work space bar in text field for IOS web browser
