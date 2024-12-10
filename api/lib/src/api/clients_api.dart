@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
+import 'package:openapi/src/model/client_names_respnse.dart';
 import 'package:openapi/src/model/clients_query.dart';
 
 class ClientsApi {
@@ -219,9 +220,9 @@ class ClientsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<String>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<ClientNamesRespnse>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<String>>> apiClientsNamesGet({ 
+  Future<Response<BuiltList<ClientNamesRespnse>>> apiClientsNamesGet({ 
     required String apiKey,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -258,14 +259,14 @@ class ClientsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<String>? _responseData;
+    BuiltList<ClientNamesRespnse>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(String)]),
-      ) as BuiltList<String>;
+        specifiedType: const FullType(BuiltList, [FullType(ClientNamesRespnse)]),
+      ) as BuiltList<ClientNamesRespnse>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -277,7 +278,7 @@ class ClientsApi {
       );
     }
 
-    return Response<BuiltList<String>>(
+    return Response<BuiltList<ClientNamesRespnse>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

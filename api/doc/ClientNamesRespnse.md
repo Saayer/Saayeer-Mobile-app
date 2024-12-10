@@ -1,4 +1,4 @@
-# openapi.model.ClientGetDto
+# openapi.model.ClientNamesRespnse
 
 ## Load the model package
 ```dart
@@ -9,14 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **clientId** | **int** |  | [optional] 
-**fullName** | **String** |  | [optional] 
-**phoneNo** | **String** |  | [optional] 
-**email** | **String** |  | [optional] 
-**businessName** | **String** |  | [optional] 
-**address** | **String** |  | [optional] 
-**totalShipments** | **int** |  | [optional] 
-**totalPaid** | **double** |  | [optional] 
-**numberOfStores** | **int** |  | [optional] 
+**label** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

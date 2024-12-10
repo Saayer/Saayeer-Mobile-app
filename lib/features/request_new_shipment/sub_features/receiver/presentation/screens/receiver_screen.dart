@@ -88,47 +88,6 @@ class _ReceiverScreenState extends State<ReceiverScreen> {
             ),
             const SizedBox(height: 10),
 
-            // ///
-            // Row(
-            //   children: [
-            //     ///
-            //     Expanded(
-            //       child: RadioListTile<SenderReceiverType>(
-            //         title: Text('store'.tr(), style: AppTextStyles.liteLabel()),
-            //         value: SenderReceiverType.store,
-            //         groupValue: requestShipmentBloc.receiverType,
-            //         activeColor: SaayerTheme().getColorsPalette.primaryColor,
-            //         onChanged: (SenderReceiverType? value) {
-            //           setState(() {
-            //             requestShipmentBloc.receiverType = value;
-            //           });
-            //         },
-            //       ),
-            //     ),
-            //
-            //     ///
-            //     Expanded(
-            //       child: RadioListTile<SenderReceiverType>(
-            //         title: Text('customer'.tr(), style: AppTextStyles.liteLabel()),
-            //         value: SenderReceiverType.customer,
-            //         groupValue: requestShipmentBloc.receiverType,
-            //         activeColor: SaayerTheme().getColorsPalette.primaryColor,
-            //         onChanged: requestShipmentBloc.senderType == SenderReceiverType.customer
-            //             ? null
-            //             : (SenderReceiverType? value) {
-            //                 if (requestShipmentBloc.receiverCustomersList.isEmpty) {
-            //                   requestShipmentBloc.add(
-            //                       const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
-            //                 }
-            //                 setState(() {
-            //                   requestShipmentBloc.receiverType = value;
-            //                 });
-            //               },
-            //       ),
-            //     ),
-            //   ],
-            // ),
-
             ///
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 500),
@@ -148,21 +107,22 @@ class _ReceiverScreenState extends State<ReceiverScreen> {
 
             ///
             SenderReceiverItemDetailsWidget(
-              onEdit: (){
-                if(requestShipmentBloc.receiverType == SenderReceiverType.store){
+              onEdit: () {
+                if (requestShipmentBloc.receiverType == SenderReceiverType.store) {
                   getIt<NavigationService>().navigateToNamed(Routes.addEditStoreNamedPage, arguments: {
                     'addEditStoreType': AddEditStoreType.editStore,
                     'storeDto': requestShipmentBloc.selectedReceiverStoreAddress,
                   }, onBack: (result) {
                     requestShipmentBloc.add(const GetStoresAddresses());
                   });
-                }else if(requestShipmentBloc.receiverType == SenderReceiverType.customer){
+                } else if (requestShipmentBloc.receiverType == SenderReceiverType.customer) {
                   getIt<NavigationService>().navigateToNamed(Routes.addEditAddressNamedPage, arguments: {
                     'addEditAddressType': AddEditAddressType.editAddress,
                     'customerModel': requestShipmentBloc.selectedReceiverCustomerAddress,
                     'isAddShipmentRequest': true,
                   }, onBack: (result) {
-                    requestShipmentBloc.add(const ResetCustomerList(requestShipmentType: RequestShipmentTypes.receiver));
+                    requestShipmentBloc
+                        .add(const ResetCustomerList(requestShipmentType: RequestShipmentTypes.receiver));
                     requestShipmentBloc
                         .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
                     if (result != null) {
@@ -280,6 +240,7 @@ class _ReceiverScreenState extends State<ReceiverScreen> {
                   'customerModel': CustomerGetDto(),
                   'isAddShipmentRequest': true,
                 }, onBack: (result) {
+                  requestShipmentBloc.add(const ResetCustomerList(requestShipmentType: RequestShipmentTypes.receiver));
                   requestShipmentBloc
                       .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.receiver));
                   if (result != null) {
