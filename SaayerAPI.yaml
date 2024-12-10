@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-30-dev
+  version: v-33-dev
 servers:
-  - url: "/saayer-31/app"
+  - url: "/saayer-33/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -452,17 +452,17 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
+                  "$ref": "#/components/schemas/ClientNamesRespnse"
             application/json:
               schema:
                 type: array
                 items:
-                  type: string
+                  "$ref": "#/components/schemas/ClientNamesRespnse"
             text/json:
               schema:
                 type: array
                 items:
-                  type: string
+                  "$ref": "#/components/schemas/ClientNamesRespnse"
   "/api/Clients/getby":
     post:
       tags:
@@ -1513,6 +1513,9 @@ components:
     ClientGetDto:
       type: object
       properties:
+        clientId:
+          type: integer
+          format: int32
         fullName:
           type: string
           nullable: true
@@ -1541,6 +1544,16 @@ components:
           format: int32
           nullable: true
       additionalProperties: false
+    ClientNamesRespnse:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int32
+        label:
+          type: string
+          nullable: true
+      additionalProperties: false
     ClientsQuery:
       type: object
       properties:
@@ -1555,6 +1568,14 @@ components:
           format: int32
           nullable: true
         totalShipments_max:
+          type: integer
+          format: int32
+          nullable: true
+        skip:
+          type: integer
+          format: int32
+          nullable: true
+        take:
           type: integer
           format: int32
           nullable: true
@@ -2320,6 +2341,7 @@ components:
         - UnKnown
         - Canceled
         - HasError
+        - Ignored
       type: string
     ShipmentStatusGetDto:
       type: object

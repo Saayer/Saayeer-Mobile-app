@@ -31,6 +31,8 @@ class ShipmentStatusEnum extends EnumClass {
   static const ShipmentStatusEnum canceled = _$canceled;
   @BuiltValueEnumConst(wireName: r'HasError')
   static const ShipmentStatusEnum hasError = _$hasError;
+  @BuiltValueEnumConst(wireName: r'Ignored')
+  static const ShipmentStatusEnum ignored = _$ignored;
 
   static Serializer<ShipmentStatusEnum> get serializer => _$shipmentStatusEnumSerializer;
 

@@ -32,6 +32,7 @@ export 'package:openapi/src/model/aramex_webhook_value.dart';
 export 'package:openapi/src/model/city_get_dto.dart';
 export 'package:openapi/src/model/client_add_dto.dart';
 export 'package:openapi/src/model/client_get_dto.dart';
+export 'package:openapi/src/model/client_names_respnse.dart';
 export 'package:openapi/src/model/clients_query.dart';
 export 'package:openapi/src/model/count_per_date_item_dto.dart';
 export 'package:openapi/src/model/count_per_date_response.dart';

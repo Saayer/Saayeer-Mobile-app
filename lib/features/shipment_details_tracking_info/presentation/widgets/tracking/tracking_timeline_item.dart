@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
@@ -46,9 +46,11 @@ class TrackingTimelineItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GenericSvgWidget(
-          path: Constants.getShipmentStatusIconPath("$label.svg"),
-          size: 50,
-          color: isComplete ? SaayerTheme().getColorsPalette.orangeColor : SaayerTheme().getColorsPalette.blackColor.withOpacity(0.2),
+            path: Constants.getShipmentStatusIconPath("$label.svg"),
+            size: 50,
+            color: isComplete
+                ? SaayerTheme().getColorsPalette.orangeColor
+                : SaayerTheme().getColorsPalette.blackColor.withOpacity(0.2),
           ),
         ],
       ),
@@ -96,13 +98,29 @@ class TrackingTimelineItem extends StatelessWidget {
                         height: 10,
                       ),
                       if (isComplete)
-                        Text(
-                          createdDate,
-                          softWrap: true,
-                          overflow: TextOverflow.clip,
-                          style: AppTextStyles.smallLabel(isComplete
-                              ? SaayerTheme().getColorsPalette.blackColor
-                              : SaayerTheme().getColorsPalette.greyColor),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: Text(
+                                createdDate.split(' ').sublist(1).join(' '),
+                                softWrap: true,
+                                overflow: TextOverflow.clip,
+                                style: AppTextStyles.smallLabel(isComplete
+                                    ? SaayerTheme().getColorsPalette.blackColor
+                                    : SaayerTheme().getColorsPalette.greyColor),
+                              ),
+                            ),
+                            Text(
+                              ' ${createdDate.split(' ').first}',
+                              softWrap: true,
+                              overflow: TextOverflow.clip,
+                              style: AppTextStyles.smallLabel(isComplete
+                                  ? SaayerTheme().getColorsPalette.blackColor
+                                  : SaayerTheme().getColorsPalette.greyColor),
+                            ),
+                          ],
                         ),
                       const SizedBox(
                         height: 30,

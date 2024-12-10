@@ -173,10 +173,12 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           }
           if (event.requestShipmentTypes == RequestShipmentTypes.sender) {
             senderCustomersList = rightResult;
-            if (selectedSenderCustomerAddress != null) {
-              var customerId = selectedSenderCustomerAddress!.customerId;
-              selectedSenderCustomerAddress =
-                  senderCustomersList.firstWhere((address) => address.customerId == customerId);
+            if(senderCustomersList.isNotEmpty){
+              if (selectedSenderCustomerAddress != null) {
+                var customerId = selectedSenderCustomerAddress!.customerId;
+                selectedSenderCustomerAddress =
+                    senderCustomersList.firstWhere((address) => address.customerId == customerId);
+              }
             }
 
             emit(state.copyWith(
@@ -184,10 +186,12 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
                 customersAddresses: senderCustomersList));
           } else {
             receiverCustomersList = rightResult;
-            if (selectedReceiverCustomerAddress != null) {
-              var customerId = selectedReceiverCustomerAddress!.customerId;
-              selectedReceiverCustomerAddress =
-                  receiverCustomersList.firstWhere((address) => address.customerId == customerId);
+            if (receiverCustomersList.isNotEmpty) {
+              if (selectedReceiverCustomerAddress != null) {
+                var customerId = selectedReceiverCustomerAddress!.customerId;
+                selectedReceiverCustomerAddress =
+                    receiverCustomersList.firstWhere((address) => address.customerId == customerId);
+              }
             }
             emit(state.copyWith(
                 stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),

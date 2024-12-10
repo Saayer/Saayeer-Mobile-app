@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:openapi/openapi.dart';
@@ -19,26 +19,32 @@ class ShipmentInfo extends StatelessWidget {
     List<InfoRow> infoRowList = [
       InfoRow(
         iconData: LineIcons.weight,
+        isDateTime: false,
         text: "${shipmentDto.weight} ${"kg".tr()}",
       ),
       InfoRow(
         iconData: LineIcons.textWidth,
+        isDateTime: false,
         text: "${shipmentDto.width} ${"cm".tr()}",
       ),
       InfoRow(
         iconData: LineIcons.textHeight,
+        isDateTime: false,
         text: "${shipmentDto.height} ${"cm".tr()}",
       ),
       InfoRow(
         iconData: Icons.expand,
+        isDateTime: false,
         text: "${shipmentDto.length} ${"cm".tr()}",
       ),
       InfoRow(
         iconData: LineIcons.info,
+        isDateTime: false,
         text: "${shipmentDto.contentDesc}",
       ),
       InfoRow(
         iconData: Icons.date_range,
+        isDateTime: true,
         text: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '',
       ),
     ];
@@ -123,11 +129,13 @@ class ShipmentInfo extends StatelessWidget {
 class InfoRow extends StatelessWidget {
   final IconData iconData;
   final String text;
+  final bool isDateTime;
 
   const InfoRow({
     super.key,
     required this.iconData,
     required this.text,
+    required this.isDateTime,
   });
 
   @override
@@ -143,12 +151,23 @@ class InfoRow extends StatelessWidget {
         const SizedBox(
           width: 5,
         ),
-        Text(
-          text,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.smallLabel(),
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Text(
+            isDateTime ? text.split(' ').sublist(1).join(' ') : text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.smallLabel(),
+          ),
         ),
+        isDateTime
+            ? Text(
+                ' ${text.split(' ').first}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.smallLabel(),
+              )
+            : Container(),
       ],
     );
   }
