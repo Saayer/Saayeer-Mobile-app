@@ -82,7 +82,7 @@ class _AddEditStorePageState extends State<AddEditStorePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: SaayerDefaultTextButton(
-        text: "submit",
+        text: "confirm",
         isEnabled: enableAddress(storeInfoBloc),
         borderRadius: 16,
         onPressed: () {

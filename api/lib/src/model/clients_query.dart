@@ -15,6 +15,8 @@ part 'clients_query.g.dart';
 /// * [phoneNo] 
 /// * [totalShipmentsMin] 
 /// * [totalShipmentsMax] 
+/// * [skip] 
+/// * [take] 
 @BuiltValue()
 abstract class ClientsQuery implements Built<ClientsQuery, ClientsQueryBuilder> {
   @BuiltValueField(wireName: r'general')
@@ -28,6 +30,12 @@ abstract class ClientsQuery implements Built<ClientsQuery, ClientsQueryBuilder> 
 
   @BuiltValueField(wireName: r'totalShipments_max')
   int? get totalShipmentsMax;
+
+  @BuiltValueField(wireName: r'skip')
+  int? get skip;
+
+  @BuiltValueField(wireName: r'take')
+  int? get take;
 
   ClientsQuery._();
 
@@ -77,6 +85,20 @@ class _$ClientsQuerySerializer implements PrimitiveSerializer<ClientsQuery> {
       yield r'totalShipments_max';
       yield serializers.serialize(
         object.totalShipmentsMax,
+        specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.skip != null) {
+      yield r'skip';
+      yield serializers.serialize(
+        object.skip,
+        specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.take != null) {
+      yield r'take';
+      yield serializers.serialize(
+        object.take,
         specifiedType: const FullType.nullable(int),
       );
     }
@@ -134,6 +156,22 @@ class _$ClientsQuerySerializer implements PrimitiveSerializer<ClientsQuery> {
           ) as int?;
           if (valueDes == null) continue;
           result.totalShipmentsMax = valueDes;
+          break;
+        case r'skip':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.skip = valueDes;
+          break;
+        case r'take':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
+          result.take = valueDes;
           break;
         default:
           unhandled.add(key);

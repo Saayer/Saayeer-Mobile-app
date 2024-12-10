@@ -105,9 +105,23 @@ class ShipmentItemWidgetHelper {
                     : shipmentDto.senderStore?.name ?? '',
           ),
           const SizedBox(height: 4),
-          RichTextWidget(
-            keyStr: 'shipment_date',
-            valueStr: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '',
+          Row(
+            children: [
+              Text("${'shipment_date'.tr()} : ",
+                  style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: Text(
+                    (DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '')
+                        .split(' ')
+                        .sublist(1)
+                        .join(' '),
+                    style: AppTextStyles.xSmallLabel()),
+              ),
+              Text(
+                  ' ${(DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '').split('').first}',
+                  style: AppTextStyles.xSmallLabel()),
+            ],
           ),
           const SizedBox(height: 4),
           RichTextWidget(

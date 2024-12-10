@@ -23,6 +23,7 @@ import 'package:openapi/src/model/aramex_webhook_value.dart';
 import 'package:openapi/src/model/city_get_dto.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
+import 'package:openapi/src/model/client_names_respnse.dart';
 import 'package:openapi/src/model/clients_query.dart';
 import 'package:openapi/src/model/count_per_date_item_dto.dart';
 import 'package:openapi/src/model/count_per_date_response.dart';
@@ -71,6 +72,7 @@ part 'serializers.g.dart';
   CityGetDto,
   ClientAddDto,
   ClientGetDto,
+  ClientNamesRespnse,
   ClientsQuery,
   CountPerDateItemDto,
   CountPerDateResponse,
@@ -125,16 +127,16 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<LogisticsServiceBase>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ClientNamesRespnse)]),
+        () => ListBuilder<ClientNamesRespnse>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ClientGetDto)]),
         () => ListBuilder<ClientGetDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(AddressLookUpDto)]),
         () => ListBuilder<AddressLookUpDto>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(String)]),
-        () => ListBuilder<String>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ShipmentGetDto)]),

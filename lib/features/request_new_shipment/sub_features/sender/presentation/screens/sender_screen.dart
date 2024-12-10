@@ -271,6 +271,10 @@ class _SenderScreenState extends State<SenderScreen> {
                   'customerModel': CustomerGetDto(),
                   'isAddShipmentRequest': true,
                 }, onBack: (result) {
+                  ///
+                  requestShipmentBloc.add(const ResetCustomerList(requestShipmentType: RequestShipmentTypes.sender));
+
+                  ///
                   requestShipmentBloc
                       .add(const GetCustomersAddresses(requestShipmentTypes: RequestShipmentTypes.sender));
                   if (result != null) {

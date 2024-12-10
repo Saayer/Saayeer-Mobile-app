@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-31/app*
+All URIs are relative to *http://localhost/saayer-33/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -100,7 +100,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiClientsNamesGet**
-> BuiltList<String> apiClientsNamesGet(apiKey)
+> BuiltList<ClientNamesRespnse> apiClientsNamesGet(apiKey)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**BuiltList&lt;String&gt;**
+[**BuiltList&lt;ClientNamesRespnse&gt;**](ClientNamesRespnse.md)
 
 ### Authorization
 

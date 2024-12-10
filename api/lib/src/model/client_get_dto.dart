@@ -11,6 +11,7 @@ part 'client_get_dto.g.dart';
 /// ClientGetDto
 ///
 /// Properties:
+/// * [clientId] 
 /// * [fullName] 
 /// * [phoneNo] 
 /// * [email] 
@@ -21,6 +22,9 @@ part 'client_get_dto.g.dart';
 /// * [numberOfStores] 
 @BuiltValue()
 abstract class ClientGetDto implements Built<ClientGetDto, ClientGetDtoBuilder> {
+  @BuiltValueField(wireName: r'clientId')
+  int? get clientId;
+
   @BuiltValueField(wireName: r'fullName')
   String? get fullName;
 
@@ -68,6 +72,13 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
     ClientGetDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    if (object.clientId != null) {
+      yield r'clientId';
+      yield serializers.serialize(
+        object.clientId,
+        specifiedType: const FullType(int),
+      );
+    }
     if (object.fullName != null) {
       yield r'fullName';
       yield serializers.serialize(
@@ -147,6 +158,13 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'clientId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.clientId = valueDes;
+          break;
         case r'fullName':
           final valueDes = serializers.deserialize(
             value,

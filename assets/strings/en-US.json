@@ -246,5 +246,7 @@
   "complete_personal_info_msg": "Please complete your personal information before request a shipment",
   "please_accept_terms_condition": "Please accept the terms and conditions",
   "pickup_shipment_msg": "Please handover the shipment to the nearest {} office because the pick up service is not available for the selected address",
-  "save": "Save"
+  "save": "Save",
+  "am": "AM",
+  "pm": "PM"
 }

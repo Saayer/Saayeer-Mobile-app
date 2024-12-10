@@ -8,6 +8,8 @@ part of 'client_get_dto.dart';
 
 class _$ClientGetDto extends ClientGetDto {
   @override
+  final int? clientId;
+  @override
   final String? fullName;
   @override
   final String? phoneNo;
@@ -28,7 +30,8 @@ class _$ClientGetDto extends ClientGetDto {
       (new ClientGetDtoBuilder()..update(updates))._build();
 
   _$ClientGetDto._(
-      {this.fullName,
+      {this.clientId,
+      this.fullName,
       this.phoneNo,
       this.email,
       this.businessName,
@@ -49,6 +52,7 @@ class _$ClientGetDto extends ClientGetDto {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ClientGetDto &&
+        clientId == other.clientId &&
         fullName == other.fullName &&
         phoneNo == other.phoneNo &&
         email == other.email &&
@@ -62,6 +66,7 @@ class _$ClientGetDto extends ClientGetDto {
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, clientId.hashCode);
     _$hash = $jc(_$hash, fullName.hashCode);
     _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
@@ -77,6 +82,7 @@ class _$ClientGetDto extends ClientGetDto {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'ClientGetDto')
+          ..add('clientId', clientId)
           ..add('fullName', fullName)
           ..add('phoneNo', phoneNo)
           ..add('email', email)
@@ -92,6 +98,10 @@ class _$ClientGetDto extends ClientGetDto {
 class ClientGetDtoBuilder
     implements Builder<ClientGetDto, ClientGetDtoBuilder> {
   _$ClientGetDto? _$v;
+
+  int? _clientId;
+  int? get clientId => _$this._clientId;
+  set clientId(int? clientId) => _$this._clientId = clientId;
 
   String? _fullName;
   String? get fullName => _$this._fullName;
@@ -134,6 +144,7 @@ class ClientGetDtoBuilder
   ClientGetDtoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _clientId = $v.clientId;
       _fullName = $v.fullName;
       _phoneNo = $v.phoneNo;
       _email = $v.email;
@@ -164,6 +175,7 @@ class ClientGetDtoBuilder
   _$ClientGetDto _build() {
     final _$result = _$v ??
         new _$ClientGetDto._(
+            clientId: clientId,
             fullName: fullName,
             phoneNo: phoneNo,
             email: email,

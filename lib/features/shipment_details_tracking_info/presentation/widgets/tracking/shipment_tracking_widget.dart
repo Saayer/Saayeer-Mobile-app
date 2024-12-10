@@ -60,20 +60,22 @@ class ShipmentTrackingWidget extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              Column(
-                children: [
-                  Text(
-                    errorTrackingItem!.status!.name,
-                    style: AppTextStyles.boldLabel(),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    errorTrackingItem.description ?? '',
-                    style: AppTextStyles.smallLabel(),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      errorTrackingItem!.status!.name,
+                      style: AppTextStyles.boldLabel(),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      errorTrackingItem.description ?? '',
+                      style: AppTextStyles.smallLabel(),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
