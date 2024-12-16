@@ -10,8 +10,15 @@ import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart'
 
 class EmptyShipments extends StatelessWidget {
   final ShipmentsListTypes shipmentsType;
+  final bool? isAdminShipments;
+  final bool hasButton;
 
-  const EmptyShipments({super.key, required this.shipmentsType});
+  const EmptyShipments({
+    super.key,
+    required this.shipmentsType,
+    this.isAdminShipments,
+    this.hasButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +29,16 @@ class EmptyShipments extends StatelessWidget {
       builder: (context, state) {
         final double size = (state.isFromHome ? 40 : 65);
         return EmptyStatusWidget(
-          title: "empty_shipments_title"
-              .tr()
-              .replaceFirst("{}", shipmentsType.pluralName.tr()),
-          desc: "empty_shipments_desc"
-              .tr()
-              .replaceFirst("{}", shipmentsType.pluralName.tr())
-              .toLowerCase(),
+          title: "empty_shipments_title".tr().replaceFirst("{}", (isAdminShipments ?? false) ? '' : shipmentsType.pluralName.tr()),
+          desc: "empty_shipments_desc".tr().replaceFirst("{}", (isAdminShipments ?? false) ? '' : shipmentsType.pluralName.tr()).toLowerCase(),
           btnLabel: "request_shipment",
           iconName: NavBarIconTypes.SHIPMENTS.name,
           dividerWidth: (state.isFromHome ? 3 : 2),
+          hasButton: hasButton,
           btnWidth: (state.isFromHome ? 1.5 : 1),
           onBtnPressed: () {
             if (!(viewPageBloc.state.isGuest!)) {
-              viewPageBloc.add(const GoToPage(
-                  navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
+              viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.REQUEST_SHIPMENT));
             } else {
               getLogInBottomSheetWidget();
             }

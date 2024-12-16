@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
@@ -13,6 +14,8 @@ import 'package:saayer/core/usecase/base_usecase.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/features/more_sub_features/stores/stores_list/domain/usecases/get_stores_usecase.dart';
 import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
+import 'package:saayer/features/shipments/domain/use_cases/get_admin_shipments_list_usecase.dart';
+import 'package:saayer/features/shipments/domain/use_cases/get_clients_list_usecase.dart';
 import 'package:saayer/features/shipments/domain/use_cases/get_service_providers_list_usecase.dart';
 import 'package:saayer/features/shipments/domain/use_cases/get_shipments_List_usecase.dart';
 
@@ -25,11 +28,15 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   final GetShipmentsListUseCase getShipmentsListUseCase;
   final GetStoresUseCase getStoresUseCase;
   final GetServiceProvidersListUseCase getServiceProvidersListUseCase;
+  final GetAdminShipmentsListUseCase getAdminShipmentsListUseCase;
+  final GetClientsListUseCase getClientsListUseCase;
 
   ShipmentsBloc({
     required this.getShipmentsListUseCase,
     required this.getStoresUseCase,
     required this.getServiceProvidersListUseCase,
+    required this.getAdminShipmentsListUseCase,
+    required this.getClientsListUseCase,
   }) : super(const ShipmentsState()) {
     on<InitShipments>(_initShipments);
     on<GetExportShipments>(_getExportShipments);
@@ -39,9 +46,13 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
     on<SelectShipmentType>(_selectShipmentType);
     on<RefreshShipments>(_refreshShipments);
     on<OnItemSelectedFromDropDown>(_onItemSelectedFromDropDown);
+    on<OnAdminItemSelectedFromDropDown>(_onAdminItemSelectedFromDropDown);
     on<OnScrollPagination>(_onScrollPagination);
     on<ResetExportShipmentsList>(_resetExportShipmentsList);
     on<ResetImportShipmentsList>(_resetImportShipmentsList);
+    on<ResetAdminShipmentsList>(_resetAdminShipmentsList);
+    on<GetAdminShipmentsList>(_getAdminShipmentsList);
+    on<GetClientsList>(_getClientsList);
   }
 
   ///Export Filter Controller
@@ -81,6 +92,25 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   List<StoreGetDto> importStoresList = [];
   List<LogisticsServiceBase> importServiceProvidersList = [];
   List<ShipmentGetDto> importShipmentsList = [];
+
+  ///Admin shipment Filter Controller
+  final TextEditingController adminSearchController = TextEditingController();
+  final TextEditingController adminShipmentDateFromController = TextEditingController();
+  final TextEditingController adminShipmentDateToController = TextEditingController();
+  final TextEditingController adminShipmentStatusController = TextEditingController();
+  final ScrollController adminShipmentsScrollController = ScrollController();
+  DateTime? adminShipmentDateFrom;
+  DateTime? adminShipmentDateTo;
+
+  ///
+  ShipmentStatusEnum? selectedAdminShipmentStatus;
+  LogisticsServiceBase? selectedAdminServiceProvider;
+  ClientNamesRespnse? selectedClientName;
+
+  ///
+  List<ShipmentGetDtoExtended> adminShipmentsList = [];
+  List<LogisticsServiceBase> adminServiceProvidersList = [];
+  List<ClientNamesRespnse> clientsList = [];
 
   ///pagination util
   final _pageSize = 10;
@@ -284,8 +314,8 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
     await getServiceProvidersListUseCase(const NoParameters()).then((result) {
       if (result.isLeft()) {
         emit(state.copyWith(
-            stateHelper: state.stateHelper
-                .copyWith(requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_STORES)));
+            stateHelper: state.stateHelper.copyWith(
+                requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_SERVICE_PROVIDERS)));
       } else {
         final List<LogisticsServiceBase>? rightResult = (result as Right).value;
 
@@ -298,6 +328,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
             } else {
               importServiceProvidersList.putIfAbsent(item);
             }
+            adminServiceProvidersList.putIfAbsent(item);
           }
           emit(state.copyWith(
               stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
@@ -306,8 +337,8 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
                   : importServiceProvidersList));
         } else {
           emit(state.copyWith(
-            stateHelper:
-                const StateHelper(requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_STORES),
+            stateHelper: const StateHelper(
+                requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_SERVICE_PROVIDERS),
           ));
         }
       }
@@ -315,22 +346,33 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   }
 
   Future<FutureOr<void>> _onScrollPagination(OnScrollPagination event, Emitter<ShipmentsState> emit) async {
-    if (state.selectedShipmentsType == ShipmentsListTypes.EXPORT) {
-      if (!exportScrollController.hasClients) return null;
-      final maxScroll = exportScrollController.position.maxScrollExtent;
-      final currentScroll = exportScrollController.position.pixels;
+    if (UserUtils.isAdmin()) {
+      if (!adminShipmentsScrollController.hasClients) return null;
+      final maxScroll = adminShipmentsScrollController.position.maxScrollExtent;
+      final currentScroll = adminShipmentsScrollController.position.pixels;
       if (currentScroll == maxScroll) {
         if (state.hasNextPage ?? false) {
-          add(const GetExportShipments());
+          add(const GetAdminShipmentsList());
         }
       }
     } else {
-      if (!importScrollController.hasClients) return null;
-      final maxScroll = importScrollController.position.maxScrollExtent;
-      final currentScroll = importScrollController.position.pixels;
-      if (currentScroll == maxScroll) {
-        if (state.hasNextPage ?? false) {
-          add(const GetImportShipments());
+      if (state.selectedShipmentsType == ShipmentsListTypes.EXPORT) {
+        if (!exportScrollController.hasClients) return null;
+        final maxScroll = exportScrollController.position.maxScrollExtent;
+        final currentScroll = exportScrollController.position.pixels;
+        if (currentScroll == maxScroll) {
+          if (state.hasNextPage ?? false) {
+            add(const GetExportShipments());
+          }
+        }
+      } else {
+        if (!importScrollController.hasClients) return null;
+        final maxScroll = importScrollController.position.maxScrollExtent;
+        final currentScroll = importScrollController.position.pixels;
+        if (currentScroll == maxScroll) {
+          if (state.hasNextPage ?? false) {
+            add(const GetImportShipments());
+          }
         }
       }
     }
@@ -344,6 +386,10 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
     importShipmentsList = [];
   }
 
+  FutureOr<void> _resetAdminShipmentsList(ResetAdminShipmentsList event, Emitter<ShipmentsState> emit) {
+    adminShipmentsList = [];
+  }
+
   @override
   Future<void> close() {
     exportScrollController
@@ -352,6 +398,108 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
     importScrollController
       ..removeListener(() => _onScrollPagination)
       ..dispose();
+    adminShipmentsScrollController
+      ..removeListener(() => _onScrollPagination)
+      ..dispose();
     return super.close();
+  }
+
+  FutureOr<void> _getAdminShipmentsList(GetAdminShipmentsList event, Emitter<ShipmentsState> emit) async {
+    emit(state.copyWith(
+        stateHelper: const StateHelper(requestState: RequestState.LOADING),
+        adminShipmentQuery: ShipmentQueryLAdmin((b) => b
+          ..general = adminSearchController.text.isEmpty ? null : adminSearchController.text
+          ..shippingDateFrom = adminShipmentDateFrom
+          ..shippingDateTo = adminShipmentDateTo
+          ..status = selectedAdminShipmentStatus
+          ..logisticServiceName = selectedAdminServiceProvider?.name
+          ..clientId = selectedClientName?.clientId
+          ..skip = adminShipmentsList.length
+          ..take = _pageSize)));
+
+    await getAdminShipmentsListUseCase(state.adminShipmentQuery).then((result) {
+      if (result.isLeft()) {
+        emit(state.copyWith(
+            stateHelper: state.stateHelper
+                .copyWith(requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_SHIPMENTS)));
+      } else {
+        final List<ShipmentGetDtoExtended>? rightResult = (result as Right).value;
+
+        if (rightResult != null) {
+          if (rightResult.length < _pageSize) {
+            emit(state.copyWith(
+                stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
+                hasNextPage: false));
+          } else {
+            emit(state.copyWith(
+                stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
+                hasNextPage: true));
+          }
+          for (var item in rightResult) {
+            adminShipmentsList.putIfAbsent(item);
+          }
+          emit(state.copyWith(
+              stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
+              adminShipmentsList: adminShipmentsList));
+        } else {
+          emit(state.copyWith(
+            stateHelper: const StateHelper(
+                requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_SHIPMENTS),
+          ));
+        }
+      }
+    });
+  }
+
+  FutureOr<void> _getClientsList(GetClientsList event, Emitter<ShipmentsState> emit) async {
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+
+    await getClientsListUseCase(const NoParameters()).then((result) {
+      if (result.isLeft()) {
+        emit(state.copyWith(
+            stateHelper: state.stateHelper
+                .copyWith(requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_CLIENTS)));
+      } else {
+        final List<ClientNamesRespnse>? rightResult = (result as Right).value;
+
+        if (rightResult != null) {
+          if (rightResult.length < _pageSize) {
+            emit(state.copyWith(
+                stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
+                hasNextPage: false));
+          } else {
+            emit(state.copyWith(
+                stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: ""),
+                hasNextPage: true));
+          }
+          for (var item in rightResult) {
+            clientsList.putIfAbsent(item);
+          }
+          emit(state.copyWith(
+              stateHelper: const StateHelper(requestState: RequestState.LOADED, loadingMessage: ""),
+              clientsList: clientsList));
+        } else {
+          emit(state.copyWith(
+            stateHelper: const StateHelper(
+                requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_CLIENTS),
+          ));
+        }
+      }
+    });
+  }
+
+  FutureOr<void> _onAdminItemSelectedFromDropDown(
+      OnAdminItemSelectedFromDropDown<dynamic> event, Emitter<ShipmentsState> emit) {
+    emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
+    if (event.adminShipmentsFilterTypes == AdminShipmentsFilterTypes.CLIENT) {
+      selectedClientName = event.item;
+    } else if (event.adminShipmentsFilterTypes == AdminShipmentsFilterTypes.SERVICE_PROVIDER) {
+      selectedAdminServiceProvider = event.item;
+    } else if (event.adminShipmentsFilterTypes == AdminShipmentsFilterTypes.STATUS) {
+      selectedAdminShipmentStatus = event.item;
+    }
+    emit(state.copyWith(
+      stateHelper: const StateHelper(requestState: RequestState.LOADED),
+    ));
   }
 }

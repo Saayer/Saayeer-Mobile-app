@@ -127,4 +127,3 @@ lib/src/model/token_request_dto.dart
 lib/src/model/token_response_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/client_names_respnse_test.dart

@@ -139,7 +139,8 @@ class AppRoutes {
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
           return MaterialPageRoute(
               builder: (context) => ShipmentDetailsScreen(
-                    shipmentDto: routingData as ShipmentGetDto,
+                    shipmentDto: (routingData as Map)['shipmentDto'] as ShipmentGetDto,
+                    adminShipmentDto: routingData['adminShipmentDto'] as ShipmentGetDtoExtended,
                   ));
         } else {
           return MaterialPageRoute(

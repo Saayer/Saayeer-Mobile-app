@@ -202,6 +202,10 @@ import 'package:saayer/features/shipments/data/repositories/shipments_list_repo_
     as _i779;
 import 'package:saayer/features/shipments/domain/repositories/shipments_list_repo.dart'
     as _i282;
+import 'package:saayer/features/shipments/domain/use_cases/get_admin_shipments_list_usecase.dart'
+    as _i741;
+import 'package:saayer/features/shipments/domain/use_cases/get_clients_list_usecase.dart'
+    as _i279;
 import 'package:saayer/features/shipments/domain/use_cases/get_service_providers_list_usecase.dart'
     as _i580;
 import 'package:saayer/features/shipments/domain/use_cases/get_shipments_List_usecase.dart'
@@ -359,14 +363,6 @@ extension GetItInjectableX on _i174.GetIt {
         _i451.StoresListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i22.GetUserProfileUseCase>(
         () => _i22.GetUserProfileUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
-    gh.factory<_i447.GetShipmentsStatusTotalCountUseCase>(() =>
-        _i447.GetShipmentsStatusTotalCountUseCase(
-            homeRepoImpl: gh<_i483.HomeRepo>()));
-    gh.factory<_i838.GetTotalShipmentPerDaysUseCase>(() =>
-        _i838.GetTotalShipmentPerDaysUseCase(
-            homeRepoImpl: gh<_i483.HomeRepo>()));
-    gh.factory<_i1.GetTotalPaidPerDaysUseCase>(() =>
-        _i1.GetTotalPaidPerDaysUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
     gh.factory<_i314.GetAdminTotalPaidPerDaysUseCase>(() =>
         _i314.GetAdminTotalPaidPerDaysUseCase(
             homeRepoImpl: gh<_i483.HomeRepo>()));
@@ -376,6 +372,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i974.GetAdminTotalShipmentPerDaysUseCase>(() =>
         _i974.GetAdminTotalShipmentPerDaysUseCase(
             homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i447.GetShipmentsStatusTotalCountUseCase>(() =>
+        _i447.GetShipmentsStatusTotalCountUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i838.GetTotalShipmentPerDaysUseCase>(() =>
+        _i838.GetTotalShipmentPerDaysUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i1.GetTotalPaidPerDaysUseCase>(() =>
+        _i1.GetTotalPaidPerDaysUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
     gh.factory<_i191.AddressWidgetsBloc>(() => _i191.AddressWidgetsBloc(
           getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
@@ -460,9 +464,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i437.GetShipmentsListUseCase>(() =>
         _i437.GetShipmentsListUseCase(
             shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i741.GetAdminShipmentsListUseCase>(() =>
+        _i741.GetAdminShipmentsListUseCase(
+            shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
     gh.factory<_i580.GetServiceProvidersListUseCase>(() =>
         _i580.GetServiceProvidersListUseCase(
             shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i279.GetClientsListUseCase>(() => _i279.GetClientsListUseCase(
+        shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
     gh.factory<_i462.AddEditStoreBloc>(() => _i462.AddEditStoreBloc(
           submitStoreInfoUseCase: gh<_i5.SubmitStoreInfoUseCase>(),
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
@@ -493,6 +502,9 @@ extension GetItInjectableX on _i174.GetIt {
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
           getServiceProvidersListUseCase:
               gh<_i580.GetServiceProvidersListUseCase>(),
+          getAdminShipmentsListUseCase:
+              gh<_i741.GetAdminShipmentsListUseCase>(),
+          getClientsListUseCase: gh<_i279.GetClientsListUseCase>(),
         ));
     return this;
   }

@@ -107,7 +107,7 @@
   "picked": "Picked",
   "picked_msg": "Congratulations! Your shipment has been successfully picked.",
   "onTheWay": "OnTheWay",
-  "onTheWay_msg": "Your shipment has been shipping, on the way to you, you can track it via this link",
+  "onTheWay_msg": "Your shipment has been shipping, on the way to you",
   "delivered": "Delivered",
   "delivered_msg": "Great news! Your shipment has been successfully delivered. Thank you for choosing our service.",
   "paid": "Paid",
@@ -249,5 +249,8 @@
   "save": "Save",
   "am": "AM",
   "pm": "PM",
-  "clients": "Clients"
+  "clients": "Clients",
+  "address_from": "From address",
+  "address_to": "To address",
+  "client": "Client"
 }

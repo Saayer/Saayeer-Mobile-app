@@ -64,7 +64,7 @@ abstract class ShipmentGetDtoExtended implements Built<ShipmentGetDtoExtended, S
   double? get cost;
 
   @BuiltValueField(wireName: r'createdAt')
-  DateTime? get createdAt;
+  String? get createdAt;
 
   @BuiltValueField(wireName: r'logisticServiceName')
   String? get logisticServiceName;
@@ -189,7 +189,7 @@ class _$ShipmentGetDtoExtendedSerializer implements PrimitiveSerializer<Shipment
       yield r'createdAt';
       yield serializers.serialize(
         object.createdAt,
-        specifiedType: const FullType(DateTime),
+        specifiedType: const FullType(String),
       );
     }
     if (object.logisticServiceName != null) {
@@ -368,8 +368,8 @@ class _$ShipmentGetDtoExtendedSerializer implements PrimitiveSerializer<Shipment
         case r'createdAt':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+            specifiedType: const FullType(String),
+          ) as String;
           result.createdAt = valueDes;
           break;
         case r'logisticServiceName':

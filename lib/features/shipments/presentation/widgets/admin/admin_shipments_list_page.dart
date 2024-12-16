@@ -14,31 +14,27 @@ import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/shipments/core/utils/enums/enums.dart';
-import 'package:saayer/features/shipments/presentation/widgets/empty_shipments.dart';
-import 'package:saayer/features/shipments/presentation/widgets/shipments_filters_widget.dart';
-import 'package:saayer/features/shipments/presentation/widgets/shipment_item_widget_helper.dart';
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart';
+import 'package:saayer/features/shipments/presentation/widgets/admin/admin_shipment_item_widget_helper.dart';
+import 'package:saayer/features/shipments/presentation/widgets/admin/admin_shipments_filters_widget.dart';
+import 'package:saayer/features/shipments/presentation/widgets/empty_shipments.dart';
 import "package:universal_html/html.dart" as html;
 
-class ShipmentsListView extends StatefulWidget {
-  final List<ShipmentGetDto>? shipmentsList;
-  final ShipmentsListTypes shipmentsListType;
+class AdminShipmentsListPage extends StatefulWidget {
   final ScrollController scrollController;
   final ShipmentsBloc shipmentsBloc;
 
-  const ShipmentsListView({
+  const AdminShipmentsListPage({
     super.key,
-    required this.shipmentsList,
-    required this.shipmentsListType,
     required this.scrollController,
     required this.shipmentsBloc,
   });
 
   @override
-  State<ShipmentsListView> createState() => _ShipmentsListViewState();
+  State<AdminShipmentsListPage> createState() => _AdminShipmentsListPageState();
 }
 
-class _ShipmentsListViewState extends State<ShipmentsListView> {
+class _AdminShipmentsListPageState extends State<AdminShipmentsListPage> {
   late StreamSubscription progressStream;
 
   @override
@@ -78,20 +74,15 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
   }
 
   @override
-  void dispose() {
-    progressStream.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final ShipmentsBloc shipmentsBloc = BlocProvider.of<ShipmentsBloc>(context);
+
     return BlocConsumer<ShipmentsBloc, ShipmentsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        final bool isFromHome = state.isFromHome;
         return RefreshIndicator(
           onRefresh: () async {
-            widget.shipmentsBloc.add(RefreshShipments());
+            shipmentsBloc.add(RefreshShipments());
           },
           color: SaayerTheme().getColorsPalette.primaryColor,
           backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
@@ -100,17 +91,16 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
               const SizedBox(
                 height: 10,
               ),
-              if (!widget.shipmentsBloc.state.isFromHome)
-                ShipmentsFiltersWidget(
-                  shipmentsBloc: widget.shipmentsBloc,
-                  shipmentsListType: widget.shipmentsListType,
+              if (!shipmentsBloc.state.isFromHome)
+                AdminShipmentsFiltersWidget(
+                  shipmentsBloc: shipmentsBloc,
                 ),
               const SizedBox(
                 height: 10,
               ),
-              widget.shipmentsList == null
+              shipmentsBloc.state.adminShipmentsList == null
                   ? const Expanded(child: ShimmerWidget())
-                  : _buildShipmentsListWidget(isFromHome),
+                  : _buildShipmentsListWidget(shipmentsBloc.state.isFromHome, shipmentsBloc),
             ],
           ),
         );
@@ -118,25 +108,32 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
     );
   }
 
-  _buildShipmentsListWidget(bool isFromHome) {
-    if (widget.shipmentsList!.isEmpty) {
-      return Expanded(child: EmptyShipments(shipmentsType: widget.shipmentsListType));
+  _buildShipmentsListWidget(
+    bool isFromHome,
+    ShipmentsBloc shipmentsBloc,
+  ) {
+    if (shipmentsBloc.state.adminShipmentsList!.isEmpty) {
+      return const Expanded(
+          child: EmptyShipments(
+        shipmentsType: ShipmentsListTypes.EXPORT,
+        hasButton: false,
+        isAdminShipments: true,
+      ));
     }
     return Expanded(
       child: SingleChildScrollView(
-        controller: widget.scrollController,
+        controller: shipmentsBloc.adminShipmentsScrollController,
         child: ListView.builder(
             shrinkWrap: true,
-            itemCount: widget.shipmentsList?.length,
+            itemCount: shipmentsBloc.state.adminShipmentsList?.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              final ShipmentGetDto shipmentEntity = widget.shipmentsList![index];
-              final bool isLast = (index == widget.shipmentsList!.length - 1);
+              final ShipmentGetDtoExtended shipmentEntity = shipmentsBloc.state.adminShipmentsList![index];
+              final bool isLast = (index == shipmentsBloc.state.adminShipmentsList!.length - 1);
               Widget shipmentWidget;
-              shipmentWidget = ShipmentItemWidgetHelper().getShipmentWidget(
-                  shipmentDto: shipmentEntity,
+              shipmentWidget = AdminShipmentItemWidgetHelper().getAdminShipmentWidget(
+                  adminShipmentDto: shipmentEntity,
                   isFromHome: isFromHome,
-                  shipmentsListType: widget.shipmentsListType,
                   hasLabelUrl: ((shipmentEntity.labelURL ?? '').isNotEmpty),
                   onTapDownloadShipment: () {
                     ///
@@ -153,8 +150,8 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
                         getIt<NavigationService>().navigateToNamed(
                           Routes.shipmentDetailsNamedPage,
                           arguments: {
-                            'shipmentDto': shipmentEntity,
-                            'adminShipmentDto': ShipmentGetDtoExtended(),
+                            'shipmentDto': ShipmentGetDto(),
+                            'adminShipmentDto': shipmentEntity,
                           },
                         );
                       },
