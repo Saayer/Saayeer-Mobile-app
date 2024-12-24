@@ -20,9 +20,13 @@ class _$ClientGetDto extends ClientGetDto {
   @override
   final String? address;
   @override
+  final String? createdAt;
+  @override
   final int? totalShipments;
   @override
   final double? totalPaid;
+  @override
+  final double? totalGain;
   @override
   final int? numberOfStores;
 
@@ -36,8 +40,10 @@ class _$ClientGetDto extends ClientGetDto {
       this.email,
       this.businessName,
       this.address,
+      this.createdAt,
       this.totalShipments,
       this.totalPaid,
+      this.totalGain,
       this.numberOfStores})
       : super._();
 
@@ -58,8 +64,10 @@ class _$ClientGetDto extends ClientGetDto {
         email == other.email &&
         businessName == other.businessName &&
         address == other.address &&
+        createdAt == other.createdAt &&
         totalShipments == other.totalShipments &&
         totalPaid == other.totalPaid &&
+        totalGain == other.totalGain &&
         numberOfStores == other.numberOfStores;
   }
 
@@ -72,8 +80,10 @@ class _$ClientGetDto extends ClientGetDto {
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, businessName.hashCode);
     _$hash = $jc(_$hash, address.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, totalShipments.hashCode);
     _$hash = $jc(_$hash, totalPaid.hashCode);
+    _$hash = $jc(_$hash, totalGain.hashCode);
     _$hash = $jc(_$hash, numberOfStores.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -88,8 +98,10 @@ class _$ClientGetDto extends ClientGetDto {
           ..add('email', email)
           ..add('businessName', businessName)
           ..add('address', address)
+          ..add('createdAt', createdAt)
           ..add('totalShipments', totalShipments)
           ..add('totalPaid', totalPaid)
+          ..add('totalGain', totalGain)
           ..add('numberOfStores', numberOfStores))
         .toString();
   }
@@ -123,6 +135,10 @@ class ClientGetDtoBuilder
   String? get address => _$this._address;
   set address(String? address) => _$this._address = address;
 
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
+
   int? _totalShipments;
   int? get totalShipments => _$this._totalShipments;
   set totalShipments(int? totalShipments) =>
@@ -131,6 +147,10 @@ class ClientGetDtoBuilder
   double? _totalPaid;
   double? get totalPaid => _$this._totalPaid;
   set totalPaid(double? totalPaid) => _$this._totalPaid = totalPaid;
+
+  double? _totalGain;
+  double? get totalGain => _$this._totalGain;
+  set totalGain(double? totalGain) => _$this._totalGain = totalGain;
 
   int? _numberOfStores;
   int? get numberOfStores => _$this._numberOfStores;
@@ -150,8 +170,10 @@ class ClientGetDtoBuilder
       _email = $v.email;
       _businessName = $v.businessName;
       _address = $v.address;
+      _createdAt = $v.createdAt;
       _totalShipments = $v.totalShipments;
       _totalPaid = $v.totalPaid;
+      _totalGain = $v.totalGain;
       _numberOfStores = $v.numberOfStores;
       _$v = null;
     }
@@ -181,8 +203,10 @@ class ClientGetDtoBuilder
             email: email,
             businessName: businessName,
             address: address,
+            createdAt: createdAt,
             totalShipments: totalShipments,
             totalPaid: totalPaid,
+            totalGain: totalGain,
             numberOfStores: numberOfStores);
     replace(_$result);
     return _$result;

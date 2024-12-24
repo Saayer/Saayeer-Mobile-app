@@ -88,7 +88,7 @@ class ShipmentProviderCard extends StatelessWidget {
             child: Directionality(
           textDirection: TextDirection.ltr,
           child: Text(
-            '${shipmentProviderModel.cost} ${'sr'.tr()}',
+            '${shipmentProviderModel.price} ${'sr'.tr()}',
             style: AppTextStyles.boldLabel(),
           ),
         )),

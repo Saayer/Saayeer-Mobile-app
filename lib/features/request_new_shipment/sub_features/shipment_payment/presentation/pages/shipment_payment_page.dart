@@ -73,7 +73,7 @@ class ShipmentPaymentPage extends StatelessWidget {
           MoyasarPaymentMethodWidget(
               bloc: bloc,
               orderDesc: requestShipmentBloc.state.shipmentDtoBody?.contentDesc ?? '',
-              amount: requestShipmentBloc.state.selectedServiceProvider?.cost ?? 0,
+              amount: requestShipmentBloc.state.selectedServiceProvider?.price ?? 0,
               weight: requestShipmentBloc.state.shipmentDtoBody?.weight ?? 0,
               shipmentId: requestShipmentBloc.state.shipmentId ?? 0,
               clientPhone: getIt<SharedPrefService>().getClientPhone() ?? ''),

@@ -10,7 +10,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | [optional] 
 **company** | **String** |  | [optional] 
-**cost** | **double** |  | [optional] 
+**price** | **double** |  | [optional] 
+**logisticCost** | **double** |  | [optional] 
 **workDaysMaximum** | **int** |  | [optional] 
 **workDaysMinimum** | **int** |  | [optional] 
 **estimatedShipmentDays** | **String** |  | [optional] 

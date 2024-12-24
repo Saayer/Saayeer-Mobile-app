@@ -23,9 +23,9 @@ class ShipmentsScreen extends StatelessWidget {
           bloc.add(InitShipments(
             isFromHome: isFromHome,
             isGuest: viewPageBloc.state.isGuest!,
-            initExportShipmentStatusFilter: viewPageBloc.initExportShipmentsStatusFilter,
-            exportShipmentDateFrom: viewPageBloc.exportShipmentDateFrom,
-            exportShipmentDateTo: viewPageBloc.exportShipmentDateTo,
+            initExportShipmentStatusFilter: viewPageBloc.initAdminShipmentsStatusFilter,
+            exportShipmentDateFrom: viewPageBloc.adminShipmentDateFrom,
+            exportShipmentDateTo: viewPageBloc.adminShipmentDateTo,
           ));
           bloc.add(const GetAdminShipmentsList());
           bloc.add(const GetServiceProviders());

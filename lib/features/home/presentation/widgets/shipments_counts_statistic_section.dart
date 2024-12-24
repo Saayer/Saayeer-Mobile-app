@@ -64,6 +64,8 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
                                 statisticsTypesList[index] == ShipmentsStatisticsTypes.CLIENTS)
                             ? () {
                                 if (UserUtils.isAdmin()) {
+                                  final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
+                                  viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.CLIENTS));
                                 } else {
                                   getIt<NavigationService>().navigateToNamed(Routes.requestNewShipmentNamedPage);
                                 }

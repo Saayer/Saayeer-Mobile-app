@@ -12,7 +12,9 @@ class _$ServiceCost extends ServiceCost {
   @override
   final String? company;
   @override
-  final double? cost;
+  final double? price;
+  @override
+  final double? logisticCost;
   @override
   final int? workDaysMaximum;
   @override
@@ -32,7 +34,8 @@ class _$ServiceCost extends ServiceCost {
   _$ServiceCost._(
       {this.name,
       this.company,
-      this.cost,
+      this.price,
+      this.logisticCost,
       this.workDaysMaximum,
       this.workDaysMinimum,
       this.estimatedShipmentDays,
@@ -54,7 +57,8 @@ class _$ServiceCost extends ServiceCost {
     return other is ServiceCost &&
         name == other.name &&
         company == other.company &&
-        cost == other.cost &&
+        price == other.price &&
+        logisticCost == other.logisticCost &&
         workDaysMaximum == other.workDaysMaximum &&
         workDaysMinimum == other.workDaysMinimum &&
         estimatedShipmentDays == other.estimatedShipmentDays &&
@@ -68,7 +72,8 @@ class _$ServiceCost extends ServiceCost {
     var _$hash = 0;
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, company.hashCode);
-    _$hash = $jc(_$hash, cost.hashCode);
+    _$hash = $jc(_$hash, price.hashCode);
+    _$hash = $jc(_$hash, logisticCost.hashCode);
     _$hash = $jc(_$hash, workDaysMaximum.hashCode);
     _$hash = $jc(_$hash, workDaysMinimum.hashCode);
     _$hash = $jc(_$hash, estimatedShipmentDays.hashCode);
@@ -84,7 +89,8 @@ class _$ServiceCost extends ServiceCost {
     return (newBuiltValueToStringHelper(r'ServiceCost')
           ..add('name', name)
           ..add('company', company)
-          ..add('cost', cost)
+          ..add('price', price)
+          ..add('logisticCost', logisticCost)
           ..add('workDaysMaximum', workDaysMaximum)
           ..add('workDaysMinimum', workDaysMinimum)
           ..add('estimatedShipmentDays', estimatedShipmentDays)
@@ -106,9 +112,13 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
   String? get company => _$this._company;
   set company(String? company) => _$this._company = company;
 
-  double? _cost;
-  double? get cost => _$this._cost;
-  set cost(double? cost) => _$this._cost = cost;
+  double? _price;
+  double? get price => _$this._price;
+  set price(double? price) => _$this._price = price;
+
+  double? _logisticCost;
+  double? get logisticCost => _$this._logisticCost;
+  set logisticCost(double? logisticCost) => _$this._logisticCost = logisticCost;
 
   int? _workDaysMaximum;
   int? get workDaysMaximum => _$this._workDaysMaximum;
@@ -147,7 +157,8 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
     if ($v != null) {
       _name = $v.name;
       _company = $v.company;
-      _cost = $v.cost;
+      _price = $v.price;
+      _logisticCost = $v.logisticCost;
       _workDaysMaximum = $v.workDaysMaximum;
       _workDaysMinimum = $v.workDaysMinimum;
       _estimatedShipmentDays = $v.estimatedShipmentDays;
@@ -178,7 +189,8 @@ class ServiceCostBuilder implements Builder<ServiceCost, ServiceCostBuilder> {
         new _$ServiceCost._(
             name: name,
             company: company,
-            cost: cost,
+            price: price,
+            logisticCost: logisticCost,
             workDaysMaximum: workDaysMaximum,
             workDaysMinimum: workDaysMinimum,
             estimatedShipmentDays: estimatedShipmentDays,

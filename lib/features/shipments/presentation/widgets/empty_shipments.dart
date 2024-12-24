@@ -29,8 +29,8 @@ class EmptyShipments extends StatelessWidget {
       builder: (context, state) {
         final double size = (state.isFromHome ? 40 : 65);
         return EmptyStatusWidget(
-          title: "empty_shipments_title".tr().replaceFirst("{}", (isAdminShipments ?? false) ? '' : shipmentsType.pluralName.tr()),
-          desc: "empty_shipments_desc".tr().replaceFirst("{}", (isAdminShipments ?? false) ? '' : shipmentsType.pluralName.tr()).toLowerCase(),
+          title: "empty_shipments_title".tr().replaceFirst("{}", (isAdminShipments ?? false) ? 'shipments'.tr() : shipmentsType.pluralName.tr()),
+          desc: "empty_shipments_desc".tr().replaceFirst("{}", (isAdminShipments ?? false) ? 'shipments'.tr() : shipmentsType.pluralName.tr()).toLowerCase(),
           btnLabel: "request_shipment",
           iconName: NavBarIconTypes.SHIPMENTS.name,
           dividerWidth: (state.isFromHome ? 3 : 2),

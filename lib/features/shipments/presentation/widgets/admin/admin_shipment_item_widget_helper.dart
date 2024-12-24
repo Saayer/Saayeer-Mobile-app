@@ -162,7 +162,7 @@ class AdminShipmentItemWidgetHelper {
             children: [
               Directionality(
                   textDirection: TextDirection.ltr,
-                  child: Text((shipmentDto.cost).toString(), style: AppTextStyles.smallBoldLabel())),
+                  child: Text((shipmentDto.cost ?? 0).toStringAsFixed(2), style: AppTextStyles.smallBoldLabel())),
               Text("  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
             ],
           ),
@@ -216,20 +216,19 @@ class AdminShipmentItemWidgetHelper {
   }
 
   String _getAddress(ShipmentGetDtoExtended shipmentDto, {required bool isSender}) {
-    if(isSender){
+    if (isSender) {
       if (shipmentDto.senderCustomer == null) {
         return _buildAddress(shipmentDto.senderStore);
       } else {
         return _buildAddress(shipmentDto.senderCustomer);
       }
-    }else{
+    } else {
       if (shipmentDto.receiverStore == null) {
         return _buildAddress(shipmentDto.receiverCustomer);
       } else {
         return _buildAddress(shipmentDto.receiverStore);
       }
     }
-
   }
 
   String _buildAddress(dynamic address) {

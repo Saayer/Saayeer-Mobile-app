@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/app_bar/base_app_bar.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/responsive/general_responsive_scaled_box_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/utils/enums.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/features/address/addresses_book/presentation/screens/addresses_book_screen.dart';
+import 'package:saayer/features/clients/presentation/screens/clients_screen.dart';
 import 'package:saayer/features/request_new_shipment/presentation/screens/request_new_shipment_screen.dart';
 import 'package:saayer/features/view_page/core/utils/enums/enums.dart';
 import 'package:saayer/features/view_page/domain/entities/nav_bar_icon_entity.dart';
@@ -43,8 +45,9 @@ class ViewPagePage extends StatelessWidget {
             backgroundColor: SaayerTheme().getColorsPalette.backgroundColor,
           );
         }
-        final NavBarIconEntity selectedNavBarIconEntity =
-            viewPageBloc.navBarIconEntityList.firstWhere((element) => element.isSelected);
+        final NavBarIconEntity selectedNavBarIconEntity = UserUtils.isAdmin()
+            ? viewPageBloc.adminNavBarList.firstWhere((element) => element.isSelected)
+            : viewPageBloc.navBarIconEntityList.firstWhere((element) => element.isSelected);
         final bool isHome = (selectedNavBarIconEntity.navBarIconType == NavBarIconTypes.HOME);
         final bool isRequestShipment = (selectedNavBarIconEntity.navBarIconType == NavBarIconTypes.REQUEST_SHIPMENT);
         return GeneralResponsiveScaledBoxWidget(
@@ -54,17 +57,27 @@ class ViewPagePage extends StatelessWidget {
               resizeToAvoidBottomInset: false,
               appBar: BaseAppBar(
                 title: !isHome
-                    ? viewPageBloc.navBarIconEntityList
-                        .firstWhere((element) => element.isSelected)
-                        .navBarIconType
-                        .name
-                        .tr()
+                    ? UserUtils.isAdmin()
+                        ? viewPageBloc.adminNavBarList
+                            .firstWhere((element) => element.isSelected)
+                            .navBarIconType
+                            .name
+                            .tr()
+                        : viewPageBloc.navBarIconEntityList
+                            .firstWhere((element) => element.isSelected)
+                            .navBarIconType
+                            .name
+                            .tr()
                     : null,
                 showBackLeading: false,
                 showAppBar: isRequestShipment ? false : true,
                 height: 50,
               ),
-              floatingActionButton: largerThanMobile(context) ? null : const SaayerFloatingActionButton(),
+              floatingActionButton: largerThanMobile(context)
+                  ? null
+                  : UserUtils.isAdmin()
+                      ? null
+                      : const SaayerFloatingActionButton(),
               bottomNavigationBar: largerThanMobile(context) ? null : const SaayerBottomNavigationBar(),
               body: Row(
                 children: [
@@ -101,6 +114,10 @@ class ViewPagePage extends StatelessWidget {
       case NavBarIconTypes.MORE:
         {
           return const MoreScreen();
+        }
+      case NavBarIconTypes.CLIENTS:
+        {
+          return const ClientsScreen();
         }
     }
   }

@@ -36,6 +36,7 @@ class NavBarIconWidget extends StatelessWidget {
   double get _getIconSize {
     switch (navBarIconType) {
       case NavBarIconTypes.ADDRESESS:
+      case NavBarIconTypes.CLIENTS:
       case NavBarIconTypes.MORE:
         {
           return 20;

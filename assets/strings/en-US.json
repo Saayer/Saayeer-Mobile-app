@@ -231,6 +231,7 @@
   "tracking_error_msg": "There is an problem, please ",
   "shipment_error_whatsapp_msg": "Hello, I have a problem with the shipment number {}",
   "chart_empty_msg": "You did not request your shipment for this month. request your first shipment",
+  "admin_chart_empty_msg": "No shipments requested this month.",
   "aramex_note_msg": "Kindly be informed that Aramex team will only come to pick up when you have 5 shipments at least waiting to be picked up, or you can take the shipments yourself anytime to the nearest office",
   "spl_note_msg": "Kindly be informed that sender/receiver must go the nearest SPL office to deliver/pick up shipments",
   "soon": "Soon",
@@ -252,5 +253,9 @@
   "clients": "Clients",
   "address_from": "From address",
   "address_to": "To address",
-  "client": "Client"
+  "client": "Client",
+  "client_number": "Client number",
+  "total_paid": "Total paid",
+  "join_date": "Join date",
+  "client_search_hint": "Search by name or business name or email"
 }

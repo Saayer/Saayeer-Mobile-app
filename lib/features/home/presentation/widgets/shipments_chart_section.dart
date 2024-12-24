@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/loading/loading_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/features/home/core/utils/enums/enums.dart';
@@ -71,7 +72,7 @@ class ShipmentsChartSection extends StatelessWidget {
                       )
                     : homeBloc.countPerDateResponse!.counts!.isEmpty
                         ? ErrorStackWidget(
-                            message: 'chart_empty_msg'.tr(),
+                            message: UserUtils.isAdmin() ? 'admin_chart_empty_msg'.tr() : 'chart_empty_msg'.tr(),
                           )
                         : Container()
           ],

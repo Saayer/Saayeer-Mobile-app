@@ -115,9 +115,9 @@ class BillInfo extends StatelessWidget {
 
   String _getShipmentCost() {
     if (UserUtils.isAdmin()) {
-      return "${adminShipmentDto.cost ?? ""} ${"sr".tr()}";
+      return "${(adminShipmentDto.cost ?? 0).toStringAsFixed(2)} ${"sr".tr()}";
     } else {
-      return "${shipmentDto.cost ?? ""} ${"sr".tr()}";
+      return "${(shipmentDto.cost ?? 0).toStringAsFixed(2)} ${"sr".tr()}";
     }
   }
 }

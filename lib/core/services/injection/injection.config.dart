@@ -63,6 +63,14 @@ import 'package:saayer/features/address/addresses_book/domain/use_cases/get_addr
     as _i436;
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart'
     as _i613;
+import 'package:saayer/features/clients/data/repositories/clients_list_repo_impl.dart'
+    as _i51;
+import 'package:saayer/features/clients/domain/repositories/clients_list_repo.dart'
+    as _i178;
+import 'package:saayer/features/clients/domain/use_cases/get_clients_List_usecase.dart'
+    as _i532;
+import 'package:saayer/features/clients/presentation/bloc/clients_bloc.dart'
+    as _i818;
 import 'package:saayer/features/home/data/repositories/home_repo_impl.dart'
     as _i34;
 import 'package:saayer/features/home/domain/repositories/home_repo.dart'
@@ -318,6 +326,8 @@ extension GetItInjectableX on _i174.GetIt {
         shipmentPaymentRepo: gh<_i791.ShipmentPaymentRepo>()));
     gh.factory<_i694.CreatePaymentUseCase>(() => _i694.CreatePaymentUseCase(
         shipmentPaymentRepo: gh<_i791.ShipmentPaymentRepo>()));
+    gh.factory<_i178.ClientsListRepo>(() =>
+        _i51.ClientsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i927.RefreshToken>(
         () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i79.AddEditAddressInfoRepo>(() =>
@@ -347,6 +357,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i508.PersonalInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i282.ShipmentsListRepo>(() =>
         _i779.ShipmentsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i532.GetClientsListUseCase>(() => _i532.GetClientsListUseCase(
+        clientsListRepo: gh<_i178.ClientsListRepo>()));
     gh.factory<_i735.LogInRepo>(() => _i681.LogInRepoImpl(
           logInRDSImpl: gh<_i400.LogInRDS>(),
           openAPIConfig: gh<_i801.OpenAPIConfig>(),
@@ -479,6 +491,8 @@ extension GetItInjectableX on _i174.GetIt {
           getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
           editStoreUseCase: gh<_i987.EditStoreUseCase>(),
         ));
+    gh.factory<_i818.ClientsBloc>(() => _i818.ClientsBloc(
+        getClientsListUseCase: gh<_i532.GetClientsListUseCase>()));
     gh.factory<_i959.StoresListBloc>(() => _i959.StoresListBloc(
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
           deleteStoresUseCase: gh<_i490.DeleteStoresUseCase>(),

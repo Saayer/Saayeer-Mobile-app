@@ -125,11 +125,20 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
 
   FutureOr<void> _initShipments(InitShipments event, Emitter<ShipmentsState> emit) {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
-    selectedExportShipmentStatus = event.initExportShipmentStatusFilter;
-    exportShipmentDateFrom = event.exportShipmentDateFrom;
-    exportShipmentDateFromController.text = DateTimeUtil.dMyString(exportShipmentDateFrom);
-    exportShipmentDateTo = event.exportShipmentDateTo;
-    exportShipmentDateToController.text = DateTimeUtil.dMyString(exportShipmentDateTo);
+    if (UserUtils.isAdmin()){
+      selectedAdminShipmentStatus = event.initExportShipmentStatusFilter;
+      adminShipmentDateFrom = event.exportShipmentDateFrom;
+      adminShipmentDateFromController.text = DateTimeUtil.dMyString(adminShipmentDateFrom);
+      adminShipmentDateTo = event.exportShipmentDateTo;
+      adminShipmentDateToController.text = DateTimeUtil.dMyString(adminShipmentDateTo);
+    }else{
+      selectedExportShipmentStatus = event.initExportShipmentStatusFilter;
+      exportShipmentDateFrom = event.exportShipmentDateFrom;
+      exportShipmentDateFromController.text = DateTimeUtil.dMyString(exportShipmentDateFrom);
+      exportShipmentDateTo = event.exportShipmentDateTo;
+      exportShipmentDateToController.text = DateTimeUtil.dMyString(exportShipmentDateTo);
+    }
+
     emit(state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADED), isFromHome: event.isFromHome));
   }

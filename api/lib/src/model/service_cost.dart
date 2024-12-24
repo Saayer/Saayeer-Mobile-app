@@ -13,7 +13,8 @@ part 'service_cost.g.dart';
 /// Properties:
 /// * [name] 
 /// * [company] 
-/// * [cost] 
+/// * [price] 
+/// * [logisticCost] 
 /// * [workDaysMaximum] 
 /// * [workDaysMinimum] 
 /// * [estimatedShipmentDays] 
@@ -28,8 +29,11 @@ abstract class ServiceCost implements Built<ServiceCost, ServiceCostBuilder> {
   @BuiltValueField(wireName: r'company')
   String? get company;
 
-  @BuiltValueField(wireName: r'cost')
-  double? get cost;
+  @BuiltValueField(wireName: r'price')
+  double? get price;
+
+  @BuiltValueField(wireName: r'logisticCost')
+  double? get logisticCost;
 
   @BuiltValueField(wireName: r'workDaysMaximum')
   int? get workDaysMaximum;
@@ -86,10 +90,17 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.cost != null) {
-      yield r'cost';
+    if (object.price != null) {
+      yield r'price';
       yield serializers.serialize(
-        object.cost,
+        object.price,
+        specifiedType: const FullType(double),
+      );
+    }
+    if (object.logisticCost != null) {
+      yield r'logisticCost';
+      yield serializers.serialize(
+        object.logisticCost,
         specifiedType: const FullType(double),
       );
     }
@@ -174,12 +185,19 @@ class _$ServiceCostSerializer implements PrimitiveSerializer<ServiceCost> {
           if (valueDes == null) continue;
           result.company = valueDes;
           break;
-        case r'cost':
+        case r'price':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(double),
           ) as double;
-          result.cost = valueDes;
+          result.price = valueDes;
+          break;
+        case r'logisticCost':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double;
+          result.logisticCost = valueDes;
           break;
         case r'workDaysMaximum':
           final valueDes = serializers.deserialize(
