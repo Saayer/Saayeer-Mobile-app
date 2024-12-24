@@ -50,7 +50,7 @@ class _ShipmentsFiltersWidgetState extends State<ShipmentsFiltersWidget> {
                 ResponsiveRowColumnItem(
                   rowFit: FlexFit.loose,
 
-                  /// Search By Text & Search by Service Providers
+                  /// Search By Text & Stores
                   child: _buildFirstFiltersRow(),
                 ),
                 ResponsiveRowColumnItem(
@@ -62,7 +62,7 @@ class _ShipmentsFiltersWidgetState extends State<ShipmentsFiltersWidget> {
             ),
             const SizedBox(height: 10),
 
-            /// Search By Shipment Status & Stores
+            /// Search By Shipment Status & Search by Service Providers
             _buildThirdFiltersRow(),
 
             ///

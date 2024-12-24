@@ -294,7 +294,7 @@ class ShipmentSummaryTextFieldsHelper {
             Text("${'cost'.tr()} : ", style: keyTextStyle),
             Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text('${requestShipmentBloc.state.selectedServiceProvider?.cost} ${'sar'.tr()}',
+                child: Text('${requestShipmentBloc.state.selectedServiceProvider?.price} ${'sar'.tr()}',
                     style: valueTextStyle)),
           ],
         ),

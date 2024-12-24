@@ -181,7 +181,7 @@ class ShipmentSummaryBloc extends Bloc<ShipmentSummaryEvent, ShipmentSummaryStat
       ..receiverCustomerId = event.receiverCustomerId
       ..senderStoreId = event.senderStoreId
       ..receiverStoreId = event.receiverStoreId
-      ..cost = event.selectedServiceProvider?.cost
+      ..cost = event.selectedServiceProvider?.logisticCost
       ..logisticServiceName = event.selectedServiceProvider?.name);
 
     final Either<Failure, ShipmentGetDto> result = await addNewShipmentUseCase(shipmentDto);

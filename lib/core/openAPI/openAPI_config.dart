@@ -42,4 +42,15 @@ class OpenAPIConfig {
       ]);
     }
   }
+
+  Future retry(RequestOptions requestOptions) {
+    final options = Options(
+      method: requestOptions.method,
+      headers: requestOptions.headers,
+    );
+    return openapi.dio.request<dynamic>(requestOptions.path,
+        data: requestOptions.data,
+        queryParameters: requestOptions.queryParameters,
+        options: options);
+  }
 }

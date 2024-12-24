@@ -10,6 +10,7 @@ class HomeState extends Equatable {
   final ShipmentsCountResponse? shipmentsCountResponse;
   final CountPerDateResponse? totalShipmentsPerDaysList;
   final AmountPerDateResponse? totalPaidPerDaysList;
+  final ShipmentsCountResponseLAdmin? adminShipmentsCountResponse;
 
   const HomeState({
     this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
@@ -21,6 +22,7 @@ class HomeState extends Equatable {
     this.shipmentsCountResponse,
     this.totalShipmentsPerDaysList,
     this.totalPaidPerDaysList,
+    this.adminShipmentsCountResponse,
   });
 
   HomeState copyWith({
@@ -32,6 +34,7 @@ class HomeState extends Equatable {
     ShipmentsCountResponse? shipmentsCountResponse,
     CountPerDateResponse? totalShipmentsPerDaysList,
     AmountPerDateResponse? totalPaidPerDaysList,
+    ShipmentsCountResponseLAdmin? adminShipmentsCountResponse,
   }) {
     return HomeState(
       stateHelper: stateHelper ?? this.stateHelper,
@@ -42,6 +45,7 @@ class HomeState extends Equatable {
       shipmentsCountResponse: shipmentsCountResponse ?? this.shipmentsCountResponse,
       totalShipmentsPerDaysList: totalShipmentsPerDaysList ?? this.totalShipmentsPerDaysList,
       totalPaidPerDaysList: totalPaidPerDaysList ?? this.totalPaidPerDaysList,
+      adminShipmentsCountResponse: adminShipmentsCountResponse ?? this.adminShipmentsCountResponse,
     );
   }
 
@@ -55,5 +59,6 @@ class HomeState extends Equatable {
         shipmentsCountResponse,
         totalShipmentsPerDaysList,
         totalPaidPerDaysList,
+        adminShipmentsCountResponse,
       ];
 }

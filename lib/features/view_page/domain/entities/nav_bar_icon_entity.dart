@@ -60,8 +60,8 @@ class RequestShipmentNavBarIconEntity extends NavBarIconEntity {
   });
 }
 
-class ProfileNavBarIconEntity extends NavBarIconEntity {
-  const ProfileNavBarIconEntity({
+class AddressesNavBarIconEntity extends NavBarIconEntity {
+  const AddressesNavBarIconEntity({
     super.iconData = Icons.location_on,
     super.isSelected = false,
     super.navBarIconType = NavBarIconTypes.ADDRESESS,
@@ -75,5 +75,23 @@ class MoreNavBarIconEntity extends NavBarIconEntity {
     super.isSelected = false,
     super.navBarIconType = NavBarIconTypes.MORE,
     super.index = 4,
+  });
+}
+
+class ClientsNavBarIconEntity extends NavBarIconEntity {
+  const ClientsNavBarIconEntity({
+    super.iconData = Icons.people_alt,
+    super.isSelected = false,
+    super.navBarIconType = NavBarIconTypes.CLIENTS,
+    super.index = 2,
+  });
+}
+
+class AdminMoreNavBarIconEntity extends NavBarIconEntity {
+  const AdminMoreNavBarIconEntity({
+    super.iconData = Icons.more_horiz,
+    super.isSelected = false,
+    super.navBarIconType = NavBarIconTypes.MORE,
+    super.index = 3,
   });
 }
