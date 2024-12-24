@@ -10,4 +10,10 @@ abstract class HomeRepo {
   Future<Either<Failure, CountPerDateResponse>> getTotalShipmentPerDays(DateRangeDto dataRangeDto);
 
   Future<Either<Failure, AmountPerDateResponse>> getTotalPaidPerDays(DateRangeDto dataRangeDto);
+
+  Future<Either<Failure, ShipmentsCountResponseLAdmin>> getAdminShipmentsStatusTotalCount(DateRangeDto dataRangeDto);
+
+  Future<Either<Failure, CountPerDateResponse>> getAdminTotalShipmentPerDays(DateRangeDto dataRangeDto);
+
+  Future<Either<Failure, AmountPerDateResponse>> getAdminTotalPaidPerDays(DateRangeDto dataRangeDto);
 }

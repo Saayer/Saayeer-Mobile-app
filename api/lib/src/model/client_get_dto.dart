@@ -17,8 +17,10 @@ part 'client_get_dto.g.dart';
 /// * [email] 
 /// * [businessName] 
 /// * [address] 
+/// * [createdAt] 
 /// * [totalShipments] 
 /// * [totalPaid] 
+/// * [totalGain] 
 /// * [numberOfStores] 
 @BuiltValue()
 abstract class ClientGetDto implements Built<ClientGetDto, ClientGetDtoBuilder> {
@@ -40,11 +42,17 @@ abstract class ClientGetDto implements Built<ClientGetDto, ClientGetDtoBuilder> 
   @BuiltValueField(wireName: r'address')
   String? get address;
 
+  @BuiltValueField(wireName: r'createdAt')
+  String? get createdAt;
+
   @BuiltValueField(wireName: r'totalShipments')
   int? get totalShipments;
 
   @BuiltValueField(wireName: r'totalPaid')
   double? get totalPaid;
+
+  @BuiltValueField(wireName: r'totalGain')
+  double? get totalGain;
 
   @BuiltValueField(wireName: r'numberOfStores')
   int? get numberOfStores;
@@ -114,6 +122,13 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
         specifiedType: const FullType.nullable(String),
       );
     }
+    if (object.createdAt != null) {
+      yield r'createdAt';
+      yield serializers.serialize(
+        object.createdAt,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.totalShipments != null) {
       yield r'totalShipments';
       yield serializers.serialize(
@@ -125,6 +140,13 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
       yield r'totalPaid';
       yield serializers.serialize(
         object.totalPaid,
+        specifiedType: const FullType.nullable(double),
+      );
+    }
+    if (object.totalGain != null) {
+      yield r'totalGain';
+      yield serializers.serialize(
+        object.totalGain,
         specifiedType: const FullType.nullable(double),
       );
     }
@@ -205,6 +227,13 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
           if (valueDes == null) continue;
           result.address = valueDes;
           break;
+        case r'createdAt':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.createdAt = valueDes;
+          break;
         case r'totalShipments':
           final valueDes = serializers.deserialize(
             value,
@@ -220,6 +249,14 @@ class _$ClientGetDtoSerializer implements PrimitiveSerializer<ClientGetDto> {
           ) as double?;
           if (valueDes == null) continue;
           result.totalPaid = valueDes;
+          break;
+        case r'totalGain':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(double),
+          ) as double?;
+          if (valueDes == null) continue;
+          result.totalGain = valueDes;
           break;
         case r'numberOfStores':
           final valueDes = serializers.deserialize(

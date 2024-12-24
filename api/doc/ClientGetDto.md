@@ -14,8 +14,10 @@ Name | Type | Description | Notes
 **email** | **String** |  | [optional] 
 **businessName** | **String** |  | [optional] 
 **address** | **String** |  | [optional] 
+**createdAt** | **String** |  | [optional] 
 **totalShipments** | **int** |  | [optional] 
 **totalPaid** | **double** |  | [optional] 
+**totalGain** | **double** |  | [optional] 
 **numberOfStores** | **int** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

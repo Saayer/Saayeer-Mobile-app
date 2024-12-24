@@ -24,7 +24,7 @@ class _$ShipmentGetDtoExtended extends ShipmentGetDtoExtended {
   @override
   final double? cost;
   @override
-  final DateTime? createdAt;
+  final String? createdAt;
   @override
   final String? logisticServiceName;
   @override
@@ -212,9 +212,9 @@ class ShipmentGetDtoExtendedBuilder
   double? get cost => _$this._cost;
   set cost(double? cost) => _$this._cost = cost;
 
-  DateTime? _createdAt;
-  DateTime? get createdAt => _$this._createdAt;
-  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
 
   String? _logisticServiceName;
   String? get logisticServiceName => _$this._logisticServiceName;

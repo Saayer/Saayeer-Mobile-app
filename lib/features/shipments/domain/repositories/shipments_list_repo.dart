@@ -6,4 +6,8 @@ abstract class ShipmentsListRepo {
   Future<Either<Failure, List<ShipmentGetDto>>> getShipmentsList(ShipmentQuery? shipmentQuery);
 
   Future<Either<Failure, List<LogisticsServiceBase>>> getServiceProvidersList();
+
+  Future<Either<Failure, List<ShipmentGetDtoExtended>>> getAdminShipmentsList(ShipmentQueryLAdmin? shipmentQuery);
+
+  Future<Either<Failure, List<ClientNamesRespnse>>> getClientsList();
 }

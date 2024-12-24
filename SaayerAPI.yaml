@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-33-dev
+  version: v-34-dev
 servers:
-  - url: "/saayer-33/app"
+  - url: "/saayer-34/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -1531,11 +1531,17 @@ components:
         address:
           type: string
           nullable: true
+        createdAt:
+          type: string
         totalShipments:
           type: integer
           format: int32
           nullable: true
         totalPaid:
+          type: number
+          format: double
+          nullable: true
+        totalGain:
           type: number
           format: double
           nullable: true
@@ -1991,7 +1997,10 @@ components:
         company:
           type: string
           nullable: true
-        cost:
+        price:
+          type: number
+          format: double
+        logisticCost:
           type: number
           format: double
         workDaysMaximum:
@@ -2200,7 +2209,6 @@ components:
           nullable: true
         createdAt:
           type: string
-          format: date-time
         logisticServiceName:
           type: string
           nullable: true

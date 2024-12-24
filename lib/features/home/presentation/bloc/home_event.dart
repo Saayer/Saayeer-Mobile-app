@@ -46,3 +46,36 @@ class GetTotalPaidPerDays extends HomeEvent {
         dataRangeDto,
       ];
 }
+
+class GetAdminTotalStatusShipmentsCount extends HomeEvent {
+  final DateRangeDto dataRangeDto;
+
+  const GetAdminTotalStatusShipmentsCount({required this.dataRangeDto});
+
+  @override
+  List<Object> get props => [
+    dataRangeDto,
+  ];
+}
+
+class GetAdminTotalShipmentsPerDays extends HomeEvent {
+  final DateRangeDto dataRangeDto;
+
+  const GetAdminTotalShipmentsPerDays({required this.dataRangeDto});
+
+  @override
+  List<Object> get props => [
+    dataRangeDto,
+  ];
+}
+
+class GetAdminTotalPaidPerDays extends HomeEvent {
+  final DateRangeDto dataRangeDto;
+
+  const GetAdminTotalPaidPerDays({required this.dataRangeDto});
+
+  @override
+  List<Object> get props => [
+    dataRangeDto,
+  ];
+}

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -18,60 +19,60 @@ class SideMenuNavigationWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
+    List<NavBarIconEntity> navBarList =
+        UserUtils.isAdmin() ? viewPageBloc.adminNavBarList : viewPageBloc.navBarIconEntityList;
     return BlocConsumer<ViewPageBloc, ViewPageState>(
-        listener: (context, state) {
-        },
-      builder: (context, state) {
-        return NavigationRail(
-          selectedIndex: selectedNavBarIcon.index,
+        listener: (context, state) {},
+        builder: (context, state) {
+          return NavigationRail(
+            selectedIndex: selectedNavBarIcon.index,
             extended: largerThanTablet(context) ? true : false,
             backgroundColor: SaayerTheme().getColorsPalette.greyColor.withOpacity(0.1),
-            onDestinationSelected: (index){
-              if (viewPageBloc.navBarIconEntityList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
+            onDestinationSelected: (index) {
+              if (navBarList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
                 viewPageBloc.add(const SetShipmentsFiltersValue(
                   initExportShipmentStatusFilter: null,
                   exportShipmentDateFrom: null,
                   exportShipmentDateTo: null,
                 ));
               }
-              viewPageBloc
-                  .add(GoToPage(navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType));
+              viewPageBloc.add(GoToPage(navBarIconType: navBarList[index].navBarIconType));
             },
             leading: Container(
               width: 100,
               height: 60,
-              decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(Constants.getIconPath("ic_logo.png")))),
+              decoration:
+                  BoxDecoration(image: DecorationImage(image: AssetImage(Constants.getIconPath("ic_logo.png")))),
             ),
             indicatorColor: SaayerTheme().getColorsPalette.transparent,
             destinations: [
-              ...List.generate(viewPageBloc.navBarIconEntityList.length, (index) => NavigationRailDestination(
-                  icon: NavBarIconWidget(
-                    navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType,
-                    onPressed: () {
-                      if (viewPageBloc.navBarIconEntityList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
-                        viewPageBloc.add(const SetShipmentsFiltersValue(
-                          initExportShipmentStatusFilter: null,
-                          exportShipmentDateFrom: null,
-                          exportShipmentDateTo: null,
-                        ));
-                      }
-                      viewPageBloc
-                          .add(GoToPage(navBarIconType: viewPageBloc.navBarIconEntityList[index].navBarIconType));
-                    },
-                    isSelected: viewPageBloc.navBarIconEntityList[index].isSelected,
-                  ),
-                  label: Text(
-                    viewPageBloc.navBarIconEntityList[index].navBarIconType.name.tr(),
-                    style: AppTextStyles.smallParagraph(viewPageBloc.navBarIconEntityList[index].isSelected
-                        ? SaayerTheme().getColorsPalette.primaryColor
-                        : SaayerTheme().getColorsPalette.blackTextColor),
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                  )))
+              ...List.generate(
+                  navBarList.length,
+                  (index) => NavigationRailDestination(
+                      icon: NavBarIconWidget(
+                        navBarIconType: navBarList[index].navBarIconType,
+                        onPressed: () {
+                          if (navBarList[index].navBarIconType == NavBarIconTypes.SHIPMENTS) {
+                            viewPageBloc.add(const SetShipmentsFiltersValue(
+                              initExportShipmentStatusFilter: null,
+                              exportShipmentDateFrom: null,
+                              exportShipmentDateTo: null,
+                            ));
+                          }
+                          viewPageBloc.add(GoToPage(navBarIconType: navBarList[index].navBarIconType));
+                        },
+                        isSelected: navBarList[index].isSelected,
+                      ),
+                      label: Text(
+                        navBarList[index].navBarIconType.name.tr(),
+                        style: AppTextStyles.smallParagraph(navBarList[index].isSelected
+                            ? SaayerTheme().getColorsPalette.primaryColor
+                            : SaayerTheme().getColorsPalette.blackTextColor),
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                      )))
             ],
-            );
-      }
-    );
+          );
+        });
   }
 }

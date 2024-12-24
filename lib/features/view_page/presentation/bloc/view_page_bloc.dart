@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:openapi/openapi.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/helpers/state_helper/state_helper.dart';
 import 'package:saayer/core/services/current_user/current_user_enums.dart';
 import 'package:saayer/core/services/current_user/logged_in_checker_service.dart';
@@ -31,14 +32,26 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
     const HomeNavBarIconEntity(isSelected: true),
     const ShipmentsNavBarIconEntity(),
     const RequestShipmentNavBarIconEntity(),
-    const ProfileNavBarIconEntity(),
+    const AddressesNavBarIconEntity(),
     const MoreNavBarIconEntity()
+  ];
+
+  final List<NavBarIconEntity> adminNavBarList = [
+    const HomeNavBarIconEntity(isSelected: true),
+    const ShipmentsNavBarIconEntity(),
+    const ClientsNavBarIconEntity(),
+    const AdminMoreNavBarIconEntity()
   ];
 
   /// use these values in shipments list screen with filter
   ShipmentStatusEnum? initExportShipmentsStatusFilter;
   DateTime? exportShipmentDateFrom;
   DateTime? exportShipmentDateTo;
+
+  /// use these values in admin shipments list screen with filter
+  ShipmentStatusEnum? initAdminShipmentsStatusFilter;
+  DateTime? adminShipmentDateFrom;
+  DateTime? adminShipmentDateTo;
 
   Future<FutureOr<void>> _initViewPage(event, Emitter<ViewPageState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
@@ -55,13 +68,23 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
 
     final List<NavBarIconEntity> newNavBarIconEntityList = [];
-    for (NavBarIconEntity navBarIconEntity in navBarIconEntityList) {
-      newNavBarIconEntityList
-          .add(navBarIconEntity.copyWith(isSelected: (event.navBarIconType == navBarIconEntity.navBarIconType)));
-    }
+    if (UserUtils.isAdmin()) {
+      for (NavBarIconEntity navBarIconEntity in adminNavBarList) {
+        newNavBarIconEntityList
+            .add(navBarIconEntity.copyWith(isSelected: (event.navBarIconType == navBarIconEntity.navBarIconType)));
+      }
 
-    navBarIconEntityList.clear();
-    navBarIconEntityList.addAll(newNavBarIconEntityList);
+      adminNavBarList.clear();
+      adminNavBarList.addAll(newNavBarIconEntityList);
+    } else {
+      for (NavBarIconEntity navBarIconEntity in navBarIconEntityList) {
+        newNavBarIconEntityList
+            .add(navBarIconEntity.copyWith(isSelected: (event.navBarIconType == navBarIconEntity.navBarIconType)));
+      }
+
+      navBarIconEntityList.clear();
+      navBarIconEntityList.addAll(newNavBarIconEntityList);
+    }
 
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADED)));
   }
@@ -75,8 +98,15 @@ class ViewPageBloc extends Bloc<ViewPageEvent, ViewPageState> {
   }
 
   FutureOr<void> _setShipmentsFiltersValue(SetShipmentsFiltersValue event, Emitter<ViewPageState> emit) {
-    initExportShipmentsStatusFilter = event.initExportShipmentStatusFilter;
-    exportShipmentDateFrom = event.exportShipmentDateFrom;
-    exportShipmentDateTo = event.exportShipmentDateTo;
+    if(UserUtils.isAdmin()){
+      initAdminShipmentsStatusFilter = event.initExportShipmentStatusFilter;
+      adminShipmentDateFrom = event.exportShipmentDateFrom;
+      adminShipmentDateTo = event.exportShipmentDateTo;
+    }else{
+      initExportShipmentsStatusFilter = event.initExportShipmentStatusFilter;
+      exportShipmentDateFrom = event.exportShipmentDateFrom;
+      exportShipmentDateTo = event.exportShipmentDateTo;
+    }
+
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/helpers/utils_helper/date_time_utils.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
@@ -11,8 +12,13 @@ import 'package:saayer/features/shipments/presentation/widgets/shipment_item_wid
 
 class ShipmentInfo extends StatelessWidget {
   final ShipmentGetDto shipmentDto;
+  final ShipmentGetDtoExtended adminShipmentDto;
 
-  const ShipmentInfo({super.key, required this.shipmentDto});
+  const ShipmentInfo({
+    super.key,
+    required this.shipmentDto,
+    required this.adminShipmentDto,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,35 +26,36 @@ class ShipmentInfo extends StatelessWidget {
       InfoRow(
         iconData: LineIcons.weight,
         isDateTime: false,
-        text: "${shipmentDto.weight} ${"kg".tr()}",
+        text: _getShipmentWeight(),
       ),
       InfoRow(
         iconData: LineIcons.textWidth,
         isDateTime: false,
-        text: "${shipmentDto.width} ${"cm".tr()}",
+        text: _getShipmentWidth(),
       ),
       InfoRow(
         iconData: LineIcons.textHeight,
         isDateTime: false,
-        text: "${shipmentDto.height} ${"cm".tr()}",
+        text: _getShipmentHeight(),
       ),
       InfoRow(
         iconData: Icons.expand,
         isDateTime: false,
-        text: "${shipmentDto.length} ${"cm".tr()}",
+        text: _getShipmentLength(),
       ),
       InfoRow(
         iconData: LineIcons.info,
         isDateTime: false,
-        text: "${shipmentDto.contentDesc}",
+        text: _getShipmentContentDesc(),
       ),
       InfoRow(
         iconData: Icons.date_range,
         isDateTime: true,
-        text: DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '',
+        text: _getShipmentCreatedAt(),
       ),
     ];
-    final Color shipmentStatusColor = ShipmentItemWidgetHelper().getColor(shipmentDto.status!);
+    final Color shipmentStatusColor =
+        ShipmentItemWidgetHelper().getColor(UserUtils.isAdmin() ? adminShipmentDto.status! : shipmentDto.status!);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
@@ -66,33 +73,35 @@ class ShipmentInfo extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                shipmentDto.senderStoreId == null ? 'import_shipment'.tr() : 'export_shipment'.tr(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.buttonLabel(),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              ...(infoRowList.map((e) {
-                return Column(
-                  children: [
-                    e,
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                );
-              }).toList()),
-              const SizedBox(
-                height: 5,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  _getImportExportTitle(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.buttonLabel(),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                ...(infoRowList.map((e) {
+                  return Column(
+                    children: [
+                      e,
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  );
+                }).toList()),
+                const SizedBox(
+                  height: 5,
+                ),
+              ],
+            ),
           ),
           Column(
             children: [
@@ -113,7 +122,7 @@ class ShipmentInfo extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Text(
-                      shipmentDto.status!.name.tr(),
+                      _getShipmentStatusName(),
                       style: AppTextStyles.label(),
                       textAlign: TextAlign.center,
                     ),
@@ -123,6 +132,70 @@ class ShipmentInfo extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _getShipmentWeight() {
+    if (UserUtils.isAdmin()) {
+      return "${adminShipmentDto.weight} ${"kg".tr()}";
+    } else {
+      return "${shipmentDto.weight} ${"kg".tr()}";
+    }
+  }
+
+  String _getShipmentWidth() {
+    if (UserUtils.isAdmin()) {
+      return "${adminShipmentDto.width} ${"cm".tr()}";
+    } else {
+      return "${shipmentDto.width} ${"cm".tr()}";
+    }
+  }
+
+  String _getShipmentHeight() {
+    if (UserUtils.isAdmin()) {
+      return "${adminShipmentDto.height} ${"cm".tr()}";
+    } else {
+      return "${shipmentDto.height} ${"cm".tr()}";
+    }
+  }
+
+  String _getShipmentLength() {
+    if (UserUtils.isAdmin()) {
+      return "${adminShipmentDto.length} ${"cm".tr()}";
+    } else {
+      return "${shipmentDto.length} ${"cm".tr()}";
+    }
+  }
+
+  String _getShipmentContentDesc() {
+    if (UserUtils.isAdmin()) {
+      return "${adminShipmentDto.contentDesc}";
+    } else {
+      return "${shipmentDto.contentDesc}";
+    }
+  }
+
+  String _getShipmentCreatedAt() {
+    if (UserUtils.isAdmin()) {
+      return DateTimeUtil.convertUTCDateToLocalWithoutSec(adminShipmentDto.createdAt ?? '') ?? '';
+    } else {
+      return DateTimeUtil.convertUTCDateToLocalWithoutSec(shipmentDto.createdAt ?? '') ?? '';
+    }
+  }
+
+  String _getImportExportTitle() {
+    if (UserUtils.isAdmin()) {
+      return adminShipmentDto.senderStoreId == null ? 'import_shipment'.tr() : 'export_shipment'.tr();
+    } else {
+      return shipmentDto.senderStoreId == null ? 'import_shipment'.tr() : 'export_shipment'.tr();
+    }
+  }
+
+  String _getShipmentStatusName() {
+    if (UserUtils.isAdmin()) {
+      return adminShipmentDto.status!.name.tr();
+    } else {
+      return shipmentDto.status!.name.tr();
+    }
   }
 }
 
@@ -151,13 +224,15 @@ class InfoRow extends StatelessWidget {
         const SizedBox(
           width: 5,
         ),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: Text(
-            isDateTime ? text.split(' ').sublist(1).join(' ') : text,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.smallLabel(),
+        Flexible(
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Text(
+              isDateTime ? text.split(' ').sublist(1).join(' ') : text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.smallLabel(),
+            ),
           ),
         ),
         isDateTime
