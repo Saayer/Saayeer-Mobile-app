@@ -67,11 +67,11 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   ///
   ShipmentStatusEnum? selectedExportShipmentStatus;
   StoreGetDto? selectedExportStore;
-  LogisticsServiceBase? selectedExportServiceProvider;
+  LogisticServiceGetDto? selectedExportServiceProvider;
 
   ///
   List<StoreGetDto> exportStoresList = [];
-  List<LogisticsServiceBase> exportServiceProvidersList = [];
+  List<LogisticServiceGetDto> exportServiceProvidersList = [];
   List<ShipmentGetDto> exportShipmentsList = [];
 
   ///Import Filter Controller
@@ -86,11 +86,11 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
   ///
   ShipmentStatusEnum? selectedImportShipmentStatus;
   StoreGetDto? selectedImportStore;
-  LogisticsServiceBase? selectedImportServiceProvider;
+  LogisticServiceGetDto? selectedImportServiceProvider;
 
   ///
   List<StoreGetDto> importStoresList = [];
-  List<LogisticsServiceBase> importServiceProvidersList = [];
+  List<LogisticServiceGetDto> importServiceProvidersList = [];
   List<ShipmentGetDto> importShipmentsList = [];
 
   ///Admin shipment Filter Controller
@@ -104,12 +104,12 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
 
   ///
   ShipmentStatusEnum? selectedAdminShipmentStatus;
-  LogisticsServiceBase? selectedAdminServiceProvider;
+  LogisticServiceGetDto? selectedAdminServiceProvider;
   ClientNamesRespnse? selectedClientName;
 
   ///
   List<ShipmentGetDtoExtended> adminShipmentsList = [];
-  List<LogisticsServiceBase> adminServiceProvidersList = [];
+  List<LogisticServiceGetDto> adminServiceProvidersList = [];
   List<ClientNamesRespnse> clientsList = [];
 
   ///pagination util
@@ -153,7 +153,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
           ..storeId = selectedExportStore?.storeId
           ..status = selectedExportShipmentStatus
           ..isReturn = false
-          ..logisticServiceName = selectedExportServiceProvider?.name
+          ..logisticServiceName = selectedExportServiceProvider?.serviceName
           ..skip = exportShipmentsList.length
           ..take = _pageSize)));
 
@@ -201,7 +201,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
           ..storeId = selectedImportStore?.storeId
           ..status = selectedImportShipmentStatus
           ..isReturn = true
-          ..logisticServiceName = selectedImportServiceProvider?.name
+          ..logisticServiceName = selectedImportServiceProvider?.serviceName
           ..skip = importShipmentsList.length
           ..take = _pageSize)));
 
@@ -326,7 +326,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
             stateHelper: state.stateHelper.copyWith(
                 requestState: RequestState.ERROR, errorStatus: ShipmentsErrorStatus.ERROR_GET_SERVICE_PROVIDERS)));
       } else {
-        final List<LogisticsServiceBase>? rightResult = (result as Right).value;
+        final List<LogisticServiceGetDto>? rightResult = (result as Right).value;
 
         if (rightResult != null) {
           emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: "")));
@@ -421,7 +421,7 @@ class ShipmentsBloc extends Bloc<ShipmentsEvent, ShipmentsState> {
           ..shippingDateFrom = adminShipmentDateFrom
           ..shippingDateTo = adminShipmentDateTo
           ..status = selectedAdminShipmentStatus
-          ..logisticServiceName = selectedAdminServiceProvider?.name
+          ..logisticServiceName = selectedAdminServiceProvider?.serviceName
           ..clientId = selectedClientName?.clientId
           ..skip = adminShipmentsList.length
           ..take = _pageSize)));

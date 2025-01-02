@@ -257,5 +257,10 @@
   "client_number": "Client number",
   "total_paid": "Total paid",
   "join_date": "Join date",
-  "client_search_hint": "Search by name or business name or email"
+  "client_search_hint": "Search by name or business name or email",
+  "saayer_gain": "Saayer gain",
+  "service_providers_management": "Service Providers Management",
+  "saayer_gain_change_successfully": "Saayer gain has changed successfully",
+  "saayer_gain_max_percentage_error": "The number must be less than or equal 100",
+  "saayer_gain_min_percentage_error": "The number must be more than or equal 0"
 }

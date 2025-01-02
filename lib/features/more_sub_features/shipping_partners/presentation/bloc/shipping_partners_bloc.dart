@@ -26,7 +26,7 @@ class ShippingPartnersBloc extends Bloc<ShippingPartnersEvent, ShippingPartnersS
   }
 
   ///
-  List<LogisticsServiceBase> shippingPartnersList = [];
+  List<LogisticServiceGetDto> shippingPartnersList = [];
 
   FutureOr<void> _getShippingPartners(GetShippingPartners event, Emitter<ShippingPartnersState> emit) async {
     emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING)));
@@ -38,7 +38,7 @@ class ShippingPartnersBloc extends Bloc<ShippingPartnersEvent, ShippingPartnersS
                 requestState: RequestState.ERROR,
                 errorStatus: ShippingPartnersErrorStatus.ERROR_GET_SHIPPINGPARTNERS)));
       } else {
-        final List<LogisticsServiceBase>? rightResult = (result as Right).value;
+        final List<LogisticServiceGetDto>? rightResult = (result as Right).value;
 
         if (rightResult != null) {
           emit(state.copyWith(stateHelper: const StateHelper(requestState: RequestState.LOADING, loadingMessage: "")));

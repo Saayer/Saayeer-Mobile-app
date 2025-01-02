@@ -305,7 +305,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     emit(
       state.copyWith(
         stateHelper: const StateHelper(requestState: RequestState.LOADING),
-        shipmentDtoBody: ShipmentCostDto((b) => b
+        shipmentDtoBody: ShipmentCostRequest((b) => b
           ..length = lengthController.text.isEmpty ? 0 : double.parse(lengthController.text)
           ..height = heightController.text.isEmpty ? 0 : double.parse(heightController.text)
           ..weight = weightController.text.isEmpty ? null : double.parse(weightController.text)

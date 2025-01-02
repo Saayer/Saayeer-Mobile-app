@@ -70,6 +70,20 @@ class MorePage extends StatelessWidget {
                     title: "settings",
                     onPressedRouteName: Routes.settingsNamedPage,
                   ),
+                  if(UserUtils.isAdmin()) ...[
+                    dividerWidget,
+                    const MoreItemWidget(
+                      iconName: "replacement_refund_policy",
+                      title: "saayer_gain",
+                      onPressedRouteName: Routes.saayerGainNamedPage,
+                    ),
+                    dividerWidget,
+                    const MoreItemWidget(
+                      iconName: "total_shipments",
+                      title: "service_providers_management",
+                      onPressedRouteName: Routes.storesListNamedPage,
+                    ),
+                  ],
                   if (!UserUtils.isAdmin()) ...[
                     dividerWidget,
                     const MoreItemWidget(

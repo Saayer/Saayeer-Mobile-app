@@ -17,12 +17,12 @@ class ShipmentProvidersRepoImpl implements ShipmentProvidersRepo {
   });
 
   @override
-  Future<Either<Failure, List<ServiceCost>>> getShipmentProviders(ShipmentCostDto shipmentDto) async {
+  Future<Either<Failure, List<LogisticCostDto>>> getShipmentProviders(ShipmentCostRequest shipmentDto) async {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
         final result = await openApiConfig.openapi.getLogisticsApi().apiLogisticsServiceCostsPost(
-            shipmentCostDto: shipmentDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
+            shipmentCostRequest: shipmentDto, apiKey: NetworkKeys.init().networkKeys.apiKey);
         if (result.data != null) {
           return Right(result.data!.toList());
         } else {

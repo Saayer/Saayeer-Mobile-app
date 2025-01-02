@@ -7,7 +7,7 @@ import 'package:saayer/features/shipments/domain/repositories/shipments_list_rep
 
 @injectable
 class GetServiceProvidersListUseCase
-    implements BaseUseCase<Future<Either<Failure, List<LogisticsServiceBase>>>, NoParameters> {
+    implements BaseUseCase<Future<Either<Failure, List<LogisticServiceGetDto>>>, NoParameters> {
   final ShipmentsListRepo shipmentsListRepo;
 
   const GetServiceProvidersListUseCase({
@@ -15,7 +15,7 @@ class GetServiceProvidersListUseCase
   });
 
   @override
-  Future<Either<Failure, List<LogisticsServiceBase>>> call(NoParameters parameters) async {
+  Future<Either<Failure, List<LogisticServiceGetDto>>> call(NoParameters parameters) async {
     return await shipmentsListRepo.getServiceProvidersList();
   }
 }

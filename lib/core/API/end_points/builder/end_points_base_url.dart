@@ -22,9 +22,9 @@ class EndPointsBaseUrl {
       case FlavorType.DEV:
         {
           return const EndPointsBaseUrl._internal(
-            baseUrl: "https://app.saayer.com:9004/saayer-34/app",
+            baseUrl: "https://app.saayer.com:9004/saayer-36/app",
             baseRedirectUrl: "https://app.saayer.com:9004",
-            hrefForWeb: '/saayer-34/web',
+            hrefForWeb: '/saayer-36/web',
           );
         }
       case FlavorType.STAGING:

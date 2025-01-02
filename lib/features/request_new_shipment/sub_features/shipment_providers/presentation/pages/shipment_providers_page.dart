@@ -110,12 +110,12 @@ class _ShipmentProvidersPageState extends State<ShipmentProvidersPage> {
             itemCount: shipmentProvidersBloc.state.shipmentProvidersResponse!.length,
             physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              final ServiceCost shipmentProviderModel = shipmentProvidersBloc.state.shipmentProvidersResponse![index];
+              final LogisticCostDto shipmentProviderModel = shipmentProvidersBloc.state.shipmentProvidersResponse![index];
 
               return ShipmentProviderCard(
                 shipmentProviderModel: shipmentProviderModel,
                 groupValue: shipmentProvidersBloc.selectedServiceProvider,
-                onChanged: (ServiceCost? model) {
+                onChanged: (LogisticCostDto? model) {
                   setState(() {
                     shipmentProvidersBloc.selectedServiceProvider = model;
                   });

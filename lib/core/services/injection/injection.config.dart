@@ -110,6 +110,16 @@ import 'package:saayer/features/more/domain/repositories/more_repo.dart'
 import 'package:saayer/features/more/domain/use_cases/delete_account_usecase.dart'
     as _i760;
 import 'package:saayer/features/more/presentation/bloc/more_bloc.dart' as _i105;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/data/repositories/saayer_gain_repo_impl.dart'
+    as _i713;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/domain/repositories/saayer_gain_repo.dart'
+    as _i58;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/domain/usecases/get_saayer_gain_usecase.dart'
+    as _i737;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/domain/usecases/update_saayer_gain_usecase.dart'
+    as _i310;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/presentation/bloc/saayer_gain_bloc.dart'
+    as _i388;
 import 'package:saayer/features/more_sub_features/contact_us/presentation/bloc/contact_us_bloc.dart'
     as _i206;
 import 'package:saayer/features/more_sub_features/help/presentation/bloc/help_bloc.dart'
@@ -357,6 +367,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i508.PersonalInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i282.ShipmentsListRepo>(() =>
         _i779.ShipmentsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i58.SaayerGainRepo>(() =>
+        _i713.SaayerGainRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i532.GetClientsListUseCase>(() => _i532.GetClientsListUseCase(
         clientsListRepo: gh<_i178.ClientsListRepo>()));
     gh.factory<_i735.LogInRepo>(() => _i681.LogInRepoImpl(
@@ -473,6 +485,11 @@ extension GetItInjectableX on _i174.GetIt {
           submitPersonalInfoUseCase: gh<_i477.EditPersonalInfoUseCase>(),
           getPersonalInfoUseCase: gh<_i639.GetPersonalInfoUseCase>(),
         ));
+    gh.factory<_i310.UpdateSaayerGainUseCase>(() =>
+        _i310.UpdateSaayerGainUseCase(
+            saayerGainRepo: gh<_i58.SaayerGainRepo>()));
+    gh.factory<_i737.GetSaayerGainUseCase>(() =>
+        _i737.GetSaayerGainUseCase(saayerGainRepo: gh<_i58.SaayerGainRepo>()));
     gh.factory<_i437.GetShipmentsListUseCase>(() =>
         _i437.GetShipmentsListUseCase(
             shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
@@ -511,6 +528,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i234.ShippingPartnersBloc>(() => _i234.ShippingPartnersBloc(
         getShippingPartnersUseCase: gh<_i800.GetShippingPartnersUseCase>()));
+    gh.factory<_i388.SaayerGainBloc>(() => _i388.SaayerGainBloc(
+          getSaayerGainUseCase: gh<_i737.GetSaayerGainUseCase>(),
+          updateSaayerGainUseCase: gh<_i310.UpdateSaayerGainUseCase>(),
+        ));
     gh.factory<_i414.ShipmentsBloc>(() => _i414.ShipmentsBloc(
           getShipmentsListUseCase: gh<_i437.GetShipmentsListUseCase>(),
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
