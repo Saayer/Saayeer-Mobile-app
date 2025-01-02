@@ -5,7 +5,7 @@ import 'package:saayer/core/error/failure.dart';
 abstract class ShipmentsListRepo {
   Future<Either<Failure, List<ShipmentGetDto>>> getShipmentsList(ShipmentQuery? shipmentQuery);
 
-  Future<Either<Failure, List<LogisticsServiceBase>>> getServiceProvidersList();
+  Future<Either<Failure, List<LogisticServiceGetDto>>> getServiceProvidersList();
 
   Future<Either<Failure, List<ShipmentGetDtoExtended>>> getAdminShipmentsList(ShipmentQueryLAdmin? shipmentQuery);
 

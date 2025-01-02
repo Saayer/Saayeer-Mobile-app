@@ -285,7 +285,7 @@ class ShipmentSummaryTextFieldsHelper {
         RichTextWidget(
           keyStr: 'name',
           keyTextStyle: keyTextStyle,
-          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.name}',
+          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.logisticService?.serviceName}',
           valueTextStyle: valueTextStyle,
         ),
         const SizedBox(height: 4),
@@ -302,8 +302,8 @@ class ShipmentSummaryTextFieldsHelper {
         RichTextWidget(
           keyStr: 'business_days',
           keyTextStyle: keyTextStyle,
-          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.workDaysMinimum} '
-              '- ${requestShipmentBloc.state.selectedServiceProvider?.workDaysMaximum} '
+          valueStr: '${requestShipmentBloc.state.selectedServiceProvider?.logisticService?.workDaysMinimum} '
+              '- ${requestShipmentBloc.state.selectedServiceProvider?.logisticService?.workDaysMaximum} '
               '${'business_days'.tr()}',
           valueTextStyle: valueTextStyle,
         ),

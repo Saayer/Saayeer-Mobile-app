@@ -20,6 +20,7 @@ import 'package:openapi/src/model/amount_per_date_dto.dart';
 import 'package:openapi/src/model/amount_per_date_response.dart';
 import 'package:openapi/src/model/aramex_webhook_request.dart';
 import 'package:openapi/src/model/aramex_webhook_value.dart';
+import 'package:openapi/src/model/city_extended_get_dto.dart';
 import 'package:openapi/src/model/city_get_dto.dart';
 import 'package:openapi/src/model/client_add_dto.dart';
 import 'package:openapi/src/model/client_get_dto.dart';
@@ -38,13 +39,15 @@ import 'package:openapi/src/model/error_codes.dart';
 import 'package:openapi/src/model/error_message.dart';
 import 'package:openapi/src/model/experimental_shipment_created_at_request.dart';
 import 'package:openapi/src/model/experimental_shipment_status_add.dart';
+import 'package:openapi/src/model/gain_ratio_post.dart';
 import 'package:openapi/src/model/login_request_dto.dart';
 import 'package:openapi/src/model/login_response_dto.dart';
-import 'package:openapi/src/model/logistics_service_base.dart';
+import 'package:openapi/src/model/logistic_cost_dto.dart';
+import 'package:openapi/src/model/logistic_service_get_dto.dart';
+import 'package:openapi/src/model/logistic_service_post_dto.dart';
 import 'package:openapi/src/model/payment_add_dto.dart';
-import 'package:openapi/src/model/service_cost.dart';
 import 'package:openapi/src/model/shipment_add_dto.dart';
-import 'package:openapi/src/model/shipment_cost_dto.dart';
+import 'package:openapi/src/model/shipment_cost_request.dart';
 import 'package:openapi/src/model/shipment_get_dto.dart';
 import 'package:openapi/src/model/shipment_get_dto_extended.dart';
 import 'package:openapi/src/model/shipment_query.dart';
@@ -69,6 +72,7 @@ part 'serializers.g.dart';
   AmountPerDateResponse,
   AramexWebhookRequest,
   AramexWebhookValue,
+  CityExtendedGetDto,
   CityGetDto,
   ClientAddDto,
   ClientGetDto,
@@ -87,13 +91,15 @@ part 'serializers.g.dart';
   ErrorMessage,
   ExperimentalShipmentCreatedAtRequest,
   ExperimentalShipmentStatusAdd,
+  GainRatioPost,
   LoginRequestDto,
   LoginResponseDto,
-  LogisticsServiceBase,
+  LogisticCostDto,
+  LogisticServiceGetDto,
+  LogisticServicePostDto,
   PaymentAddDto,
-  ServiceCost,
   ShipmentAddDto,
-  ShipmentCostDto,
+  ShipmentCostRequest,
   ShipmentGetDto,
   ShipmentGetDtoExtended,
   ShipmentQuery,
@@ -119,12 +125,8 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<CityGetDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(ServiceCost)]),
-        () => ListBuilder<ServiceCost>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(LogisticsServiceBase)]),
-        () => ListBuilder<LogisticsServiceBase>(),
+        const FullType(BuiltList, [FullType(LogisticCostDto)]),
+        () => ListBuilder<LogisticCostDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ClientNamesRespnse)]),
@@ -133,6 +135,14 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ClientGetDto)]),
         () => ListBuilder<ClientGetDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(CityExtendedGetDto)]),
+        () => ListBuilder<CityExtendedGetDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(LogisticServiceGetDto)]),
+        () => ListBuilder<LogisticServiceGetDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(AddressLookUpDto)]),

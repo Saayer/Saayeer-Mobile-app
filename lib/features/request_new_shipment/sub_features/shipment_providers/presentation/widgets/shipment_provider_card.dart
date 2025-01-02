@@ -9,9 +9,9 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
 class ShipmentProviderCard extends StatelessWidget {
-  final ServiceCost shipmentProviderModel;
-  final ValueChanged<ServiceCost?>? onChanged;
-  final ServiceCost? groupValue;
+  final LogisticCostDto shipmentProviderModel;
+  final ValueChanged<LogisticCostDto?>? onChanged;
+  final LogisticCostDto? groupValue;
 
   const ShipmentProviderCard(
       {super.key, required this.shipmentProviderModel, required this.onChanged, required this.groupValue});
@@ -33,12 +33,12 @@ class ShipmentProviderCard extends StatelessWidget {
               ),
             ],
           ),
-          child: RadioListTile<ServiceCost>(
+          child: RadioListTile<LogisticCostDto>(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _getLeadingWidget(),
-                (shipmentProviderModel.isImplemented ?? true)
+                (shipmentProviderModel.logisticService?.isImplemented ?? true)
                     ? (shipmentProviderModel.hasError ?? false)
                         ? Text('not_available'.tr(),
                             style: AppTextStyles.xSmallLabel(SaayerTheme().getColorsPalette.greyColor))
@@ -50,12 +50,14 @@ class ShipmentProviderCard extends StatelessWidget {
               ],
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-            value: ((shipmentProviderModel.hasError ?? false) || !(shipmentProviderModel.isImplemented ?? true))
-                ? ServiceCost()
+            value: ((shipmentProviderModel.hasError ?? false) ||
+                    !(shipmentProviderModel.logisticService?.isImplemented ?? true))
+                ? LogisticCostDto()
                 : shipmentProviderModel,
             groupValue: groupValue,
             activeColor: SaayerTheme().getColorsPalette.primaryColor,
-            onChanged: ((shipmentProviderModel.hasError ?? false) || !(shipmentProviderModel.isImplemented ?? true))
+            onChanged: ((shipmentProviderModel.hasError ?? false) ||
+                    !(shipmentProviderModel.logisticService?.isImplemented ?? true))
                 ? null
                 : onChanged,
           )),
@@ -65,7 +67,7 @@ class ShipmentProviderCard extends StatelessWidget {
   Widget _getLeadingWidget() {
     return CachedNetworkImageWidget(
       imageUrl: EndPointsBaseUrl.init().baseUrl +
-          Constants.imagesBaseUrl.replaceFirst("{}", shipmentProviderModel.name ?? ''),
+          Constants.imagesBaseUrl.replaceFirst("{}", shipmentProviderModel.logisticService?.serviceName ?? ''),
       height: 60,
       width: 60,
     );
@@ -93,10 +95,10 @@ class ShipmentProviderCard extends StatelessWidget {
           ),
         )),
         ResponsiveRowColumnItem(
-            child: (shipmentProviderModel.workDaysMinimum == null)
+            child: (shipmentProviderModel.logisticService?.workDaysMinimum == null)
                 ? const Text('')
                 : Text(
-                    '${shipmentProviderModel.workDaysMinimum} - ${shipmentProviderModel.workDaysMaximum} ${'business_days'.tr()}',
+                    '${shipmentProviderModel.logisticService?.workDaysMinimum} - ${shipmentProviderModel.logisticService?.workDaysMaximum} ${'business_days'.tr()}',
                     style: AppTextStyles.xSmallLabel())),
       ],
     ));

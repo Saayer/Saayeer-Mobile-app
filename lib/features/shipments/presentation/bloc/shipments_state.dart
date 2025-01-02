@@ -13,7 +13,7 @@ class ShipmentsState extends Equatable {
   final ShipmentQueryLAdmin? adminShipmentQuery;
   final bool? hasNextPage;
   final List<StoreGetDto>? storesList;
-  final List<LogisticsServiceBase>? serviceProvidersList;
+  final List<LogisticServiceGetDto>? serviceProvidersList;
   final List<ClientNamesRespnse>? clientsList;
 
   const ShipmentsState({
@@ -44,7 +44,7 @@ class ShipmentsState extends Equatable {
     bool? hasNextPage,
     bool? isFromHome,
     List<StoreGetDto>? storesList,
-    List<LogisticsServiceBase>? serviceProvidersList,
+    List<LogisticServiceGetDto>? serviceProvidersList,
     List<ClientNamesRespnse>? clientsList,
   }) {
     return ShipmentsState(
