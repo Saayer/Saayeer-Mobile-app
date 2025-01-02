@@ -9,6 +9,8 @@ import 'package:saayer/features/address/address_details/presentation/screens/add
 import 'package:saayer/features/clients/presentation/screens/clients_screen.dart';
 import 'package:saayer/features/intro/presentation/screens/intro_screen.dart';
 import 'package:saayer/features/log_in/presentation/screens/log_in_screen.dart';
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/presentation/screens/saayer_gain_screen.dart';
+import 'package:saayer/features/more_sub_features/admin_service_providers_management/presentation/screens/service_providers_management_screen.dart';
 import 'package:saayer/features/more_sub_features/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:saayer/features/more_sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/screens/settings_screen.dart';
@@ -251,6 +253,24 @@ class AppRoutes {
       case Routes.clientsListNamedPage:
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
           return MaterialPageRoute(builder: (context) => const ClientsScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
+      case Routes.saayerGainNamedPage:
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const SaayerGainScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
+      case Routes.serviceProvidersManagementNamedPage:
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const ServiceProvidersManagementScreen());
         } else {
           return MaterialPageRoute(
             builder: (context) => const SplashScreen(),

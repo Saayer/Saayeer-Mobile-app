@@ -8,7 +8,7 @@ import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
 class ShippingPartnersItemWidget extends StatelessWidget {
-  final LogisticsServiceBase shippingPartnersItem;
+  final LogisticServiceGetDto shippingPartnersItem;
 
   const ShippingPartnersItemWidget({
     super.key,
@@ -46,7 +46,7 @@ class ShippingPartnersItemWidget extends StatelessWidget {
   Widget _getLeadingWidget() {
     return CachedNetworkImageWidget(
       imageUrl: EndPointsBaseUrl.init().baseUrl +
-          Constants.imagesBaseUrl.replaceFirst("{}", shippingPartnersItem.name ?? ''),
+          Constants.imagesBaseUrl.replaceFirst("{}", shippingPartnersItem.serviceName ?? ''),
       height: 60,
       width: 60,
     );

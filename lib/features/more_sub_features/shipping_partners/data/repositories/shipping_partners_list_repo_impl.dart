@@ -15,7 +15,7 @@ class ShippingPartnersListRepoImpl implements ShippingPartnersListRepo {
   ShippingPartnersListRepoImpl({required this.openAPIConfig});
 
   @override
-  Future<Either<Failure, List<LogisticsServiceBase>>> getShippingPartners() async {
+  Future<Either<Failure, List<LogisticServiceGetDto>>> getShippingPartners() async {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {

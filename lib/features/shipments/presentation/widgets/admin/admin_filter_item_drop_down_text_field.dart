@@ -54,7 +54,7 @@ class AdminFilterItemDropDownTextField<T> extends StatelessWidget {
         return adminShipmentsFilterTypes == AdminShipmentsFilterTypes.CLIENT
             ? (val as ClientNamesRespnse).label!.contains(searchStr)
             : adminShipmentsFilterTypes == AdminShipmentsFilterTypes.SERVICE_PROVIDER
-            ? (val as LogisticsServiceBase).name!.contains(searchStr)
+            ? (val as LogisticServiceGetDto).serviceName!.contains(searchStr)
             : (val as ShipmentStatusEnum).name.contains(searchStr);
       },
     );
@@ -111,7 +111,7 @@ class AdminFilterItemDropDownTextField<T> extends StatelessWidget {
           }
         case AdminShipmentsFilterTypes.SERVICE_PROVIDER:
           {
-            return (selectedItem as LogisticsServiceBase).name ?? '';
+            return (selectedItem as LogisticServiceGetDto).serviceName ?? '';
           }
         case AdminShipmentsFilterTypes.STATUS:
           {
@@ -135,7 +135,7 @@ class AdminFilterItemDropDownTextField<T> extends StatelessWidget {
         }
       case AdminShipmentsFilterTypes.SERVICE_PROVIDER:
         {
-          return (val as LogisticsServiceBase).name ?? '';
+          return (val as LogisticServiceGetDto).serviceName ?? '';
         }
       case AdminShipmentsFilterTypes.STATUS:
         {

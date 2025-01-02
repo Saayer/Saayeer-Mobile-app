@@ -37,7 +37,7 @@ class ShipmentsListRepoImpl implements ShipmentsListRepo {
   }
 
   @override
-  Future<Either<Failure, List<LogisticsServiceBase>>> getServiceProvidersList() async {
+  Future<Either<Failure, List<LogisticServiceGetDto>>> getServiceProvidersList() async {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {

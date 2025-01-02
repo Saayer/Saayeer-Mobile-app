@@ -23,6 +23,7 @@ class BaseTextField extends StatelessWidget {
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
   final Color? fillColor, enabledBorderColor, focusedBorderColor;
+  final TextAlign? textAlign;
 
   final double? borderRadius;
 
@@ -50,7 +51,8 @@ class BaseTextField extends StatelessWidget {
       this.enabledBorderColor,
       this.focusedBorderColor,
       this.borderRadius,
-      this.initialValue});
+      this.initialValue,
+      this.textAlign,});
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +76,7 @@ class BaseTextField extends StatelessWidget {
           },
       maxLines: maxLines,
       maxLength: maxLength,
+      textAlign: textAlign ?? TextAlign.start,
       inputFormatters: inputFormatters ?? const <TextInputFormatter>[],
       decoration: InputTextFieldDecoration()(
           prefixWidget: prefixWidget,

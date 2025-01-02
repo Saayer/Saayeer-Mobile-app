@@ -3,7 +3,7 @@ part of 'shipping_partners_bloc.dart';
 @immutable
 class ShippingPartnersState extends Equatable {
   final StateHelper stateHelper;
-  final List<LogisticsServiceBase>? shippingPartnersList;
+  final List<LogisticServiceGetDto>? shippingPartnersList;
 
   const ShippingPartnersState({
     this.stateHelper = const StateHelper(requestState: RequestState.LOADING),
@@ -12,7 +12,7 @@ class ShippingPartnersState extends Equatable {
 
   ShippingPartnersState copyWith({
     StateHelper? stateHelper,
-    List<LogisticsServiceBase>? shippingPartnersList,
+    List<LogisticServiceGetDto>? shippingPartnersList,
   }) {
     return ShippingPartnersState(
       stateHelper: stateHelper ?? this.stateHelper,

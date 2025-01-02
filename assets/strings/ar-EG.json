@@ -257,5 +257,10 @@
   "client_number": "رقم العميل",
   "total_paid": "إجمالي المدفوعات",
   "join_date": "تاريخ الانضمام",
-  "client_search_hint": "البحث حسب الاسم أو اسم الشركة أو البريد الإلكتروني"
+  "client_search_hint": "البحث حسب الاسم أو اسم الشركة أو البريد الإلكتروني",
+  "saayer_gain": "ربح ساير",
+  "service_providers_management": "إدارة مقدمي الخدمة",
+  "saayer_gain_change_successfully": "تم تغيير ربح سايير بنجاح",
+  "saayer_gain_max_percentage_error": "يجب أن يكون العدد أقل من أو يساوي 100",
+  "saayer_gain_min_percentage_error": "يجب أن يكون الرقم أكبر من أو يساوي صفر"
 }

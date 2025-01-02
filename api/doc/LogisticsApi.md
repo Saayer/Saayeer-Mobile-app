@@ -5,16 +5,19 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-34/app*
+All URIs are relative to *http://localhost/saayer-36/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiLogisticsGetGainGet**](LogisticsApi.md#apilogisticsgetgainget) | **GET** /api/Logistics/get-gain | 
 [**apiLogisticsServiceCostsPost**](LogisticsApi.md#apilogisticsservicecostspost) | **POST** /api/Logistics/service-costs | 
 [**apiLogisticsServicesGet**](LogisticsApi.md#apilogisticsservicesget) | **GET** /api/Logistics/services | 
+[**apiLogisticsUpdateGainPost**](LogisticsApi.md#apilogisticsupdategainpost) | **POST** /api/Logistics/update-gain | 
+[**apiLogisticsUpdateServicePost**](LogisticsApi.md#apilogisticsupdateservicepost) | **POST** /api/Logistics/update-service | 
 
 
-# **apiLogisticsServiceCostsPost**
-> BuiltList<ServiceCost> apiLogisticsServiceCostsPost(apiKey, shipmentCostDto)
+# **apiLogisticsGetGainGet**
+> num apiLogisticsGetGainGet(apiKey)
 
 
 
@@ -24,10 +27,51 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getLogisticsApi();
 final String apiKey = apiKey_example; // String | 
-final ShipmentCostDto shipmentCostDto = ; // ShipmentCostDto | 
 
 try {
-    final response = api.apiLogisticsServiceCostsPost(apiKey, shipmentCostDto);
+    final response = api.apiLogisticsGetGainGet(apiKey);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling LogisticsApi->apiLogisticsGetGainGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+
+### Return type
+
+**num**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiLogisticsServiceCostsPost**
+> BuiltList<LogisticCostDto> apiLogisticsServiceCostsPost(apiKey, shipmentCostRequest)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getLogisticsApi();
+final String apiKey = apiKey_example; // String | 
+final ShipmentCostRequest shipmentCostRequest = ; // ShipmentCostRequest | 
+
+try {
+    final response = api.apiLogisticsServiceCostsPost(apiKey, shipmentCostRequest);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling LogisticsApi->apiLogisticsServiceCostsPost: $e\n');
@@ -39,11 +83,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **apiKey** | **String**|  | 
- **shipmentCostDto** | [**ShipmentCostDto**](ShipmentCostDto.md)|  | [optional] 
+ **shipmentCostRequest** | [**ShipmentCostRequest**](ShipmentCostRequest.md)|  | [optional] 
 
 ### Return type
 
-[**BuiltList&lt;ServiceCost&gt;**](ServiceCost.md)
+[**BuiltList&lt;LogisticCostDto&gt;**](LogisticCostDto.md)
 
 ### Authorization
 
@@ -57,7 +101,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiLogisticsServicesGet**
-> BuiltList<LogisticsServiceBase> apiLogisticsServicesGet(apiKey)
+> BuiltList<LogisticServiceGetDto> apiLogisticsServicesGet(apiKey)
 
 
 
@@ -84,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;LogisticsServiceBase&gt;**](LogisticsServiceBase.md)
+[**BuiltList&lt;LogisticServiceGetDto&gt;**](LogisticServiceGetDto.md)
 
 ### Authorization
 
@@ -94,6 +138,90 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiLogisticsUpdateGainPost**
+> apiLogisticsUpdateGainPost(apiKey, gainRatioPost)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getLogisticsApi();
+final String apiKey = apiKey_example; // String | 
+final GainRatioPost gainRatioPost = ; // GainRatioPost | 
+
+try {
+    api.apiLogisticsUpdateGainPost(apiKey, gainRatioPost);
+} catch on DioException (e) {
+    print('Exception when calling LogisticsApi->apiLogisticsUpdateGainPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+ **gainRatioPost** | [**GainRatioPost**](GainRatioPost.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiLogisticsUpdateServicePost**
+> apiLogisticsUpdateServicePost(apiKey, logisticServicePostDto)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getLogisticsApi();
+final String apiKey = apiKey_example; // String | 
+final LogisticServicePostDto logisticServicePostDto = ; // LogisticServicePostDto | 
+
+try {
+    api.apiLogisticsUpdateServicePost(apiKey, logisticServicePostDto);
+} catch on DioException (e) {
+    print('Exception when calling LogisticsApi->apiLogisticsUpdateServicePost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+ **logisticServicePostDto** | [**LogisticServicePostDto**](LogisticServicePostDto.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

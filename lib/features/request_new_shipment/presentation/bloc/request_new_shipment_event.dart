@@ -74,7 +74,7 @@ class OnReceiverSelectedFromDropDown extends RequestNewShipmentEvent {
 }
 
 class SetSelectedServiceProvider extends RequestNewShipmentEvent {
-  final ServiceCost selectedServiceProvider;
+  final LogisticCostDto selectedServiceProvider;
 
   const SetSelectedServiceProvider({required this.selectedServiceProvider});
 
