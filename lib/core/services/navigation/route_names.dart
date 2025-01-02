@@ -24,5 +24,6 @@ class Routes{
   static const shippingPartnersNamedPage = '/shipping-partners';
   static const clientsListNamedPage = '/clients';
   static const saayerGainNamedPage = '/saayer_gain';
+  static const serviceProvidersManagementNamedPage = '/service_providers_management';
 
 }

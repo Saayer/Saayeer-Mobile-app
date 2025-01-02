@@ -81,7 +81,7 @@ class MorePage extends StatelessWidget {
                     const MoreItemWidget(
                       iconName: "total_shipments",
                       title: "service_providers_management",
-                      onPressedRouteName: Routes.storesListNamedPage,
+                      onPressedRouteName: Routes.serviceProvidersManagementNamedPage,
                     ),
                   ],
                   if (!UserUtils.isAdmin()) ...[

@@ -1,0 +1,1 @@
+enum ServiceProvidersManagementErrorStatus { ERROR_GET_SERVICE_PROVIDERS, ERROR_UPDATE_SERVICE_PROVIDER }
