@@ -48,6 +48,8 @@ class _ShipmentDetailsWidgetState extends State<ShipmentDetailsWidget> {
           status = event.status.name;
         });
       } else if (event.status == DownloadStatus.failed) {
+        LoadingDialog.setIsLoading(context, false);
+        SaayerToast().showSuccessToast(msg: "label_error_download_msg".tr());
         debugPrint('event: $event');
         setState(() {
           status = event.status.name;

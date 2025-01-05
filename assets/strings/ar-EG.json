@@ -238,6 +238,7 @@
   "providers_error_msg": "لا يمكننا الحصول على مقدمي الخدمة. يرجى المحاولة مرة أخرى لاحقًا.",
   "shipment_download": "تحميل بوليصة الشحن",
   "label_not_available_msg": "الملف غير متاح حاليا!",
+  "label_error_download_msg": "حدث خطأ أثناء تحميل الملف!",
   "store_name": "اسم المتجر",
   "send_from_store": "إرسال من متجر",
   "send_from_customer": "إرجاع من زبون",

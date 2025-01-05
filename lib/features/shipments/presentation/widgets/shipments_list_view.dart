@@ -55,6 +55,8 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
         LoadingDialog.setIsLoading(context, true);
         debugPrint('event.progress: ${event.progress}');
       } else if (event.status == DownloadStatus.failed) {
+        LoadingDialog.setIsLoading(context, false);
+        SaayerToast().showSuccessToast(msg: "label_error_download_msg".tr());
         debugPrint('event: $event');
       } else if (event.status == DownloadStatus.paused) {
         debugPrint('Download paused');
