@@ -5,7 +5,7 @@ abstract class ShipmentProvidersEvent extends Equatable {
 }
 
 class GetShipmentProvidersEvent extends ShipmentProvidersEvent {
-  final ShipmentCostDto? shipmentSpecsEntity;
+  final ShipmentCostRequest? shipmentSpecsEntity;
 
   const GetShipmentProvidersEvent(this.shipmentSpecsEntity);
 

@@ -88,6 +88,19 @@ class OnItemSelectedFromDropDown<T> extends ShipmentsEvent {
   List<Object?> get props => [shipmentsFilterTypes];
 }
 
+class OnAdminItemSelectedFromDropDown<T> extends ShipmentsEvent {
+  final T item;
+  final AdminShipmentsFilterTypes adminShipmentsFilterTypes;
+
+  const OnAdminItemSelectedFromDropDown({
+    required this.item,
+    required this.adminShipmentsFilterTypes,
+  });
+
+  @override
+  List<Object?> get props => [adminShipmentsFilterTypes];
+}
+
 class OnScrollPagination extends ShipmentsEvent {
   const OnScrollPagination();
 
@@ -104,6 +117,27 @@ class ResetExportShipmentsList extends ShipmentsEvent {
 
 class ResetImportShipmentsList extends ShipmentsEvent {
   const ResetImportShipmentsList();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ResetAdminShipmentsList extends ShipmentsEvent {
+  const ResetAdminShipmentsList();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetAdminShipmentsList extends ShipmentsEvent {
+  const GetAdminShipmentsList();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetClientsList extends ShipmentsEvent {
+  const GetClientsList();
 
   @override
   List<Object?> get props => [];

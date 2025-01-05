@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:saayer/common/label_txt.dart';
 import 'package:saayer/common/text_fields/base_text_field.dart';
 
@@ -8,6 +9,7 @@ class InputTextField extends StatelessWidget {
   final TextEditingController inputController;
   final void Function(String)? onChanged;
   final TextInputType keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   final bool showOnlyTextField;
   final bool? isFieldRequired;
   final Color? fillColor, enabledBorderColor, focusedBorderColor;
@@ -22,6 +24,7 @@ class InputTextField extends StatelessWidget {
       required this.inputController,
       this.onChanged,
       this.keyboardType = TextInputType.text,
+      this.inputFormatters,
       this.showOnlyTextField = false,
       this.fillColor,
       this.enabledBorderColor,
@@ -42,6 +45,7 @@ class InputTextField extends StatelessWidget {
       focusedBorderColor: focusedBorderColor,
       borderRadius: borderRadius,
       maxLength: maxLength,
+      inputFormatters: inputFormatters,
       validator: (withValidator ?? true)
           ? (value) {
               if (value?.isEmpty ?? true) {

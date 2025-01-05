@@ -12,6 +12,7 @@ class TrackingTimelineItem extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final String createdDate;
+  final String description;
 
   const TrackingTimelineItem({
     super.key,
@@ -20,6 +21,7 @@ class TrackingTimelineItem extends StatelessWidget {
     required this.isFirst,
     required this.isLast,
     required this.createdDate,
+    required this.description,
   });
 
   @override
@@ -88,6 +90,17 @@ class TrackingTimelineItem extends StatelessWidget {
                       ),
                       Text(
                         '${label}_msg'.tr(),
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                        style: AppTextStyles.smallLabel(isComplete
+                            ? SaayerTheme().getColorsPalette.blackColor
+                            : SaayerTheme().getColorsPalette.greyColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        description,
                         softWrap: true,
                         overflow: TextOverflow.clip,
                         style: AppTextStyles.smallLabel(isComplete

@@ -55,6 +55,8 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
         LoadingDialog.setIsLoading(context, true);
         debugPrint('event.progress: ${event.progress}');
       } else if (event.status == DownloadStatus.failed) {
+        LoadingDialog.setIsLoading(context, false);
+        SaayerToast().showSuccessToast(msg: "label_error_download_msg".tr());
         debugPrint('event: $event');
       } else if (event.status == DownloadStatus.paused) {
         debugPrint('Download paused');
@@ -140,12 +142,11 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
                   hasLabelUrl: ((shipmentEntity.labelURL ?? '').isNotEmpty),
                   onTapDownloadShipment: () {
                     ///
-                    if ((shipmentEntity.labelURL ?? '').isEmpty){
+                    if ((shipmentEntity.labelURL ?? '').isEmpty) {
                       SaayerToast().showSuccessToast(msg: "label_not_available_msg".tr());
-                    }else{
+                    } else {
                       downloadPdfFile(shipmentEntity.labelURL ?? '', shipmentEntity.shipmentId);
                     }
-
                   });
               return Column(
                 children: [
@@ -153,7 +154,10 @@ class _ShipmentsListViewState extends State<ShipmentsListView> {
                       onTap: () {
                         getIt<NavigationService>().navigateToNamed(
                           Routes.shipmentDetailsNamedPage,
-                          arguments: shipmentEntity,
+                          arguments: {
+                            'shipmentDto': shipmentEntity,
+                            'adminShipmentDto': ShipmentGetDtoExtended(),
+                          },
                         );
                       },
                       child: shipmentWidget),

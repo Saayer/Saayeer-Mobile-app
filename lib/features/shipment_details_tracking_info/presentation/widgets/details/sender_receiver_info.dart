@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/dashed_line_vertical_painter.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/helpers/utils_helper/strings_utils.dart';
 import 'package:saayer/core/services/localization/localization.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
@@ -11,8 +12,13 @@ import 'package:saayer/core/utils/theme/typography.dart';
 
 class SenderReceiverInfo extends StatelessWidget {
   final ShipmentGetDto shipmentDto;
+  final ShipmentGetDtoExtended adminShipmentDto;
 
-  const SenderReceiverInfo({super.key, required this.shipmentDto});
+  const SenderReceiverInfo({
+    super.key,
+    required this.shipmentDto,
+    required this.adminShipmentDto,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +74,25 @@ class SenderReceiverInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                if (UserUtils.isAdmin())
+                  Text(
+                    _getClientName(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.greyColor),
+                  ),
+                if (UserUtils.isAdmin())
+                  const SizedBox(
+                    height: 10,
+                  ),
                 Text(
-                  shipmentDto.senderStore == null
-                      ? shipmentDto.senderCustomer!.fullName ?? ''
-                      : shipmentDto.senderStore!.name ?? '',
+                  _getSenderName(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.boldLiteLabel(),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Text(
                   "(${"sender".tr()})",
@@ -86,9 +104,7 @@ class SenderReceiverInfo extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  shipmentDto.senderStore == null
-                      ? _buildAddress(shipmentDto.senderCustomer!)
-                      : _buildAddress(shipmentDto.senderStore!),
+                  _getSenderAddress(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.smallParagraph(),
@@ -101,12 +117,13 @@ class SenderReceiverInfo extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  shipmentDto.receiverStore == null
-                      ? shipmentDto.receiverCustomer!.fullName ?? ''
-                      : shipmentDto.receiverStore!.name ?? '',
+                  _getReceiverName(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.boldLiteLabel(),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 Text(
                   "(${"receiver".tr()})",
@@ -118,9 +135,7 @@ class SenderReceiverInfo extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  shipmentDto.receiverStore == null
-                      ? _buildAddress(shipmentDto.receiverCustomer!)
-                      : _buildAddress(shipmentDto.receiverStore!),
+                  _getReceiverAddress(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.smallParagraph(),
@@ -132,9 +147,62 @@ class SenderReceiverInfo extends StatelessWidget {
       ),
     );
   }
+
   String _buildAddress(dynamic address) {
     return '${StringsUtil.getLanguageName(arName: address.governorateNameAr ?? '', enName: address.governorateNameEn ?? '')} '
         '- ${StringsUtil.getLanguageName(arName: address.cityNameAr ?? '', enName: address.cityNameEn ?? '')} '
         '- ${address.addressDetails ?? ''}';
+  }
+
+  String _getSenderName() {
+    if (UserUtils.isAdmin()) {
+      return adminShipmentDto.senderStore == null
+          ? '${'customer'.tr()} - ${adminShipmentDto.senderCustomer!.fullName ?? ''}'
+          : '${'store'.tr()} - ${adminShipmentDto.senderStore!.name ?? ''}';
+    } else {
+      return shipmentDto.senderStore == null
+          ? shipmentDto.senderCustomer!.fullName ?? ''
+          : shipmentDto.senderStore!.name ?? '';
+    }
+  }
+
+  String _getSenderAddress() {
+    if (UserUtils.isAdmin()) {
+      return adminShipmentDto.senderStore == null
+          ? _buildAddress(adminShipmentDto.senderCustomer!)
+          : _buildAddress(adminShipmentDto.senderStore!);
+    } else {
+      return shipmentDto.senderStore == null
+          ? _buildAddress(shipmentDto.senderCustomer!)
+          : _buildAddress(shipmentDto.senderStore!);
+    }
+  }
+
+  String _getReceiverName() {
+    if (UserUtils.isAdmin()) {
+      return adminShipmentDto.receiverStore == null
+          ? '${'customer'.tr()} - ${adminShipmentDto.receiverCustomer!.fullName ?? ''}'
+          : '${'store'.tr()} - ${adminShipmentDto.receiverStore!.name ?? ''}';
+    } else {
+      return shipmentDto.receiverStore == null
+          ? shipmentDto.receiverCustomer!.fullName ?? ''
+          : shipmentDto.receiverStore!.name ?? '';
+    }
+  }
+
+  String _getReceiverAddress() {
+    if (UserUtils.isAdmin()) {
+      return adminShipmentDto.receiverStore == null
+          ? _buildAddress(adminShipmentDto.receiverCustomer!)
+          : _buildAddress(adminShipmentDto.receiverStore!);
+    } else {
+      return shipmentDto.receiverStore == null
+          ? _buildAddress(shipmentDto.receiverCustomer!)
+          : _buildAddress(shipmentDto.receiverStore!);
+    }
+  }
+
+  String _getClientName() {
+    return '${'client_name'.tr()} - ${adminShipmentDto.client!.fullName ?? ''}';
   }
 }

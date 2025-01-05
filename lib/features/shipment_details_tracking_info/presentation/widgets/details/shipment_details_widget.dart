@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:openapi/openapi.dart';
 import 'package:saayer/common/loading/loading_dialog.dart';
 import 'package:saayer/common/toast/toast_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/utils/responsive_utils.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
@@ -48,6 +48,8 @@ class _ShipmentDetailsWidgetState extends State<ShipmentDetailsWidget> {
           status = event.status.name;
         });
       } else if (event.status == DownloadStatus.failed) {
+        LoadingDialog.setIsLoading(context, false);
+        SaayerToast().showSuccessToast(msg: "label_error_download_msg".tr());
         debugPrint('event: $event');
         setState(() {
           status = event.status.name;
@@ -98,22 +100,24 @@ class _ShipmentDetailsWidgetState extends State<ShipmentDetailsWidget> {
                 ///ShipmentSpecInfo
                 ShipmentInfo(
                   shipmentDto: state.shipmentDto!,
+                  adminShipmentDto: state.adminShipmentDto!,
                 ),
                 const SizedBox(height: 16),
 
                 ///SenderReceiverInfo
                 SenderReceiverInfo(
                   shipmentDto: state.shipmentDto!,
+                  adminShipmentDto: state.adminShipmentDto!,
                 ),
                 const SizedBox(height: 16),
 
                 ///ServiceProviderInfo
                 BillInfo(
                   shipmentDto: state.shipmentDto!,
+                  adminShipmentDto: state.adminShipmentDto!,
                 ),
                 const SizedBox(height: 16),
-                if ((state.shipmentDto?.labelURL ?? '').isNotEmpty)
-                  _buildShipmentDownloadButton(width, context, state.shipmentDto),
+                if (_hasLabel(state)) _buildShipmentDownloadButton(width, context, state),
 
                 const SizedBox(height: 50),
               ],
@@ -124,10 +128,18 @@ class _ShipmentDetailsWidgetState extends State<ShipmentDetailsWidget> {
     );
   }
 
+  bool _hasLabel(ShipmentDetailsState state) {
+    if (UserUtils.isAdmin()) {
+      return (state.adminShipmentDto?.labelURL ?? '').isNotEmpty;
+    } else {
+      return (state.shipmentDto?.labelURL ?? '').isNotEmpty;
+    }
+  }
+
   _buildShipmentDownloadButton(
     double width,
     BuildContext context,
-    ShipmentGetDto? shipmentDto,
+    ShipmentDetailsState state,
   ) {
     return TextButton(
         style: TextButton.styleFrom(
@@ -139,10 +151,12 @@ class _ShipmentDetailsWidgetState extends State<ShipmentDetailsWidget> {
           backgroundColor: SaayerTheme().getColorsPalette.primaryColor,
         ),
         onPressed: () {
-          if ((shipmentDto?.labelURL ?? '').isEmpty) {
+          if (!_hasLabel(state)) {
             SaayerToast().showSuccessToast(msg: "label_not_available_msg".tr());
           } else {
-            downloadPdfFile(shipmentDto?.labelURL ?? '', shipmentDto?.shipmentId);
+            downloadPdfFile(
+                UserUtils.isAdmin() ? state.adminShipmentDto?.labelURL ?? '' : state.shipmentDto?.labelURL ?? '',
+                UserUtils.isAdmin() ? state.adminShipmentDto?.shipmentId : state.shipmentDto?.shipmentId);
           }
         },
         child: Row(

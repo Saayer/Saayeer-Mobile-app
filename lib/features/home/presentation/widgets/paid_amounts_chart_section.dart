@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saayer/common/loading/loading_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/features/home/core/utils/enums/enums.dart';
 import 'package:saayer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:saayer/features/home/presentation/widgets/error_stack_widget.dart';
@@ -57,7 +58,7 @@ class PaidAmountsChartSection extends StatelessWidget {
                       )
                     : homeBloc.amountPerDateResponse!.amounts!.isEmpty
                         ? ErrorStackWidget(
-                            message: 'chart_empty_msg'.tr(),
+                            message: UserUtils.isAdmin() ? 'admin_chart_empty_msg'.tr() : 'chart_empty_msg'.tr(),
                           )
                         : Container()
           ],

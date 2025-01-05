@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:saayer/core/API/api_config.dart';
 import 'package:saayer/core/API/network_keys/network_keys.dart';
-import 'package:saayer/core/API/refresh_token.dart';
 import 'package:saayer/core/API/status_code.dart';
+import 'package:saayer/core/openAPI/openAPI_config.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/localization/localization.dart';
@@ -45,8 +45,8 @@ class OpenapiInterceptors extends Interceptor {
       Response response, ResponseInterceptorHandler handler) async {
     final bool hasToken =
     response.data.toString().contains("token");
-    //final bool hasReqSecure =
-    //response.data.toString().contains("reqSecureKey");
+    final bool hasUserRole =
+    response.data.toString().contains("role");
     Map responseData = {};
     if(response.data is Map){
       responseData = response.data;
@@ -60,15 +60,12 @@ class OpenapiInterceptors extends Interceptor {
         response.data = responseData;
       }
     }
-    // if (hasReqSecure) {
-    //   final String? reqSecureKey = responseData["reqSecureKey"];
-    //   log("$reqSecureKey", name: "reqSecureKey --->");
-    //   if (reqSecureKey != null) {
-    //     await SecureStorageService().setReqSecureKey(reqSecureKey);
-    //     responseData.remove(reqSecureKey);
-    //     response.data = responseData;
-    //   }
-    // }
+    if (hasUserRole) {
+      final String? userRole = responseData["role"];
+      getIt<SharedPrefService>().setUserRole(userRole ?? 'Client');
+      responseData.remove(hasUserRole);
+      response.data = responseData;
+    }
     super.onResponse(response, handler);
   }
 
@@ -87,7 +84,7 @@ class OpenapiInterceptors extends Interceptor {
       try {
         //await getIt<RefreshToken>().refreshToken();
         final retryRequest =
-        await getIt<RefreshToken>().retryRequest(err.requestOptions);
+        await getIt<OpenAPIConfig>().retry(err.requestOptions);
         return handler.resolve(retryRequest);
       } catch (e) {
         return handler.reject(err);

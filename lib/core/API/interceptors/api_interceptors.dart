@@ -23,7 +23,6 @@ class AppInterceptors extends Interceptor {
     final String? authToken =
     getIt<SharedPrefService>().getAccessToken();
     final bool isLogin = options.path.contains("login");
-    final bool isEntry = options.path.contains("entry");
     options.queryParameters.addAll(
       ApiConfig.queryParameters,
     );
@@ -80,7 +79,7 @@ class AppInterceptors extends Interceptor {
         (err.response?.statusCode == StatusCode.quotaExceeded);
     if ((unauthorized || expiredRequestKey) && !quotaExceeded) {
       try {
-        await getIt<RefreshToken>().refreshToken();
+        //await getIt<RefreshToken>().refreshToken();
         final retryRequest =
             await getIt<RefreshToken>().retryRequest(err.requestOptions);
         return handler.resolve(retryRequest);

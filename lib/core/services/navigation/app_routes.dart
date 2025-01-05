@@ -6,8 +6,11 @@ import 'package:saayer/core/services/local_storage/shared_pref_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
 import 'package:saayer/features/address/add_edit_address/presentation/screens/add_edit_address_screen.dart';
 import 'package:saayer/features/address/address_details/presentation/screens/address_details_screen.dart';
+import 'package:saayer/features/clients/presentation/screens/clients_screen.dart';
 import 'package:saayer/features/intro/presentation/screens/intro_screen.dart';
 import 'package:saayer/features/log_in/presentation/screens/log_in_screen.dart';
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/presentation/screens/saayer_gain_screen.dart';
+import 'package:saayer/features/more_sub_features/admin_service_providers_management/presentation/screens/service_providers_management_screen.dart';
 import 'package:saayer/features/more_sub_features/contact_us/presentation/screens/contact_us_screen.dart';
 import 'package:saayer/features/more_sub_features/personal_info/presentation/screens/personal_info_screen.dart';
 import 'package:saayer/features/more_sub_features/settings/presentation/screens/settings_screen.dart';
@@ -139,7 +142,8 @@ class AppRoutes {
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
           return MaterialPageRoute(
               builder: (context) => ShipmentDetailsScreen(
-                    shipmentDto: routingData as ShipmentGetDto,
+                    shipmentDto: (routingData as Map)['shipmentDto'] as ShipmentGetDto,
+                    adminShipmentDto: routingData['adminShipmentDto'] as ShipmentGetDtoExtended,
                   ));
         } else {
           return MaterialPageRoute(
@@ -240,6 +244,33 @@ class AppRoutes {
       case Routes.shippingPartnersNamedPage:
         if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
           return MaterialPageRoute(builder: (context) => const ShippingPartnersScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
+      case Routes.clientsListNamedPage:
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const ClientsScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
+      case Routes.saayerGainNamedPage:
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const SaayerGainScreen());
+        } else {
+          return MaterialPageRoute(
+            builder: (context) => const SplashScreen(),
+          );
+        }
+
+      case Routes.serviceProvidersManagementNamedPage:
+        if (getIt<SharedPrefService>().getIsLoggedIn() ?? false) {
+          return MaterialPageRoute(builder: (context) => const ServiceProvidersManagementScreen());
         } else {
           return MaterialPageRoute(
             builder: (context) => const SplashScreen(),

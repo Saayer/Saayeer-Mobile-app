@@ -22,6 +22,7 @@ enum HomeRequestState {
 
 enum ShipmentsStatisticsTypes {
   NEW_SHIPMENT._(name: 'new_shipment'),
+  CLIENTS._(name: 'clients'),
   SHIPMENTS._(name: 'shipments'),
   REQUESTED._(name: 'requested'),
   PICKED._(name: 'picked'),

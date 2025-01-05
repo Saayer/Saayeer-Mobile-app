@@ -5,12 +5,13 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-33/app*
+All URIs are relative to *http://localhost/saayer-36/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiAddressLookupsAreasCityIdGet**](AddressLookupsApi.md#apiaddresslookupsareascityidget) | **GET** /api/AddressLookups/Areas/{cityId} | 
 [**apiAddressLookupsCitiesGovernorateIdGet**](AddressLookupsApi.md#apiaddresslookupscitiesgovernorateidget) | **GET** /api/AddressLookups/Cities/{governorateId} | 
+[**apiAddressLookupsCityGetbyPost**](AddressLookupsApi.md#apiaddresslookupscitygetbypost) | **POST** /api/AddressLookups/city-getby | 
 [**apiAddressLookupsCountriesGet**](AddressLookupsApi.md#apiaddresslookupscountriesget) | **GET** /api/AddressLookups/Countries | 
 [**apiAddressLookupsGovernoratesCountryIdGet**](AddressLookupsApi.md#apiaddresslookupsgovernoratescountryidget) | **GET** /api/AddressLookups/Governorates/{countryId} | 
 
@@ -89,6 +90,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BuiltList&lt;CityGetDto&gt;**](CityGetDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiAddressLookupsCityGetbyPost**
+> BuiltList<CityExtendedGetDto> apiAddressLookupsCityGetbyPost(apiKey, placeName)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAddressLookupsApi();
+final String apiKey = apiKey_example; // String | 
+final String placeName = placeName_example; // String | 
+
+try {
+    final response = api.apiAddressLookupsCityGetbyPost(apiKey, placeName);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AddressLookupsApi->apiAddressLookupsCityGetbyPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**|  | 
+ **placeName** | **String**|  | [optional] 
+
+### Return type
+
+[**BuiltList&lt;CityExtendedGetDto&gt;**](CityExtendedGetDto.md)
 
 ### Authorization
 

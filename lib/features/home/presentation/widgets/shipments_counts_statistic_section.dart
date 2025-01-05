@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/shimmer/shimmer_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/services/injection/injection.dart';
 import 'package:saayer/core/services/navigation/navigation_service.dart';
 import 'package:saayer/core/services/navigation/route_names.dart';
@@ -38,7 +39,11 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return (isLoading || homeBloc.shipmentsCountResponse == null)
+        var statisticsTypesList =
+            UserUtils.isAdmin() ? homeBloc.adminStatisticsTypesList : homeBloc.statisticsTypesList;
+        var shipmentsCount =
+            UserUtils.isAdmin() ? homeBloc.adminShipmentsCountResponse : homeBloc.shipmentsCountResponse;
+        return (isLoading || shipmentsCount == null)
             ? const GridShimmerWidget()
             : hasError
                 ? const NewShipmentCardItemWidget()
@@ -52,27 +57,32 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
                       mainAxisSpacing: (8 * 2),
                       crossAxisSpacing: (8 * 2),
                     ),
-                    itemCount: ShipmentsStatisticsTypes.values.length,
+                    itemCount: statisticsTypesList.length,
                     itemBuilder: (context, index) {
                       return ShipmentsStatisticItemWidget(
-                        onTap: ShipmentsStatisticsTypes.values[index] == ShipmentsStatisticsTypes.NEW_SHIPMENT
+                        onTap: (statisticsTypesList[index] == ShipmentsStatisticsTypes.NEW_SHIPMENT ||
+                                statisticsTypesList[index] == ShipmentsStatisticsTypes.CLIENTS)
                             ? () {
-                                getIt<NavigationService>().navigateToNamed(Routes.requestNewShipmentNamedPage);
+                                if (UserUtils.isAdmin()) {
+                                  final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
+                                  viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.CLIENTS));
+                                } else {
+                                  getIt<NavigationService>().navigateToNamed(Routes.requestNewShipmentNamedPage);
+                                }
                               }
                             : () {
                                 final ViewPageBloc viewPageBloc = BlocProvider.of<ViewPageBloc>(context);
                                 viewPageBloc.add(SetShipmentsFiltersValue(
-                                  initExportShipmentStatusFilter:
-                                      _getShipmentStatus(ShipmentsStatisticsTypes.values[index]),
+                                  initExportShipmentStatusFilter: _getShipmentStatus(statisticsTypesList[index]),
                                   exportShipmentDateFrom: null,
                                   exportShipmentDateTo: null,
                                 ));
                                 viewPageBloc.add(const GoToPage(navBarIconType: NavBarIconTypes.SHIPMENTS));
                               },
                         animatedIcon: index == 0 ? false : true,
-                        title: ShipmentsStatisticsTypes.values[index].name,
-                        shipmentsNum: _getTotalShipmentsCount(
-                            ShipmentsStatisticsTypes.values[index], homeBloc.shipmentsCountResponse),
+                        title: statisticsTypesList[index].name,
+                        shipmentsNum: _getTotalShipmentsCount(statisticsTypesList[index],
+                            homeBloc.shipmentsCountResponse, homeBloc.adminShipmentsCountResponse),
                       );
                     },
                   );
@@ -80,39 +90,80 @@ class ShipmentsCountsStatisticSection extends StatelessWidget {
     );
   }
 
-  _getTotalShipmentsCount(
-      ShipmentsStatisticsTypes shipmentsStatusType, ShipmentsCountResponse? shipmentsCountResponse) {
-    switch (shipmentsStatusType) {
-      case ShipmentsStatisticsTypes.NEW_SHIPMENT:
-        {
-          return 'request'.tr();
-        }
-      case ShipmentsStatisticsTypes.SHIPMENTS:
-        {
-          return shipmentsCountResponse!.totalShipments.toString();
-        }
-      case ShipmentsStatisticsTypes.REQUESTED:
-        {
-          return shipmentsCountResponse!.requestedShipments.toString();
-        }
-      case ShipmentsStatisticsTypes.PICKED:
-        {
-          return shipmentsCountResponse!.pickedShipments.toString();
-        }
-      case ShipmentsStatisticsTypes.SHIPPING:
-        {
-          return shipmentsCountResponse!.onTheWayShipments.toString();
-        }
-      case ShipmentsStatisticsTypes.DELIVERED:
-        {
-          return shipmentsCountResponse!.deliveredShipments.toString();
-        }
+  _getTotalShipmentsCount(ShipmentsStatisticsTypes shipmentsStatusType, ShipmentsCountResponse? shipmentsCountResponse,
+      ShipmentsCountResponseLAdmin? adminShipmentsCountResponse) {
+    if (UserUtils.isAdmin()) {
+      switch (shipmentsStatusType) {
+        case ShipmentsStatisticsTypes.NEW_SHIPMENT:
+          {
+            return 'request'.tr();
+          }
+        case ShipmentsStatisticsTypes.CLIENTS:
+          {
+            return adminShipmentsCountResponse?.clientsCount.toString();
+          }
+        case ShipmentsStatisticsTypes.SHIPMENTS:
+          {
+            return adminShipmentsCountResponse!.totalShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.REQUESTED:
+          {
+            return adminShipmentsCountResponse!.requestedShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.PICKED:
+          {
+            return adminShipmentsCountResponse!.pickedShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.SHIPPING:
+          {
+            return adminShipmentsCountResponse!.onTheWayShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.DELIVERED:
+          {
+            return adminShipmentsCountResponse!.deliveredShipments.toString();
+          }
+      }
+    } else {
+      switch (shipmentsStatusType) {
+        case ShipmentsStatisticsTypes.NEW_SHIPMENT:
+          {
+            return 'request'.tr();
+          }
+        case ShipmentsStatisticsTypes.CLIENTS:
+          {
+            return '0';
+          }
+        case ShipmentsStatisticsTypes.SHIPMENTS:
+          {
+            return shipmentsCountResponse!.totalShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.REQUESTED:
+          {
+            return shipmentsCountResponse!.requestedShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.PICKED:
+          {
+            return shipmentsCountResponse!.pickedShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.SHIPPING:
+          {
+            return shipmentsCountResponse!.onTheWayShipments.toString();
+          }
+        case ShipmentsStatisticsTypes.DELIVERED:
+          {
+            return shipmentsCountResponse!.deliveredShipments.toString();
+          }
+      }
     }
   }
 
   ShipmentStatusEnum? _getShipmentStatus(ShipmentsStatisticsTypes status) {
     switch (status) {
       case ShipmentsStatisticsTypes.NEW_SHIPMENT:
+        {
+          return null;
+        }
+      case ShipmentsStatisticsTypes.CLIENTS:
         {
           return null;
         }

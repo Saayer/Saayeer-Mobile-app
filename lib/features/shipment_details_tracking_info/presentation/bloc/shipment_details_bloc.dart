@@ -44,6 +44,7 @@ class ShipmentDetailsBloc extends Bloc<ShipmentDetailsEvent, ShipmentDetailsStat
     emit(state.copyWith(
       stateHelper: const StateHelper(requestState: RequestState.LOADED),
       shipmentDto: event.shipmentDto,
+      adminShipmentDto: event.adminShipmentDto,
     ));
   }
 

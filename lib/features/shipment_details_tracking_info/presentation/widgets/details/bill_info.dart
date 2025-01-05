@@ -2,14 +2,20 @@ import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:saayer/common/generic_svg_widget.dart';
+import 'package:saayer/core/entities/user_utils.dart';
 import 'package:saayer/core/utils/constants/constants.dart';
 import 'package:saayer/core/utils/theme/saayer_theme.dart';
 import 'package:saayer/core/utils/theme/typography.dart';
 
 class BillInfo extends StatelessWidget {
   final ShipmentGetDto shipmentDto;
+  final ShipmentGetDtoExtended adminShipmentDto;
 
-  const BillInfo({super.key, required this.shipmentDto});
+  const BillInfo({
+    super.key,
+    required this.shipmentDto,
+    required this.adminShipmentDto,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +67,7 @@ class BillInfo extends StatelessWidget {
                   style: AppTextStyles.label(),
                 ),
                 Text(
-                  shipmentDto.logisticServiceName ?? "",
+                  _getLogisticServiceName(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.darkGreyColor),
@@ -87,7 +93,7 @@ class BillInfo extends StatelessWidget {
                 Directionality(
                   textDirection: TextDirection.ltr,
                   child: Text(
-                    "${shipmentDto.cost ?? ""} ${"sr".tr()}",
+                    _getShipmentCost(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.smallLabel(SaayerTheme().getColorsPalette.darkGreyColor),
@@ -97,5 +103,21 @@ class BillInfo extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  String _getLogisticServiceName() {
+    if (UserUtils.isAdmin()) {
+      return adminShipmentDto.logisticServiceName ?? "";
+    } else {
+      return shipmentDto.logisticServiceName ?? "";
+    }
+  }
+
+  String _getShipmentCost() {
+    if (UserUtils.isAdmin()) {
+      return "${(adminShipmentDto.cost ?? 0).toStringAsFixed(2)} ${"sr".tr()}";
+    } else {
+      return "${(shipmentDto.cost ?? 0).toStringAsFixed(2)} ${"sr".tr()}";
+    }
   }
 }

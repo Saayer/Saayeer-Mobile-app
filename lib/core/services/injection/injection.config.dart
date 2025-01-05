@@ -12,14 +12,6 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:openapi/openapi.dart' as _i711;
-import 'package:saayer/common/address_widgets/data/data_sources/remote/address_widgets_RDS.dart'
-    as _i369;
-import 'package:saayer/common/address_widgets/data/data_sources/remote/address_widgets_RDS_impl.dart'
-    as _i254;
-import 'package:saayer/common/address_widgets/data/repositories/address_widgets_repo_impl.dart'
-    as _i572;
-import 'package:saayer/common/address_widgets/domain/repositories/address_widgets_repo.dart'
-    as _i1030;
 import 'package:saayer/common/address_widgets/presentation/bloc/address_widgets_bloc.dart'
     as _i191;
 import 'package:saayer/core/API/api_client.dart' as _i9;
@@ -59,10 +51,6 @@ import 'package:saayer/features/address/add_edit_address/presentation/bloc/add_e
     as _i854;
 import 'package:saayer/features/address/address_details/presentation/bloc/address_details_bloc.dart'
     as _i925;
-import 'package:saayer/features/address/addresses_book/data/data_sources/remote/addresses_book_RDS.dart'
-    as _i451;
-import 'package:saayer/features/address/addresses_book/data/data_sources/remote/addresses_book_RDS_impl.dart'
-    as _i699;
 import 'package:saayer/features/address/addresses_book/data/repositories/addresses_book_repo_impl.dart'
     as _i1022;
 import 'package:saayer/features/address/addresses_book/domain/repositories/addresses_book_repo.dart'
@@ -75,14 +63,24 @@ import 'package:saayer/features/address/addresses_book/domain/use_cases/get_addr
     as _i436;
 import 'package:saayer/features/address/addresses_book/presentation/bloc/addresses_book_bloc.dart'
     as _i613;
-import 'package:saayer/features/home/data/data_sources/remote/home_RDS.dart'
-    as _i913;
-import 'package:saayer/features/home/data/data_sources/remote/home_RDS_impl.dart'
-    as _i731;
+import 'package:saayer/features/clients/data/repositories/clients_list_repo_impl.dart'
+    as _i51;
+import 'package:saayer/features/clients/domain/repositories/clients_list_repo.dart'
+    as _i178;
+import 'package:saayer/features/clients/domain/use_cases/get_clients_List_usecase.dart'
+    as _i532;
+import 'package:saayer/features/clients/presentation/bloc/clients_bloc.dart'
+    as _i818;
 import 'package:saayer/features/home/data/repositories/home_repo_impl.dart'
     as _i34;
 import 'package:saayer/features/home/domain/repositories/home_repo.dart'
     as _i483;
+import 'package:saayer/features/home/domain/use_cases/get_admin_shipments_status_total_count_usecase.dart'
+    as _i179;
+import 'package:saayer/features/home/domain/use_cases/get_admin_total_paid_per_days_usecase.dart'
+    as _i314;
+import 'package:saayer/features/home/domain/use_cases/get_admin_total_shipment_per_days_usecase.dart'
+    as _i974;
 import 'package:saayer/features/home/domain/use_cases/get_shipments_status_total_count_usecase.dart'
     as _i447;
 import 'package:saayer/features/home/domain/use_cases/get_total_paid_per_days_usecase.dart'
@@ -112,6 +110,26 @@ import 'package:saayer/features/more/domain/repositories/more_repo.dart'
 import 'package:saayer/features/more/domain/use_cases/delete_account_usecase.dart'
     as _i760;
 import 'package:saayer/features/more/presentation/bloc/more_bloc.dart' as _i105;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/data/repositories/saayer_gain_repo_impl.dart'
+    as _i713;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/domain/repositories/saayer_gain_repo.dart'
+    as _i58;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/domain/usecases/get_saayer_gain_usecase.dart'
+    as _i737;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/domain/usecases/update_saayer_gain_usecase.dart'
+    as _i310;
+import 'package:saayer/features/more_sub_features/admin_saayer_gain/presentation/bloc/saayer_gain_bloc.dart'
+    as _i388;
+import 'package:saayer/features/more_sub_features/admin_service_providers_management/data/repositories/service_providers_repo_impl.dart'
+    as _i470;
+import 'package:saayer/features/more_sub_features/admin_service_providers_management/domain/repositories/service_providers_repo.dart'
+    as _i56;
+import 'package:saayer/features/more_sub_features/admin_service_providers_management/domain/usecases/get_service_providers_list_usecase.dart'
+    as _i331;
+import 'package:saayer/features/more_sub_features/admin_service_providers_management/domain/usecases/update_service_provider_usecase.dart'
+    as _i595;
+import 'package:saayer/features/more_sub_features/admin_service_providers_management/presentation/bloc/service_providers_management_bloc.dart'
+    as _i314;
 import 'package:saayer/features/more_sub_features/contact_us/presentation/bloc/contact_us_bloc.dart'
     as _i206;
 import 'package:saayer/features/more_sub_features/help/presentation/bloc/help_bloc.dart'
@@ -212,18 +230,16 @@ import 'package:saayer/features/shipments/data/repositories/shipments_list_repo_
     as _i779;
 import 'package:saayer/features/shipments/domain/repositories/shipments_list_repo.dart'
     as _i282;
+import 'package:saayer/features/shipments/domain/use_cases/get_admin_shipments_list_usecase.dart'
+    as _i741;
+import 'package:saayer/features/shipments/domain/use_cases/get_clients_list_usecase.dart'
+    as _i279;
 import 'package:saayer/features/shipments/domain/use_cases/get_service_providers_list_usecase.dart'
     as _i580;
 import 'package:saayer/features/shipments/domain/use_cases/get_shipments_List_usecase.dart'
     as _i437;
 import 'package:saayer/features/shipments/presentation/bloc/shipments_bloc.dart'
     as _i414;
-import 'package:saayer/features/user_card/data/data_sources/remote/user_card_RDS.dart'
-    as _i609;
-import 'package:saayer/features/user_card/data/data_sources/remote/user_card_RDS_impl.dart'
-    as _i64;
-import 'package:saayer/features/user_card/data/repositories/user_card_repo_impl.dart'
-    as _i671;
 import 'package:saayer/features/user_card/domain/repositories/user_card_repo.dart'
     as _i68;
 import 'package:saayer/features/user_card/domain/use_cases/user_card_usecase.dart'
@@ -232,12 +248,6 @@ import 'package:saayer/features/user_card/presentation/bloc/user_card_bloc.dart'
     as _i260;
 import 'package:saayer/features/user_info_view_page/presentation/bloc/user_info_view_page_bloc.dart'
     as _i1037;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/data_sources/remote/business_info_RDS.dart'
-    as _i785;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/data_sources/remote/business_info_RDS_impl.dart'
-    as _i882;
-import 'package:saayer/features/user_info_view_page/sub_features/business_info/data/repositories/business_info_repo_impl.dart'
-    as _i655;
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/repositories/business_info_repo.dart'
     as _i192;
 import 'package:saayer/features/user_info_view_page/sub_features/business_info/domain/use_cases/submit_business_info_usecase.dart'
@@ -292,6 +302,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i355.NavigationService>(() => _i355.NavigationService());
     gh.singleton<_i361.Dio>(() => injectableModule.dio);
     gh.singleton<_i711.Openapi>(() => injectableModule.openapi);
+    gh.factory<_i396.SubmitBusinessInfoUseCase>(() =>
+        _i396.SubmitBusinessInfoUseCase(
+            businessInfoRepoImpl: gh<_i192.BusinessInfoRepo>()));
+    gh.factory<_i684.BusinessInfoBloc>(() => _i684.BusinessInfoBloc(
+        submitBusinessInfoUseCase: gh<_i396.SubmitBusinessInfoUseCase>()));
     gh.lazySingleton<_i801.OpenAPIConfig>(
         () => _i801.OpenAPIConfig(openapi: gh<_i711.Openapi>()));
     gh.factory<_i57.TrackingListRepo>(() =>
@@ -304,6 +319,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i377.ShipmentProvidersRepo>(() =>
         _i995.ShipmentProvidersRepoImpl(
             openApiConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i736.UserCardUseCase>(
+        () => _i736.UserCardUseCase(userCardRepoImpl: gh<_i68.UserCardRepo>()));
     gh.factory<_i962.TrackingListUseCase>(() => _i962.TrackingListUseCase(
         trackingListRepo: gh<_i57.TrackingListRepo>()));
     gh.factory<_i103.ShipmentSummaryRepo>(() =>
@@ -314,6 +331,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1059.AppInterceptors(client: gh<_i361.Dio>()));
     gh.factory<_i912.ShipmentDetailsBloc>(() => _i912.ShipmentDetailsBloc(
         trackingListUseCase: gh<_i962.TrackingListUseCase>()));
+    gh.factory<_i260.UserCardBloc>(
+        () => _i260.UserCardBloc(userCardUseCase: gh<_i736.UserCardUseCase>()));
     gh.factory<_i640.AddEditStoreRepo>(() =>
         _i469.StoreInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i389.VerifyOtpRDS>(
@@ -327,6 +346,8 @@ extension GetItInjectableX on _i174.GetIt {
         shipmentPaymentRepo: gh<_i791.ShipmentPaymentRepo>()));
     gh.factory<_i694.CreatePaymentUseCase>(() => _i694.CreatePaymentUseCase(
         shipmentPaymentRepo: gh<_i791.ShipmentPaymentRepo>()));
+    gh.factory<_i178.ClientsListRepo>(() =>
+        _i51.ClientsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i927.RefreshToken>(
         () => _i927.RefreshToken(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i79.AddEditAddressInfoRepo>(() =>
@@ -338,10 +359,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i400.LogInRDS>(
         () => _i211.LogInRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i785.BusinessInfoRDS>(
-        () => _i882.BusinessInfoRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i913.HomeRDS>(
-        () => _i731.HomeRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
     gh.factory<_i465.SubmitAddressInfoUseCase>(() =>
         _i465.SubmitAddressInfoUseCase(
             addAddressInfoRepoImpl: gh<_i79.AddEditAddressInfoRepo>()));
@@ -360,8 +377,12 @@ extension GetItInjectableX on _i174.GetIt {
         _i508.PersonalInfoRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i282.ShipmentsListRepo>(() =>
         _i779.ShipmentsListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
-    gh.factory<_i451.AddressesBookRDS>(
-        () => _i699.AddressesBookRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
+    gh.factory<_i58.SaayerGainRepo>(() =>
+        _i713.SaayerGainRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i56.ServiceProvidersRepo>(() => _i470.ServiceProvidersRepoImpl(
+        openAPIConfig: gh<_i801.OpenAPIConfig>()));
+    gh.factory<_i532.GetClientsListUseCase>(() => _i532.GetClientsListUseCase(
+        clientsListRepo: gh<_i178.ClientsListRepo>()));
     gh.factory<_i735.LogInRepo>(() => _i681.LogInRepoImpl(
           logInRDSImpl: gh<_i400.LogInRDS>(),
           openAPIConfig: gh<_i801.OpenAPIConfig>(),
@@ -376,14 +397,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i34.HomeRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
     gh.factory<_i782.StoresListRepo>(() =>
         _i451.StoresListRepoImpl(openAPIConfig: gh<_i801.OpenAPIConfig>()));
-    gh.factory<_i369.AddressWidgetsRDS>(() =>
-        _i254.AddressWidgetsRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i609.UserCardRDS>(
-        () => _i64.UserCardRDSImpl(apiConsumer: gh<_i151.ApiConsumer>()));
-    gh.factory<_i192.BusinessInfoRepo>(() => _i655.BusinessInfoRepoImpl(
-        businessInfoRDSImpl: gh<_i785.BusinessInfoRDS>()));
     gh.factory<_i22.GetUserProfileUseCase>(
         () => _i22.GetUserProfileUseCase(homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i314.GetAdminTotalPaidPerDaysUseCase>(() =>
+        _i314.GetAdminTotalPaidPerDaysUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i179.GetAdminShipmentsStatusTotalCountUseCase>(() =>
+        _i179.GetAdminShipmentsStatusTotalCountUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
+    gh.factory<_i974.GetAdminTotalShipmentPerDaysUseCase>(() =>
+        _i974.GetAdminTotalShipmentPerDaysUseCase(
+            homeRepoImpl: gh<_i483.HomeRepo>()));
     gh.factory<_i447.GetShipmentsStatusTotalCountUseCase>(() =>
         _i447.GetShipmentsStatusTotalCountUseCase(
             homeRepoImpl: gh<_i483.HomeRepo>()));
@@ -397,14 +421,6 @@ extension GetItInjectableX on _i174.GetIt {
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
           getGovernoratesUseCase: gh<_i263.GetGovernoratesUseCase>(),
         ));
-    gh.factory<_i1066.HomeBloc>(() => _i1066.HomeBloc(
-          getUserProfileUseCase: gh<_i22.GetUserProfileUseCase>(),
-          getShipmentsStatusTotalCountUseCase:
-              gh<_i447.GetShipmentsStatusTotalCountUseCase>(),
-          getTotalShipmentPerDaysUseCase:
-              gh<_i838.GetTotalShipmentPerDaysUseCase>(),
-          getTotalPaidPerDaysUseCase: gh<_i1.GetTotalPaidPerDaysUseCase>(),
-        ));
     gh.factory<_i299.ShipmentPaymentBloc>(() => _i299.ShipmentPaymentBloc(
           createPaymentUseCase: gh<_i694.CreatePaymentUseCase>(),
           getShipmentUseCase: gh<_i573.GetShipmentUseCase>(),
@@ -413,6 +429,12 @@ extension GetItInjectableX on _i174.GetIt {
         verifyOtpRepoImpl: gh<_i689.VerifyOtpRepo>()));
     gh.factory<_i5.SubmitStoreInfoUseCase>(() => _i5.SubmitStoreInfoUseCase(
         storeInfoRepoImpl: gh<_i640.AddEditStoreRepo>()));
+    gh.factory<_i331.GetServiceProvidersListUseCase>(() =>
+        _i331.GetServiceProvidersListUseCase(
+            serviceProvidersRepo: gh<_i56.ServiceProvidersRepo>()));
+    gh.factory<_i595.UpdateServiceProviderUsecase>(() =>
+        _i595.UpdateServiceProviderUsecase(
+            serviceProvidersRepo: gh<_i56.ServiceProvidersRepo>()));
     gh.factory<_i477.EditPersonalInfoUseCase>(() =>
         _i477.EditPersonalInfoUseCase(
             personalInfoRepoImpl: gh<_i792.PersonalInfoRepo>()));
@@ -427,8 +449,6 @@ extension GetItInjectableX on _i174.GetIt {
             shipmentSummaryRepo: gh<_i103.ShipmentSummaryRepo>()));
     gh.factory<_i760.DeleteAccountUseCase>(
         () => _i760.DeleteAccountUseCase(moreRepoImpl: gh<_i386.MoreRepo>()));
-    gh.factory<_i68.UserCardRepo>(
-        () => _i671.UserCardRepoImpl(userCardRDSImpl: gh<_i609.UserCardRDS>()));
     gh.factory<_i854.AddEditAddressBloc>(() => _i854.AddEditAddressBloc(
           submitAddressInfoUseCase: gh<_i465.SubmitAddressInfoUseCase>(),
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
@@ -436,8 +456,27 @@ extension GetItInjectableX on _i174.GetIt {
           getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
           updateAddressUseCase: gh<_i469.UpdateAddressUseCase>(),
         ));
-    gh.factory<_i736.UserCardUseCase>(
-        () => _i736.UserCardUseCase(userCardRepoImpl: gh<_i68.UserCardRepo>()));
+    gh.factory<_i1066.HomeBloc>(() => _i1066.HomeBloc(
+          getUserProfileUseCase: gh<_i22.GetUserProfileUseCase>(),
+          getShipmentsStatusTotalCountUseCase:
+              gh<_i447.GetShipmentsStatusTotalCountUseCase>(),
+          getTotalShipmentPerDaysUseCase:
+              gh<_i838.GetTotalShipmentPerDaysUseCase>(),
+          getTotalPaidPerDaysUseCase: gh<_i1.GetTotalPaidPerDaysUseCase>(),
+          getAdminShipmentsStatusTotalCountUseCase:
+              gh<_i179.GetAdminShipmentsStatusTotalCountUseCase>(),
+          getAdminTotalShipmentPerDaysUseCase:
+              gh<_i974.GetAdminTotalShipmentPerDaysUseCase>(),
+          getAdminTotalPaidPerDaysUseCase:
+              gh<_i314.GetAdminTotalPaidPerDaysUseCase>(),
+        ));
+    gh.factory<_i314.ServiceProvidersManagementBloc>(
+        () => _i314.ServiceProvidersManagementBloc(
+              getServiceProvidersListUseCase:
+                  gh<_i331.GetServiceProvidersListUseCase>(),
+              updateServiceProviderUsecase:
+                  gh<_i595.UpdateServiceProviderUsecase>(),
+            ));
     gh.factory<_i883.ShipmentSummaryBloc>(() => _i883.ShipmentSummaryBloc(
           getStoreDetailsUseCase: gh<_i447.GetStoreDetailsUseCase>(),
           getCustomerDetailsUseCase: gh<_i968.GetCustomerDetailsUseCase>(),
@@ -457,8 +496,6 @@ extension GetItInjectableX on _i174.GetIt {
         _i833.GetStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
     gh.factory<_i490.DeleteStoresUseCase>(() =>
         _i490.DeleteStoresUseCase(storesListRepo: gh<_i782.StoresListRepo>()));
-    gh.factory<_i260.UserCardBloc>(
-        () => _i260.UserCardBloc(userCardUseCase: gh<_i736.UserCardUseCase>()));
     gh.factory<_i22.LogInBloc>(
         () => _i22.LogInBloc(logInUseCase: gh<_i356.LogInUseCase>()));
     gh.factory<_i105.MoreBloc>(() =>
@@ -467,23 +504,28 @@ extension GetItInjectableX on _i174.GetIt {
           logInUseCase: gh<_i356.LogInUseCase>(),
           confirmLogInUseCase: gh<_i233.ConfirmLogInUseCase>(),
         ));
-    gh.factory<_i1030.AddressWidgetsRepo>(() => _i572.AddressWidgetsRepoImpl(
-        addressWidgetsRDSImpl: gh<_i369.AddressWidgetsRDS>()));
     gh.factory<_i135.ShipmentProvidersBloc>(() => _i135.ShipmentProvidersBloc(
         getShipmentProvidersUseCase: gh<_i897.GetShipmentProvidersUseCase>()));
     gh.factory<_i23.PersonalInfoBloc>(() => _i23.PersonalInfoBloc(
           submitPersonalInfoUseCase: gh<_i477.EditPersonalInfoUseCase>(),
           getPersonalInfoUseCase: gh<_i639.GetPersonalInfoUseCase>(),
         ));
-    gh.factory<_i396.SubmitBusinessInfoUseCase>(() =>
-        _i396.SubmitBusinessInfoUseCase(
-            businessInfoRepoImpl: gh<_i192.BusinessInfoRepo>()));
+    gh.factory<_i310.UpdateSaayerGainUseCase>(() =>
+        _i310.UpdateSaayerGainUseCase(
+            saayerGainRepo: gh<_i58.SaayerGainRepo>()));
+    gh.factory<_i737.GetSaayerGainUseCase>(() =>
+        _i737.GetSaayerGainUseCase(saayerGainRepo: gh<_i58.SaayerGainRepo>()));
     gh.factory<_i437.GetShipmentsListUseCase>(() =>
         _i437.GetShipmentsListUseCase(
+            shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i741.GetAdminShipmentsListUseCase>(() =>
+        _i741.GetAdminShipmentsListUseCase(
             shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
     gh.factory<_i580.GetServiceProvidersListUseCase>(() =>
         _i580.GetServiceProvidersListUseCase(
             shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
+    gh.factory<_i279.GetClientsListUseCase>(() => _i279.GetClientsListUseCase(
+        shipmentsListRepo: gh<_i282.ShipmentsListRepo>()));
     gh.factory<_i462.AddEditStoreBloc>(() => _i462.AddEditStoreBloc(
           submitStoreInfoUseCase: gh<_i5.SubmitStoreInfoUseCase>(),
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
@@ -491,12 +533,12 @@ extension GetItInjectableX on _i174.GetIt {
           getCitiesUseCase: gh<_i590.GetCitiesUseCase>(),
           editStoreUseCase: gh<_i987.EditStoreUseCase>(),
         ));
+    gh.factory<_i818.ClientsBloc>(() => _i818.ClientsBloc(
+        getClientsListUseCase: gh<_i532.GetClientsListUseCase>()));
     gh.factory<_i959.StoresListBloc>(() => _i959.StoresListBloc(
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
           deleteStoresUseCase: gh<_i490.DeleteStoresUseCase>(),
         ));
-    gh.factory<_i684.BusinessInfoBloc>(() => _i684.BusinessInfoBloc(
-        submitBusinessInfoUseCase: gh<_i396.SubmitBusinessInfoUseCase>()));
     gh.factory<_i613.AddressesBookBloc>(() => _i613.AddressesBookBloc(
           getAddressesUseCase: gh<_i436.GetAddressesUseCase>(),
           getCountriesUseCase: gh<_i753.GetCountriesUseCase>(),
@@ -511,11 +553,18 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i234.ShippingPartnersBloc>(() => _i234.ShippingPartnersBloc(
         getShippingPartnersUseCase: gh<_i800.GetShippingPartnersUseCase>()));
+    gh.factory<_i388.SaayerGainBloc>(() => _i388.SaayerGainBloc(
+          getSaayerGainUseCase: gh<_i737.GetSaayerGainUseCase>(),
+          updateSaayerGainUseCase: gh<_i310.UpdateSaayerGainUseCase>(),
+        ));
     gh.factory<_i414.ShipmentsBloc>(() => _i414.ShipmentsBloc(
           getShipmentsListUseCase: gh<_i437.GetShipmentsListUseCase>(),
           getStoresUseCase: gh<_i833.GetStoresUseCase>(),
           getServiceProvidersListUseCase:
               gh<_i580.GetServiceProvidersListUseCase>(),
+          getAdminShipmentsListUseCase:
+              gh<_i741.GetAdminShipmentsListUseCase>(),
+          getClientsListUseCase: gh<_i279.GetClientsListUseCase>(),
         ));
     return this;
   }

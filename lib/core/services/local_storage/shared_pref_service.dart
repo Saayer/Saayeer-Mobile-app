@@ -29,6 +29,7 @@ class SharedPrefService {
   final String _keyShipmentId = 'ShipmentId';
   final String _keyPaymentResponse = 'PaymentResponse';
   final String _keyUserData = 'UserData';
+  final String _keyUserRole = 'UserRole';
 
   /// saving data to sharedpreference
   Future setAccessToken(String accessToken) async {
@@ -60,6 +61,10 @@ class SharedPrefService {
     var jsondata =
     getIt<OpenAPIConfig>().openapi.serializers.serialize(userData, specifiedType: const FullType(ClientGetDto));
     await _preferences.setString(_keyUserData, jsonEncode(jsondata));
+  }
+
+  Future setUserRole(String userRole) async {
+    await _preferences.setString(_keyUserRole, userRole);
   }
 
   /// fetching data from sharedpreference
@@ -135,6 +140,15 @@ class SharedPrefService {
       } else {
         return null;
       }
+    } else {
+      return null;
+    }
+  }
+
+  String? getUserRole() {
+    if (_preferences.containsKey(_keyUserRole)) {
+      final String? userRole = _preferences.get(_keyUserRole) as String?;
+      return userRole;
     } else {
       return null;
     }

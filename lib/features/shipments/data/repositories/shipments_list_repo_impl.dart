@@ -37,7 +37,7 @@ class ShipmentsListRepoImpl implements ShipmentsListRepo {
   }
 
   @override
-  Future<Either<Failure, List<LogisticsServiceBase>>> getServiceProvidersList() async {
+  Future<Either<Failure, List<LogisticServiceGetDto>>> getServiceProvidersList() async {
     final bool isConnected = await getIt<NetworkInfo>().isConnected;
     if (isConnected) {
       try {
@@ -53,6 +53,50 @@ class ShipmentsListRepoImpl implements ShipmentsListRepo {
         }
       } catch (e) {
         return Left(Failure(failureMessage: "get ServiceProviders failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
+
+  @override
+  Future<Either<Failure, List<ShipmentGetDtoExtended>>> getAdminShipmentsList(ShipmentQueryLAdmin? shipmentQuery) async{
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        ///
+        final result = await openAPIConfig.openapi
+            .getLogisticsAdminDashboardApi()
+            .apiLogisticsAdminDashboardShipmentsPost(shipmentQueryLAdmin: shipmentQuery, apiKey: NetworkKeys.init().networkKeys.apiKey);
+
+        if (result.data != null) {
+          return Right(result.data!.toList());
+        } else {
+          return Left(Failure(failureMessage: "get AdminShipments failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "get AdminShipments failed"));
+      }
+    }
+    return Left(Failure(failureMessage: "No Internet Connection"));
+  }
+
+  @override
+  Future<Either<Failure, List<ClientNamesRespnse>>> getClientsList() async{
+    final bool isConnected = await getIt<NetworkInfo>().isConnected;
+    if (isConnected) {
+      try {
+        ///
+        final result = await openAPIConfig.openapi
+            .getClientsApi()
+            .apiClientsNamesGet(apiKey: NetworkKeys.init().networkKeys.apiKey);
+
+        if (result.data != null) {
+          return Right(result.data!.toList());
+        } else {
+          return Left(Failure(failureMessage: "get ClientsList failed"));
+        }
+      } catch (e) {
+        return Left(Failure(failureMessage: "get ClientsList failed"));
       }
     }
     return Left(Failure(failureMessage: "No Internet Connection"));

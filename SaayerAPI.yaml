@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-33-dev
+  version: v-36-dev
 servers:
-  - url: "/saayer-33/app"
+  - url: "/saayer-36/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -177,6 +177,39 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/AddressLookUpDto"
+  "/api/AddressLookups/city-getby":
+    post:
+      tags:
+        - AddressLookups
+      parameters:
+        - name: placeName
+          in: query
+          schema:
+            type: string
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CityExtendedGetDto"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CityExtendedGetDto"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CityExtendedGetDto"
   "/api/Auth/signup-client":
     post:
       tags:
@@ -802,15 +835,15 @@ paths:
           application/json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostDto"
+                - "$ref": "#/components/schemas/ShipmentCostRequest"
           text/json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostDto"
+                - "$ref": "#/components/schemas/ShipmentCostRequest"
           application/*+json:
             schema:
               allOf:
-                - "$ref": "#/components/schemas/ShipmentCostDto"
+                - "$ref": "#/components/schemas/ShipmentCostRequest"
       responses:
         '200':
           description: Success
@@ -819,17 +852,17 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/ServiceCost"
+                  "$ref": "#/components/schemas/LogisticCostDto"
             application/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/ServiceCost"
+                  "$ref": "#/components/schemas/LogisticCostDto"
             text/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/ServiceCost"
+                  "$ref": "#/components/schemas/LogisticCostDto"
   "/api/Logistics/services":
     get:
       tags:
@@ -848,17 +881,96 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/LogisticsServiceBase"
+                  "$ref": "#/components/schemas/LogisticServiceGetDto"
             application/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/LogisticsServiceBase"
+                  "$ref": "#/components/schemas/LogisticServiceGetDto"
             text/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/LogisticsServiceBase"
+                  "$ref": "#/components/schemas/LogisticServiceGetDto"
+  "/api/Logistics/update-gain":
+    post:
+      tags:
+        - Logistics
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/GainRatioPost"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/GainRatioPost"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/GainRatioPost"
+      responses:
+        '200':
+          description: Success
+  "/api/Logistics/get-gain":
+    get:
+      tags:
+        - Logistics
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: number
+            application/json:
+              schema:
+                type: number
+                format: double
+            text/json:
+              schema:
+                type: number
+                format: double
+  "/api/Logistics/update-service":
+    post:
+      tags:
+        - Logistics
+      parameters:
+        - name: Api-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/LogisticServicePostDto"
+          text/json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/LogisticServicePostDto"
+          application/*+json:
+            schema:
+              allOf:
+                - "$ref": "#/components/schemas/LogisticServicePostDto"
+      responses:
+        '200':
+          description: Success
   "/api/LogisticsAdminDashboard/shipments-perStatus":
     post:
       tags:
@@ -1474,6 +1586,27 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    CityExtendedGetDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name_en:
+          type: string
+          nullable: true
+        name_ar:
+          type: string
+          nullable: true
+        aramexPickupAvailable:
+          type: boolean
+        aramexDeliveryAvailable:
+          type: boolean
+        governorate:
+          allOf:
+            - "$ref": "#/components/schemas/AddressLookUpDto"
+          nullable: true
+      additionalProperties: false
     CityGetDto:
       type: object
       properties:
@@ -1531,11 +1664,17 @@ components:
         address:
           type: string
           nullable: true
+        createdAt:
+          type: string
         totalShipments:
           type: integer
           format: int32
           nullable: true
         totalPaid:
+          type: number
+          format: double
+          nullable: true
+        totalGain:
           type: number
           format: double
           nullable: true
@@ -1888,6 +2027,13 @@ components:
           type: string
           format: date-time
       additionalProperties: false
+    GainRatioPost:
+      type: object
+      properties:
+        newGainRatio:
+          type: number
+          format: double
+      additionalProperties: false
     LoginRequestDto:
       type: object
       properties:
@@ -1907,28 +2053,56 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    LogisticsServiceBase:
+    LogisticCostDto:
       type: object
       properties:
-        name:
+        logisticService:
+          allOf:
+            - "$ref": "#/components/schemas/LogisticServiceGetDto"
+          nullable: true
+        price:
+          type: number
+          format: double
+        logisticCost:
+          type: number
+          format: double
+        hasError:
+          type: boolean
+        errorMessage:
           type: string
           nullable: true
-          readOnly: true
+      additionalProperties: false
+    LogisticServiceGetDto:
+      type: object
+      properties:
+        logisticServiceId:
+          type: integer
+          format: int32
+        serviceName:
+          type: string
+          nullable: true
         company:
           type: string
           nullable: true
-          readOnly: true
         isImplemented:
           type: boolean
-          readOnly: true
-        workDaysMinimum:
-          type: integer
-          format: int32
-          readOnly: true
+        isEnabled:
+          type: boolean
         workDaysMaximum:
           type: integer
           format: int32
-          readOnly: true
+        workDaysMinimum:
+          type: integer
+          format: int32
+      additionalProperties: false
+    LogisticServicePostDto:
+      type: object
+      properties:
+        logisticServiceId:
+          type: integer
+          format: int32
+        isEnabled:
+          type: boolean
       additionalProperties: false
     PaymentAddDto:
       required:
@@ -1982,35 +2156,6 @@ components:
           type: string
           format: date-time
       additionalProperties: false
-    ServiceCost:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        company:
-          type: string
-          nullable: true
-        cost:
-          type: number
-          format: double
-        workDaysMaximum:
-          type: integer
-          format: int32
-        workDaysMinimum:
-          type: integer
-          format: int32
-        estimatedShipmentDays:
-          type: string
-          nullable: true
-        hasError:
-          type: boolean
-        errorMessage:
-          type: string
-          nullable: true
-        isImplemented:
-          type: boolean
-      additionalProperties: false
     ShipmentAddDto:
       type: object
       properties:
@@ -2061,7 +2206,7 @@ components:
           format: int64
           nullable: true
       additionalProperties: false
-    ShipmentCostDto:
+    ShipmentCostRequest:
       type: object
       properties:
         length:
@@ -2200,7 +2345,6 @@ components:
           nullable: true
         createdAt:
           type: string
-          format: date-time
         logisticServiceName:
           type: string
           nullable: true

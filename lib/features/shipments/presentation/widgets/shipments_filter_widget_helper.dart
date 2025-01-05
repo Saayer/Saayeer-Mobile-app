@@ -200,14 +200,14 @@ class ShipmentsFilterWidgetHelper {
   }
 
   _getServiceProviderTextField() {
-    return FilterItemsDropDownTextField<LogisticsServiceBase>(
+    return FilterItemsDropDownTextField<LogisticServiceGetDto>(
       bloc: shipmentsBloc,
       shipmentsListTypes: shipmentsListTypes,
       hasLabel: false,
       withValidator: false,
       hasMargin: false,
       onSelected: (val) {
-        shipmentsBloc.add(OnItemSelectedFromDropDown<LogisticsServiceBase>(
+        shipmentsBloc.add(OnItemSelectedFromDropDown<LogisticServiceGetDto>(
           shipmentsFilterTypes: ShipmentsFilterTypes.SERVICE_PROVIDER,
           item: val,
           shipmentsListTypes: shipmentsListTypes,
