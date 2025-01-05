@@ -238,6 +238,7 @@
   "providers_error_msg": "We can't get service providers. Please try again later.",
   "shipment_download": "Shipment download",
   "label_not_available_msg": "The file is not available right now!",
+  "label_error_download_msg": "There is an error while downloading the file",
   "store_name": "Store name",
   "send_from_store": "Send from store",
   "send_from_customer": "Return from customer",
