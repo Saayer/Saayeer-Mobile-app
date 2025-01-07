@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost/saayer-36/app*
+All URIs are relative to *http://localhost/saayer-37/app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
