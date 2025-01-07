@@ -151,7 +151,7 @@ class ShipmentItemWidgetHelper {
             children: [
               Directionality(
                   textDirection: TextDirection.ltr,
-                  child: Text((shipmentDto.cost ?? 0).toStringAsFixed(2), style: AppTextStyles.smallBoldLabel())),
+                  child: Text((shipmentDto.price ?? 0).toStringAsFixed(2), style: AppTextStyles.smallBoldLabel())),
               Text("  ${"sar".tr()}", style: AppTextStyles.microLabel(SaayerTheme().getColorsPalette.greyColor)),
             ],
           ),

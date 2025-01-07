@@ -22,7 +22,7 @@ class _$ShipmentGetDto extends ShipmentGetDto {
   @override
   final double? contentValue;
   @override
-  final double? cost;
+  final double? price;
   @override
   final String? createdAt;
   @override
@@ -61,7 +61,7 @@ class _$ShipmentGetDto extends ShipmentGetDto {
       this.weight,
       this.contentDesc,
       this.contentValue,
-      this.cost,
+      this.price,
       this.createdAt,
       this.logisticServiceName,
       this.status,
@@ -96,7 +96,7 @@ class _$ShipmentGetDto extends ShipmentGetDto {
         weight == other.weight &&
         contentDesc == other.contentDesc &&
         contentValue == other.contentValue &&
-        cost == other.cost &&
+        price == other.price &&
         createdAt == other.createdAt &&
         logisticServiceName == other.logisticServiceName &&
         status == other.status &&
@@ -122,7 +122,7 @@ class _$ShipmentGetDto extends ShipmentGetDto {
     _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, contentDesc.hashCode);
     _$hash = $jc(_$hash, contentValue.hashCode);
-    _$hash = $jc(_$hash, cost.hashCode);
+    _$hash = $jc(_$hash, price.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, logisticServiceName.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
@@ -150,7 +150,7 @@ class _$ShipmentGetDto extends ShipmentGetDto {
           ..add('weight', weight)
           ..add('contentDesc', contentDesc)
           ..add('contentValue', contentValue)
-          ..add('cost', cost)
+          ..add('price', price)
           ..add('createdAt', createdAt)
           ..add('logisticServiceName', logisticServiceName)
           ..add('status', status)
@@ -200,9 +200,9 @@ class ShipmentGetDtoBuilder
   double? get contentValue => _$this._contentValue;
   set contentValue(double? contentValue) => _$this._contentValue = contentValue;
 
-  double? _cost;
-  double? get cost => _$this._cost;
-  set cost(double? cost) => _$this._cost = cost;
+  double? _price;
+  double? get price => _$this._price;
+  set price(double? price) => _$this._price = price;
 
   String? _createdAt;
   String? get createdAt => _$this._createdAt;
@@ -283,7 +283,7 @@ class ShipmentGetDtoBuilder
       _weight = $v.weight;
       _contentDesc = $v.contentDesc;
       _contentValue = $v.contentValue;
-      _cost = $v.cost;
+      _price = $v.price;
       _createdAt = $v.createdAt;
       _logisticServiceName = $v.logisticServiceName;
       _status = $v.status;
@@ -328,7 +328,7 @@ class ShipmentGetDtoBuilder
               weight: weight,
               contentDesc: contentDesc,
               contentValue: contentValue,
-              cost: cost,
+              price: price,
               createdAt: createdAt,
               logisticServiceName: logisticServiceName,
               status: status,

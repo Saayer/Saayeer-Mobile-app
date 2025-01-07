@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **weight** | **double** |  | [optional] 
 **contentDesc** | **String** |  | [optional] 
 **contentValue** | **double** |  | [optional] 
-**cost** | **double** |  | [optional] 
+**price** | **double** |  | [optional] 
 **createdAt** | **String** |  | [optional] 
 **logisticServiceName** | **String** |  | [optional] 
 **status** | [**ShipmentStatusEnum**](ShipmentStatusEnum.md) |  | [optional] 

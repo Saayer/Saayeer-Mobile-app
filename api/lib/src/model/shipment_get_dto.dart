@@ -21,7 +21,7 @@ part 'shipment_get_dto.g.dart';
 /// * [weight] 
 /// * [contentDesc] 
 /// * [contentValue] 
-/// * [cost] 
+/// * [price] 
 /// * [createdAt] 
 /// * [logisticServiceName] 
 /// * [status] 
@@ -58,8 +58,8 @@ abstract class ShipmentGetDto implements Built<ShipmentGetDto, ShipmentGetDtoBui
   @BuiltValueField(wireName: r'contentValue')
   double? get contentValue;
 
-  @BuiltValueField(wireName: r'cost')
-  double? get cost;
+  @BuiltValueField(wireName: r'price')
+  double? get price;
 
   @BuiltValueField(wireName: r'createdAt')
   String? get createdAt;
@@ -173,10 +173,10 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
         specifiedType: const FullType.nullable(double),
       );
     }
-    if (object.cost != null) {
-      yield r'cost';
+    if (object.price != null) {
+      yield r'price';
       yield serializers.serialize(
-        object.cost,
+        object.price,
         specifiedType: const FullType.nullable(double),
       );
     }
@@ -345,13 +345,13 @@ class _$ShipmentGetDtoSerializer implements PrimitiveSerializer<ShipmentGetDto> 
           if (valueDes == null) continue;
           result.contentValue = valueDes;
           break;
-        case r'cost':
+        case r'price':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(double),
           ) as double?;
           if (valueDes == null) continue;
-          result.cost = valueDes;
+          result.price = valueDes;
           break;
         case r'createdAt':
           final valueDes = serializers.deserialize(
