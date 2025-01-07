@@ -2,9 +2,9 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-36-dev
+  version: v-37-2-dev
 servers:
-  - url: "/saayer-36/app"
+  - url: "/saayer-37/app"
 paths:
   "/api/Accounting/create-payment":
     post:
@@ -2262,7 +2262,7 @@ components:
           type: number
           format: double
           nullable: true
-        cost:
+        price:
           type: number
           format: double
           nullable: true
@@ -2339,7 +2339,7 @@ components:
           type: number
           format: double
           nullable: true
-        cost:
+        price:
           type: number
           format: double
           nullable: true
