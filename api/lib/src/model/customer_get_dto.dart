@@ -33,6 +33,7 @@ part 'customer_get_dto.g.dart';
 /// * [phoneNo] 
 /// * [email] 
 /// * [phoneNo2] 
+/// * [createdAt] 
 /// * [totalShipments] 
 /// * [lastShipmentDate] 
 /// * [totalPaid] 
@@ -104,6 +105,9 @@ abstract class CustomerGetDto implements Built<CustomerGetDto, CustomerGetDtoBui
 
   @BuiltValueField(wireName: r'phoneNo2')
   String? get phoneNo2;
+
+  @BuiltValueField(wireName: r'createdAt')
+  DateTime? get createdAt;
 
   @BuiltValueField(wireName: r'totalShipments')
   int? get totalShipments;
@@ -292,6 +296,13 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
       yield serializers.serialize(
         object.phoneNo2,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.createdAt != null) {
+      yield r'createdAt';
+      yield serializers.serialize(
+        object.createdAt,
+        specifiedType: const FullType.nullable(DateTime),
       );
     }
     if (object.totalShipments != null) {
@@ -515,6 +526,14 @@ class _$CustomerGetDtoSerializer implements PrimitiveSerializer<CustomerGetDto> 
           ) as String?;
           if (valueDes == null) continue;
           result.phoneNo2 = valueDes;
+          break;
+        case r'createdAt':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(DateTime),
+          ) as DateTime?;
+          if (valueDes == null) continue;
+          result.createdAt = valueDes;
           break;
         case r'totalShipments':
           final valueDes = serializers.deserialize(

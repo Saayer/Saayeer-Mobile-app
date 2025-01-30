@@ -94,6 +94,7 @@ class AddressesBookBloc extends Bloc<AddressesBookEvent, AddressesBookState> {
         stateHelper: const StateHelper(requestState: RequestState.LOADING),
         customerQuery: CustomerQuery((b) => b
           ..general = searchController.text.isEmpty ? null : searchController.text
+          ..orderDescending = true
           ..phone = mobile.isEmpty ? null : mobile
           ..countryId = selectedCountry?.id
           ..cityId = selectedCity?.id

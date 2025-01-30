@@ -26,6 +26,8 @@ class _$CustomerQuery extends CustomerQuery {
   @override
   final int? totalShipmentsMax;
   @override
+  final bool? orderDescending;
+  @override
   final int? skip;
   @override
   final int? take;
@@ -43,6 +45,7 @@ class _$CustomerQuery extends CustomerQuery {
       this.shipmentDateTo,
       this.totalShipmentsMin,
       this.totalShipmentsMax,
+      this.orderDescending,
       this.skip,
       this.take})
       : super._();
@@ -67,6 +70,7 @@ class _$CustomerQuery extends CustomerQuery {
         shipmentDateTo == other.shipmentDateTo &&
         totalShipmentsMin == other.totalShipmentsMin &&
         totalShipmentsMax == other.totalShipmentsMax &&
+        orderDescending == other.orderDescending &&
         skip == other.skip &&
         take == other.take;
   }
@@ -83,6 +87,7 @@ class _$CustomerQuery extends CustomerQuery {
     _$hash = $jc(_$hash, shipmentDateTo.hashCode);
     _$hash = $jc(_$hash, totalShipmentsMin.hashCode);
     _$hash = $jc(_$hash, totalShipmentsMax.hashCode);
+    _$hash = $jc(_$hash, orderDescending.hashCode);
     _$hash = $jc(_$hash, skip.hashCode);
     _$hash = $jc(_$hash, take.hashCode);
     _$hash = $jf(_$hash);
@@ -101,6 +106,7 @@ class _$CustomerQuery extends CustomerQuery {
           ..add('shipmentDateTo', shipmentDateTo)
           ..add('totalShipmentsMin', totalShipmentsMin)
           ..add('totalShipmentsMax', totalShipmentsMax)
+          ..add('orderDescending', orderDescending)
           ..add('skip', skip)
           ..add('take', take))
         .toString();
@@ -152,6 +158,11 @@ class CustomerQueryBuilder
   set totalShipmentsMax(int? totalShipmentsMax) =>
       _$this._totalShipmentsMax = totalShipmentsMax;
 
+  bool? _orderDescending;
+  bool? get orderDescending => _$this._orderDescending;
+  set orderDescending(bool? orderDescending) =>
+      _$this._orderDescending = orderDescending;
+
   int? _skip;
   int? get skip => _$this._skip;
   set skip(int? skip) => _$this._skip = skip;
@@ -176,6 +187,7 @@ class CustomerQueryBuilder
       _shipmentDateTo = $v.shipmentDateTo;
       _totalShipmentsMin = $v.totalShipmentsMin;
       _totalShipmentsMax = $v.totalShipmentsMax;
+      _orderDescending = $v.orderDescending;
       _skip = $v.skip;
       _take = $v.take;
       _$v = null;
@@ -209,6 +221,7 @@ class CustomerQueryBuilder
             shipmentDateTo: shipmentDateTo,
             totalShipmentsMin: totalShipmentsMin,
             totalShipmentsMax: totalShipmentsMax,
+            orderDescending: orderDescending,
             skip: skip,
             take: take);
     replace(_$result);

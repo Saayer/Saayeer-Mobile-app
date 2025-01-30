@@ -2,7 +2,7 @@
 openapi: 3.0.1
 info:
   title: Saayer API
-  version: v-37-2-dev
+  version: v-37-3-dev
 servers:
   - url: "/saayer-37/app"
 paths:
@@ -1875,6 +1875,10 @@ components:
         phoneNo2:
           type: string
           nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
         totalShipments:
           type: integer
           format: int64
@@ -1928,6 +1932,9 @@ components:
         totalShipmentsMax:
           type: integer
           format: int32
+          nullable: true
+        orderDescending:
+          type: boolean
           nullable: true
         skip:
           type: integer

@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
-import 'package:saayer/common/text_fields/drop_down_text_field.dart';
 import 'package:saayer/features/request_new_shipment/data/core/utils/enums.dart';
 import 'package:saayer/features/request_new_shipment/presentation/bloc/request_new_shipment_bloc.dart';
+import 'package:saayer/features/request_new_shipment/presentation/widgets/drop_down_text_field_widget.dart';
 
 class SendersReceiversDropDownTextField extends StatelessWidget {
   final void Function(CustomerGetDto) onCustomerAddressSelected;
@@ -38,10 +38,11 @@ class SendersReceiversDropDownTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropDownTextField(
+    return DropDownTextFieldWidget(
       scrollController: requestShipmentTypes == RequestShipmentTypes.sender
           ? bloc.senderCustomersScrollController
           : bloc.receiverCustomersScrollController,
+      senderReceiverType: senderReceiverType,
       label: getFieldLabel(),
       hasLabel: hasLabel,
       isFieldRequired: isFieldRequired,
@@ -86,11 +87,7 @@ class SendersReceiversDropDownTextField extends StatelessWidget {
         {
           return "stores".tr();
         }
-      default:
-        {
-          return '';
-        }
-    }
+      }
   }
 
   List<dynamic> getList() {
@@ -107,10 +104,6 @@ class SendersReceiversDropDownTextField extends StatelessWidget {
               ? bloc.senderStoresList
               : bloc.receiverStoresList;
         }
-      default:
-        {
-          return [];
-        }
-    }
+      }
   }
 }

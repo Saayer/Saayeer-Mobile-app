@@ -52,6 +52,8 @@ class _$CustomerGetDto extends CustomerGetDto {
   @override
   final String? phoneNo2;
   @override
+  final DateTime? createdAt;
+  @override
   final int? totalShipments;
   @override
   final DateTime? lastShipmentDate;
@@ -86,6 +88,7 @@ class _$CustomerGetDto extends CustomerGetDto {
       this.phoneNo,
       this.email,
       this.phoneNo2,
+      this.createdAt,
       this.totalShipments,
       this.lastShipmentDate,
       this.totalPaid,
@@ -126,6 +129,7 @@ class _$CustomerGetDto extends CustomerGetDto {
         phoneNo == other.phoneNo &&
         email == other.email &&
         phoneNo2 == other.phoneNo2 &&
+        createdAt == other.createdAt &&
         totalShipments == other.totalShipments &&
         lastShipmentDate == other.lastShipmentDate &&
         totalPaid == other.totalPaid &&
@@ -157,6 +161,7 @@ class _$CustomerGetDto extends CustomerGetDto {
     _$hash = $jc(_$hash, phoneNo.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, phoneNo2.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, totalShipments.hashCode);
     _$hash = $jc(_$hash, lastShipmentDate.hashCode);
     _$hash = $jc(_$hash, totalPaid.hashCode);
@@ -190,6 +195,7 @@ class _$CustomerGetDto extends CustomerGetDto {
           ..add('phoneNo', phoneNo)
           ..add('email', email)
           ..add('phoneNo2', phoneNo2)
+          ..add('createdAt', createdAt)
           ..add('totalShipments', totalShipments)
           ..add('lastShipmentDate', lastShipmentDate)
           ..add('totalPaid', totalPaid)
@@ -297,6 +303,10 @@ class CustomerGetDtoBuilder
   String? get phoneNo2 => _$this._phoneNo2;
   set phoneNo2(String? phoneNo2) => _$this._phoneNo2 = phoneNo2;
 
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
+
   int? _totalShipments;
   int? get totalShipments => _$this._totalShipments;
   set totalShipments(int? totalShipments) =>
@@ -344,6 +354,7 @@ class CustomerGetDtoBuilder
       _phoneNo = $v.phoneNo;
       _email = $v.email;
       _phoneNo2 = $v.phoneNo2;
+      _createdAt = $v.createdAt;
       _totalShipments = $v.totalShipments;
       _lastShipmentDate = $v.lastShipmentDate;
       _totalPaid = $v.totalPaid;
@@ -392,6 +403,7 @@ class CustomerGetDtoBuilder
             phoneNo: phoneNo,
             email: email,
             phoneNo2: phoneNo2,
+            createdAt: createdAt,
             totalShipments: totalShipments,
             lastShipmentDate: lastShipmentDate,
             totalPaid: totalPaid,
