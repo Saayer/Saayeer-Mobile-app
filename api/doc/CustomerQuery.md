@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **shipmentDateTo** | [**DateTime**](DateTime.md) |  | [optional] 
 **totalShipmentsMin** | **int** |  | [optional] 
 **totalShipmentsMax** | **int** |  | [optional] 
+**orderDescending** | **bool** |  | [optional] 
 **skip** | **int** |  | [optional] 
 **take** | **int** |  | [optional] 
 
