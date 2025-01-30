@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **phoneNo** | **String** |  | [optional] 
 **email** | **String** |  | [optional] 
 **phoneNo2** | **String** |  | [optional] 
+**createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
 **totalShipments** | **int** |  | [optional] 
 **lastShipmentDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **totalPaid** | **double** |  | [optional] 

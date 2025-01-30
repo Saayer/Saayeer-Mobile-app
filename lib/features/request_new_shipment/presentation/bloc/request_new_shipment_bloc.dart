@@ -70,8 +70,8 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
   final TextEditingController contentValueController = TextEditingController();
 
   ///pagination util
-  final _senderCustomersPageSize = 10;
-  final _receiverCustomersPageSize = 10;
+  final _senderCustomersPageSize = 50;
+  final _receiverCustomersPageSize = 50;
 
   ///
   List<CustomerGetDto> senderCustomersList = [];
@@ -140,12 +140,14 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           senderCustomerQuery: CustomerQuery((b) => b
+            ..orderDescending = true
             ..skip = senderCustomersList.length
             ..take = _senderCustomersPageSize)));
     } else {
       emit(state.copyWith(
           stateHelper: const StateHelper(requestState: RequestState.LOADING),
           receiverCustomerQuery: CustomerQuery((b) => b
+            ..orderDescending = true
             ..skip = receiverCustomersList.length
             ..take = _receiverCustomersPageSize)));
     }
@@ -173,7 +175,7 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
           }
           if (event.requestShipmentTypes == RequestShipmentTypes.sender) {
             senderCustomersList = rightResult;
-            if(senderCustomersList.isNotEmpty){
+            if (senderCustomersList.isNotEmpty) {
               if (selectedSenderCustomerAddress != null) {
                 var customerId = selectedSenderCustomerAddress!.customerId;
                 selectedSenderCustomerAddress =
@@ -448,5 +450,42 @@ class RequestNewShipmentBloc extends Bloc<RequestNewShipmentEvent, RequestNewShi
     } else {
       receiverCustomersList = [];
     }
+  }
+
+  /// use this method in sender & receiver customer address dropdown search filter with API
+  Future<List<CustomerGetDto>> onSearchCustomersAddresses({
+    required String searchText,
+    required RequestShipmentTypes requestShipmentType,
+  }) async {
+    List<CustomerGetDto> filteredList = [];
+    var query = CustomerQuery();
+    if (requestShipmentType == RequestShipmentTypes.sender) {
+      query = CustomerQuery((b) => b
+        ..general = searchText
+        ..orderDescending = true
+        ..skip = 0
+        ..take = _senderCustomersPageSize);
+    } else {
+      query = CustomerQuery((b) => b
+        ..general = searchText
+        ..orderDescending = true
+        ..skip = 0
+        ..take = _receiverCustomersPageSize);
+    }
+
+    await getCustomersAddressesUseCase(query).then((result) {
+      if (result.isLeft()) {
+        filteredList = [];
+      } else {
+        final List<CustomerGetDto>? rightResult = (result as Right).value;
+
+        if (rightResult != null) {
+          filteredList = rightResult;
+        } else {
+          filteredList = [];
+        }
+      }
+    });
+    return filteredList;
   }
 }
