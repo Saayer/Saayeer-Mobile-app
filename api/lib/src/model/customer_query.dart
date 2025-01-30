@@ -20,6 +20,7 @@ part 'customer_query.g.dart';
 /// * [shipmentDateTo] 
 /// * [totalShipmentsMin] 
 /// * [totalShipmentsMax] 
+/// * [orderDescending] 
 /// * [skip] 
 /// * [take] 
 @BuiltValue()
@@ -50,6 +51,9 @@ abstract class CustomerQuery implements Built<CustomerQuery, CustomerQueryBuilde
 
   @BuiltValueField(wireName: r'totalShipmentsMax')
   int? get totalShipmentsMax;
+
+  @BuiltValueField(wireName: r'orderDescending')
+  bool? get orderDescending;
 
   @BuiltValueField(wireName: r'skip')
   int? get skip;
@@ -141,6 +145,13 @@ class _$CustomerQuerySerializer implements PrimitiveSerializer<CustomerQuery> {
       yield serializers.serialize(
         object.totalShipmentsMax,
         specifiedType: const FullType.nullable(int),
+      );
+    }
+    if (object.orderDescending != null) {
+      yield r'orderDescending';
+      yield serializers.serialize(
+        object.orderDescending,
+        specifiedType: const FullType.nullable(bool),
       );
     }
     if (object.skip != null) {
@@ -251,6 +262,14 @@ class _$CustomerQuerySerializer implements PrimitiveSerializer<CustomerQuery> {
           ) as int?;
           if (valueDes == null) continue;
           result.totalShipmentsMax = valueDes;
+          break;
+        case r'orderDescending':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(bool),
+          ) as bool?;
+          if (valueDes == null) continue;
+          result.orderDescending = valueDes;
           break;
         case r'skip':
           final valueDes = serializers.deserialize(
